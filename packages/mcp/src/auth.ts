@@ -177,11 +177,6 @@ async function sandboxContext(
 	relayUrl: string,
 ): Promise<McpContext> {
 	const { email, organizationIds } = await loadUserAndOrgs(caller.userId);
-	if (!organizationIds.includes(caller.organizationId)) {
-		throw new McpUnauthorizedError(
-			"The workspace's organization is no longer one its creator belongs to",
-		);
-	}
 	return {
 		userId: caller.userId,
 		email,

@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it } from "bun:test";
 import {
+	existsSync,
 	mkdirSync,
 	mkdtempSync,
 	readFileSync,
@@ -10,11 +11,11 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import {
 	getAgentSetupTemplatesDir,
+	pluginCachePath,
 	readEnabledPlugins,
 	readInstalledPluginSources,
 	setAgentSetupTemplatesDir,
 } from "@superset/agent-setup";
-import { applyAgentTemplatesDir } from "../agent-provisioning";
 import { seedSandboxPlugins } from "./sandbox-plugins";
 
 let home: string;
@@ -33,6 +34,8 @@ function scratchDir(prefix: string): string {
 function shipPlugin(name: string, version: string): void {
 	const dir = join(templates, "plugins", name);
 	mkdirSync(join(dir, "skills"), { recursive: true });
+	mkdirSync(join(dir, "extra"), { recursive: true });
+	writeFileSync(join(dir, "extra", "thing.txt"), "kept");
 	writeFileSync(join(dir, "plugin.json"), JSON.stringify({ name, version }));
 }
 
@@ -63,7 +66,7 @@ afterEach(() => {
 });
 
 describe("seedSandboxPlugins", () => {
-	it("points the ledger at the shipped tree and its own version", () => {
+	it("caches the shipped tree and points the ledger at the cache", () => {
 		shipPlugin("linear", "1.3.0");
 		seedSandboxPlugins({
 			SUPERSET_SANDBOX_PLUGINS: JSON.stringify([
@@ -76,15 +79,41 @@ describe("seedSandboxPlugins", () => {
 			]),
 		});
 
+		const cached = pluginCachePath("superset", "linear", "1.3.0");
 		expect(ledger().plugins).toEqual([
 			expect.objectContaining({
 				marketplace: "superset",
 				name: "linear",
 				version: "1.3.0",
-				installPath: join(templates, "plugins", "linear"),
+				installPath: cached,
 				enabled: true,
 			}),
 		]);
+		// The whole tree, so a plugin carrying more than skills survives.
+		expect(existsSync(join(cached, "plugin.json"))).toBe(true);
+		expect(existsSync(join(cached, "skills"))).toBe(true);
+		expect(existsSync(join(cached, "extra", "thing.txt"))).toBe(true);
+	});
+
+	it("leaves an already cached tree alone", () => {
+		shipPlugin("linear", "1.3.0");
+		const cached = pluginCachePath("superset", "linear", "1.3.0");
+		mkdirSync(cached, { recursive: true });
+		writeFileSync(join(cached, "plugin.json"), '{"name":"linear"}');
+
+		seedSandboxPlugins({
+			SUPERSET_SANDBOX_PLUGINS: JSON.stringify([
+				{
+					marketplace: "superset",
+					name: "linear",
+					version: "1.3.0",
+					enabled: true,
+				},
+			]),
+		});
+
+		expect(ledger().plugins[0]).toMatchObject({ installPath: cached });
+		expect(existsSync(join(cached, "extra"))).toBe(false);
 	});
 
 	it("keeps a disabled install as a record that materializes nothing", () => {
@@ -176,12 +205,7 @@ describe("seedSandboxPlugins", () => {
 		expect(ledger().plugins).toEqual([]);
 	});
 
-	it("finds the shipped tree once the templates dir is applied", () => {
-		process.env.SUPERSET_AGENT_TEMPLATES_DIR = templates;
-		setAgentSetupTemplatesDir(join(scratchDir("seed-stale-"), "unset"));
-		shipPlugin("linear", "1.0.0");
-
-		applyAgentTemplatesDir();
+	it("keeps a plugin tools-only when no tree ships for it", () => {
 		seedSandboxPlugins({
 			SUPERSET_SANDBOX_PLUGINS: JSON.stringify([
 				{
@@ -193,9 +217,9 @@ describe("seedSandboxPlugins", () => {
 			]),
 		});
 
-		expect(ledger().plugins[0]).toMatchObject({
-			installPath: join(templates, "plugins", "linear"),
-		});
+		expect(ledger().plugins).toEqual([
+			expect.not.objectContaining({ installPath: expect.anything() }),
+		]);
 	});
 
 	it("writes nothing when the conf value is unusable", () => {

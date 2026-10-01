@@ -11,6 +11,7 @@ import {
 	setupAgentIntegrations,
 } from "@superset/agent-setup";
 import { desiredPluginMcpServers } from "@superset/shared/plugins";
+import { seedSandboxPlugins } from "./sandbox-plugins";
 
 /**
  * Locates the agent-setup template assets for this deployment. The CLI
@@ -31,16 +32,6 @@ function resolveAgentTemplatesDir(): string | undefined {
 }
 
 /**
- * Must run before anything resolves a path under the templates directory —
- * the bundled marketplace tree included, which seeding reads to find a
- * plugin's shipped skills.
- */
-export function applyAgentTemplatesDir(): void {
-	const templatesDir = resolveAgentTemplatesDir();
-	if (templatesDir) setAgentSetupTemplatesDir(templatesDir);
-}
-
-/**
  * Provisions agent lifecycle hooks (~/.superset/hooks/notify.sh + managed
  * entries in each agent's global config), PATH wrappers, and the zsh/bash
  * bootstrap files host-service's shell-launch path expects. The Electron app
@@ -51,7 +42,11 @@ export function applyAgentTemplatesDir(): void {
  */
 export function provisionAgentIntegrations(): void {
 	try {
-		applyAgentTemplatesDir();
+		const templatesDir = resolveAgentTemplatesDir();
+		if (templatesDir) setAgentSetupTemplatesDir(templatesDir);
+		// The ledger has to be on disk, and resolved against the templates dir
+		// just applied, before setupAgentIntegrations reads it.
+		seedSandboxPlugins();
 		// Individual writers soft-fail on missing templates (each is
 		// try/caught), which is exactly the silence that hid #6254 — surface a
 		// broken install loudly instead of one warn per agent.

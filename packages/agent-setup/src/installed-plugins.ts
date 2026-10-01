@@ -24,9 +24,12 @@ export interface EnabledPlugin {
 	marketplace: string;
 }
 
-export function readEnabledPlugins(
-	file: string = installedPluginsFilePath(),
-): EnabledPlugin[] | null {
+/**
+ * The enabled, named records, or null when the ledger exists and cannot be
+ * read: an empty list means every plugin is gone, and a read failure must not
+ * be taken for one.
+ */
+function readLedgerRecords(file: string): InstalledPluginRecord[] | null {
 	let raw: string;
 	try {
 		raw = fs.readFileSync(file, "utf-8");
@@ -40,20 +43,25 @@ export function readEnabledPlugins(
 	} catch {
 		return null;
 	}
+
 	const plugins = (parsed as { plugins?: unknown })?.plugins;
 	if (!Array.isArray(plugins)) return null;
-	return (plugins as InstalledPluginRecord[])
-		.filter(
-			(entry) =>
-				entry?.enabled !== false &&
-				typeof entry?.name === "string" &&
-				entry.name,
-		)
-		.map((entry) => ({
+	return (plugins as InstalledPluginRecord[]).filter(
+		(entry) =>
+			entry?.enabled !== false && typeof entry?.name === "string" && entry.name,
+	);
+}
+
+export function readEnabledPlugins(
+	file: string = installedPluginsFilePath(),
+): EnabledPlugin[] | null {
+	return (
+		readLedgerRecords(file)?.map((entry) => ({
 			name: entry.name as string,
 			marketplace:
 				typeof entry.marketplace === "string" ? entry.marketplace : "",
-		}));
+		})) ?? null
+	);
 }
 
 export interface InstalledPluginEntry {
@@ -85,30 +93,14 @@ export function writeInstalledPlugins(
 export function readInstalledPluginSources(
 	file: string = installedPluginsFilePath(),
 ): PluginSkillSource[] | null {
-	let raw: string;
-	try {
-		raw = fs.readFileSync(file, "utf-8");
-	} catch (error) {
-		return (error as NodeJS.ErrnoException)?.code === "ENOENT" ? [] : null;
-	}
-
-	let parsed: unknown;
-	try {
-		parsed = JSON.parse(raw);
-	} catch {
-		return null;
-	}
-
-	const plugins = (parsed as { plugins?: unknown })?.plugins;
-	if (!Array.isArray(plugins)) return null;
+	const records = readLedgerRecords(file);
+	if (!records) return null;
 
 	const usable: { name: string; marketplace: string; dir: string }[] = [];
-	for (const entry of plugins as InstalledPluginRecord[]) {
-		if (entry?.enabled === false) continue;
-		if (typeof entry?.name !== "string" || !entry.name) continue;
-		if (typeof entry?.installPath !== "string" || !entry.installPath) continue;
+	for (const entry of records) {
+		if (typeof entry.installPath !== "string" || !entry.installPath) continue;
 		usable.push({
-			name: entry.name,
+			name: entry.name as string,
 			marketplace:
 				typeof entry.marketplace === "string" ? entry.marketplace : "",
 			dir: entry.installPath,

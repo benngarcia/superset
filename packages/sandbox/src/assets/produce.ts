@@ -333,7 +333,6 @@ function hostService(): void {
 	copy("packages/host-service/dist", "dist");
 	copy("packages/host-service/drizzle", "drizzle");
 	copy("packages/agent-setup/templates", "agent-templates");
-	copy("plugins/superset", "agent-templates/plugin");
 	copy("plugins", "agent-templates/plugins");
 	copy("packages/pty-daemon/dist", "pty-daemon");
 	writeFileSync(join(stage, "RUNTIME"), `version=${version}\nnode=24\n`);

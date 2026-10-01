@@ -110,6 +110,11 @@ export {
 } from "./managed-skills";
 export { getBinDir, resolveSupersetHomeDir } from "./paths";
 export {
+	assertSafePluginSegment,
+	pluginCacheDir,
+	pluginCachePath,
+} from "./plugin-cache";
+export {
 	mcpHeadersHelperCommand,
 	pluginConnectionsFilePath,
 	readPluginConnections,

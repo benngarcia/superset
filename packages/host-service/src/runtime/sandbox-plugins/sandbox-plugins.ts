@@ -1,8 +1,9 @@
-import { existsSync, readFileSync } from "node:fs";
-import { join } from "node:path";
+import { cpSync, existsSync, mkdirSync, readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
 import {
 	getBundledMarketplaceDir,
 	type InstalledPluginEntry,
+	pluginCachePath,
 	writeInstalledPlugins,
 } from "@superset/agent-setup";
 import { DEFAULT_MARKETPLACE } from "@superset/shared/plugins";
@@ -16,6 +17,35 @@ function treeVersion(dir: string, fallback: string): string {
 		return typeof manifest.version === "string" ? manifest.version : fallback;
 	} catch {
 		return fallback;
+	}
+}
+
+/**
+ * The shipped tree lives under the host runtime directory, which is
+ * root-owned and which install-host reaps on upgrade, so the ledger must point
+ * at the same cache a laptop uses instead.
+ */
+function cacheShippedTree(
+	from: string,
+	marketplace: string,
+	name: string,
+	version: string,
+): string | undefined {
+	let target: string;
+	try {
+		target = pluginCachePath(marketplace, name, version);
+	} catch (error) {
+		console.warn(`[sandbox] ${name}: ${(error as Error).message}`);
+		return undefined;
+	}
+	if (existsSync(join(target, "plugin.json"))) return target;
+	try {
+		mkdirSync(dirname(target), { recursive: true });
+		cpSync(from, target, { recursive: true });
+		return target;
+	} catch (error) {
+		console.warn(`[sandbox] ${name}: could not cache its tree:`, error);
+		return undefined;
 	}
 }
 
@@ -45,11 +75,15 @@ export function seedSandboxPlugins(env: NodeJS.ProcessEnv = process.env): void {
 		const shipped =
 			plugin.marketplace === DEFAULT_MARKETPLACE &&
 			existsSync(join(dir, "plugin.json"));
+		const version = shipped ? treeVersion(dir, plugin.version) : plugin.version;
+		const installPath = shipped
+			? cacheShippedTree(dir, plugin.marketplace, plugin.name, version)
+			: undefined;
 		return {
 			marketplace: plugin.marketplace,
 			name: plugin.name,
-			version: shipped ? treeVersion(dir, plugin.version) : plugin.version,
-			...(shipped ? { installPath: dir } : {}),
+			version,
+			...(installPath ? { installPath } : {}),
 			installedAt,
 			enabled: plugin.enabled,
 		};
