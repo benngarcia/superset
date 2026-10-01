@@ -66,9 +66,9 @@ afterEach(() => {
 });
 
 describe("seedSandboxPlugins", () => {
-	it("caches the shipped tree and points the ledger at the cache", () => {
+	it("caches the shipped tree and points the ledger at the cache", async () => {
 		shipPlugin("linear", "1.3.0");
-		seedSandboxPlugins({
+		await seedSandboxPlugins({
 			SUPERSET_SANDBOX_PLUGINS: JSON.stringify([
 				{
 					marketplace: "superset",
@@ -95,13 +95,13 @@ describe("seedSandboxPlugins", () => {
 		expect(existsSync(join(cached, "extra", "thing.txt"))).toBe(true);
 	});
 
-	it("leaves an already cached tree alone", () => {
+	it("leaves an already cached tree alone", async () => {
 		shipPlugin("linear", "1.3.0");
 		const cached = pluginCachePath("superset", "linear", "1.3.0");
 		mkdirSync(cached, { recursive: true });
 		writeFileSync(join(cached, "plugin.json"), '{"name":"linear"}');
 
-		seedSandboxPlugins({
+		await seedSandboxPlugins({
 			SUPERSET_SANDBOX_PLUGINS: JSON.stringify([
 				{
 					marketplace: "superset",
@@ -116,9 +116,9 @@ describe("seedSandboxPlugins", () => {
 		expect(existsSync(join(cached, "extra"))).toBe(false);
 	});
 
-	it("keeps a disabled install as a record that materializes nothing", () => {
+	it("keeps a disabled install as a record that materializes nothing", async () => {
 		shipPlugin("sentry", "1.0.0");
-		seedSandboxPlugins({
+		await seedSandboxPlugins({
 			SUPERSET_SANDBOX_PLUGINS: JSON.stringify([
 				{
 					marketplace: "superset",
@@ -135,9 +135,9 @@ describe("seedSandboxPlugins", () => {
 		expect(readEnabledPlugins()).toEqual([]);
 	});
 
-	it("keeps another marketplace's same-named plugin tools-only", () => {
+	it("keeps another marketplace's same-named plugin tools-only", async () => {
 		shipPlugin("linear", "1.3.0");
-		seedSandboxPlugins({
+		await seedSandboxPlugins({
 			SUPERSET_SANDBOX_PLUGINS: JSON.stringify([
 				{
 					marketplace: "acme",
@@ -154,9 +154,9 @@ describe("seedSandboxPlugins", () => {
 		expect(ledger().plugins[0]).toMatchObject({ version: "1.0.0" });
 	});
 
-	it("keeps a plugin with no tree, but without an installPath", () => {
+	it("keeps a plugin with no tree, but without an installPath", async () => {
 		shipPlugin("linear", "1.0.0");
-		seedSandboxPlugins({
+		await seedSandboxPlugins({
 			SUPERSET_SANDBOX_PLUGINS: JSON.stringify([
 				{
 					marketplace: "superset",
@@ -182,14 +182,14 @@ describe("seedSandboxPlugins", () => {
 		]);
 	});
 
-	it("writes nothing off a cloud workspace", () => {
-		seedSandboxPlugins({});
+	it("writes nothing off a cloud workspace", async () => {
+		await seedSandboxPlugins({});
 		expect(() => ledger()).toThrow();
 	});
 
-	it("empties the ledger when the claim states no plugins", () => {
+	it("empties the ledger when the claim states no plugins", async () => {
 		shipPlugin("linear", "1.0.0");
-		seedSandboxPlugins({
+		await seedSandboxPlugins({
 			SUPERSET_SANDBOX_PLUGINS: JSON.stringify([
 				{
 					marketplace: "superset",
@@ -201,12 +201,12 @@ describe("seedSandboxPlugins", () => {
 		});
 		expect(ledger().plugins).toHaveLength(1);
 
-		seedSandboxPlugins({ SUPERSET_SANDBOX_PLUGINS: "[]" });
+		await seedSandboxPlugins({ SUPERSET_SANDBOX_PLUGINS: "[]" });
 		expect(ledger().plugins).toEqual([]);
 	});
 
-	it("keeps a plugin tools-only when no tree ships for it", () => {
-		seedSandboxPlugins({
+	it("keeps a plugin tools-only when no tree ships for it", async () => {
+		await seedSandboxPlugins({
 			SUPERSET_SANDBOX_PLUGINS: JSON.stringify([
 				{
 					marketplace: "superset",
@@ -222,9 +222,9 @@ describe("seedSandboxPlugins", () => {
 		]);
 	});
 
-	it("writes nothing when the conf value is unusable", () => {
-		seedSandboxPlugins({ SUPERSET_SANDBOX_PLUGINS: "not json" });
-		seedSandboxPlugins({ SUPERSET_SANDBOX_PLUGINS: JSON.stringify({}) });
+	it("writes nothing when the conf value is unusable", async () => {
+		await seedSandboxPlugins({ SUPERSET_SANDBOX_PLUGINS: "not json" });
+		await seedSandboxPlugins({ SUPERSET_SANDBOX_PLUGINS: JSON.stringify({}) });
 		expect(() => ledger()).toThrow();
 	});
 });

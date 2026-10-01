@@ -1,4 +1,5 @@
-import { cpSync, existsSync, mkdirSync, readFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync } from "node:fs";
+import { cp } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import {
 	getBundledMarketplaceDir,
@@ -25,12 +26,12 @@ function treeVersion(dir: string, fallback: string): string {
  * root-owned and which install-host reaps on upgrade, so the ledger must point
  * at the same cache a laptop uses instead.
  */
-function cacheShippedTree(
+async function cacheShippedTree(
 	from: string,
 	marketplace: string,
 	name: string,
 	version: string,
-): string | undefined {
+): Promise<string | undefined> {
 	let target: string;
 	try {
 		target = pluginCachePath(marketplace, name, version);
@@ -41,7 +42,7 @@ function cacheShippedTree(
 	if (existsSync(join(target, "plugin.json"))) return target;
 	try {
 		mkdirSync(dirname(target), { recursive: true });
-		cpSync(from, target, { recursive: true });
+		await cp(from, target, { recursive: true });
 		return target;
 	} catch (error) {
 		console.warn(`[sandbox] ${name}: could not cache its tree:`, error);
@@ -49,7 +50,9 @@ function cacheShippedTree(
 	}
 }
 
-export function seedSandboxPlugins(env: NodeJS.ProcessEnv = process.env): void {
+export async function seedSandboxPlugins(
+	env: NodeJS.ProcessEnv = process.env,
+): Promise<void> {
 	const raw = env.SUPERSET_SANDBOX_PLUGINS;
 	if (!raw) return;
 
@@ -68,7 +71,8 @@ export function seedSandboxPlugins(env: NodeJS.ProcessEnv = process.env): void {
 
 	const root = getBundledMarketplaceDir();
 	const installedAt = new Date().toISOString();
-	const entries: InstalledPluginEntry[] = parsed.data.map((plugin) => {
+	const entries: InstalledPluginEntry[] = [];
+	for (const plugin of parsed.data) {
 		const dir = join(root, plugin.name);
 		// Only the first-party trees ship in the bundle, so a same-named
 		// plugin from another marketplace must stay tools-only.
@@ -77,17 +81,17 @@ export function seedSandboxPlugins(env: NodeJS.ProcessEnv = process.env): void {
 			existsSync(join(dir, "plugin.json"));
 		const version = shipped ? treeVersion(dir, plugin.version) : plugin.version;
 		const installPath = shipped
-			? cacheShippedTree(dir, plugin.marketplace, plugin.name, version)
+			? await cacheShippedTree(dir, plugin.marketplace, plugin.name, version)
 			: undefined;
-		return {
+		entries.push({
 			marketplace: plugin.marketplace,
 			name: plugin.name,
 			version,
 			...(installPath ? { installPath } : {}),
 			installedAt,
 			enabled: plugin.enabled,
-		};
-	});
+		});
+	}
 
 	writeInstalledPlugins(entries);
 	const toolsOnly = entries.filter((entry) => !entry.installPath).length;
