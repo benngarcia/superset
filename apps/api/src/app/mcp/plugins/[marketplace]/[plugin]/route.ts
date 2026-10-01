@@ -82,7 +82,6 @@ async function handle(
 		ctx = await resolveMcpContext(req, {
 			apiUrl: env.NEXT_PUBLIC_API_URL,
 			relayUrl: env.RELAY_URL,
-			// A box holds no bearer; the firewall adds its credential.
 			sandboxCredential: true,
 		});
 	} catch (error) {

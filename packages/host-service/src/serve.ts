@@ -59,7 +59,6 @@ async function main(): Promise<void> {
 	// daemon takes time to come up or fails entirely.
 	startDaemonBootstrap(env.ORGANIZATION_ID);
 
-	// Before provisioning, so its sync reads a ledger already on disk.
 	seedSandboxPlugins();
 
 	// Standalone entry only: the desktop provisions these itself for hosts it

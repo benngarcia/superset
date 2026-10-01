@@ -231,7 +231,6 @@ export function setupAgentCapabilities({
 		failed.push("managed-skills");
 	}
 
-	// Same pass as the skills, so a plugin never ends up half on.
 	if (!runSetupAction("plugin-mcp-servers", syncPluginMcpServers)) {
 		failed.push("plugin-mcp-servers");
 	}

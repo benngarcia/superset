@@ -216,7 +216,8 @@ export function setPluginEnabled(
 			: installed;
 	saveInstalledPlugins(next);
 	// installed_plugins.json is the only `enabled` flag provisioning reads, and
-	// local-db is not it. The CLI writes it and converges both halves from it.
+	// local-db is not it: without this the skills stay materialized while the
+	// MCP servers are reaped, leaving the plugin half on.
 	void queuePluginCli([enabled ? "enable" : "disable", name]);
 	return next;
 }

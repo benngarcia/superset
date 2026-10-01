@@ -48,8 +48,6 @@ function rateLimitKey(req: Request): string {
 		const digest = createHash("sha256").update(token).digest("hex");
 		return `token:${digest.slice(0, 32)}`;
 	}
-	// Boxes send no bearer and share egress addresses, so the IP fallback would
-	// give the whole fleet one bucket.
 	const sandbox = req.headers.get(SANDBOX_API_CREDENTIAL_HEADER)?.trim();
 	if (sandbox) {
 		const digest = createHash("sha256").update(sandbox).digest("hex");

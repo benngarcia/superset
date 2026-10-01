@@ -1,7 +1,3 @@
-/**
- * The plugin ledger on a cloud workspace, written from `sandbox.conf` before
- * provisioning reads it. No network: the first-party trees ship in the runtime.
- */
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import {
@@ -41,8 +37,6 @@ export function seedSandboxPlugins(env: NodeJS.ProcessEnv = process.env): void {
 
 	const root = getBundledMarketplaceDir();
 	const installedAt = new Date().toISOString();
-	// Every install, tree or not: a tools-only plugin has no tree and still needs
-	// its MCP servers. installPath is what makes skill provisioning skip it.
 	const entries: InstalledPluginEntry[] = parsed.data.map((plugin) => {
 		const dir = join(root, plugin.name);
 		const shipped = existsSync(join(dir, "plugin.json"));
@@ -56,7 +50,6 @@ export function seedSandboxPlugins(env: NodeJS.ProcessEnv = process.env): void {
 		};
 	});
 
-	// The whole desired set: provisioning reaps whatever is absent from it.
 	writeInstalledPlugins(entries);
 	const toolsOnly = entries.filter((entry) => !entry.installPath).length;
 	console.log(

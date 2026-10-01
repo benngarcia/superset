@@ -52,7 +52,6 @@ describe("seedSandboxPlugins", () => {
 			expect.objectContaining({
 				marketplace: "superset",
 				name: "linear",
-				// The account says 1.2.0; the box can only serve what it ships.
 				version: "1.3.0",
 				installPath: join(templates, "plugins", "linear"),
 				enabled: true,
@@ -96,8 +95,6 @@ describe("seedSandboxPlugins", () => {
 			]),
 		});
 
-		// Skill provisioning requires installPath and so ignores it; MCP
-		// provisioning does not, which is the whole point of keeping it.
 		expect(ledger().plugins).toEqual([
 			expect.objectContaining({
 				name: "linear",

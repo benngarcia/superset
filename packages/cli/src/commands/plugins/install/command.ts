@@ -81,7 +81,6 @@ export default command({
 			),
 		);
 
-		// Everything below is account state, which the account install gates.
 		const connector =
 			slug && !accountError
 				? await ctx.api.connectors.get.query({ slug })

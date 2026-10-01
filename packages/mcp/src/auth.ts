@@ -169,14 +169,9 @@ async function resolveOAuth(
 export interface ResolveMcpContextOptions {
 	apiUrl: string;
 	relayUrl: string;
-	/**
-	 * Accept a cloud workspace's credential instead of a bearer. The plugin
-	 * proxy only: Superset's own tools reach hosts with the minted bearer.
-	 */
 	sandboxCredential?: boolean;
 }
 
-/** A box presents no bearer: the firewall stamps this header on the way out. */
 async function sandboxContext(
 	caller: SandboxCaller,
 	relayUrl: string,
@@ -195,8 +190,6 @@ async function sandboxContext(
 		source: "sandbox",
 		clientLabel: `cloud-workspace:${caller.workspaceId}`,
 		requestId: crypto.randomUUID(),
-		// Deliberately empty: anything reaching hosts through the relay must fail
-		// rather than act as the creator.
 		bearerToken: "",
 		relayUrl,
 	};

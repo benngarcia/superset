@@ -1,11 +1,8 @@
-/** The creator's installs, for the claim to write into `sandbox.conf`. */
 import { db } from "@superset/db/client";
 import { pluginInstalls } from "@superset/db/schema";
 import type { SandboxPlugin } from "@superset/shared/sandbox-contract";
 import { asc, eq } from "drizzle-orm";
 
-// Keyed on the user alone: an install's organization_id is nullable and the
-// install path writes it null, so narrowing by organization matches nothing.
 export async function creatorPlugins(
 	userId: string | null,
 ): Promise<SandboxPlugin[]> {

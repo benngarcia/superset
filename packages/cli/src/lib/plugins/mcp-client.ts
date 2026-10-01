@@ -36,7 +36,6 @@ export async function connectPluginMcp(
 	try {
 		await client.connect(
 			new StreamableHTTPClientTransport(pluginMcpUrl(ref, connection), {
-				// A box holds no bearer; an empty one reads as a malformed token.
 				requestInit: bearer
 					? { headers: { Authorization: `Bearer ${bearer}` } }
 					: {},

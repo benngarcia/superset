@@ -322,10 +322,7 @@ function hostService(): void {
 	copy("packages/host-service/dist", "dist");
 	copy("packages/host-service/drizzle", "drizzle");
 	copy("packages/agent-setup/templates", "agent-templates");
-	// Must follow the templates copy, which wipes its destination. Without it
-	// getBundledPluginDir falls back to a repo checkout a box does not have.
 	copy("plugins/superset", "agent-templates/plugin");
-	// The installable first-party trees: a box cannot clone the marketplace.
 	copy("plugins", "agent-templates/plugins");
 	copy("packages/pty-daemon/dist", "pty-daemon");
 	writeFileSync(join(stage, "RUNTIME"), `version=${version}\nnode=24\n`);

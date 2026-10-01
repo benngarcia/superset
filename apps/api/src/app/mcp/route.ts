@@ -83,8 +83,6 @@ async function handle(req: Request): Promise<Response> {
 		throw error;
 	}
 
-	// The resolver above does not accept a box's credential. This refuses it
-	// outright if that ever changes.
 	if (ctx.source === "sandbox") {
 		return withRateLimitHeaders(
 			mcpUnauthorizedResponse(

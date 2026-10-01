@@ -32,10 +32,6 @@ export function getTemplatePath(name: string): string {
  * source nothing performs that copy, so fall back to the plugin's in-repo
  * location.
  */
-/**
- * The installable first-party trees, overlaid at templates/plugins. A box
- * materializes from here because it cannot clone the marketplace.
- */
 export function getBundledMarketplaceDir(): string {
 	const bundled = path.join(getAgentSetupTemplatesDir(), "plugins");
 	if (fs.existsSync(bundled)) return bundled;

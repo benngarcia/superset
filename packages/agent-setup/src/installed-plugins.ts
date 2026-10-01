@@ -19,10 +19,6 @@ interface InstalledPluginRecord {
 	enabled?: unknown;
 }
 
-/**
- * The enabled installs by their own name. Not `readInstalledPluginSources`,
- * which renames on a marketplace collision to keep skill directories unique.
- */
 export function readEnabledPluginNames(
 	file: string = installedPluginsFilePath(),
 ): string[] {
@@ -44,18 +40,15 @@ export function readEnabledPluginNames(
 		.map((entry) => entry.name as string);
 }
 
-/** One ledger entry, as `plugins sync` and the desktop both write it. */
 export interface InstalledPluginEntry {
 	marketplace: string;
 	name: string;
 	version: string;
-	/** Absent for a tools-only plugin: skill provisioning skips those. */
 	installPath?: string;
 	installedAt: string;
 	enabled: boolean;
 }
 
-/** Replaces the ledger: pass the whole desired set, never a delta. */
 export function writeInstalledPlugins(
 	plugins: readonly InstalledPluginEntry[],
 	file: string = installedPluginsFilePath(),

@@ -96,7 +96,6 @@ const identity = renderSandboxConf({
 	]),
 	SUPERSET_SANDBOX_IMAGE_TAG: IMAGE,
 	SUPERSET_SANDBOX_PROVIDER: "docker",
-	// One shipped plugin and one this runtime has no tree for.
 	SUPERSET_SANDBOX_PLUGINS: JSON.stringify([
 		{
 			marketplace: "superset",
@@ -227,7 +226,6 @@ try {
 			),
 		),
 	);
-	// The conf is the only input; each check is the next link in the chain.
 	const ledgerPath = `${SANDBOX_PATHS.home}/.superset/plugins/installed_plugins.json`;
 	const ledger = exec(
 		`for i in $(seq 1 300); do [ -f ${ledgerPath} ] && cat ${ledgerPath} && exit 0; sleep 0.1; done`,
@@ -279,8 +277,6 @@ try {
 			}),
 		),
 	);
-	// A login shell sources the contract after host-service exports
-	// SUPERSET_HOME_DIR, so a name collision there splits the ledger.
 	expect(
 		"plugins: a login shell agrees with host-service on SUPERSET_HOME_DIR",
 		new RegExp(`^${SANDBOX_PATHS.home}/\\.superset$`, "m").test(
