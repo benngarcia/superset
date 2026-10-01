@@ -170,19 +170,13 @@ export interface ResolveMcpContextOptions {
 	apiUrl: string;
 	relayUrl: string;
 	/**
-	 * Accept a cloud workspace's own credential instead of a bearer. Opt-in per
-	 * route, and only the plugin proxy may: its tools run on a connection the
-	 * creator already authorized, while Superset's own tools reach hosts and
-	 * workspaces with the minted bearer, which a box must never be handed.
+	 * Accept a cloud workspace's credential instead of a bearer. The plugin
+	 * proxy only: Superset's own tools reach hosts with the minted bearer.
 	 */
 	sandboxCredential?: boolean;
 }
 
-/**
- * A box presents no bearer — the egress firewall stamps its credential on the
- * way out — so this resolves to the workspace's creator, exactly as the tRPC
- * context does for the same header.
- */
+/** A box presents no bearer: the firewall stamps this header on the way out. */
 async function sandboxContext(
 	caller: SandboxCaller,
 	relayUrl: string,
@@ -201,9 +195,8 @@ async function sandboxContext(
 		source: "sandbox",
 		clientLabel: `cloud-workspace:${caller.workspaceId}`,
 		requestId: crypto.randomUUID(),
-		// Deliberately empty. Nothing in the plugin proxy reads it, and anything
-		// that does reach hosts through the relay fails without it rather than
-		// acting as the creator — the guarantee does not rest on this flag alone.
+		// Deliberately empty: anything reaching hosts through the relay must fail
+		// rather than act as the creator.
 		bearerToken: "",
 		relayUrl,
 	};

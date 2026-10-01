@@ -599,8 +599,7 @@ export async function syncPlugins(): Promise<SyncResult> {
 	await createManagedSkills({
 		disabledSkills: resolveDisabledSkillIds(),
 	});
-	// The ledger is written by now, so both halves of the plugin converge from
-	// it together. The desktop reaches this through the CLI it queues.
+	// The ledger is written by now; the desktop reaches this through the CLI.
 	syncPluginMcpServers();
 
 	// Both halves of a plugin, converged together. Skills without MCP entries is

@@ -323,13 +323,9 @@ function hostService(): void {
 	copy("packages/host-service/drizzle", "drizzle");
 	copy("packages/agent-setup/templates", "agent-templates");
 	// Must follow the templates copy, which wipes its destination. Without it
-	// getBundledPluginDir finds no skills on a box — it falls back to a repo
-	// checkout that a sandbox does not have. Mirrors apps/desktop/vite/helpers.ts
-	// and packages/cli/scripts/build-dist.ts.
+	// getBundledPluginDir falls back to a repo checkout a box does not have.
 	copy("plugins/superset", "agent-templates/plugin");
-	// The installable first-party trees (244 KB). A box cannot clone the
-	// marketplace, and every account install is first-party, so shipping them
-	// is the whole of what a box needs to materialize a plugin's skills.
+	// The installable first-party trees: a box cannot clone the marketplace.
 	copy("plugins", "agent-templates/plugins");
 	copy("packages/pty-daemon/dist", "pty-daemon");
 	writeFileSync(join(stage, "RUNTIME"), `version=${version}\nnode=24\n`);

@@ -33,10 +33,8 @@ export function getTemplatePath(name: string): string {
  * location.
  */
 /**
- * The first-party plugin trees, overlaid at templates/plugins. Distinct from
- * getBundledPluginDir, which is the one plugin provisioned unconditionally:
- * these are the installable ones, and a box materializes them from here
- * because it cannot clone the marketplace.
+ * The installable first-party trees, overlaid at templates/plugins. A box
+ * materializes from here because it cannot clone the marketplace.
  */
 export function getBundledMarketplaceDir(): string {
 	const bundled = path.join(getAgentSetupTemplatesDir(), "plugins");

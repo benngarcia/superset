@@ -1,12 +1,6 @@
 /**
- * The MCP servers an installed plugin contributes, written from the one ledger
- * every provisioner reads.
- *
- * Here rather than in the desktop because three writers need it and they must
- * not disagree: the desktop at boot, `plugins sync` on a laptop, and
- * host-service in a cloud workspace, which has no desktop at all. It runs in
- * the same provisioning pass as the skills, off the same file, so a plugin is
- * never half on — skills materialized with its servers reaped, or the reverse.
+ * The MCP servers installed plugins contribute, from the one ledger every
+ * provisioner reads. Here, not in the desktop, because a box has no desktop.
  */
 import {
 	getPluginByName,
@@ -20,9 +14,8 @@ export function desiredPluginMcpServers(
 ): Record<string, PluginMcpServerConfig> {
 	const desired: Record<string, PluginMcpServerConfig> = {};
 	for (const name of names) {
-		// An unknown name is a catalog entry removed after install, so its
-		// servers reap on this sync. Per-agent skipping of servers the user
-		// configured themselves happens inside syncManagedMcpServers.
+		// An unknown name is a catalog entry removed after install: its servers
+		// reap on this sync.
 		const plugin = getPluginByName(name);
 		if (plugin) Object.assign(desired, plugin.mcpServers);
 	}

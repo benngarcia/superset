@@ -82,8 +82,7 @@ async function handle(
 		ctx = await resolveMcpContext(req, {
 			apiUrl: env.NEXT_PUBLIC_API_URL,
 			relayUrl: env.RELAY_URL,
-			// A cloud workspace reaches its creator's plugin tools with the
-			// credential the firewall adds; it holds no bearer of its own.
+			// A box holds no bearer; the firewall adds its credential.
 			sandboxCredential: true,
 		});
 	} catch (error) {

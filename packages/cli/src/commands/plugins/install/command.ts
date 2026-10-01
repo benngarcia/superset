@@ -81,9 +81,7 @@ export default command({
 			),
 		);
 
-		// Every call below this point is account state. The account install is
-		// what says the caller may make them at all, so a failure there stops
-		// here rather than failing again one call later.
+		// Everything below is account state, which the account install gates.
 		const connector =
 			slug && !accountError
 				? await ctx.api.connectors.get.query({ slug })

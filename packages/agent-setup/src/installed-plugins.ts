@@ -20,10 +20,8 @@ interface InstalledPluginRecord {
 }
 
 /**
- * The enabled installs, by their own plugin name. Distinct from
- * `readInstalledPluginSources`, which renames on a collision between two
- * marketplaces: a skill directory has to be unique, an MCP server name is the
- * plugin's own.
+ * The enabled installs by their own name. Not `readInstalledPluginSources`,
+ * which renames on a marketplace collision to keep skill directories unique.
  */
 export function readEnabledPluginNames(
 	file: string = installedPluginsFilePath(),
@@ -51,21 +49,13 @@ export interface InstalledPluginEntry {
 	marketplace: string;
 	name: string;
 	version: string;
-	/**
-	 * Absent for a plugin that is tools only — a catalog entry whose server is
-	 * reached directly, with no tree to materialize. Skill provisioning skips
-	 * those; MCP provisioning does not.
-	 */
+	/** Absent for a tools-only plugin: skill provisioning skips those. */
 	installPath?: string;
 	installedAt: string;
 	enabled: boolean;
 }
 
-/**
- * Replaces the ledger. Every provisioner reaps whatever is absent from it, so
- * a caller that writes a partial list deletes the rest of the machine's
- * skills — pass the whole desired set or do not call this.
- */
+/** Replaces the ledger: pass the whole desired set, never a delta. */
 export function writeInstalledPlugins(
 	plugins: readonly InstalledPluginEntry[],
 	file: string = installedPluginsFilePath(),

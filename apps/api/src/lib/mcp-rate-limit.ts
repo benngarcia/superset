@@ -48,9 +48,8 @@ function rateLimitKey(req: Request): string {
 		const digest = createHash("sha256").update(token).digest("hex");
 		return `token:${digest.slice(0, 32)}`;
 	}
-	// A cloud workspace sends no bearer, and every box shares the firewall's
-	// egress addresses — on the IP fallback one busy workspace would spend the
-	// whole fleet's budget. The credential names exactly one workspace.
+	// Boxes send no bearer and share egress addresses, so the IP fallback would
+	// give the whole fleet one bucket.
 	const sandbox = req.headers.get(SANDBOX_API_CREDENTIAL_HEADER)?.trim();
 	if (sandbox) {
 		const digest = createHash("sha256").update(sandbox).digest("hex");

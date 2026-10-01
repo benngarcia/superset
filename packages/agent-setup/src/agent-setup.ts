@@ -231,8 +231,7 @@ export function setupAgentCapabilities({
 		failed.push("managed-skills");
 	}
 
-	// Same ledger, same pass: a plugin's skills and its MCP servers converge
-	// together or the plugin ends up half on.
+	// Same pass as the skills, so a plugin never ends up half on.
 	if (!runSetupAction("plugin-mcp-servers", syncPluginMcpServers)) {
 		failed.push("plugin-mcp-servers");
 	}

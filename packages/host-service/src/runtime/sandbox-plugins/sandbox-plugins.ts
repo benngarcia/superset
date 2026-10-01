@@ -1,15 +1,6 @@
 /**
- * The plugin ledger on a cloud workspace, written from `sandbox.conf`.
- *
- * A box never asks the API what its creator has installed: the claim already
- * wrote the list into the conf, and this turns it into the one file every
- * provisioner reads. It runs before provisionAgentIntegrations, so the boot
- * sync that follows finds the ledger already there — no second pass, and no
- * race with the agent the box launches.
- *
- * No network, no account call. Every account install is first-party, and the
- * first-party trees ship in the host runtime, so materializing a plugin is
- * pointing the ledger at a directory that is already on disk.
+ * The plugin ledger on a cloud workspace, written from `sandbox.conf` before
+ * provisioning reads it. No network: the first-party trees ship in the runtime.
  */
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
@@ -20,7 +11,6 @@ import {
 } from "@superset/agent-setup";
 import { sandboxPluginsSchema } from "@superset/shared/sandbox-contract";
 
-/** The version the box will actually serve, which is the tree's own. */
 function treeVersion(dir: string, fallback: string): string {
 	try {
 		const manifest = JSON.parse(
@@ -51,11 +41,8 @@ export function seedSandboxPlugins(env: NodeJS.ProcessEnv = process.env): void {
 
 	const root = getBundledMarketplaceDir();
 	const installedAt = new Date().toISOString();
-	// Every install the account reports, tree or not. A plugin can be tools only
-	// — a catalog entry whose server is reached directly — and dropping it here
-	// would cost it its MCP servers, which have nothing to do with a tree.
-	// Provisioning decides what each entry contributes: skills need installPath,
-	// servers need a catalog entry.
+	// Every install, tree or not: a tools-only plugin has no tree and still needs
+	// its MCP servers. installPath is what makes skill provisioning skip it.
 	const entries: InstalledPluginEntry[] = parsed.data.map((plugin) => {
 		const dir = join(root, plugin.name);
 		const shipped = existsSync(join(dir, "plugin.json"));
@@ -69,8 +56,7 @@ export function seedSandboxPlugins(env: NodeJS.ProcessEnv = process.env): void {
 		};
 	});
 
-	// The whole desired set, every boot: provisioning reaps what is absent, so
-	// a plugin uninstalled on the account loses its skills on the next wake.
+	// The whole desired set: provisioning reaps whatever is absent from it.
 	writeInstalledPlugins(entries);
 	const toolsOnly = entries.filter((entry) => !entry.installPath).length;
 	console.log(

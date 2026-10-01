@@ -83,9 +83,7 @@ async function handle(req: Request): Promise<Response> {
 		throw error;
 	}
 
-	// Superset's own tools act on hosts, workspaces and tasks. A cloud workspace
-	// reaches them only through the narrow tRPC allowlist, never as its creator
-	// — the resolver above does not accept its credential, and this refuses it
+	// The resolver above does not accept a box's credential. This refuses it
 	// outright if that ever changes.
 	if (ctx.source === "sandbox") {
 		return withRateLimitHeaders(
