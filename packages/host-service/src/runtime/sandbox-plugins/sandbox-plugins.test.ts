@@ -3,11 +3,13 @@ import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { setAgentSetupTemplatesDir } from "@superset/agent-setup";
+import { applyAgentTemplatesDir } from "../agent-provisioning";
 import { seedSandboxPlugins } from "./sandbox-plugins";
 
 let home: string;
 let templates: string;
 const originalHome = process.env.SUPERSET_HOME_DIR;
+const originalTemplatesEnv = process.env.SUPERSET_AGENT_TEMPLATES_DIR;
 
 function shipPlugin(name: string, version: string): void {
 	const dir = join(templates, "plugins", name);
@@ -32,6 +34,9 @@ beforeEach(() => {
 afterEach(() => {
 	if (originalHome === undefined) delete process.env.SUPERSET_HOME_DIR;
 	else process.env.SUPERSET_HOME_DIR = originalHome;
+	if (originalTemplatesEnv === undefined)
+		delete process.env.SUPERSET_AGENT_TEMPLATES_DIR;
+	else process.env.SUPERSET_AGENT_TEMPLATES_DIR = originalTemplatesEnv;
 });
 
 describe("seedSandboxPlugins", () => {
@@ -107,6 +112,48 @@ describe("seedSandboxPlugins", () => {
 	it("writes nothing off a cloud workspace", () => {
 		seedSandboxPlugins({});
 		expect(() => ledger()).toThrow();
+	});
+
+	it("empties the ledger when the claim states no plugins", () => {
+		shipPlugin("linear", "1.0.0");
+		seedSandboxPlugins({
+			SUPERSET_SANDBOX_PLUGINS: JSON.stringify([
+				{
+					marketplace: "superset",
+					name: "linear",
+					version: "1.0.0",
+					enabled: true,
+				},
+			]),
+		});
+		expect(ledger().plugins).toHaveLength(1);
+
+		seedSandboxPlugins({ SUPERSET_SANDBOX_PLUGINS: "[]" });
+		expect(ledger().plugins).toEqual([]);
+	});
+
+	it("finds the shipped tree once the templates dir is applied", () => {
+		process.env.SUPERSET_AGENT_TEMPLATES_DIR = templates;
+		setAgentSetupTemplatesDir(
+			join(mkdtempSync(join(tmpdir(), "seed-stale-")), "unset"),
+		);
+		shipPlugin("linear", "1.0.0");
+
+		applyAgentTemplatesDir();
+		seedSandboxPlugins({
+			SUPERSET_SANDBOX_PLUGINS: JSON.stringify([
+				{
+					marketplace: "superset",
+					name: "linear",
+					version: "1.0.0",
+					enabled: true,
+				},
+			]),
+		});
+
+		expect(ledger().plugins[0]).toMatchObject({
+			installPath: join(templates, "plugins", "linear"),
+		});
 	});
 
 	it("writes nothing when the conf value is unusable", () => {

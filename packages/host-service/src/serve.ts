@@ -10,7 +10,10 @@ import {
 } from "./providers/auth";
 import { LocalGitCredentialProvider } from "./providers/git";
 import { PskHostAuthProvider } from "./providers/host-auth";
-import { provisionAgentIntegrations } from "./runtime/agent-provisioning";
+import {
+	applyAgentTemplatesDir,
+	provisionAgentIntegrations,
+} from "./runtime/agent-provisioning";
 import { processStartedAt, recordBootStamp } from "./runtime/boot-stamps";
 import { resolveBrowserBridgeFromEnv } from "./runtime/browser-bridge/env";
 import { applyLoginShellEnvToProcess } from "./runtime/login-shell-env";
@@ -59,6 +62,7 @@ async function main(): Promise<void> {
 	// daemon takes time to come up or fails entirely.
 	startDaemonBootstrap(env.ORGANIZATION_ID);
 
+	applyAgentTemplatesDir();
 	seedSandboxPlugins();
 
 	// Standalone entry only: the desktop provisions these itself for hosts it

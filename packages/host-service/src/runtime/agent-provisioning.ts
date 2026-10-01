@@ -31,6 +31,16 @@ function resolveAgentTemplatesDir(): string | undefined {
 }
 
 /**
+ * Must run before anything resolves a path under the templates directory —
+ * the bundled marketplace tree included, which seeding reads to find a
+ * plugin's shipped skills.
+ */
+export function applyAgentTemplatesDir(): void {
+	const templatesDir = resolveAgentTemplatesDir();
+	if (templatesDir) setAgentSetupTemplatesDir(templatesDir);
+}
+
+/**
  * Provisions agent lifecycle hooks (~/.superset/hooks/notify.sh + managed
  * entries in each agent's global config), PATH wrappers, and the zsh/bash
  * bootstrap files host-service's shell-launch path expects. The Electron app
@@ -41,8 +51,7 @@ function resolveAgentTemplatesDir(): string | undefined {
  */
 export function provisionAgentIntegrations(): void {
 	try {
-		const templatesDir = resolveAgentTemplatesDir();
-		if (templatesDir) setAgentSetupTemplatesDir(templatesDir);
+		applyAgentTemplatesDir();
 		// Individual writers soft-fail on missing templates (each is
 		// try/caught), which is exactly the silence that hid #6254 — surface a
 		// broken install loudly instead of one warn per agent.

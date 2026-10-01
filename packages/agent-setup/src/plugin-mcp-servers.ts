@@ -17,5 +17,7 @@ export function desiredPluginMcpServers(
 }
 
 export function syncPluginMcpServers(): void {
-	syncManagedMcpServers(desiredPluginMcpServers(readEnabledPluginNames()));
+	const names = readEnabledPluginNames();
+	if (!names) return;
+	syncManagedMcpServers(desiredPluginMcpServers(names));
 }

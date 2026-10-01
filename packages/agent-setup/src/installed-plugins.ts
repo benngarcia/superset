@@ -21,15 +21,22 @@ interface InstalledPluginRecord {
 
 export function readEnabledPluginNames(
 	file: string = installedPluginsFilePath(),
-): string[] {
+): string[] | null {
+	let raw: string;
+	try {
+		raw = fs.readFileSync(file, "utf-8");
+	} catch (error) {
+		return (error as NodeJS.ErrnoException)?.code === "ENOENT" ? [] : null;
+	}
+
 	let parsed: unknown;
 	try {
-		parsed = JSON.parse(fs.readFileSync(file, "utf-8"));
+		parsed = JSON.parse(raw);
 	} catch {
-		return [];
+		return null;
 	}
 	const plugins = (parsed as { plugins?: unknown })?.plugins;
-	if (!Array.isArray(plugins)) return [];
+	if (!Array.isArray(plugins)) return null;
 	return (plugins as InstalledPluginRecord[])
 		.filter(
 			(entry) =>

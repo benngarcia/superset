@@ -108,9 +108,7 @@ export async function buildSandboxClaim(args: {
 		SUPERSET_SANDBOX_ORGANIZATION_ID: args.row.organizationId,
 		...(creator ? { SUPERSET_SANDBOX_CREATOR_USER_ID: creator } : {}),
 		SUPERSET_SANDBOX_REPOSITORIES: JSON.stringify(repositories),
-		...(plugins.length
-			? { SUPERSET_SANDBOX_PLUGINS: JSON.stringify(plugins) }
-			: {}),
+		SUPERSET_SANDBOX_PLUGINS: JSON.stringify(plugins),
 		SUPERSET_SANDBOX_IMAGE_TAG: environment.sourceRef,
 		SUPERSET_SANDBOX_PROVIDER: args.row.provider,
 		...(environment.bundleSha
