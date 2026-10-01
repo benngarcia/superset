@@ -317,8 +317,19 @@ function hostService(): void {
 	rmSync(out, { recursive: true, force: true });
 	const stage = join(out, "stage");
 	mkdirSync(stage, { recursive: true });
-	const copy = (from: string, to: string) =>
-		Bun.spawnSync(["cp", "-R", join(REPO_ROOT, from), join(stage, to)]);
+	const copy = (from: string, to: string) => {
+		const result = Bun.spawnSync([
+			"cp",
+			"-R",
+			join(REPO_ROOT, from),
+			join(stage, to),
+		]);
+		if (result.exitCode !== 0) {
+			throw new Error(
+				`cp -R ${from} ${to} failed: ${result.stderr?.toString().trim()}`,
+			);
+		}
+	};
 	copy("packages/host-service/dist", "dist");
 	copy("packages/host-service/drizzle", "drizzle");
 	copy("packages/agent-setup/templates", "agent-templates");

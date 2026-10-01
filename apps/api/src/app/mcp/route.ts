@@ -83,16 +83,6 @@ async function handle(req: Request): Promise<Response> {
 		throw error;
 	}
 
-	if (ctx.source === "sandbox") {
-		return withRateLimitHeaders(
-			mcpUnauthorizedResponse(
-				req,
-				"A cloud workspace cannot call Superset's own MCP tools",
-			),
-			rateLimitState,
-		);
-	}
-
 	ctx.relayUrl = env.RELAY_URL;
 
 	const server = createMcpServer({

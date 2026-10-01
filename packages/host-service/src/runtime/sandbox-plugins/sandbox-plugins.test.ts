@@ -1,15 +1,32 @@
 import { afterEach, beforeEach, describe, expect, it } from "bun:test";
-import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
+import {
+	mkdirSync,
+	mkdtempSync,
+	readFileSync,
+	rmSync,
+	writeFileSync,
+} from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { setAgentSetupTemplatesDir } from "@superset/agent-setup";
+import {
+	getAgentSetupTemplatesDir,
+	setAgentSetupTemplatesDir,
+} from "@superset/agent-setup";
 import { applyAgentTemplatesDir } from "../agent-provisioning";
 import { seedSandboxPlugins } from "./sandbox-plugins";
 
 let home: string;
 let templates: string;
+let scratch: string[] = [];
 const originalHome = process.env.SUPERSET_HOME_DIR;
 const originalTemplatesEnv = process.env.SUPERSET_AGENT_TEMPLATES_DIR;
+const originalTemplatesDir = getAgentSetupTemplatesDir();
+
+function scratchDir(prefix: string): string {
+	const dir = mkdtempSync(join(tmpdir(), prefix));
+	scratch.push(dir);
+	return dir;
+}
 
 function shipPlugin(name: string, version: string): void {
 	const dir = join(templates, "plugins", name);
@@ -24,8 +41,8 @@ function ledger(): { plugins: Record<string, unknown>[] } {
 }
 
 beforeEach(() => {
-	home = mkdtempSync(join(tmpdir(), "seed-home-"));
-	templates = mkdtempSync(join(tmpdir(), "seed-templates-"));
+	home = scratchDir("seed-home-");
+	templates = scratchDir("seed-templates-");
 	mkdirSync(join(templates, "plugins"), { recursive: true });
 	process.env.SUPERSET_HOME_DIR = home;
 	setAgentSetupTemplatesDir(templates);
@@ -37,6 +54,10 @@ afterEach(() => {
 	if (originalTemplatesEnv === undefined)
 		delete process.env.SUPERSET_AGENT_TEMPLATES_DIR;
 	else process.env.SUPERSET_AGENT_TEMPLATES_DIR = originalTemplatesEnv;
+	// Sibling test files share this process and the templates dir is global.
+	setAgentSetupTemplatesDir(originalTemplatesDir);
+	for (const dir of scratch) rmSync(dir, { recursive: true, force: true });
+	scratch = [];
 });
 
 describe("seedSandboxPlugins", () => {
@@ -134,9 +155,7 @@ describe("seedSandboxPlugins", () => {
 
 	it("finds the shipped tree once the templates dir is applied", () => {
 		process.env.SUPERSET_AGENT_TEMPLATES_DIR = templates;
-		setAgentSetupTemplatesDir(
-			join(mkdtempSync(join(tmpdir(), "seed-stale-")), "unset"),
-		);
+		setAgentSetupTemplatesDir(join(scratchDir("seed-stale-"), "unset"));
 		shipPlugin("linear", "1.0.0");
 
 		applyAgentTemplatesDir();

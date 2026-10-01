@@ -231,23 +231,29 @@ try {
 		`for i in $(seq 1 300); do [ -f ${ledgerPath} ] && cat ${ledgerPath} && exit 0; sleep 0.1; done`,
 		{ check: false, user: "ubuntu" },
 	);
+	let entries: { name?: string; installPath?: string }[] = [];
+	try {
+		entries = JSON.parse(ledger).plugins ?? [];
+	} catch {
+		entries = [];
+	}
+	const entry = (name: string) => entries.find((row) => row.name === name);
 	expect(
 		"plugins: the ledger is written from the conf",
-		/"name": "linear"/.test(ledger),
+		Boolean(entry("linear")?.installPath),
 		ledger.replace(/\s+/g, " ").slice(0, 120),
 	);
 	expect(
 		"plugins: a plugin with no tree is kept, with no installPath",
-		/not-shipped/.test(ledger) &&
-			!/"installPath": "[^"]*not-shipped/.test(ledger),
+		Boolean(entry("not-shipped")) && !entry("not-shipped")?.installPath,
 	);
 	expect(
 		"plugins: installPath points at a tree that exists",
 		/plugin\.json/.test(
-			exec(
-				`ls $(sed -n 's/.*"installPath": "\\(.*\\)",/\\1/p' ${ledgerPath} | head -1)`,
-				{ check: false, user: "ubuntu" },
-			),
+			exec(`ls ${entry("linear")?.installPath ?? "/nonexistent"}`, {
+				check: false,
+				user: "ubuntu",
+			}),
 		),
 	);
 	expect(

@@ -32,18 +32,6 @@ export function getTemplatePath(name: string): string {
  * source nothing performs that copy, so fall back to the plugin's in-repo
  * location.
  */
-export function getBundledMarketplaceDir(): string {
-	const bundled = path.join(getAgentSetupTemplatesDir(), "plugins");
-	if (fs.existsSync(bundled)) return bundled;
-	return path.join(
-		path.dirname(fileURLToPath(import.meta.url)),
-		"..",
-		"..",
-		"..",
-		"plugins",
-	);
-}
-
 export function getBundledPluginDir(): string {
 	const bundled = path.join(getAgentSetupTemplatesDir(), "plugin");
 	if (fs.existsSync(path.join(bundled, "skills"))) return bundled;
@@ -56,6 +44,22 @@ export function getBundledPluginDir(): string {
 		"superset",
 	);
 	return fs.existsSync(path.join(repoPlugin, "skills")) ? repoPlugin : bundled;
+}
+
+/**
+ * Every installable first-party tree, overlaid at templates/plugins by each
+ * distribution's copy step. Same source fallback as getBundledPluginDir.
+ */
+export function getBundledMarketplaceDir(): string {
+	const bundled = path.join(getAgentSetupTemplatesDir(), "plugins");
+	if (fs.existsSync(bundled)) return bundled;
+	return path.join(
+		path.dirname(fileURLToPath(import.meta.url)),
+		"..",
+		"..",
+		"..",
+		"plugins",
+	);
 }
 
 /**
