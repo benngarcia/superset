@@ -3,12 +3,17 @@ import { resolveSupersetHomeDir } from "./paths";
 
 const SAFE_SEGMENT = /^[a-zA-Z0-9][a-zA-Z0-9._+-]*$/;
 
+/** One path segment of the plugin cache: no traversal, no separators. */
+export function isSafePluginSegment(value: string): boolean {
+	return (
+		typeof value === "string" &&
+		SAFE_SEGMENT.test(value) &&
+		!value.includes("..")
+	);
+}
+
 export function assertSafePluginSegment(value: string, label: string): string {
-	if (
-		typeof value !== "string" ||
-		!SAFE_SEGMENT.test(value) ||
-		value.includes("..")
-	) {
+	if (!isSafePluginSegment(value)) {
 		throw new Error(
 			`Refusing to use ${label} "${value}": it must be alphanumeric with dots, dashes, pluses, or underscores, and cannot contain "..".`,
 		);

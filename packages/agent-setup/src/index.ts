@@ -111,6 +111,7 @@ export {
 export { getBinDir, resolveSupersetHomeDir } from "./paths";
 export {
 	assertSafePluginSegment,
+	isSafePluginSegment,
 	pluginCacheDir,
 	pluginCachePath,
 } from "./plugin-cache";
