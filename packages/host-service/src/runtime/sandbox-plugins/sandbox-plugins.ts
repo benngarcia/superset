@@ -5,6 +5,7 @@ import {
 	type InstalledPluginEntry,
 	writeInstalledPlugins,
 } from "@superset/agent-setup";
+import { DEFAULT_MARKETPLACE } from "@superset/shared/plugins";
 import { sandboxPluginsSchema } from "@superset/shared/sandbox-contract";
 
 function treeVersion(dir: string, fallback: string): string {
@@ -39,7 +40,11 @@ export function seedSandboxPlugins(env: NodeJS.ProcessEnv = process.env): void {
 	const installedAt = new Date().toISOString();
 	const entries: InstalledPluginEntry[] = parsed.data.map((plugin) => {
 		const dir = join(root, plugin.name);
-		const shipped = existsSync(join(dir, "plugin.json"));
+		// Only the first-party trees ship in the bundle, so a same-named
+		// plugin from another marketplace must stay tools-only.
+		const shipped =
+			plugin.marketplace === DEFAULT_MARKETPLACE &&
+			existsSync(join(dir, "plugin.json"));
 		return {
 			marketplace: plugin.marketplace,
 			name: plugin.name,

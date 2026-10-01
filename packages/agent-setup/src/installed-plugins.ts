@@ -19,9 +19,14 @@ interface InstalledPluginRecord {
 	enabled?: unknown;
 }
 
-export function readEnabledPluginNames(
+export interface EnabledPlugin {
+	name: string;
+	marketplace: string;
+}
+
+export function readEnabledPlugins(
 	file: string = installedPluginsFilePath(),
-): string[] | null {
+): EnabledPlugin[] | null {
 	let raw: string;
 	try {
 		raw = fs.readFileSync(file, "utf-8");
@@ -44,7 +49,11 @@ export function readEnabledPluginNames(
 				typeof entry?.name === "string" &&
 				entry.name,
 		)
-		.map((entry) => entry.name as string);
+		.map((entry) => ({
+			name: entry.name as string,
+			marketplace:
+				typeof entry.marketplace === "string" ? entry.marketplace : "",
+		}));
 }
 
 export interface InstalledPluginEntry {

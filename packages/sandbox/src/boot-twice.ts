@@ -283,18 +283,14 @@ try {
 			}),
 		),
 	);
+	const shellLedger = exec(
+		`bash -lc 'ls "\${SUPERSET_HOME_DIR:-$HOME/.superset}/plugins/installed_plugins.json"'`,
+		{ check: false, user: "ubuntu" },
+	);
 	expect(
-		"plugins: a login shell agrees with host-service on SUPERSET_HOME_DIR",
-		new RegExp(`^${SANDBOX_PATHS.home}/\\.superset$`, "m").test(
-			exec(`bash -lc 'echo $SUPERSET_HOME_DIR'`, {
-				check: false,
-				user: "ubuntu",
-			}),
-		),
-		exec(`bash -lc 'echo $SUPERSET_HOME_DIR'`, {
-			check: false,
-			user: "ubuntu",
-		}).trim(),
+		"plugins: a login shell resolves the ledger host-service wrote",
+		shellLedger.includes(ledgerPath),
+		shellLedger.trim(),
 	);
 
 	// The control plane's push, so the runner's hook sequencing runs: this

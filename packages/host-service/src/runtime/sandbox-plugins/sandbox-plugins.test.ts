@@ -10,6 +10,8 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import {
 	getAgentSetupTemplatesDir,
+	readEnabledPlugins,
+	readInstalledPluginSources,
 	setAgentSetupTemplatesDir,
 } from "@superset/agent-setup";
 import { applyAgentTemplatesDir } from "../agent-provisioning";
@@ -100,6 +102,27 @@ describe("seedSandboxPlugins", () => {
 
 		expect(ledger().plugins).toHaveLength(1);
 		expect(ledger().plugins[0]).toMatchObject({ enabled: false });
+		expect(readInstalledPluginSources()).toEqual([]);
+		expect(readEnabledPlugins()).toEqual([]);
+	});
+
+	it("keeps another marketplace's same-named plugin tools-only", () => {
+		shipPlugin("linear", "1.3.0");
+		seedSandboxPlugins({
+			SUPERSET_SANDBOX_PLUGINS: JSON.stringify([
+				{
+					marketplace: "acme",
+					name: "linear",
+					version: "1.0.0",
+					enabled: true,
+				},
+			]),
+		});
+
+		expect(ledger().plugins).toEqual([
+			expect.not.objectContaining({ installPath: expect.anything() }),
+		]);
+		expect(ledger().plugins[0]).toMatchObject({ version: "1.0.0" });
 	});
 
 	it("keeps a plugin with no tree, but without an installPath", () => {

@@ -91,8 +91,10 @@ export {
 	writeSharedDisabledSkillIds,
 } from "./disabled-skills";
 export {
+	type EnabledPlugin,
 	type InstalledPluginEntry,
 	installedPluginsFilePath,
+	readEnabledPlugins,
 	readInstalledPluginSources,
 	writeInstalledPlugins,
 } from "./installed-plugins";

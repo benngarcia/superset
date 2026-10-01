@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from "bun:test";
 import { mkdtempSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { readEnabledPluginNames } from "./installed-plugins";
+import { readEnabledPlugins } from "./installed-plugins";
 
 let dir: string;
 let file: string;
@@ -12,34 +12,37 @@ beforeEach(() => {
 	file = join(dir, "installed_plugins.json");
 });
 
-describe("readEnabledPluginNames", () => {
-	it("reads the enabled names, skipping the disabled", () => {
+describe("readEnabledPlugins", () => {
+	it("reads the enabled entries with their marketplace, skipping the disabled", () => {
 		writeFileSync(
 			file,
 			JSON.stringify({
 				version: 1,
 				plugins: [
-					{ name: "linear", enabled: true },
-					{ name: "sentry", enabled: false },
-					{ name: "figma" },
+					{ name: "linear", marketplace: "superset", enabled: true },
+					{ name: "sentry", marketplace: "superset", enabled: false },
+					{ name: "figma", marketplace: "acme" },
 				],
 			}),
 		);
 
-		expect(readEnabledPluginNames(file)).toEqual(["linear", "figma"]);
+		expect(readEnabledPlugins(file)).toEqual([
+			{ name: "linear", marketplace: "superset" },
+			{ name: "figma", marketplace: "acme" },
+		]);
 	});
 
 	it("reports no plugins when the ledger does not exist", () => {
-		expect(readEnabledPluginNames(file)).toEqual([]);
+		expect(readEnabledPlugins(file)).toEqual([]);
 	});
 
 	it("reports an unreadable ledger as null, not as no plugins", () => {
 		writeFileSync(file, "{not json");
-		expect(readEnabledPluginNames(file)).toBeNull();
+		expect(readEnabledPlugins(file)).toBeNull();
 
 		writeFileSync(file, JSON.stringify({ version: 1 }));
-		expect(readEnabledPluginNames(file)).toBeNull();
+		expect(readEnabledPlugins(file)).toBeNull();
 
-		expect(readEnabledPluginNames(dir)).toBeNull();
+		expect(readEnabledPlugins(dir)).toBeNull();
 	});
 });
