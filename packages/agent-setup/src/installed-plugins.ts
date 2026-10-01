@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import type { PluginSkillSource } from "./managed-skills";
 import { resolveSupersetHomeDir } from "./paths";
+import { writeFileIfChanged } from "./write-file-if-changed";
 
 export function installedPluginsFilePath(): string {
 	return path.join(
@@ -16,6 +17,65 @@ interface InstalledPluginRecord {
 	marketplace?: unknown;
 	installPath?: unknown;
 	enabled?: unknown;
+}
+
+/**
+ * The enabled installs, by their own plugin name. Distinct from
+ * `readInstalledPluginSources`, which renames on a collision between two
+ * marketplaces: a skill directory has to be unique, an MCP server name is the
+ * plugin's own.
+ */
+export function readEnabledPluginNames(
+	file: string = installedPluginsFilePath(),
+): string[] {
+	let parsed: unknown;
+	try {
+		parsed = JSON.parse(fs.readFileSync(file, "utf-8"));
+	} catch {
+		return [];
+	}
+	const plugins = (parsed as { plugins?: unknown })?.plugins;
+	if (!Array.isArray(plugins)) return [];
+	return (plugins as InstalledPluginRecord[])
+		.filter(
+			(entry) =>
+				entry?.enabled !== false &&
+				typeof entry?.name === "string" &&
+				entry.name,
+		)
+		.map((entry) => entry.name as string);
+}
+
+/** One ledger entry, as `plugins sync` and the desktop both write it. */
+export interface InstalledPluginEntry {
+	marketplace: string;
+	name: string;
+	version: string;
+	/**
+	 * Absent for a plugin that is tools only — a catalog entry whose server is
+	 * reached directly, with no tree to materialize. Skill provisioning skips
+	 * those; MCP provisioning does not.
+	 */
+	installPath?: string;
+	installedAt: string;
+	enabled: boolean;
+}
+
+/**
+ * Replaces the ledger. Every provisioner reaps whatever is absent from it, so
+ * a caller that writes a partial list deletes the rest of the machine's
+ * skills — pass the whole desired set or do not call this.
+ */
+export function writeInstalledPlugins(
+	plugins: readonly InstalledPluginEntry[],
+	file: string = installedPluginsFilePath(),
+): void {
+	fs.mkdirSync(path.dirname(file), { recursive: true });
+	writeFileIfChanged(
+		file,
+		`${JSON.stringify({ version: 1, plugins }, null, "\t")}\n`,
+		0o644,
+	);
 }
 
 /**

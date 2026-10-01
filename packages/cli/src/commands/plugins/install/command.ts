@@ -81,9 +81,13 @@ export default command({
 			),
 		);
 
-		const connector = slug
-			? await ctx.api.connectors.get.query({ slug })
-			: null;
+		// Every call below this point is account state. The account install is
+		// what says the caller may make them at all, so a failure there stops
+		// here rather than failing again one call later.
+		const connector =
+			slug && !accountError
+				? await ctx.api.connectors.get.query({ slug })
+				: null;
 		const methods = connector?.methods ?? [];
 		const auth = methods.length === 1 ? methods[0] : undefined;
 

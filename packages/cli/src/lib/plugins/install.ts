@@ -5,6 +5,7 @@ import { promisify } from "node:util";
 import {
 	createManagedSkills,
 	resolveDisabledSkillIds,
+	syncPluginMcpServers,
 } from "@superset/agent-setup";
 import { CLIError } from "@superset/cli-framework";
 import {
@@ -598,6 +599,9 @@ export async function syncPlugins(): Promise<SyncResult> {
 	await createManagedSkills({
 		disabledSkills: resolveDisabledSkillIds(),
 	});
+	// The ledger is written by now, so both halves of the plugin converge from
+	// it together. The desktop reaches this through the CLI it queues.
+	syncPluginMcpServers();
 
 	// Both halves of a plugin, converged together. Skills without MCP entries is
 	// the half-on state installed_plugins.json exists to prevent, and an install

@@ -58,6 +58,7 @@ import { createArtifactGuardScript } from "./artifact-guard-hook";
 import { resolveDisabledSkillIds } from "./disabled-skills";
 import { createManagedSkills } from "./managed-skills";
 import { createNotifyScript } from "./notify-hook";
+import { syncPluginMcpServers } from "./plugin-mcp-servers";
 
 type LabeledAction = readonly [label: string, action: () => void];
 
@@ -228,6 +229,12 @@ export function setupAgentCapabilities({
 		)
 	) {
 		failed.push("managed-skills");
+	}
+
+	// Same ledger, same pass: a plugin's skills and its MCP servers converge
+	// together or the plugin ends up half on.
+	if (!runSetupAction("plugin-mcp-servers", syncPluginMcpServers)) {
+		failed.push("plugin-mcp-servers");
 	}
 
 	for (const target of AGENT_SETUP_TARGETS) {

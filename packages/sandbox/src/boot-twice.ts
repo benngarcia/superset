@@ -96,6 +96,22 @@ const identity = renderSandboxConf({
 	]),
 	SUPERSET_SANDBOX_IMAGE_TAG: IMAGE,
 	SUPERSET_SANDBOX_PROVIDER: "docker",
+	// One shipped plugin and one the runtime does not have: boot must
+	// materialize the first and skip the second without failing.
+	SUPERSET_SANDBOX_PLUGINS: JSON.stringify([
+		{
+			marketplace: "superset",
+			name: "linear",
+			version: "0.0.0",
+			enabled: true,
+		},
+		{
+			marketplace: "acme",
+			name: "not-shipped",
+			version: "1.0.0",
+			enabled: true,
+		},
+	]),
 });
 
 docker(["rm", "-f", NAME], { check: false });
@@ -212,6 +228,77 @@ try {
 			),
 		),
 	);
+	// Plugins: the conf is the only input, and the ledger must be on disk
+	// before provisioning reads it. Each check is the next link in that chain.
+	const ledgerPath = `${SANDBOX_PATHS.home}/.superset/plugins/installed_plugins.json`;
+	const ledger = exec(
+		`for i in $(seq 1 300); do [ -f ${ledgerPath} ] && cat ${ledgerPath} && exit 0; sleep 0.1; done`,
+		{ check: false, user: "ubuntu" },
+	);
+	expect(
+		"plugins: the ledger is written from the conf",
+		/"name": "linear"/.test(ledger),
+		ledger.replace(/\s+/g, " ").slice(0, 120),
+	);
+	expect(
+		"plugins: a plugin with no tree is kept, with no installPath",
+		/not-shipped/.test(ledger) &&
+			!/"installPath": "[^"]*not-shipped/.test(ledger),
+	);
+	expect(
+		"plugins: installPath points at a tree that exists",
+		/plugin\.json/.test(
+			exec(
+				`ls $(sed -n 's/.*"installPath": "\\(.*\\)",/\\1/p' ${ledgerPath} | head -1)`,
+				{ check: false, user: "ubuntu" },
+			),
+		),
+	);
+	expect(
+		"plugins: skills are materialized for the agent",
+		/linear-/.test(
+			exec(`ls ${SANDBOX_PATHS.home}/.agents/skills | tr '\\n' ' '`, {
+				check: false,
+				user: "ubuntu",
+			}),
+		),
+	);
+	expect(
+		"plugins: the bundled superset skills are materialized at all",
+		/SKILL\.md/.test(
+			exec(
+				`ls ${SANDBOX_PATHS.home}/.claude/skills/superset/skills/page 2>/dev/null | tr '\\n' ' '`,
+				{ check: false, user: "ubuntu" },
+			),
+		),
+	);
+	expect(
+		"plugins: the MCP server entry is written next to the skills",
+		/mcp\/plugins\/superset\/linear/.test(
+			exec(`cat ${SANDBOX_PATHS.home}/.claude.json`, {
+				check: false,
+				user: "ubuntu",
+			}),
+		),
+	);
+	// The contract calls the user's home SUPERSET_USER_HOME; SUPERSET_HOME_DIR is
+	// the ~/.superset state dir everywhere else. A login shell sources the
+	// contract after host-service exports the latter, so the names colliding put
+	// the CLI's ledger in $HOME and split it from the one provisioning reads.
+	expect(
+		"plugins: a login shell agrees with host-service on SUPERSET_HOME_DIR",
+		new RegExp(`^${SANDBOX_PATHS.home}/\\.superset$`, "m").test(
+			exec(`bash -lc 'echo $SUPERSET_HOME_DIR'`, {
+				check: false,
+				user: "ubuntu",
+			}),
+		),
+		exec(`bash -lc 'echo $SUPERSET_HOME_DIR'`, {
+			check: false,
+			user: "ubuntu",
+		}).trim(),
+	);
+
 	// The control plane's push, so the runner's hook sequencing runs: this
 	// checkout declares no start hook, which the log must say.
 	exec(

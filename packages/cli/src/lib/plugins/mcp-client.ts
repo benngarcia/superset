@@ -36,7 +36,12 @@ export async function connectPluginMcp(
 	try {
 		await client.connect(
 			new StreamableHTTPClientTransport(pluginMcpUrl(ref, connection), {
-				requestInit: { headers: { Authorization: `Bearer ${bearer}` } },
+				// A cloud workspace holds no bearer; the firewall stamps its
+				// credential instead, and an empty one would only read as a
+				// malformed token.
+				requestInit: bearer
+					? { headers: { Authorization: `Bearer ${bearer}` } }
+					: {},
 			}),
 		);
 	} catch (error) {

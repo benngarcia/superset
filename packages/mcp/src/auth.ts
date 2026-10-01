@@ -1,6 +1,11 @@
 import { auth, mintUserJwt } from "@superset/auth/server";
 import { db } from "@superset/db/client";
 import { members, users } from "@superset/db/schema";
+import { SANDBOX_API_CREDENTIAL_HEADER } from "@superset/shared/sandbox-gate";
+import {
+	resolveSandboxCaller,
+	type SandboxCaller,
+} from "@superset/trpc/lib/sandbox";
 import { verifyAccessToken } from "better-auth/oauth2";
 import { eq } from "drizzle-orm";
 
@@ -9,7 +14,7 @@ export interface McpContext {
 	email: string;
 	organizationId: string;
 	organizationIds: string[];
-	source: "api-key" | "oauth";
+	source: "api-key" | "oauth" | "sandbox";
 	clientLabel: string | null;
 	requestId: string;
 	bearerToken: string;
@@ -164,6 +169,44 @@ async function resolveOAuth(
 export interface ResolveMcpContextOptions {
 	apiUrl: string;
 	relayUrl: string;
+	/**
+	 * Accept a cloud workspace's own credential instead of a bearer. Opt-in per
+	 * route, and only the plugin proxy may: its tools run on a connection the
+	 * creator already authorized, while Superset's own tools reach hosts and
+	 * workspaces with the minted bearer, which a box must never be handed.
+	 */
+	sandboxCredential?: boolean;
+}
+
+/**
+ * A box presents no bearer — the egress firewall stamps its credential on the
+ * way out — so this resolves to the workspace's creator, exactly as the tRPC
+ * context does for the same header.
+ */
+async function sandboxContext(
+	caller: SandboxCaller,
+	relayUrl: string,
+): Promise<McpContext> {
+	const { email, organizationIds } = await loadUserAndOrgs(caller.userId);
+	if (!organizationIds.includes(caller.organizationId)) {
+		throw new McpUnauthorizedError(
+			"The workspace's organization is no longer one its creator belongs to",
+		);
+	}
+	return {
+		userId: caller.userId,
+		email,
+		organizationId: caller.organizationId,
+		organizationIds,
+		source: "sandbox",
+		clientLabel: `cloud-workspace:${caller.workspaceId}`,
+		requestId: crypto.randomUUID(),
+		// Deliberately empty. Nothing in the plugin proxy reads it, and anything
+		// that does reach hosts through the relay fails without it rather than
+		// acting as the creator — the guarantee does not rest on this flag alone.
+		bearerToken: "",
+		relayUrl,
+	};
 }
 
 export async function resolveMcpContext(
@@ -171,6 +214,14 @@ export async function resolveMcpContext(
 	options: ResolveMcpContextOptions,
 ): Promise<McpContext> {
 	const { apiUrl, relayUrl } = options;
+
+	if (options.sandboxCredential) {
+		const caller = await resolveSandboxCaller(
+			req.headers.get(SANDBOX_API_CREDENTIAL_HEADER),
+		);
+		if (caller) return await sandboxContext(caller, relayUrl);
+	}
+
 	const token = extractBearer(req);
 	if (!token) {
 		throw new McpUnauthorizedError("Missing bearer token");

@@ -135,7 +135,7 @@ fi
 export NODE_EXTRA_CA_CERTS
 
 host_env=(
-	"HOME=${SUPERSET_HOME_DIR}" "USER=${SUPERSET_USER}" "LOGNAME=${SUPERSET_USER}"
+	"HOME=${SUPERSET_USER_HOME}" "USER=${SUPERSET_USER}" "LOGNAME=${SUPERSET_USER}"
 	"PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/go/bin"
 	"NODE_ENV=production" "PORT=${SUPERSET_HOST_SERVICE_PORT}"
 	"ORGANIZATION_ID=${SUPERSET_SANDBOX_ORGANIZATION_ID}"
@@ -157,7 +157,7 @@ done
 stamp "host.exec $(cat "${SUPERSET_HOST_ROOT}/current.version" 2>/dev/null)"
 # setpriv execs in place, so the pid recorded is node's own and the process
 # that answers kill -0 is the one that serves.
-(cd "$SUPERSET_HOME_DIR" && exec setpriv --reuid="$SUPERSET_USER" --regid="$SUPERSET_USER" --init-groups \
+(cd "$SUPERSET_USER_HOME" && exec setpriv --reuid="$SUPERSET_USER" --regid="$SUPERSET_USER" --init-groups \
 	env -i "${host_env[@]}" node "${HOST}/host-service.js") >> "${SUPERSET_LOG_DIR}/host-service.log" 2>&1 &
 echo $! > "${SUPERSET_RUN_DIR}/host-service.pid"
 (
@@ -173,7 +173,7 @@ echo $! > "${SUPERSET_RUN_DIR}/host-service.pid"
 start_host_service
 
 # --- the desktop and the checkout: side effects of being up.
-as_user env "DISPLAY=${SUPERSET_DISPLAY}" "HOME=${SUPERSET_HOME_DIR}" "USER=${SUPERSET_USER}" \
+as_user env "DISPLAY=${SUPERSET_DISPLAY}" "HOME=${SUPERSET_USER_HOME}" "USER=${SUPERSET_USER}" \
 	"SUPERSET_SANDBOX_WORKSPACE_ID=${SUPERSET_SANDBOX_WORKSPACE_ID}" \
 	/usr/local/bin/superset-desktop-init >> "${SUPERSET_LOG_DIR}/desktop.log" 2>&1 &
 stamp "desktop.start"

@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { SANDBOX_API_CREDENTIAL_HEADER } from "@superset/shared/sandbox-gate";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import { env } from "@/env";
@@ -46,6 +47,14 @@ function rateLimitKey(req: Request): string {
 	if (token) {
 		const digest = createHash("sha256").update(token).digest("hex");
 		return `token:${digest.slice(0, 32)}`;
+	}
+	// A cloud workspace sends no bearer, and every box shares the firewall's
+	// egress addresses — on the IP fallback one busy workspace would spend the
+	// whole fleet's budget. The credential names exactly one workspace.
+	const sandbox = req.headers.get(SANDBOX_API_CREDENTIAL_HEADER)?.trim();
+	if (sandbox) {
+		const digest = createHash("sha256").update(sandbox).digest("hex");
+		return `sandbox:${digest.slice(0, 32)}`;
 	}
 	const ip =
 		req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||

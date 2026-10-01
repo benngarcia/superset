@@ -16,6 +16,7 @@ import { resolveBrowserBridgeFromEnv } from "./runtime/browser-bridge/env";
 import { applyLoginShellEnvToProcess } from "./runtime/login-shell-env";
 import { startSandboxAgentStatusReporter } from "./runtime/sandbox-agent-status";
 import { startSandboxCredentialRefresh } from "./runtime/sandbox-credential-refresh";
+import { seedSandboxPlugins } from "./runtime/sandbox-plugins";
 import { startVitalsLog } from "./runtime/vitals";
 import { detachFromLaunchDirectory } from "./runtime/working-directory";
 import { installProcessSafetyNet, installUpgradeSocketGuard } from "./safety";
@@ -57,6 +58,10 @@ async function main(): Promise<void> {
 	// Non-terminal requests (workspaces, git, chat) are unaffected if the
 	// daemon takes time to come up or fails entirely.
 	startDaemonBootstrap(env.ORGANIZATION_ID);
+
+	// Before provisioning, so the sync inside it reads a ledger that is already
+	// there. A no-op off a cloud workspace.
+	seedSandboxPlugins();
 
 	// Standalone entry only: the desktop provisions these itself for hosts it
 	// spawns (with its per-agent disable settings); this covers CLI/systemd

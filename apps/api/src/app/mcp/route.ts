@@ -83,6 +83,20 @@ async function handle(req: Request): Promise<Response> {
 		throw error;
 	}
 
+	// Superset's own tools act on hosts, workspaces and tasks. A cloud workspace
+	// reaches them only through the narrow tRPC allowlist, never as its creator
+	// — the resolver above does not accept its credential, and this refuses it
+	// outright if that ever changes.
+	if (ctx.source === "sandbox") {
+		return withRateLimitHeaders(
+			mcpUnauthorizedResponse(
+				req,
+				"A cloud workspace cannot call Superset's own MCP tools",
+			),
+			rateLimitState,
+		);
+	}
+
 	ctx.relayUrl = env.RELAY_URL;
 
 	const server = createMcpServer({
