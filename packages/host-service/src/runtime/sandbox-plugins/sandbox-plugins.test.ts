@@ -3,6 +3,7 @@ import {
 	existsSync,
 	mkdirSync,
 	mkdtempSync,
+	readdirSync,
 	readFileSync,
 	rmSync,
 	writeFileSync,
@@ -93,6 +94,30 @@ describe("seedSandboxPlugins", () => {
 		expect(existsSync(join(cached, "plugin.json"))).toBe(true);
 		expect(existsSync(join(cached, "skills"))).toBe(true);
 		expect(existsSync(join(cached, "extra", "thing.txt"))).toBe(true);
+	});
+
+	it("leaves no partial tree behind when the copy fails", async () => {
+		shipPlugin("linear", "1.3.0");
+		const cached = pluginCachePath("superset", "linear", "1.3.0");
+		// A file where the parent directory has to go: the copy cannot land.
+		mkdirSync(join(cached, ".."), { recursive: true });
+		writeFileSync(cached, "in the way");
+
+		await seedSandboxPlugins({
+			SUPERSET_SANDBOX_PLUGINS: JSON.stringify([
+				{
+					marketplace: "superset",
+					name: "linear",
+					version: "1.3.0",
+					enabled: true,
+				},
+			]),
+		});
+
+		expect(ledger().plugins).toEqual([
+			expect.not.objectContaining({ installPath: expect.anything() }),
+		]);
+		expect(readdirSync(join(cached, "..")).sort()).toEqual(["1.3.0"]);
 	});
 
 	it("leaves an already cached tree alone", async () => {

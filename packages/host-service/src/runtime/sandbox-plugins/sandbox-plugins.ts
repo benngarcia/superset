@@ -1,5 +1,5 @@
 import { existsSync, mkdirSync, readFileSync } from "node:fs";
-import { cp } from "node:fs/promises";
+import { cp, rename, rm } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import {
 	getBundledMarketplaceDir,
@@ -40,11 +40,22 @@ async function cacheShippedTree(
 		return undefined;
 	}
 	if (existsSync(join(target, "plugin.json"))) return target;
+	// Staged, because cp publishes each file as it goes: a host that stops
+	// mid-copy would otherwise leave a tree that looks cached forever.
+	const staging = `${target}.incoming-${process.pid}`;
 	try {
 		mkdirSync(dirname(target), { recursive: true });
-		await cp(from, target, { recursive: true });
+		await rm(staging, { recursive: true, force: true });
+		await cp(from, staging, { recursive: true });
+		try {
+			await rename(staging, target);
+		} catch (error) {
+			if (!existsSync(join(target, "plugin.json"))) throw error;
+			await rm(staging, { recursive: true, force: true });
+		}
 		return target;
 	} catch (error) {
+		await rm(staging, { recursive: true, force: true }).catch(() => {});
 		console.warn(`[sandbox] ${name}: could not cache its tree:`, error);
 		return undefined;
 	}
