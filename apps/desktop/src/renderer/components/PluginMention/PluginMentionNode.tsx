@@ -94,17 +94,22 @@ function PluginMentionChip({ node, selected }: NodeViewProps) {
 	const name = String(node.attrs.name ?? "");
 	const label = String(node.attrs.label || name);
 
+	// Inline and baseline-aligned with no vertical padding, so the chip never
+	// grows the line box and the caret beside it stays text height.
 	return (
-		<NodeViewWrapper as="span" className="inline-block align-middle">
+		<NodeViewWrapper as="span" className="inline">
 			<span
 				contentEditable={false}
 				title={pluginMentionText(name)}
 				className={cn(
-					"mx-0.5 inline-flex max-w-full items-center gap-1 rounded-sm px-1 py-[1px] font-medium text-primary select-none",
+					"mx-0.5 inline-flex max-w-full items-baseline gap-1 rounded-sm px-1 align-bottom font-medium text-primary select-none",
 					selected && "bg-accent",
 				)}
 			>
-				<PluginIcon pluginName={name} className="size-3.5 rounded-[3px]" />
+				<PluginIcon
+					pluginName={name}
+					className="size-3.5 self-center rounded-[3px]"
+				/>
 				<span className="max-w-[16rem] truncate">{label}</span>
 			</span>
 		</NodeViewWrapper>
