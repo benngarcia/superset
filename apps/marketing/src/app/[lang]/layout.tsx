@@ -1,4 +1,4 @@
-import { getLocaleMessages, SUPPORTED_LOCALES } from "@superset/i18n";
+import { DEFAULT_LOCALE, getLocaleMessages } from "@superset/i18n";
 import { COMPANY } from "@superset/shared/constants";
 import type { Metadata } from "next";
 import { cacheLife } from "next/cache";
@@ -114,7 +114,7 @@ async function currentYear(): Promise<number> {
 }
 
 export function generateStaticParams() {
-	return SUPPORTED_LOCALES.map((lang) => ({ lang }));
+	return [{ lang: DEFAULT_LOCALE }];
 }
 
 export default async function RootLayout({
