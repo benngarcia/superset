@@ -148,7 +148,6 @@ msgid "{0, plural, one {# failed} other {# failed}}"
 msgstr "{0, plural, one {# fallida} other {# fallidas}}"
 
 #. placeholder {0}: detail.pullRequest.changedFiles
-#. placeholder {0}: diffFiles.length
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# archivo modificado} other {# archivos modificados}}"
 
@@ -947,9 +946,6 @@ msgstr "hace {minutes} min"
 msgid "{modKey}↵ to create"
 msgstr "{modKey}↵ para crear"
 
-msgid "{months}mo"
-msgstr "{months} m"
-
 msgid "{months}mo ago"
 msgstr "hace {months} m"
 
@@ -1734,9 +1730,6 @@ msgstr "Añadir al diccionario"
 
 msgid "Add to project"
 msgstr "Añadir a un proyecto"
-
-msgid "Add to prompt"
-msgstr "Añadir al prompt"
 
 msgid "Add to sidebar"
 msgstr "Añadir a la barra lateral"
@@ -7329,9 +7322,6 @@ msgstr "Síguenos en LinkedIn"
 msgid "Follow us on X/Twitter"
 msgstr "Síguenos en X/Twitter"
 
-msgid "Follow-ups on web are coming soon"
-msgstr "Los seguimientos en la web llegarán pronto"
-
 msgid "Font family"
 msgstr "Familia tipográfica"
 
@@ -9452,9 +9442,6 @@ msgstr "Memoria"
 msgid "Memory share"
 msgstr "Porcentaje de memoria"
 
-msgid "Menu"
-msgstr "Menú"
-
 msgid "Menubar"
 msgstr "Barra de menús"
 
@@ -10493,9 +10480,6 @@ msgstr "Aún no hay capturas"
 
 msgid "No sessions"
 msgstr "Sin sesiones"
-
-msgid "No sessions found"
-msgstr "No se encontraron sesiones"
 
 msgid "No sessions running"
 msgstr "No hay sesiones en marcha"
@@ -13915,12 +13899,6 @@ msgstr "Buscar pull requests…"
 msgid "Search repositories..."
 msgstr "Buscar repositorios..."
 
-msgid "Search sessions"
-msgstr "Buscar sesiones"
-
-msgid "Search sessions..."
-msgstr "Buscar sesiones..."
-
 msgid "Search settings..."
 msgstr "Buscar en la configuración..."
 
@@ -14071,9 +14049,6 @@ msgstr "Selecciona una organización"
 msgid "Select base branch…"
 msgstr "Selecciona la rama base…"
 
-msgid "Select branch"
-msgstr "Seleccionar la rama"
-
 msgid "Select branch..."
 msgstr "Seleccionar rama..."
 
@@ -14145,9 +14120,6 @@ msgstr "Seleccionar intervalo..."
 
 msgid "Select repositories"
 msgstr "Seleccionar repositorios"
-
-msgid "Select repository"
-msgstr "Seleccionar el repositorio"
 
 msgid "Select run"
 msgstr "Seleccionar ejecución"
@@ -14265,9 +14237,6 @@ msgstr "Sesión"
 msgid "Session {0}"
 msgstr "Sesión {0}"
 
-msgid "Session creation on web is coming soon"
-msgstr "La creación de sesiones en la web llegará pronto"
-
 msgid "Session details"
 msgstr "Detalles de la sesión"
 
@@ -14288,9 +14257,6 @@ msgstr "Nombre de la sesión cambiado a {trimmed}"
 
 msgid "Session snapshots & revert"
 msgstr "Instantáneas de sesión y reversión"
-
-msgid "Session view"
-msgstr "Vista de la sesión"
 
 msgid "Sessions"
 msgstr "Sesiones"
@@ -16246,9 +16212,6 @@ msgstr "La invitación al equipo ha caducado o no existe. Pide un enlace nuevo a
 msgid "The title shows everywhere this page is listed and in its link preview."
 msgstr "El título aparece en todos los sitios donde se lista esta página y en la vista previa de su enlace."
 
-msgid "The web agents UI is a read-only preview for now."
-msgstr "La interfaz web de agentes es, por ahora, una vista previa de solo lectura."
-
 msgid "The workspace is not ready yet. Try again."
 msgstr "El espacio de trabajo aún no está listo. Inténtalo de nuevo."
 
@@ -17967,9 +17930,6 @@ msgstr "Trabajó {0} min {1} s"
 
 msgid "Worked for {seconds}s"
 msgstr "Trabajó {seconds} s"
-
-msgid "Worked for 39s"
-msgstr "Trabajó durante 39 s"
 
 msgid "Workflow run completed…"
 msgstr "Ejecución de workflow completada…"

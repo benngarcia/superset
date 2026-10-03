@@ -148,7 +148,6 @@ msgid "{0, plural, one {# failed} other {# failed}}"
 msgstr "{0, plural, one {#件失敗} other {#件失敗}}"
 
 #. placeholder {0}: detail.pullRequest.changedFiles
-#. placeholder {0}: diffFiles.length
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {#件のファイルを変更} other {#件のファイルを変更}}"
 
@@ -947,9 +946,6 @@ msgstr "{minutes}分前"
 msgid "{modKey}↵ to create"
 msgstr "{modKey}↵で作成"
 
-msgid "{months}mo"
-msgstr "{months}か月"
-
 msgid "{months}mo ago"
 msgstr "{months}か月前"
 
@@ -1734,9 +1730,6 @@ msgstr "辞書に追加"
 
 msgid "Add to project"
 msgstr "プロジェクトに追加"
-
-msgid "Add to prompt"
-msgstr "プロンプトに追加"
 
 msgid "Add to sidebar"
 msgstr "サイドバーに追加"
@@ -7329,9 +7322,6 @@ msgstr "LinkedInでフォロー"
 msgid "Follow us on X/Twitter"
 msgstr "X/Twitterでフォロー"
 
-msgid "Follow-ups on web are coming soon"
-msgstr "Web版でのフォローアップは近日公開"
-
 msgid "Font family"
 msgstr "フォントファミリー"
 
@@ -9452,9 +9442,6 @@ msgstr "メモリ"
 msgid "Memory share"
 msgstr "メモリシェア"
 
-msgid "Menu"
-msgstr "メニュー"
-
 msgid "Menubar"
 msgstr "Menubar"
 
@@ -10493,9 +10480,6 @@ msgstr "スクリーンショットはまだありません"
 
 msgid "No sessions"
 msgstr "セッションなし"
-
-msgid "No sessions found"
-msgstr "セッションが見つかりません"
 
 msgid "No sessions running"
 msgstr "実行中のセッションはありません"
@@ -13915,12 +13899,6 @@ msgstr "プルリクエストを検索…"
 msgid "Search repositories..."
 msgstr "リポジトリを検索..."
 
-msgid "Search sessions"
-msgstr "セッションを検索"
-
-msgid "Search sessions..."
-msgstr "セッションを検索..."
-
 msgid "Search settings..."
 msgstr "設定を検索..."
 
@@ -14071,9 +14049,6 @@ msgstr "組織を選択"
 msgid "Select base branch…"
 msgstr "ベースブランチを選択…"
 
-msgid "Select branch"
-msgstr "ブランチを選択"
-
 msgid "Select branch..."
 msgstr "ブランチを選択..."
 
@@ -14144,9 +14119,6 @@ msgid "Select range..."
 msgstr "範囲を選択..."
 
 msgid "Select repositories"
-msgstr "リポジトリを選択"
-
-msgid "Select repository"
 msgstr "リポジトリを選択"
 
 msgid "Select run"
@@ -14265,9 +14237,6 @@ msgstr "セッション"
 msgid "Session {0}"
 msgstr "セッション {0}"
 
-msgid "Session creation on web is coming soon"
-msgstr "Web版でのセッション作成は近日公開"
-
 msgid "Session details"
 msgstr "セッションの詳細"
 
@@ -14288,9 +14257,6 @@ msgstr "セッション名を {trimmed} に変更しました"
 
 msgid "Session snapshots & revert"
 msgstr "セッションのスナップショットと巻き戻し"
-
-msgid "Session view"
-msgstr "セッション表示"
 
 msgid "Sessions"
 msgstr "セッション"
@@ -16246,9 +16212,6 @@ msgstr "チームの招待は期限切れか、存在しません。チームの
 msgid "The title shows everywhere this page is listed and in its link preview."
 msgstr "タイトルはこのページが一覧表示される場所すべてと、リンクのプレビューに表示されます。"
 
-msgid "The web agents UI is a read-only preview for now."
-msgstr "Web版のエージェントUIは現時点では読み取り専用のプレビューです。"
-
 msgid "The workspace is not ready yet. Try again."
 msgstr "ワークスペースの準備がまだできていません。もう一度お試しください。"
 
@@ -17967,9 +17930,6 @@ msgstr "作業時間 {0}分{1}秒"
 
 msgid "Worked for {seconds}s"
 msgstr "作業時間 {seconds}秒"
-
-msgid "Worked for 39s"
-msgstr "39秒作業しました"
 
 msgid "Workflow run completed…"
 msgstr "ワークフロー実行完了…"

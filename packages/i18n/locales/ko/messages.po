@@ -148,7 +148,6 @@ msgid "{0, plural, one {# failed} other {# failed}}"
 msgstr "{0, plural, one {#개 실패} other {#개 실패}}"
 
 #. placeholder {0}: detail.pullRequest.changedFiles
-#. placeholder {0}: diffFiles.length
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {파일 #개 변경됨} other {파일 #개 변경됨}}"
 
@@ -947,9 +946,6 @@ msgstr "{minutes}분 전"
 msgid "{modKey}↵ to create"
 msgstr "{modKey}↵로 만들기"
 
-msgid "{months}mo"
-msgstr "{months}개월"
-
 msgid "{months}mo ago"
 msgstr "{months}개월 전"
 
@@ -1734,9 +1730,6 @@ msgstr "사전에 추가"
 
 msgid "Add to project"
 msgstr "프로젝트에 추가"
-
-msgid "Add to prompt"
-msgstr "프롬프트에 추가"
 
 msgid "Add to sidebar"
 msgstr "사이드바에 추가"
@@ -7329,9 +7322,6 @@ msgstr "LinkedIn에서 팔로우하기"
 msgid "Follow us on X/Twitter"
 msgstr "X/Twitter에서 팔로우하기"
 
-msgid "Follow-ups on web are coming soon"
-msgstr "웹에서의 후속 메시지는 곧 지원됩니다"
-
 msgid "Font family"
 msgstr "글꼴"
 
@@ -9452,9 +9442,6 @@ msgstr "메모리"
 msgid "Memory share"
 msgstr "메모리 점유율"
 
-msgid "Menu"
-msgstr "메뉴"
-
 msgid "Menubar"
 msgstr "메뉴 바"
 
@@ -10493,9 +10480,6 @@ msgstr "아직 스크린샷이 없습니다"
 
 msgid "No sessions"
 msgstr "세션 없음"
-
-msgid "No sessions found"
-msgstr "세션을 찾을 수 없습니다"
 
 msgid "No sessions running"
 msgstr "실행 중인 세션 없음"
@@ -13915,12 +13899,6 @@ msgstr "풀 리퀘스트 검색…"
 msgid "Search repositories..."
 msgstr "리포지토리 검색..."
 
-msgid "Search sessions"
-msgstr "세션 검색"
-
-msgid "Search sessions..."
-msgstr "세션 검색..."
-
 msgid "Search settings..."
 msgstr "설정 검색..."
 
@@ -14071,9 +14049,6 @@ msgstr "조직을 선택하세요"
 msgid "Select base branch…"
 msgstr "기준 브랜치 선택…"
 
-msgid "Select branch"
-msgstr "브랜치 선택"
-
 msgid "Select branch..."
 msgstr "브랜치 선택..."
 
@@ -14144,9 +14119,6 @@ msgid "Select range..."
 msgstr "범위 선택..."
 
 msgid "Select repositories"
-msgstr "리포지토리 선택"
-
-msgid "Select repository"
 msgstr "리포지토리 선택"
 
 msgid "Select run"
@@ -14265,9 +14237,6 @@ msgstr "세션"
 msgid "Session {0}"
 msgstr "세션 {0}"
 
-msgid "Session creation on web is coming soon"
-msgstr "웹에서 세션 만들기는 곧 지원됩니다"
-
 msgid "Session details"
 msgstr "세션 상세"
 
@@ -14288,9 +14257,6 @@ msgstr "세션 이름을 {trimmed}(으)로 변경했습니다"
 
 msgid "Session snapshots & revert"
 msgstr "세션 스냅샷 및 되돌리기"
-
-msgid "Session view"
-msgstr "세션 보기"
 
 msgid "Sessions"
 msgstr "세션"
@@ -16246,9 +16212,6 @@ msgstr "팀 초대가 만료되었거나 존재하지 않습니다. 팀 소유�
 msgid "The title shows everywhere this page is listed and in its link preview."
 msgstr "제목은 이 페이지가 표시되는 모든 곳과 링크 미리보기에 나타납니다."
 
-msgid "The web agents UI is a read-only preview for now."
-msgstr "웹 에이전트 UI는 아직 읽기 전용 미리 보기입니다."
-
 msgid "The workspace is not ready yet. Try again."
 msgstr "워크스페이스가 아직 준비되지 않았습니다. 다시 시도하세요."
 
@@ -17967,9 +17930,6 @@ msgstr "{0}분 {1}초 동안 작업함"
 
 msgid "Worked for {seconds}s"
 msgstr "{seconds}초 동안 작업함"
-
-msgid "Worked for 39s"
-msgstr "39초 동안 작업"
 
 msgid "Workflow run completed…"
 msgstr "워크플로 실행 완료…"
