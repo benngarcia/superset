@@ -166,9 +166,9 @@ A box acts in its own organization only. In `packages/trpc/src/trpc.ts`,
 organization header that names one, and `protectedProcedure` keeps the box's
 organization as the active one; `user.myOrganizations` lists only the box's.
 Archiving the box from inside it
-(`workspaces delete`) ends the session that ran the command: expect no output,
-put the box's own id last when deleting several, and unarchive from a
-signed-in client.
+(`workspaces delete`) cuts off the box's API access at once and stops the box
+about a minute later: put the box's own id last when deleting several, and
+unarchive from a signed-in client.
 
 **Docker is installed but not started.** An environment whose repository needs
 containers starts it from its own `start` command, which is also where it
