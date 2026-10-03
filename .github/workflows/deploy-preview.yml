@@ -101,7 +101,6 @@ jobs:
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
 
       - name: Setup Bun
-        id: setup-bun
         uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
         with:
           bun-version-file: .bun-version
@@ -120,8 +119,9 @@ jobs:
       - name: Install Vercel CLI
         run: bun add --global vercel@$VERCEL_CLI_VERSION
 
-      - name: Cache Next.js build cache
-        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+      # Production deploys on main write this cache; a PR only reads it.
+      - name: Restore Next.js build cache
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
         with:
           path: apps/api/.next/cache
           key: next-api-${{ github.sha }}
@@ -309,7 +309,6 @@ jobs:
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
 
       - name: Setup Bun
-        id: setup-bun
         uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
         with:
           bun-version-file: .bun-version
@@ -328,8 +327,9 @@ jobs:
       - name: Install Vercel CLI
         run: bun add --global vercel@$VERCEL_CLI_VERSION
 
-      - name: Cache Next.js build cache
-        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+      # Production deploys on main write this cache; a PR only reads it.
+      - name: Restore Next.js build cache
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
         with:
           path: apps/web/.next/cache
           key: next-web-${{ github.sha }}
@@ -435,7 +435,6 @@ jobs:
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
 
       - name: Setup Bun
-        id: setup-bun
         uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
         with:
           bun-version-file: .bun-version
@@ -454,8 +453,9 @@ jobs:
       - name: Install Vercel CLI
         run: bun add --global vercel@$VERCEL_CLI_VERSION
 
-      - name: Cache Next.js build cache
-        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+      # Production deploys on main write this cache; a PR only reads it.
+      - name: Restore Next.js build cache
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
         with:
           path: apps/marketing/.next/cache
           key: next-marketing-${{ github.sha }}
@@ -570,7 +570,6 @@ jobs:
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
 
       - name: Setup Bun
-        id: setup-bun
         uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
         with:
           bun-version-file: .bun-version
@@ -589,8 +588,9 @@ jobs:
       - name: Install Vercel CLI
         run: bun add --global vercel@$VERCEL_CLI_VERSION
 
-      - name: Cache Next.js build cache
-        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+      # Production deploys on main write this cache; a PR only reads it.
+      - name: Restore Next.js build cache
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
         with:
           path: apps/admin/.next/cache
           key: next-admin-${{ github.sha }}
@@ -691,7 +691,6 @@ jobs:
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
 
       - name: Setup Bun
-        id: setup-bun
         uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
         with:
           bun-version-file: .bun-version
@@ -709,13 +708,6 @@ jobs:
 
       - name: Install Vercel CLI
         run: bun add --global vercel@$VERCEL_CLI_VERSION
-
-      - name: Cache Next.js build cache
-        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
-        with:
-          path: apps/docs/.next/cache
-          key: next-docs-${{ github.sha }}
-          restore-keys: next-docs-
 
       - name: Build and Deploy Docs
         id: deploy
