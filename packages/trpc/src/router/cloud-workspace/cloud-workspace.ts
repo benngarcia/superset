@@ -642,7 +642,12 @@ export const cloudWorkspaceRouter = {
 					row.id,
 					{ kind: "user", userId: ctx.userId },
 					{ event: "archived" },
-				);
+				).catch((error) => {
+					console.error(
+						`[cloud-workspace] ${row.id} archive activity write failed`,
+						error,
+					);
+				});
 			}
 			nudge(row.organizationId, "cloud_workspaces");
 			return { deleted: true };
