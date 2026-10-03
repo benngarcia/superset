@@ -242,10 +242,6 @@ msgstr "{0, plural, one {# görev} other {# görev}}"
 msgid "{0, plural, one {# terminal running} other {# terminals running}}"
 msgstr "{0, plural, one {# terminal çalışıyor} other {# terminal çalışıyor}}"
 
-#. placeholder {0}: entry.items.length
-msgid "{0, plural, one {# tool call} other {# tool calls}}"
-msgstr "{0, plural, one {# araç çağrısı} other {# araç çağrısı}}"
-
 #. placeholder {0}: group.workspaceCount
 #. placeholder {0}: selectedWorkspaces.length
 msgid "{0, plural, one {# workspace} other {# workspaces}}"
@@ -772,6 +768,9 @@ msgstr "{count, plural, one {# çalışma alanı oluşturuldu} other {# çalış
 msgid "{count, plural, one {Delete # Workspace} other {Delete # Workspaces}}"
 msgstr "{count, plural, one {# çalışma alanını sil} other {# çalışma alanını sil}}"
 
+msgid "{count, plural, one {edited # file} other {edited # files}}"
+msgstr "{count, plural, one {# dosya düzenlendi} other {# dosya düzenlendi}}"
+
 msgid "{count, plural, one {Every # day at {time}} other {Every # days at {time}}}"
 msgstr "{count, plural, one {# günde bir, saat {time}} other {# günde bir, saat {time}}}"
 
@@ -790,14 +789,26 @@ msgstr "{count, plural, one {# haftada bir {day}, saat {time}} other {# haftada 
 msgid "{count, plural, one {Every # week on {day}} other {Every # weeks on {day}}}"
 msgstr "{count, plural, one {# haftada bir {day}} other {# haftada bir {day}}}"
 
+msgid "{count, plural, one {fetched # page} other {fetched # pages}}"
+msgstr "{count, plural, one {# sayfa alındı} other {# sayfa alındı}}"
+
 msgid "{count, plural, one {Import # worktree} other {Import # worktrees}}"
 msgstr "{count, plural, one {# worktree'yi içe aktar} other {# worktree'yi içe aktar}}"
 
 msgid "{count, plural, one {Project opened} other {# projects opened}}"
 msgstr "{count, plural, one {Proje açıldı} other {# proje açıldı}}"
 
+msgid "{count, plural, one {ran # command} other {ran # commands}}"
+msgstr "{count, plural, one {# komut çalıştırıldı} other {# komut çalıştırıldı}}"
+
+msgid "{count, plural, one {read # file} other {read # files}}"
+msgstr "{count, plural, one {# dosya okundu} other {# dosya okundu}}"
+
 msgid "{count, plural, one {Used # source} other {Used # sources}}"
 msgstr "{count, plural, one {# kaynak kullanıldı} other {# kaynak kullanıldı}}"
+
+msgid "{count, plural, one {used # tool} other {used # tools}}"
+msgstr "{count, plural, one {# araç kullanıldı} other {# araç kullanıldı}}"
 
 msgid "{count} GitHub stars"
 msgstr "{count} GitHub yıldızı"
@@ -17988,6 +17999,9 @@ msgstr "{0} dk {1} sn'dir çalışıyor"
 
 msgid "Working for {seconds}s"
 msgstr "{seconds} sn'dir çalışıyor"
+
+msgid "Working…"
+msgstr "Çalışıyor…"
 
 msgid "Works when environments are clean. Environments are rarely clean."
 msgstr "Ortamlar temizken çalışıyor. Ortamlar nadiren temiz."

@@ -242,10 +242,6 @@ msgstr "{0, plural, one {# tác vụ} other {# tác vụ}}"
 msgid "{0, plural, one {# terminal running} other {# terminals running}}"
 msgstr "{0, plural, other {# terminal đang chạy}}"
 
-#. placeholder {0}: entry.items.length
-msgid "{0, plural, one {# tool call} other {# tool calls}}"
-msgstr "{0, plural, one {# lệnh gọi công cụ} other {# lệnh gọi công cụ}}"
-
 #. placeholder {0}: group.workspaceCount
 #. placeholder {0}: selectedWorkspaces.length
 msgid "{0, plural, one {# workspace} other {# workspaces}}"
@@ -772,6 +768,9 @@ msgstr "{count, plural, one {Đã tạo # workspace} other {Đã tạo # workspa
 msgid "{count, plural, one {Delete # Workspace} other {Delete # Workspaces}}"
 msgstr "{count, plural, one {Xóa # workspace} other {Xóa # workspace}}"
 
+msgid "{count, plural, one {edited # file} other {edited # files}}"
+msgstr "{count, plural, one {đã sửa # tệp} other {đã sửa # tệp}}"
+
 msgid "{count, plural, one {Every # day at {time}} other {Every # days at {time}}}"
 msgstr "{count, plural, one {Mỗi # ngày lúc {time}} other {Mỗi # ngày lúc {time}}}"
 
@@ -790,14 +789,26 @@ msgstr "{count, plural, one {Mỗi # tuần vào {day} lúc {time}} other {Mỗi
 msgid "{count, plural, one {Every # week on {day}} other {Every # weeks on {day}}}"
 msgstr "{count, plural, one {Mỗi # tuần vào {day}} other {Mỗi # tuần vào {day}}}"
 
+msgid "{count, plural, one {fetched # page} other {fetched # pages}}"
+msgstr "{count, plural, one {đã tải # trang} other {đã tải # trang}}"
+
 msgid "{count, plural, one {Import # worktree} other {Import # worktrees}}"
 msgstr "{count, plural, one {Nhập # worktree} other {Nhập # worktree}}"
 
 msgid "{count, plural, one {Project opened} other {# projects opened}}"
 msgstr "{count, plural, one {Đã mở dự án} other {Đã mở # dự án}}"
 
+msgid "{count, plural, one {ran # command} other {ran # commands}}"
+msgstr "{count, plural, one {đã chạy # lệnh} other {đã chạy # lệnh}}"
+
+msgid "{count, plural, one {read # file} other {read # files}}"
+msgstr "{count, plural, one {đã đọc # tệp} other {đã đọc # tệp}}"
+
 msgid "{count, plural, one {Used # source} other {Used # sources}}"
 msgstr "{count, plural, one {Đã dùng # nguồn} other {Đã dùng # nguồn}}"
+
+msgid "{count, plural, one {used # tool} other {used # tools}}"
+msgstr "{count, plural, one {đã dùng # công cụ} other {đã dùng # công cụ}}"
 
 msgid "{count} GitHub stars"
 msgstr "{count} star GitHub"
@@ -17988,6 +17999,9 @@ msgstr "Đang chạy {0} phút {1} giây"
 
 msgid "Working for {seconds}s"
 msgstr "Đang chạy {seconds} giây"
+
+msgid "Working…"
+msgstr "Đang xử lý…"
 
 msgid "Works when environments are clean. Environments are rarely clean."
 msgstr "Chạy được khi môi trường sạch. Môi trường hiếm khi sạch."

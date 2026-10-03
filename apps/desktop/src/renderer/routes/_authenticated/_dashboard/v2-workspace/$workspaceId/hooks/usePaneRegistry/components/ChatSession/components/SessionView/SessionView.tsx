@@ -114,7 +114,10 @@ export function SessionView({
 					)}
 				</div>
 			) : (
-				<div className="flex min-h-0 flex-1">
+				// The rail floats over the transcript's margin instead of taking a
+				// column, so the reading measure centers on the same axis as the
+				// composer whether or not the rail is showing.
+				<div className="relative flex min-h-0 flex-1">
 					<Transcript
 						approvals={approvals}
 						canForkToWorktree={canForkToWorktree}
@@ -145,7 +148,7 @@ export function SessionView({
 					/>
 					{rail.length > 1 && (
 						<ChatHistorySidebar
-							className="hidden shrink-0 self-start py-6 pr-3 lg:block"
+							className="absolute top-0 right-0 hidden py-6 pr-3 lg:block"
 							messages={rail}
 							onMessageSelect={selectFromRail}
 						/>

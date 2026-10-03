@@ -242,10 +242,6 @@ msgstr "{0, plural, one {# úkol} few {# úkoly} many {# úkolu} other {# úkol�
 msgid "{0, plural, one {# terminal running} other {# terminals running}}"
 msgstr "{0, plural, one {# běžící terminál} few {# běžící terminály} many {# běžícího terminálu} other {# běžících terminálů}}"
 
-#. placeholder {0}: entry.items.length
-msgid "{0, plural, one {# tool call} other {# tool calls}}"
-msgstr "{0, plural, one {# volání nástroje} few {# volání nástroje} many {# volání nástroje} other {# volání nástrojů}}"
-
 #. placeholder {0}: group.workspaceCount
 #. placeholder {0}: selectedWorkspaces.length
 msgid "{0, plural, one {# workspace} other {# workspaces}}"
@@ -772,6 +768,9 @@ msgstr "{count, plural, one {Vytvořen # pracovní prostor} few {Vytvořeny # pr
 msgid "{count, plural, one {Delete # Workspace} other {Delete # Workspaces}}"
 msgstr "{count, plural, one {Smazat # pracovní prostor} few {Smazat # pracovní prostory} many {Smazat # pracovního prostoru} other {Smazat # pracovních prostorů}}"
 
+msgid "{count, plural, one {edited # file} other {edited # files}}"
+msgstr "{count, plural, one {upraven # soubor} few {upraveny # soubory} many {upraveno # souboru} other {upraveno # souborů}}"
+
 msgid "{count, plural, one {Every # day at {time}} other {Every # days at {time}}}"
 msgstr "{count, plural, one {Každý # den v {time}} few {Každé # dny v {time}} many {Každých # dne v {time}} other {Každých # dní v {time}}}"
 
@@ -790,14 +789,26 @@ msgstr "{count, plural, one {Každý # týden, {day} v {time}} few {Každé # t�
 msgid "{count, plural, one {Every # week on {day}} other {Every # weeks on {day}}}"
 msgstr "{count, plural, one {Každý # týden, {day}} few {Každé # týdny, {day}} many {Každých # týdne, {day}} other {Každých # týdnů, {day}}}"
 
+msgid "{count, plural, one {fetched # page} other {fetched # pages}}"
+msgstr "{count, plural, one {načtena # stránka} few {načteny # stránky} many {načteno # stránky} other {načteno # stránek}}"
+
 msgid "{count, plural, one {Import # worktree} other {Import # worktrees}}"
 msgstr "{count, plural, one {Importovat # worktree} few {Importovat # worktree} many {Importovat # worktree} other {Importovat # worktree}}"
 
 msgid "{count, plural, one {Project opened} other {# projects opened}}"
 msgstr "{count, plural, one {Projekt otevřen} few {# projekty otevřeny} many {# projektu otevřeno} other {# projektů otevřeno}}"
 
+msgid "{count, plural, one {ran # command} other {ran # commands}}"
+msgstr "{count, plural, one {spuštěn # příkaz} few {spuštěny # příkazy} many {spuštěno # příkazu} other {spuštěno # příkazů}}"
+
+msgid "{count, plural, one {read # file} other {read # files}}"
+msgstr "{count, plural, one {přečten # soubor} few {přečteny # soubory} many {přečteno # souboru} other {přečteno # souborů}}"
+
 msgid "{count, plural, one {Used # source} other {Used # sources}}"
 msgstr "{count, plural, one {Použit # zdroj} few {Použity # zdroje} many {Použito # zdroje} other {Použito # zdrojů}}"
+
+msgid "{count, plural, one {used # tool} other {used # tools}}"
+msgstr "{count, plural, one {použit # nástroj} few {použity # nástroje} many {použito # nástroje} other {použito # nástrojů}}"
 
 msgid "{count} GitHub stars"
 msgstr "{count} hvězd na GitHubu"
@@ -17988,6 +17999,9 @@ msgstr "Pracuje se {0} m {1} s"
 
 msgid "Working for {seconds}s"
 msgstr "Pracuje se {seconds} s"
+
+msgid "Working…"
+msgstr "Pracuji…"
 
 msgid "Works when environments are clean. Environments are rarely clean."
 msgstr "Funguje, když jsou prostředí čistá. Prostředí bývají čistá zřídka."

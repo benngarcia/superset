@@ -242,10 +242,6 @@ msgstr "{0, plural, one {# задача} few {# задачи} many {# задач
 msgid "{0, plural, one {# terminal running} other {# terminals running}}"
 msgstr "{0, plural, one {# терминал запущен} few {# терминала запущено} many {# терминалов запущено} other {# терминала запущено}}"
 
-#. placeholder {0}: entry.items.length
-msgid "{0, plural, one {# tool call} other {# tool calls}}"
-msgstr "{0, plural, one {# вызов инструмента} few {# вызова инструмента} many {# вызовов инструментов} other {# вызова инструмента}}"
-
 #. placeholder {0}: group.workspaceCount
 #. placeholder {0}: selectedWorkspaces.length
 msgid "{0, plural, one {# workspace} other {# workspaces}}"
@@ -772,6 +768,9 @@ msgstr "{count, plural, one {Создана # рабочая область} few
 msgid "{count, plural, one {Delete # Workspace} other {Delete # Workspaces}}"
 msgstr "{count, plural, one {Удалить # рабочую область} few {Удалить # рабочие области} many {Удалить # рабочих областей} other {Удалить # рабочих областей}}"
 
+msgid "{count, plural, one {edited # file} other {edited # files}}"
+msgstr "{count, plural, one {изменён # файл} few {изменено # файла} many {изменено # файлов} other {изменено # файла}}"
+
 msgid "{count, plural, one {Every # day at {time}} other {Every # days at {time}}}"
 msgstr "{count, plural, one {Каждый # день в {time}} few {Каждые # дня в {time}} many {Каждые # дней в {time}} other {Каждые # дня в {time}}}"
 
@@ -790,14 +789,26 @@ msgstr "{count, plural, one {Каждую # неделю: {day} в {time}} few {
 msgid "{count, plural, one {Every # week on {day}} other {Every # weeks on {day}}}"
 msgstr "{count, plural, one {Каждую # неделю: {day}} few {Каждые # недели: {day}} many {Каждые # недель: {day}} other {Каждые # недели: {day}}}"
 
+msgid "{count, plural, one {fetched # page} other {fetched # pages}}"
+msgstr "{count, plural, one {загружена # страница} few {загружено # страницы} many {загружено # страниц} other {загружено # страницы}}"
+
 msgid "{count, plural, one {Import # worktree} other {Import # worktrees}}"
 msgstr "{count, plural, one {Импортировать # worktree} few {Импортировать # worktree} many {Импортировать # worktree} other {Импортировать # worktree}}"
 
 msgid "{count, plural, one {Project opened} other {# projects opened}}"
 msgstr "{count, plural, one {Проект открыт} few {Открыто # проекта} many {Открыто # проектов} other {Открыто # проекта}}"
 
+msgid "{count, plural, one {ran # command} other {ran # commands}}"
+msgstr "{count, plural, one {выполнена # команда} few {выполнено # команды} many {выполнено # команд} other {выполнено # команды}}"
+
+msgid "{count, plural, one {read # file} other {read # files}}"
+msgstr "{count, plural, one {прочитан # файл} few {прочитано # файла} many {прочитано # файлов} other {прочитано # файла}}"
+
 msgid "{count, plural, one {Used # source} other {Used # sources}}"
 msgstr "{count, plural, one {Использован # источник} few {Использовано # источника} many {Использовано # источников} other {Использовано # источника}}"
+
+msgid "{count, plural, one {used # tool} other {used # tools}}"
+msgstr "{count, plural, one {использован # инструмент} few {использовано # инструмента} many {использовано # инструментов} other {использовано # инструмента}}"
 
 msgid "{count} GitHub stars"
 msgstr "{count} звёзд на GitHub"
@@ -17988,6 +17999,9 @@ msgstr "В работе {0} мин {1} с"
 
 msgid "Working for {seconds}s"
 msgstr "В работе {seconds} с"
+
+msgid "Working…"
+msgstr "Работаю…"
 
 msgid "Works when environments are clean. Environments are rarely clean."
 msgstr "Работает, когда окружения чистые. Чистые они редко."

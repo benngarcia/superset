@@ -242,10 +242,6 @@ msgstr "{0, plural, one {# tugas} other {# tugas}}"
 msgid "{0, plural, one {# terminal running} other {# terminals running}}"
 msgstr "{0, plural, other {# terminal berjalan}}"
 
-#. placeholder {0}: entry.items.length
-msgid "{0, plural, one {# tool call} other {# tool calls}}"
-msgstr "{0, plural, one {# panggilan alat} other {# panggilan alat}}"
-
 #. placeholder {0}: group.workspaceCount
 #. placeholder {0}: selectedWorkspaces.length
 msgid "{0, plural, one {# workspace} other {# workspaces}}"
@@ -772,6 +768,9 @@ msgstr "{count, plural, one {Membuat # workspace} other {Membuat # workspace}}"
 msgid "{count, plural, one {Delete # Workspace} other {Delete # Workspaces}}"
 msgstr "{count, plural, one {Hapus # Workspace} other {Hapus # Workspace}}"
 
+msgid "{count, plural, one {edited # file} other {edited # files}}"
+msgstr "{count, plural, one {mengedit # file} other {mengedit # file}}"
+
 msgid "{count, plural, one {Every # day at {time}} other {Every # days at {time}}}"
 msgstr "{count, plural, one {Tiap # hari pukul {time}} other {Tiap # hari pukul {time}}}"
 
@@ -790,14 +789,26 @@ msgstr "{count, plural, one {Tiap # minggu pada {day} pukul {time}} other {Tiap 
 msgid "{count, plural, one {Every # week on {day}} other {Every # weeks on {day}}}"
 msgstr "{count, plural, one {Tiap # minggu pada {day}} other {Tiap # minggu pada {day}}}"
 
+msgid "{count, plural, one {fetched # page} other {fetched # pages}}"
+msgstr "{count, plural, one {mengambil # halaman} other {mengambil # halaman}}"
+
 msgid "{count, plural, one {Import # worktree} other {Import # worktrees}}"
 msgstr "{count, plural, one {Impor # worktree} other {Impor # worktree}}"
 
 msgid "{count, plural, one {Project opened} other {# projects opened}}"
 msgstr "{count, plural, one {Proyek dibuka} other {# proyek dibuka}}"
 
+msgid "{count, plural, one {ran # command} other {ran # commands}}"
+msgstr "{count, plural, one {menjalankan # perintah} other {menjalankan # perintah}}"
+
+msgid "{count, plural, one {read # file} other {read # files}}"
+msgstr "{count, plural, one {membaca # file} other {membaca # file}}"
+
 msgid "{count, plural, one {Used # source} other {Used # sources}}"
 msgstr "{count, plural, one {Memakai # sumber} other {Memakai # sumber}}"
+
+msgid "{count, plural, one {used # tool} other {used # tools}}"
+msgstr "{count, plural, one {menggunakan # alat} other {menggunakan # alat}}"
 
 msgid "{count} GitHub stars"
 msgstr "{count} star GitHub"
@@ -17988,6 +17999,9 @@ msgstr "Bekerja selama {0} mnt {1} dtk"
 
 msgid "Working for {seconds}s"
 msgstr "Bekerja selama {seconds} dtk"
+
+msgid "Working…"
+msgstr "Sedang bekerja…"
 
 msgid "Works when environments are clean. Environments are rarely clean."
 msgstr "Berhasil kalau environment-nya bersih. Environment jarang bersih."
