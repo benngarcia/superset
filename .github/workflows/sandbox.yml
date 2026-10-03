@@ -68,6 +68,8 @@ jobs:
       # Keeps the builder's layers on a persistent disk between runs.
       - name: Set up the Docker builder
         uses: useblacksmith/setup-docker-builder@19215110ab936351210feebdfa5b440b4493e184 # v2.2.0
+        with:
+          cache-key: sandbox-image
 
       - name: Build the image locally
         working-directory: packages/sandbox
