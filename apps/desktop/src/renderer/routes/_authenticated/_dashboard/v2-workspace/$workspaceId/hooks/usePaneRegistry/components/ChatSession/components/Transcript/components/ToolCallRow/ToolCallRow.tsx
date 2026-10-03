@@ -1,5 +1,6 @@
 import { Plural, Trans } from "@lingui/react/macro";
 import type { ToolCall, ToolKind } from "@superset/chat/protocol";
+import { ShimmerLabel } from "@superset/ui/ai-elements/shimmer-label";
 import {
 	Collapsible,
 	CollapsibleContent,
@@ -72,42 +73,70 @@ function outputTail(
 	};
 }
 
+function StatusWord({ status }: { status: ToolCall["status"] }) {
+	switch (status) {
+		case "failed":
+			return (
+				<span className="shrink-0 font-mono text-[11px] text-destructive/80 lowercase">
+					<Trans>Failed</Trans>
+				</span>
+			);
+		case "declined":
+			return (
+				<span className="shrink-0 font-mono text-[11px] text-destructive/80 lowercase">
+					<Trans>Denied</Trans>
+				</span>
+			);
+		case "canceled":
+			return (
+				<span className="shrink-0 font-mono text-[11px] text-muted-foreground/70 lowercase">
+					<Trans>Canceled</Trans>
+				</span>
+			);
+		default:
+			return null;
+	}
+}
+
 /**
  * One line per call, the way an editor lists what an agent did: the tool's own
  * icon and title, the tail of its output beneath, and the rest behind a
- * disclosure that says how much it is hiding. Status rides the icon rather than
- * a chip, and the raw tool name stays out of it.
+ * disclosure that says how much it is hiding. A running call shimmers its
+ * title; a settled one recedes, so the live frontier is what the eye lands on,
+ * and the raw tool name stays out of it.
  */
 export function ToolCallRow({ item }: { item: ToolCall }) {
 	const [open, setOpen] = useState(false);
 	const duration = durationLabel(item);
 	const hasBody = item.content.length > 0;
 	const Icon = ICON_BY_KIND[item.toolKind] ?? Wrench;
-	const failed = item.status === "failed" || item.status === "declined";
+	const running = item.status === "running";
 	const tail = outputTail(item);
-
 	return (
-		<Collapsible onOpenChange={setOpen} open={open}>
-			<div
-				className={cn(
-					"flex items-center gap-2 py-0.5 text-sm",
-					failed ? "text-destructive" : "text-muted-foreground",
-				)}
-			>
-				<Icon
-					className={cn(
-						"size-3.5 shrink-0",
-						item.status === "running" && "animate-pulse",
+		<Collapsible
+			className={cn(
+				"transition-opacity duration-300",
+				!running && !open && "opacity-60 hover:opacity-100",
+			)}
+			onOpenChange={setOpen}
+			open={open}
+		>
+			<div className="flex items-center gap-2 py-0.5 text-muted-foreground text-sm">
+				<Icon className="size-3.5 shrink-0" />
+				<span className="min-w-0 flex-1 truncate">
+					{running ? (
+						<ShimmerLabel className="font-normal">{item.title}</ShimmerLabel>
+					) : (
+						item.title
 					)}
-				/>
-				<span className="min-w-0 flex-1 truncate">{item.title}</span>
+				</span>
+				<StatusWord status={item.status} />
 				{duration && (
 					<span className="shrink-0 text-xs tabular-nums opacity-50">
 						{duration}
 					</span>
 				)}
 			</div>
-
 			{tail && !open && (
 				<div className="ml-[22px] flex flex-col overflow-hidden">
 					{tail.lines.map((line, index) => (
@@ -121,7 +150,6 @@ export function ToolCallRow({ item }: { item: ToolCall }) {
 					))}
 				</div>
 			)}
-
 			{hasBody && (
 				<>
 					<CollapsibleTrigger className="ml-[22px] py-0.5 text-muted-foreground/60 text-xs hover:text-foreground">

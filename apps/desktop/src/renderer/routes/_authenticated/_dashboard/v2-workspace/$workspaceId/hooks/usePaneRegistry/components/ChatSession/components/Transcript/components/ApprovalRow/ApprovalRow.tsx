@@ -6,11 +6,38 @@ import { Badge } from "@superset/ui/badge";
 import { Button } from "@superset/ui/button";
 import { ToolContentList } from "../ToolContentList";
 
+type ApprovalOption = NonNullable<ApprovalRequest["options"]>[number];
+type OptionRole = "reject" | "allow_always" | "allow_once";
+
 const DECISION_ANSWERED = msg({
 	message: "Answered",
 });
 
-function decisionLabel(decision: Decision | undefined): string {
+/**
+ * Agents name their options freely; the ACP kind says what each one does,
+ * and the id and label stand in for it when the agent sent none.
+ */
+function optionRole(option: ApprovalOption): OptionRole {
+	switch (option.kind) {
+		case "reject_once":
+		case "reject_always":
+			return "reject";
+		case "allow_once":
+		case "allow_always":
+			return option.kind;
+		case undefined:
+			break;
+	}
+	const text = `${option.optionId} ${option.label}`;
+	if (/reject|deny|\bno\b/i.test(text)) return "reject";
+	if (/session|always/i.test(text)) return "allow_always";
+	return "allow_once";
+}
+
+function decisionLabel(
+	decision: Decision | undefined,
+	options: readonly ApprovalOption[],
+): string {
 	if (!decision) return i18n._(DECISION_ANSWERED);
 	switch (decision.type) {
 		case "accept":
@@ -26,10 +53,64 @@ function decisionLabel(decision: Decision | undefined): string {
 		case "cancel":
 			return i18n._(msg({ message: "Canceled" }));
 		case "option":
-			return decision.optionId;
+			return (
+				options.find((option) => option.optionId === decision.optionId)
+					?.label ?? decision.optionId
+			);
 		default:
 			return i18n._(DECISION_ANSWERED);
 	}
+}
+
+/**
+ * Deny sits alone on the left; the allow choices group on the right with the
+ * narrowest grant as the primary, so the default-looking button is the one
+ * that gives away the least.
+ */
+function OptionButtons({
+	item,
+	onRespond,
+}: {
+	item: ApprovalRequest & { options: ApprovalOption[] };
+	onRespond: (approvalId: string, decision: Decision) => void;
+}) {
+	const roles = item.options.map((option) => ({
+		option,
+		role: optionRole(option),
+	}));
+	const rejects = roles.filter(({ role }) => role === "reject");
+	const allows = roles.filter(({ role }) => role !== "reject");
+	const primaryId = (
+		allows.find(({ role }) => role === "allow_once") ?? allows[0]
+	)?.option.optionId;
+	const respond = (option: ApprovalOption) =>
+		onRespond(item.id, { type: "option", optionId: option.optionId });
+	return (
+		<div className="flex flex-wrap items-center gap-2">
+			{rejects.map(({ option }) => (
+				<Button
+					key={option.optionId}
+					onClick={() => respond(option)}
+					size="sm"
+					variant="ghost"
+				>
+					{option.label}
+				</Button>
+			))}
+			<div className="flex flex-1 flex-wrap justify-end gap-2">
+				{allows.map(({ option }) => (
+					<Button
+						key={option.optionId}
+						onClick={() => respond(option)}
+						size="sm"
+						variant={option.optionId === primaryId ? "default" : "outline"}
+					>
+						{option.label}
+					</Button>
+				))}
+			</div>
+		</div>
+	);
 }
 
 export function ApprovalRow({
@@ -40,6 +121,7 @@ export function ApprovalRow({
 	onRespond: (approvalId: string, decision: Decision) => void;
 }) {
 	const pending = item.status === "pending";
+	const options = item.options ?? [];
 	return (
 		<div
 			className={
@@ -49,6 +131,12 @@ export function ApprovalRow({
 			}
 		>
 			<div className="flex items-center gap-2">
+				{pending && (
+					<span
+						aria-hidden
+						className="size-2 shrink-0 rounded-full bg-warning ring-[3px] ring-warning/20"
+					/>
+				)}
 				<span className="text-sm font-medium">{item.title}</span>
 				{item.status === "stale" && (
 					<Badge variant="outline">
@@ -56,51 +144,41 @@ export function ApprovalRow({
 					</Badge>
 				)}
 				{item.status === "answered" && (
-					<Badge variant="secondary">{decisionLabel(item.decision)}</Badge>
+					<Badge variant="secondary">
+						{decisionLabel(item.decision, options)}
+					</Badge>
 				)}
 			</div>
 			{item.detail && <ToolContentList itemId={item.id} items={item.detail} />}
 			{pending &&
-				(item.options?.length ? (
-					<div className="flex flex-wrap gap-2">
-						{item.options.map((option) => (
+				(options.length > 0 ? (
+					<OptionButtons item={{ ...item, options }} onRespond={onRespond} />
+				) : (
+					<div className="flex flex-wrap items-center gap-2">
+						<Button
+							onClick={() => onRespond(item.id, { type: "decline" })}
+							size="sm"
+							variant="ghost"
+						>
+							<Trans>Deny</Trans>
+						</Button>
+						<div className="flex flex-1 flex-wrap justify-end gap-2">
 							<Button
-								key={option.optionId}
 								onClick={() =>
-									onRespond(item.id, {
-										type: "option",
-										optionId: option.optionId,
-									})
+									onRespond(item.id, { type: "accept_for_session" })
 								}
 								size="sm"
 								variant="outline"
 							>
-								{option.label}
+								<Trans>Allow for session</Trans>
 							</Button>
-						))}
-					</div>
-				) : (
-					<div className="flex flex-wrap gap-2">
-						<Button
-							onClick={() => onRespond(item.id, { type: "accept" })}
-							size="sm"
-						>
-							<Trans>Allow</Trans>
-						</Button>
-						<Button
-							onClick={() => onRespond(item.id, { type: "accept_for_session" })}
-							size="sm"
-							variant="outline"
-						>
-							<Trans>Allow for session</Trans>
-						</Button>
-						<Button
-							onClick={() => onRespond(item.id, { type: "decline" })}
-							size="sm"
-							variant="outline"
-						>
-							<Trans>Deny</Trans>
-						</Button>
+							<Button
+								onClick={() => onRespond(item.id, { type: "accept" })}
+								size="sm"
+							>
+								<Trans>Allow</Trans>
+							</Button>
+						</div>
 					</div>
 				))}
 		</div>
