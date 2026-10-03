@@ -15,7 +15,7 @@ import {
 	sandboxCheckoutDir,
 	sandboxRepositoriesSchema,
 } from "@superset/shared/sandbox-contract";
-import { and, eq, isNull } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import type { HostDb } from "../../db";
 import { projects, workspaces } from "../../db/schema";
 import { runAgentInWorkspace } from "../../trpc/router/agents/agents";
@@ -406,12 +406,7 @@ export function runSandboxSelfSeed(
 			if (parsed && existing.projectId) {
 				db.update(projects)
 					.set({ ...repoFields, updatedAt: now })
-					.where(
-						and(
-							eq(projects.id, existing.projectId),
-							isNull(projects.repoOwner),
-						),
-					)
+					.where(eq(projects.id, existing.projectId))
 					.run();
 			}
 			return;
