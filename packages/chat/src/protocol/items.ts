@@ -141,7 +141,15 @@ export const approvalRequestSchema = z.looseObject({
 	title: z.string(),
 	detail: z.array(toolContentSchema).optional(),
 	options: z
-		.array(z.looseObject({ optionId: z.string().min(1), label: z.string() }))
+		.array(
+			z.looseObject({
+				optionId: z.string().min(1),
+				label: z.string(),
+				kind: z
+					.enum(["allow_once", "allow_always", "reject_once", "reject_always"])
+					.optional(),
+			}),
+		)
 		.optional(),
 	status: z.enum(["pending", "answered", "stale"]),
 	decision: decisionSchema.optional(),

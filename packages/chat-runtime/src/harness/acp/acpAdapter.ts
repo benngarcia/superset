@@ -167,6 +167,19 @@ type PendingApproval = {
  * round trip; ACP `session/update` notifications stream into chat items and
  * deltas; `session/request_permission` becomes an approval item.
  */
+const APPROVAL_OPTION_KINDS = new Set([
+	"allow_once",
+	"allow_always",
+	"reject_once",
+	"reject_always",
+]);
+
+function isApprovalOptionKind(
+	kind: string | undefined,
+): kind is "allow_once" | "allow_always" | "reject_once" | "reject_always" {
+	return kind !== undefined && APPROVAL_OPTION_KINDS.has(kind);
+}
+
 export class AcpAdapter implements HarnessAdapter {
 	private readonly queue = new EventQueue();
 	private readonly toolCalls = new Map<string, ToolCall>();
@@ -672,7 +685,8 @@ export class AcpAdapter implements HarnessAdapter {
 		this.openText = next;
 		// A user message has no text field to stream into, so it is recorded
 		// once, whole, when it flushes.
-		if (kind !== "user_message") this.emitItem(this.textItem(next), turnId);
+		if (kind !== "user_message")
+			this.emitItem(this.textItem(next, "open"), turnId);
 		return next;
 	}
 
@@ -703,14 +717,14 @@ export class AcpAdapter implements HarnessAdapter {
 				text: open.text,
 				startedAtMs: open.startedAtMs,
 			});
-		this.emitItem(this.textItem(open), open.turnId);
+		this.emitItem(this.textItem(open, "flushed"), open.turnId);
 	}
 
-	private textItem(open: OpenText): Item {
+	private textItem(open: OpenText, state: "open" | "flushed"): Item {
 		const base = {
 			id: open.itemId,
 			startedAtMs: open.startedAtMs,
-			completedAtMs: this.now(),
+			...(state === "flushed" ? { completedAtMs: this.now() } : {}),
 		};
 		switch (open.kind) {
 			case "agent_message":
@@ -989,6 +1003,7 @@ export class AcpAdapter implements HarnessAdapter {
 			options: parsed.data.options.map((option) => ({
 				optionId: option.optionId,
 				label: option.name,
+				...(isApprovalOptionKind(option.kind) ? { kind: option.kind } : {}),
 			})),
 		};
 		this.pendingApprovals.set(approvalId, {
