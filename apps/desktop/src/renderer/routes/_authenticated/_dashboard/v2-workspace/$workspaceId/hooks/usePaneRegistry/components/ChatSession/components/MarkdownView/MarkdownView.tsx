@@ -1,14 +1,17 @@
 import { ChatMarkdown } from "@superset/chat-ui/ChatMarkdown";
 import { cn } from "@superset/ui/utils";
 import { memo, useMemo } from "react";
+import { ChatCodeBlock } from "./components/ChatCodeBlock";
 import { planMarkdown } from "./utils/planMarkdown";
+
+const CODE_COMPONENTS = { code: ChatCodeBlock };
 
 const MarkdownBlock = memo(function MarkdownBlock({
 	block,
 }: {
 	block: string;
 }) {
-	return <ChatMarkdown>{block}</ChatMarkdown>;
+	return <ChatMarkdown components={CODE_COMPONENTS}>{block}</ChatMarkdown>;
 });
 
 export function MarkdownView({
@@ -33,7 +36,7 @@ export function MarkdownView({
 			))}
 			{plan.tail !== null &&
 				(plan.tailFenceOpen ? (
-					<pre className="overflow-x-auto whitespace-pre-wrap rounded-md bg-muted p-2 font-mono text-xs">
+					<pre className="my-2 overflow-hidden whitespace-pre-wrap break-words rounded-md border border-border/60 bg-background px-3 py-2 font-mono text-xs">
 						{plan.tail}
 					</pre>
 				) : (

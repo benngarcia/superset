@@ -1,30 +1,47 @@
 import { MultiFileDiff } from "@pierre/diffs/react";
 import type { ToolContent } from "@superset/chat/protocol";
+import { useMemo } from "react";
 import {
 	getDiffsTheme,
 	getDiffViewerStyle,
 } from "renderer/screens/main/components/WorkspaceView/utils/code-theme";
 import { useResolvedTheme } from "renderer/stores/theme";
+import { diffStats } from "../../../../utils/diffStats";
+import { fileChangeKind } from "../../../../utils/fileChange";
+import { DetailScroll } from "../DetailScroll";
+import { DiffCardHeader } from "./components/DiffCardHeader";
 
 type DiffToolContent = Extract<ToolContent, { type: "diff" }>;
 
 const CHAT_DIFF_FONT_SIZE = 12;
 
-export function DiffContent({ content }: { content: DiffToolContent }) {
+/**
+ * One file's change as a card: a header that stays put, and under it the
+ * same diff renderer the PR pane uses, folded to the changed regions, in a
+ * box that follows the bottom while the agent is still writing the file.
+ */
+export function DiffContent({
+	content,
+	streaming = false,
+}: {
+	content: DiffToolContent;
+	streaming?: boolean;
+}) {
 	const activeTheme = useResolvedTheme();
+	const stats = useMemo(() => diffStats(content), [content]);
+	const kind = fileChangeKind(content);
+	const contentKey = `${content.path}:${content.oldText?.length ?? -1}:${content.newText.length}`;
 	return (
-		<div className="flex flex-col gap-1">
-			<span className="font-mono text-xs text-muted-foreground">
-				{content.path}
-				{content.oldText === null ? " (new file)" : ""}
-			</span>
+		<DetailScroll
+			className="mt-1"
+			contentKey={contentKey}
+			scrollClassName="rounded-lg border border-border/60 bg-background"
+			streaming={streaming}
+		>
+			<DiffCardHeader kind={kind} path={content.path} stats={stats} />
 			<MultiFileDiff
-				oldFile={{ name: content.path, contents: content.oldText ?? "" }}
 				newFile={{ name: content.path, contents: content.newText }}
-				className="overflow-hidden rounded-md border border-border/60"
-				style={getDiffViewerStyle(activeTheme, {
-					fontSize: CHAT_DIFF_FONT_SIZE,
-				})}
+				oldFile={{ name: content.path, contents: content.oldText ?? "" }}
 				options={{
 					diffStyle: "unified",
 					expandUnchanged: false,
@@ -33,7 +50,10 @@ export function DiffContent({ content }: { content: DiffToolContent }) {
 					overflow: "wrap",
 					disableFileHeader: true,
 				}}
+				style={getDiffViewerStyle(activeTheme, {
+					fontSize: CHAT_DIFF_FONT_SIZE,
+				})}
 			/>
-		</div>
+		</DetailScroll>
 	);
 }

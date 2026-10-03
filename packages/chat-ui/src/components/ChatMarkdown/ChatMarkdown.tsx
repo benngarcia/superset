@@ -1,6 +1,6 @@
 import { cn } from "@superset/ui/utils";
 import type { FunctionComponent, JSX, ReactNode } from "react";
-import { createElement, memo } from "react";
+import { createElement, memo, useMemo } from "react";
 import type { Components, ExtraProps } from "streamdown";
 import { Streamdown } from "streamdown";
 
@@ -62,17 +62,27 @@ export const chatMarkdownComponents = {
 export type ChatMarkdownProps = {
 	children: string;
 	className?: string;
+	/** Renderers a surface adds on top of the shared skin, such as its own code block. */
+	components?: Components;
 };
 
 /** One block of agent markdown, rendered the way every chat surface does. */
 export const ChatMarkdown = memo(function ChatMarkdown({
 	children,
 	className,
+	components,
 }: ChatMarkdownProps): ReactNode {
+	const merged = useMemo(
+		() =>
+			components
+				? { ...chatMarkdownComponents, ...components }
+				: chatMarkdownComponents,
+		[components],
+	);
 	return (
 		<Streamdown
 			className={cn("[&>*:first-child]:mt-0 [&>*:last-child]:mb-0", className)}
-			components={chatMarkdownComponents}
+			components={merged}
 			linkSafety={{ enabled: false }}
 			mode="streaming"
 		>
