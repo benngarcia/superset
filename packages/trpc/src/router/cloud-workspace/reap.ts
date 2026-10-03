@@ -50,12 +50,24 @@ function queueReapStage(
 	});
 }
 
-/** Stops the box after a short delay, and deletes it once the grace period is over. */
+/**
+ * Stops the box after a short delay, and deletes it once the grace period is over.
+ * Throws only when the delete could not be queued; a stop that could not be
+ * queued happens now instead.
+ */
 export async function queueReap(
 	input: Omit<ReapArchivedCloudWorkspaceInput, "stage">,
+	providerSandboxId: string,
 ): Promise<void> {
-	await Promise.all([
-		queueReapStage({ ...input, stage: "stop" }, ARCHIVE_STOP_DELAY_SECONDS),
-		queueReapStage({ ...input, stage: "delete" }, ARCHIVE_GRACE_SECONDS),
-	]);
+	await queueReapStage({ ...input, stage: "delete" }, ARCHIVE_GRACE_SECONDS);
+	await queueReapStage(
+		{ ...input, stage: "stop" },
+		ARCHIVE_STOP_DELAY_SECONDS,
+	).catch(async (error) => {
+		console.error(
+			`[cloud-workspace] could not queue the stop for ${input.cloudWorkspaceId}`,
+			error,
+		);
+		await stopSandbox(providerSandboxId);
+	});
 }

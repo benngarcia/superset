@@ -624,18 +624,12 @@ export const cloudWorkspaceRouter = {
 				set: { sandboxUrl: null, deletedAt: archivedAt },
 			});
 			if (archived) {
-				await recordCloudWorkspaceActivity(
-					db,
-					row.id,
-					{ kind: "user", userId: ctx.userId },
-					{ event: "archived" },
-				);
 				// A row from a retired provider has no sandbox left to keep.
 				if (row.provider === "vercel") {
-					await queueReap({
-						cloudWorkspaceId: row.id,
-						archivedAt: archivedAt.toISOString(),
-					}).catch(async (error) => {
+					await queueReap(
+						{ cloudWorkspaceId: row.id, archivedAt: archivedAt.toISOString() },
+						row.providerSandboxId,
+					).catch(async (error) => {
 						console.error(
 							`[cloud-workspace] could not queue the reap for ${row.id}`,
 							error,
@@ -643,6 +637,12 @@ export const cloudWorkspaceRouter = {
 						await deleteSandbox(row.providerSandboxId);
 					});
 				}
+				await recordCloudWorkspaceActivity(
+					db,
+					row.id,
+					{ kind: "user", userId: ctx.userId },
+					{ event: "archived" },
+				);
 			}
 			nudge(row.organizationId, "cloud_workspaces");
 			return { deleted: true };
