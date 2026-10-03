@@ -38,7 +38,6 @@ import { loginToRegistry } from "./registry";
 const REPO_ROOT = join(PACKAGE_ROOT, "..", "..");
 const IMAGE_TAG = process.env.SANDBOX_IMAGE_TAG ?? "latest";
 const LOCAL_IMAGE = "superset-sandbox:local";
-const BUILD_CACHE_REF = process.env.SANDBOX_IMAGE_CACHE_REF;
 
 // The repo pins bun once, in .bun-version; a sandbox on any other version
 // rejects the frozen lockfile and every dependency install fails.
@@ -140,14 +139,6 @@ export async function buildImage(
 					"--platform",
 					"linux/amd64",
 					"--load",
-					...(BUILD_CACHE_REF
-						? [
-								"--cache-from",
-								`type=registry,ref=${BUILD_CACHE_REF}`,
-								"--cache-to",
-								`type=registry,ref=${BUILD_CACHE_REF},mode=max,ignore-error=true`,
-							]
-						: []),
 					"-t",
 					LOCAL_IMAGE,
 					context,
