@@ -225,14 +225,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	// Profiles are listed once at their canonical bare URL. Expanding each of
 	// them across every locale with a full alternates map multiplies the file
 	// by the square of the locale count and blew past Vercel's 19 MB ISR cap.
-	const profilePages: MetadataRoute.Sitemap = (await listProfileHandles()).map(
-		(profile) => ({
-			url: `${baseUrl}/${profile.handle}`,
-			lastModified: profile.lastPublishedAt ?? undefined,
-			changeFrequency: "daily" as const,
-			priority: 0.6,
-		}),
-	);
+	const handles = await listProfileHandles().catch((error) => {
+		console.error("[marketing/sitemap] handles error:", error);
+		return [];
+	});
+	const profilePages: MetadataRoute.Sitemap = handles.map((profile) => ({
+		url: `${baseUrl}/${profile.handle}`,
+		lastModified: profile.lastPublishedAt ?? undefined,
+		changeFrequency: "daily" as const,
+		priority: 0.6,
+	}));
 
 	return [...pages.flatMap(expand), ...profilePages];
 }

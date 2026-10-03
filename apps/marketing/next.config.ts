@@ -105,10 +105,8 @@ const config: NextConfig = {
 		"/[lang]/user/[handle]/opengraph-image": ["./public/fonts/Inter-Bold.ttf"],
 	},
 
-	// The blog and changelog OG image routes read avatars, cover images and the
-	// logo from public/ by a path built at request time, so the tracer copies
-	// the whole folder into every server function. They never read video, GIFs
-	// or these folders.
+	// The OG image routes read public/ by a runtime path, so the tracer copies
+	// all of it into every function. They never read these.
 	outputFileTracingExcludes: {
 		"*": [
 			"./public/**/*.{mov,mp4,gif}",
