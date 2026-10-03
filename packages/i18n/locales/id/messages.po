@@ -148,7 +148,6 @@ msgid "{0, plural, one {# failed} other {# failed}}"
 msgstr "{0, plural, one {# gagal} other {# gagal}}"
 
 #. placeholder {0}: detail.pullRequest.changedFiles
-#. placeholder {0}: diffFiles.length
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# file berubah} other {# file berubah}}"
 
@@ -947,9 +946,6 @@ msgstr "{minutes}m lalu"
 msgid "{modKey}↵ to create"
 msgstr "{modKey}↵ untuk membuat"
 
-msgid "{months}mo"
-msgstr "{months}bln"
-
 msgid "{months}mo ago"
 msgstr "{months}bln lalu"
 
@@ -1734,9 +1730,6 @@ msgstr "Tambahkan ke Kamus"
 
 msgid "Add to project"
 msgstr "Tambahkan ke proyek"
-
-msgid "Add to prompt"
-msgstr "Tambahkan ke prompt"
 
 msgid "Add to sidebar"
 msgstr "Tambahkan ke sidebar"
@@ -4153,6 +4146,9 @@ msgstr "Hubungkan komputer ini"
 
 msgid "Connect your GitHub repositories and sync pull requests. Track CI status and reviews across your team."
 msgstr "Hubungkan repositori GitHub Anda dan sinkronkan pull request. Lacak status CI dan review di seluruh tim Anda."
+
+msgid "Connect your Linear account before tracking tasks in Linear."
+msgstr "Hubungkan akun Linear Anda sebelum melacak tugas di Linear."
 
 msgid "Connect your Linear account in Settings → Integrations to link Linear issues."
 msgstr "Hubungkan akun Linear Anda di Pengaturan → Integrasi untuk menautkan issue Linear."
@@ -7329,9 +7325,6 @@ msgstr "Ikuti kami di LinkedIn"
 msgid "Follow us on X/Twitter"
 msgstr "Ikuti kami di X/Twitter"
 
-msgid "Follow-ups on web are coming soon"
-msgstr "Tindak lanjut di web segera hadir"
-
 msgid "Font family"
 msgstr "Keluarga font"
 
@@ -9452,9 +9445,6 @@ msgstr "Memori"
 msgid "Memory share"
 msgstr "Porsi memori"
 
-msgid "Menu"
-msgstr "Menu"
-
 msgid "Menubar"
 msgstr "Menubar"
 
@@ -10493,9 +10483,6 @@ msgstr "Belum ada tangkapan layar"
 
 msgid "No sessions"
 msgstr "Tidak ada sesi"
-
-msgid "No sessions found"
-msgstr "Tidak ada sesi ditemukan"
 
 msgid "No sessions running"
 msgstr "Tidak ada sesi yang berjalan"
@@ -13915,12 +13902,6 @@ msgstr "Cari pull request…"
 msgid "Search repositories..."
 msgstr "Cari repositori..."
 
-msgid "Search sessions"
-msgstr "Cari sesi"
-
-msgid "Search sessions..."
-msgstr "Cari sesi..."
-
 msgid "Search settings..."
 msgstr "Cari pengaturan..."
 
@@ -14071,9 +14052,6 @@ msgstr "Pilih sebuah organisasi"
 msgid "Select base branch…"
 msgstr "Pilih branch dasar…"
 
-msgid "Select branch"
-msgstr "Pilih branch"
-
 msgid "Select branch..."
 msgstr "Pilih branch..."
 
@@ -14144,9 +14122,6 @@ msgid "Select range..."
 msgstr "Pilih rentang..."
 
 msgid "Select repositories"
-msgstr "Pilih repositori"
-
-msgid "Select repository"
 msgstr "Pilih repositori"
 
 msgid "Select run"
@@ -14265,9 +14240,6 @@ msgstr "Sesi"
 msgid "Session {0}"
 msgstr "Sesi {0}"
 
-msgid "Session creation on web is coming soon"
-msgstr "Pembuatan sesi di web segera hadir"
-
 msgid "Session details"
 msgstr "Detail sesi"
 
@@ -14288,9 +14260,6 @@ msgstr "Nama sesi diganti menjadi {trimmed}"
 
 msgid "Session snapshots & revert"
 msgstr "Snapshot sesi & pengembalian"
-
-msgid "Session view"
-msgstr "Tampilan sesi"
 
 msgid "Sessions"
 msgstr "Sesi"
@@ -15940,6 +15909,9 @@ msgstr "Endpoint itu tidak diizinkan."
 msgid "That handle is taken."
 msgstr "Handle itu sudah dipakai."
 
+msgid "That Linear issue doesn't exist or you can't see it."
+msgstr "Issue Linear itu tidak ada atau Anda tidak dapat melihatnya."
+
 msgid "That link doesn't lead anywhere in the app."
 msgstr "Tautan itu tidak mengarah ke mana pun di aplikasi."
 
@@ -16245,9 +16217,6 @@ msgstr "Undangan tim ini sudah kedaluwarsa atau tidak ada. Minta tautan baru dar
 
 msgid "The title shows everywhere this page is listed and in its link preview."
 msgstr "Judul muncul di semua tempat halaman ini terdaftar dan di pratinjau tautannya."
-
-msgid "The web agents UI is a read-only preview for now."
-msgstr "UI agen di web masih pratinjau baca-saja untuk saat ini."
 
 msgid "The workspace is not ready yet. Try again."
 msgstr "Workspace belum siap. Coba lagi."
@@ -17967,9 +17936,6 @@ msgstr "Bekerja {0} mnt {1} dtk"
 
 msgid "Worked for {seconds}s"
 msgstr "Bekerja {seconds} dtk"
-
-msgid "Worked for 39s"
-msgstr "Bekerja 39 dtk"
 
 msgid "Workflow run completed…"
 msgstr "Run workflow selesai…"

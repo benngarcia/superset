@@ -148,7 +148,6 @@ msgid "{0, plural, one {# failed} other {# failed}}"
 msgstr "{0, plural, one {# fehlgeschlagen} other {# fehlgeschlagen}}"
 
 #. placeholder {0}: detail.pullRequest.changedFiles
-#. placeholder {0}: diffFiles.length
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# Datei geändert} other {# Dateien geändert}}"
 
@@ -947,9 +946,6 @@ msgstr "vor {minutes} Min."
 msgid "{modKey}↵ to create"
 msgstr "{modKey}↵ zum Erstellen"
 
-msgid "{months}mo"
-msgstr "{months} Mon."
-
 msgid "{months}mo ago"
 msgstr "vor {months} Mon."
 
@@ -1734,9 +1730,6 @@ msgstr "Zum Wörterbuch hinzufügen"
 
 msgid "Add to project"
 msgstr "Zu Projekt hinzufügen"
-
-msgid "Add to prompt"
-msgstr "Zum Prompt hinzufügen"
 
 msgid "Add to sidebar"
 msgstr "Zur Seitenleiste hinzufügen"
@@ -4153,6 +4146,9 @@ msgstr "Diesen Computer verbinden"
 
 msgid "Connect your GitHub repositories and sync pull requests. Track CI status and reviews across your team."
 msgstr "Verbinde deine GitHub-Repositories und synchronisiere Pull Requests. Verfolge CI-Status und Reviews im ganzen Team."
+
+msgid "Connect your Linear account before tracking tasks in Linear."
+msgstr "Verbinde dein Linear-Konto, bevor Aufgaben in Linear verwaltet werden."
 
 msgid "Connect your Linear account in Settings → Integrations to link Linear issues."
 msgstr "Verbinde dein Linear-Konto unter Einstellungen → Integrationen, um Linear-Issues zu verknüpfen."
@@ -7329,9 +7325,6 @@ msgstr "Folge uns auf LinkedIn"
 msgid "Follow us on X/Twitter"
 msgstr "Folge uns auf X/Twitter"
 
-msgid "Follow-ups on web are coming soon"
-msgstr "Rückfragen im Web kommen bald"
-
 msgid "Font family"
 msgstr "Schriftfamilie"
 
@@ -9452,9 +9445,6 @@ msgstr "Speicher"
 msgid "Memory share"
 msgstr "Speicheranteil"
 
-msgid "Menu"
-msgstr "Menü"
-
 msgid "Menubar"
 msgstr "Menüleiste"
 
@@ -10493,9 +10483,6 @@ msgstr "Noch keine Screenshots"
 
 msgid "No sessions"
 msgstr "Keine Sitzungen"
-
-msgid "No sessions found"
-msgstr "Keine Sitzungen gefunden"
 
 msgid "No sessions running"
 msgstr "Keine Sitzungen aktiv"
@@ -13915,12 +13902,6 @@ msgstr "Pull Requests durchsuchen…"
 msgid "Search repositories..."
 msgstr "Repositories suchen..."
 
-msgid "Search sessions"
-msgstr "Sitzungen durchsuchen"
-
-msgid "Search sessions..."
-msgstr "Sitzungen durchsuchen..."
-
 msgid "Search settings..."
 msgstr "Einstellungen durchsuchen..."
 
@@ -14071,9 +14052,6 @@ msgstr "Organisation auswählen"
 msgid "Select base branch…"
 msgstr "Basis-Branch auswählen…"
 
-msgid "Select branch"
-msgstr "Branch auswählen"
-
 msgid "Select branch..."
 msgstr "Branch auswählen..."
 
@@ -14145,9 +14123,6 @@ msgstr "Bereich wählen..."
 
 msgid "Select repositories"
 msgstr "Repositories auswählen"
-
-msgid "Select repository"
-msgstr "Repository auswählen"
 
 msgid "Select run"
 msgstr "Ausführung auswählen"
@@ -14265,9 +14240,6 @@ msgstr "Sitzung"
 msgid "Session {0}"
 msgstr "Sitzung {0}"
 
-msgid "Session creation on web is coming soon"
-msgstr "Das Erstellen von Sitzungen im Web kommt bald"
-
 msgid "Session details"
 msgstr "Sitzungsdetails"
 
@@ -14288,9 +14260,6 @@ msgstr "Sitzung in {trimmed} umbenannt"
 
 msgid "Session snapshots & revert"
 msgstr "Sitzungs-Snapshots & Zurücksetzen"
-
-msgid "Session view"
-msgstr "Sitzungsansicht"
 
 msgid "Sessions"
 msgstr "Sitzungen"
@@ -15940,6 +15909,9 @@ msgstr "Dieser Endpunkt ist nicht zulässig."
 msgid "That handle is taken."
 msgstr "Dieses Handle ist bereits vergeben."
 
+msgid "That Linear issue doesn't exist or you can't see it."
+msgstr "Dieses Linear-Issue existiert nicht oder du kannst es nicht sehen."
+
 msgid "That link doesn't lead anywhere in the app."
 msgstr "Dieser Link führt nirgendwohin in der App."
 
@@ -16245,9 +16217,6 @@ msgstr "Die Team-Einladung ist abgelaufen oder existiert nicht. Bitte den Team-E
 
 msgid "The title shows everywhere this page is listed and in its link preview."
 msgstr "Der Titel erscheint überall dort, wo diese Seite aufgeführt ist, und in ihrer Linkvorschau."
-
-msgid "The web agents UI is a read-only preview for now."
-msgstr "Die Web-Oberfläche für Agenten ist vorerst eine schreibgeschützte Vorschau."
 
 msgid "The workspace is not ready yet. Try again."
 msgstr "Der Arbeitsbereich ist noch nicht bereit. Versuche es erneut."
@@ -17967,9 +17936,6 @@ msgstr "Hat {0} Min. {1} Sek. gearbeitet"
 
 msgid "Worked for {seconds}s"
 msgstr "Hat {seconds} Sek. gearbeitet"
-
-msgid "Worked for 39s"
-msgstr "39 s gearbeitet"
 
 msgid "Workflow run completed…"
 msgstr "Workflow-Lauf abgeschlossen…"

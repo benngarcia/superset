@@ -1,4 +1,4 @@
-import { useHostProjects } from "renderer/hooks/host-projects/useHostProjects";
+import { workspaceTrpc } from "@superset/workspace-client";
 import { useActiveOrganizationId } from "renderer/hooks/useActiveOrganizationId";
 import { cloudTrpc } from "renderer/lib/cloud-trpc";
 import type { PullRequestRef } from "renderer/lib/github/pullRequestRef";
@@ -15,10 +15,12 @@ import { useWorkspace } from "renderer/routes/_authenticated/_dashboard/v2-works
 export function usePullRequestPaneDetail(ref: PullRequestRef) {
 	const { workspace, hostUrl } = useWorkspace();
 	const organizationId = useActiveOrganizationId();
-	const { projects, isReady: projectsReady } = useHostProjects();
-	const project = projects.find(
-		(candidate) => candidate.id === workspace.projectId,
+	const projectQuery = workspaceTrpc.project.get.useQuery(
+		{ projectId: workspace.projectId ?? "" },
+		{ enabled: !!workspace.projectId },
 	);
+	const project = projectQuery.data;
+	const projectReady = !workspace.projectId || !projectQuery.isPending;
 	const hostHasRepo =
 		!!project?.repoOwner &&
 		!!project.repoName &&
@@ -38,8 +40,8 @@ export function usePullRequestPaneDetail(ref: PullRequestRef) {
 			number: ref.number,
 		},
 		{
-			// Until the projects have answered, which path applies is unknown.
-			enabled: projectsReady && !hostHasRepo && organizationId !== null,
+			// Until the project has answered, which path applies is unknown.
+			enabled: projectReady && !hostHasRepo && organizationId !== null,
 			staleTime: 30_000,
 			refetchOnWindowFocus: true,
 		},

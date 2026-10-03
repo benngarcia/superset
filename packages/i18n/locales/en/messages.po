@@ -148,7 +148,6 @@ msgid "{0, plural, one {# failed} other {# failed}}"
 msgstr "{0, plural, one {# failed} other {# failed}}"
 
 #. placeholder {0}: detail.pullRequest.changedFiles
-#. placeholder {0}: diffFiles.length
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# file changed} other {# files changed}}"
 
@@ -947,9 +946,6 @@ msgstr "{minutes}m ago"
 msgid "{modKey}↵ to create"
 msgstr "{modKey}↵ to create"
 
-msgid "{months}mo"
-msgstr "{months}mo"
-
 msgid "{months}mo ago"
 msgstr "{months}mo ago"
 
@@ -1734,9 +1730,6 @@ msgstr "Add to Dictionary"
 
 msgid "Add to project"
 msgstr "Add to project"
-
-msgid "Add to prompt"
-msgstr "Add to prompt"
 
 msgid "Add to sidebar"
 msgstr "Add to sidebar"
@@ -4153,6 +4146,9 @@ msgstr "Connect this computer"
 
 msgid "Connect your GitHub repositories and sync pull requests. Track CI status and reviews across your team."
 msgstr "Connect your GitHub repositories and sync pull requests. Track CI status and reviews across your team."
+
+msgid "Connect your Linear account before tracking tasks in Linear."
+msgstr "Connect your Linear account before tracking tasks in Linear."
 
 msgid "Connect your Linear account in Settings → Integrations to link Linear issues."
 msgstr "Connect your Linear account in Settings → Integrations to link Linear issues."
@@ -7329,9 +7325,6 @@ msgstr "Follow us on LinkedIn"
 msgid "Follow us on X/Twitter"
 msgstr "Follow us on X/Twitter"
 
-msgid "Follow-ups on web are coming soon"
-msgstr "Follow-ups on web are coming soon"
-
 msgid "Font family"
 msgstr "Font family"
 
@@ -9452,9 +9445,6 @@ msgstr "Memory"
 msgid "Memory share"
 msgstr "Memory share"
 
-msgid "Menu"
-msgstr "Menu"
-
 msgid "Menubar"
 msgstr "Menubar"
 
@@ -10493,9 +10483,6 @@ msgstr "No screenshots yet"
 
 msgid "No sessions"
 msgstr "No sessions"
-
-msgid "No sessions found"
-msgstr "No sessions found"
 
 msgid "No sessions running"
 msgstr "No sessions running"
@@ -13915,12 +13902,6 @@ msgstr "Search pull requests…"
 msgid "Search repositories..."
 msgstr "Search repositories..."
 
-msgid "Search sessions"
-msgstr "Search sessions"
-
-msgid "Search sessions..."
-msgstr "Search sessions..."
-
 msgid "Search settings..."
 msgstr "Search settings..."
 
@@ -14071,9 +14052,6 @@ msgstr "Select an organization"
 msgid "Select base branch…"
 msgstr "Select base branch…"
 
-msgid "Select branch"
-msgstr "Select branch"
-
 msgid "Select branch..."
 msgstr "Select branch..."
 
@@ -14145,9 +14123,6 @@ msgstr "Select range..."
 
 msgid "Select repositories"
 msgstr "Select repositories"
-
-msgid "Select repository"
-msgstr "Select repository"
 
 msgid "Select run"
 msgstr "Select run"
@@ -14265,9 +14240,6 @@ msgstr "Session"
 msgid "Session {0}"
 msgstr "Session {0}"
 
-msgid "Session creation on web is coming soon"
-msgstr "Session creation on web is coming soon"
-
 msgid "Session details"
 msgstr "Session details"
 
@@ -14288,9 +14260,6 @@ msgstr "Session renamed to {trimmed}"
 
 msgid "Session snapshots & revert"
 msgstr "Session snapshots & revert"
-
-msgid "Session view"
-msgstr "Session view"
 
 msgid "Sessions"
 msgstr "Sessions"
@@ -15940,6 +15909,9 @@ msgstr "That endpoint is not allowed."
 msgid "That handle is taken."
 msgstr "That handle is taken."
 
+msgid "That Linear issue doesn't exist or you can't see it."
+msgstr "That Linear issue doesn't exist or you can't see it."
+
 msgid "That link doesn't lead anywhere in the app."
 msgstr "That link doesn't lead anywhere in the app."
 
@@ -16245,9 +16217,6 @@ msgstr "The team invitation has either expired or doesn't exist. Request a new l
 
 msgid "The title shows everywhere this page is listed and in its link preview."
 msgstr "The title shows everywhere this page is listed and in its link preview."
-
-msgid "The web agents UI is a read-only preview for now."
-msgstr "The web agents UI is a read-only preview for now."
 
 msgid "The workspace is not ready yet. Try again."
 msgstr "The workspace is not ready yet. Try again."
@@ -17967,9 +17936,6 @@ msgstr "Worked for {0}m {1}s"
 
 msgid "Worked for {seconds}s"
 msgstr "Worked for {seconds}s"
-
-msgid "Worked for 39s"
-msgstr "Worked for 39s"
 
 msgid "Workflow run completed…"
 msgstr "Workflow run completed…"

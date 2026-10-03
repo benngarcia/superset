@@ -75,8 +75,7 @@ host-service). The row keeps the last value (`agent_status`,
 carries it so open clients patch their cache rather than refetch the list.
 A closed box's dot is therefore at most a few seconds behind; the open box's
 own subscribers stay live as before. Reaches a box only through a
-host-service release. **Open:** mobile receives the field and renders nothing
-for it yet.
+host-service release.
 
 **Nobody on the box knows who is in it.** A host is one person's machine, so
 a workspace row implies its owner and the sidebar never had to say. A cloud

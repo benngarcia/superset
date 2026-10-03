@@ -148,7 +148,6 @@ msgid "{0, plural, one {# failed} other {# failed}}"
 msgstr "{0, plural, one {# thất bại} other {# thất bại}}"
 
 #. placeholder {0}: detail.pullRequest.changedFiles
-#. placeholder {0}: diffFiles.length
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# tệp thay đổi} other {# tệp thay đổi}}"
 
@@ -947,9 +946,6 @@ msgstr "{minutes} phút trước"
 msgid "{modKey}↵ to create"
 msgstr "{modKey}↵ để tạo"
 
-msgid "{months}mo"
-msgstr "{months} tháng"
-
 msgid "{months}mo ago"
 msgstr "{months} tháng trước"
 
@@ -1734,9 +1730,6 @@ msgstr "Thêm vào từ điển"
 
 msgid "Add to project"
 msgstr "Thêm vào dự án"
-
-msgid "Add to prompt"
-msgstr "Thêm vào prompt"
 
 msgid "Add to sidebar"
 msgstr "Thêm vào thanh bên"
@@ -4153,6 +4146,9 @@ msgstr "Kết nối máy tính này"
 
 msgid "Connect your GitHub repositories and sync pull requests. Track CI status and reviews across your team."
 msgstr "Kết nối các repository GitHub của bạn và đồng bộ pull request. Theo dõi trạng thái CI và review trong cả nhóm."
+
+msgid "Connect your Linear account before tracking tasks in Linear."
+msgstr "Hãy kết nối tài khoản Linear của bạn trước khi theo dõi công việc trong Linear."
 
 msgid "Connect your Linear account in Settings → Integrations to link Linear issues."
 msgstr "Kết nối tài khoản Linear của bạn trong Cài đặt → Tích hợp để liên kết issue Linear."
@@ -7329,9 +7325,6 @@ msgstr "Theo dõi chúng tôi trên LinkedIn"
 msgid "Follow us on X/Twitter"
 msgstr "Theo dõi chúng tôi trên X/Twitter"
 
-msgid "Follow-ups on web are coming soon"
-msgstr "Gửi tiếp trên web sẽ sớm có"
-
 msgid "Font family"
 msgstr "Họ font"
 
@@ -9452,9 +9445,6 @@ msgstr "Bộ nhớ"
 msgid "Memory share"
 msgstr "Tỷ lệ bộ nhớ"
 
-msgid "Menu"
-msgstr "Menu"
-
 msgid "Menubar"
 msgstr "Menubar"
 
@@ -10493,9 +10483,6 @@ msgstr "Chưa có ảnh chụp màn hình nào"
 
 msgid "No sessions"
 msgstr "Không có phiên nào"
-
-msgid "No sessions found"
-msgstr "Không tìm thấy phiên nào"
 
 msgid "No sessions running"
 msgstr "Không có phiên nào đang chạy"
@@ -13915,12 +13902,6 @@ msgstr "Tìm pull request…"
 msgid "Search repositories..."
 msgstr "Tìm repository..."
 
-msgid "Search sessions"
-msgstr "Tìm phiên"
-
-msgid "Search sessions..."
-msgstr "Tìm phiên..."
-
 msgid "Search settings..."
 msgstr "Tìm trong cài đặt..."
 
@@ -14071,9 +14052,6 @@ msgstr "Chọn một tổ chức"
 msgid "Select base branch…"
 msgstr "Chọn nhánh gốc…"
 
-msgid "Select branch"
-msgstr "Chọn nhánh"
-
 msgid "Select branch..."
 msgstr "Chọn nhánh..."
 
@@ -14144,9 +14122,6 @@ msgid "Select range..."
 msgstr "Chọn khoảng..."
 
 msgid "Select repositories"
-msgstr "Chọn repository"
-
-msgid "Select repository"
 msgstr "Chọn repository"
 
 msgid "Select run"
@@ -14265,9 +14240,6 @@ msgstr "Phiên"
 msgid "Session {0}"
 msgstr "Phiên {0}"
 
-msgid "Session creation on web is coming soon"
-msgstr "Tạo phiên trên web sẽ sớm có"
-
 msgid "Session details"
 msgstr "Chi tiết phiên"
 
@@ -14288,9 +14260,6 @@ msgstr "Đã đổi tên phiên thành {trimmed}"
 
 msgid "Session snapshots & revert"
 msgstr "Ảnh chụp phiên & hoàn tác"
-
-msgid "Session view"
-msgstr "Chế độ xem phiên"
 
 msgid "Sessions"
 msgstr "Phiên"
@@ -15940,6 +15909,9 @@ msgstr "Endpoint đó không được phép."
 msgid "That handle is taken."
 msgstr "Tên định danh đó đã có người dùng."
 
+msgid "That Linear issue doesn't exist or you can't see it."
+msgstr "Issue Linear đó không tồn tại hoặc bạn không thể xem."
+
 msgid "That link doesn't lead anywhere in the app."
 msgstr "Liên kết đó không dẫn tới đâu trong ứng dụng."
 
@@ -16245,9 +16217,6 @@ msgstr "Lời mời vào nhóm đã hết hạn hoặc không tồn tại. Hãy 
 
 msgid "The title shows everywhere this page is listed and in its link preview."
 msgstr "Tiêu đề hiển thị ở mọi nơi trang này được liệt kê và trong bản xem trước liên kết."
-
-msgid "The web agents UI is a read-only preview for now."
-msgstr "Giao diện agent trên web hiện chỉ là bản xem trước chỉ đọc."
 
 msgid "The workspace is not ready yet. Try again."
 msgstr "Workspace chưa sẵn sàng. Hãy thử lại."
@@ -17967,9 +17936,6 @@ msgstr "Đã chạy {0} phút {1} giây"
 
 msgid "Worked for {seconds}s"
 msgstr "Đã chạy {seconds} giây"
-
-msgid "Worked for 39s"
-msgstr "Đã làm trong 39 giây"
 
 msgid "Workflow run completed…"
 msgstr "Workflow chạy xong…"

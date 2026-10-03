@@ -148,7 +148,6 @@ msgid "{0, plural, one {# failed} other {# failed}}"
 msgstr "{0, plural, one {# mislukt} other {# mislukt}}"
 
 #. placeholder {0}: detail.pullRequest.changedFiles
-#. placeholder {0}: diffFiles.length
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# bestand gewijzigd} other {# bestanden gewijzigd}}"
 
@@ -947,9 +946,6 @@ msgstr "{minutes}m geleden"
 msgid "{modKey}↵ to create"
 msgstr "{modKey}↵ om aan te maken"
 
-msgid "{months}mo"
-msgstr "{months}mnd"
-
 msgid "{months}mo ago"
 msgstr "{months}mnd geleden"
 
@@ -1734,9 +1730,6 @@ msgstr "Toevoegen aan woordenboek"
 
 msgid "Add to project"
 msgstr "Aan project toevoegen"
-
-msgid "Add to prompt"
-msgstr "Toevoegen aan prompt"
 
 msgid "Add to sidebar"
 msgstr "Aan zijbalk toevoegen"
@@ -4153,6 +4146,9 @@ msgstr "Verbind deze computer"
 
 msgid "Connect your GitHub repositories and sync pull requests. Track CI status and reviews across your team."
 msgstr "Koppel je GitHub-repository's en synchroniseer pull requests. Volg CI-status en reviews in je hele team."
+
+msgid "Connect your Linear account before tracking tasks in Linear."
+msgstr "Koppel je Linear-account voordat je taken in Linear bijhoudt."
 
 msgid "Connect your Linear account in Settings → Integrations to link Linear issues."
 msgstr "Koppel je Linear-account in Instellingen → Integraties om Linear-issues te koppelen."
@@ -7329,9 +7325,6 @@ msgstr "Volg ons op LinkedIn"
 msgid "Follow us on X/Twitter"
 msgstr "Volg ons op X/Twitter"
 
-msgid "Follow-ups on web are coming soon"
-msgstr "Vervolgvragen op het web komen binnenkort"
-
 msgid "Font family"
 msgstr "Lettertype"
 
@@ -9452,9 +9445,6 @@ msgstr "Geheugen"
 msgid "Memory share"
 msgstr "Geheugenaandeel"
 
-msgid "Menu"
-msgstr "Menu"
-
 msgid "Menubar"
 msgstr "Menubalk"
 
@@ -10493,9 +10483,6 @@ msgstr "Nog geen screenshots"
 
 msgid "No sessions"
 msgstr "Geen sessies"
-
-msgid "No sessions found"
-msgstr "Geen sessies gevonden"
 
 msgid "No sessions running"
 msgstr "Geen sessies actief"
@@ -13915,12 +13902,6 @@ msgstr "Pull requests zoeken…"
 msgid "Search repositories..."
 msgstr "Repositories zoeken..."
 
-msgid "Search sessions"
-msgstr "Sessies zoeken"
-
-msgid "Search sessions..."
-msgstr "Sessies zoeken..."
-
 msgid "Search settings..."
 msgstr "Instellingen zoeken..."
 
@@ -14071,9 +14052,6 @@ msgstr "Kies een organisatie"
 msgid "Select base branch…"
 msgstr "Kies basisbranch…"
 
-msgid "Select branch"
-msgstr "Kies branch"
-
 msgid "Select branch..."
 msgstr "Kies branch..."
 
@@ -14145,9 +14123,6 @@ msgstr "Bereik kiezen..."
 
 msgid "Select repositories"
 msgstr "Repositories selecteren"
-
-msgid "Select repository"
-msgstr "Kies repository"
 
 msgid "Select run"
 msgstr "Run selecteren"
@@ -14265,9 +14240,6 @@ msgstr "Sessie"
 msgid "Session {0}"
 msgstr "Sessie {0}"
 
-msgid "Session creation on web is coming soon"
-msgstr "Sessies aanmaken op het web komt binnenkort"
-
 msgid "Session details"
 msgstr "Sessiedetails"
 
@@ -14288,9 +14260,6 @@ msgstr "Sessienaam gewijzigd in {trimmed}"
 
 msgid "Session snapshots & revert"
 msgstr "Sessiesnapshots en terugdraaien"
-
-msgid "Session view"
-msgstr "Sessieweergave"
 
 msgid "Sessions"
 msgstr "Sessies"
@@ -15940,6 +15909,9 @@ msgstr "Dat endpoint is niet toegestaan."
 msgid "That handle is taken."
 msgstr "Die handle is al bezet."
 
+msgid "That Linear issue doesn't exist or you can't see it."
+msgstr "Die Linear-issue bestaat niet of je kunt hem niet zien."
+
 msgid "That link doesn't lead anywhere in the app."
 msgstr "Die link leidt nergens heen in de app."
 
@@ -16245,9 +16217,6 @@ msgstr "De teamuitnodiging is verlopen of bestaat niet. Vraag een nieuwe link aa
 
 msgid "The title shows everywhere this page is listed and in its link preview."
 msgstr "De titel verschijnt overal waar deze pagina wordt vermeld en in het linkvoorbeeld."
-
-msgid "The web agents UI is a read-only preview for now."
-msgstr "De web-UI voor agents is voorlopig een alleen-lezen preview."
 
 msgid "The workspace is not ready yet. Try again."
 msgstr "De werkruimte is nog niet klaar. Probeer het opnieuw."
@@ -17967,9 +17936,6 @@ msgstr "{0} min {1} s gewerkt"
 
 msgid "Worked for {seconds}s"
 msgstr "{seconds} s gewerkt"
-
-msgid "Worked for 39s"
-msgstr "39s gewerkt"
 
 msgid "Workflow run completed…"
 msgstr "Workflow-run afgerond…"

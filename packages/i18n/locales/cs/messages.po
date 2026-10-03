@@ -148,7 +148,6 @@ msgid "{0, plural, one {# failed} other {# failed}}"
 msgstr "{0, plural, one {# selhalo} few {# selhalo} many {# selhalo} other {# selhalo}}"
 
 #. placeholder {0}: detail.pullRequest.changedFiles
-#. placeholder {0}: diffFiles.length
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# změněný soubor} few {# změněné soubory} many {# změněného souboru} other {# změněných souborů}}"
 
@@ -947,9 +946,6 @@ msgstr "před {minutes} m"
 msgid "{modKey}↵ to create"
 msgstr "{modKey}↵ pro vytvoření"
 
-msgid "{months}mo"
-msgstr "{months} měs."
-
 msgid "{months}mo ago"
 msgstr "před {months} měs."
 
@@ -1734,9 +1730,6 @@ msgstr "Přidat do slovníku"
 
 msgid "Add to project"
 msgstr "Přidat do projektu"
-
-msgid "Add to prompt"
-msgstr "Přidat do promptu"
 
 msgid "Add to sidebar"
 msgstr "Přidat do postranního panelu"
@@ -4153,6 +4146,9 @@ msgstr "Připojte tento počítač"
 
 msgid "Connect your GitHub repositories and sync pull requests. Track CI status and reviews across your team."
 msgstr "Připojte své GitHub repozitáře a synchronizujte pull requesty. Sledujte stav CI a revize napříč týmem."
+
+msgid "Connect your Linear account before tracking tasks in Linear."
+msgstr "Než začnete sledovat úkoly v Linearu, připojte svůj účet Linear."
 
 msgid "Connect your Linear account in Settings → Integrations to link Linear issues."
 msgstr "Připojte svůj účet Linear v Nastavení → Integrace, abyste mohli propojovat Linear issues."
@@ -7329,9 +7325,6 @@ msgstr "Sledujte nás na LinkedInu"
 msgid "Follow us on X/Twitter"
 msgstr "Sledujte nás na X/Twitteru"
 
-msgid "Follow-ups on web are coming soon"
-msgstr "Navazující zprávy na webu už brzy"
-
 msgid "Font family"
 msgstr "Rodina písma"
 
@@ -9452,9 +9445,6 @@ msgstr "Paměť"
 msgid "Memory share"
 msgstr "Podíl paměti"
 
-msgid "Menu"
-msgstr "Nabídka"
-
 msgid "Menubar"
 msgstr "Panel nabídek"
 
@@ -10493,9 +10483,6 @@ msgstr "Zatím žádné snímky obrazovky"
 
 msgid "No sessions"
 msgstr "Žádné relace"
-
-msgid "No sessions found"
-msgstr "Nenalezeny žádné relace"
 
 msgid "No sessions running"
 msgstr "Neběží žádné relace"
@@ -13915,12 +13902,6 @@ msgstr "Hledat pull requesty…"
 msgid "Search repositories..."
 msgstr "Hledat repozitáře..."
 
-msgid "Search sessions"
-msgstr "Hledat relace"
-
-msgid "Search sessions..."
-msgstr "Hledat relace..."
-
 msgid "Search settings..."
 msgstr "Hledat v nastavení..."
 
@@ -14071,9 +14052,6 @@ msgstr "Vyberte organizaci"
 msgid "Select base branch…"
 msgstr "Vyberte základní větev…"
 
-msgid "Select branch"
-msgstr "Vyberte větev"
-
 msgid "Select branch..."
 msgstr "Vyberte větev..."
 
@@ -14145,9 +14123,6 @@ msgstr "Vyberte rozsah..."
 
 msgid "Select repositories"
 msgstr "Vybrat repozitáře"
-
-msgid "Select repository"
-msgstr "Vyberte repozitář"
 
 msgid "Select run"
 msgstr "Vybrat běh"
@@ -14265,9 +14240,6 @@ msgstr "Relace"
 msgid "Session {0}"
 msgstr "Relace {0}"
 
-msgid "Session creation on web is coming soon"
-msgstr "Vytváření relací na webu bude brzy k dispozici"
-
 msgid "Session details"
 msgstr "Podrobnosti relace"
 
@@ -14288,9 +14260,6 @@ msgstr "Relace přejmenována na {trimmed}"
 
 msgid "Session snapshots & revert"
 msgstr "Snímky relace a návrat zpět"
-
-msgid "Session view"
-msgstr "Zobrazení relace"
 
 msgid "Sessions"
 msgstr "Relace"
@@ -15940,6 +15909,9 @@ msgstr "Tento koncový bod není povolen."
 msgid "That handle is taken."
 msgstr "Tato přezdívka je obsazená."
 
+msgid "That Linear issue doesn't exist or you can't see it."
+msgstr "Tento úkol v Linearu neexistuje nebo k němu nemáte přístup."
+
 msgid "That link doesn't lead anywhere in the app."
 msgstr "Tento odkaz v aplikaci nikam nevede."
 
@@ -16245,9 +16217,6 @@ msgstr "Pozvánka do týmu buď vypršela, nebo neexistuje. Vyžádejte si od vl
 
 msgid "The title shows everywhere this page is listed and in its link preview."
 msgstr "Název se zobrazuje všude, kde je tato stránka uvedena, a v náhledu odkazu."
-
-msgid "The web agents UI is a read-only preview for now."
-msgstr "Webové rozhraní agentů je zatím náhled jen pro čtení."
 
 msgid "The workspace is not ready yet. Try again."
 msgstr "Pracovní prostor ještě není připravený. Zkuste to znovu."
@@ -17967,9 +17936,6 @@ msgstr "Pracoval {0} m {1} s"
 
 msgid "Worked for {seconds}s"
 msgstr "Pracoval {seconds} s"
-
-msgid "Worked for 39s"
-msgstr "Pracoval 39 s"
 
 msgid "Workflow run completed…"
 msgstr "Dokončen běh workflow…"

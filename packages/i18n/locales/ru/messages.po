@@ -148,7 +148,6 @@ msgid "{0, plural, one {# failed} other {# failed}}"
 msgstr "{0, plural, one {# не пройдено} few {# не пройдено} many {# не пройдено} other {# не пройдено}}"
 
 #. placeholder {0}: detail.pullRequest.changedFiles
-#. placeholder {0}: diffFiles.length
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# файл изменён} few {# файла изменено} many {# файлов изменено} other {# файла изменено}}"
 
@@ -947,9 +946,6 @@ msgstr "{minutes} мин. назад"
 msgid "{modKey}↵ to create"
 msgstr "{modKey}↵ — создать"
 
-msgid "{months}mo"
-msgstr "{months} мес."
-
 msgid "{months}mo ago"
 msgstr "{months} мес. назад"
 
@@ -1734,9 +1730,6 @@ msgstr "Добавить в словарь"
 
 msgid "Add to project"
 msgstr "Добавить в проект"
-
-msgid "Add to prompt"
-msgstr "Добавить в промпт"
 
 msgid "Add to sidebar"
 msgstr "Добавить на боковую панель"
@@ -4153,6 +4146,9 @@ msgstr "Подключите этот компьютер"
 
 msgid "Connect your GitHub repositories and sync pull requests. Track CI status and reviews across your team."
 msgstr "Подключите репозитории GitHub и синхронизируйте пул-реквесты. Отслеживайте статус CI и ревью по всей команде."
+
+msgid "Connect your Linear account before tracking tasks in Linear."
+msgstr "Подключите свой аккаунт Linear, прежде чем вести задачи в Linear."
 
 msgid "Connect your Linear account in Settings → Integrations to link Linear issues."
 msgstr "Подключите свой аккаунт Linear в разделе Настройки → Интеграции, чтобы связывать задачи Linear."
@@ -7329,9 +7325,6 @@ msgstr "Подписывайтесь на нас в LinkedIn"
 msgid "Follow us on X/Twitter"
 msgstr "Подписывайтесь на нас в X/Twitter"
 
-msgid "Follow-ups on web are coming soon"
-msgstr "Уточняющие сообщения в вебе скоро появятся"
-
 msgid "Font family"
 msgstr "Гарнитура"
 
@@ -9452,9 +9445,6 @@ msgstr "Память"
 msgid "Memory share"
 msgstr "Доля памяти"
 
-msgid "Menu"
-msgstr "Меню"
-
 msgid "Menubar"
 msgstr "Строка меню"
 
@@ -10493,9 +10483,6 @@ msgstr "Скриншотов пока нет"
 
 msgid "No sessions"
 msgstr "Сессий нет"
-
-msgid "No sessions found"
-msgstr "Сессии не найдены"
 
 msgid "No sessions running"
 msgstr "Нет работающих сессий"
@@ -13915,12 +13902,6 @@ msgstr "Поиск пул-реквестов…"
 msgid "Search repositories..."
 msgstr "Поиск репозиториев..."
 
-msgid "Search sessions"
-msgstr "Поиск сессий"
-
-msgid "Search sessions..."
-msgstr "Поиск сессий..."
-
 msgid "Search settings..."
 msgstr "Поиск по настройкам..."
 
@@ -14071,9 +14052,6 @@ msgstr "Выберите организацию"
 msgid "Select base branch…"
 msgstr "Выберите базовую ветку…"
 
-msgid "Select branch"
-msgstr "Выберите ветку"
-
 msgid "Select branch..."
 msgstr "Выберите ветку..."
 
@@ -14145,9 +14123,6 @@ msgstr "Выберите диапазон..."
 
 msgid "Select repositories"
 msgstr "Выбрать репозитории"
-
-msgid "Select repository"
-msgstr "Выберите репозиторий"
 
 msgid "Select run"
 msgstr "Выбрать запуск"
@@ -14265,9 +14240,6 @@ msgstr "Сессия"
 msgid "Session {0}"
 msgstr "Сессия {0}"
 
-msgid "Session creation on web is coming soon"
-msgstr "Создание сессий в вебе скоро появится"
-
 msgid "Session details"
 msgstr "Детали сессии"
 
@@ -14288,9 +14260,6 @@ msgstr "Сессия переименована в {trimmed}"
 
 msgid "Session snapshots & revert"
 msgstr "Снимки сессий и откат"
-
-msgid "Session view"
-msgstr "Вид сессии"
 
 msgid "Sessions"
 msgstr "Сессии"
@@ -15940,6 +15909,9 @@ msgstr "Эта конечная точка не разрешена."
 msgid "That handle is taken."
 msgstr "Этот ник занят."
 
+msgid "That Linear issue doesn't exist or you can't see it."
+msgstr "Эта задача Linear не существует или у вас нет к ней доступа."
+
 msgid "That link doesn't lead anywhere in the app."
 msgstr "Эта ссылка никуда не ведёт в приложении."
 
@@ -16245,9 +16217,6 @@ msgstr "Приглашение в команду истекло или не су
 
 msgid "The title shows everywhere this page is listed and in its link preview."
 msgstr "Заголовок отображается везде, где указана эта страница, и в превью ссылки."
-
-msgid "The web agents UI is a read-only preview for now."
-msgstr "Веб-интерфейс агентов пока доступен только для просмотра."
 
 msgid "The workspace is not ready yet. Try again."
 msgstr "Рабочая область ещё не готова. Повторите."
@@ -17967,9 +17936,6 @@ msgstr "Работал {0} мин {1} с"
 
 msgid "Worked for {seconds}s"
 msgstr "Работал {seconds} с"
-
-msgid "Worked for 39s"
-msgstr "Работал 39 с"
 
 msgid "Workflow run completed…"
 msgstr "Запуск workflow завершён…"
