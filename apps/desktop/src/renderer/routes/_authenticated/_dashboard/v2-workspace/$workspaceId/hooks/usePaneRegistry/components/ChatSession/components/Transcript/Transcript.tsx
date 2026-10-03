@@ -5,11 +5,17 @@ import type {
 	TurnGroup,
 } from "@superset/chat/core";
 import type { ApprovalRequest, Decision } from "@superset/chat/protocol";
+import {
+	MessageScroller,
+	useMessageScroller,
+} from "@superset/chat-ui/MessageScroller";
+import { ScrollToBottomButton } from "@superset/chat-ui/ScrollToBottomButton";
 import { Badge } from "@superset/ui/badge";
 import { Button } from "@superset/ui/button";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { ChatForkTarget } from "../../types";
 import { TurnGroupSection } from "./components/TurnGroupSection";
+import { WorkingIndicator } from "./components/WorkingIndicator";
 
 export type TranscriptProps = {
 	groups: TurnGroup[];
@@ -44,6 +50,26 @@ function latestUserItemId(groups: TurnGroup[]): string | null {
 	return null;
 }
 
+/**
+ * Whether the end of the transcript needs its own "busy" line: a running
+ * turn whose newest row is not itself live. A streaming message, a thought
+ * mid-stream and a running tool call all shimmer on their own; the line
+ * covers the gaps between them, and the wait before the first one.
+ */
+function showsWorkingIndicator(groups: TurnGroup[]): boolean {
+	const last = groups.at(-1);
+	if (!last || last.turn?.status !== "running") return false;
+	const entry = last.entries.at(-1);
+	if (!entry) return true;
+	if (entry.kind === "tool_run")
+		return entry.items.every((item) => item.status !== "running");
+	const item = entry.item;
+	if (item.kind === "tool_call") return item.status !== "running";
+	if (item.kind === "agent_message" || item.kind === "reasoning")
+		return item.completedAtMs !== undefined;
+	return true;
+}
+
 function outboxText(entry: OutboxEntry): string {
 	return entry.content
 		.filter((content) => content.type === "text")
@@ -51,7 +77,20 @@ function outboxText(entry: OutboxEntry): string {
 		.join("\n");
 }
 
-export function Transcript({
+/**
+ * The scroller follows the newest content while a turn runs and lets go the
+ * moment the reader scrolls up, so a reply never lands below the fold
+ * unnoticed; the button brings them back.
+ */
+export function Transcript(props: TranscriptProps) {
+	return (
+		<MessageScroller.Provider autoScroll defaultScrollPosition="end">
+			<TranscriptBody {...props} />
+		</MessageScroller.Provider>
+	);
+}
+
+function TranscriptBody({
 	approvals,
 	canForkToWorktree,
 	scrollRequest,
@@ -65,7 +104,9 @@ export function Transcript({
 	outbox,
 	snapshot,
 }: TranscriptProps) {
-	const containerRef = useRef<HTMLDivElement | null>(null);
+	const scroller = useMessageScroller();
+	const scrollerRef = useRef(scroller);
+	scrollerRef.current = scroller;
 	const [entryOverrides, setEntryOverrides] = useState<
 		ReadonlyMap<string, boolean>
 	>(new Map());
@@ -94,9 +135,7 @@ export function Transcript({
 	const anchorItemId = latestUserItemId(groups);
 	useEffect(() => {
 		if (!anchorItemId) return;
-		containerRef.current
-			?.querySelector(`[data-item-id="${CSS.escape(anchorItemId)}"]`)
-			?.scrollIntoView({ block: "start" });
+		scrollerRef.current.scrollToMessage(anchorItemId, { align: "start" });
 	}, [anchorItemId]);
 
 	// On the request object rather than its fields: the nonce is what makes
@@ -104,84 +143,94 @@ export function Transcript({
 	// of fields would drop it as redundant.
 	useEffect(() => {
 		if (!scrollRequest) return;
-		containerRef.current
-			?.querySelector(`[data-item-id="${CSS.escape(scrollRequest.itemId)}"]`)
-			?.scrollIntoView({ behavior: "smooth", block: "start" });
+		scrollerRef.current.scrollToMessage(scrollRequest.itemId, {
+			align: "start",
+			behavior: "smooth",
+		});
 	}, [scrollRequest]);
 
 	const firstPendingApprovalId = approvals[0]?.id ?? null;
 	useEffect(() => {
 		if (!firstPendingApprovalId) return;
-		containerRef.current
-			?.querySelector(`[data-item-id="${CSS.escape(firstPendingApprovalId)}"]`)
-			?.scrollIntoView({ block: "nearest" });
+		scrollerRef.current.scrollToMessage(firstPendingApprovalId, {
+			align: "nearest",
+		});
 	}, [firstPendingApprovalId]);
 
+	const working = showsWorkingIndicator(groups);
+
 	return (
-		// The scroller spans the pane so its bar sits at the edge; the column
-		// inside it holds the reading measure.
-		<div className="min-h-0 flex-1 overflow-y-auto px-6" ref={containerRef}>
-			<div className="mx-auto flex w-full max-w-3xl flex-col gap-6 py-6">
-				{hasOlder && (
-					<div className="flex items-center gap-2">
-						<Button onClick={onLoadOlder} size="sm" variant="ghost">
-							<Trans>Load earlier messages</Trans>
-						</Button>
-					</div>
-				)}
-				{groups.map((group) => (
-					<TurnGroupSection
-						canForkToWorktree={canForkToWorktree}
-						group={group}
-						isEntryCollapsed={isEntryCollapsed}
-						key={group.turnId}
-						onFork={onFork}
-						onRespond={onRespond}
-						onToggleEntry={onToggleEntry}
-						pendingApprovalTargets={pendingApprovalTargets}
-						snapshot={snapshot}
-					/>
-				))}
-				{outbox.map((entry) => (
-					<div
-						className="flex flex-col items-end gap-1 self-end"
-						key={entry.clientId}
-					>
-						<div className="max-w-[80%] whitespace-pre-wrap break-words rounded-lg bg-primary/10 px-3 py-2 text-sm">
-							{outboxText(entry)}
-						</div>
+		// The viewport spans the pane so its bar sits at the edge; the gutter
+		// is reserved on both sides so the column centers on the same axis as
+		// the composer below it, scrollbar or not.
+		<MessageScroller.Root className="relative flex min-h-0 min-w-0 flex-1 flex-col">
+			<MessageScroller.Viewport className="min-h-0 flex-1 overflow-y-auto [scrollbar-gutter:stable_both-edges]">
+				<MessageScroller.Content className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-6 py-6">
+					{hasOlder && (
 						<div className="flex items-center gap-2">
-							<Badge
-								variant={entry.state === "failed" ? "destructive" : "outline"}
-							>
-								{entry.state === "failed" ? (
-									<Trans>Failed to send</Trans>
-								) : (
-									<Trans>Sending</Trans>
-								)}
-							</Badge>
-							{entry.state === "failed" && (
-								<>
-									<Button
-										onClick={() => onRetryPrompt(entry.clientId)}
-										size="sm"
-										variant="ghost"
-									>
-										<Trans>Retry</Trans>
-									</Button>
-									<Button
-										onClick={() => onDiscardPrompt(entry.clientId)}
-										size="sm"
-										variant="ghost"
-									>
-										<Trans>Discard</Trans>
-									</Button>
-								</>
-							)}
+							<Button onClick={onLoadOlder} size="sm" variant="ghost">
+								<Trans>Load earlier messages</Trans>
+							</Button>
 						</div>
-					</div>
-				))}
+					)}
+					{groups.map((group) => (
+						<TurnGroupSection
+							canForkToWorktree={canForkToWorktree}
+							group={group}
+							isEntryCollapsed={isEntryCollapsed}
+							key={group.turnId}
+							onFork={onFork}
+							onRespond={onRespond}
+							onToggleEntry={onToggleEntry}
+							pendingApprovalTargets={pendingApprovalTargets}
+							snapshot={snapshot}
+						/>
+					))}
+					{working && <WorkingIndicator />}
+					{outbox.map((entry) => (
+						<div
+							className="flex flex-col items-end gap-1 self-end"
+							key={entry.clientId}
+						>
+							<div className="max-w-[80%] whitespace-pre-wrap break-words rounded-lg bg-primary/10 px-3 py-2 text-sm">
+								{outboxText(entry)}
+							</div>
+							<div className="flex items-center gap-2">
+								<Badge
+									variant={entry.state === "failed" ? "destructive" : "outline"}
+								>
+									{entry.state === "failed" ? (
+										<Trans>Failed to send</Trans>
+									) : (
+										<Trans>Sending</Trans>
+									)}
+								</Badge>
+								{entry.state === "failed" && (
+									<>
+										<Button
+											onClick={() => onRetryPrompt(entry.clientId)}
+											size="sm"
+											variant="ghost"
+										>
+											<Trans>Retry</Trans>
+										</Button>
+										<Button
+											onClick={() => onDiscardPrompt(entry.clientId)}
+											size="sm"
+											variant="ghost"
+										>
+											<Trans>Discard</Trans>
+										</Button>
+									</>
+								)}
+							</div>
+						</div>
+					))}
+				</MessageScroller.Content>
+			</MessageScroller.Viewport>
+			<div className="pointer-events-none absolute inset-x-0 bottom-3 flex justify-center">
+				<ScrollToBottomButton />
 			</div>
-		</div>
+		</MessageScroller.Root>
 	);
 }

@@ -241,10 +241,6 @@ msgstr "{0, plural, one {#个任务} other {#个任务}}"
 msgid "{0, plural, one {# terminal running} other {# terminals running}}"
 msgstr "{0, plural, other {# 个终端正在运行}}"
 
-#. placeholder {0}: entry.items.length
-msgid "{0, plural, one {# tool call} other {# tool calls}}"
-msgstr "{0, plural, one {#次工具调用} other {#次工具调用}}"
-
 #. placeholder {0}: group.workspaceCount
 #. placeholder {0}: selectedWorkspaces.length
 msgid "{0, plural, one {# workspace} other {# workspaces}}"
@@ -771,6 +767,9 @@ msgstr "{count, plural, one {已创建#个工作区} other {已创建#个工作�
 msgid "{count, plural, one {Delete # Workspace} other {Delete # Workspaces}}"
 msgstr "{count, plural, one {删除#个工作区} other {删除#个工作区}}"
 
+msgid "{count, plural, one {edited # file} other {edited # files}}"
+msgstr "{count, plural, one {编辑了 # 个文件} other {编辑了 # 个文件}}"
+
 msgid "{count, plural, one {Every # day at {time}} other {Every # days at {time}}}"
 msgstr "{count, plural, one {每#天{time}} other {每#天{time}}}"
 
@@ -789,14 +788,26 @@ msgstr "{count, plural, one {每#周的{day}{time}} other {每#周的{day}{time}
 msgid "{count, plural, one {Every # week on {day}} other {Every # weeks on {day}}}"
 msgstr "{count, plural, one {每#周的{day}} other {每#周的{day}}}"
 
+msgid "{count, plural, one {fetched # page} other {fetched # pages}}"
+msgstr "{count, plural, one {获取了 # 个页面} other {获取了 # 个页面}}"
+
 msgid "{count, plural, one {Import # worktree} other {Import # worktrees}}"
 msgstr "{count, plural, one {导入#个worktree} other {导入#个worktree}}"
 
 msgid "{count, plural, one {Project opened} other {# projects opened}}"
 msgstr "{count, plural, one {已打开#个项目} other {已打开#个项目}}"
 
+msgid "{count, plural, one {ran # command} other {ran # commands}}"
+msgstr "{count, plural, one {运行了 # 个命令} other {运行了 # 个命令}}"
+
+msgid "{count, plural, one {read # file} other {read # files}}"
+msgstr "{count, plural, one {读取了 # 个文件} other {读取了 # 个文件}}"
+
 msgid "{count, plural, one {Used # source} other {Used # sources}}"
 msgstr "{count, plural, one {使用了#个来源} other {使用了#个来源}}"
+
+msgid "{count, plural, one {used # tool} other {used # tools}}"
+msgstr "{count, plural, one {使用了 # 个工具} other {使用了 # 个工具}}"
 
 msgid "{count} GitHub stars"
 msgstr "{count}个GitHub星标"
@@ -17959,6 +17970,9 @@ msgstr "已运行 {0} 分 {1} 秒"
 
 msgid "Working for {seconds}s"
 msgstr "已运行 {seconds} 秒"
+
+msgid "Working…"
+msgstr "处理中…"
 
 msgid "Works when environments are clean. Environments are rarely clean."
 msgstr "环境干净时可行。而环境很少干净。"

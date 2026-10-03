@@ -164,6 +164,7 @@ function FileChangeTitle({
  * and the raw tool name stays out of it.
  */
 export function ToolCallRow({ item }: { item: ToolCall }) {
+	const { t } = useLingui();
 	const [open, setOpen] = useState(false);
 	const duration = durationLabel(item);
 	const hasBody = item.content.length > 0;
@@ -175,9 +176,15 @@ export function ToolCallRow({ item }: { item: ToolCall }) {
 	if (change) {
 		title = <FileChangeTitle change={change} item={item} running={running} />;
 	} else if (running) {
+		// The translator names a command "Terminal" until the command itself
+		// arrives a beat later; "Running" says more in the meantime.
+		const label =
+			item.toolKind === "execute" && item.title === "Terminal"
+				? t({ message: "Running" })
+				: item.title;
 		title = (
 			<span className="min-w-0 truncate">
-				<ShimmerLabel className="font-normal">{item.title}</ShimmerLabel>
+				<ShimmerLabel className="font-normal">{label}</ShimmerLabel>
 			</span>
 		);
 	} else {

@@ -241,10 +241,6 @@ msgstr "{0, plural, one {# tarefa} other {# tarefas}}"
 msgid "{0, plural, one {# terminal running} other {# terminals running}}"
 msgstr "{0, plural, one {# terminal em execução} other {# terminais em execução}}"
 
-#. placeholder {0}: entry.items.length
-msgid "{0, plural, one {# tool call} other {# tool calls}}"
-msgstr "{0, plural, one {# chamada de ferramenta} other {# chamadas de ferramenta}}"
-
 #. placeholder {0}: group.workspaceCount
 #. placeholder {0}: selectedWorkspaces.length
 msgid "{0, plural, one {# workspace} other {# workspaces}}"
@@ -771,6 +767,9 @@ msgstr "{count, plural, one {# área de trabalho criada} other {# áreas de trab
 msgid "{count, plural, one {Delete # Workspace} other {Delete # Workspaces}}"
 msgstr "{count, plural, one {Excluir # área de trabalho} other {Excluir # áreas de trabalho}}"
 
+msgid "{count, plural, one {edited # file} other {edited # files}}"
+msgstr "{count, plural, one {editou # arquivo} other {editou # arquivos}}"
+
 msgid "{count, plural, one {Every # day at {time}} other {Every # days at {time}}}"
 msgstr "{count, plural, one {A cada # dia às {time}} other {A cada # dias às {time}}}"
 
@@ -789,14 +788,26 @@ msgstr "{count, plural, one {A cada # semana na {day} às {time}} other {A cada 
 msgid "{count, plural, one {Every # week on {day}} other {Every # weeks on {day}}}"
 msgstr "{count, plural, one {A cada # semana na {day}} other {A cada # semanas na {day}}}"
 
+msgid "{count, plural, one {fetched # page} other {fetched # pages}}"
+msgstr "{count, plural, one {buscou # página} other {buscou # páginas}}"
+
 msgid "{count, plural, one {Import # worktree} other {Import # worktrees}}"
 msgstr "{count, plural, one {Importar # worktree} other {Importar # worktrees}}"
 
 msgid "{count, plural, one {Project opened} other {# projects opened}}"
 msgstr "{count, plural, one {Projeto aberto} other {# projetos abertos}}"
 
+msgid "{count, plural, one {ran # command} other {ran # commands}}"
+msgstr "{count, plural, one {executou # comando} other {executou # comandos}}"
+
+msgid "{count, plural, one {read # file} other {read # files}}"
+msgstr "{count, plural, one {leu # arquivo} other {leu # arquivos}}"
+
 msgid "{count, plural, one {Used # source} other {Used # sources}}"
 msgstr "{count, plural, one {Usou # fonte} other {Usou # fontes}}"
+
+msgid "{count, plural, one {used # tool} other {used # tools}}"
+msgstr "{count, plural, one {usou # ferramenta} other {usou # ferramentas}}"
 
 msgid "{count} GitHub stars"
 msgstr "{count} estrelas no GitHub"
@@ -17959,6 +17970,9 @@ msgstr "Trabalhando há {0} min {1} s"
 
 msgid "Working for {seconds}s"
 msgstr "Trabalhando há {seconds} s"
+
+msgid "Working…"
+msgstr "Trabalhando…"
 
 msgid "Works when environments are clean. Environments are rarely clean."
 msgstr "Funciona quando os ambientes estão limpos. Ambientes raramente estão limpos."
