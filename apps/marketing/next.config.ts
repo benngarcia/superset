@@ -104,6 +104,17 @@ const config: NextConfig = {
 		"/[lang]/user/[handle]/opengraph-image": ["./public/fonts/Inter-Bold.ttf"],
 	},
 
+	// The blog and changelog OG image routes read avatars, cover images and the
+	// logo from public/ by a path built at request time, so the tracer copies
+	// the whole folder into every server function. They never read video, GIFs
+	// or these folders.
+	outputFileTracingExcludes: {
+		"*": [
+			"./public/**/*.{mov,mp4,gif}",
+			"./public/{images,blog,hero,app-icons,media}/**",
+		],
+	},
+
 	// Compiles @lingui/react/macro at build time. Version must stay in
 	// lockstep with Next's swc_core ABI — see plans/20260826-i18n-strategy.md.
 	experimental: {
