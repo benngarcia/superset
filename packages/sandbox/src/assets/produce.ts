@@ -271,7 +271,7 @@ async function wallpapers(): Promise<void> {
 
 // --- host-service runtime -------------------------------------------------
 /**
- * The runtime tarball: host-service's bundle, its migrations, the agent
+ * The runtime tarball: host-service's bundle, its and chat.db's migrations, the agent
  * templates, pty-daemon, the native modules installed for linux/amd64 against
  * the image's Node, and a pre-migrated host.db template so first boot copies
  * a file instead of running migrations. Built in the image's own Node so the
@@ -315,6 +315,7 @@ function hostService(): void {
 		Bun.spawnSync(["cp", "-R", join(REPO_ROOT, from), join(stage, to)]);
 	copy("packages/host-service/dist", "dist");
 	copy("packages/host-service/drizzle", "drizzle");
+	copy("packages/chat-runtime/src/db/drizzle", "chat-migrations");
 	copy("packages/agent-setup/templates", "agent-templates");
 	copy("packages/pty-daemon/dist", "pty-daemon");
 	writeFileSync(join(stage, "RUNTIME"), `version=${version}\nnode=24\n`);
@@ -322,7 +323,7 @@ function hostService(): void {
 		NODE_IMAGE,
 		[
 			"apt-get update -qq && apt-get install -y -qq --no-install-recommends python3 make g++ >/dev/null",
-			"mkdir -p /rt && cd /rt && cp -R /out/stage/dist/. /rt/ && cp -R /out/stage/drizzle /rt/drizzle && cp -R /out/stage/agent-templates /rt/agent-templates && cp /out/stage/RUNTIME /rt/RUNTIME",
+			"mkdir -p /rt && cd /rt && cp -R /out/stage/dist/. /rt/ && cp -R /out/stage/drizzle /rt/drizzle && cp -R /out/stage/chat-migrations /rt/chat-migrations && cp -R /out/stage/agent-templates /rt/agent-templates && cp /out/stage/RUNTIME /rt/RUNTIME",
 			// host-service resolves the daemon side by side with itself, the way the desktop ships it.
 			"cp /out/stage/pty-daemon/pty-daemon.js /rt/pty-daemon.js",
 			"cd /rt && npm init -y >/dev/null && npm pkg set type=module >/dev/null",
