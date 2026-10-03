@@ -27,15 +27,20 @@ DECLARE
 	candidate_key text;
 	suffix integer;
 BEGIN
-	IF team IS NOT NULL THEN
-		UPDATE public.task_sequences s
-		SET last_number = s.last_number + amount
-		WHERE s.team_id = team AND s.organization_id = org
-		RETURNING s.team_id, s.key, s.last_number
-		INTO reserved_team_id, reserved_key, reserved_last_number;
-		IF FOUND THEN
-			RETURN;
-		END IF;
+	UPDATE public.task_sequences s
+	SET last_number = s.last_number + amount
+	WHERE s.organization_id = org
+		AND s.team_id = coalesce(team, (
+			SELECT t.id
+			FROM auth.teams t
+			WHERE t.organization_id = org
+			ORDER BY t.created_at, t.id
+			LIMIT 1
+		))
+	RETURNING s.team_id, s.key, s.last_number
+	INTO reserved_team_id, reserved_key, reserved_last_number;
+	IF FOUND THEN
+		RETURN;
 	END IF;
 
 	SELECT o.name, o.slug INTO org_name, org_slug
@@ -53,7 +58,7 @@ BEGIN
 	SELECT t.id INTO oldest_team_id
 	FROM auth.teams t
 	WHERE t.organization_id = org
-	ORDER BY t.created_at
+	ORDER BY t.created_at, t.id
 	LIMIT 1;
 
 	target_team_id := coalesce(team, oldest_team_id);
