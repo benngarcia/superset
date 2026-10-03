@@ -930,7 +930,7 @@ export function NewWorkspaceScreen({
 						}
 						toolbarEnd={
 							<div className="flex items-center gap-2">
-								{taskTracker === "linear" ? (
+								{!taskTracker ? null : taskTracker === "linear" ? (
 									<LinearIssueLinkCommand
 										onSelect={addLinkedLinearIssue}
 										tooltipLabel={t({ message: "Link Linear issue" })}
