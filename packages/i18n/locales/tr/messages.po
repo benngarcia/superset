@@ -2440,6 +2440,9 @@ msgstr "Değişiklik isteyin"
 msgid "Ask to make changes, @mention files, run /commands"
 msgstr "Değişiklik isteyin, dosyaları @ ile anın, /komut çalıştırın"
 
+msgid "Ask what your agents are up to, or tell one what to do next."
+msgstr "Ajanlarının ne yaptığını sor ya da birine sırada ne yapacağını söyle."
+
 msgid "Aspect Ratio"
 msgstr "En boy oranı"
 
@@ -3396,6 +3399,12 @@ msgstr "Host denetleniyor…"
 
 msgid "Checking out a PR requires a project"
 msgstr "Bir PR'ı checkout etmek proje gerektirir"
+
+msgid "Checking pull requests in {what}"
+msgstr "{what} içindeki pull request'ler kontrol ediliyor"
+
+msgid "Checking workspaces"
+msgstr "Çalışma alanları kontrol ediliyor"
 
 msgid "Checking..."
 msgstr "Denetleniyor..."
@@ -4945,6 +4954,9 @@ msgstr "Bulut çalışma alanı başlatılamadı"
 msgid "Couldn't start design mode on this page"
 msgstr "Bu sayfada tasarım modu başlatılamadı"
 
+msgid "Couldn't start voice mode"
+msgstr "Sesli mod başlatılamadı"
+
 msgid "Couldn't start workspace"
 msgstr "Çalışma alanı başlatılamadı"
 
@@ -5914,6 +5926,9 @@ msgstr "Belgeler"
 msgid "Documentation"
 msgstr "Belgeler"
 
+msgid "Doing it"
+msgstr "Yapılıyor"
+
 msgid "Don't ask again"
 msgstr "Bir daha sorma"
 
@@ -6274,6 +6289,12 @@ msgstr "Uzaktan erişimi etkinleştirin ve Superset çalışırken bu bilgisayar
 msgid "Enable skill"
 msgstr "Beceriyi etkinleştir"
 
+msgid "End voice session"
+msgstr "Sesli oturumu bitir"
+
+msgid "Ended"
+msgstr "Bitti"
+
 msgid "Engineering deep-dives and launches."
 msgstr "Mühendislik derinlemesine yazıları ve lansmanlar."
 
@@ -6467,6 +6488,9 @@ msgstr "Projeyi genişlet"
 
 msgid "Expand thread"
 msgstr "Konuyu genişlet"
+
+msgid "Expand voice"
+msgstr "Sesi genişlet"
 
 msgid "Expand workspace"
 msgstr "Çalışma alanını genişlet"
@@ -7307,11 +7331,20 @@ msgstr "Klasör görünümü"
 msgid "Folders to check out into new worktrees, one per line, relative to the repo root. Files at the root are always included. Empty checks out everything."
 msgstr "Yeni worktree'lere checkout edilecek klasörler; her satıra bir tane, depo köküne göre. Kökteki dosyalar her zaman dahildir. Boş bırakılırsa her şey checkout edilir."
 
+msgid "Follow"
+msgstr "Takip et"
+
+msgid "Follow mode"
+msgstr "Takip modu"
+
 msgid "FOLLOW ON X"
 msgstr "X'TE TAKİP EDİN"
 
 msgid "Follow terminal sessions live"
 msgstr "Terminal oturumlarını canlı takip edin"
+
+msgid "Follow the conversation"
+msgstr "Konuşmayı takip et"
 
 msgid "FOLLOW US"
 msgstr "BİZİ TAKİP EDİN"
@@ -8373,6 +8406,9 @@ msgstr "Dahili"
 msgid "Internet Disconnected"
 msgstr "İnternet bağlantısı kesildi"
 
+msgid "Interrupt"
+msgstr "Kes"
+
 msgid "Interrupted"
 msgstr "Kesildi"
 
@@ -9004,6 +9040,9 @@ msgstr "Bir host'taki çalışma alanlarını listeleyin, oluşturun, güncelley
 msgid "List, get, create, update, and delete tasks; track status."
 msgstr "Görevleri listeleyin, alın, oluşturun, güncelleyin ve silin; durumu izleyin."
 
+msgid "Listening"
+msgstr "Dinliyor"
+
 msgid "Listening agents"
 msgstr "Dinleyen ajanlar"
 
@@ -9012,6 +9051,9 @@ msgstr "Kanal mesajları ve yeni kanallar dinleniyor."
 
 msgid "Listening status unavailable"
 msgstr "Dinleme durumu kullanılamıyor"
+
+msgid "Listing sessions in {what}"
+msgstr "{what} içindeki oturumlar listeleniyor"
 
 msgid "live"
 msgstr "canlı"
@@ -9208,11 +9250,20 @@ msgstr "Uzun vadeli güvenilirlik bir eşiği aşar. Akşam 18.00'de verilen iş
 msgid "Long-hover shortcut-only tooltip; its chip style is now the TooltipContent default"
 msgstr "Uzun bekletmede yalnızca kısayol gösteren tooltip; çip stili artık TooltipContent varsayılanı"
 
+msgid "Looking at {what}"
+msgstr "{what} inceleniyor"
+
 msgid "Looking for a mobile simulator…"
 msgstr "Mobil simülatör aranıyor…"
 
 msgid "Looking for installed browsers…"
 msgstr "Kurulu tarayıcılar aranıyor…"
+
+msgid "Looking for pages"
+msgstr "Sayfalar aranıyor"
+
+msgid "Looking up a workspace"
+msgstr "Çalışma alanı aranıyor"
 
 msgid "Looks good"
 msgstr "İyi görünüyor"
@@ -9536,6 +9587,9 @@ msgstr "Küçült"
 msgid "Minimize GitHub issues"
 msgstr "GitHub issue'larını küçült"
 
+msgid "Minimize voice"
+msgstr "Sesi küçült"
+
 msgid "Minimum contrast"
 msgstr "En düşük kontrast"
 
@@ -9731,8 +9785,14 @@ msgstr "Bu depoyu birden fazla proje kullanıyor ({0}). Bu cihazda kurmak için 
 msgid "Multiple projects use this repository ({0}). Open the project you want from settings to set it up on this device."
 msgstr "Bu depoyu birden fazla proje kullanıyor ({0}). Bu cihazda kurmak için istediğiniz projeyi ayarlardan açın."
 
+msgid "Mute"
+msgstr "Sessize al"
+
 msgid "Mute notifications"
 msgstr "Bildirimleri sustur"
+
+msgid "Muted"
+msgstr "Sessizde"
 
 msgid "My Agent"
 msgstr "Ajanım"
@@ -9845,6 +9905,9 @@ msgstr "Ağ değişti"
 
 msgid "Never"
 msgstr "Hiç"
+
+msgid "Never mind"
+msgstr "Vazgeçildi"
 
 msgctxt "badge on a page published since the menu was last opened"
 msgid "New"
@@ -11392,6 +11455,9 @@ msgstr "Açıldı"
 msgid "opened PR #841 for review"
 msgstr "inceleme için PR #841 açtı"
 
+msgid "Opening {what}"
+msgstr "{what} açılıyor"
+
 msgid "Opening files"
 msgstr "Dosyaları açma"
 
@@ -11439,6 +11505,9 @@ msgstr "Seçenekler"
 
 msgid "Or ask your coding agent to install the Superset CLI."
 msgstr "Ya da kodlama ajanınızdan Superset CLI'yi kurmasını isteyin."
+
+msgid "or just say yes"
+msgstr "ya da sadece \"evet\" de"
 
 msgid "Orange"
 msgstr "Turuncu"
@@ -12097,6 +12166,12 @@ msgstr "Ön ek"
 msgid "Preparing"
 msgstr "Hazırlanıyor"
 
+msgid "Preparing a message for {what}"
+msgstr "{what} için mesaj hazırlanıyor"
+
+msgid "Preparing to restart {what}"
+msgstr "{what} yeniden başlatılmaya hazırlanıyor"
+
 msgid "Preserve commit history"
 msgstr "Commit geçmişini korur"
 
@@ -12594,6 +12669,9 @@ msgstr "Paralel kodlama ajanları rehberini okuyun"
 msgid "Read the setup guide"
 msgstr "Kurulum rehberini okuyun"
 
+msgid "Reading {what}"
+msgstr "{what} okunuyor"
+
 msgid "Reading usage…"
 msgstr "Kullanım okunuyor…"
 
@@ -12690,6 +12768,9 @@ msgstr "Yeniden bağlanılıyor"
 
 msgid "Reconnecting…"
 msgstr "Yeniden bağlanılıyor…"
+
+msgid "Reconnecting… your conversation is kept."
+msgstr "Yeniden bağlanılıyor… konuşman korunuyor."
 
 msgid "Red"
 msgstr "Kırmızı"
@@ -13198,6 +13279,9 @@ msgstr "Yanıt"
 
 msgid "Restart"
 msgstr "Yeniden başlat"
+
+msgid "Restart {target}"
+msgstr "{target} öğesini yeniden başlat"
 
 msgid "Restart all terminals?"
 msgstr "Tüm terminaller yeniden başlatılsın mı?"
@@ -14184,6 +14268,9 @@ msgstr "İncelemeyi gönder"
 msgid "Send to"
 msgstr "Gönderilecek yer"
 
+msgid "Send to {target}"
+msgstr "{target} hedefine gönder"
+
 msgid "Send to agent"
 msgstr "Ajana gönder"
 
@@ -14895,6 +14982,9 @@ msgstr "Spam veya dolandırıcılık"
 msgid "Sparse checkout"
 msgstr "Seyrek checkout"
 
+msgid "Speaking"
+msgstr "Konuşuyor"
+
 msgid "Specific"
 msgstr "Belirli"
 
@@ -15103,6 +15193,9 @@ msgstr "Sekme şeridindeki + ile bir tane başlatın."
 
 msgid "Start or stop the workspace run command"
 msgstr "Çalışma alanı çalıştırma komutunu başlat veya durdur"
+
+msgid "Start voice mode"
+msgstr "Sesli modu başlat"
 
 msgid "Start with the work."
 msgstr "İşle başlayın."
@@ -17109,6 +17202,9 @@ msgstr "Sınırsız kullanıcı"
 msgid "Unlink task"
 msgstr "Görevin bağlantısını kaldır"
 
+msgid "Unmute"
+msgstr "Sesi aç"
+
 msgid "Unmute notifications"
 msgstr "Bildirimlerin sesini aç"
 
@@ -17554,6 +17650,9 @@ msgstr "Ziyaretçiden indirmeye, hesaba"
 msgid "Visitors whose session began on a link an assistant gave them. This is the number an AEO effort should move."
 msgstr "Oturumu bir asistanın verdiği bağlantıyla başlayan ziyaretçiler. AEO çalışmasının hareket ettirmesi gereken sayı budur."
 
+msgid "Voice"
+msgstr "Ses"
+
 msgid "Volume"
 msgstr "Ses düzeyi"
 
@@ -17585,6 +17684,9 @@ msgstr "Alt ajanın ilk mesajı bekleniyor…"
 
 msgid "Waiting for your input"
 msgstr "Girdinizi bekliyor"
+
+msgid "Waiting for your OK"
+msgstr "Onayın bekleniyor"
 
 msgid "Waitlist signups"
 msgstr "Bekleme listesi kayıtları"
