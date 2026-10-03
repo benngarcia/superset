@@ -18,6 +18,9 @@ const config: NextConfig = {
 	// time. Version must stay in lockstep with @lingui/core.
 	experimental: {
 		swcPlugins: [["@lingui/swc-plugin", {}]],
+		// Sentry is the only reader of these maps; without its token they
+		// would only add ~100 MB to the deployment.
+		serverSourceMaps: Boolean(process.env.SENTRY_AUTH_TOKEN),
 	},
 };
 
