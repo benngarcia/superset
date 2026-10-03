@@ -230,54 +230,8 @@ jobs:
       - name: Typecheck
         run: bun run typecheck
 
-  cli-changes:
-    name: Detect CLI Changes
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: read
-    outputs:
-      cli: ${{ steps.filter.outputs.cli }}
-    steps:
-      - name: Check out code
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
-
-      - name: Filter changed paths
-        id: filter
-        uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4.0.3
-        with:
-          filters: |
-            cli:
-              - 'package.json'
-              - 'bun.lock'
-              - 'bunfig.toml'
-              - '.bun-version'
-              - 'patches/**'
-              - 'tooling/**'
-              - '.github/workflows/ci.yml'
-              - '.github/workflows/build-cli.yml'
-              - 'packages/agent-setup/**'
-              - 'packages/auth/**'
-              - 'packages/chat/**'
-              - 'packages/chat-runtime/**'
-              - 'packages/cli/**'
-              - 'packages/cli-framework/**'
-              - 'packages/db/**'
-              - 'packages/email/**'
-              - 'packages/host-client/**'
-              - 'packages/host-service/**'
-              - 'packages/i18n/**'
-              - 'packages/local-db/**'
-              - 'packages/port-scanner/**'
-              - 'packages/pty-daemon/**'
-              - 'packages/shared/**'
-              - 'packages/trpc/**'
-              - 'packages/workspace-fs/**'
-
   build-cli:
     name: Build CLI
-    needs: cli-changes
-    if: github.event_name == 'push' || needs.cli-changes.outputs.cli == 'true'
     uses: ./.github/workflows/build-cli.yml
     with:
       targets: ${{ github.event_name == 'push' && '[{"os":"ubuntu-latest","target":"linux-x64"},{"os":"macos-14","target":"darwin-arm64"},{"os":"macos-15-intel","target":"darwin-x64"},{"os":"ubuntu-24.04-arm","target":"linux-arm64"}]' || '[{"os":"ubuntu-latest","target":"linux-x64"}]' }}
