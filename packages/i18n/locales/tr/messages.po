@@ -4421,6 +4421,9 @@ msgstr "Dal adını kopyala"
 msgid "Copy browsing history and logins from Chrome, Brave, Arc, or another Chromium browser into Superset."
 msgstr "Tarama geçmişini ve oturum bilgilerini Chrome, Brave, Arc veya başka bir Chromium tarayıcısından Superset'e kopyalayın."
 
+msgid "Copy code"
+msgstr "Kodu kopyala"
+
 msgid "Copy Code"
 msgstr "Kodu kopyala"
 

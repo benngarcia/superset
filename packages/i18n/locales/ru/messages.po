@@ -4421,6 +4421,9 @@ msgstr "Скопировать имя ветки"
 msgid "Copy browsing history and logins from Chrome, Brave, Arc, or another Chromium browser into Superset."
 msgstr "Скопируйте историю просмотров и логины из Chrome, Brave, Arc или другого браузера на Chromium в Superset."
 
+msgid "Copy code"
+msgstr "Копировать код"
+
 msgid "Copy Code"
 msgstr "Скопировать код"
 

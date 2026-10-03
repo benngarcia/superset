@@ -4421,6 +4421,9 @@ msgstr "ブランチ名をコピー"
 msgid "Copy browsing history and logins from Chrome, Brave, Arc, or another Chromium browser into Superset."
 msgstr "Chrome、Brave、Arc、その他ChromiumブラウザからブラウジングHistoryとログイン情報をSupersetにコピーします。"
 
+msgid "Copy code"
+msgstr "コードをコピー"
+
 msgid "Copy Code"
 msgstr "コードをコピー"
 

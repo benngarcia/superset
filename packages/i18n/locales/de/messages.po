@@ -4421,6 +4421,9 @@ msgstr "Branch-Namen kopieren"
 msgid "Copy browsing history and logins from Chrome, Brave, Arc, or another Chromium browser into Superset."
 msgstr "Kopiere Browserverlauf und Logins aus Chrome, Brave, Arc oder einem anderen Chromium-Browser nach Superset."
 
+msgid "Copy code"
+msgstr "Code kopieren"
+
 msgid "Copy Code"
 msgstr "Code kopieren"
 

@@ -1,4 +1,4 @@
-import { Plural, Trans } from "@lingui/react/macro";
+import { Plural, Trans, useLingui } from "@lingui/react/macro";
 import type { ToolCall, ToolKind } from "@superset/chat/protocol";
 import { ShimmerLabel } from "@superset/ui/ai-elements/shimmer-label";
 import {
@@ -18,8 +18,11 @@ import {
 	SquareTerminal,
 	Wrench,
 } from "lucide-react";
-import type { ComponentType } from "react";
-import { useState } from "react";
+import type { ComponentType, ReactNode } from "react";
+import { useMemo, useState } from "react";
+import { DiffStatText } from "../../../../../../../../components/DiffStatText";
+import { diffStats } from "../../utils/diffStats";
+import { type FileChange, fileChangeOf } from "../../utils/fileChange";
 import { ToolContentList } from "../ToolContentList";
 
 /** How many trailing output lines a call shows without being expanded. */
@@ -99,6 +102,61 @@ function StatusWord({ status }: { status: ToolCall["status"] }) {
 }
 
 /**
+ * "Edited README.md +5 −1": the verb says what happened and whether it is
+ * still happening, the name is what a row has room for, the tally is what it
+ * cost. The agent's own title ("Write /full/path") says the same thing worse.
+ */
+function FileChangeTitle({
+	change,
+	item,
+	running,
+}: {
+	change: FileChange;
+	item: ToolCall;
+	running: boolean;
+}) {
+	const { t } = useLingui();
+	const stats = useMemo(() => {
+		const diff = item.content.find((content) => content.type === "diff");
+		return diff && diff.type === "diff" ? diffStats(diff) : null;
+	}, [item.content]);
+	const verb = running
+		? change.kind === "added"
+			? t({ message: "Creating" })
+			: t({ message: "Editing" })
+		: change.kind === "added"
+			? t({ message: "Created" })
+			: change.kind === "deleted"
+				? t({ message: "Deleted" })
+				: t({ message: "Edited" });
+	return (
+		<>
+			<span className="shrink-0">
+				{running ? (
+					<ShimmerLabel className="font-normal">{verb}</ShimmerLabel>
+				) : (
+					verb
+				)}
+			</span>
+			<span
+				className="min-w-0 truncate font-medium text-foreground/90"
+				title={change.path}
+			>
+				{change.name}
+			</span>
+			{stats && !running && (
+				<span className="shrink-0 whitespace-nowrap font-mono text-xs tabular-nums">
+					<DiffStatText
+						additions={change.kind === "deleted" ? 0 : stats.additions}
+						deletions={change.kind === "added" ? 0 : stats.deletions}
+					/>
+				</span>
+			)}
+		</>
+	);
+}
+
+/**
  * One line per call, the way an editor lists what an agent did: the tool's own
  * icon and title, the tail of its output beneath, and the rest behind a
  * disclosure that says how much it is hiding. A running call shimmers its
@@ -112,6 +170,19 @@ export function ToolCallRow({ item }: { item: ToolCall }) {
 	const Icon = ICON_BY_KIND[item.toolKind] ?? Wrench;
 	const running = item.status === "running";
 	const tail = outputTail(item);
+	const change = useMemo(() => fileChangeOf(item), [item]);
+	let title: ReactNode;
+	if (change) {
+		title = <FileChangeTitle change={change} item={item} running={running} />;
+	} else if (running) {
+		title = (
+			<span className="min-w-0 truncate">
+				<ShimmerLabel className="font-normal">{item.title}</ShimmerLabel>
+			</span>
+		);
+	} else {
+		title = <span className="min-w-0 truncate">{item.title}</span>;
+	}
 	return (
 		<Collapsible
 			className={cn(
@@ -123,12 +194,8 @@ export function ToolCallRow({ item }: { item: ToolCall }) {
 		>
 			<div className="flex items-center gap-2 py-0.5 text-muted-foreground text-sm">
 				<Icon className="size-3.5 shrink-0" />
-				<span className="min-w-0 flex-1 truncate">
-					{running ? (
-						<ShimmerLabel className="font-normal">{item.title}</ShimmerLabel>
-					) : (
-						item.title
-					)}
+				<span className="flex min-w-0 flex-1 items-center gap-1.5">
+					{title}
 				</span>
 				<StatusWord status={item.status} />
 				{duration && (
@@ -167,7 +234,11 @@ export function ToolCallRow({ item }: { item: ToolCall }) {
 					</CollapsibleTrigger>
 					<CollapsibleContent>
 						<div className="mt-1 ml-[7px] flex flex-col gap-2 border-border/60 border-l pl-3">
-							<ToolContentList itemId={item.id} items={item.content} />
+							<ToolContentList
+								itemId={item.id}
+								items={item.content}
+								streaming={running}
+							/>
 						</div>
 					</CollapsibleContent>
 				</>
