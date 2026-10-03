@@ -163,11 +163,15 @@ const LEGAL_LINKS: FooterLink[] = [
 	},
 ];
 
-export function Footer({ locale }: { locale?: SupportedLocale }) {
+export function Footer({
+	locale,
+	year,
+}: {
+	locale?: SupportedLocale;
+	year: number;
+}) {
 	const isMobileLaunched = useIsMobileLaunched();
 	const pathname = usePathname();
-	// Named local so the copyright message extracts as `{year}`, not `{0}`.
-	const year = new Date().getFullYear();
 	if (pathname === "/download") return null;
 
 	return (

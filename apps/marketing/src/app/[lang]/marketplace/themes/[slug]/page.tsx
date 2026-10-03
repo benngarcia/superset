@@ -17,6 +17,10 @@ interface PageProps {
 	params: Promise<{ slug: string }>;
 }
 
+export function generateStaticParams() {
+	return themeListings.slice(0, 1).map((theme) => ({ slug: theme.slug }));
+}
+
 export async function generateMetadata({
 	params,
 }: PageProps): Promise<Metadata> {

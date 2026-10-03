@@ -5,6 +5,7 @@ import { COMPANY } from "@superset/shared/constants";
 import type { Metadata } from "next";
 import { Silkscreen } from "next/font/google";
 import Link from "next/link";
+import { connection } from "next/server";
 import { FactoryBackdrop } from "@/app/[lang]/components/FactoryBackdrop";
 import { localeUrl, localizedAlternates } from "@/app/[lang]/metadata";
 import { fetchStats } from "@/app/[lang]/utils/fetchLeaderboard";
@@ -52,9 +53,10 @@ export async function generateMetadata(): Promise<Metadata> {
 	};
 }
 
-export const revalidate = 3600;
+export const instant = false;
 
 export default async function StatsPage() {
+	await connection();
 	const locale = await initServerI18n();
 
 	const stats = await fetchStats({ period: "all" });

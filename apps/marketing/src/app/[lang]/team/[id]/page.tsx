@@ -288,6 +288,12 @@ export default async function TeamMemberPage({ params }: PageProps) {
 	);
 }
 
+export function generateStaticParams() {
+	return getAllPeople()
+		.slice(0, 1)
+		.map((person) => ({ id: person.id }));
+}
+
 export async function generateMetadata({
 	params,
 }: PageProps): Promise<Metadata> {

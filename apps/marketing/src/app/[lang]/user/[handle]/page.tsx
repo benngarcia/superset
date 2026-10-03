@@ -41,7 +41,7 @@ const pixel = Silkscreen({
 	display: "swap",
 });
 
-export const revalidate = 300;
+export const instant = false;
 
 interface PageProps {
 	params: Promise<{ handle: string }>;

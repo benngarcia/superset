@@ -5,7 +5,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import { localeUrl, localizedAlternates } from "@/app/[lang]/metadata";
 import { initServerI18n } from "@/app/i18n-server";
 import { ArticleJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
-import { getChangelogEntry } from "@/lib/changelog";
+import { getChangelogEntries, getChangelogEntry } from "@/lib/changelog";
 import { changelogMdxComponents } from "../components/ChangelogEntry/changelog-mdx-components";
 import { ChangelogEntryLayout } from "./components/ChangelogEntryLayout";
 
@@ -47,6 +47,12 @@ export default async function ChangelogEntryPage({ params }: PageProps) {
 			</ChangelogEntryLayout>
 		</main>
 	);
+}
+
+export function generateStaticParams() {
+	return getChangelogEntries()
+		.slice(0, 1)
+		.map((entry) => ({ slug: entry.slug }));
 }
 
 export async function generateMetadata({

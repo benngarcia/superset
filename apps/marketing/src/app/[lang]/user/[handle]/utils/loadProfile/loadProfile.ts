@@ -1,3 +1,4 @@
+import { cacheLife } from "next/cache";
 import {
 	fetchParticipant,
 	isRateLimited,
@@ -11,9 +12,11 @@ export type ProfileLookup =
 
 /**
  * Shared by the page and its metadata. Only a refused read becomes a state
- * of its own; any other failure still throws so ISR keeps the stale page.
+ * of its own; any other failure still throws so nothing is cached.
  */
 export async function loadProfile(handle: string): Promise<ProfileLookup> {
+	"use cache";
+	cacheLife({ revalidate: 300 });
 	try {
 		const profile = await fetchParticipant(handle, { period: "all" });
 		return profile ? { state: "found", profile } : { state: "missing" };

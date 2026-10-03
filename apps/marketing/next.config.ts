@@ -92,6 +92,7 @@ const contentSecurityPolicy = [
 const config: NextConfig = {
 	reactStrictMode: true,
 	reactCompiler: true,
+	cacheComponents: true,
 	typescript: { ignoreBuildErrors: true },
 
 	// getInterBold reads the font through process.cwd(), which the tracer
