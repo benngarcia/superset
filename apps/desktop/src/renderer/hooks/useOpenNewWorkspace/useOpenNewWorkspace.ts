@@ -25,9 +25,7 @@ export function useOpenNewWorkspace() {
 			}
 			const hostId =
 				requestedHostId ??
-				(projectId && isCloudHostSelected()
-					? (machineId ?? undefined)
-					: undefined);
+				(projectId ? resolveHandoffHostId(machineId) : undefined);
 			if (hostId) {
 				useNewWorkspaceDraftStore.getState().updateDraft({ hostId });
 			}
@@ -46,12 +44,14 @@ export function useOpenNewWorkspace() {
 	);
 }
 
-// The cloud host has no project picker, so a project or session handoff must leave it.
-function isCloudHostSelected() {
-	return (
-		useNewWorkspaceDraftStore.getState().hostId === CLOUD_HOST_ID ||
-		useV2WorkspaceCreateDefaultsStore.getState().lastHostId === CLOUD_HOST_ID
-	);
+// The cloud host has no project picker, so a project or session handoff must
+// leave it. A draft host goes in the URL so the page's restore can't replace it.
+function resolveHandoffHostId(machineId: string | null | undefined) {
+	const draftHostId = useNewWorkspaceDraftStore.getState().hostId;
+	const currentHostId =
+		draftHostId ?? useV2WorkspaceCreateDefaultsStore.getState().lastHostId;
+	if (currentHostId === CLOUD_HOST_ID) return machineId ?? undefined;
+	return draftHostId ?? undefined;
 }
 
 export function useOpenNewWorkspaceForLocalProject() {
@@ -74,7 +74,7 @@ export function useOpenNewSession() {
 			useNewWorkspaceModalStore.getState().openSessionModal();
 			return;
 		}
-		const hostId = isCloudHostSelected() && machineId ? machineId : undefined;
+		const hostId = resolveHandoffHostId(machineId);
 		const draftStore = useNewWorkspaceDraftStore.getState();
 		if (hostId) draftStore.updateDraft({ hostId });
 		draftStore.selectSession();

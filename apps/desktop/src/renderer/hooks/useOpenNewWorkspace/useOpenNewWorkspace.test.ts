@@ -128,6 +128,32 @@ test("project handoff leaves a remembered cloud host before the page restores it
 	);
 });
 
+test("project handoff keeps a draft remote host over a remembered cloud host", () => {
+	useV2WorkspaceCreateDefaultsStore.getState().setLastHostId("cloud");
+	useNewWorkspaceDraftStore.getState().updateDraft({ hostId: "other-machine" });
+	const { result } = renderHook(useOpenNewWorkspace);
+	act(() => result.current("project-a"));
+	expect(navigate).toHaveBeenCalledWith(
+		expect.objectContaining({
+			search: { projectId: "project-a", host: "other-machine" },
+		}),
+	);
+	expect(useNewWorkspaceDraftStore.getState().hostId).toBe("other-machine");
+});
+
+test("session handoff keeps a draft remote host over a remembered cloud host", () => {
+	useV2WorkspaceCreateDefaultsStore.getState().setLastHostId("cloud");
+	useNewWorkspaceDraftStore.getState().updateDraft({ hostId: "other-machine" });
+	const { result } = renderHook(useOpenNewSession);
+	act(() => result.current());
+	expect(navigate).toHaveBeenCalledWith(
+		expect.objectContaining({
+			search: { session: true, host: "other-machine" },
+		}),
+	);
+	expect(useNewWorkspaceDraftStore.getState().hostId).toBe("other-machine");
+});
+
 test("new workspace without a project keeps the cloud host", () => {
 	useNewWorkspaceDraftStore.getState().updateDraft({ hostId: "cloud" });
 	const { result } = renderHook(useOpenNewWorkspace);
