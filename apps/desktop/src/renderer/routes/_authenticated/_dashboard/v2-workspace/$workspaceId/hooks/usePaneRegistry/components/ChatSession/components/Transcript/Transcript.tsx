@@ -164,10 +164,11 @@ function TranscriptBody({
 	return (
 		// The viewport spans the pane so its bar sits at the edge; the gutter
 		// is reserved on both sides so the column centers on the same axis as
-		// the composer below it, scrollbar or not.
+		// the composer below it, scrollbar or not. The app disables selection
+		// on body; the transcript is text, so it opts back in.
 		<MessageScroller.Root className="relative flex min-h-0 min-w-0 flex-1 flex-col">
 			<MessageScroller.Viewport className="min-h-0 flex-1 overflow-y-auto [scrollbar-gutter:stable_both-edges]">
-				<MessageScroller.Content className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-6 py-6">
+				<MessageScroller.Content className="mx-auto flex w-full max-w-3xl select-text flex-col gap-6 px-6 py-6">
 					{hasOlder && (
 						<div className="flex items-center gap-2">
 							<Button onClick={onLoadOlder} size="sm" variant="ghost">
