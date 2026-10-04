@@ -1,5 +1,4 @@
 import {
-	type KeyboardEventHandler,
 	type PointerEventHandler,
 	type RefObject,
 	type TouchEventHandler,
@@ -25,7 +24,6 @@ const SCROLL_KEYS = new Set([
 
 export type StickyBottomScrollBinding = {
 	contentRef: RefObject<HTMLDivElement | null>;
-	onKeyDown: KeyboardEventHandler<HTMLDivElement>;
 	onPointerDown: PointerEventHandler<HTMLDivElement>;
 	onScroll: UIEventHandler<HTMLDivElement>;
 	onTouchMove: TouchEventHandler<HTMLDivElement>;
@@ -63,12 +61,11 @@ export function useStickyBottomScroll({
 	const lastScrollAtRef = useRef(0);
 	const firstScrollRef = useRef(true);
 	const wasStreamingRef = useRef(streaming);
-	const streamingRef = useRef(streaming);
-	streamingRef.current = streaming;
 	const maxOffsetRef = useRef(0);
 
 	// A pane narrowing or a diff finishing its layout grows the content with
-	// no new chunk to re-pin on, so a size change pins while still following.
+	// no new chunk to re-pin on, so a size change pins while still following,
+	// including the final layout after the stream ends.
 	useEffect(() => {
 		const element = scrollRef.current;
 		if (!element) return;
@@ -76,7 +73,7 @@ export function useStickyBottomScroll({
 		if (typeof ResizeObserver === "undefined") return;
 		const observer = new ResizeObserver(() => {
 			maxOffsetRef.current = maxScrollOffset(element);
-			if (streamingRef.current && stickRef.current) {
+			if (stickRef.current) {
 				element.scrollTop = maxOffsetRef.current;
 			}
 		});
@@ -111,12 +108,15 @@ export function useStickyBottomScroll({
 	const onPointerDown = useCallback<PointerEventHandler<HTMLDivElement>>(() => {
 		pointerIntentRef.current = true;
 	}, []);
-	const onKeyDown = useCallback<KeyboardEventHandler<HTMLDivElement>>(
-		(event) => {
+	useEffect(() => {
+		const element = scrollRef.current;
+		if (!element) return;
+		const onKeyDown = (event: KeyboardEvent) => {
 			if (SCROLL_KEYS.has(event.key)) markIntent();
-		},
-		[markIntent],
-	);
+		};
+		element.addEventListener("keydown", onKeyDown);
+		return () => element.removeEventListener("keydown", onKeyDown);
+	}, [markIntent, scrollRef]);
 	const onScroll = useCallback<UIEventHandler<HTMLDivElement>>((event) => {
 		if (
 			maxOffsetRef.current - event.currentTarget.scrollTop <=
@@ -144,7 +144,6 @@ export function useStickyBottomScroll({
 
 	return {
 		contentRef,
-		onKeyDown,
 		onPointerDown,
 		onScroll,
 		onTouchMove: markIntent,

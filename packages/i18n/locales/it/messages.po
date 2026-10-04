@@ -5214,7 +5214,7 @@ msgstr "Creazione"
 
 msgctxt "file change"
 msgid "Creating"
-msgstr "Creazione"
+msgstr "Creando"
 
 msgid "Creating PR..."
 msgstr "Creazione della PR…"
@@ -5640,7 +5640,7 @@ msgstr "Elimina questo host, i suoi accessi e i suoi workspace. I file sulla mac
 
 msgctxt "file change"
 msgid "Deleting"
-msgstr "Eliminazione"
+msgstr "Eliminando"
 
 #. placeholder {0}: Math.min(completed + 1, total)
 #. placeholder {1}: targets.length
@@ -6252,7 +6252,7 @@ msgstr "Modifica"
 
 msgctxt "file change"
 msgid "Editing"
-msgstr "Modifica"
+msgstr "Modificando"
 
 msgid "Editing file..."
 msgstr "Modifica del file..."
