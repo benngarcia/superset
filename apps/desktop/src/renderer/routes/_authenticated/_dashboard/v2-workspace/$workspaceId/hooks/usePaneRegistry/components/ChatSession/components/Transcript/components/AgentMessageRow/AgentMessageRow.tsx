@@ -1,6 +1,4 @@
 import { Trans, useLingui } from "@lingui/react/macro";
-import type { SessionSnapshot } from "@superset/chat/core";
-import { displayText } from "@superset/chat/core";
 import type { AgentMessage } from "@superset/chat/protocol";
 import {
 	DropdownMenu,
@@ -29,17 +27,16 @@ export function AgentMessageRow({
 	canForkToWorktree = true,
 	item,
 	onFork,
-	snapshot,
+	text,
 }: {
 	item: AgentMessage;
-	snapshot: SessionSnapshot;
+	text: string;
 	/** Absent when this agent cannot branch its own session. */
 	onFork?: ((target: ChatForkTarget) => void) | undefined;
 	/** False when there is no project to cut a worktree from. */
 	canForkToWorktree?: boolean;
 }) {
 	const { t } = useLingui();
-	const text = displayText(snapshot, item.id);
 	const { copied, copyToClipboard } = useCopyToClipboard(COPIED_MS);
 
 	const copy = useCallback(() => {

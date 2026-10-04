@@ -3,6 +3,7 @@ import { readBookkeeping } from "@superset/chat/core";
 import type { UserMessage } from "@superset/chat/protocol";
 import { Message, MessageContent } from "@superset/ui/ai-elements/message";
 import { Badge } from "@superset/ui/badge";
+import { Button } from "@superset/ui/button";
 import {
 	Collapsible,
 	CollapsibleContent,
@@ -40,13 +41,21 @@ function BookkeepingRow({ label, text }: { label: string; text: string }) {
 	);
 }
 
+export type PendingPrompt = {
+	failed: boolean;
+	onRetry: () => void;
+	onDiscard: () => void;
+};
+
 export function UserMessageRow({
 	harness,
 	item,
+	pending,
 }: {
 	item: UserMessage;
 	/** Which harness spelled this turn; its reader decides what is bookkeeping. */
 	harness: string | undefined;
+	pending?: PendingPrompt | undefined;
 }) {
 	const text = userMessageText(item);
 	const note = readBookkeeping(harness, text);
@@ -57,7 +66,12 @@ export function UserMessageRow({
 	);
 	return (
 		<Message from="user">
-			<MessageContent className="max-w-[85%] rounded-2xl">
+			<MessageContent
+				className={cn(
+					"max-w-[85%] rounded-2xl transition-opacity",
+					pending && !pending.failed && "opacity-60",
+				)}
+			>
 				<div className="whitespace-pre-wrap break-words text-sm">{text}</div>
 				{attachments.length > 0 && (
 					<div className="mt-1 flex flex-wrap gap-1">
@@ -68,12 +82,20 @@ export function UserMessageRow({
 						))}
 					</div>
 				)}
-				{item.queued && (
-					<Badge className="mt-1 w-fit" variant="outline">
-						<Trans>Queued</Trans>
-					</Badge>
-				)}
 			</MessageContent>
+			{pending?.failed && (
+				<div className="flex items-center gap-2 self-end">
+					<Badge variant="destructive">
+						<Trans>Failed to send</Trans>
+					</Badge>
+					<Button onClick={pending.onRetry} size="sm" variant="ghost">
+						<Trans>Retry</Trans>
+					</Button>
+					<Button onClick={pending.onDiscard} size="sm" variant="ghost">
+						<Trans>Discard</Trans>
+					</Button>
+				</div>
+			)}
 		</Message>
 	);
 }

@@ -211,8 +211,9 @@ export function ComposerBody({
 	// only writer, and re-applying would fight what is being typed.
 	const seeded = useRef(false);
 	useEffect(() => {
-		if (seeded.current || !defaultValue) return;
+		if (seeded.current) return;
 		seeded.current = true;
+		if (!defaultValue) return;
 		editor.update(() => {
 			const root = $getRoot();
 			if (root.getTextContent() !== "") return;

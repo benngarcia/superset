@@ -15,7 +15,7 @@ import { PromptInput } from "@superset/chat-ui/PromptInput";
 import { errorMessage } from "@superset/i18n/errors";
 import { toast } from "@superset/ui/sonner";
 import { workspaceTrpc } from "@superset/workspace-client";
-import { useCallback, useMemo, useRef } from "react";
+import { memo, useCallback, useMemo, useRef } from "react";
 import { useIsDarkTheme } from "renderer/assets/app-icons/preset-icons";
 import { getPluginIconUrl, PluginIcon } from "renderer/components/PluginIcon";
 import { pluginMentionText } from "renderer/components/PluginMention";
@@ -63,7 +63,7 @@ function toMenuCommands(commands: AvailableCommand[]): PromptInputCommand[] {
 	}));
 }
 
-export function Composer({
+export const Composer = memo(function Composer({
 	availableCommands,
 	configOptions,
 	onSetConfigOption,
@@ -219,6 +219,11 @@ export function Composer({
 		[t],
 	);
 
+	const storedDraft = useMemo(
+		() => window.localStorage.getItem(draftKey) ?? undefined,
+		[draftKey],
+	);
+
 	const promptInputRef = useRef<PromptInputHandle>(null);
 	const editQueued = useCallback(
 		async (prompt: UserMessage) => {
@@ -246,7 +251,7 @@ export function Composer({
 			<PromptInput
 				className="mx-auto w-full max-w-3xl"
 				commands={commands}
-				defaultValue={window.localStorage.getItem(draftKey) ?? undefined}
+				defaultValue={storedDraft}
 				key={draftKey}
 				mentionProviders={mentionProviders}
 				onChange={onChange}
@@ -270,7 +275,7 @@ export function Composer({
 			/>
 		</div>
 	);
-}
+});
 
 async function fileToBase64(file: File): Promise<string> {
 	const bytes = new Uint8Array(await file.arrayBuffer());
