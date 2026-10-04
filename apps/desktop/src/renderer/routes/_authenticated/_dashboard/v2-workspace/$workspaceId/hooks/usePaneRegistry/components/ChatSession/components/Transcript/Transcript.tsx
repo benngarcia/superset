@@ -34,7 +34,7 @@ import {
 const REMEMBER_SIZE_CLASSNAME = "[contain-intrinsic-size:auto_240px]";
 const OFFSCREEN_CLASSNAME = "[content-visibility:auto]";
 const RECENT_ROWS_RENDERED_IN_FULL = 30;
-const STICK_TO_BOTTOM_PX = 80;
+const PINNED_ROW_TOP_GAP_PX = 24;
 
 export type TranscriptProps = {
 	groups: TurnGroup[];
@@ -104,40 +104,80 @@ export function Transcript({
 	);
 
 	const contentRef = useRef<HTMLDivElement | null>(null);
-	const stickToBottom = useRef(true);
-	const scrollToBottom = useCallback(() => {
-		const container = containerRef.current;
-		if (container) container.scrollTop = container.scrollHeight;
+	const spacerRef = useRef<HTMLDivElement | null>(null);
+	const pinnedRowKey = useRef<string | null>(null);
+
+	const pinnedRow = useCallback((): HTMLElement | null => {
+		const key = pinnedRowKey.current;
+		if (!key) return null;
+		return (
+			containerRef.current?.querySelector<HTMLElement>(
+				`[data-row-key="${CSS.escape(key)}"]`,
+			) ?? null
+		);
 	}, []);
+
+	const sizeSpacer = useCallback(() => {
+		const container = containerRef.current;
+		const spacer = spacerRef.current;
+		if (!container || !spacer) return;
+		const row = pinnedRow();
+		const contentBelowRow = row ? spacer.offsetTop - row.offsetTop : 0;
+		const height = row
+			? container.clientHeight - contentBelowRow - PINNED_ROW_TOP_GAP_PX
+			: 0;
+		spacer.style.height = `${Math.max(0, height)}px`;
+	}, [pinnedRow]);
+
+	const holdPin = useRef(false);
+	const keepPinnedRowInPlace = useCallback(() => {
+		sizeSpacer();
+		const container = containerRef.current;
+		const row = pinnedRow();
+		if (holdPin.current && container && row) {
+			container.scrollTop = row.offsetTop - PINNED_ROW_TOP_GAP_PX;
+		}
+	}, [pinnedRow, sizeSpacer]);
 
 	useEffect(() => {
 		const container = containerRef.current;
 		if (!container) return;
-		const onScroll = () => {
-			stickToBottom.current =
-				container.scrollHeight - container.scrollTop - container.clientHeight <
-				STICK_TO_BOTTOM_PX;
+		const release = () => {
+			holdPin.current = false;
 		};
-		container.addEventListener("scroll", onScroll, { passive: true });
-		return () => container.removeEventListener("scroll", onScroll);
+		const events = ["wheel", "touchstart", "keydown", "pointerdown"] as const;
+		for (const event of events) {
+			container.addEventListener(event, release, { passive: true });
+		}
+		return () => {
+			for (const event of events) container.removeEventListener(event, release);
+		};
 	}, []);
 
 	useEffect(() => {
 		const content = contentRef.current;
-		if (!content) return;
-		const observer = new ResizeObserver(() => {
-			if (stickToBottom.current) scrollToBottom();
-		});
+		const container = containerRef.current;
+		if (!content || !container) return;
+		const observer = new ResizeObserver(keepPinnedRowInPlace);
 		observer.observe(content);
+		observer.observe(container);
 		return () => observer.disconnect();
-	}, [scrollToBottom]);
+	}, [keepPinnedRowInPlace]);
 
 	const anchorRowKey = latestUserRowKey(rows);
+	const seenAnchor = useRef(false);
 	useLayoutEffect(() => {
-		if (!anchorRowKey) return;
-		stickToBottom.current = true;
-		scrollToBottom();
-	}, [anchorRowKey, scrollToBottom]);
+		const container = containerRef.current;
+		if (!anchorRowKey || !container) return;
+		if (!seenAnchor.current) {
+			seenAnchor.current = true;
+			container.scrollTop = container.scrollHeight;
+			return;
+		}
+		pinnedRowKey.current = anchorRowKey;
+		holdPin.current = true;
+		keepPinnedRowInPlace();
+	}, [anchorRowKey, keepPinnedRowInPlace]);
 
 	// On the request object rather than its fields: the nonce is what makes
 	// choosing the same message twice a second scroll, and a dependency list
@@ -209,7 +249,10 @@ export function Transcript({
 	return (
 		// The scroller spans the pane so its bar sits at the edge; the column
 		// inside it holds the reading measure.
-		<div className="min-h-0 flex-1 overflow-y-auto px-6" ref={containerRef}>
+		<div
+			className="relative min-h-0 flex-1 overflow-y-auto px-6"
+			ref={containerRef}
+		>
 			<div
 				className="mx-auto flex w-full max-w-3xl flex-col gap-4 py-6"
 				ref={contentRef}
@@ -242,6 +285,7 @@ export function Transcript({
 						{renderRow(row)}
 					</div>
 				))}
+				<div aria-hidden ref={spacerRef} />
 			</div>
 		</div>
 	);

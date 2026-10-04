@@ -95,6 +95,8 @@ export type PromptInputDictation = {
 
 export type PromptInputHandle = {
 	appendText(text: string): void;
+	openFileDialog(): void;
+	focus(): void;
 };
 
 export type PromptInputProps = {
@@ -116,6 +118,14 @@ export type PromptInputProps = {
 	onChange?: (text: string) => void;
 	onSubmit?: (payload: PromptInputSubmitPayload) => void;
 	onStop?: () => void;
+	// Content inside the card above the editor, such as linked-context pills.
+	header?: ReactNode;
+	// When set, dropped, pasted and picked files go to the host instead of
+	// the composer's own attachment list.
+	onAddFiles?: (files: File[]) => void;
+	allowEmptySubmit?: boolean;
+	hideSubmit?: boolean;
+	autoFocus?: boolean;
 	onMentionHighlight?: (entry: ComposerMentionEntry | null) => void;
 	onAttachmentClick?: (attachment: PromptInputAttachment) => void;
 	onChipClick?: (chip: ComposerChip) => void;

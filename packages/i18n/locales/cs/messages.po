@@ -2356,6 +2356,12 @@ msgstr "Přihlásit se"
 msgid "Approve"
 msgstr "Schválit"
 
+msgid "Approve edits"
+msgstr "Schvalovat úpravy"
+
+msgid "Approve for me"
+msgstr "Schvalovat za mě"
+
 msgid "Approved"
 msgstr "Schváleno"
 
@@ -2434,8 +2440,17 @@ msgstr "vzestupně"
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "Požádejte agenta, aby nějakou publikoval z desktopové aplikace."
 
+msgid "Ask before editing files or running commands"
+msgstr "Ptát se před úpravou souborů nebo spuštěním příkazů"
+
+msgid "Ask for approval"
+msgstr "Žádat o schválení"
+
 msgid "Ask for this to be removed"
 msgstr "Požádat o odstranění"
+
+msgid "Ask only for actions that look risky"
+msgstr "Ptát se jen u akcí, které vypadají rizikově"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "Zeptejte se agenta, @zmiňte soubory, spusťte /příkazy"
@@ -6185,6 +6200,9 @@ msgstr "Upravit popis"
 msgid "Edit environment"
 msgstr "Upravit prostředí"
 
+msgid "Edit files without asking; ask before commands"
+msgstr "Upravovat soubory bez ptaní; ptát se před příkazy"
+
 msgid "Edit name"
 msgstr "Upravit název"
 
@@ -7487,6 +7505,9 @@ msgstr "Front matter je skrytý — pro úpravy přepněte na Markdown"
 msgid "Front matter hidden — switch to the Markdown view to edit it"
 msgstr "Front matter je skrytý — pro úpravy přepněte na zobrazení Markdown"
 
+msgid "Full access"
+msgstr "Plný přístup"
+
 msgid "Full changelog →"
 msgstr "Celý changelog →"
 
@@ -8014,6 +8035,9 @@ msgstr "Kolik agentní práce inženýři skutečně spouštějí — tokeny, n�
 
 msgid "How people reach superset.sh and the docs, and how much of it is search and assistants rather than the brand."
 msgstr "Jak se lidé dostávají na superset.sh a do dokumentace a kolik z toho je vyhledávání a asistenti místo značky."
+
+msgid "How should the agent's actions be approved?"
+msgstr "Jak schvalovat akce agenta?"
 
 msgid "How the command opens."
 msgstr "Jak se příkaz otevře."
@@ -12612,6 +12636,15 @@ msgstr "Obnovování…"
 msgid "Read"
 msgstr "Přečteno"
 
+msgid "Read and plan without changing anything"
+msgstr "Číst a plánovat bez jakýchkoli změn"
+
+msgid "Read files; ask for anything else"
+msgstr "Číst soubory; u všeho ostatního se ptát"
+
+msgid "Read only"
+msgstr "Jen pro čtení"
+
 msgid "Read the changelog"
 msgstr "Přečíst changelog"
 
@@ -17185,6 +17218,9 @@ msgstr "Zrušit vyřešení"
 
 msgid "Unresolved"
 msgstr "Nevyřešeno"
+
+msgid "Unrestricted access to the internet and any file on your computer"
+msgstr "Neomezený přístup k internetu a ke všem souborům v počítači"
 
 msgid "Unsaved changes"
 msgstr "Neuložené změny"

@@ -2356,6 +2356,12 @@ msgstr "Postuler"
 msgid "Approve"
 msgstr "Approuver"
 
+msgid "Approve edits"
+msgstr "Approuver les modifications"
+
+msgid "Approve for me"
+msgstr "Approuver pour moi"
+
 msgid "Approved"
 msgstr "Approuvée"
 
@@ -2434,8 +2440,17 @@ msgstr "croissant"
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "Demandez à un agent d'en publier une depuis l'application de bureau."
 
+msgid "Ask before editing files or running commands"
+msgstr "Demander avant de modifier des fichiers ou d'exécuter des commandes"
+
+msgid "Ask for approval"
+msgstr "Demander une approbation"
+
 msgid "Ask for this to be removed"
 msgstr "Demander la suppression"
+
+msgid "Ask only for actions that look risky"
+msgstr "Demander uniquement pour les actions qui semblent risquées"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "Demandez à l'agent, @mentionnez des fichiers, lancez des /commandes"
@@ -6185,6 +6200,9 @@ msgstr "Modifier la description"
 msgid "Edit environment"
 msgstr "Modifier l'environnement"
 
+msgid "Edit files without asking; ask before commands"
+msgstr "Modifier les fichiers sans demander ; demander avant les commandes"
+
 msgid "Edit name"
 msgstr "Modifier le nom"
 
@@ -7487,6 +7505,9 @@ msgstr "Front matter masqué — passez en Markdown pour le modifier"
 msgid "Front matter hidden — switch to the Markdown view to edit it"
 msgstr "Front matter masqué — passez à la vue Markdown pour le modifier"
 
+msgid "Full access"
+msgstr "Accès complet"
+
 msgid "Full changelog →"
 msgstr "Changelog complet →"
 
@@ -8014,6 +8035,9 @@ msgstr "Le volume réel de travail agent exécuté par les ingénieurs — token
 
 msgid "How people reach superset.sh and the docs, and how much of it is search and assistants rather than the brand."
 msgstr "Comment les gens atteignent superset.sh et la documentation, et quelle part vient de la recherche et des assistants plutôt que de la marque."
+
+msgid "How should the agent's actions be approved?"
+msgstr "Comment approuver les actions de l'agent ?"
 
 msgid "How the command opens."
 msgstr "Comment la commande s'ouvre."
@@ -12612,6 +12636,15 @@ msgstr "Réactivation…"
 msgid "Read"
 msgstr "Lecture"
 
+msgid "Read and plan without changing anything"
+msgstr "Lire et planifier sans rien modifier"
+
+msgid "Read files; ask for anything else"
+msgstr "Lire les fichiers ; demander pour tout le reste"
+
+msgid "Read only"
+msgstr "Lecture seule"
+
 msgid "Read the changelog"
 msgstr "Lire le changelog"
 
@@ -17185,6 +17218,9 @@ msgstr "Rouvrir"
 
 msgid "Unresolved"
 msgstr "Non résolu"
+
+msgid "Unrestricted access to the internet and any file on your computer"
+msgstr "Accès illimité à Internet et à tous les fichiers de votre ordinateur"
 
 msgid "Unsaved changes"
 msgstr "Modifications non enregistrées"

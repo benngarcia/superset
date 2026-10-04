@@ -2356,6 +2356,12 @@ msgstr "Başvur"
 msgid "Approve"
 msgstr "Onayla"
 
+msgid "Approve edits"
+msgstr "Düzenlemeleri onayla"
+
+msgid "Approve for me"
+msgstr "Benim yerime onayla"
+
 msgid "Approved"
 msgstr "Onaylandı"
 
@@ -2434,8 +2440,17 @@ msgstr "artan"
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "Bir ajandan masaüstü uygulamasından bir tane yayımlamasını isteyin."
 
+msgid "Ask before editing files or running commands"
+msgstr "Dosyaları düzenlemeden veya komut çalıştırmadan önce sor"
+
+msgid "Ask for approval"
+msgstr "Onay iste"
+
 msgid "Ask for this to be removed"
 msgstr "Kaldırılmasını iste"
+
+msgid "Ask only for actions that look risky"
+msgstr "Yalnızca riskli görünen işlemler için sor"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "Aracıya sorun, @ile dosya belirtin, /komut çalıştırın"
@@ -6185,6 +6200,9 @@ msgstr "Açıklamayı düzenle"
 msgid "Edit environment"
 msgstr "Ortamı düzenle"
 
+msgid "Edit files without asking; ask before commands"
+msgstr "Dosyaları sormadan düzenle; komutlardan önce sor"
+
 msgid "Edit name"
 msgstr "Adı düzenle"
 
@@ -7487,6 +7505,9 @@ msgstr "Front matter gizli — düzenlemek için Markdown'a geçin"
 msgid "Front matter hidden — switch to the Markdown view to edit it"
 msgstr "Front matter gizli — düzenlemek için Markdown görünümüne geçin"
 
+msgid "Full access"
+msgstr "Tam erişim"
+
 msgid "Full changelog →"
 msgstr "Tüm değişiklik günlüğü →"
 
@@ -8014,6 +8035,9 @@ msgstr "Mühendislerin gerçekte ne kadar ajan işi çalıştırdığı — kat�
 
 msgid "How people reach superset.sh and the docs, and how much of it is search and assistants rather than the brand."
 msgstr "İnsanlar superset.sh'a ve dokümantasyona nasıl ulaşıyor ve bunun ne kadarı marka yerine arama ve asistanlardan geliyor."
+
+msgid "How should the agent's actions be approved?"
+msgstr "Ajanın işlemleri nasıl onaylansın?"
 
 msgid "How the command opens."
 msgstr "Komutun nasıl açılacağı."
@@ -12612,6 +12636,15 @@ msgstr "Yeniden etkinleştiriliyor…"
 msgid "Read"
 msgstr "Okundu"
 
+msgid "Read and plan without changing anything"
+msgstr "Hiçbir şeyi değiştirmeden oku ve planla"
+
+msgid "Read files; ask for anything else"
+msgstr "Dosyaları oku; geri kalan her şey için sor"
+
+msgid "Read only"
+msgstr "Salt okunur"
+
 msgid "Read the changelog"
 msgstr "Değişiklik günlüğünü oku"
 
@@ -17185,6 +17218,9 @@ msgstr "Çözümü geri al"
 
 msgid "Unresolved"
 msgstr "Çözülmedi"
+
+msgid "Unrestricted access to the internet and any file on your computer"
+msgstr "İnternete ve bilgisayarındaki tüm dosyalara sınırsız erişim"
 
 msgid "Unsaved changes"
 msgstr "Kaydedilmemiş değişiklikler"

@@ -134,3 +134,38 @@ describe("ClaudeAdapter", () => {
 		]);
 	});
 });
+
+describe("ClaudeAdapter permission modes", () => {
+	test("starts in the requested mode and switches the live session on setMode", async () => {
+		const modes: string[] = [];
+		let startMode: string | undefined;
+		const stream: ClaudeSession = {
+			async *[Symbol.asyncIterator]() {
+				await new Promise(() => undefined);
+			},
+			setPermissionMode: async (mode) => {
+				modes.push(mode);
+			},
+		};
+		const query: ClaudeQuery = ({ options }) => {
+			startMode = options.permissionMode;
+			return stream;
+		};
+		const adapter = new ClaudeAdapter({ query });
+		const iterator = adapter
+			.start({ cwd: "/workspace", modeId: "acceptEdits" })
+			[Symbol.asyncIterator]();
+
+		const first = await iterator.next();
+		expect(first.value).toMatchObject({
+			kind: "session",
+			session: { modeId: "acceptEdits" },
+		});
+		await Bun.sleep(0);
+		expect(startMode).toBe("acceptEdits");
+
+		adapter.setMode("bypassPermissions");
+		adapter.setMode("not-a-mode");
+		expect(modes).toEqual(["bypassPermissions", "default"]);
+	});
+});
