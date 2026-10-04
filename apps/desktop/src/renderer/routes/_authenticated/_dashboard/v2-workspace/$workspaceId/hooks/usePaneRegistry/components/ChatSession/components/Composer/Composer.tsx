@@ -14,7 +14,7 @@ import type {
 import { errorMessage } from "@superset/i18n/errors";
 import { toast } from "@superset/ui/sonner";
 import { workspaceTrpc } from "@superset/workspace-client";
-import { memo, useCallback, useMemo, useRef } from "react";
+import { memo, useCallback, useMemo, useRef, useState } from "react";
 import { AgentComposer } from "renderer/components/AgentComposer";
 import { userMessageText } from "../../utils/userMessageText";
 import { ModelPicker } from "./components/ModelPicker";
@@ -39,6 +39,7 @@ export type ComposerProps = {
 	promptQueue?: {
 		prompts: UserMessage[];
 		paused: boolean;
+		actionable: boolean;
 		remove: (itemId: string) => Promise<void>;
 		resume: () => Promise<void>;
 		steer: (itemId: string) => Promise<void>;
@@ -173,6 +174,7 @@ export const Composer = memo(function Composer({
 				...attachments,
 			]);
 			window.localStorage.removeItem(draftKey);
+			setSeed({ draftKey, text: undefined });
 		},
 		[disabled, onSend, draftKey, uploadAttachment, t],
 	);
@@ -192,10 +194,14 @@ export const Composer = memo(function Composer({
 		[t],
 	);
 
-	const storedDraft = useMemo(
-		() => window.localStorage.getItem(draftKey) ?? undefined,
-		[draftKey],
-	);
+	const [seed, setSeed] = useState(() => ({
+		draftKey,
+		text: window.localStorage.getItem(draftKey) ?? undefined,
+	}));
+	const storedDraft =
+		seed.draftKey === draftKey
+			? seed.text
+			: (window.localStorage.getItem(draftKey) ?? undefined);
 
 	const promptInputRef = useRef<PromptInputHandle>(null);
 	const editQueued = useCallback(
@@ -216,6 +222,7 @@ export const Composer = memo(function Composer({
 						onRemove={(id) => void runQueueAction(() => promptQueue.remove(id))}
 						onResume={() => void runQueueAction(promptQueue.resume)}
 						onSteer={(id) => void runQueueAction(() => promptQueue.steer(id))}
+						actionable={promptQueue.actionable}
 						paused={promptQueue.paused}
 						prompts={promptQueue.prompts}
 					/>

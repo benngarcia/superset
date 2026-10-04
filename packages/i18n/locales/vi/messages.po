@@ -2435,7 +2435,7 @@ msgid "Ask for this to be removed"
 msgstr "Yêu cầu xóa phần này"
 
 msgid "Ask only for actions that look risky"
-msgstr "Chỉ hỏi với thao tác có vẻ rủi ro"
+msgstr "Chỉ xin phép trước với thao tác có vẻ rủi ro"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "Hỏi tác nhân, @nhắc đến tệp, chạy /lệnh"
@@ -12619,7 +12619,7 @@ msgid "Read and plan without changing anything"
 msgstr "Đọc và lập kế hoạch mà không thay đổi gì"
 
 msgid "Read files; ask for anything else"
-msgstr "Đọc tệp; hỏi với mọi thứ khác"
+msgstr "Đọc tệp; xin phép trước với mọi việc khác"
 
 msgid "Read only"
 msgstr "Chỉ đọc"
@@ -16946,9 +16946,11 @@ msgstr "Đã thiết lập tunnel"
 msgid "Turn chores into scheduled agents: issue triage, changelog drafts, dependency bumps. They run on their own and open PRs for you to review."
 msgstr "Biến việc lặt vặt thành agent chạy theo lịch: phân loại issue, soạn changelog, nâng dependency. Chúng tự chạy và mở PR để bạn review."
 
-#. placeholder {0}: message ? `: ${message}` : ""
-msgid "Turn failed{0}"
-msgstr "Lượt xử lý thất bại{0}"
+msgid "Turn failed"
+msgstr "Lượt xử lý thất bại"
+
+msgid "Turn failed: {message}"
+msgstr "Lượt xử lý thất bại: {message}"
 
 msgid "Turn on “Allow remote access to this device via relay”"
 msgstr "Bật “Cho phép truy cập từ xa vào thiết bị này qua relay”"

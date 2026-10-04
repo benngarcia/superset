@@ -16946,9 +16946,11 @@ msgstr "Tunel nawiązany"
 msgid "Turn chores into scheduled agents: issue triage, changelog drafts, dependency bumps. They run on their own and open PRs for you to review."
 msgstr "Zamień obowiązki w zaplanowanych agentów: segregację zgłoszeń, szkice changelogu, podbijanie zależności. Działają same i otwierają PR-y do Twojego przeglądu."
 
-#. placeholder {0}: message ? `: ${message}` : ""
-msgid "Turn failed{0}"
-msgstr "Tura nie powiodła się{0}"
+msgid "Turn failed"
+msgstr "Tura nie powiodła się"
+
+msgid "Turn failed: {message}"
+msgstr "Tura nie powiodła się: {message}"
 
 msgid "Turn on “Allow remote access to this device via relay”"
 msgstr "Włącz „Zezwól na zdalny dostęp do tego urządzenia przez przekaźnik”"

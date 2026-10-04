@@ -16946,9 +16946,11 @@ msgstr "Tünel kuruldu"
 msgid "Turn chores into scheduled agents: issue triage, changelog drafts, dependency bumps. They run on their own and open PRs for you to review."
 msgstr "Rutin işleri zamanlanmış ajanlara dönüştürün: issue sınıflandırma, değişiklik günlüğü taslakları, bağımlılık yükseltmeleri. Kendi başlarına çalışır ve incelemeniz için PR açarlar."
 
-#. placeholder {0}: message ? `: ${message}` : ""
-msgid "Turn failed{0}"
-msgstr "Tur başarısız{0}"
+msgid "Turn failed"
+msgstr "Tur başarısız"
+
+msgid "Turn failed: {message}"
+msgstr "Tur başarısız: {message}"
 
 msgid "Turn on “Allow remote access to this device via relay”"
 msgstr "“Bu cihaza röle üzerinden uzaktan erişime izin ver” seçeneğini açın"

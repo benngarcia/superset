@@ -1,6 +1,5 @@
-import type { SessionSnapshot, TurnGroup } from "@superset/chat/core";
-import { displayText } from "@superset/chat/core";
-import type { UserMessage } from "@superset/chat/protocol";
+import type { TurnGroup } from "@superset/chat/core";
+import type { AgentMessage, UserMessage } from "@superset/chat/protocol";
 import type { ChatHistorySidebarMessage } from "@superset/ui/chat-history-sidebar";
 import { userMessageText } from "../userMessageText";
 
@@ -18,10 +17,7 @@ function preview(text: string): string {
  * line. The rail pairs a user message with the assistant message that follows
  * it, so both roles go in and the pairing is its own.
  */
-export function railMessages(
-	groups: TurnGroup[],
-	snapshot: SessionSnapshot,
-): ChatHistorySidebarMessage[] {
+export function railMessages(groups: TurnGroup[]): ChatHistorySidebarMessage[] {
 	const messages: ChatHistorySidebarMessage[] = [];
 	for (const group of groups) {
 		for (const entry of group.entries) {
@@ -33,7 +29,7 @@ export function railMessages(
 				continue;
 			}
 			if (item.kind === "agent_message") {
-				const line = preview(displayText(snapshot, item.id));
+				const line = preview((item as AgentMessage).text);
 				if (line) {
 					messages.push({ id: item.id, role: "assistant", preview: line });
 				}

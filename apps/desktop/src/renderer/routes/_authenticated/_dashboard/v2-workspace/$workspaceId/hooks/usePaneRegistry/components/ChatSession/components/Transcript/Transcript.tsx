@@ -147,6 +147,7 @@ export function Transcript({
 		sizeSpacer();
 		const container = containerRef.current;
 		if (!container) return;
+		if (distanceFromBottom(container) <= 1) following.current = true;
 		if (following.current) {
 			const row = pinnedRow();
 			container.scrollTop =
@@ -200,6 +201,7 @@ export function Transcript({
 	const rowsRef = useRef(rows);
 	rowsRef.current = rows;
 	const mountedAtMs = useRef(Date.now());
+	const pinnedKeys = useRef(new Set<string>());
 	useLayoutEffect(() => {
 		if (!anchorRowKey) return;
 		const row = rowsRef.current.find(
@@ -211,7 +213,8 @@ export function Transcript({
 				row.item.kind === "user_message" &&
 				Boolean((row.item as UserMessage).clientId) &&
 				row.item.startedAtMs >= mountedAtMs.current - CLOCK_SKEW_MS);
-		if (sentHere) {
+		if (sentHere && !pinnedKeys.current.has(anchorRowKey)) {
+			pinnedKeys.current.add(anchorRowKey);
 			pinnedRowKey.current = anchorRowKey;
 			following.current = true;
 		}
@@ -223,6 +226,7 @@ export function Transcript({
 	// of fields would drop it as redundant.
 	useEffect(() => {
 		if (!scrollRequest) return;
+		following.current = false;
 		containerRef.current
 			?.querySelector(`[data-item-id="${CSS.escape(scrollRequest.itemId)}"]`)
 			?.scrollIntoView({ behavior: "smooth", block: "start" });

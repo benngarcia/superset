@@ -371,7 +371,7 @@ describe("LiveSession", () => {
 		await runtime.dispose();
 	});
 
-	test("cancelTurn pauses the queue until resumeQueue", async () => {
+	test("cancelTurn with pauseQueue pauses the queue until resumeQueue", async () => {
 		const { runtime, sessionId } = startSession(GATED_THEN_QUICK);
 		sendPrompt(runtime, sessionId, "first");
 		await waitForApproval(runtime, sessionId);
@@ -381,11 +381,11 @@ describe("LiveSession", () => {
 			commandId: randomUUID(),
 			sessionId,
 			turnId: "t1",
+			pauseQueue: true,
 		});
 		const latest = () =>
 			reduceMany(emptySnapshot(), journalEnvelopes(runtime, sessionId));
 		await waitFor(() => latest().turns.get("t1")?.status === "interrupted");
-		await new Promise((resolve) => setTimeout(resolve, 20));
 		expect(latest().session?.queuePaused).toBe(true);
 		expect(deriveQueuedPrompts(latest()).map((item) => item.id)).toEqual([
 			second.itemId,
@@ -417,6 +417,7 @@ describe("LiveSession", () => {
 			commandId: randomUUID(),
 			sessionId,
 			turnId: "t1",
+			pauseQueue: true,
 		});
 		const latest = () =>
 			reduceMany(emptySnapshot(), journalEnvelopes(runtime, sessionId));
@@ -430,6 +431,66 @@ describe("LiveSession", () => {
 		await waitFor(() => latest().items.get(third.itemId)?.turnId === "t2");
 		expect(latest().session?.queuePaused).toBe(false);
 		await waitFor(() => latest().items.get(second.itemId)?.turnId === "t3");
+		await runtime.dispose();
+	});
+
+	test("cancelTurn without pauseQueue keeps sending the queue", async () => {
+		const { runtime, sessionId } = startSession(GATED_THEN_QUICK);
+		sendPrompt(runtime, sessionId, "first");
+		await waitForApproval(runtime, sessionId);
+		const second = sendPrompt(runtime, sessionId, "second");
+
+		runtime.commands.cancelTurn({
+			commandId: randomUUID(),
+			sessionId,
+			turnId: "t1",
+		});
+		const latest = () =>
+			reduceMany(emptySnapshot(), journalEnvelopes(runtime, sessionId));
+		await waitFor(() => latest().items.get(second.itemId)?.turnId === "t2");
+		expect(latest().session?.queuePaused).toBeUndefined();
+		await runtime.dispose();
+	});
+
+	test("a pause right after Steer still sends the steered prompt", async () => {
+		const { runtime, sessionId } = startSession(GATED_THEN_QUICK);
+		sendPrompt(runtime, sessionId, "first");
+		await waitForApproval(runtime, sessionId);
+		sendPrompt(runtime, sessionId, "second");
+		const third = sendPrompt(runtime, sessionId, "third");
+
+		runtime.commands.steerQueuedPrompt({
+			commandId: randomUUID(),
+			sessionId,
+			itemId: third.itemId,
+		});
+		runtime.commands.cancelTurn({
+			commandId: randomUUID(),
+			sessionId,
+			turnId: "t1",
+			pauseQueue: true,
+		});
+		const latest = () =>
+			reduceMany(emptySnapshot(), journalEnvelopes(runtime, sessionId));
+		await waitFor(() => latest().items.get(third.itemId)?.turnId === "t2");
+		await runtime.dispose();
+	});
+
+	test("closing the session discards the prompts still queued", async () => {
+		const { runtime, sessionId } = startSession(GATED_THEN_QUICK);
+		sendPrompt(runtime, sessionId, "first");
+		await waitForApproval(runtime, sessionId);
+		const second = sendPrompt(runtime, sessionId, "second");
+
+		await runtime.commands.closeSession({ sessionId });
+		const snapshot = reduceMany(
+			emptySnapshot(),
+			journalEnvelopes(runtime, sessionId),
+		);
+		expect(deriveQueuedPrompts(snapshot)).toEqual([]);
+		expect(snapshot.items.get(second.itemId)?.item).toMatchObject({
+			discarded: true,
+		});
 		await runtime.dispose();
 	});
 

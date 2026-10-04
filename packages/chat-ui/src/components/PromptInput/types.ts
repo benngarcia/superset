@@ -118,10 +118,7 @@ export type PromptInputProps = {
 	onChange?: (text: string) => void;
 	onSubmit?: (payload: PromptInputSubmitPayload) => void;
 	onStop?: () => void;
-	// Content inside the card above the editor, such as linked-context pills.
 	header?: ReactNode;
-	// When set, dropped, pasted and picked files go to the host instead of
-	// the composer's own attachment list.
 	onAddFiles?: (files: File[]) => void;
 	allowEmptySubmit?: boolean;
 	clearOnSubmit?: boolean;

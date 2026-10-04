@@ -672,7 +672,7 @@ export function NewWorkspaceScreen({
 	useEffect(() => {
 		if (!isOpen) return;
 		const handler = (e: KeyboardEvent) => {
-			if (e.repeat) return;
+			if (e.repeat || e.defaultPrevented) return;
 			if (!isEnterSubmit(e, { requireMod: true })) return;
 			e.preventDefault();
 			handleSubmit();

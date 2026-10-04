@@ -16946,9 +16946,11 @@ msgstr "Tunnel opgezet"
 msgid "Turn chores into scheduled agents: issue triage, changelog drafts, dependency bumps. They run on their own and open PRs for you to review."
 msgstr "Zet klusjes om in geplande agents: issue-triage, changelog-concepten, dependency-updates. Ze draaien zelfstandig en openen PR's voor jouw review."
 
-#. placeholder {0}: message ? `: ${message}` : ""
-msgid "Turn failed{0}"
-msgstr "Beurt mislukt{0}"
+msgid "Turn failed"
+msgstr "Beurt mislukt"
+
+msgid "Turn failed: {message}"
+msgstr "Beurt mislukt: {message}"
 
 msgid "Turn on “Allow remote access to this device via relay”"
 msgstr "Zet “Externe toegang tot dit apparaat via de relay toestaan” aan"

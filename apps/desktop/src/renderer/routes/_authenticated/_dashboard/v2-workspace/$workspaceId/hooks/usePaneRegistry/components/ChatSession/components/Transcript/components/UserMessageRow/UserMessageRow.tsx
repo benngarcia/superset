@@ -59,7 +59,8 @@ export function UserMessageRow({
 }) {
 	const text = userMessageText(item);
 	const note = readBookkeeping(harness, text);
-	if (note) return <BookkeepingRow label={note.label} text={text} />;
+	if (note && !pending)
+		return <BookkeepingRow label={note.label} text={text} />;
 
 	const attachments = item.content.filter(
 		(content) => content.type === "attachment",

@@ -16946,9 +16946,11 @@ msgstr "Туннель установлен"
 msgid "Turn chores into scheduled agents: issue triage, changelog drafts, dependency bumps. They run on their own and open PRs for you to review."
 msgstr "Превратите рутину в агентов по расписанию: разбор задач, черновики changelog, обновление зависимостей. Они работают сами и открывают PR вам на проверку."
 
-#. placeholder {0}: message ? `: ${message}` : ""
-msgid "Turn failed{0}"
-msgstr "Ход завершился ошибкой{0}"
+msgid "Turn failed"
+msgstr "Ход завершился ошибкой"
+
+msgid "Turn failed: {message}"
+msgstr "Ход завершился ошибкой: {message}"
 
 msgid "Turn on “Allow remote access to this device via relay”"
 msgstr "Включите «Разрешить удалённый доступ к этому устройству через реле»"

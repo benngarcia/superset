@@ -20,6 +20,7 @@ import { userMessageText } from "../../../../utils/userMessageText";
 export function QueuedPrompts({
 	prompts,
 	paused,
+	actionable,
 	onEdit,
 	onRemove,
 	onResume,
@@ -27,6 +28,7 @@ export function QueuedPrompts({
 }: {
 	prompts: UserMessage[];
 	paused: boolean;
+	actionable: boolean;
 	onEdit: (prompt: UserMessage) => void;
 	onRemove: (id: string) => void;
 	onResume: () => void;
@@ -67,48 +69,52 @@ export function QueuedPrompts({
 						<span className="min-w-0 flex-1 truncate">
 							{text || attachmentNames.join(", ")}
 						</span>
-						<Tooltip>
-							<TooltipTrigger asChild>
+						{actionable && (
+							<>
+								<Tooltip>
+									<TooltipTrigger asChild>
+										<button
+											className="flex shrink-0 items-center gap-1 rounded-md px-1.5 py-0.5 text-muted-foreground text-xs transition-colors hover:bg-accent hover:text-foreground"
+											onClick={() => onSteer(prompt.id)}
+											type="button"
+										>
+											<CornerDownRight className="size-3.5" />
+											<Trans>Steer</Trans>
+										</button>
+									</TooltipTrigger>
+									<TooltipContent>
+										<Trans>Stop the agent and send this now</Trans>
+									</TooltipContent>
+								</Tooltip>
 								<button
-									className="flex shrink-0 items-center gap-1 rounded-md px-1.5 py-0.5 text-muted-foreground text-xs transition-colors hover:bg-accent hover:text-foreground"
-									onClick={() => onSteer(prompt.id)}
-									type="button"
-								>
-									<CornerDownRight className="size-3.5" />
-									<Trans>Steer</Trans>
-								</button>
-							</TooltipTrigger>
-							<TooltipContent>
-								<Trans>Stop the agent and send this now</Trans>
-							</TooltipContent>
-						</Tooltip>
-						<button
-							aria-label={t({ message: "Remove queued message" })}
-							className="flex size-6 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-							onClick={() => onRemove(prompt.id)}
-							type="button"
-						>
-							<Trash2 className="size-3.5" />
-						</button>
-						<DropdownMenu>
-							<DropdownMenuTrigger asChild>
-								<button
-									aria-label={t({ message: "More actions" })}
+									aria-label={t({ message: "Remove queued message" })}
 									className="flex size-6 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+									onClick={() => onRemove(prompt.id)}
 									type="button"
 								>
-									<Ellipsis className="size-3.5" />
+									<Trash2 className="size-3.5" />
 								</button>
-							</DropdownMenuTrigger>
-							<DropdownMenuContent align="end">
-								<DropdownMenuItem
-									disabled={attachmentNames.length > 0}
-									onSelect={() => onEdit(prompt)}
-								>
-									<Trans>Edit</Trans>
-								</DropdownMenuItem>
-							</DropdownMenuContent>
-						</DropdownMenu>
+								<DropdownMenu>
+									<DropdownMenuTrigger asChild>
+										<button
+											aria-label={t({ message: "More actions" })}
+											className="flex size-6 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+											type="button"
+										>
+											<Ellipsis className="size-3.5" />
+										</button>
+									</DropdownMenuTrigger>
+									<DropdownMenuContent align="end">
+										<DropdownMenuItem
+											disabled={attachmentNames.length > 0}
+											onSelect={() => onEdit(prompt)}
+										>
+											<Trans>Edit</Trans>
+										</DropdownMenuItem>
+									</DropdownMenuContent>
+								</DropdownMenu>
+							</>
+						)}
 					</div>
 				);
 			})}

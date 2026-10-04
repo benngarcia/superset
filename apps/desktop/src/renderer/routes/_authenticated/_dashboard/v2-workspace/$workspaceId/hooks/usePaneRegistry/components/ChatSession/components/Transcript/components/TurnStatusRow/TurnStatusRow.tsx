@@ -16,7 +16,11 @@ export function TurnStatusRow({
 	}
 	return (
 		<div className="text-xs text-destructive">
-			<Trans>Turn failed{message ? `: ${message}` : ""}</Trans>
+			{message ? (
+				<Trans>Turn failed: {message}</Trans>
+			) : (
+				<Trans>Turn failed</Trans>
+			)}
 		</div>
 	);
 }
