@@ -272,8 +272,8 @@ release), and a decision on which agents a box offers — the list fills every
 preset, but the image installs only Claude and Codex.
 
 **Runtime files the desktop passes as env have to ship in the tarball.** The
-bundled host-service cannot resolve files from its own module path, so the
-desktop hands it folders as env (`HOST_MIGRATIONS_FOLDER`,
+bundle does not inline host-service's migration folders, so the desktop hands
+them over as env (`HOST_MIGRATIONS_FOLDER`,
 `SUPERSET_CHAT_V3_MIGRATIONS`). The sandbox boot sets only the first. Without
 chat.db's migrations, every `/chat-v3` request threw on the first migrate, and
 ACP chat in a cloud workspace showed "started but never prompted" over
