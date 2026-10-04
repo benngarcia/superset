@@ -33,7 +33,11 @@ export function DiffContent({
 	const activeTheme = useResolvedTheme();
 	const stats = useMemo(() => diffStats(content), [content]);
 	const kind = fileChangeKind(content);
-	const contentKey = `${content.path}:${content.oldText?.length ?? -1}:${content.newText.length}`;
+	const contentKey = [
+		content.path,
+		content.oldText ?? "",
+		content.newText,
+	].join("\0");
 	return (
 		<DetailScroll
 			className="mt-1"

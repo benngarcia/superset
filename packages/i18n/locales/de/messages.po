@@ -5605,6 +5605,9 @@ msgstr "Löscht das Profil {0}, dessen gespeicherte Anmeldung auf diesem Rechner
 msgid "Deletes this host, its access, and its workspaces. Files on the machine stay."
 msgstr "Löscht diesen Host, seine Zugriffsrechte und seine Arbeitsbereiche. Dateien auf dem Rechner bleiben erhalten."
 
+msgid "Deleting"
+msgstr "Wird gelöscht"
+
 #. placeholder {0}: Math.min(completed + 1, total)
 #. placeholder {1}: targets.length
 msgid "Deleting {0} of {1}…"

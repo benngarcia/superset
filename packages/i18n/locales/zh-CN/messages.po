@@ -5605,6 +5605,9 @@ msgstr "删除本机上的{0}配置文件、其已保存的登录以及本地Cod
 msgid "Deletes this host, its access, and its workspaces. Files on the machine stay."
 msgstr "删除该主机、其访问权限及其工作区。机器上的文件会保留。"
 
+msgid "Deleting"
+msgstr "删除中"
+
 #. placeholder {0}: Math.min(completed + 1, total)
 #. placeholder {1}: targets.length
 msgid "Deleting {0} of {1}…"

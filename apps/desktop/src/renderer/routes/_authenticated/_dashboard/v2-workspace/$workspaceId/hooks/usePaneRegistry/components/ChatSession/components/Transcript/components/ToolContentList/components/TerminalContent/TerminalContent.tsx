@@ -24,7 +24,12 @@ export function TerminalContent({
 			? content.output.slice(-MAX_OUTPUT_CHARS)
 			: content.output;
 	const clipped = content.truncated || output.length < content.output.length;
-	const contentKey = `${content.command}:${content.output.length}:${content.exitCode ?? "-"}`;
+	const contentKey = [
+		content.command,
+		output,
+		content.exitCode ?? "-",
+		clipped,
+	].join("\0");
 	return (
 		<DetailScroll
 			className="mt-1"

@@ -10,9 +10,12 @@ import {
 } from "@superset/ui/dropdown-menu";
 import { cn } from "@superset/ui/utils";
 import { Check, Copy, GitBranch } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback } from "react";
+import { useCopyToClipboard } from "renderer/hooks/useCopyToClipboard";
 import type { ChatForkTarget } from "../../../../types";
 import { MarkdownView } from "../../../MarkdownView";
+
+const COPIED_MS = 1500;
 
 function clockLabel(item: AgentMessage): string {
 	const at = item.completedAtMs ?? item.startedAtMs;
@@ -37,22 +40,13 @@ export function AgentMessageRow({
 }) {
 	const { t } = useLingui();
 	const text = displayText(snapshot, item.id);
-	const [copied, setCopied] = useState(false);
-
-	useEffect(() => {
-		if (!copied) return;
-		const timer = setTimeout(() => setCopied(false), 1500);
-		return () => clearTimeout(timer);
-	}, [copied]);
+	const { copied, copyToClipboard } = useCopyToClipboard(COPIED_MS);
 
 	const copy = useCallback(() => {
-		void navigator.clipboard
-			.writeText(text)
-			.then(() => setCopied(true))
-			.catch((error: unknown) => {
-				console.error("[chat] copy failed", error);
-			});
-	}, [text]);
+		copyToClipboard(text).catch((error: unknown) => {
+			console.error("[chat] copy failed", error);
+		});
+	}, [copyToClipboard, text]);
 
 	return (
 		// Actions stay out of the way until the message is pointed at, and stay

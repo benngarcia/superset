@@ -5605,6 +5605,9 @@ msgstr "Удаляет профиль {0}, его сохранённый вхо�
 msgid "Deletes this host, its access, and its workspaces. Files on the machine stay."
 msgstr "Удаляет этот хост, доступ к нему и его рабочие области. Файлы на машине останутся."
 
+msgid "Deleting"
+msgstr "Удаление"
+
 #. placeholder {0}: Math.min(completed + 1, total)
 #. placeholder {1}: targets.length
 msgid "Deleting {0} of {1}…"

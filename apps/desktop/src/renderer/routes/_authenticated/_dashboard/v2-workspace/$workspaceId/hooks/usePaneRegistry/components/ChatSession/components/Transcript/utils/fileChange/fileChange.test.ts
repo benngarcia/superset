@@ -1,13 +1,21 @@
 import { describe, expect, test } from "bun:test";
 import type { ToolCall } from "@superset/chat/protocol";
-import { fileChangeKind, fileChangeOf, fileName } from "./fileChange";
+import {
+	changedPaths,
+	fileChangeKind,
+	fileChangeOf,
+	fileName,
+} from "./fileChange";
 
-function call(content: ToolCall["content"]): ToolCall {
+function call(
+	content: ToolCall["content"],
+	toolKind: ToolCall["toolKind"] = "edit",
+): ToolCall {
 	return {
 		id: "toolu_1",
 		kind: "tool_call",
 		title: "Write /repo/packages/chat/README.md",
-		toolKind: "edit",
+		toolKind,
 		toolName: "Write",
 		status: "completed",
 		startedAtMs: 1,
@@ -62,5 +70,47 @@ describe("fileChangeOf", () => {
 	});
 	test("is null for a call without a diff", () => {
 		expect(fileChangeOf(call([{ type: "text", text: "ok" }]))).toBeNull();
+	});
+	test("is null for a patch that touches several files", () => {
+		expect(
+			fileChangeOf(
+				call([
+					{ type: "diff", path: "/repo/src/a.ts", oldText: "1", newText: "2" },
+					{ type: "diff", path: "/repo/src/b.ts", oldText: "1", newText: "2" },
+				]),
+			),
+		).toBeNull();
+	});
+	test("is null for a move, whose title names both paths", () => {
+		expect(
+			fileChangeOf(
+				call(
+					[
+						{
+							type: "diff",
+							path: "/repo/src/b.ts",
+							oldText: "1",
+							newText: "1",
+						},
+					],
+					"move",
+				),
+			),
+		).toBeNull();
+	});
+});
+
+describe("changedPaths", () => {
+	test("names each path once, in order of first appearance", () => {
+		expect(
+			changedPaths(
+				call([
+					{ type: "diff", path: "/repo/src/a.ts", oldText: "1", newText: "2" },
+					{ type: "text", text: "ok" },
+					{ type: "diff", path: "/repo/src/b.ts", oldText: null, newText: "2" },
+					{ type: "diff", path: "/repo/src/a.ts", oldText: "2", newText: "3" },
+				]),
+			),
+		).toEqual(["/repo/src/a.ts", "/repo/src/b.ts"]);
 	});
 });

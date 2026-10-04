@@ -5605,6 +5605,9 @@ msgstr "Exclui o perfil {0}, o login salvo nesta máquina e o histórico local d
 msgid "Deletes this host, its access, and its workspaces. Files on the machine stay."
 msgstr "Exclui este host, o acesso a ele e as áreas de trabalho dele. Os arquivos na máquina permanecem."
 
+msgid "Deleting"
+msgstr "Excluindo"
+
 #. placeholder {0}: Math.min(completed + 1, total)
 #. placeholder {1}: targets.length
 msgid "Deleting {0} of {1}…"

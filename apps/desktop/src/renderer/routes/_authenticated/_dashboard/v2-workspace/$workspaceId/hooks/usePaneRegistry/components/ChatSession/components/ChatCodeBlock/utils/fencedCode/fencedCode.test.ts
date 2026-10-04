@@ -18,7 +18,7 @@ describe("fenceText", () => {
 		expect(fenceText(["a\n", "b\n"])).toBe("a\nb");
 		expect(fenceText("x")).toBe("x");
 	});
-	test("ignores non-text children", () => {
+	test("drops nullish children and keeps numbers", () => {
 		expect(fenceText([null, "a", undefined, 1])).toBe("a1");
 	});
 });

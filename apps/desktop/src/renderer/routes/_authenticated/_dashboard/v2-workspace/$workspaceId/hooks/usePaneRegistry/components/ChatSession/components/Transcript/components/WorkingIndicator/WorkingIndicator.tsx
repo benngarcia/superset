@@ -8,10 +8,10 @@ import { ShimmerLabel } from "@superset/ui/ai-elements/shimmer-label";
 export function WorkingIndicator() {
 	const { t } = useLingui();
 	return (
-		<div className="flex items-center gap-2 py-0.5 text-muted-foreground text-sm">
+		<output className="flex items-center gap-2 py-0.5 text-muted-foreground text-sm">
 			<ShimmerLabel className="font-normal">
 				{t({ message: "Working…" })}
 			</ShimmerLabel>
-		</div>
+		</output>
 	);
 }

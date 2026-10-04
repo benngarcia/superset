@@ -5,34 +5,11 @@ import { i18n } from "@superset/i18n";
 import { Badge } from "@superset/ui/badge";
 import { Button } from "@superset/ui/button";
 import { ToolContentList } from "../ToolContentList";
-
-type ApprovalOption = NonNullable<ApprovalRequest["options"]>[number];
-type OptionRole = "reject" | "allow_always" | "allow_once";
+import { type ApprovalOption, optionRole } from "./utils/optionRole";
 
 const DECISION_ANSWERED = msg({
 	message: "Answered",
 });
-
-/**
- * Agents name their options freely; the ACP kind says what each one does,
- * and the id and label stand in for it when the agent sent none.
- */
-function optionRole(option: ApprovalOption): OptionRole {
-	switch (option.kind) {
-		case "reject_once":
-		case "reject_always":
-			return "reject";
-		case "allow_once":
-		case "allow_always":
-			return option.kind;
-		case undefined:
-			break;
-	}
-	const text = `${option.optionId} ${option.label}`;
-	if (/reject|deny|\bno\b/i.test(text)) return "reject";
-	if (/session|always/i.test(text)) return "allow_always";
-	return "allow_once";
-}
 
 function decisionLabel(
 	decision: Decision | undefined,
@@ -65,7 +42,8 @@ function decisionLabel(
 /**
  * Deny sits alone on the left; the allow choices group on the right with the
  * narrowest grant as the primary, so the default-looking button is the one
- * that gives away the least.
+ * that gives away the least. When no option grants that little, none looks
+ * like the default.
  */
 function OptionButtons({
 	item,
@@ -80,9 +58,8 @@ function OptionButtons({
 	}));
 	const rejects = roles.filter(({ role }) => role === "reject");
 	const allows = roles.filter(({ role }) => role !== "reject");
-	const primaryId = (
-		allows.find(({ role }) => role === "allow_once") ?? allows[0]
-	)?.option.optionId;
+	const primaryId = allows.find(({ role }) => role === "allow_once")?.option
+		.optionId;
 	const respond = (option: ApprovalOption) =>
 		onRespond(item.id, { type: "option", optionId: option.optionId });
 	return (
