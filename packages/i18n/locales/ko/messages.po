@@ -241,7 +241,7 @@ msgstr "{0, plural, one {작업 #개} other {작업 #개}}"
 msgid "{0, plural, one {# terminal running} other {# terminals running}}"
 msgstr "{0, plural, other {터미널 #개 실행 중}}"
 
-#. placeholder {0}: entry.items.length
+#. placeholder {0}: items.length
 msgid "{0, plural, one {# tool call} other {# tool calls}}"
 msgstr "{0, plural, one {도구 호출 #건} other {도구 호출 #건}}"
 
@@ -16910,7 +16910,7 @@ msgstr "터널 연결됨"
 msgid "Turn chores into scheduled agents: issue triage, changelog drafts, dependency bumps. They run on their own and open PRs for you to review."
 msgstr "반복 업무를 예약된 에이전트로 바꾸세요. 이슈 분류, 변경 로그 초안, 의존성 업데이트를 알아서 실행하고 리뷰할 PR을 열어 줍니다."
 
-#. placeholder {0}: group.turn.error ? `: ${group.turn.error.message}` : ""
+#. placeholder {0}: message ? `: ${message}` : ""
 msgid "Turn failed{0}"
 msgstr "턴 실패{0}"
 

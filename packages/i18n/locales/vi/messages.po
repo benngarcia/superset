@@ -241,7 +241,7 @@ msgstr "{0, plural, one {# tác vụ} other {# tác vụ}}"
 msgid "{0, plural, one {# terminal running} other {# terminals running}}"
 msgstr "{0, plural, other {# terminal đang chạy}}"
 
-#. placeholder {0}: entry.items.length
+#. placeholder {0}: items.length
 msgid "{0, plural, one {# tool call} other {# tool calls}}"
 msgstr "{0, plural, one {# lệnh gọi công cụ} other {# lệnh gọi công cụ}}"
 
@@ -16910,7 +16910,7 @@ msgstr "Đã thiết lập tunnel"
 msgid "Turn chores into scheduled agents: issue triage, changelog drafts, dependency bumps. They run on their own and open PRs for you to review."
 msgstr "Biến việc lặt vặt thành agent chạy theo lịch: phân loại issue, soạn changelog, nâng dependency. Chúng tự chạy và mở PR để bạn review."
 
-#. placeholder {0}: group.turn.error ? `: ${group.turn.error.message}` : ""
+#. placeholder {0}: message ? `: ${message}` : ""
 msgid "Turn failed{0}"
 msgstr "Lượt xử lý thất bại{0}"
 

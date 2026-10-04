@@ -4,12 +4,37 @@ import type {
 	SessionSnapshot,
 	TurnGroup,
 } from "@superset/chat/core";
-import type { ApprovalRequest, Decision } from "@superset/chat/protocol";
-import { Badge } from "@superset/ui/badge";
+import { displayText } from "@superset/chat/core";
+import type {
+	ApprovalRequest,
+	Decision,
+	UserMessage,
+} from "@superset/chat/protocol";
 import { Button } from "@superset/ui/button";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { cn } from "@superset/ui/utils";
+import {
+	useCallback,
+	useEffect,
+	useLayoutEffect,
+	useMemo,
+	useRef,
+	useState,
+} from "react";
 import type { ChatForkTarget } from "../../types";
-import { TurnGroupSection } from "./components/TurnGroupSection";
+import { ItemRow } from "./components/ItemRow";
+import { ToolRunRow } from "./components/ToolRunRow";
+import { TurnStatusRow } from "./components/TurnStatusRow";
+import { WorkingFor } from "./components/WorkingFor";
+import {
+	latestUserRowKey,
+	type TranscriptRow,
+	transcriptRows,
+} from "./utils/transcriptRows";
+
+const REMEMBER_SIZE_CLASSNAME = "[contain-intrinsic-size:auto_240px]";
+const OFFSCREEN_CLASSNAME = "[content-visibility:auto]";
+const RECENT_ROWS_RENDERED_IN_FULL = 30;
+const STICK_TO_BOTTOM_PX = 80;
 
 export type TranscriptProps = {
 	groups: TurnGroup[];
@@ -30,25 +55,14 @@ export type TranscriptProps = {
 	onDiscardPrompt: (clientId: string) => void;
 };
 
-function latestUserItemId(groups: TurnGroup[]): string | null {
-	for (let groupIndex = groups.length - 1; groupIndex >= 0; groupIndex -= 1) {
-		const group = groups[groupIndex];
-		if (!group) continue;
-		for (let index = group.entries.length - 1; index >= 0; index -= 1) {
-			const entry = group.entries[index];
-			if (entry?.kind === "item" && entry.item.kind === "user_message") {
-				return entry.item.id;
-			}
-		}
-	}
-	return null;
-}
-
-function outboxText(entry: OutboxEntry): string {
-	return entry.content
-		.filter((content) => content.type === "text")
-		.map((content) => content.text)
-		.join("\n");
+function outboxMessage(entry: OutboxEntry): UserMessage {
+	return {
+		id: entry.clientId,
+		kind: "user_message",
+		clientId: entry.clientId,
+		startedAtMs: 0,
+		content: entry.content,
+	};
 }
 
 export function Transcript({
@@ -66,22 +80,15 @@ export function Transcript({
 	snapshot,
 }: TranscriptProps) {
 	const containerRef = useRef<HTMLDivElement | null>(null);
-	const [entryOverrides, setEntryOverrides] = useState<
+	const [collapseOverrides, setCollapseOverrides] = useState<
 		ReadonlyMap<string, boolean>
 	>(new Map());
-
-	const isEntryCollapsed = useCallback(
-		(entryKey: string, defaultCollapsed: boolean) =>
-			entryOverrides.get(entryKey) ?? defaultCollapsed,
-		[entryOverrides],
-	);
-	const onToggleEntry = useCallback((entryKey: string, collapsed: boolean) => {
-		setEntryOverrides((previous) => {
-			const next = new Map(previous);
-			next.set(entryKey, collapsed);
-			return next;
-		});
+	const onToggleToolRun = useCallback((rowKey: string, collapsed: boolean) => {
+		setCollapseOverrides((previous) =>
+			new Map(previous).set(rowKey, collapsed),
+		);
 	}, []);
+
 	const pendingApprovalTargets = useMemo(() => {
 		const targets = new Set<string>();
 		for (const approval of approvals) {
@@ -91,13 +98,46 @@ export function Transcript({
 		return targets;
 	}, [approvals]);
 
-	const anchorItemId = latestUserItemId(groups);
+	const rows = useMemo(
+		() => transcriptRows(groups, outbox, pendingApprovalTargets),
+		[groups, outbox, pendingApprovalTargets],
+	);
+
+	const contentRef = useRef<HTMLDivElement | null>(null);
+	const stickToBottom = useRef(true);
+	const scrollToBottom = useCallback(() => {
+		const container = containerRef.current;
+		if (container) container.scrollTop = container.scrollHeight;
+	}, []);
+
 	useEffect(() => {
-		if (!anchorItemId) return;
-		containerRef.current
-			?.querySelector(`[data-item-id="${CSS.escape(anchorItemId)}"]`)
-			?.scrollIntoView({ block: "start" });
-	}, [anchorItemId]);
+		const container = containerRef.current;
+		if (!container) return;
+		const onScroll = () => {
+			stickToBottom.current =
+				container.scrollHeight - container.scrollTop - container.clientHeight <
+				STICK_TO_BOTTOM_PX;
+		};
+		container.addEventListener("scroll", onScroll, { passive: true });
+		return () => container.removeEventListener("scroll", onScroll);
+	}, []);
+
+	useEffect(() => {
+		const content = contentRef.current;
+		if (!content) return;
+		const observer = new ResizeObserver(() => {
+			if (stickToBottom.current) scrollToBottom();
+		});
+		observer.observe(content);
+		return () => observer.disconnect();
+	}, [scrollToBottom]);
+
+	const anchorRowKey = latestUserRowKey(rows);
+	useLayoutEffect(() => {
+		if (!anchorRowKey) return;
+		stickToBottom.current = true;
+		scrollToBottom();
+	}, [anchorRowKey, scrollToBottom]);
 
 	// On the request object rather than its fields: the nonce is what makes
 	// choosing the same message twice a second scroll, and a dependency list
@@ -117,11 +157,63 @@ export function Transcript({
 			?.scrollIntoView({ block: "nearest" });
 	}, [firstPendingApprovalId]);
 
+	const harness = snapshot.session?.harness;
+	const renderRow = (row: TranscriptRow) => {
+		switch (row.kind) {
+			case "working":
+				return (
+					<WorkingFor
+						completedAtMs={row.completedAtMs}
+						startedAtMs={row.startedAtMs}
+					/>
+				);
+			case "item":
+				return (
+					<ItemRow
+						canForkToWorktree={canForkToWorktree}
+						harness={harness}
+						item={row.item}
+						onFork={onFork}
+						onRespond={onRespond}
+						text={displayText(snapshot, row.item.id)}
+					/>
+				);
+			case "outbox":
+				return (
+					<ItemRow
+						harness={harness}
+						item={outboxMessage(row.entry)}
+						onRespond={onRespond}
+						pending={{
+							failed: row.entry.state === "failed",
+							onRetry: () => onRetryPrompt(row.entry.clientId),
+							onDiscard: () => onDiscardPrompt(row.entry.clientId),
+						}}
+						text=""
+					/>
+				);
+			case "tool_run":
+				return (
+					<ToolRunRow
+						collapsed={collapseOverrides.get(row.key) ?? row.defaultCollapsed}
+						items={row.items}
+						onToggle={onToggleToolRun}
+						rowKey={row.key}
+					/>
+				);
+			case "turn_status":
+				return <TurnStatusRow message={row.message} status={row.status} />;
+		}
+	};
+
 	return (
 		// The scroller spans the pane so its bar sits at the edge; the column
 		// inside it holds the reading measure.
 		<div className="min-h-0 flex-1 overflow-y-auto px-6" ref={containerRef}>
-			<div className="mx-auto flex w-full max-w-3xl flex-col gap-6 py-6">
+			<div
+				className="mx-auto flex w-full max-w-3xl flex-col gap-4 py-6"
+				ref={contentRef}
+			>
 				{hasOlder && (
 					<div className="flex items-center gap-2">
 						<Button onClick={onLoadOlder} size="sm" variant="ghost">
@@ -129,56 +221,25 @@ export function Transcript({
 						</Button>
 					</div>
 				)}
-				{groups.map((group) => (
-					<TurnGroupSection
-						canForkToWorktree={canForkToWorktree}
-						group={group}
-						isEntryCollapsed={isEntryCollapsed}
-						key={group.turnId}
-						onFork={onFork}
-						onRespond={onRespond}
-						onToggleEntry={onToggleEntry}
-						pendingApprovalTargets={pendingApprovalTargets}
-						snapshot={snapshot}
-					/>
-				))}
-				{outbox.map((entry) => (
+				{rows.map((row, index) => (
 					<div
-						className="flex flex-col items-end gap-1 self-end"
-						key={entry.clientId}
+						className={cn(
+							REMEMBER_SIZE_CLASSNAME,
+							index < rows.length - RECENT_ROWS_RENDERED_IN_FULL &&
+								OFFSCREEN_CLASSNAME,
+							row.groupStart && "mt-2",
+						)}
+						data-item-id={
+							row.kind === "item"
+								? row.item.id
+								: row.kind === "tool_run"
+									? row.items[0]?.id
+									: undefined
+						}
+						data-row-key={row.key}
+						key={row.key}
 					>
-						<div className="max-w-[80%] whitespace-pre-wrap break-words rounded-lg bg-primary/10 px-3 py-2 text-sm">
-							{outboxText(entry)}
-						</div>
-						<div className="flex items-center gap-2">
-							<Badge
-								variant={entry.state === "failed" ? "destructive" : "outline"}
-							>
-								{entry.state === "failed" ? (
-									<Trans>Failed to send</Trans>
-								) : (
-									<Trans>Sending</Trans>
-								)}
-							</Badge>
-							{entry.state === "failed" && (
-								<>
-									<Button
-										onClick={() => onRetryPrompt(entry.clientId)}
-										size="sm"
-										variant="ghost"
-									>
-										<Trans>Retry</Trans>
-									</Button>
-									<Button
-										onClick={() => onDiscardPrompt(entry.clientId)}
-										size="sm"
-										variant="ghost"
-									>
-										<Trans>Discard</Trans>
-									</Button>
-								</>
-							)}
-						</div>
+						{renderRow(row)}
 					</div>
 				))}
 			</div>

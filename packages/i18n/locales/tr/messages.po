@@ -241,7 +241,7 @@ msgstr "{0, plural, one {# görev} other {# görev}}"
 msgid "{0, plural, one {# terminal running} other {# terminals running}}"
 msgstr "{0, plural, one {# terminal çalışıyor} other {# terminal çalışıyor}}"
 
-#. placeholder {0}: entry.items.length
+#. placeholder {0}: items.length
 msgid "{0, plural, one {# tool call} other {# tool calls}}"
 msgstr "{0, plural, one {# araç çağrısı} other {# araç çağrısı}}"
 
@@ -16910,7 +16910,7 @@ msgstr "Tünel kuruldu"
 msgid "Turn chores into scheduled agents: issue triage, changelog drafts, dependency bumps. They run on their own and open PRs for you to review."
 msgstr "Rutin işleri zamanlanmış ajanlara dönüştürün: issue sınıflandırma, değişiklik günlüğü taslakları, bağımlılık yükseltmeleri. Kendi başlarına çalışır ve incelemeniz için PR açarlar."
 
-#. placeholder {0}: group.turn.error ? `: ${group.turn.error.message}` : ""
+#. placeholder {0}: message ? `: ${message}` : ""
 msgid "Turn failed{0}"
 msgstr "Tur başarısız{0}"
 

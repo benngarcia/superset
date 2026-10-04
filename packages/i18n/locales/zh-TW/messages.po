@@ -241,7 +241,7 @@ msgstr "{0, plural, one {#個任務} other {#個任務}}"
 msgid "{0, plural, one {# terminal running} other {# terminals running}}"
 msgstr "{0, plural, other {# 個終端機正在執行}}"
 
-#. placeholder {0}: entry.items.length
+#. placeholder {0}: items.length
 msgid "{0, plural, one {# tool call} other {# tool calls}}"
 msgstr "{0, plural, one {#次工具呼叫} other {#次工具呼叫}}"
 
@@ -16910,7 +16910,7 @@ msgstr "通道已建立"
 msgid "Turn chores into scheduled agents: issue triage, changelog drafts, dependency bumps. They run on their own and open PRs for you to review."
 msgstr "把雜活變成定時代理程式：議題分類、更新日誌草稿、相依性升級。它們自己執行，並開好PR等你審查。"
 
-#. placeholder {0}: group.turn.error ? `: ${group.turn.error.message}` : ""
+#. placeholder {0}: message ? `: ${message}` : ""
 msgid "Turn failed{0}"
 msgstr "本輪失敗{0}"
 

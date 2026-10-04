@@ -1,7 +1,13 @@
 import { Trans } from "@lingui/react/macro";
 import type { SessionClient } from "@superset/chat/client";
 import { deriveQueuedPrompts } from "@superset/chat/core";
-import type { SessionState, UserContent } from "@superset/chat/protocol";
+import type {
+	AvailableCommand,
+	Decision,
+	SessionConfigOption,
+	SessionState,
+	UserContent,
+} from "@superset/chat/protocol";
 import {
 	useApprovals,
 	useChatSession,
@@ -11,12 +17,16 @@ import { ChatHistorySidebar } from "@superset/ui/chat-history-sidebar";
 import { Spinner } from "@superset/ui/spinner";
 import type { ReactNode } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useStableList } from "../../hooks/useStableList";
 import type { ChatForkTarget } from "../../types";
 import { buildChatHandoffTranscript } from "../../utils/chatHandoffTranscript";
 import { railMessages } from "../../utils/railMessages";
 import { Composer } from "../Composer";
 import { SessionHeader } from "../SessionHeader";
 import { Transcript } from "../Transcript";
+
+const NO_COMMANDS: AvailableCommand[] = [];
+const NO_CONFIG_OPTIONS: SessionConfigOption[] = [];
 
 export function SessionView({
 	agentLabel,
@@ -49,9 +59,15 @@ export function SessionView({
 }) {
 	const session = useChatSession({ client });
 	const timeline = useTimeline(session.snapshot);
-	const rail = useMemo(
-		() => railMessages(timeline, session.snapshot),
-		[timeline, session.snapshot],
+	const rail = useStableList(
+		useMemo(
+			() => railMessages(timeline, session.snapshot),
+			[timeline, session.snapshot],
+		),
+		(previous, next) =>
+			previous.id === next.id &&
+			previous.role === next.role &&
+			previous.preview === next.preview,
 	);
 	const [scrollRequest, setScrollRequest] = useState<{
 		itemId: string;
@@ -86,9 +102,50 @@ export function SessionView({
 		return null;
 	}, [session.snapshot.turns]);
 
-	const queuedPrompts = useMemo(
-		() => deriveQueuedPrompts(session.snapshot),
-		[session.snapshot],
+	const queuedPrompts = useStableList(
+		useMemo(() => deriveQueuedPrompts(session.snapshot), [session.snapshot]),
+	);
+
+	const timelineRef = useRef(timeline);
+	timelineRef.current = timeline;
+	const snapshotRef = useRef(session.snapshot);
+	snapshotRef.current = session.snapshot;
+	const forkWithTranscript = useCallback(
+		(target: ChatForkTarget) =>
+			onFork?.(
+				target,
+				buildChatHandoffTranscript(
+					timelineRef.current,
+					snapshotRef.current,
+					agentLabel ?? "Agent",
+				),
+			),
+		[onFork, agentLabel],
+	);
+	const {
+		cancelTurn,
+		loadOlder,
+		respondToApproval,
+		sendPrompt,
+		setConfigOption,
+	} = session;
+	const onRespond = useCallback(
+		(approvalId: string, decision: Decision) =>
+			void respondToApproval(approvalId, decision),
+		[respondToApproval],
+	);
+	const onLoadOlder = useCallback(() => void loadOlder(), [loadOlder]);
+	const onSetConfigOption = useCallback(
+		(configId: string, value: string) => void setConfigOption(configId, value),
+		[setConfigOption],
+	);
+	const onSend = useCallback(
+		(content: UserContent[]) => sendPrompt(content),
+		[sendPrompt],
+	);
+	const onCancelTurn = useMemo(
+		() => (runningTurnId ? () => void cancelTurn(runningTurnId) : null),
+		[runningTurnId, cancelTurn],
 	);
 	const promptQueue = useMemo(
 		() => ({
@@ -152,23 +209,9 @@ export function SessionView({
 							groups={timeline}
 							hasOlder={session.hasOlder}
 							onDiscardPrompt={session.discardPrompt}
-							onFork={
-								onFork
-									? (target) =>
-											onFork(
-												target,
-												buildChatHandoffTranscript(
-													timeline,
-													session.snapshot,
-													agentLabel ?? "Agent",
-												),
-											)
-									: undefined
-							}
-							onLoadOlder={() => void session.loadOlder()}
-							onRespond={(approvalId, decision) =>
-								void session.respondToApproval(approvalId, decision)
-							}
+							onFork={onFork ? forkWithTranscript : undefined}
+							onLoadOlder={onLoadOlder}
+							onRespond={onRespond}
 							onRetryPrompt={session.retryPrompt}
 							outbox={session.outbox}
 							scrollRequest={scrollRequest}
@@ -176,21 +219,13 @@ export function SessionView({
 						/>
 					)}
 					<Composer
-						availableCommands={
-							session.snapshot.session?.availableCommands ?? []
-						}
-						configOptions={session.snapshot.session?.configOptions ?? []}
-						onSetConfigOption={(configId, value) =>
-							void session.setConfigOption(configId, value)
-						}
+						availableCommands={sessionState?.availableCommands ?? NO_COMMANDS}
+						configOptions={sessionState?.configOptions ?? NO_CONFIG_OPTIONS}
+						onSetConfigOption={onSetConfigOption}
 						disabled={session.status !== "ready"}
 						draftKey={`chat-v3-draft:${sessionId}`}
-						onCancelTurn={
-							runningTurnId
-								? () => void session.cancelTurn(runningTurnId)
-								: null
-						}
-						onSend={(content) => session.sendPrompt(content)}
+						onCancelTurn={onCancelTurn}
+						onSend={onSend}
 						promptQueue={promptQueue}
 						workspaceId={workspaceId}
 					/>

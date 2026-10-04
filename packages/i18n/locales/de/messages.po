@@ -241,7 +241,7 @@ msgstr "{0, plural, one {# Aufgabe} other {# Aufgaben}}"
 msgid "{0, plural, one {# terminal running} other {# terminals running}}"
 msgstr "{0, plural, one {# Terminal läuft} other {# Terminals laufen}}"
 
-#. placeholder {0}: entry.items.length
+#. placeholder {0}: items.length
 msgid "{0, plural, one {# tool call} other {# tool calls}}"
 msgstr "{0, plural, one {# Tool-Aufruf} other {# Tool-Aufrufe}}"
 
@@ -16910,7 +16910,7 @@ msgstr "Tunnel aufgebaut"
 msgid "Turn chores into scheduled agents: issue triage, changelog drafts, dependency bumps. They run on their own and open PRs for you to review."
 msgstr "Mach aus Fleißarbeit geplante Agenten: Issue-Triage, Changelog-Entwürfe, Abhängigkeits-Updates. Sie laufen von allein und öffnen PRs für dein Review."
 
-#. placeholder {0}: group.turn.error ? `: ${group.turn.error.message}` : ""
+#. placeholder {0}: message ? `: ${message}` : ""
 msgid "Turn failed{0}"
 msgstr "Zug fehlgeschlagen{0}"
 

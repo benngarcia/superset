@@ -241,7 +241,7 @@ msgstr "{0, plural, one {# tâche} other {# tâches}}"
 msgid "{0, plural, one {# terminal running} other {# terminals running}}"
 msgstr "{0, plural, one {# terminal en cours} other {# terminaux en cours}}"
 
-#. placeholder {0}: entry.items.length
+#. placeholder {0}: items.length
 msgid "{0, plural, one {# tool call} other {# tool calls}}"
 msgstr "{0, plural, one {# appel d'outil} other {# appels d'outil}}"
 
@@ -16910,7 +16910,7 @@ msgstr "Tunnel établi"
 msgid "Turn chores into scheduled agents: issue triage, changelog drafts, dependency bumps. They run on their own and open PRs for you to review."
 msgstr "Transformez les corvées en agents planifiés : tri des issues, brouillons de changelog, mises à jour de dépendances. Ils s'exécutent tout seuls et ouvrent des pull requests que vous n'avez plus qu'à relire."
 
-#. placeholder {0}: group.turn.error ? `: ${group.turn.error.message}` : ""
+#. placeholder {0}: message ? `: ${message}` : ""
 msgid "Turn failed{0}"
 msgstr "Échec du tour{0}"
 

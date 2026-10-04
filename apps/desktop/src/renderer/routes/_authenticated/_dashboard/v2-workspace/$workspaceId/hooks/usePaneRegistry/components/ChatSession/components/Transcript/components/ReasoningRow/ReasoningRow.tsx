@@ -1,5 +1,3 @@
-import type { SessionSnapshot } from "@superset/chat/core";
-import { displayText } from "@superset/chat/core";
 import type { Reasoning as ReasoningItem } from "@superset/chat/protocol";
 import {
 	Reasoning,
@@ -9,12 +7,11 @@ import {
 
 export function ReasoningRow({
 	item,
-	snapshot,
+	text,
 }: {
 	item: ReasoningItem;
-	snapshot: SessionSnapshot;
+	text: string;
 }) {
-	const text = displayText(snapshot, item.id);
 	return (
 		<Reasoning isStreaming={item.completedAtMs === undefined}>
 			<ReasoningTrigger />
