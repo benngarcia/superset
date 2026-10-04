@@ -5,6 +5,7 @@ import { Silkscreen } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { connection } from "next/server";
 import { ContributionGraph } from "@/app/[lang]/components/ContributionGraph";
 import { FactoryBackdrop } from "@/app/[lang]/components/FactoryBackdrop";
 import {
@@ -41,7 +42,7 @@ const pixel = Silkscreen({
 	display: "swap",
 });
 
-export const revalidate = 300;
+export const instant = false;
 
 interface PageProps {
 	params: Promise<{ handle: string }>;
@@ -94,6 +95,7 @@ export async function generateMetadata({
 }
 
 export default async function UserProfilePage({ params }: PageProps) {
+	await connection();
 	const locale = await initServerI18n();
 
 	const { t } = useLingui();

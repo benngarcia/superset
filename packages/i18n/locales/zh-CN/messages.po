@@ -148,7 +148,6 @@ msgid "{0, plural, one {# failed} other {# failed}}"
 msgstr "{0, plural, one {#项失败} other {#项失败}}"
 
 #. placeholder {0}: detail.pullRequest.changedFiles
-#. placeholder {0}: diffFiles.length
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {#个文件已更改} other {#个文件已更改}}"
 
@@ -958,9 +957,6 @@ msgstr "{minutes}分钟前"
 msgid "{modKey}↵ to create"
 msgstr "{modKey}↵创建"
 
-msgid "{months}mo"
-msgstr "{months}个月"
-
 msgid "{months}mo ago"
 msgstr "{months}个月前"
 
@@ -1746,9 +1742,6 @@ msgstr "添加到词典"
 msgid "Add to project"
 msgstr "添加到项目"
 
-msgid "Add to prompt"
-msgstr "添加到提示词"
-
 msgid "Add to sidebar"
 msgstr "添加到侧边栏"
 
@@ -2393,6 +2386,9 @@ msgstr "已归档"
 #. placeholder {0}: formatCompactRelativeTime(cloud.deletedAt)
 msgid "Archived · {0}"
 msgstr "已归档 · {0}"
+
+msgid "Archived \"{name}\""
+msgstr "已归档“{name}”"
 
 #. placeholder {0}: formatCompactRelativeTime(workspace.deletedAt, now)
 msgid "Archived {0}"
@@ -4161,6 +4157,9 @@ msgstr "连接这台电脑"
 
 msgid "Connect your GitHub repositories and sync pull requests. Track CI status and reviews across your team."
 msgstr "连接你的GitHub仓库并同步拉取请求。跟踪整个团队的CI状态和代码审查。"
+
+msgid "Connect your Linear account before tracking tasks in Linear."
+msgstr "请先连接你的 Linear 账户，再在 Linear 中管理任务。"
 
 msgid "Connect your Linear account in Settings → Integrations to link Linear issues."
 msgstr "请在 设置 → 集成 中连接你的Linear账号，以关联Linear议题。"
@@ -7340,9 +7339,6 @@ msgstr "在LinkedIn上关注我们"
 msgid "Follow us on X/Twitter"
 msgstr "在X/Twitter上关注我们"
 
-msgid "Follow-ups on web are coming soon"
-msgstr "网页端追问功能即将推出"
-
 msgid "Font family"
 msgstr "字体"
 
@@ -8986,9 +8982,6 @@ msgstr "链接已复制"
 msgid "Link GitHub issue"
 msgstr "关联GitHub议题"
 
-msgid "Link issue"
-msgstr "关联议题"
-
 msgid "Link Linear issue"
 msgstr "关联Linear议题"
 
@@ -9465,9 +9458,6 @@ msgstr "内存"
 
 msgid "Memory share"
 msgstr "内存占比"
-
-msgid "Menu"
-msgstr "菜单"
 
 msgid "Menubar"
 msgstr "菜单栏"
@@ -10507,9 +10497,6 @@ msgstr "暂无截图"
 
 msgid "No sessions"
 msgstr "没有会话"
-
-msgid "No sessions found"
-msgstr "未找到会话"
 
 msgid "No sessions running"
 msgstr "没有运行中的会话"
@@ -12944,9 +12931,6 @@ msgstr "正在移除成员..."
 msgid "Removing terminal..."
 msgstr "正在移除终端..."
 
-msgid "Removing…"
-msgstr "正在移除…"
-
 msgid "Rename"
 msgstr "重命名"
 
@@ -13308,11 +13292,17 @@ msgstr "恢复方案"
 msgid "restore the agent defaults"
 msgstr "恢复智能体默认设置"
 
+msgid "Restore the workspace you just archived"
+msgstr "恢复刚刚归档的工作区"
+
 msgid "Restore this version?"
 msgstr "恢复这个版本？"
 
 msgid "Restored"
 msgstr "已恢复"
+
+msgid "Restored \"{name}\""
+msgstr "已恢复“{name}”"
 
 msgid "Restored \"{projectName}\""
 msgstr "已恢复“{projectName}”"
@@ -13926,12 +13916,6 @@ msgstr "搜索拉取请求…"
 msgid "Search repositories..."
 msgstr "搜索仓库..."
 
-msgid "Search sessions"
-msgstr "搜索会话"
-
-msgid "Search sessions..."
-msgstr "搜索会话..."
-
 msgid "Search settings..."
 msgstr "搜索设置..."
 
@@ -14082,9 +14066,6 @@ msgstr "选择一个组织"
 msgid "Select base branch…"
 msgstr "选择基础分支…"
 
-msgid "Select branch"
-msgstr "选择分支"
-
 msgid "Select branch..."
 msgstr "选择分支..."
 
@@ -14155,9 +14136,6 @@ msgid "Select range..."
 msgstr "选择范围..."
 
 msgid "Select repositories"
-msgstr "选择仓库"
-
-msgid "Select repository"
 msgstr "选择仓库"
 
 msgid "Select run"
@@ -14276,9 +14254,6 @@ msgstr "会话"
 msgid "Session {0}"
 msgstr "会话{0}"
 
-msgid "Session creation on web is coming soon"
-msgstr "网页端创建会话即将推出"
-
 msgid "Session details"
 msgstr "会话详情"
 
@@ -14299,9 +14274,6 @@ msgstr "会话已重命名为 {trimmed}"
 
 msgid "Session snapshots & revert"
 msgstr "会话快照与回退"
-
-msgid "Session view"
-msgstr "会话视图"
 
 msgid "Sessions"
 msgstr "会话"
@@ -15951,6 +15923,9 @@ msgstr "该端点不被允许。"
 msgid "That handle is taken."
 msgstr "该用户名已被占用。"
 
+msgid "That Linear issue doesn't exist or you can't see it."
+msgstr "该 Linear 问题不存在，或你无权查看。"
+
 msgid "That link doesn't lead anywhere in the app."
 msgstr "该链接在应用中没有对应的位置。"
 
@@ -16256,9 +16231,6 @@ msgstr "该团队邀请已过期或不存在。请向团队所有者索取新链
 
 msgid "The title shows everywhere this page is listed and in its link preview."
 msgstr "标题会显示在此页面列出的所有位置以及链接预览中。"
-
-msgid "The web agents UI is a read-only preview for now."
-msgstr "网页版智能体界面目前是只读预览。"
 
 msgid "The workspace is not ready yet. Try again."
 msgstr "工作区尚未就绪。请重试。"
@@ -17060,6 +17032,9 @@ msgstr "进行中"
 
 msgid "Undo"
 msgstr "撤销"
+
+msgid "Undo Archive"
+msgstr "撤销归档"
 
 msgid "Ungroup"
 msgstr "取消分组"
@@ -17975,9 +17950,6 @@ msgstr "用时 {0} 分 {1} 秒"
 
 msgid "Worked for {seconds}s"
 msgstr "用时 {seconds} 秒"
-
-msgid "Worked for 39s"
-msgstr "工作了39秒"
 
 msgid "Workflow run completed…"
 msgstr "工作流运行完成…"

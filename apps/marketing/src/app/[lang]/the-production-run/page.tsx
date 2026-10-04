@@ -52,6 +52,8 @@ const H2 =
 	"text-2xl md:text-3xl font-medium tracking-tight text-foreground mt-4";
 const BODY = "text-muted-foreground mt-4 leading-relaxed";
 
+export const instant = false;
+
 export default async function ProductionRunPage({
 	searchParams,
 }: {

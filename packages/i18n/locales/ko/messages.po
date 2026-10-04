@@ -148,7 +148,6 @@ msgid "{0, plural, one {# failed} other {# failed}}"
 msgstr "{0, plural, one {#개 실패} other {#개 실패}}"
 
 #. placeholder {0}: detail.pullRequest.changedFiles
-#. placeholder {0}: diffFiles.length
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {파일 #개 변경됨} other {파일 #개 변경됨}}"
 
@@ -958,9 +957,6 @@ msgstr "{minutes}분 전"
 msgid "{modKey}↵ to create"
 msgstr "{modKey}↵로 만들기"
 
-msgid "{months}mo"
-msgstr "{months}개월"
-
 msgid "{months}mo ago"
 msgstr "{months}개월 전"
 
@@ -1746,9 +1742,6 @@ msgstr "사전에 추가"
 msgid "Add to project"
 msgstr "프로젝트에 추가"
 
-msgid "Add to prompt"
-msgstr "프롬프트에 추가"
-
 msgid "Add to sidebar"
 msgstr "사이드바에 추가"
 
@@ -2393,6 +2386,9 @@ msgstr "보관됨"
 #. placeholder {0}: formatCompactRelativeTime(cloud.deletedAt)
 msgid "Archived · {0}"
 msgstr "보관됨 · {0}"
+
+msgid "Archived \"{name}\""
+msgstr "\"{name}\"을(를) 보관했습니다"
 
 #. placeholder {0}: formatCompactRelativeTime(workspace.deletedAt, now)
 msgid "Archived {0}"
@@ -4161,6 +4157,9 @@ msgstr "이 컴퓨터에 연결"
 
 msgid "Connect your GitHub repositories and sync pull requests. Track CI status and reviews across your team."
 msgstr "GitHub 리포지토리를 연결하고 풀 리퀘스트를 동기화하세요. 팀 전체의 CI 상태와 리뷰를 추적할 수 있습니다."
+
+msgid "Connect your Linear account before tracking tasks in Linear."
+msgstr "Linear에서 작업을 관리하려면 먼저 Linear 계정을 연결하세요."
 
 msgid "Connect your Linear account in Settings → Integrations to link Linear issues."
 msgstr "Linear 이슈를 연결하려면 설정 → 연동에서 Linear 계정을 연결하세요."
@@ -7340,9 +7339,6 @@ msgstr "LinkedIn에서 팔로우하기"
 msgid "Follow us on X/Twitter"
 msgstr "X/Twitter에서 팔로우하기"
 
-msgid "Follow-ups on web are coming soon"
-msgstr "웹에서의 후속 메시지는 곧 지원됩니다"
-
 msgid "Font family"
 msgstr "글꼴"
 
@@ -8986,9 +8982,6 @@ msgstr "링크 복사됨"
 msgid "Link GitHub issue"
 msgstr "GitHub 이슈 연결"
 
-msgid "Link issue"
-msgstr "이슈 연결"
-
 msgid "Link Linear issue"
 msgstr "Linear 이슈 연결"
 
@@ -9465,9 +9458,6 @@ msgstr "메모리"
 
 msgid "Memory share"
 msgstr "메모리 점유율"
-
-msgid "Menu"
-msgstr "메뉴"
 
 msgid "Menubar"
 msgstr "메뉴 바"
@@ -10507,9 +10497,6 @@ msgstr "아직 스크린샷이 없습니다"
 
 msgid "No sessions"
 msgstr "세션 없음"
-
-msgid "No sessions found"
-msgstr "세션을 찾을 수 없습니다"
 
 msgid "No sessions running"
 msgstr "실행 중인 세션 없음"
@@ -12944,9 +12931,6 @@ msgstr "멤버를 제거하는 중..."
 msgid "Removing terminal..."
 msgstr "터미널을 제거하는 중..."
 
-msgid "Removing…"
-msgstr "제거하는 중…"
-
 msgid "Rename"
 msgstr "이름 변경"
 
@@ -13308,11 +13292,17 @@ msgstr "플랜 복원"
 msgid "restore the agent defaults"
 msgstr "에이전트 기본값을 복원할"
 
+msgid "Restore the workspace you just archived"
+msgstr "방금 보관한 워크스페이스를 복원합니다"
+
 msgid "Restore this version?"
 msgstr "이 버전을 복원할까요?"
 
 msgid "Restored"
 msgstr "복원됨"
+
+msgid "Restored \"{name}\""
+msgstr "\"{name}\"을(를) 복원했습니다"
 
 msgid "Restored \"{projectName}\""
 msgstr "\"{projectName}\"을(를) 복원했습니다"
@@ -13926,12 +13916,6 @@ msgstr "풀 리퀘스트 검색…"
 msgid "Search repositories..."
 msgstr "리포지토리 검색..."
 
-msgid "Search sessions"
-msgstr "세션 검색"
-
-msgid "Search sessions..."
-msgstr "세션 검색..."
-
 msgid "Search settings..."
 msgstr "설정 검색..."
 
@@ -14082,9 +14066,6 @@ msgstr "조직을 선택하세요"
 msgid "Select base branch…"
 msgstr "기준 브랜치 선택…"
 
-msgid "Select branch"
-msgstr "브랜치 선택"
-
 msgid "Select branch..."
 msgstr "브랜치 선택..."
 
@@ -14155,9 +14136,6 @@ msgid "Select range..."
 msgstr "범위 선택..."
 
 msgid "Select repositories"
-msgstr "리포지토리 선택"
-
-msgid "Select repository"
 msgstr "리포지토리 선택"
 
 msgid "Select run"
@@ -14276,9 +14254,6 @@ msgstr "세션"
 msgid "Session {0}"
 msgstr "세션 {0}"
 
-msgid "Session creation on web is coming soon"
-msgstr "웹에서 세션 만들기는 곧 지원됩니다"
-
 msgid "Session details"
 msgstr "세션 상세"
 
@@ -14299,9 +14274,6 @@ msgstr "세션 이름을 {trimmed}(으)로 변경했습니다"
 
 msgid "Session snapshots & revert"
 msgstr "세션 스냅샷 및 되돌리기"
-
-msgid "Session view"
-msgstr "세션 보기"
 
 msgid "Sessions"
 msgstr "세션"
@@ -15951,6 +15923,9 @@ msgstr "해당 엔드포인트는 허용되지 않습니다."
 msgid "That handle is taken."
 msgstr "이미 사용 중인 핸들입니다."
 
+msgid "That Linear issue doesn't exist or you can't see it."
+msgstr "해당 Linear 이슈가 없거나 볼 수 있는 권한이 없습니다."
+
 msgid "That link doesn't lead anywhere in the app."
 msgstr "이 링크는 앱의 어디로도 연결되지 않습니다."
 
@@ -16256,9 +16231,6 @@ msgstr "팀 초대가 만료되었거나 존재하지 않습니다. 팀 소유�
 
 msgid "The title shows everywhere this page is listed and in its link preview."
 msgstr "제목은 이 페이지가 표시되는 모든 곳과 링크 미리보기에 나타납니다."
-
-msgid "The web agents UI is a read-only preview for now."
-msgstr "웹 에이전트 UI는 아직 읽기 전용 미리 보기입니다."
 
 msgid "The workspace is not ready yet. Try again."
 msgstr "워크스페이스가 아직 준비되지 않았습니다. 다시 시도하세요."
@@ -17060,6 +17032,9 @@ msgstr "진행 중"
 
 msgid "Undo"
 msgstr "실행 취소"
+
+msgid "Undo Archive"
+msgstr "보관 실행 취소"
 
 msgid "Ungroup"
 msgstr "그룹 해제"
@@ -17975,9 +17950,6 @@ msgstr "{0}분 {1}초 동안 작업함"
 
 msgid "Worked for {seconds}s"
 msgstr "{seconds}초 동안 작업함"
-
-msgid "Worked for 39s"
-msgstr "39초 동안 작업"
 
 msgid "Workflow run completed…"
 msgstr "워크플로 실행 완료…"

@@ -148,7 +148,6 @@ msgid "{0, plural, one {# failed} other {# failed}}"
 msgstr "{0, plural, one {# nieudany} few {# nieudane} many {# nieudanych} other {# nieudanego}}"
 
 #. placeholder {0}: detail.pullRequest.changedFiles
-#. placeholder {0}: diffFiles.length
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# zmieniony plik} few {# zmienione pliki} many {# zmienionych plików} other {# zmienionego pliku}}"
 
@@ -958,9 +957,6 @@ msgstr "{minutes} min temu"
 msgid "{modKey}↵ to create"
 msgstr "{modKey}↵ aby utworzyć"
 
-msgid "{months}mo"
-msgstr "{months} mies."
-
 msgid "{months}mo ago"
 msgstr "{months} mies. temu"
 
@@ -1746,9 +1742,6 @@ msgstr "Dodaj do słownika"
 msgid "Add to project"
 msgstr "Dodaj do projektu"
 
-msgid "Add to prompt"
-msgstr "Dodaj do promptu"
-
 msgid "Add to sidebar"
 msgstr "Dodaj do paska bocznego"
 
@@ -2393,6 +2386,9 @@ msgstr "Zarchiwizowane"
 #. placeholder {0}: formatCompactRelativeTime(cloud.deletedAt)
 msgid "Archived · {0}"
 msgstr "Zarchiwizowano · {0}"
+
+msgid "Archived \"{name}\""
+msgstr "Zarchiwizowano „{name}”"
 
 #. placeholder {0}: formatCompactRelativeTime(workspace.deletedAt, now)
 msgid "Archived {0}"
@@ -4161,6 +4157,9 @@ msgstr "Połącz ten komputer"
 
 msgid "Connect your GitHub repositories and sync pull requests. Track CI status and reviews across your team."
 msgstr "Podłącz swoje repozytoria GitHub i synchronizuj pull requesty. Śledź status CI i przeglądy w całym zespole."
+
+msgid "Connect your Linear account before tracking tasks in Linear."
+msgstr "Połącz swoje konto Linear, zanim zaczniesz śledzić zadania w Linear."
 
 msgid "Connect your Linear account in Settings → Integrations to link Linear issues."
 msgstr "Połącz swoje konto Linear w Ustawienia → Integracje, aby łączyć zgłoszenia Linear."
@@ -7340,9 +7339,6 @@ msgstr "Obserwuj nas na LinkedIn"
 msgid "Follow us on X/Twitter"
 msgstr "Obserwuj nas na X/Twitterze"
 
-msgid "Follow-ups on web are coming soon"
-msgstr "Wiadomości uzupełniające w przeglądarce już wkrótce"
-
 msgid "Font family"
 msgstr "Krój czcionki"
 
@@ -8986,9 +8982,6 @@ msgstr "Skopiowano link"
 msgid "Link GitHub issue"
 msgstr "Powiąż zgłoszenie GitHub"
 
-msgid "Link issue"
-msgstr "Powiąż zgłoszenie"
-
 msgid "Link Linear issue"
 msgstr "Połącz zgłoszenie Linear"
 
@@ -9465,9 +9458,6 @@ msgstr "Pamięć"
 
 msgid "Memory share"
 msgstr "Udział pamięci"
-
-msgid "Menu"
-msgstr "Menu"
 
 msgid "Menubar"
 msgstr "Pasek menu"
@@ -10507,9 +10497,6 @@ msgstr "Brak zrzutów ekranu"
 
 msgid "No sessions"
 msgstr "Brak sesji"
-
-msgid "No sessions found"
-msgstr "Nie znaleziono sesji"
 
 msgid "No sessions running"
 msgstr "Brak działających sesji"
@@ -12944,9 +12931,6 @@ msgstr "Usuwanie członka..."
 msgid "Removing terminal..."
 msgstr "Usuwanie terminala..."
 
-msgid "Removing…"
-msgstr "Usuwanie…"
-
 msgid "Rename"
 msgstr "Zmień nazwę"
 
@@ -13308,11 +13292,17 @@ msgstr "Przywróć plan"
 msgid "restore the agent defaults"
 msgstr "przywrócić domyślnych ustawień agenta"
 
+msgid "Restore the workspace you just archived"
+msgstr "Przywróć właśnie zarchiwizowany obszar roboczy"
+
 msgid "Restore this version?"
 msgstr "Przywrócić tę wersję?"
 
 msgid "Restored"
 msgstr "Przywrócona"
+
+msgid "Restored \"{name}\""
+msgstr "Przywrócono „{name}”"
 
 msgid "Restored \"{projectName}\""
 msgstr "Przywrócono „{projectName}”"
@@ -13926,12 +13916,6 @@ msgstr "Szukaj pull requestów…"
 msgid "Search repositories..."
 msgstr "Szukaj repozytoriów..."
 
-msgid "Search sessions"
-msgstr "Szukaj sesji"
-
-msgid "Search sessions..."
-msgstr "Szukaj sesji..."
-
 msgid "Search settings..."
 msgstr "Szukaj w ustawieniach..."
 
@@ -14082,9 +14066,6 @@ msgstr "Wybierz organizację"
 msgid "Select base branch…"
 msgstr "Wybierz gałąź bazową…"
 
-msgid "Select branch"
-msgstr "Wybierz gałąź"
-
 msgid "Select branch..."
 msgstr "Wybierz gałąź..."
 
@@ -14156,9 +14137,6 @@ msgstr "Wybierz zakres..."
 
 msgid "Select repositories"
 msgstr "Wybierz repozytoria"
-
-msgid "Select repository"
-msgstr "Wybierz repozytorium"
 
 msgid "Select run"
 msgstr "Zaznacz uruchomienie"
@@ -14276,9 +14254,6 @@ msgstr "Sesja"
 msgid "Session {0}"
 msgstr "Sesja {0}"
 
-msgid "Session creation on web is coming soon"
-msgstr "Tworzenie sesji w przeglądarce już wkrótce"
-
 msgid "Session details"
 msgstr "Szczegóły sesji"
 
@@ -14299,9 +14274,6 @@ msgstr "Zmieniono nazwę sesji na {trimmed}"
 
 msgid "Session snapshots & revert"
 msgstr "Migawki sesji i cofanie"
-
-msgid "Session view"
-msgstr "Widok sesji"
 
 msgid "Sessions"
 msgstr "Sesje"
@@ -15951,6 +15923,9 @@ msgstr "Ten punkt końcowy jest niedozwolony."
 msgid "That handle is taken."
 msgstr "Ten pseudonim jest zajęty."
 
+msgid "That Linear issue doesn't exist or you can't see it."
+msgstr "To zgłoszenie w Linear nie istnieje lub nie masz do niego dostępu."
+
 msgid "That link doesn't lead anywhere in the app."
 msgstr "Ten link nigdzie nie prowadzi w aplikacji."
 
@@ -16256,9 +16231,6 @@ msgstr "Zaproszenie do zespołu wygasło lub nie istnieje. Poproś właściciela
 
 msgid "The title shows everywhere this page is listed and in its link preview."
 msgstr "Tytuł pojawia się wszędzie tam, gdzie ta strona jest wymieniona, oraz w podglądzie linku."
-
-msgid "The web agents UI is a read-only preview for now."
-msgstr "Webowy interfejs agentów jest na razie podglądem tylko do odczytu."
 
 msgid "The workspace is not ready yet. Try again."
 msgstr "Obszar roboczy nie jest jeszcze gotowy. Spróbuj ponownie."
@@ -17060,6 +17032,9 @@ msgstr "W toku"
 
 msgid "Undo"
 msgstr "Cofnij"
+
+msgid "Undo Archive"
+msgstr "Cofnij archiwizację"
 
 msgid "Ungroup"
 msgstr "Rozgrupuj"
@@ -17975,9 +17950,6 @@ msgstr "Pracował {0} min {1} s"
 
 msgid "Worked for {seconds}s"
 msgstr "Pracował {seconds} s"
-
-msgid "Worked for 39s"
-msgstr "Pracował 39 s"
 
 msgid "Workflow run completed…"
 msgstr "Przebieg workflow zakończony…"

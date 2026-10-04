@@ -3,6 +3,7 @@ import { Trans } from "@lingui/react/macro";
 import { getI18nInstance } from "@superset/i18n/server";
 import { COMPANY } from "@superset/shared/constants";
 import type { Metadata } from "next";
+import { cacheLife } from "next/cache";
 import { Silkscreen } from "next/font/google";
 import { FactoryBackdrop } from "@/app/[lang]/components/FactoryBackdrop";
 import { localeUrl, localizedAlternates } from "@/app/[lang]/metadata";
@@ -19,7 +20,7 @@ const pixel = Silkscreen({
 	display: "swap",
 });
 
-export const revalidate = 300;
+export const instant = false;
 
 interface PageProps {
 	searchParams: Promise<{ a?: string; b?: string }>;
@@ -37,6 +38,12 @@ async function resolveMatchup(
 	return [left, right];
 }
 
+async function loadParticipant(handle: string) {
+	"use cache";
+	cacheLife({ revalidate: 300 });
+	return fetchParticipant(handle, { period: "30d" });
+}
+
 async function resolveFighter(handle?: string): Promise<Fighter | null> {
 	if (!handle) return null;
 	const normalized = handle.trim().toLowerCase();
@@ -44,7 +51,7 @@ async function resolveFighter(handle?: string): Promise<Fighter | null> {
 	const house = HOUSE_FIGHTERS.find((entry) => entry.handle === normalized);
 	if (house) return house;
 
-	const profile = await fetchParticipant(normalized, { period: "30d" });
+	const profile = await loadParticipant(normalized);
 	return profile ? fromParticipant(profile) : null;
 }
 

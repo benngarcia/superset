@@ -148,7 +148,6 @@ msgid "{0, plural, one {# failed} other {# failed}}"
 msgstr "{0, plural, one {# başarısız} other {# başarısız}}"
 
 #. placeholder {0}: detail.pullRequest.changedFiles
-#. placeholder {0}: diffFiles.length
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# dosya değişti} other {# dosya değişti}}"
 
@@ -958,9 +957,6 @@ msgstr "{minutes}dk önce"
 msgid "{modKey}↵ to create"
 msgstr "Oluşturmak için {modKey}↵"
 
-msgid "{months}mo"
-msgstr "{months}ay"
-
 msgid "{months}mo ago"
 msgstr "{months}ay önce"
 
@@ -1746,9 +1742,6 @@ msgstr "Sözlüğe ekle"
 msgid "Add to project"
 msgstr "Projeye ekle"
 
-msgid "Add to prompt"
-msgstr "İsteme ekle"
-
 msgid "Add to sidebar"
 msgstr "Kenar çubuğuna ekle"
 
@@ -2393,6 +2386,9 @@ msgstr "Arşivlenmiş"
 #. placeholder {0}: formatCompactRelativeTime(cloud.deletedAt)
 msgid "Archived · {0}"
 msgstr "Arşivlendi · {0}"
+
+msgid "Archived \"{name}\""
+msgstr "\"{name}\" arşivlendi"
 
 #. placeholder {0}: formatCompactRelativeTime(workspace.deletedAt, now)
 msgid "Archived {0}"
@@ -4161,6 +4157,9 @@ msgstr "Bu bilgisayarı bağlayın"
 
 msgid "Connect your GitHub repositories and sync pull requests. Track CI status and reviews across your team."
 msgstr "GitHub depolarınızı bağlayın ve pull request'leri eşitleyin. CI durumunu ve incelemeleri takımınız genelinde izleyin."
+
+msgid "Connect your Linear account before tracking tasks in Linear."
+msgstr "Görevleri Linear'da takip etmeden önce Linear hesabınızı bağlayın."
 
 msgid "Connect your Linear account in Settings → Integrations to link Linear issues."
 msgstr "Linear issue'larını bağlamak için Ayarlar → Entegrasyonlar'dan Linear hesabını bağla."
@@ -7340,9 +7339,6 @@ msgstr "LinkedIn'de bizi takip edin"
 msgid "Follow us on X/Twitter"
 msgstr "X/Twitter'da bizi takip edin"
 
-msgid "Follow-ups on web are coming soon"
-msgstr "Web'de takip mesajları yakında geliyor"
-
 msgid "Font family"
 msgstr "Yazı tipi ailesi"
 
@@ -8986,9 +8982,6 @@ msgstr "Bağlantı kopyalandı"
 msgid "Link GitHub issue"
 msgstr "GitHub issue'su bağla"
 
-msgid "Link issue"
-msgstr "Issue bağla"
-
 msgid "Link Linear issue"
 msgstr "Linear issue'su bağla"
 
@@ -9465,9 +9458,6 @@ msgstr "Bellek"
 
 msgid "Memory share"
 msgstr "Bellek payı"
-
-msgid "Menu"
-msgstr "Menü"
 
 msgid "Menubar"
 msgstr "Menü çubuğu"
@@ -10507,9 +10497,6 @@ msgstr "Henüz ekran görüntüsü yok"
 
 msgid "No sessions"
 msgstr "Oturum yok"
-
-msgid "No sessions found"
-msgstr "Oturum bulunamadı"
 
 msgid "No sessions running"
 msgstr "Çalışan oturum yok"
@@ -12944,9 +12931,6 @@ msgstr "Üye kaldırılıyor..."
 msgid "Removing terminal..."
 msgstr "Terminal kaldırılıyor..."
 
-msgid "Removing…"
-msgstr "Kaldırılıyor…"
-
 msgid "Rename"
 msgstr "Yeniden adlandır"
 
@@ -13308,11 +13292,17 @@ msgstr "Planı geri yükle"
 msgid "restore the agent defaults"
 msgstr "ajan varsayılanlarını geri yükleme"
 
+msgid "Restore the workspace you just archived"
+msgstr "Az önce arşivlediğiniz çalışma alanını geri yükle"
+
 msgid "Restore this version?"
 msgstr "Bu sürüm geri yüklensin mi?"
 
 msgid "Restored"
 msgstr "Geri yüklendi"
+
+msgid "Restored \"{name}\""
+msgstr "\"{name}\" geri yüklendi"
 
 msgid "Restored \"{projectName}\""
 msgstr "\"{projectName}\" geri yüklendi"
@@ -13926,12 +13916,6 @@ msgstr "Pull request ara…"
 msgid "Search repositories..."
 msgstr "Depolarda ara..."
 
-msgid "Search sessions"
-msgstr "Oturumlarda ara"
-
-msgid "Search sessions..."
-msgstr "Oturumlarda ara..."
-
 msgid "Search settings..."
 msgstr "Ayarlarda ara..."
 
@@ -14082,9 +14066,6 @@ msgstr "Bir kuruluş seçin"
 msgid "Select base branch…"
 msgstr "Temel dal seçin…"
 
-msgid "Select branch"
-msgstr "Dal seçin"
-
 msgid "Select branch..."
 msgstr "Dal seçin..."
 
@@ -14156,9 +14137,6 @@ msgstr "Aralık seçin..."
 
 msgid "Select repositories"
 msgstr "Depoları seç"
-
-msgid "Select repository"
-msgstr "Depo seçin"
 
 msgid "Select run"
 msgstr "Çalıştırmayı seç"
@@ -14276,9 +14254,6 @@ msgstr "Oturum"
 msgid "Session {0}"
 msgstr "Oturum {0}"
 
-msgid "Session creation on web is coming soon"
-msgstr "Web'de oturum oluşturma yakında geliyor"
-
 msgid "Session details"
 msgstr "Oturum ayrıntıları"
 
@@ -14299,9 +14274,6 @@ msgstr "Oturum {trimmed} olarak yeniden adlandırıldı"
 
 msgid "Session snapshots & revert"
 msgstr "Oturum anlık görüntüleri ve geri alma"
-
-msgid "Session view"
-msgstr "Oturum görünümü"
 
 msgid "Sessions"
 msgstr "Oturumlar"
@@ -15951,6 +15923,9 @@ msgstr "Bu uç noktaya izin verilmiyor."
 msgid "That handle is taken."
 msgstr "Bu kullanıcı adı alınmış."
 
+msgid "That Linear issue doesn't exist or you can't see it."
+msgstr "Bu Linear kaydı yok ya da onu göremiyorsunuz."
+
 msgid "That link doesn't lead anywhere in the app."
 msgstr "Bu bağlantı uygulamada bir yere gitmiyor."
 
@@ -16256,9 +16231,6 @@ msgstr "Takım daveti ya süresi dolmuş ya da mevcut değil. Takım sahibinden 
 
 msgid "The title shows everywhere this page is listed and in its link preview."
 msgstr "Başlık, bu sayfanın listelendiği her yerde ve bağlantı önizlemesinde görünür."
-
-msgid "The web agents UI is a read-only preview for now."
-msgstr "Web ajan arayüzü şimdilik salt okunur bir önizlemedir."
 
 msgid "The workspace is not ready yet. Try again."
 msgstr "Çalışma alanı henüz hazır değil. Yeniden deneyin."
@@ -17060,6 +17032,9 @@ msgstr "Sürüyor"
 
 msgid "Undo"
 msgstr "Geri al"
+
+msgid "Undo Archive"
+msgstr "Arşivlemeyi geri al"
 
 msgid "Ungroup"
 msgstr "Gruptan çıkar"
@@ -17975,9 +17950,6 @@ msgstr "{0} dk {1} sn çalıştı"
 
 msgid "Worked for {seconds}s"
 msgstr "{seconds} sn çalıştı"
-
-msgid "Worked for 39s"
-msgstr "39 sn çalıştı"
 
 msgid "Workflow run completed…"
 msgstr "Workflow çalıştırması tamamlandı…"

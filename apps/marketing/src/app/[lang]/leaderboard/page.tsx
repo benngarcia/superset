@@ -6,6 +6,7 @@ import { COMPANY } from "@superset/shared/constants";
 import type { Metadata } from "next";
 import { Silkscreen } from "next/font/google";
 import Link from "next/link";
+import { connection } from "next/server";
 import { FactoryBackdrop } from "@/app/[lang]/components/FactoryBackdrop";
 import { tierLabel, tierRgb } from "@/app/[lang]/components/TierBadge";
 import { localeUrl, localizedAlternates } from "@/app/[lang]/metadata";
@@ -60,11 +61,12 @@ export async function generateMetadata(): Promise<Metadata> {
 	};
 }
 
-export const revalidate = 300;
-
 const DEFAULT_PERIOD = "30d" as const;
 
+export const instant = false;
+
 export default async function LeaderboardPage() {
+	await connection();
 	await initServerI18n();
 	const { t, i18n } = useLingui();
 

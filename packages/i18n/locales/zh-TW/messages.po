@@ -148,7 +148,6 @@ msgid "{0, plural, one {# failed} other {# failed}}"
 msgstr "{0, plural, one {#項失敗} other {#項失敗}}"
 
 #. placeholder {0}: detail.pullRequest.changedFiles
-#. placeholder {0}: diffFiles.length
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {#個檔案已更改} other {#個檔案已更改}}"
 
@@ -958,9 +957,6 @@ msgstr "{minutes}分鐘前"
 msgid "{modKey}↵ to create"
 msgstr "{modKey}↵建立"
 
-msgid "{months}mo"
-msgstr "{months}個月"
-
 msgid "{months}mo ago"
 msgstr "{months}個月前"
 
@@ -1746,9 +1742,6 @@ msgstr "新增到詞典"
 msgid "Add to project"
 msgstr "新增至專案"
 
-msgid "Add to prompt"
-msgstr "新增到提示詞"
-
 msgid "Add to sidebar"
 msgstr "新增到側邊欄"
 
@@ -2393,6 +2386,9 @@ msgstr "已歸檔"
 #. placeholder {0}: formatCompactRelativeTime(cloud.deletedAt)
 msgid "Archived · {0}"
 msgstr "已封存 · {0}"
+
+msgid "Archived \"{name}\""
+msgstr "已歸檔「{name}」"
 
 #. placeholder {0}: formatCompactRelativeTime(workspace.deletedAt, now)
 msgid "Archived {0}"
@@ -4161,6 +4157,9 @@ msgstr "連線至這台電腦"
 
 msgid "Connect your GitHub repositories and sync pull requests. Track CI status and reviews across your team."
 msgstr "連線你的GitHub儲存庫並同步拉取請求。追蹤整個團隊的CI狀態和程式碼審查。"
+
+msgid "Connect your Linear account before tracking tasks in Linear."
+msgstr "請先連接你的 Linear 帳戶，再於 Linear 中管理任務。"
 
 msgid "Connect your Linear account in Settings → Integrations to link Linear issues."
 msgstr "請在 設定 → 整合 中連結你的Linear帳號，以連結Linear議題。"
@@ -7340,9 +7339,6 @@ msgstr "在LinkedIn上關注我們"
 msgid "Follow us on X/Twitter"
 msgstr "在X/Twitter上關注我們"
 
-msgid "Follow-ups on web are coming soon"
-msgstr "網頁端追問功能即將推出"
-
 msgid "Font family"
 msgstr "字型"
 
@@ -8986,9 +8982,6 @@ msgstr "連結已複製"
 msgid "Link GitHub issue"
 msgstr "關聯GitHub議題"
 
-msgid "Link issue"
-msgstr "關聯議題"
-
 msgid "Link Linear issue"
 msgstr "連結Linear議題"
 
@@ -9465,9 +9458,6 @@ msgstr "記憶體"
 
 msgid "Memory share"
 msgstr "記憶體佔比"
-
-msgid "Menu"
-msgstr "選單"
 
 msgid "Menubar"
 msgstr "選單欄"
@@ -10507,9 +10497,6 @@ msgstr "暫無截圖"
 
 msgid "No sessions"
 msgstr "沒有會話"
-
-msgid "No sessions found"
-msgstr "未找到會話"
 
 msgid "No sessions running"
 msgstr "沒有執行中的會話"
@@ -12944,9 +12931,6 @@ msgstr "正在移除成員..."
 msgid "Removing terminal..."
 msgstr "正在移除終端..."
 
-msgid "Removing…"
-msgstr "正在移除…"
-
 msgid "Rename"
 msgstr "重新命名"
 
@@ -13308,11 +13292,17 @@ msgstr "恢復方案"
 msgid "restore the agent defaults"
 msgstr "恢復代理程式預設設定"
 
+msgid "Restore the workspace you just archived"
+msgstr "還原剛剛歸檔的工作區"
+
 msgid "Restore this version?"
 msgstr "恢復這個版本？"
 
 msgid "Restored"
 msgstr "已恢復"
+
+msgid "Restored \"{name}\""
+msgstr "已還原「{name}」"
 
 msgid "Restored \"{projectName}\""
 msgstr "已還原「{projectName}」"
@@ -13926,12 +13916,6 @@ msgstr "搜尋拉取請求…"
 msgid "Search repositories..."
 msgstr "搜尋儲存庫..."
 
-msgid "Search sessions"
-msgstr "搜尋會話"
-
-msgid "Search sessions..."
-msgstr "搜尋會話..."
-
 msgid "Search settings..."
 msgstr "搜尋設定..."
 
@@ -14082,9 +14066,6 @@ msgstr "選擇一個組織"
 msgid "Select base branch…"
 msgstr "選擇基礎分支…"
 
-msgid "Select branch"
-msgstr "選擇分支"
-
 msgid "Select branch..."
 msgstr "選擇分支..."
 
@@ -14155,9 +14136,6 @@ msgid "Select range..."
 msgstr "選擇範圍..."
 
 msgid "Select repositories"
-msgstr "選擇儲存庫"
-
-msgid "Select repository"
 msgstr "選擇儲存庫"
 
 msgid "Select run"
@@ -14276,9 +14254,6 @@ msgstr "會話"
 msgid "Session {0}"
 msgstr "會話{0}"
 
-msgid "Session creation on web is coming soon"
-msgstr "網頁端建立會話即將推出"
-
 msgid "Session details"
 msgstr "會話詳情"
 
@@ -14299,9 +14274,6 @@ msgstr "會話已重新命名為 {trimmed}"
 
 msgid "Session snapshots & revert"
 msgstr "會話快照與回退"
-
-msgid "Session view"
-msgstr "會話檢視"
 
 msgid "Sessions"
 msgstr "會話"
@@ -15951,6 +15923,9 @@ msgstr "不允許該端點。"
 msgid "That handle is taken."
 msgstr "該使用者名稱已被佔用。"
 
+msgid "That Linear issue doesn't exist or you can't see it."
+msgstr "該 Linear 議題不存在，或你無權檢視。"
+
 msgid "That link doesn't lead anywhere in the app."
 msgstr "該連結在應用中沒有對應的位置。"
 
@@ -16256,9 +16231,6 @@ msgstr "該團隊邀請已過期或不存在。請向團隊擁有者索取新連
 
 msgid "The title shows everywhere this page is listed and in its link preview."
 msgstr "標題會顯示在此頁面列出的所有位置以及連結預覽中。"
-
-msgid "The web agents UI is a read-only preview for now."
-msgstr "網頁版代理程式介面目前是隻讀預覽。"
 
 msgid "The workspace is not ready yet. Try again."
 msgstr "工作區尚未就緒。請重試。"
@@ -17060,6 +17032,9 @@ msgstr "進行中"
 
 msgid "Undo"
 msgstr "撤銷"
+
+msgid "Undo Archive"
+msgstr "復原歸檔"
 
 msgid "Ungroup"
 msgstr "取消群組"
@@ -17975,9 +17950,6 @@ msgstr "用時 {0} 分 {1} 秒"
 
 msgid "Worked for {seconds}s"
 msgstr "用時 {seconds} 秒"
-
-msgid "Worked for 39s"
-msgstr "工作了39秒"
 
 msgid "Workflow run completed…"
 msgstr "工作流執行完成…"
