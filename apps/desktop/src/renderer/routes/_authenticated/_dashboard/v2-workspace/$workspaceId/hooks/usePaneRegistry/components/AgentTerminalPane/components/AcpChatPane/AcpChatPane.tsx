@@ -151,11 +151,12 @@ export function AcpChatPane({
 	const sessionDead = stored?.session?.status === "dead";
 	const sessionStopped =
 		stored !== undefined && stored !== null && !stored.live;
-	// A stopped chat has not lost anything: the agent session it was bound to
-	// can be loaded again. Reopening a pane should just work, so do it rather
-	// than asking. Dead is different — that load already found no transcript.
+	// A stopped or dead chat has not lost anything: the agent session it was
+	// bound to can be loaded again. A load with no transcript opens a new
+	// session instead, so dead means the agent failed to start, which a later
+	// attempt can get past. Reopening a pane should just work, so do it.
 	const canResume = Boolean(
-		sessionStopped && !sessionDead && harness && agentSessionId,
+		(sessionStopped || sessionDead) && harness && agentSessionId,
 	);
 
 	// Once per mount: if the session we resume into is itself unusable, fall
