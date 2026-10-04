@@ -1,0 +1,73 @@
+---
+title: Automation run history and live Linear tasks
+date: 2026-10-04
+image: /changelog/2026-10-04-automation-history-hero.png
+---
+
+## All Your Automation Runs <PRBadge url="https://github.com/superset-sh/superset/pull/7773" /> <PRBadge url="https://github.com/superset-sh/superset/pull/8074" />
+
+Find failed runs and retry your automations from one place in **Automations → All runs**.
+
+- Filter to your runs or the whole team's, then inspect what triggered a run
+- Select failed runs to retry their automations together
+- Click the sidebar's failure badge to go straight to your failed runs
+
+![All runs filtered to automations that need a retry](/changelog/2026-10-04-automation-history.png)
+
+Docs: [Automations](https://docs.superset.sh/docs/automations).
+
+## Linear Issues, Live <PRBadge url="https://github.com/superset-sh/superset/pull/8070" /> <PRBadge url="https://github.com/superset-sh/superset/pull/8094" /> <PRBadge url="https://github.com/superset-sh/superset/pull/7963" />
+
+Browse and create Linear issues directly in **Tasks → Linear**, with list and board views, team and assignee filters, and an option to import an issue as a separate Superset task.
+
+- Each member connects their own Linear account
+- Superset tasks now have short team IDs such as `ENG-123`
+
+{/* TODO: Capture the Linear tab with public or sample issues. */}
+
+## Coming Next: Native iPad Support <PRBadge url="https://github.com/superset-sh/superset/pull/7995" /> <PRBadge url="https://github.com/superset-sh/superset/pull/8102" />
+
+The next mobile build uses the full iPad screen in portrait and landscape, with a Pages grid and support for floating keyboards; watch for the update on the [App Store](https://apps.apple.com/app/id6788926383), with iPad fixes contributed by [@vahidkowsari](https://github.com/vahidkowsari).
+
+{/* TODO: Recheck the App Store rollout before publishing and add an iPad screenshot. */}
+
+## Restore Deleted Projects <PRBadge url="https://github.com/superset-sh/superset/pull/7896" />
+
+Deleted a project by mistake? Click **Undo** or restore it for up to 30 days from **Settings → Projects → Recently deleted**.
+
+Docs: [Workspaces](https://docs.superset.sh/docs/workspaces).
+
+## Improvements
+
+- **Review code beside your agent** - open **Code** in the workspace's PR pane to see changed files, diffs, and review threads <PRBadge url="https://github.com/superset-sh/superset/pull/8007" />
+- **Pages remember team input** - ask your agent to build a poll, RSVP sheet, or shared checklist as a [Page](https://docs.superset.sh/docs/pages); signed-in teammates' answers persist and update live <PRBadge url="https://github.com/superset-sh/superset/pull/8015" />
+- **New models** - choose GPT-6.1 Sol or Claude Sonnet 5.5 in the agent model picker; GPT-6.1 Sol support contributed by [@joshrchambers](https://github.com/joshrchambers) <PRBadge url="https://github.com/superset-sh/superset/pull/8009" /> <PRBadge url="https://github.com/superset-sh/superset/pull/7935" />
+- **File and browser preferences** - find auto save in **Settings → Files & Editor** and URL handling in **Settings → Browser** <PRBadge url="https://github.com/superset-sh/superset/pull/7916" />
+- **Invite from people pickers** - add a teammate without leaving the person picker you're using <PRBadge url="https://github.com/superset-sh/superset/pull/7943" />
+- **Shared terminal sizing** - a banner explains when a phone or smaller window is making your terminal narrower <PRBadge url="https://github.com/superset-sh/superset/pull/7996" />
+- **Integration plan changes** - Linear and GitHub integrations require Pro; free organizations see the upgrade option in **Settings → Integrations** <PRBadge url="https://github.com/superset-sh/superset/pull/7985" /> <PRBadge url="https://github.com/superset-sh/superset/pull/8048" />
+- **CLI help for your shell** - generate completions, inspect available commands, or check your configuration with the commands below; [CLI docs](https://docs.superset.sh/docs/cli/cli-reference) <PRBadge url="https://github.com/superset-sh/superset/pull/8030" />
+
+```sh
+superset completion zsh
+superset schema
+superset config check
+```
+
+- **Experimental: cloud automations** - users with cloud access can choose **Cloud** in the automation editor to start a fresh workspace or continue in an existing one <PRBadge url="https://github.com/superset-sh/superset/pull/7922" />
+- **Experimental: agent chat** - users with chat enabled can start Claude, Codex, or Pi in chat from the new-workspace screen, with attachments and agent-provided model choices <PRBadge url="https://github.com/superset-sh/superset/pull/8058" />
+
+![Files & Editor settings with the auto-save options open](/changelog/2026-10-04-files-editor.png)
+
+---
+
+**Bug fixes**
+
+- A pane that crashes now shows its own recovery screen without taking down the workspace <PRBadge url="https://github.com/superset-sh/superset/pull/7983" />
+- Canceling a repository clone closes the dialog and stops the clone <PRBadge url="https://github.com/superset-sh/superset/pull/8063" />
+- Files outside the workspace folder can be saved again <PRBadge url="https://github.com/superset-sh/superset/pull/7982" />
+- Text typed after a URL no longer becomes part of the link <PRBadge url="https://github.com/superset-sh/superset/pull/8019" />
+- Merging from the PR pane shows a pending state and refreshes the result <PRBadge url="https://github.com/superset-sh/superset/pull/8052" />
+- Remote terminals stay connected when their host's control connection is replaced <PRBadge url="https://github.com/superset-sh/superset/pull/7938" />
+- Empty repositories get an initial commit so workspaces can be created <PRBadge url="https://github.com/superset-sh/superset/pull/8000" />
+- Integration errors now show their explanation after you return from signing in <PRBadge url="https://github.com/superset-sh/superset/pull/7985" />
