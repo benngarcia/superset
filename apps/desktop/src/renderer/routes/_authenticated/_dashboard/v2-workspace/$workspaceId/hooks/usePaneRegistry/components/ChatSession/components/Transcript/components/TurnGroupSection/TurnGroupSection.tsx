@@ -68,7 +68,7 @@ function StepSummary({ items }: { items: readonly ToolCall[] }) {
 	).map((concept) => stepPhrase(concept, counts[concept]));
 	return (
 		<span className="min-w-0 truncate first-letter:uppercase">
-			{formatList(phrases, { type: "unit", style: "narrow" })}
+			{formatList(phrases, { type: "unit", style: "short" })}
 		</span>
 	);
 }

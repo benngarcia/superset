@@ -1,17 +1,15 @@
 import { ChatMarkdown } from "@superset/chat-ui/ChatMarkdown";
 import { cn } from "@superset/ui/utils";
 import { memo, useMemo } from "react";
-import { ChatCodeBlock } from "./components/ChatCodeBlock";
+import { CHAT_CODE_COMPONENTS } from "../ChatCodeBlock";
 import { planMarkdown } from "./utils/planMarkdown";
-
-const CODE_COMPONENTS = { code: ChatCodeBlock };
 
 const MarkdownBlock = memo(function MarkdownBlock({
 	block,
 }: {
 	block: string;
 }) {
-	return <ChatMarkdown components={CODE_COMPONENTS}>{block}</ChatMarkdown>;
+	return <ChatMarkdown components={CHAT_CODE_COMPONENTS}>{block}</ChatMarkdown>;
 });
 
 export function MarkdownView({

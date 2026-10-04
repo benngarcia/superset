@@ -8,7 +8,7 @@ import {
 	getDiffViewerStyle,
 } from "renderer/screens/main/components/WorkspaceView/utils/code-theme";
 import { useResolvedTheme } from "renderer/stores/theme";
-import { CopyButton } from "../../../CopyButton";
+import { CopyButton } from "../CopyButton";
 import { fenceLanguage, fenceText, isDiffLanguage } from "./utils/fencedCode";
 
 const CHAT_CODE_FONT_SIZE = 12;
@@ -88,3 +88,6 @@ export function ChatCodeBlock({ children, className }: FencedCodeProps) {
 		</div>
 	);
 }
+
+/** What a chat surface hands `ChatMarkdown` so fenced code renders through this block. */
+export const CHAT_CODE_COMPONENTS = { code: ChatCodeBlock };
