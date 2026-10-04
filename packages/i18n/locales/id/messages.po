@@ -13820,6 +13820,9 @@ msgstr "Gulir ke bawah"
 msgid "Scroll to Bottom"
 msgstr "Gulir ke Bawah"
 
+msgid "Scroll to latest"
+msgstr "Gulir ke terbaru"
+
 msgid "Scroll to the first session"
 msgstr "Gulir ke sesi pertama"
 

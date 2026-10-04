@@ -1,4 +1,4 @@
-import { Trans } from "@lingui/react/macro";
+import { Trans, useLingui } from "@lingui/react/macro";
 import type {
 	OutboxEntry,
 	SessionSnapshot,
@@ -12,6 +12,7 @@ import type {
 } from "@superset/chat/protocol";
 import { Button } from "@superset/ui/button";
 import { cn } from "@superset/ui/utils";
+import { ArrowDown } from "lucide-react";
 import {
 	useCallback,
 	useEffect,
@@ -35,7 +36,9 @@ const REMEMBER_SIZE_CLASSNAME = "[contain-intrinsic-size:auto_240px]";
 const OFFSCREEN_CLASSNAME = "[content-visibility:auto]";
 const RECENT_ROWS_RENDERED_IN_FULL = 30;
 const PINNED_ROW_TOP_GAP_PX = 24;
-const RESUME_FOLLOW_PX = 8;
+const RESUME_FOLLOW_PX = 24;
+const JUMP_BUTTON_AFTER_PX = 240;
+const CLOCK_SKEW_MS = 5_000;
 
 export type TranscriptProps = {
 	groups: TurnGroup[];
@@ -55,6 +58,10 @@ export type TranscriptProps = {
 	onRetryPrompt: (clientId: string) => void;
 	onDiscardPrompt: (clientId: string) => void;
 };
+
+function distanceFromBottom(container: HTMLElement): number {
+	return container.scrollHeight - container.scrollTop - container.clientHeight;
+}
 
 function outboxMessage(entry: OutboxEntry): UserMessage {
 	return {
@@ -80,6 +87,7 @@ export function Transcript({
 	outbox,
 	snapshot,
 }: TranscriptProps) {
+	const { t } = useLingui();
 	const containerRef = useRef<HTMLDivElement | null>(null);
 	const [collapseOverrides, setCollapseOverrides] = useState<
 		ReadonlyMap<string, boolean>
@@ -132,39 +140,49 @@ export function Transcript({
 		spacer.style.height = `${spacerHeight.current}px`;
 	}, [pinnedRow]);
 
-	const holdPin = useRef(false);
+	const following = useRef(true);
+	const lastScrollTop = useRef(0);
+	const [awayFromBottom, setAwayFromBottom] = useState(false);
 	const keepPinnedRowInPlace = useCallback(() => {
 		sizeSpacer();
 		const container = containerRef.current;
-		const row = pinnedRow();
-		if (!holdPin.current || !container || !row) return;
-		container.scrollTop =
-			spacerHeight.current > 0
-				? row.offsetTop - PINNED_ROW_TOP_GAP_PX
-				: container.scrollHeight;
+		if (!container) return;
+		if (following.current) {
+			const row = pinnedRow();
+			container.scrollTop =
+				row && spacerHeight.current > 0
+					? row.offsetTop - PINNED_ROW_TOP_GAP_PX
+					: container.scrollHeight;
+			lastScrollTop.current = container.scrollTop;
+		}
+		setAwayFromBottom(distanceFromBottom(container) > JUMP_BUTTON_AFTER_PX);
 	}, [pinnedRow, sizeSpacer]);
+	const jumpToLatest = useCallback(() => {
+		following.current = true;
+		keepPinnedRowInPlace();
+	}, [keepPinnedRowInPlace]);
 
 	useEffect(() => {
 		const container = containerRef.current;
 		if (!container) return;
-		const release = () => {
-			holdPin.current = false;
+		const onWheel = (event: WheelEvent) => {
+			if (event.deltaY < 0) following.current = false;
 		};
-		const resumeAtBottom = () => {
-			const distance =
-				container.scrollHeight - container.scrollTop - container.clientHeight;
-			if (spacerHeight.current === 0 && distance < RESUME_FOLLOW_PX) {
-				holdPin.current = true;
-			}
+		const onScroll = () => {
+			const top = container.scrollTop;
+			const movedUp = top < lastScrollTop.current - 1;
+			lastScrollTop.current = top;
+			const distance = distanceFromBottom(container);
+			if (movedUp && distance > 1) following.current = false;
+			else if (!movedUp && distance < RESUME_FOLLOW_PX)
+				following.current = true;
+			setAwayFromBottom(distance > JUMP_BUTTON_AFTER_PX);
 		};
-		const events = ["wheel", "touchstart", "keydown", "pointerdown"] as const;
-		for (const event of events) {
-			container.addEventListener(event, release, { passive: true });
-		}
-		container.addEventListener("scroll", resumeAtBottom, { passive: true });
+		container.addEventListener("wheel", onWheel, { passive: true });
+		container.addEventListener("scroll", onScroll, { passive: true });
 		return () => {
-			for (const event of events) container.removeEventListener(event, release);
-			container.removeEventListener("scroll", resumeAtBottom);
+			container.removeEventListener("wheel", onWheel);
+			container.removeEventListener("scroll", onScroll);
 		};
 	}, []);
 
@@ -179,17 +197,24 @@ export function Transcript({
 	}, [keepPinnedRowInPlace]);
 
 	const anchorRowKey = latestUserRowKey(rows);
-	const seenAnchor = useRef(false);
+	const rowsRef = useRef(rows);
+	rowsRef.current = rows;
+	const mountedAtMs = useRef(Date.now());
 	useLayoutEffect(() => {
-		const container = containerRef.current;
-		if (!anchorRowKey || !container) return;
-		if (!seenAnchor.current) {
-			seenAnchor.current = true;
-			container.scrollTop = container.scrollHeight;
-			return;
+		if (!anchorRowKey) return;
+		const row = rowsRef.current.find(
+			(candidate) => candidate.key === anchorRowKey,
+		);
+		const sentHere =
+			row?.kind === "outbox" ||
+			(row?.kind === "item" &&
+				row.item.kind === "user_message" &&
+				Boolean((row.item as UserMessage).clientId) &&
+				row.item.startedAtMs >= mountedAtMs.current - CLOCK_SKEW_MS);
+		if (sentHere) {
+			pinnedRowKey.current = anchorRowKey;
+			following.current = true;
 		}
-		pinnedRowKey.current = anchorRowKey;
-		holdPin.current = true;
 		keepPinnedRowInPlace();
 	}, [anchorRowKey, keepPinnedRowInPlace]);
 
@@ -263,44 +288,56 @@ export function Transcript({
 	return (
 		// The scroller spans the pane so its bar sits at the edge; the column
 		// inside it holds the reading measure.
-		<div
-			className="relative min-h-0 flex-1 overflow-y-auto px-6"
-			ref={containerRef}
-		>
+		<div className="relative flex min-h-0 flex-1 flex-col">
 			<div
-				className="mx-auto flex w-full max-w-3xl flex-col gap-4 py-6"
-				ref={contentRef}
+				className="relative min-h-0 flex-1 overflow-y-auto px-6"
+				ref={containerRef}
 			>
-				{hasOlder && (
-					<div className="flex items-center gap-2">
-						<Button onClick={onLoadOlder} size="sm" variant="ghost">
-							<Trans>Load earlier messages</Trans>
-						</Button>
-					</div>
-				)}
-				{rows.map((row, index) => (
-					<div
-						className={cn(
-							REMEMBER_SIZE_CLASSNAME,
-							index < rows.length - RECENT_ROWS_RENDERED_IN_FULL &&
-								OFFSCREEN_CLASSNAME,
-							row.groupStart && "mt-2",
-						)}
-						data-item-id={
-							row.kind === "item"
-								? row.item.id
-								: row.kind === "tool_run"
-									? row.items[0]?.id
-									: undefined
-						}
-						data-row-key={row.key}
-						key={row.key}
-					>
-						{renderRow(row)}
-					</div>
-				))}
-				<div aria-hidden ref={spacerRef} />
+				<div
+					className="mx-auto flex w-full max-w-3xl flex-col gap-4 py-6"
+					ref={contentRef}
+				>
+					{hasOlder && (
+						<div className="flex items-center gap-2">
+							<Button onClick={onLoadOlder} size="sm" variant="ghost">
+								<Trans>Load earlier messages</Trans>
+							</Button>
+						</div>
+					)}
+					{rows.map((row, index) => (
+						<div
+							className={cn(
+								REMEMBER_SIZE_CLASSNAME,
+								index < rows.length - RECENT_ROWS_RENDERED_IN_FULL &&
+									OFFSCREEN_CLASSNAME,
+								row.groupStart && "mt-2",
+							)}
+							data-item-id={
+								row.kind === "item"
+									? row.item.id
+									: row.kind === "tool_run"
+										? row.items[0]?.id
+										: undefined
+							}
+							data-row-key={row.key}
+							key={row.key}
+						>
+							{renderRow(row)}
+						</div>
+					))}
+					<div aria-hidden ref={spacerRef} />
+				</div>
 			</div>
+			{awayFromBottom && (
+				<button
+					aria-label={t({ message: "Scroll to latest" })}
+					className="absolute bottom-3 left-1/2 flex size-8 -translate-x-1/2 items-center justify-center rounded-full border border-border bg-background text-muted-foreground shadow-md transition-colors hover:text-foreground"
+					onClick={jumpToLatest}
+					type="button"
+				>
+					<ArrowDown className="size-4" />
+				</button>
+			)}
 		</div>
 	);
 }

@@ -13820,6 +13820,9 @@ msgstr "Naar beneden scrollen"
 msgid "Scroll to Bottom"
 msgstr "Naar beneden scrollen"
 
+msgid "Scroll to latest"
+msgstr "Naar nieuwste scrollen"
+
 msgid "Scroll to the first session"
 msgstr "Naar de eerste sessie"
 

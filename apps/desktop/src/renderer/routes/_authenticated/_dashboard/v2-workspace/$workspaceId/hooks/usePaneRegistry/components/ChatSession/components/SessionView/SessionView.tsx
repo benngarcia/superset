@@ -102,8 +102,12 @@ export function SessionView({
 		return null;
 	}, [session.snapshot.turns]);
 
+	const snapshotItems = session.snapshot.items;
 	const queuedPrompts = useStableList(
-		useMemo(() => deriveQueuedPrompts(session.snapshot), [session.snapshot]),
+		useMemo(
+			() => deriveQueuedPrompts({ items: snapshotItems }),
+			[snapshotItems],
+		),
 	);
 
 	const timelineRef = useRef(timeline);
