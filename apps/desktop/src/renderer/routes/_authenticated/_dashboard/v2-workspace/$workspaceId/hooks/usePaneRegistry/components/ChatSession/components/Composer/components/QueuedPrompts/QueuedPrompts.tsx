@@ -21,6 +21,7 @@ export function QueuedPrompts({
 	prompts,
 	paused,
 	actionable,
+	onClear,
 	onEdit,
 	onRemove,
 	onResume,
@@ -29,6 +30,7 @@ export function QueuedPrompts({
 	prompts: UserMessage[];
 	paused: boolean;
 	actionable: boolean;
+	onClear: () => void;
 	onEdit: (prompt: UserMessage) => void;
 	onRemove: (id: string) => void;
 	onResume: () => void;
@@ -45,6 +47,16 @@ export function QueuedPrompts({
 					<span className="min-w-0 flex-1 truncate">
 						<Trans>Queue paused because you interrupted</Trans>
 					</span>
+					{actionable && (
+						<button
+							className="flex shrink-0 items-center gap-1 rounded-md px-1.5 py-0.5 text-xs transition-colors hover:bg-accent hover:text-foreground"
+							onClick={onClear}
+							type="button"
+						>
+							<Trash2 className="size-3.5" />
+							<Trans>Clear all</Trans>
+						</button>
+					)}
 					<button
 						className="flex shrink-0 items-center gap-1 rounded-md px-1.5 py-0.5 text-xs transition-colors hover:bg-accent hover:text-foreground"
 						onClick={onResume}

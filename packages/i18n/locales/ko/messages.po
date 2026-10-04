@@ -3522,6 +3522,9 @@ msgstr "오래된 TODO 정리…"
 msgid "Cleaner, denser sidebar"
 msgstr "더 깔끔하고 촘촘한 사이드바"
 
+msgid "Clear all"
+msgstr "모두 지우기"
+
 msgid "Clear browsing data"
 msgstr "인터넷 사용 기록 삭제"
 

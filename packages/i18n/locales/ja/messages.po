@@ -3522,6 +3522,9 @@ msgstr "古いTODOを整理…"
 msgid "Cleaner, denser sidebar"
 msgstr "すっきり高密度なサイドバー"
 
+msgid "Clear all"
+msgstr "すべてクリア"
+
 msgid "Clear browsing data"
 msgstr "閲覧データを消去"
 

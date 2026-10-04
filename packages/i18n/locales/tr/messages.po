@@ -3522,6 +3522,9 @@ msgstr "Eskimiş TODO'ları temizle…"
 msgid "Cleaner, denser sidebar"
 msgstr "Daha temiz, daha yoğun kenar çubuğu"
 
+msgid "Clear all"
+msgstr "Tümünü temizle"
+
 msgid "Clear browsing data"
 msgstr "Tarama verilerini temizle"
 

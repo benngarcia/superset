@@ -3522,6 +3522,9 @@ msgstr "清理過期的TODO…"
 msgid "Cleaner, denser sidebar"
 msgstr "更清爽緊湊的側邊欄"
 
+msgid "Clear all"
+msgstr "全部清除"
+
 msgid "Clear browsing data"
 msgstr "清除瀏覽資料"
 

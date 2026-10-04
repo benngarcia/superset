@@ -3522,6 +3522,9 @@ msgstr "Uporządkuj nieaktualne TODO…"
 msgid "Cleaner, denser sidebar"
 msgstr "Czystszy, gęstszy pasek boczny"
 
+msgid "Clear all"
+msgstr "Wyczyść wszystko"
+
 msgid "Clear browsing data"
 msgstr "Wyczyść dane przeglądania"
 

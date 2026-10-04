@@ -3522,6 +3522,9 @@ msgstr "Clean up stale TODOs…"
 msgid "Cleaner, denser sidebar"
 msgstr "Cleaner, denser sidebar"
 
+msgid "Clear all"
+msgstr "Clear all"
+
 msgid "Clear browsing data"
 msgstr "Clear browsing data"
 

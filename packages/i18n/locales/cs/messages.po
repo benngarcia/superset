@@ -3522,6 +3522,9 @@ msgstr "Ukliď zastaralé TODO…"
 msgid "Cleaner, denser sidebar"
 msgstr "Čistší a hustší postranní panel"
 
+msgid "Clear all"
+msgstr "Vymazat vše"
+
 msgid "Clear browsing data"
 msgstr "Vymazat data prohlížení"
 

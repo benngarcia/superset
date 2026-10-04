@@ -3522,6 +3522,9 @@ msgstr "Dọn các TODO cũ…"
 msgid "Cleaner, denser sidebar"
 msgstr "Thanh bên gọn và dày hơn"
 
+msgid "Clear all"
+msgstr "Xóa tất cả"
+
 msgid "Clear browsing data"
 msgstr "Xóa dữ liệu duyệt web"
 

@@ -3522,6 +3522,9 @@ msgstr "Veraltete TODOs aufräumen…"
 msgid "Cleaner, denser sidebar"
 msgstr "Aufgeräumtere, dichtere Seitenleiste"
 
+msgid "Clear all"
+msgstr "Alle entfernen"
+
 msgid "Clear browsing data"
 msgstr "Browserdaten löschen"
 

@@ -3522,6 +3522,9 @@ msgstr "Bereskan TODO yang basi…"
 msgid "Cleaner, denser sidebar"
 msgstr "Sidebar lebih bersih dan padat"
 
+msgid "Clear all"
+msgstr "Hapus semua"
+
 msgid "Clear browsing data"
 msgstr "Bersihkan data penjelajahan"
 

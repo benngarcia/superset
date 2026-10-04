@@ -3522,6 +3522,9 @@ msgstr "Limpe os TODOs antigos…"
 msgid "Cleaner, denser sidebar"
 msgstr "Barra lateral mais limpa e densa"
 
+msgid "Clear all"
+msgstr "Limpar tudo"
+
 msgid "Clear browsing data"
 msgstr "Limpar dados de navegação"
 

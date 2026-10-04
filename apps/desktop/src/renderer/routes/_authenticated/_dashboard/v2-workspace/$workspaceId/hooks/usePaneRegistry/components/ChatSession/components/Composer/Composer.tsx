@@ -214,11 +214,23 @@ export const Composer = memo(function Composer({
 		[promptQueue, runQueueAction],
 	);
 
+	const clearQueued = useCallback(async () => {
+		if (!promptQueue) return;
+		await runQueueAction(async () => {
+			const results = await Promise.allSettled(
+				promptQueue.prompts.map((prompt) => promptQueue.remove(prompt.id)),
+			);
+			const failed = results.find((result) => result.status === "rejected");
+			if (failed) throw failed.reason;
+		});
+	}, [promptQueue, runQueueAction]);
+
 	return (
 		<div className="px-6 pt-1 pb-5">
 			{promptQueue && (
 				<div className="mx-auto w-full max-w-3xl">
 					<QueuedPrompts
+						onClear={() => void clearQueued()}
 						onEdit={(prompt) => void editQueued(prompt)}
 						onRemove={(id) => void runQueueAction(() => promptQueue.remove(id))}
 						onResume={() => void runQueueAction(promptQueue.resume)}

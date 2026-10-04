@@ -3522,6 +3522,9 @@ msgstr "Разберись со старыми TODO…"
 msgid "Cleaner, denser sidebar"
 msgstr "Чище и плотнее боковая панель"
 
+msgid "Clear all"
+msgstr "Очистить всё"
+
 msgid "Clear browsing data"
 msgstr "Очистить данные браузера"
 

@@ -3522,6 +3522,9 @@ msgstr "Ruim verouderde TODO's op…"
 msgid "Cleaner, denser sidebar"
 msgstr "Strakkere, compactere zijbalk"
 
+msgid "Clear all"
+msgstr "Alles wissen"
+
 msgid "Clear browsing data"
 msgstr "Browsegegevens wissen"
 
