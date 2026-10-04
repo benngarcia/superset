@@ -26,6 +26,7 @@ import { ItemRow } from "./components/ItemRow";
 import { ToolRunRow } from "./components/ToolRunRow";
 import { TurnStatusRow } from "./components/TurnStatusRow";
 import { WorkingFor } from "./components/WorkingFor";
+import { WorkingIndicator } from "./components/WorkingIndicator";
 import {
 	latestUserRowKey,
 	type TranscriptRow,
@@ -61,6 +62,28 @@ export type TranscriptProps = {
 
 function distanceFromBottom(container: HTMLElement): number {
 	return container.scrollHeight - container.scrollTop - container.clientHeight;
+}
+
+/**
+ * Whether the end of the transcript needs its own "busy" line: a running
+ * turn whose newest row is not itself live. A streaming message, a thought
+ * mid-stream and a running tool call all shimmer on their own, and a pending
+ * approval is the reader's turn, not the agent's; the line covers the gaps
+ * between them, and the wait before the first one.
+ */
+function showsWorkingIndicator(groups: TurnGroup[]): boolean {
+	const last = groups.at(-1);
+	if (!last || last.turn?.status !== "running") return false;
+	const entry = last.entries.at(-1);
+	if (!entry) return true;
+	if (entry.kind === "tool_run")
+		return entry.items.every((item) => item.status !== "running");
+	const item = entry.item;
+	if (item.kind === "tool_call") return item.status !== "running";
+	if (item.kind === "agent_message" || item.kind === "reasoning")
+		return item.completedAtMs !== undefined;
+	if (item.kind === "approval_request") return item.status !== "pending";
+	return true;
 }
 
 function outboxMessage(entry: OutboxEntry): UserMessage {
@@ -291,15 +314,17 @@ export function Transcript({
 	};
 
 	return (
-		// The scroller spans the pane so its bar sits at the edge; the column
-		// inside it holds the reading measure.
+		// The scroller spans the pane so its bar sits at the edge; the gutter
+		// is reserved on both sides so the column centers on the same axis as
+		// the composer below it, scrollbar or not. The app disables selection
+		// on body; the transcript is text, so it opts back in.
 		<div className="relative flex min-h-0 flex-1 flex-col">
 			<div
-				className="relative min-h-0 flex-1 overflow-y-auto px-6"
+				className="relative min-h-0 flex-1 overflow-y-auto [scrollbar-gutter:stable_both-edges]"
 				ref={containerRef}
 			>
 				<div
-					className="mx-auto flex w-full max-w-3xl flex-col gap-4 py-6"
+					className="mx-auto flex w-full max-w-3xl select-text flex-col gap-4 px-6 py-6"
 					ref={contentRef}
 				>
 					{hasOlder && (
@@ -330,6 +355,7 @@ export function Transcript({
 							{renderRow(row)}
 						</div>
 					))}
+					{showsWorkingIndicator(groups) && <WorkingIndicator />}
 					<div aria-hidden ref={spacerRef} />
 				</div>
 			</div>

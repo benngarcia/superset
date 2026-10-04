@@ -241,10 +241,6 @@ msgstr "{0, plural, one {# задача} few {# задачи} many {# задач
 msgid "{0, plural, one {# terminal running} other {# terminals running}}"
 msgstr "{0, plural, one {# терминал запущен} few {# терминала запущено} many {# терминалов запущено} other {# терминала запущено}}"
 
-#. placeholder {0}: items.length
-msgid "{0, plural, one {# tool call} other {# tool calls}}"
-msgstr "{0, plural, one {# вызов инструмента} few {# вызова инструмента} many {# вызовов инструментов} other {# вызова инструмента}}"
-
 #. placeholder {0}: group.workspaceCount
 #. placeholder {0}: selectedWorkspaces.length
 msgid "{0, plural, one {# workspace} other {# workspaces}}"

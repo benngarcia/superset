@@ -241,10 +241,6 @@ msgstr "{0, plural, one {# tác vụ} other {# tác vụ}}"
 msgid "{0, plural, one {# terminal running} other {# terminals running}}"
 msgstr "{0, plural, other {# terminal đang chạy}}"
 
-#. placeholder {0}: items.length
-msgid "{0, plural, one {# tool call} other {# tool calls}}"
-msgstr "{0, plural, one {# lệnh gọi công cụ} other {# lệnh gọi công cụ}}"
-
 #. placeholder {0}: group.workspaceCount
 #. placeholder {0}: selectedWorkspaces.length
 msgid "{0, plural, one {# workspace} other {# workspaces}}"

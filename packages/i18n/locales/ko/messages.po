@@ -241,10 +241,6 @@ msgstr "{0, plural, one {작업 #개} other {작업 #개}}"
 msgid "{0, plural, one {# terminal running} other {# terminals running}}"
 msgstr "{0, plural, other {터미널 #개 실행 중}}"
 
-#. placeholder {0}: items.length
-msgid "{0, plural, one {# tool call} other {# tool calls}}"
-msgstr "{0, plural, one {도구 호출 #건} other {도구 호출 #건}}"
-
 #. placeholder {0}: group.workspaceCount
 #. placeholder {0}: selectedWorkspaces.length
 msgid "{0, plural, one {# workspace} other {# workspaces}}"
