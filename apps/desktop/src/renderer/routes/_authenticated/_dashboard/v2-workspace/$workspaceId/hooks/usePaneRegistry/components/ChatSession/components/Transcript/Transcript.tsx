@@ -254,15 +254,15 @@ function TranscriptBody({
 		// children of Content: the scroller reads anchors and prepends from
 		// them, so the load button sits outside it.
 		<MessageScroller.Root className="relative flex min-h-0 min-w-0 flex-1 flex-col">
-			<MessageScroller.Viewport className="min-h-0 flex-1 overflow-y-auto [scrollbar-gutter:stable_both-edges]">
+			<MessageScroller.Viewport className="min-h-0 flex-1 overflow-y-auto px-6 [scrollbar-gutter:stable_both-edges]">
 				{hasOlder && (
-					<div className="mx-auto flex w-full max-w-3xl items-center gap-2 px-6 pt-6">
+					<div className="mx-auto flex w-full max-w-3xl items-center gap-2 pt-6">
 						<Button onClick={onLoadOlder} size="sm" variant="ghost">
 							<Trans>Load earlier messages</Trans>
 						</Button>
 					</div>
 				)}
-				<MessageScroller.Content className="mx-auto flex w-full max-w-3xl select-text flex-col gap-4 px-6 py-6">
+				<MessageScroller.Content className="mx-auto flex w-full max-w-3xl select-text flex-col gap-4 py-6">
 					{rows.map((row, index) => (
 						<MessageScroller.Item
 							className={cn(

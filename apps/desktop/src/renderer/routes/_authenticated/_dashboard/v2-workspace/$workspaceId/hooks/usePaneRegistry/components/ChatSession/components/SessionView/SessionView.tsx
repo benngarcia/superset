@@ -195,56 +195,57 @@ export function SessionView({
 					session={session.snapshot.session}
 				/>
 			)}
-			<div className="@container flex min-h-0 flex-1">
-				{!loadingTranscript && rail.length > 1 && (
-					<ChatHistorySidebar
-						className="hidden max-h-full shrink-0 flex-col self-center pl-3 @[56rem]:flex"
-						messages={rail}
-						onMessageSelect={selectFromRail}
+			{loadingTranscript ? (
+				<div className="flex flex-1 flex-col items-center justify-center gap-3">
+					<Spinner className="size-5" />
+					{booting && (
+						<span className="text-muted-foreground text-xs">
+							<Trans>Opening the conversation…</Trans>
+						</span>
+					)}
+				</div>
+			) : (
+				// The rail floats over the transcript's left margin instead of
+				// taking a column, so the transcript and the composer center on the
+				// same axis whether or not the rail is showing.
+				<div className="@container relative flex min-h-0 flex-1">
+					<Transcript
+						approvals={approvals}
+						canForkToWorktree={canForkToWorktree}
+						groups={timeline}
+						hasOlder={session.hasOlder}
+						onDiscardPrompt={session.discardPrompt}
+						onFork={onFork ? forkWithTranscript : undefined}
+						onLoadOlder={onLoadOlder}
+						onRespond={onRespond}
+						onRetryPrompt={session.retryPrompt}
+						outbox={session.outbox}
+						scrollRequest={scrollRequest}
+						snapshot={session.snapshot}
 					/>
-				)}
-				<div className="flex min-h-0 min-w-0 flex-1 flex-col">
-					{loadingTranscript ? (
-						<div className="flex flex-1 flex-col items-center justify-center gap-3">
-							<Spinner className="size-5" />
-							{booting && (
-								<span className="text-muted-foreground text-xs">
-									<Trans>Opening the conversation…</Trans>
-								</span>
-							)}
-						</div>
-					) : (
-						<Transcript
-							approvals={approvals}
-							canForkToWorktree={canForkToWorktree}
-							groups={timeline}
-							hasOlder={session.hasOlder}
-							onDiscardPrompt={session.discardPrompt}
-							onFork={onFork ? forkWithTranscript : undefined}
-							onLoadOlder={onLoadOlder}
-							onRespond={onRespond}
-							onRetryPrompt={session.retryPrompt}
-							outbox={session.outbox}
-							scrollRequest={scrollRequest}
-							snapshot={session.snapshot}
+					{rail.length > 1 && (
+						<ChatHistorySidebar
+							className="absolute inset-y-0 left-0 my-auto hidden h-fit max-h-full flex-col pl-3 @[56rem]:flex"
+							messages={rail}
+							onMessageSelect={selectFromRail}
 						/>
 					)}
-					<Composer
-						availableCommands={sessionState?.availableCommands ?? NO_COMMANDS}
-						configOptions={sessionState?.configOptions ?? NO_CONFIG_OPTIONS}
-						onSetConfigOption={onSetConfigOption}
-						modes={sessionState?.availableModes}
-						currentModeId={sessionState?.modeId}
-						onSetMode={onSetMode}
-						disabled={session.status !== "ready"}
-						draftKey={`chat-v3-draft:${sessionId}`}
-						onCancelTurn={onCancelTurn}
-						onSend={onSend}
-						promptQueue={promptQueue}
-						workspaceId={workspaceId}
-					/>
 				</div>
-			</div>
+			)}
+			<Composer
+				availableCommands={sessionState?.availableCommands ?? NO_COMMANDS}
+				configOptions={sessionState?.configOptions ?? NO_CONFIG_OPTIONS}
+				onSetConfigOption={onSetConfigOption}
+				modes={sessionState?.availableModes}
+				currentModeId={sessionState?.modeId}
+				onSetMode={onSetMode}
+				disabled={session.status !== "ready"}
+				draftKey={`chat-v3-draft:${sessionId}`}
+				onCancelTurn={onCancelTurn}
+				onSend={onSend}
+				promptQueue={promptQueue}
+				workspaceId={workspaceId}
+			/>
 		</div>
 	);
 }
