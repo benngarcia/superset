@@ -1,5 +1,5 @@
 ---
-title: Automation run history and live Linear tasks
+title: Plugin mentions, live Linear tasks, and what’s next
 date: 2026-10-04
 image: /changelog/2026-10-04-automation-history-hero.png
 ---
@@ -25,6 +25,13 @@ Browse and create Linear issues directly in **Tasks → Linear**, with list and 
 
 {/* TODO: Capture the Linear tab with public or sample issues. */}
 
+## Bring Your Apps Into the Prompt <PRBadge url="https://github.com/superset-sh/superset/pull/8096" />
+
+Type **@** in the new-workspace prompt or terminal input (⌘I) to pick an installed plugin, then tell your agent what to do with it.
+
+- Connect Superhuman, Stripe, Sentry, Granola, Circleback, or YNAB from **Plugins**, with skills for working with email, payments, errors, meeting notes, and budgets <PRBadge url="https://github.com/superset-sh/superset/pull/8093" /> <PRBadge url="https://github.com/superset-sh/superset/pull/8047" /> <PRBadge url="https://github.com/superset-sh/superset/pull/7912" /> <PRBadge url="https://github.com/superset-sh/superset/pull/7960" /> <PRBadge url="https://github.com/superset-sh/superset/pull/7967" />
+- Connect more than one account on a plugin page and choose which account an event trigger listens to in the automation editor <PRBadge url="https://github.com/superset-sh/superset/pull/8003" />
+
 ## Coming Next: Native iPad Support <PRBadge url="https://github.com/superset-sh/superset/pull/7995" /> <PRBadge url="https://github.com/superset-sh/superset/pull/8102" />
 
 The next mobile build uses the full iPad screen in portrait and landscape, with a Pages grid and support for floating keyboards; watch for the update on the [App Store](https://apps.apple.com/app/id6788926383), with iPad fixes contributed by [@vahidkowsari](https://github.com/vahidkowsari).
@@ -33,13 +40,9 @@ The next mobile build uses the full iPad screen in portrait and landscape, with 
 
 {/* TODO: Recheck the App Store rollout before publishing. */}
 
-## Restore Deleted Projects <PRBadge url="https://github.com/superset-sh/superset/pull/7896" />
-
-Deleted a project by mistake? Click **Undo** or restore it for up to 30 days from **Settings → Projects → Recently deleted**.
-
-Docs: [Workspaces](https://docs.superset.sh/docs/workspaces).
-
 ## Improvements
+
+- **Restore deleted projects** - click **Undo** or recover a project for up to 30 days from **Settings → Projects → Recently deleted** <PRBadge url="https://github.com/superset-sh/superset/pull/7896" />
 
 - **Review code beside your agent** - open **Code** in the workspace's PR pane to see changed files, diffs, and review threads <PRBadge url="https://github.com/superset-sh/superset/pull/8007" />
 - **Pages remember team input** - ask your agent to build a poll, RSVP sheet, or shared checklist as a [Page](https://docs.superset.sh/docs/pages); signed-in teammates' answers persist and update live <PRBadge url="https://github.com/superset-sh/superset/pull/8015" />
@@ -56,10 +59,15 @@ superset schema
 superset config check
 ```
 
-- **Experimental: cloud automations** - users with cloud access can choose **Cloud** in the automation editor to start a fresh workspace or continue in an existing one <PRBadge url="https://github.com/superset-sh/superset/pull/7922" />
-- **Experimental: agent chat** - users with chat enabled can start Claude, Codex, or Pi in chat from the new-workspace screen, with attachments and agent-provided model choices <PRBadge url="https://github.com/superset-sh/superset/pull/8058" />
-
 ![Files & Editor settings with the auto-save options open](/changelog/2026-10-04-files-editor.png)
+
+## A Peek at What’s Next
+
+These are still in development or limited access, with no release date yet.
+
+- **Cloud automations** - run an agent in a fresh cloud workspace or continue its previous session; early-access users can choose **Cloud** in the automation editor <PRBadge url="https://github.com/superset-sh/superset/pull/7922" />
+- **Agent chat** - start Claude, Codex, or Pi in a conversation with attachments and model choices; available from the new-workspace screen for accounts with chat enabled <PRBadge url="https://github.com/superset-sh/superset/pull/8058" />
+- **Talk to your agents from your phone** - we're prototyping voice conversations to check on workspaces and send an agent a follow-up; this is an internal prototype, not available in the App Store yet <PRBadge url="https://github.com/superset-sh/superset/pull/8117" />
 
 ---
 
