@@ -25,5 +25,8 @@ export function resolvePullRequestTarget({
 	const repository = repoFullName ?? projectRepo;
 	const matches =
 		!!projectRepo && projectRepo.toLowerCase() === repository?.toLowerCase();
-	return { repoFullName: repository, projectId: matches ? projectId : null };
+	return {
+		repoFullName: repository,
+		projectId: project && (!repoFullName || matches) ? projectId : null,
+	};
 }

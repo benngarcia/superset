@@ -60,6 +60,7 @@ describe("fetchPullRequestDiff", () => {
 			prNumber: 12,
 		});
 		expect(getDiffByRepo).not.toHaveBeenCalled();
+		expect(getPullRequestDiff).not.toHaveBeenCalled();
 	});
 
 	test("falls back when an older host does not expose the new procedure", async () => {
@@ -81,6 +82,7 @@ describe("fetchPullRequestDiff", () => {
 
 	test("falls back when the matching project's host is unreachable", async () => {
 		getDiff.mockRejectedValue(new Error("Host offline"));
+		getDiffByRepo.mockRejectedValue(new Error("Host offline"));
 		expect(
 			await fetchPullRequestDiff({ ...input, projectId: "project" }),
 		).toEqual({
@@ -104,4 +106,67 @@ describe("fetchPullRequestDiff", () => {
 			"Repository access denied",
 		);
 	});
+});
+
+test("tries repository gh after project lookup fails, without requiring the API", async () => {
+	getDiff.mockRejectedValue(new Error("Project not set up"));
+	expect(
+		await fetchPullRequestDiff({
+			...input,
+			projectId: "project",
+			organizationId: null,
+		}),
+	).toEqual({ patch: "repo diff" });
+	expect(getDiff).toHaveBeenCalledTimes(1);
+	expect(getDiffByRepo).toHaveBeenCalledTimes(1);
+	expect(getPullRequestDiff).not.toHaveBeenCalled();
+});
+test("an empty legacy diff is success, not a reason to fall back", async () => {
+	getDiff.mockResolvedValue({ patch: "" });
+	expect(
+		await fetchPullRequestDiff({ ...input, projectId: "project" }),
+	).toEqual({ patch: "" });
+	expect(getDiffByRepo).not.toHaveBeenCalled();
+	expect(getPullRequestDiff).not.toHaveBeenCalled();
+});
+test("legacy project-only requests work without repository metadata or an organization", async () => {
+	expect(
+		await fetchPullRequestDiff({
+			...input,
+			projectId: "project",
+			repoFullName: null,
+			organizationId: null,
+		}),
+	).toEqual({ patch: "project diff" });
+	expect(getDiffByRepo).not.toHaveBeenCalled();
+	expect(getPullRequestDiff).not.toHaveBeenCalled();
+});
+test("keeps the project error when no repository fallback is possible", async () => {
+	const error = new Error("Project missing");
+	getDiff.mockRejectedValue(error);
+	await expect(
+		fetchPullRequestDiff({
+			...input,
+			projectId: "project",
+			repoFullName: null,
+		}),
+	).rejects.toBe(error);
+	expect(getDiffByRepo).not.toHaveBeenCalled();
+	expect(getPullRequestDiff).not.toHaveBeenCalled();
+});
+test("keeps the repository error when the organization is unavailable", async () => {
+	const error = new Error("gh denied");
+	getDiffByRepo.mockRejectedValue(error);
+	await expect(
+		fetchPullRequestDiff({ ...input, organizationId: null }),
+	).rejects.toBe(error);
+	expect(getPullRequestDiff).not.toHaveBeenCalled();
+});
+test("rejects missing fallback identity without issuing an API request", async () => {
+	for (const missing of [{ organizationId: null }, { repoFullName: null }]) {
+		await expect(
+			fetchPullRequestDiff({ ...input, hostUrl: null, ...missing }),
+		).rejects.toThrow("No GitHub repository");
+	}
+	expect(getPullRequestDiff).not.toHaveBeenCalled();
 });

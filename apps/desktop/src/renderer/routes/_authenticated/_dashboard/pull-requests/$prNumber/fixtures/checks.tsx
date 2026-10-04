@@ -9,7 +9,8 @@ const root = "renderer/routes/_authenticated/_dashboard";
 let search: { repo?: string; project?: string } = { repo: "other/repo" };
 let detail = {
 	projectId: null as string | null,
-	repoFullName: "other/repo",
+	repoFullName: "other/repo" as string | null,
+	isResolvingProject: false,
 	data: undefined as undefined | { url: string },
 	isLoading: false,
 	error: new Error("Summary unavailable"),
@@ -101,4 +102,38 @@ test("keeps the canonical URL and Summary mounted across tab changes", () => {
 	fireEvent.click(view.getByRole("button", { name: "Code" }));
 	expect(view.getByTestId("code").textContent).toBe(detail.data?.url ?? "");
 	expect(view.getByTestId("summary")).toBe(summary);
+});
+
+test("Code waits for project discovery before choosing a fallback", () => {
+	detail = {
+		...detail,
+		data: undefined,
+		projectId: null,
+		repoFullName: "other/repo",
+		isLoading: true,
+		isResolvingProject: true,
+	};
+	const view = render(<Page />);
+	fireEvent.click(view.getByRole("button", { name: "Code" }));
+	expect(view.queryByTestId("code")).toBeNull();
+	expect(view.getByText("Loading pull request…")).toBeTruthy();
+	detail = { ...detail, projectId: "project", isResolvingProject: false };
+	view.rerender(<Page />);
+	expect(view.getByTestId("code").getAttribute("data-project")).toBe("project");
+});
+test("legacy project-only loading and errors are not mistaken for invalid links", () => {
+	detail = {
+		...detail,
+		projectId: "project",
+		repoFullName: null,
+		data: undefined,
+		isResolvingProject: false,
+		isLoading: true,
+	};
+	const view = render(<Page />);
+	expect(view.queryByText("This pull request link is invalid.")).toBeNull();
+	detail = { ...detail, isLoading: false };
+	view.rerender(<Page />);
+	expect(view.getByText("Summary unavailable")).toBeTruthy();
+	expect(view.queryByText("This pull request link is invalid.")).toBeNull();
 });

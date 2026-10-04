@@ -27,13 +27,14 @@ export function PullRequestDetailContent({
 	detail: {
 		data?: PullRequestDetail | null;
 		isLoading: boolean;
+		isResolvingProject?: boolean;
 		error: unknown;
 		refetch: () => unknown;
 	};
 	children?: ReactNode;
 }) {
 	const { t } = useLingui();
-	if (prNumber === null || (!repoFullName && !detail.isLoading)) {
+	if (prNumber === null || (!repoFullName && !projectId && !detail.isLoading)) {
 		return (
 			<WorkItemDetailState
 				message={t({ message: "This pull request link is invalid." })}
@@ -41,6 +42,13 @@ export function PullRequestDetailContent({
 			/>
 		);
 	}
+	if (detail.isResolvingProject)
+		return (
+			<WorkItemDetailState
+				message={t({ message: "Loading pull request…" })}
+				isLoading
+			/>
+		);
 	const prUrl =
 		detail.data?.url ??
 		(repoFullName

@@ -41,6 +41,12 @@ export function usePullRequestDetail({
 		projects,
 	});
 
+	const isResolvingProject =
+		!!projectId &&
+		!isReady &&
+		!projects.some(
+			(project) => project.id === projectId || project.projectKey === projectId,
+		);
 	const query = useQuery({
 		queryKey: [
 			...pullRequestDetailQueryKey({
@@ -60,14 +66,21 @@ export function usePullRequestDetail({
 				prNumber,
 			});
 		},
-		enabled: enabled && !!target.repoFullName && prNumber !== null,
+		enabled:
+			enabled &&
+			!isResolvingProject &&
+			(!!target.repoFullName || !!target.projectId) &&
+			prNumber !== null,
 		staleTime: 30_000,
 		gcTime: 10 * 60_000,
 	});
 	return {
 		...query,
 		...target,
-		isLoading: query.isLoading || (!isReady && !target.repoFullName),
+		repoFullName:
+			repoFullName ?? query.data?.repoFullName ?? target.repoFullName,
+		isResolvingProject,
+		isLoading: query.isLoading || isResolvingProject,
 	};
 }
 

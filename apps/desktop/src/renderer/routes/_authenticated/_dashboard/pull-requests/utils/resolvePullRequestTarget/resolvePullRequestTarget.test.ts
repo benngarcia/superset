@@ -47,3 +47,21 @@ test("a PR number alone cannot identify a repository", () => {
 		repoFullName: null,
 	});
 });
+
+test("legacy project-only links preserve the host path when cached remote metadata is absent", () => {
+	expect(
+		resolvePullRequestTarget({
+			projectId: "project",
+			projects: [{ id: "project", projectKey: "key" }],
+		}),
+	).toEqual({ projectId: "project", repoFullName: null });
+});
+test("an explicit repository cannot inherit actions from unknown project metadata", () => {
+	expect(
+		resolvePullRequestTarget({
+			projectId: "project",
+			repoFullName: "owner/repo",
+			projects: [{ id: "project", projectKey: "key" }],
+		}),
+	).toEqual({ projectId: null, repoFullName: "owner/repo" });
+});

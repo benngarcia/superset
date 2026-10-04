@@ -17,19 +17,24 @@ export async function fetchPullRequestDiff({
 	organizationId,
 }: PullRequestDiffInput): Promise<{ patch: string }> {
 	if (hostUrl) {
-		try {
-			const client = getHostServiceClientByUrl(hostUrl);
-			if (projectId) {
+		if (projectId) {
+			try {
+				const client = getHostServiceClientByUrl(hostUrl);
 				return await client.pullRequests.getDiff.query({ projectId, prNumber });
+			} catch (error) {
+				if (!repoFullName) throw error;
 			}
-			if (repoFullName) {
+		}
+		if (repoFullName) {
+			try {
+				const client = getHostServiceClientByUrl(hostUrl);
 				return await client.pullRequests.getDiffByRepo.query({
 					repoFullName,
 					prNumber,
 				});
+			} catch (error) {
+				if (!organizationId) throw error;
 			}
-		} catch (error) {
-			if (!organizationId || !repoFullName) throw error;
 		}
 	}
 	if (!organizationId || !repoFullName) {
