@@ -9,6 +9,10 @@
 			"types": "./src/connectors/index.ts",
 			"default": "./src/connectors/index.ts"
 		},
+		"./account-labels": {
+			"types": "./src/account-labels.ts",
+			"default": "./src/account-labels.ts"
+		},
 		"./page-zoom": {
 			"types": "./src/page-zoom.ts",
 			"default": "./src/page-zoom.ts"
@@ -292,6 +296,10 @@
 		"./host-info": {
 			"types": "./src/host-info.ts",
 			"default": "./src/host-info.ts"
+		},
+		"./auth-token-crypto": {
+			"types": "./src/auth-token-crypto.ts",
+			"default": "./src/auth-token-crypto.ts"
 		},
 		"./rotating-log": {
 			"types": "./src/rotating-log.ts",

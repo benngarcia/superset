@@ -99,6 +99,10 @@ msgstr "(нет вывода)"
 msgid "(so far)"
 msgstr "(пока)"
 
+#. placeholder {0}: connections.length
+msgid "{0, plural, one {# account connected} other {# accounts connected}}"
+msgstr "{0, plural, one {# аккаунт подключён} few {# аккаунта подключено} many {# аккаунтов подключено} other {# аккаунта подключено}}"
+
 #. placeholder {0}: ports.length
 msgid "{0, plural, one {# active port — hide details} other {# active ports — hide details}}"
 msgstr "{0, plural, one {# активный порт — скрыть детали} few {# активных порта — скрыть детали} many {# активных портов — скрыть детали} other {# активных портов — скрыть детали}}"
@@ -144,7 +148,6 @@ msgid "{0, plural, one {# failed} other {# failed}}"
 msgstr "{0, plural, one {# не пройдено} few {# не пройдено} many {# не пройдено} other {# не пройдено}}"
 
 #. placeholder {0}: detail.pullRequest.changedFiles
-#. placeholder {0}: diffFiles.length
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# файл изменён} few {# файла изменено} many {# файлов изменено} other {# файла изменено}}"
 
@@ -273,9 +276,17 @@ msgstr "{0, plural, one {Создание # рабочей области...} fe
 msgid "{0, plural, one {Delete # workspace?} other {Delete # workspaces?}}"
 msgstr "{0, plural, one {Удалить # рабочую область?} few {Удалить # рабочие области?} many {Удалить # рабочих областей?} other {Удалить # рабочих областей?}}"
 
+#. placeholder {0}: cleanup.hosts
+msgid "{0, plural, one {Deleted # host with no other owner, along with its workspaces.} other {Deleted # hosts with no other owner, along with their workspaces.}}"
+msgstr "{0, plural, one {Удалён # хост без другого владельца вместе с его рабочими пространствами.} few {Удалены # хоста без другого владельца вместе с их рабочими пространствами.} many {Удалено # хостов без другого владельца вместе с их рабочими пространствами.} other {Удалено # хоста без другого владельца вместе с их рабочими пространствами.}}"
+
 #. placeholder {0}: deletedIds.length
 msgid "{0, plural, one {Deleted # workspace} other {Deleted # workspaces}}"
 msgstr "{0, plural, one {Удалена # рабочая область} few {Удалено # рабочие области} many {Удалено # рабочих областей} other {Удалено # рабочей области}}"
+
+#. placeholder {0}: cleanup.hosts
+msgid "{0, plural, one {Deletes # host with no other owner, along with its workspaces} other {Deletes # hosts with no other owner, along with their workspaces}}"
+msgstr "{0, plural, one {Удаляет # хост без другого владельца вместе с его рабочими пространствами} few {Удаляет # хоста без другого владельца вместе с их рабочими пространствами} many {Удаляет # хостов без другого владельца вместе с их рабочими пространствами} other {Удаляет # хоста без другого владельца вместе с их рабочими пространствами}}"
 
 #. placeholder {0}: item.hiddenCount
 msgid "{0, plural, one {Diff truncated — # more line on the host} other {Diff truncated — # more lines on the host}}"
@@ -296,6 +307,14 @@ msgstr "{0, plural, one {задача Linear} few {задачи Linear} many {з
 #. placeholder {0}: selectedWorkspaces.length
 msgid "{0, plural, one {Move # selected workspace to a group} other {Move # selected workspaces to a group}}"
 msgstr "{0, plural, one {Переместить # выбранную рабочую область в группу} few {Переместить # выбранные рабочие области в группу} many {Переместить # выбранных рабочих областей в группу} other {Переместить # выбранных рабочих областей в группу}}"
+
+#. placeholder {0}: cleanup.automations
+msgid "{0, plural, one {Paused # automation.} other {Paused # automations.}}"
+msgstr "{0, plural, one {Приостановлена # автоматизация.} few {Приостановлены # автоматизации.} many {Приостановлено # автоматизаций.} other {Приостановлено # автоматизации.}}"
+
+#. placeholder {0}: cleanup.automations
+msgid "{0, plural, one {Pauses # automation} other {Pauses # automations}}"
+msgstr "{0, plural, one {Приостанавливает # автоматизацию} few {Приостанавливает # автоматизации} many {Приостанавливает # автоматизаций} other {Приостанавливает # автоматизации}}"
 
 #. placeholder {0}: issues.length
 #. placeholder {0}: tasks.length
@@ -719,6 +738,9 @@ msgstr "Завершено {completed} из {total}"
 msgid "{configTitle} font size"
 msgstr "Размер шрифта: {configTitle}"
 
+msgid "{connectorName} account"
+msgstr "Аккаунт {connectorName}"
+
 msgid "{cookieCount} cookies — forget this site"
 msgstr "{cookieCount} cookies — забыть этот сайт"
 
@@ -924,14 +946,14 @@ msgstr "{minutes} мин. назад"
 msgid "{modKey}↵ to create"
 msgstr "{modKey}↵ — создать"
 
-msgid "{months}mo"
-msgstr "{months} мес."
-
 msgid "{months}mo ago"
 msgstr "{months} мес. назад"
 
 msgid "{myFailedCount} of your automations failed their last run"
 msgstr "Ваши автоматизации с ошибкой при последнем запуске: {myFailedCount}"
+
+msgid "{name} accounts"
+msgstr "Аккаунты {name}"
 
 #. js-lingui-explicit-id
 msgid "serverError.plugins.marketplaceBuiltinRemove"
@@ -1612,6 +1634,9 @@ msgstr "добавить агента"
 msgid "Add an environment in Settings before creating a cloud workspace"
 msgstr "Добавьте окружение в Настройках, прежде чем создавать облачную рабочую область"
 
+msgid "Add another account, or disconnect one you no longer use."
+msgstr "Подключите ещё аккаунт или отключите тот, которым больше не пользуетесь."
+
 msgid "Add any machine as a host. Workspaces keep running when your laptop sleeps, and you can check in from wherever you are."
 msgstr "Добавьте любую машину как хост. Рабочие области продолжают работать, когда ноутбук спит, а вы можете заглянуть откуда угодно."
 
@@ -1705,9 +1730,6 @@ msgstr "Добавить в словарь"
 
 msgid "Add to project"
 msgstr "Добавить в проект"
-
-msgid "Add to prompt"
-msgstr "Добавить в промпт"
 
 msgid "Add to sidebar"
 msgstr "Добавить на боковую панель"
@@ -2171,6 +2193,9 @@ msgstr "Anthropic отклонил этот ключ API."
 msgid "Anthropic rejected this token."
 msgstr "Anthropic отклонил этот токен."
 
+msgid "any account"
+msgstr "любой аккаунт"
+
 msgid "Any channel"
 msgstr "Любой канал"
 
@@ -2182,6 +2207,9 @@ msgstr "Любой источник данных"
 
 msgid "Any issue event"
 msgstr "Любое событие задачи"
+
+msgid "any label"
+msgstr "любая метка"
 
 msgid "Any label"
 msgstr "Любая метка"
@@ -2198,14 +2226,14 @@ msgstr "Любая страница"
 msgid "Any project"
 msgstr "Любой проект"
 
-msgid "Any recipient"
-msgstr "Любой получатель"
+msgid "any recipient"
+msgstr "любой получатель"
 
 msgid "Any review"
 msgstr "Любое ревью"
 
-msgid "Any sender"
-msgstr "Любой отправитель"
+msgid "any sender"
+msgstr "любой отправитель"
 
 msgid "Any status"
 msgstr "Любой статус"
@@ -2319,6 +2347,9 @@ msgstr "Одобрено"
 msgid "Approved review"
 msgstr "Одобренное ревью"
 
+msgid "Apps"
+msgstr "Приложения"
+
 msgid "apps/desktop/src/renderer"
 msgstr "apps/desktop/src/renderer"
 
@@ -2344,6 +2375,9 @@ msgstr "Архив"
 #. placeholder {0}: formatCompactRelativeTime(cloud.deletedAt)
 msgid "Archived · {0}"
 msgstr "В архиве · {0}"
+
+msgid "Archived \"{name}\""
+msgstr "«{name}» в архиве"
 
 #. placeholder {0}: formatCompactRelativeTime(workspace.deletedAt, now)
 msgid "Archived {0}"
@@ -4041,9 +4075,6 @@ msgstr "Подтверждать выход"
 msgid "Connect"
 msgstr "Подключить"
 
-msgid "Connect {displayName}"
-msgstr "Подключить {displayName}"
-
 msgid "Connect {name}"
 msgstr "Подключить {name}"
 
@@ -4055,6 +4086,12 @@ msgstr "Подключите аккаунт Google. Его почтовый ящ
 
 msgid "Connect a microphone to use dictation"
 msgstr "Подключите микрофон, чтобы использовать диктовку"
+
+msgid "Connect an account"
+msgstr "Подключить аккаунт"
+
+msgid "Connect another account"
+msgstr "Подключить ещё аккаунт"
 
 msgid "Connect any AI agent to Superset."
 msgstr "Подключите любого AI-агента к Superset."
@@ -4104,6 +4141,9 @@ msgstr "Подключите этот компьютер"
 msgid "Connect your GitHub repositories and sync pull requests. Track CI status and reviews across your team."
 msgstr "Подключите репозитории GitHub и синхронизируйте пул-реквесты. Отслеживайте статус CI и ревью по всей команде."
 
+msgid "Connect your Linear account before tracking tasks in Linear."
+msgstr "Подключите свой аккаунт Linear, прежде чем вести задачи в Linear."
+
 msgid "Connect your Linear account in Settings → Integrations to link Linear issues."
 msgstr "Подключите свой аккаунт Linear в разделе Настройки → Интеграции, чтобы связывать задачи Linear."
 
@@ -4130,6 +4170,9 @@ msgstr "Подключено"
 
 msgid "Connected {label}"
 msgstr "{label} подключено"
+
+msgid "Connected accounts"
+msgstr "Подключённые аккаунты"
 
 msgid "Connected as"
 msgstr "Подключено как"
@@ -4620,6 +4663,9 @@ msgstr "Не удалось открыть ссылку"
 msgid "Could not open Photos"
 msgstr "Не удалось открыть «Фото»"
 
+msgid "Could not reach a mobile simulator."
+msgstr "Не удалось подключиться к мобильному симулятору."
+
 msgid "Could not reach the desktop."
 msgstr "Не удалось подключиться к рабочему столу."
 
@@ -4723,11 +4769,17 @@ msgstr "Не удалось проверить учётные данные: {rea
 msgid "Couldn't ask the workspace for a description"
 msgstr "Не удалось запросить описание у рабочего пространства"
 
+msgid "Couldn't attach files"
+msgstr "Не удалось прикрепить файлы"
+
 msgid "Couldn't branch into a new worktree"
 msgstr "Не удалось ответвить в новый worktree"
 
 msgid "Couldn't branch the conversation"
 msgstr "Не удалось ответвить разговор"
+
+msgid "Couldn't check what removing this member affects"
+msgstr "Не удалось проверить, на что повлияет удаление этого участника"
 
 msgid "Couldn't confirm star status — check that the GitHub CLI (`gh`) is installed, signed in, and that you have a network connection"
 msgstr "Не удалось проверить статус звезды — убедитесь, что GitHub CLI (`gh`) установлен, выполнен вход и есть подключение к сети"
@@ -5763,6 +5815,9 @@ msgstr "Отключить"
 
 msgid "Disconnect {credential}?"
 msgstr "Отключить {credential}?"
+
+msgid "Disconnect {title}"
+msgstr "Отключить {title}"
 
 msgid "Disconnect GitHub?"
 msgstr "Отключить GitHub?"
@@ -7263,9 +7318,6 @@ msgstr "Подписывайтесь на нас в LinkedIn"
 
 msgid "Follow us on X/Twitter"
 msgstr "Подписывайтесь на нас в X/Twitter"
-
-msgid "Follow-ups on web are coming soon"
-msgstr "Уточняющие сообщения в вебе скоро появятся"
 
 msgid "Font family"
 msgstr "Гарнитура"
@@ -8910,9 +8962,6 @@ msgstr "Ссылка скопирована"
 msgid "Link GitHub issue"
 msgstr "Привязать задачу GitHub"
 
-msgid "Link issue"
-msgstr "Привязать задачу"
-
 msgid "Link Linear issue"
 msgstr "Связать задачу Linear"
 
@@ -9156,6 +9205,9 @@ msgstr "Надёжность на длинной дистанции перехо
 msgid "Long-hover shortcut-only tooltip; its chip style is now the TooltipContent default"
 msgstr "Подсказка только с сочетанием клавиш при долгом наведении; её стиль чипа теперь по умолчанию для TooltipContent"
 
+msgid "Looking for a mobile simulator…"
+msgstr "Поиск мобильного симулятора…"
+
 msgid "Looking for installed browsers…"
 msgstr "Поиск установленных браузеров…"
 
@@ -9207,6 +9259,15 @@ msgstr "Вредоносное ПО или фишинг"
 
 msgid "Manage"
 msgstr "Управлять"
+
+msgid "Manage {title}"
+msgstr "Управление {title}"
+
+msgid "Manage accounts"
+msgstr "Управление аккаунтами"
+
+msgid "Manage accounts…"
+msgstr "Управление аккаунтами…"
 
 msgid "Manage billing"
 msgstr "Управление оплатой"
@@ -9377,9 +9438,6 @@ msgstr "Память"
 
 msgid "Memory share"
 msgstr "Доля памяти"
-
-msgid "Menu"
-msgstr "Меню"
 
 msgid "Menubar"
 msgstr "Строка меню"
@@ -9604,6 +9662,10 @@ msgstr "Месяцев с августа 2026 года"
 
 msgid "More"
 msgstr "Ещё"
+
+#. placeholder {0}: plugin.interface.displayName
+msgid "More {0} actions"
+msgstr "Другие действия {0}"
 
 msgid "More {kindLower} themes"
 msgstr "Ещё {kindLower} темы"
@@ -9972,6 +10034,9 @@ msgstr "Хороший подход"
 msgid "Nice, open a PR when ready."
 msgstr "Отлично, открой PR, когда будет готово."
 
+msgid "Nickname"
+msgstr "Название"
+
 #. placeholder {0}: AGENT_LABELS[agent]
 msgid "No {0} logins on this host — sign in and usage appears here."
 msgstr "На этом хосте нет входов {0} — войдите, и данные появятся здесь."
@@ -10259,6 +10324,9 @@ msgstr "Нет объединённых пул-реквестов."
 msgid "No messages yet"
 msgstr "Сообщений пока нет"
 
+msgid "No mobile simulator available here. This needs either a Limrun-enabled cloud sandbox or a local iOS/Android toolchain."
+msgstr "Здесь нет доступного мобильного симулятора. Нужна облачная песочница с поддержкой Limrun или локальный набор инструментов iOS/Android."
+
 msgid "No name on file"
 msgstr "Имя не указано"
 
@@ -10409,9 +10477,6 @@ msgstr "Скриншотов пока нет"
 
 msgid "No sessions"
 msgstr "Сессий нет"
-
-msgid "No sessions found"
-msgstr "Сессии не найдены"
 
 msgid "No sessions running"
 msgstr "Нет работающих сессий"
@@ -10841,8 +10906,8 @@ msgstr "Изменять состав участников может тольк
 msgid "Only host owners can change this location."
 msgstr "Изменять это расположение могут только владельцы хоста."
 
-msgid "Only host owners can delete this host"
-msgstr "Удалить этот хост могут только владельцы хоста"
+msgid "Only host owners or organization owners can delete this host"
+msgstr "Удалить этот хост могут только владельцы хоста или владельцы организации"
 
 msgid "Only organization owners can modify these settings."
 msgstr "Изменять эти настройки могут только владельцы организации."
@@ -10882,6 +10947,9 @@ msgstr "Запускать эту автоматизацию может толь
 
 msgid "Only the owner can view prompt history"
 msgstr "Историю промптов может смотреть только владелец"
+
+msgid "Only the owner or an organization owner can delete this automation"
+msgstr "Удалить эту автоматизацию может только владелец или владелец организации"
 
 msgid "Only the person who created this page can change it"
 msgstr "Изменить эту страницу может только тот, кто её создал"
@@ -12599,6 +12667,9 @@ msgstr "Рекомендуемый размер 256×256."
 msgid "Reconnect"
 msgstr "Переподключить"
 
+msgid "Reconnect {name}"
+msgstr "Переподключить {name}"
+
 msgid "Reconnect Google"
 msgstr "Переподключить Google"
 
@@ -12837,14 +12908,14 @@ msgstr "Удаление участника..."
 msgid "Removing terminal..."
 msgstr "Удаление терминала..."
 
-msgid "Removing…"
-msgstr "Удаление…"
-
 msgid "Rename"
 msgstr "Переименовать"
 
 msgid "Rename {title}"
 msgstr "Переименовать {title}"
+
+msgid "Rename account"
+msgstr "Переименовать аккаунт"
 
 msgid "Rename branch"
 msgstr "Переименовать ветку"
@@ -13198,11 +13269,17 @@ msgstr "Восстановить тариф"
 msgid "restore the agent defaults"
 msgstr "восстановить настройки агента по умолчанию"
 
+msgid "Restore the workspace you just archived"
+msgstr "Восстановить только что заархивированное рабочее пространство"
+
 msgid "Restore this version?"
 msgstr "Восстановить эту версию?"
 
 msgid "Restored"
 msgstr "Восстановлено"
+
+msgid "Restored \"{name}\""
+msgstr "«{name}» восстановлен"
 
 msgid "Restored \"{projectName}\""
 msgstr "«{projectName}» восстановлен"
@@ -13816,12 +13893,6 @@ msgstr "Поиск пул-реквестов…"
 msgid "Search repositories..."
 msgstr "Поиск репозиториев..."
 
-msgid "Search sessions"
-msgstr "Поиск сессий"
-
-msgid "Search sessions..."
-msgstr "Поиск сессий..."
-
 msgid "Search settings..."
 msgstr "Поиск по настройкам..."
 
@@ -13972,9 +14043,6 @@ msgstr "Выберите организацию"
 msgid "Select base branch…"
 msgstr "Выберите базовую ветку…"
 
-msgid "Select branch"
-msgstr "Выберите ветку"
-
 msgid "Select branch..."
 msgstr "Выберите ветку..."
 
@@ -14046,9 +14114,6 @@ msgstr "Выберите диапазон..."
 
 msgid "Select repositories"
 msgstr "Выбрать репозитории"
-
-msgid "Select repository"
-msgstr "Выберите репозиторий"
 
 msgid "Select run"
 msgstr "Выбрать запуск"
@@ -14166,9 +14231,6 @@ msgstr "Сессия"
 msgid "Session {0}"
 msgstr "Сессия {0}"
 
-msgid "Session creation on web is coming soon"
-msgstr "Создание сессий в вебе скоро появится"
-
 msgid "Session details"
 msgstr "Детали сессии"
 
@@ -14189,9 +14251,6 @@ msgstr "Сессия переименована в {trimmed}"
 
 msgid "Session snapshots & revert"
 msgstr "Снимки сессий и откат"
-
-msgid "Session view"
-msgstr "Вид сессии"
 
 msgid "Sessions"
 msgstr "Сессии"
@@ -14869,6 +14928,9 @@ msgstr "Разделить вправо"
 msgid "Split the current pane along its longer side"
 msgstr "Разделить текущую панель по длинной стороне"
 
+msgid "Split the current pane and open a mobile simulator"
+msgstr "Разделить текущую панель и открыть мобильный симулятор"
+
 msgid "Split the current pane and open a new browser pane"
 msgstr "Разделить текущую панель и открыть новую панель браузера"
 
@@ -14889,6 +14951,9 @@ msgstr "Раздельный вид"
 
 msgid "Split with Desktop"
 msgstr "Разделить с рабочим столом"
+
+msgid "Split with Mobile Simulator"
+msgstr "Разделить с мобильным симулятором"
 
 msgid "Split with New Browser"
 msgstr "Разделить с новым браузером"
@@ -15062,6 +15127,9 @@ msgstr "Запуск облачной рабочей области"
 
 msgid "Starting the agent…"
 msgstr "Запуск агента…"
+
+msgid "Starting the simulator…"
+msgstr "Запуск симулятора…"
 
 msgid "Starting up. This should only take a moment."
 msgstr "Запускается. Это займёт всего несколько мгновений."
@@ -15817,6 +15885,9 @@ msgstr "Спасибо, мы получили жалобу"
 msgid "That {plugin} sign-in link expired. Try connecting again."
 msgstr "Срок действия ссылки для входа в {plugin} истёк. Попробуйте подключиться снова."
 
+msgid "That account is no longer connected — choose another."
+msgstr "Этот аккаунт больше не подключён — выберите другой."
+
 msgid "That agent session has no conversation to open yet — it was started but never prompted."
 msgstr "У этой сессии агента пока нет разговора, который можно открыть: она была запущена, но ни разу не получила запрос."
 
@@ -15828,6 +15899,9 @@ msgstr "Эта конечная точка не разрешена."
 
 msgid "That handle is taken."
 msgstr "Этот ник занят."
+
+msgid "That Linear issue doesn't exist or you can't see it."
+msgstr "Эта задача Linear не существует или у вас нет к ней доступа."
 
 msgid "That link doesn't lead anywhere in the app."
 msgstr "Эта ссылка никуда не ведёт в приложении."
@@ -16096,6 +16170,9 @@ msgstr "Не удалось найти сервер"
 msgid "The sign-in link was incomplete. Please try again."
 msgstr "Ссылка для входа была неполной. Попробуйте ещё раз."
 
+msgid "The simulator instance was terminated."
+msgstr "Экземпляр симулятора был завершён."
+
 msgid "The site's certificate authority is not trusted"
 msgstr "Удостоверяющий центр сайта не является доверенным"
 
@@ -16131,9 +16208,6 @@ msgstr "Приглашение в команду истекло или не су
 
 msgid "The title shows everywhere this page is listed and in its link preview."
 msgstr "Заголовок отображается везде, где указана эта страница, и в превью ссылки."
-
-msgid "The web agents UI is a read-only preview for now."
-msgstr "Веб-интерфейс агентов пока доступен только для просмотра."
 
 msgid "The workspace is not ready yet. Try again."
 msgstr "Рабочая область ещё не готова. Повторите."
@@ -16206,6 +16280,9 @@ msgstr "Этот агент не может работать в облачной
 
 msgid "This agent no longer exists on the selected device (its agents may have been reset). Runs will fail until you pick a new one."
 msgstr "Этого агента больше нет на выбранном устройстве (возможно, его агенты были сброшены). Запуски будут падать, пока не выберете нового."
+
+msgid "This also:"
+msgstr "Также:"
 
 msgid "This application will be able to:"
 msgstr "Это приложение сможет:"
@@ -16791,6 +16868,9 @@ msgstr "Попробуйте ранние функции и предварите
 msgid "Try it"
 msgstr "Попробуйте"
 
+msgid "Try now"
+msgstr "Попробовать"
+
 msgid "Try Superset v2"
 msgstr "Попробовать Superset v2"
 
@@ -16930,6 +17010,9 @@ msgstr "Идёт"
 msgid "Undo"
 msgstr "Отменить"
 
+msgid "Undo Archive"
+msgstr "Отменить архивацию"
+
 msgid "Ungroup"
 msgstr "Убрать из группы"
 
@@ -16967,6 +17050,9 @@ msgstr "Неизвестно"
 msgctxt "person"
 msgid "Unknown"
 msgstr "Неизвестно"
+
+msgid "Unknown account"
+msgstr "Неизвестный аккаунт"
 
 msgid "Unknown author"
 msgstr "Неизвестный автор"
@@ -17253,6 +17339,10 @@ msgstr "Используйте Superset на телефоне"
 
 msgid "Use Superset on your phone with Pro."
 msgstr "Используйте Superset на телефоне с Pro."
+
+#. placeholder {0}: plugin.interface.displayName
+msgid "Use the {0} plugin to "
+msgstr "Используй плагин {0}, чтобы "
 
 msgid "Use the desktop app to start running parallel coding agents."
 msgstr "Используйте десктопное приложение, чтобы запускать параллельных кодовых агентов."
@@ -17837,9 +17927,6 @@ msgstr "Работал {0} мин {1} с"
 
 msgid "Worked for {seconds}s"
 msgstr "Работал {seconds} с"
-
-msgid "Worked for 39s"
-msgstr "Работал 39 с"
 
 msgid "Workflow run completed…"
 msgstr "Запуск workflow завершён…"

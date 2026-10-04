@@ -99,6 +99,10 @@ msgstr "(žádný výstup)"
 msgid "(so far)"
 msgstr "(zatím)"
 
+#. placeholder {0}: connections.length
+msgid "{0, plural, one {# account connected} other {# accounts connected}}"
+msgstr "{0, plural, one {# připojený účet} few {# připojené účty} many {# připojených účtů} other {# připojených účtů}}"
+
 #. placeholder {0}: ports.length
 msgid "{0, plural, one {# active port — hide details} other {# active ports — hide details}}"
 msgstr "{0, plural, one {# aktivní port — skrýt podrobnosti} few {# aktivní porty — skrýt podrobnosti} many {# aktivního portu — skrýt podrobnosti} other {# aktivních portů — skrýt podrobnosti}}"
@@ -144,7 +148,6 @@ msgid "{0, plural, one {# failed} other {# failed}}"
 msgstr "{0, plural, one {# selhalo} few {# selhalo} many {# selhalo} other {# selhalo}}"
 
 #. placeholder {0}: detail.pullRequest.changedFiles
-#. placeholder {0}: diffFiles.length
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# změněný soubor} few {# změněné soubory} many {# změněného souboru} other {# změněných souborů}}"
 
@@ -273,9 +276,17 @@ msgstr "{0, plural, one {Vytvářím # pracovní prostor...} few {Vytvářím # 
 msgid "{0, plural, one {Delete # workspace?} other {Delete # workspaces?}}"
 msgstr "{0, plural, one {Smazat # pracovní prostor?} few {Smazat # pracovní prostory?} many {Smazat # pracovního prostoru?} other {Smazat # pracovních prostorů?}}"
 
+#. placeholder {0}: cleanup.hosts
+msgid "{0, plural, one {Deleted # host with no other owner, along with its workspaces.} other {Deleted # hosts with no other owner, along with their workspaces.}}"
+msgstr "{0, plural, one {Smazán # host bez dalšího vlastníka i s jeho pracovními prostory.} few {Smazány # hosty bez dalšího vlastníka i s jejich pracovními prostory.} many {Smazáno # hosta bez dalšího vlastníka i s jejich pracovními prostory.} other {Smazáno # hostů bez dalšího vlastníka i s jejich pracovními prostory.}}"
+
 #. placeholder {0}: deletedIds.length
 msgid "{0, plural, one {Deleted # workspace} other {Deleted # workspaces}}"
 msgstr "{0, plural, one {Smazán # pracovní prostor} few {Smazány # pracovní prostory} many {Smazáno # pracovního prostoru} other {Smazáno # pracovních prostorů}}"
+
+#. placeholder {0}: cleanup.hosts
+msgid "{0, plural, one {Deletes # host with no other owner, along with its workspaces} other {Deletes # hosts with no other owner, along with their workspaces}}"
+msgstr "{0, plural, one {Smaže # host bez dalšího vlastníka včetně jeho pracovních prostorů} few {Smaže # hosty bez dalšího vlastníka včetně jejich pracovních prostorů} many {Smaže # hosta bez dalšího vlastníka včetně jejich pracovních prostorů} other {Smaže # hostů bez dalšího vlastníka včetně jejich pracovních prostorů}}"
 
 #. placeholder {0}: item.hiddenCount
 msgid "{0, plural, one {Diff truncated — # more line on the host} other {Diff truncated — # more lines on the host}}"
@@ -296,6 +307,14 @@ msgstr "{0, plural, one {Linear issue} few {Linear issues} many {Linear issues} 
 #. placeholder {0}: selectedWorkspaces.length
 msgid "{0, plural, one {Move # selected workspace to a group} other {Move # selected workspaces to a group}}"
 msgstr "{0, plural, one {Přesunout # vybraný pracovní prostor do skupiny} few {Přesunout # vybrané pracovní prostory do skupiny} many {Přesunout # vybraného pracovního prostoru do skupiny} other {Přesunout # vybraných pracovních prostorů do skupiny}}"
+
+#. placeholder {0}: cleanup.automations
+msgid "{0, plural, one {Paused # automation.} other {Paused # automations.}}"
+msgstr "{0, plural, one {Pozastavena # automatizace.} few {Pozastaveny # automatizace.} many {Pozastaveno # automatizace.} other {Pozastaveno # automatizací.}}"
+
+#. placeholder {0}: cleanup.automations
+msgid "{0, plural, one {Pauses # automation} other {Pauses # automations}}"
+msgstr "{0, plural, one {Pozastaví # automatizaci} few {Pozastaví # automatizace} many {Pozastaví # automatizace} other {Pozastaví # automatizací}}"
 
 #. placeholder {0}: issues.length
 #. placeholder {0}: tasks.length
@@ -719,6 +738,9 @@ msgstr "Dokončeno {completed} z {total}"
 msgid "{configTitle} font size"
 msgstr "Velikost písma: {configTitle}"
 
+msgid "{connectorName} account"
+msgstr "Účet {connectorName}"
+
 msgid "{cookieCount} cookies — forget this site"
 msgstr "{cookieCount} cookies — zapomenout tento web"
 
@@ -924,14 +946,14 @@ msgstr "před {minutes} m"
 msgid "{modKey}↵ to create"
 msgstr "{modKey}↵ pro vytvoření"
 
-msgid "{months}mo"
-msgstr "{months} měs."
-
 msgid "{months}mo ago"
 msgstr "před {months} měs."
 
 msgid "{myFailedCount} of your automations failed their last run"
 msgstr "Vaše automatizace s neúspěšným posledním během: {myFailedCount}"
+
+msgid "{name} accounts"
+msgstr "Účty {name}"
 
 #. js-lingui-explicit-id
 msgid "serverError.plugins.marketplaceBuiltinRemove"
@@ -1612,6 +1634,9 @@ msgstr "přidat agenta"
 msgid "Add an environment in Settings before creating a cloud workspace"
 msgstr "Před vytvořením cloudového pracovního prostoru přidejte prostředí v Nastavení"
 
+msgid "Add another account, or disconnect one you no longer use."
+msgstr "Připoj další účet nebo odpoj ten, který už nepoužíváš."
+
 msgid "Add any machine as a host. Workspaces keep running when your laptop sleeps, and you can check in from wherever you are."
 msgstr "Přidejte jako hosta libovolný počítač. Pracovní prostory běží dál, i když váš laptop usne, a vy se můžete kdykoli podívat, jak si vedou."
 
@@ -1705,9 +1730,6 @@ msgstr "Přidat do slovníku"
 
 msgid "Add to project"
 msgstr "Přidat do projektu"
-
-msgid "Add to prompt"
-msgstr "Přidat do promptu"
 
 msgid "Add to sidebar"
 msgstr "Přidat do postranního panelu"
@@ -2171,6 +2193,9 @@ msgstr "Anthropic tento API klíč odmítl."
 msgid "Anthropic rejected this token."
 msgstr "Anthropic tento token odmítl."
 
+msgid "any account"
+msgstr "libovolný účet"
+
 msgid "Any channel"
 msgstr "Jakýkoli kanál"
 
@@ -2182,6 +2207,9 @@ msgstr "Jakýkoli zdroj dat"
 
 msgid "Any issue event"
 msgstr "Jakákoli událost issue"
+
+msgid "any label"
+msgstr "jakýkoli štítek"
 
 msgid "Any label"
 msgstr "Jakýkoli štítek"
@@ -2198,14 +2226,14 @@ msgstr "Jakákoli stránka"
 msgid "Any project"
 msgstr "Jakýkoli projekt"
 
-msgid "Any recipient"
-msgstr "Jakýkoli příjemce"
+msgid "any recipient"
+msgstr "jakýkoli příjemce"
 
 msgid "Any review"
 msgstr "Jakákoli revize"
 
-msgid "Any sender"
-msgstr "Jakýkoli odesílatel"
+msgid "any sender"
+msgstr "jakýkoli odesílatel"
 
 msgid "Any status"
 msgstr "Jakýkoli stav"
@@ -2319,6 +2347,9 @@ msgstr "Schváleno"
 msgid "Approved review"
 msgstr "Schválená revize"
 
+msgid "Apps"
+msgstr "Aplikace"
+
 msgid "apps/desktop/src/renderer"
 msgstr "apps/desktop/src/renderer"
 
@@ -2344,6 +2375,9 @@ msgstr "Archivované"
 #. placeholder {0}: formatCompactRelativeTime(cloud.deletedAt)
 msgid "Archived · {0}"
 msgstr "Archivováno · {0}"
+
+msgid "Archived \"{name}\""
+msgstr "„{name}“ archivováno"
 
 #. placeholder {0}: formatCompactRelativeTime(workspace.deletedAt, now)
 msgid "Archived {0}"
@@ -4041,9 +4075,6 @@ msgstr "Potvrdit před ukončením"
 msgid "Connect"
 msgstr "Připojit"
 
-msgid "Connect {displayName}"
-msgstr "Připojit {displayName}"
-
 msgid "Connect {name}"
 msgstr "Připojit {name}"
 
@@ -4055,6 +4086,12 @@ msgstr "Připojte účet Google. Jeho schránka je pouze pro čtení a spouště
 
 msgid "Connect a microphone to use dictation"
 msgstr "Pro diktování připojte mikrofon"
+
+msgid "Connect an account"
+msgstr "Připojit účet"
+
+msgid "Connect another account"
+msgstr "Připojit další účet"
 
 msgid "Connect any AI agent to Superset."
 msgstr "Připojte k Superset libovolného AI agenta."
@@ -4104,6 +4141,9 @@ msgstr "Připojte tento počítač"
 msgid "Connect your GitHub repositories and sync pull requests. Track CI status and reviews across your team."
 msgstr "Připojte své GitHub repozitáře a synchronizujte pull requesty. Sledujte stav CI a revize napříč týmem."
 
+msgid "Connect your Linear account before tracking tasks in Linear."
+msgstr "Než začnete sledovat úkoly v Linearu, připojte svůj účet Linear."
+
 msgid "Connect your Linear account in Settings → Integrations to link Linear issues."
 msgstr "Připojte svůj účet Linear v Nastavení → Integrace, abyste mohli propojovat Linear issues."
 
@@ -4130,6 +4170,9 @@ msgstr "Připojeno"
 
 msgid "Connected {label}"
 msgstr "Připojeno {label}"
+
+msgid "Connected accounts"
+msgstr "Připojené účty"
 
 msgid "Connected as"
 msgstr "Připojeno jako"
@@ -4620,6 +4663,9 @@ msgstr "Odkaz se nepodařilo otevřít"
 msgid "Could not open Photos"
 msgstr "Nepodařilo se otevřít Fotky"
 
+msgid "Could not reach a mobile simulator."
+msgstr "Nepodařilo se připojit k mobilnímu simulátoru."
+
 msgid "Could not reach the desktop."
 msgstr "K ploše se nepodařilo připojit."
 
@@ -4723,11 +4769,17 @@ msgstr "Přihlašovací údaje se nepodařilo ověřit: {reason}"
 msgid "Couldn't ask the workspace for a description"
 msgstr "Nepodařilo se požádat pracovní prostor o popis"
 
+msgid "Couldn't attach files"
+msgstr "Soubory se nepodařilo připojit"
+
 msgid "Couldn't branch into a new worktree"
 msgstr "Nepodařilo se rozvětvit do nového worktree"
 
 msgid "Couldn't branch the conversation"
 msgstr "Konverzaci se nepodařilo rozvětvit"
+
+msgid "Couldn't check what removing this member affects"
+msgstr "Nepodařilo se zjistit, čeho se odebrání tohoto člena dotkne"
 
 msgid "Couldn't confirm star status — check that the GitHub CLI (`gh`) is installed, signed in, and that you have a network connection"
 msgstr "Nepodařilo se ověřit stav hvězdy — zkontrolujte, že je nainstalované GitHub CLI (`gh`), že jste přihlášeni a že máte připojení k síti"
@@ -5763,6 +5815,9 @@ msgstr "Odpojit"
 
 msgid "Disconnect {credential}?"
 msgstr "Odpojit {credential}?"
+
+msgid "Disconnect {title}"
+msgstr "Odpojit {title}"
 
 msgid "Disconnect GitHub?"
 msgstr "Odpojit GitHub?"
@@ -7263,9 +7318,6 @@ msgstr "Sledujte nás na LinkedInu"
 
 msgid "Follow us on X/Twitter"
 msgstr "Sledujte nás na X/Twitteru"
-
-msgid "Follow-ups on web are coming soon"
-msgstr "Navazující zprávy na webu už brzy"
 
 msgid "Font family"
 msgstr "Rodina písma"
@@ -8910,9 +8962,6 @@ msgstr "Odkaz zkopírován"
 msgid "Link GitHub issue"
 msgstr "Propojit GitHub issue"
 
-msgid "Link issue"
-msgstr "Propojit issue"
-
 msgid "Link Linear issue"
 msgstr "Propojit Linear issue"
 
@@ -9156,6 +9205,9 @@ msgstr "Spolehlivost na dlouhém horizontu překročí práh. Práce zadaná v 1
 msgid "Long-hover shortcut-only tooltip; its chip style is now the TooltipContent default"
 msgstr "Tooltip jen se zkratkou při dlouhém najetí; jeho styl čipu je nyní výchozí pro TooltipContent"
 
+msgid "Looking for a mobile simulator…"
+msgstr "Hledám mobilní simulátor…"
+
 msgid "Looking for installed browsers…"
 msgstr "Hledám nainstalované prohlížeče…"
 
@@ -9207,6 +9259,15 @@ msgstr "Malware nebo phishing"
 
 msgid "Manage"
 msgstr "Spravovat"
+
+msgid "Manage {title}"
+msgstr "Spravovat {title}"
+
+msgid "Manage accounts"
+msgstr "Správa účtů"
+
+msgid "Manage accounts…"
+msgstr "Správa účtů…"
 
 msgid "Manage billing"
 msgstr "Spravovat fakturaci"
@@ -9377,9 +9438,6 @@ msgstr "Paměť"
 
 msgid "Memory share"
 msgstr "Podíl paměti"
-
-msgid "Menu"
-msgstr "Nabídka"
 
 msgid "Menubar"
 msgstr "Panel nabídek"
@@ -9604,6 +9662,10 @@ msgstr "Měsíce od srpna 2026"
 
 msgid "More"
 msgstr "Více"
+
+#. placeholder {0}: plugin.interface.displayName
+msgid "More {0} actions"
+msgstr "Další akce {0}"
 
 msgid "More {kindLower} themes"
 msgstr "Další {kindLower} motivy"
@@ -9972,6 +10034,9 @@ msgstr "Dobrý přístup"
 msgid "Nice, open a PR when ready."
 msgstr "Super, až budeš mít hotovo, otevři PR."
 
+msgid "Nickname"
+msgstr "Přezdívka"
+
 #. placeholder {0}: AGENT_LABELS[agent]
 msgid "No {0} logins on this host — sign in and usage appears here."
 msgstr "Na tomto hostu nejsou žádná přihlášení {0} — přihlaste se a využití se objeví tady."
@@ -10259,6 +10324,9 @@ msgstr "Žádné sloučené pull requesty."
 msgid "No messages yet"
 msgstr "Zatím žádné zprávy"
 
+msgid "No mobile simulator available here. This needs either a Limrun-enabled cloud sandbox or a local iOS/Android toolchain."
+msgstr "Zde není k dispozici žádný mobilní simulátor. Je potřeba cloudový sandbox s podporou Limrun nebo místní sada nástrojů iOS/Android."
+
 msgid "No name on file"
 msgstr "Není uloženo žádné jméno"
 
@@ -10409,9 +10477,6 @@ msgstr "Zatím žádné snímky obrazovky"
 
 msgid "No sessions"
 msgstr "Žádné relace"
-
-msgid "No sessions found"
-msgstr "Nenalezeny žádné relace"
 
 msgid "No sessions running"
 msgstr "Neběží žádné relace"
@@ -10841,8 +10906,8 @@ msgstr "Členství mohou měnit jen vlastníci hosta"
 msgid "Only host owners can change this location."
 msgstr "Toto umístění mohou měnit jen vlastníci hosta."
 
-msgid "Only host owners can delete this host"
-msgstr "Tohoto hosta mohou smazat jen jeho vlastníci"
+msgid "Only host owners or organization owners can delete this host"
+msgstr "Tohoto hosta mohou smazat jen jeho vlastníci nebo vlastníci organizace"
 
 msgid "Only organization owners can modify these settings."
 msgstr "Toto nastavení mohou měnit jen vlastníci organizace."
@@ -10882,6 +10947,9 @@ msgstr "Tuto automatizaci může spustit jen vlastník"
 
 msgid "Only the owner can view prompt history"
 msgstr "Historii promptů může zobrazit jen vlastník"
+
+msgid "Only the owner or an organization owner can delete this automation"
+msgstr "Tuto automatizaci může smazat jen vlastník nebo vlastník organizace"
 
 msgid "Only the person who created this page can change it"
 msgstr "Tuto stránku může měnit jen ten, kdo ji vytvořil"
@@ -12599,6 +12667,9 @@ msgstr "Doporučená velikost 256×256."
 msgid "Reconnect"
 msgstr "Připojit znovu"
 
+msgid "Reconnect {name}"
+msgstr "Znovu připojit {name}"
+
 msgid "Reconnect Google"
 msgstr "Připojit Google znovu"
 
@@ -12837,14 +12908,14 @@ msgstr "Odebírám člena..."
 msgid "Removing terminal..."
 msgstr "Odebírám terminál..."
 
-msgid "Removing…"
-msgstr "Odebírám…"
-
 msgid "Rename"
 msgstr "Přejmenovat"
 
 msgid "Rename {title}"
 msgstr "Přejmenovat {title}"
+
+msgid "Rename account"
+msgstr "Přejmenovat účet"
 
 msgid "Rename branch"
 msgstr "Přejmenovat větev"
@@ -13198,11 +13269,17 @@ msgstr "Obnovit tarif"
 msgid "restore the agent defaults"
 msgstr "obnovit výchozí nastavení agenta"
 
+msgid "Restore the workspace you just archived"
+msgstr "Obnovit pracovní prostor, který jste právě archivovali"
+
 msgid "Restore this version?"
 msgstr "Obnovit tuto verzi?"
 
 msgid "Restored"
 msgstr "Obnoveno"
+
+msgid "Restored \"{name}\""
+msgstr "„{name}“ obnoveno"
 
 msgid "Restored \"{projectName}\""
 msgstr "„{projectName}“ obnoven"
@@ -13816,12 +13893,6 @@ msgstr "Hledat pull requesty…"
 msgid "Search repositories..."
 msgstr "Hledat repozitáře..."
 
-msgid "Search sessions"
-msgstr "Hledat relace"
-
-msgid "Search sessions..."
-msgstr "Hledat relace..."
-
 msgid "Search settings..."
 msgstr "Hledat v nastavení..."
 
@@ -13972,9 +14043,6 @@ msgstr "Vyberte organizaci"
 msgid "Select base branch…"
 msgstr "Vyberte základní větev…"
 
-msgid "Select branch"
-msgstr "Vyberte větev"
-
 msgid "Select branch..."
 msgstr "Vyberte větev..."
 
@@ -14046,9 +14114,6 @@ msgstr "Vyberte rozsah..."
 
 msgid "Select repositories"
 msgstr "Vybrat repozitáře"
-
-msgid "Select repository"
-msgstr "Vyberte repozitář"
 
 msgid "Select run"
 msgstr "Vybrat běh"
@@ -14166,9 +14231,6 @@ msgstr "Relace"
 msgid "Session {0}"
 msgstr "Relace {0}"
 
-msgid "Session creation on web is coming soon"
-msgstr "Vytváření relací na webu bude brzy k dispozici"
-
 msgid "Session details"
 msgstr "Podrobnosti relace"
 
@@ -14189,9 +14251,6 @@ msgstr "Relace přejmenována na {trimmed}"
 
 msgid "Session snapshots & revert"
 msgstr "Snímky relace a návrat zpět"
-
-msgid "Session view"
-msgstr "Zobrazení relace"
 
 msgid "Sessions"
 msgstr "Relace"
@@ -14869,6 +14928,9 @@ msgstr "Rozdělit doprava"
 msgid "Split the current pane along its longer side"
 msgstr "Rozdělit aktuální panel podél delší strany"
 
+msgid "Split the current pane and open a mobile simulator"
+msgstr "Rozdělit aktuální panel a otevřít mobilní simulátor"
+
 msgid "Split the current pane and open a new browser pane"
 msgstr "Rozdělit aktuální panel a otevřít nový panel prohlížeče"
 
@@ -14889,6 +14951,9 @@ msgstr "Rozdělené zobrazení"
 
 msgid "Split with Desktop"
 msgstr "Rozdělit s plochou"
+
+msgid "Split with Mobile Simulator"
+msgstr "Rozdělit s mobilním simulátorem"
 
 msgid "Split with New Browser"
 msgstr "Rozdělit s novým prohlížečem"
@@ -15062,6 +15127,9 @@ msgstr "Spouštím cloudový pracovní prostor"
 
 msgid "Starting the agent…"
 msgstr "Spouštění agenta…"
+
+msgid "Starting the simulator…"
+msgstr "Spouštění simulátoru…"
 
 msgid "Starting up. This should only take a moment."
 msgstr "Spouští se. Mělo by to trvat jen chvilku."
@@ -15817,6 +15885,9 @@ msgstr "Děkujeme, máme to"
 msgid "That {plugin} sign-in link expired. Try connecting again."
 msgstr "Odkaz pro přihlášení k {plugin} vypršel. Zkuste se připojit znovu."
 
+msgid "That account is no longer connected — choose another."
+msgstr "Tento účet už není připojený — vyberte jiný."
+
 msgid "That agent session has no conversation to open yet — it was started but never prompted."
 msgstr "Tato agentní relace zatím nemá konverzaci k otevření — byla spuštěna, ale nikdy nedostala zadání."
 
@@ -15828,6 +15899,9 @@ msgstr "Tento koncový bod není povolen."
 
 msgid "That handle is taken."
 msgstr "Tato přezdívka je obsazená."
+
+msgid "That Linear issue doesn't exist or you can't see it."
+msgstr "Tento úkol v Linearu neexistuje nebo k němu nemáte přístup."
 
 msgid "That link doesn't lead anywhere in the app."
 msgstr "Tento odkaz v aplikaci nikam nevede."
@@ -16096,6 +16170,9 @@ msgstr "Server se nepodařilo najít"
 msgid "The sign-in link was incomplete. Please try again."
 msgstr "Přihlašovací odkaz byl neúplný. Zkuste to prosím znovu."
 
+msgid "The simulator instance was terminated."
+msgstr "Instance simulátoru byla ukončena."
+
 msgid "The site's certificate authority is not trusted"
 msgstr "Certifikační autorita webu není důvěryhodná"
 
@@ -16131,9 +16208,6 @@ msgstr "Pozvánka do týmu buď vypršela, nebo neexistuje. Vyžádejte si od vl
 
 msgid "The title shows everywhere this page is listed and in its link preview."
 msgstr "Název se zobrazuje všude, kde je tato stránka uvedena, a v náhledu odkazu."
-
-msgid "The web agents UI is a read-only preview for now."
-msgstr "Webové rozhraní agentů je zatím náhled jen pro čtení."
 
 msgid "The workspace is not ready yet. Try again."
 msgstr "Pracovní prostor ještě není připravený. Zkuste to znovu."
@@ -16206,6 +16280,9 @@ msgstr "Tento agent nemůže běžet v cloudovém pracovním prostoru"
 
 msgid "This agent no longer exists on the selected device (its agents may have been reset). Runs will fail until you pick a new one."
 msgstr "Tento agent už na vybraném zařízení neexistuje (jeho agenti mohli být resetováni). Běhy budou selhávat, dokud nevyberete jiného."
+
+msgid "This also:"
+msgstr "Zároveň:"
 
 msgid "This application will be able to:"
 msgstr "Tato aplikace bude moci:"
@@ -16791,6 +16868,9 @@ msgstr "Vyzkoušejte funkce a náhledy v předstihu."
 msgid "Try it"
 msgstr "Vyzkoušejte to"
 
+msgid "Try now"
+msgstr "Vyzkoušet"
+
 msgid "Try Superset v2"
 msgstr "Vyzkoušet Superset v2"
 
@@ -16930,6 +17010,9 @@ msgstr "Probíhá"
 msgid "Undo"
 msgstr "Zpět"
 
+msgid "Undo Archive"
+msgstr "Vrátit archivaci"
+
 msgid "Ungroup"
 msgstr "Zrušit skupinu"
 
@@ -16967,6 +17050,9 @@ msgstr "Neznámá"
 msgctxt "person"
 msgid "Unknown"
 msgstr "Neznámá"
+
+msgid "Unknown account"
+msgstr "Neznámý účet"
 
 msgid "Unknown author"
 msgstr "Neznámý autor"
@@ -17253,6 +17339,10 @@ msgstr "Používejte Superset na mobilu"
 
 msgid "Use Superset on your phone with Pro."
 msgstr "Používejte Superset na telefonu s Pro."
+
+#. placeholder {0}: plugin.interface.displayName
+msgid "Use the {0} plugin to "
+msgstr "Použij plugin {0} k "
 
 msgid "Use the desktop app to start running parallel coding agents."
 msgstr "Pro spouštění paralelních kódovacích agentů použijte desktopovou aplikaci."
@@ -17837,9 +17927,6 @@ msgstr "Pracoval {0} m {1} s"
 
 msgid "Worked for {seconds}s"
 msgstr "Pracoval {seconds} s"
-
-msgid "Worked for 39s"
-msgstr "Pracoval 39 s"
 
 msgid "Workflow run completed…"
 msgstr "Dokončen běh workflow…"

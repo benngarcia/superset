@@ -30,7 +30,6 @@ import {
 	SandboxNotReadyError,
 	SandboxUnavailableError,
 	sandboxExists,
-	stopSandbox,
 } from "../../lib/sandbox";
 import { jwtProcedure, userError } from "../../trpc";
 import { hostServiceMutation } from "../automation/relay-client";
@@ -614,14 +613,10 @@ export const cloudWorkspaceRouter = {
 			assertMember(ctx.organizationIds, row.organizationId);
 			if (!isVisibleTo(row, ctx.userId)) return { deleted: false };
 
-			// A row from a retired provider has no sandbox left to keep.
-			const onVercel = row.provider === "vercel";
-			// Stopped, not deleted: an unarchive inside the grace period resumes
-			// it with its disk, and the reap deletes it after.
-			if (onVercel) await stopSandbox(row.providerSandboxId);
 			const archivedAt = new Date();
 			// From any state, provisioning included: the job checks the row
 			// before it marks it ready and tears its box down when this won.
+			// The box keeps running until the reap stops it, so an undo is instant.
 			const archived = await transitionCloudWorkspace({
 				id: row.id,
 				from: ["provisioning", "ready", "failed"],
@@ -629,17 +624,12 @@ export const cloudWorkspaceRouter = {
 				set: { sandboxUrl: null, deletedAt: archivedAt },
 			});
 			if (archived) {
-				await recordCloudWorkspaceActivity(
-					db,
-					row.id,
-					{ kind: "user", userId: ctx.userId },
-					{ event: "archived" },
-				);
-				if (onVercel) {
-					await queueReap({
-						cloudWorkspaceId: row.id,
-						archivedAt: archivedAt.toISOString(),
-					}).catch(async (error) => {
+				// A row from a retired provider has no sandbox left to keep.
+				if (row.provider === "vercel") {
+					await queueReap(
+						{ cloudWorkspaceId: row.id, archivedAt: archivedAt.toISOString() },
+						row.providerSandboxId,
+					).catch(async (error) => {
 						console.error(
 							`[cloud-workspace] could not queue the reap for ${row.id}`,
 							error,
@@ -647,6 +637,17 @@ export const cloudWorkspaceRouter = {
 						await deleteSandbox(row.providerSandboxId);
 					});
 				}
+				await recordCloudWorkspaceActivity(
+					db,
+					row.id,
+					{ kind: "user", userId: ctx.userId },
+					{ event: "archived" },
+				).catch((error) => {
+					console.error(
+						`[cloud-workspace] ${row.id} archive activity write failed`,
+						error,
+					);
+				});
 			}
 			nudge(row.organizationId, "cloud_workspaces");
 			return { deleted: true };
@@ -660,8 +661,8 @@ export const cloudWorkspaceRouter = {
 				row.status === "deleted" &&
 				row.provider === "vercel" &&
 				(await sandboxExists(row.providerSandboxId));
-			// Inside the grace period the stopped box is still there and wakes
-			// with its disk; after it, the row gets a fresh box from its
+			// Inside the grace period the box is still there, running for the
+			// first minute and stopped after, and wakes with its disk; after it, the row gets a fresh box from its
 			// environment and nothing on the old disk comes back.
 			const revived = await transitionCloudWorkspace(
 				resumable

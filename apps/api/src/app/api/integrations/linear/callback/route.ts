@@ -1,22 +1,19 @@
 import { LinearClient } from "@linear/sdk";
 import { db } from "@superset/db/client";
-import { connections } from "@superset/db/schema";
+import { organizations } from "@superset/db/schema";
+import { findOrgMembership } from "@superset/db/utils";
 import {
 	connectorMethod,
 	requireConnector,
 	upsertConnection,
 } from "@superset/trpc/connectors";
 import { linearTokenResponseSchema } from "@superset/trpc/integrations/linear";
-import { organizationSyncsNow } from "@superset/trpc/sync-policy";
-import { Client } from "@upstash/qstash";
-import { and, eq, isNull, ne } from "drizzle-orm";
-
+import { eq } from "drizzle-orm";
 import { env } from "@/env";
 import { STATE_COOKIES } from "@/lib/integrations/oauthFlow";
 import { resolveCallback } from "@/lib/integrations/resolveCallback";
 import { upsertIdentity } from "@/lib/integrations/upsertIdentity";
-
-const qstash = new Client({ token: env.QSTASH_TOKEN });
+import { linearStateSchema, verifySignedState } from "@/lib/oauth-state";
 
 const settingsUrl = `${env.NEXT_PUBLIC_WEB_URL}/integrations/linear`;
 
@@ -27,7 +24,7 @@ export async function GET(request: Request) {
 		cookie: STATE_COOKIES.linear,
 	});
 	if (callback instanceof Response) return callback;
-	const { organizationId, userId, params, exit, fail } = callback;
+	const { organizationId, userId, params, state, exit, fail } = callback;
 
 	const tokenResponse = await fetch("https://api.linear.app/oauth/token", {
 		method: "POST",
@@ -50,19 +47,6 @@ export async function GET(request: Request) {
 	});
 	const viewer = await linearClient.viewer;
 	const linearOrg = await viewer.organization;
-
-	const [existingConnection] = await db
-		.select({ id: connections.id })
-		.from(connections)
-		.where(
-			and(
-				eq(connections.organizationId, organizationId),
-				eq(connections.connector, "linear"),
-				ne(connections.connectedByUserId, userId),
-				isNull(connections.disconnectedAt),
-			),
-		)
-		.limit(1);
 
 	const connector = requireConnector("linear");
 	const result = await upsertConnection({
@@ -104,21 +88,13 @@ export async function GET(request: Request) {
 		displayName: viewer.name,
 	});
 
-	if (existingConnection) return exit(settingsUrl);
-
-	// A free organization's issues are mirrored into a Tasks screen it cannot
-	// open, so the backfill waits until it upgrades, where the subscription
-	// hook queues this same job.
-	if (await organizationSyncsNow(organizationId)) {
-		try {
-			await qstash.publishJSON({
-				url: `${env.NEXT_PUBLIC_API_URL}/api/integrations/linear/jobs/initial-sync`,
-				body: { organizationId, creatorUserId: userId },
-				retries: 3,
-			});
-		} catch (error) {
-			console.error("Failed to queue initial sync job:", error);
-			return exit(`${settingsUrl}?warning=sync_queued_failed`);
+	if (verifySignedState(state, linearStateSchema)?.trackTasksInLinear) {
+		const membership = await findOrgMembership({ userId, organizationId });
+		if (membership?.role === "owner") {
+			await db
+				.update(organizations)
+				.set({ taskTracker: "linear" })
+				.where(eq(organizations.id, organizationId));
 		}
 	}
 

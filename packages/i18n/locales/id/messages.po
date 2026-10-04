@@ -99,6 +99,10 @@ msgstr "(tidak ada keluaran)"
 msgid "(so far)"
 msgstr "(sejauh ini)"
 
+#. placeholder {0}: connections.length
+msgid "{0, plural, one {# account connected} other {# accounts connected}}"
+msgstr "{0, plural, other {# akun terhubung}}"
+
 #. placeholder {0}: ports.length
 msgid "{0, plural, one {# active port — hide details} other {# active ports — hide details}}"
 msgstr "{0, plural, one {# port aktif — sembunyikan detail} other {# port aktif — sembunyikan detail}}"
@@ -144,7 +148,6 @@ msgid "{0, plural, one {# failed} other {# failed}}"
 msgstr "{0, plural, one {# gagal} other {# gagal}}"
 
 #. placeholder {0}: detail.pullRequest.changedFiles
-#. placeholder {0}: diffFiles.length
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# file berubah} other {# file berubah}}"
 
@@ -273,9 +276,17 @@ msgstr "{0, plural, one {Membuat # workspace...} other {Membuat # workspace...}}
 msgid "{0, plural, one {Delete # workspace?} other {Delete # workspaces?}}"
 msgstr "{0, plural, one {Hapus # workspace?} other {Hapus # workspace?}}"
 
+#. placeholder {0}: cleanup.hosts
+msgid "{0, plural, one {Deleted # host with no other owner, along with its workspaces.} other {Deleted # hosts with no other owner, along with their workspaces.}}"
+msgstr "{0, plural, other {# host tanpa pemilik lain dihapus beserta workspace-nya.}}"
+
 #. placeholder {0}: deletedIds.length
 msgid "{0, plural, one {Deleted # workspace} other {Deleted # workspaces}}"
 msgstr "{0, plural, one {Menghapus # workspace} other {Menghapus # workspace}}"
+
+#. placeholder {0}: cleanup.hosts
+msgid "{0, plural, one {Deletes # host with no other owner, along with its workspaces} other {Deletes # hosts with no other owner, along with their workspaces}}"
+msgstr "{0, plural, other {Menghapus # host tanpa pemilik lain, beserta workspace-nya}}"
 
 #. placeholder {0}: item.hiddenCount
 msgid "{0, plural, one {Diff truncated — # more line on the host} other {Diff truncated — # more lines on the host}}"
@@ -296,6 +307,14 @@ msgstr "{0, plural, one {issue Linear} other {issue Linear}}"
 #. placeholder {0}: selectedWorkspaces.length
 msgid "{0, plural, one {Move # selected workspace to a group} other {Move # selected workspaces to a group}}"
 msgstr "{0, plural, one {Pindahkan # workspace terpilih ke grup} other {Pindahkan # workspace terpilih ke grup}}"
+
+#. placeholder {0}: cleanup.automations
+msgid "{0, plural, one {Paused # automation.} other {Paused # automations.}}"
+msgstr "{0, plural, other {# otomatisasi dijeda.}}"
+
+#. placeholder {0}: cleanup.automations
+msgid "{0, plural, one {Pauses # automation} other {Pauses # automations}}"
+msgstr "{0, plural, other {Menjeda # otomatisasi}}"
 
 #. placeholder {0}: issues.length
 #. placeholder {0}: tasks.length
@@ -719,6 +738,9 @@ msgstr "{completed} dari {total} selesai"
 msgid "{configTitle} font size"
 msgstr "Ukuran font {configTitle}"
 
+msgid "{connectorName} account"
+msgstr "Akun {connectorName}"
+
 msgid "{cookieCount} cookies — forget this site"
 msgstr "{cookieCount} cookie — lupakan situs ini"
 
@@ -924,14 +946,14 @@ msgstr "{minutes}m lalu"
 msgid "{modKey}↵ to create"
 msgstr "{modKey}↵ untuk membuat"
 
-msgid "{months}mo"
-msgstr "{months}bln"
-
 msgid "{months}mo ago"
 msgstr "{months}bln lalu"
 
 msgid "{myFailedCount} of your automations failed their last run"
 msgstr "{myFailedCount} otomatisasi Anda gagal pada run terakhirnya"
+
+msgid "{name} accounts"
+msgstr "Akun {name}"
 
 #. js-lingui-explicit-id
 msgid "serverError.plugins.marketplaceBuiltinRemove"
@@ -1612,6 +1634,9 @@ msgstr "menambah agen"
 msgid "Add an environment in Settings before creating a cloud workspace"
 msgstr "Tambahkan environment di Pengaturan sebelum membuat workspace cloud"
 
+msgid "Add another account, or disconnect one you no longer use."
+msgstr "Hubungkan akun lain, atau putuskan yang tidak lagi kamu pakai."
+
 msgid "Add any machine as a host. Workspaces keep running when your laptop sleeps, and you can check in from wherever you are."
 msgstr "Tambahkan mesin apa pun sebagai host. Workspace tetap berjalan saat laptop Anda tidur, dan Anda bisa memeriksanya dari mana pun."
 
@@ -1705,9 +1730,6 @@ msgstr "Tambahkan ke Kamus"
 
 msgid "Add to project"
 msgstr "Tambahkan ke proyek"
-
-msgid "Add to prompt"
-msgstr "Tambahkan ke prompt"
 
 msgid "Add to sidebar"
 msgstr "Tambahkan ke sidebar"
@@ -2171,6 +2193,9 @@ msgstr "Anthropic menolak kunci API ini."
 msgid "Anthropic rejected this token."
 msgstr "Anthropic menolak token ini."
 
+msgid "any account"
+msgstr "akun apa pun"
+
 msgid "Any channel"
 msgstr "Channel mana pun"
 
@@ -2182,6 +2207,9 @@ msgstr "Sumber data mana pun"
 
 msgid "Any issue event"
 msgstr "Event issue apa pun"
+
+msgid "any label"
+msgstr "label apa pun"
 
 msgid "Any label"
 msgstr "Label apa pun"
@@ -2198,14 +2226,14 @@ msgstr "Halaman mana pun"
 msgid "Any project"
 msgstr "Proyek mana pun"
 
-msgid "Any recipient"
-msgstr "Penerima mana pun"
+msgid "any recipient"
+msgstr "penerima mana pun"
 
 msgid "Any review"
 msgstr "Review apa pun"
 
-msgid "Any sender"
-msgstr "Pengirim mana pun"
+msgid "any sender"
+msgstr "pengirim mana pun"
 
 msgid "Any status"
 msgstr "Status apa pun"
@@ -2319,6 +2347,9 @@ msgstr "Disetujui"
 msgid "Approved review"
 msgstr "Review disetujui"
 
+msgid "Apps"
+msgstr "Aplikasi"
+
 msgid "apps/desktop/src/renderer"
 msgstr "apps/desktop/src/renderer"
 
@@ -2344,6 +2375,9 @@ msgstr "Diarsipkan"
 #. placeholder {0}: formatCompactRelativeTime(cloud.deletedAt)
 msgid "Archived · {0}"
 msgstr "Diarsipkan · {0}"
+
+msgid "Archived \"{name}\""
+msgstr "\"{name}\" diarsipkan"
 
 #. placeholder {0}: formatCompactRelativeTime(workspace.deletedAt, now)
 msgid "Archived {0}"
@@ -4041,9 +4075,6 @@ msgstr "Konfirmasi sebelum keluar"
 msgid "Connect"
 msgstr "Hubungkan"
 
-msgid "Connect {displayName}"
-msgstr "Hubungkan {displayName}"
-
 msgid "Connect {name}"
 msgstr "Hubungkan {name}"
 
@@ -4055,6 +4086,12 @@ msgstr "Hubungkan akun Google. Kotak suratnya hanya-baca, dan pemicu berjalan un
 
 msgid "Connect a microphone to use dictation"
 msgstr "Hubungkan mikrofon untuk memakai dikte"
+
+msgid "Connect an account"
+msgstr "Hubungkan akun"
+
+msgid "Connect another account"
+msgstr "Hubungkan akun lain"
 
 msgid "Connect any AI agent to Superset."
 msgstr "Hubungkan agen AI mana pun ke Superset."
@@ -4104,6 +4141,9 @@ msgstr "Hubungkan komputer ini"
 msgid "Connect your GitHub repositories and sync pull requests. Track CI status and reviews across your team."
 msgstr "Hubungkan repositori GitHub Anda dan sinkronkan pull request. Lacak status CI dan review di seluruh tim Anda."
 
+msgid "Connect your Linear account before tracking tasks in Linear."
+msgstr "Hubungkan akun Linear Anda sebelum melacak tugas di Linear."
+
 msgid "Connect your Linear account in Settings → Integrations to link Linear issues."
 msgstr "Hubungkan akun Linear Anda di Pengaturan → Integrasi untuk menautkan issue Linear."
 
@@ -4130,6 +4170,9 @@ msgstr "Terhubung"
 
 msgid "Connected {label}"
 msgstr "{label} terhubung"
+
+msgid "Connected accounts"
+msgstr "Akun terhubung"
 
 msgid "Connected as"
 msgstr "Terhubung sebagai"
@@ -4620,6 +4663,9 @@ msgstr "Tidak bisa membuka tautan"
 msgid "Could not open Photos"
 msgstr "Tidak bisa membuka Photos"
 
+msgid "Could not reach a mobile simulator."
+msgstr "Tidak dapat menjangkau simulator seluler."
+
 msgid "Could not reach the desktop."
 msgstr "Tidak dapat menjangkau desktop."
 
@@ -4723,11 +4769,17 @@ msgstr "Tidak dapat memverifikasi kredensial: {reason}"
 msgid "Couldn't ask the workspace for a description"
 msgstr "Tidak dapat meminta deskripsi dari workspace"
 
+msgid "Couldn't attach files"
+msgstr "Tidak dapat melampirkan file"
+
 msgid "Couldn't branch into a new worktree"
 msgstr "Tidak dapat mencabangkan ke worktree baru"
 
 msgid "Couldn't branch the conversation"
 msgstr "Tidak dapat mencabangkan percakapan"
+
+msgid "Couldn't check what removing this member affects"
+msgstr "Tidak dapat memeriksa apa yang terdampak jika anggota ini dihapus"
 
 msgid "Couldn't confirm star status — check that the GitHub CLI (`gh`) is installed, signed in, and that you have a network connection"
 msgstr "Tidak bisa memastikan status star — pastikan GitHub CLI (`gh`) terpasang, sudah masuk, dan Anda punya koneksi jaringan"
@@ -5763,6 +5815,9 @@ msgstr "Putuskan"
 
 msgid "Disconnect {credential}?"
 msgstr "Putuskan {credential}?"
+
+msgid "Disconnect {title}"
+msgstr "Putuskan {title}"
 
 msgid "Disconnect GitHub?"
 msgstr "Putuskan GitHub?"
@@ -7263,9 +7318,6 @@ msgstr "Ikuti kami di LinkedIn"
 
 msgid "Follow us on X/Twitter"
 msgstr "Ikuti kami di X/Twitter"
-
-msgid "Follow-ups on web are coming soon"
-msgstr "Tindak lanjut di web segera hadir"
 
 msgid "Font family"
 msgstr "Keluarga font"
@@ -8910,9 +8962,6 @@ msgstr "Tautan disalin"
 msgid "Link GitHub issue"
 msgstr "Tautkan issue GitHub"
 
-msgid "Link issue"
-msgstr "Tautkan issue"
-
 msgid "Link Linear issue"
 msgstr "Tautkan issue Linear"
 
@@ -9156,6 +9205,9 @@ msgstr "Keandalan jangka panjang melewati ambang batas. Pekerjaan yang diberikan
 msgid "Long-hover shortcut-only tooltip; its chip style is now the TooltipContent default"
 msgstr "Tooltip khusus pintasan saat hover lama; gaya chip-nya kini menjadi bawaan TooltipContent"
 
+msgid "Looking for a mobile simulator…"
+msgstr "Mencari simulator seluler…"
+
 msgid "Looking for installed browsers…"
 msgstr "Mencari browser yang terpasang…"
 
@@ -9207,6 +9259,15 @@ msgstr "Malware atau phishing"
 
 msgid "Manage"
 msgstr "Kelola"
+
+msgid "Manage {title}"
+msgstr "Kelola {title}"
+
+msgid "Manage accounts"
+msgstr "Kelola akun"
+
+msgid "Manage accounts…"
+msgstr "Kelola akun…"
 
 msgid "Manage billing"
 msgstr "Kelola penagihan"
@@ -9377,9 +9438,6 @@ msgstr "Memori"
 
 msgid "Memory share"
 msgstr "Porsi memori"
-
-msgid "Menu"
-msgstr "Menu"
 
 msgid "Menubar"
 msgstr "Menubar"
@@ -9604,6 +9662,10 @@ msgstr "Bulan sejak Agustus 2026"
 
 msgid "More"
 msgstr "Lainnya"
+
+#. placeholder {0}: plugin.interface.displayName
+msgid "More {0} actions"
+msgstr "Tindakan {0} lainnya"
 
 msgid "More {kindLower} themes"
 msgstr "Tema {kindLower} lainnya"
@@ -9972,6 +10034,9 @@ msgstr "Pendekatan yang bagus"
 msgid "Nice, open a PR when ready."
 msgstr "Bagus, buka PR kalau sudah siap."
 
+msgid "Nickname"
+msgstr "Nama panggilan"
+
 #. placeholder {0}: AGENT_LABELS[agent]
 msgid "No {0} logins on this host — sign in and usage appears here."
 msgstr "Tidak ada login {0} di host ini — masuk dan penggunaannya akan muncul di sini."
@@ -10259,6 +10324,9 @@ msgstr "Tidak ada pull request yang di-merge."
 msgid "No messages yet"
 msgstr "Belum ada pesan"
 
+msgid "No mobile simulator available here. This needs either a Limrun-enabled cloud sandbox or a local iOS/Android toolchain."
+msgstr "Tidak ada simulator seluler yang tersedia di sini. Diperlukan sandbox cloud yang mendukung Limrun atau toolchain iOS/Android lokal."
+
 msgid "No name on file"
 msgstr "Tidak ada nama tersimpan"
 
@@ -10409,9 +10477,6 @@ msgstr "Belum ada tangkapan layar"
 
 msgid "No sessions"
 msgstr "Tidak ada sesi"
-
-msgid "No sessions found"
-msgstr "Tidak ada sesi ditemukan"
 
 msgid "No sessions running"
 msgstr "Tidak ada sesi yang berjalan"
@@ -10841,8 +10906,8 @@ msgstr "Hanya pemilik host yang bisa mengubah keanggotaan"
 msgid "Only host owners can change this location."
 msgstr "Hanya pemilik host yang bisa mengubah lokasi ini."
 
-msgid "Only host owners can delete this host"
-msgstr "Hanya pemilik host yang bisa menghapus host ini"
+msgid "Only host owners or organization owners can delete this host"
+msgstr "Hanya pemilik host atau pemilik organisasi yang bisa menghapus host ini"
 
 msgid "Only organization owners can modify these settings."
 msgstr "Hanya pemilik organisasi yang bisa mengubah pengaturan ini."
@@ -10882,6 +10947,9 @@ msgstr "Hanya pemilik yang bisa menjalankan otomatisasi ini"
 
 msgid "Only the owner can view prompt history"
 msgstr "Hanya pemilik yang bisa melihat riwayat prompt"
+
+msgid "Only the owner or an organization owner can delete this automation"
+msgstr "Hanya pemilik atau pemilik organisasi yang bisa menghapus otomatisasi ini"
 
 msgid "Only the person who created this page can change it"
 msgstr "Hanya orang yang membuat halaman ini yang bisa mengubahnya"
@@ -12599,6 +12667,9 @@ msgstr "Ukuran yang disarankan 256×256."
 msgid "Reconnect"
 msgstr "Hubungkan ulang"
 
+msgid "Reconnect {name}"
+msgstr "Hubungkan ulang {name}"
+
 msgid "Reconnect Google"
 msgstr "Hubungkan ulang Google"
 
@@ -12837,14 +12908,14 @@ msgstr "Menghapus anggota..."
 msgid "Removing terminal..."
 msgstr "Menghapus terminal..."
 
-msgid "Removing…"
-msgstr "Menghapus…"
-
 msgid "Rename"
 msgstr "Ganti nama"
 
 msgid "Rename {title}"
 msgstr "Ganti nama {title}"
+
+msgid "Rename account"
+msgstr "Ganti nama akun"
 
 msgid "Rename branch"
 msgstr "Ganti nama branch"
@@ -13198,11 +13269,17 @@ msgstr "Pulihkan paket"
 msgid "restore the agent defaults"
 msgstr "memulihkan setelan bawaan agen"
 
+msgid "Restore the workspace you just archived"
+msgstr "Pulihkan ruang kerja yang baru saja Anda arsipkan"
+
 msgid "Restore this version?"
 msgstr "Pulihkan versi ini?"
 
 msgid "Restored"
 msgstr "Dipulihkan"
+
+msgid "Restored \"{name}\""
+msgstr "\"{name}\" dipulihkan"
 
 msgid "Restored \"{projectName}\""
 msgstr "\"{projectName}\" dipulihkan"
@@ -13816,12 +13893,6 @@ msgstr "Cari pull request…"
 msgid "Search repositories..."
 msgstr "Cari repositori..."
 
-msgid "Search sessions"
-msgstr "Cari sesi"
-
-msgid "Search sessions..."
-msgstr "Cari sesi..."
-
 msgid "Search settings..."
 msgstr "Cari pengaturan..."
 
@@ -13972,9 +14043,6 @@ msgstr "Pilih sebuah organisasi"
 msgid "Select base branch…"
 msgstr "Pilih branch dasar…"
 
-msgid "Select branch"
-msgstr "Pilih branch"
-
 msgid "Select branch..."
 msgstr "Pilih branch..."
 
@@ -14045,9 +14113,6 @@ msgid "Select range..."
 msgstr "Pilih rentang..."
 
 msgid "Select repositories"
-msgstr "Pilih repositori"
-
-msgid "Select repository"
 msgstr "Pilih repositori"
 
 msgid "Select run"
@@ -14166,9 +14231,6 @@ msgstr "Sesi"
 msgid "Session {0}"
 msgstr "Sesi {0}"
 
-msgid "Session creation on web is coming soon"
-msgstr "Pembuatan sesi di web segera hadir"
-
 msgid "Session details"
 msgstr "Detail sesi"
 
@@ -14189,9 +14251,6 @@ msgstr "Nama sesi diganti menjadi {trimmed}"
 
 msgid "Session snapshots & revert"
 msgstr "Snapshot sesi & pengembalian"
-
-msgid "Session view"
-msgstr "Tampilan sesi"
 
 msgid "Sessions"
 msgstr "Sesi"
@@ -14869,6 +14928,9 @@ msgstr "Bagi ke Kanan"
 msgid "Split the current pane along its longer side"
 msgstr "Bagi panel saat ini di sisi yang lebih panjang"
 
+msgid "Split the current pane and open a mobile simulator"
+msgstr "Bagi panel saat ini dan buka simulator seluler"
+
 msgid "Split the current pane and open a new browser pane"
 msgstr "Bagi panel saat ini dan buka panel browser baru"
 
@@ -14889,6 +14951,9 @@ msgstr "Tampilan terpisah"
 
 msgid "Split with Desktop"
 msgstr "Bagi dengan Desktop"
+
+msgid "Split with Mobile Simulator"
+msgstr "Bagi dengan Simulator Seluler"
 
 msgid "Split with New Browser"
 msgstr "Bagi dengan Browser Baru"
@@ -15062,6 +15127,9 @@ msgstr "Memulai workspace cloud"
 
 msgid "Starting the agent…"
 msgstr "Memulai agen…"
+
+msgid "Starting the simulator…"
+msgstr "Memulai simulator…"
 
 msgid "Starting up. This should only take a moment."
 msgstr "Sedang memulai. Ini hanya perlu sebentar."
@@ -15817,6 +15885,9 @@ msgstr "Terima kasih, laporan diterima"
 msgid "That {plugin} sign-in link expired. Try connecting again."
 msgstr "Tautan masuk {plugin} itu telah kedaluwarsa. Coba hubungkan lagi."
 
+msgid "That account is no longer connected — choose another."
+msgstr "Akun itu sudah tidak terhubung — pilih yang lain."
+
 msgid "That agent session has no conversation to open yet — it was started but never prompted."
 msgstr "Sesi agen itu belum punya percakapan untuk dibuka — sudah dimulai tetapi belum pernah diberi perintah."
 
@@ -15828,6 +15899,9 @@ msgstr "Endpoint itu tidak diizinkan."
 
 msgid "That handle is taken."
 msgstr "Handle itu sudah dipakai."
+
+msgid "That Linear issue doesn't exist or you can't see it."
+msgstr "Issue Linear itu tidak ada atau Anda tidak dapat melihatnya."
 
 msgid "That link doesn't lead anywhere in the app."
 msgstr "Tautan itu tidak mengarah ke mana pun di aplikasi."
@@ -16096,6 +16170,9 @@ msgstr "Servernya tidak ditemukan"
 msgid "The sign-in link was incomplete. Please try again."
 msgstr "Tautan masuk tidak lengkap. Silakan coba lagi."
 
+msgid "The simulator instance was terminated."
+msgstr "Instans simulator telah dihentikan."
+
 msgid "The site's certificate authority is not trusted"
 msgstr "Certificate authority situs ini tidak tepercaya"
 
@@ -16131,9 +16208,6 @@ msgstr "Undangan tim ini sudah kedaluwarsa atau tidak ada. Minta tautan baru dar
 
 msgid "The title shows everywhere this page is listed and in its link preview."
 msgstr "Judul muncul di semua tempat halaman ini terdaftar dan di pratinjau tautannya."
-
-msgid "The web agents UI is a read-only preview for now."
-msgstr "UI agen di web masih pratinjau baca-saja untuk saat ini."
 
 msgid "The workspace is not ready yet. Try again."
 msgstr "Workspace belum siap. Coba lagi."
@@ -16206,6 +16280,9 @@ msgstr "Agen ini tidak bisa berjalan di workspace cloud"
 
 msgid "This agent no longer exists on the selected device (its agents may have been reset). Runs will fail until you pick a new one."
 msgstr "Agen ini sudah tidak ada di perangkat yang dipilih (agennya mungkin telah direset). Run akan gagal sampai Anda memilih yang baru."
+
+msgid "This also:"
+msgstr "Ini juga akan:"
 
 msgid "This application will be able to:"
 msgstr "Aplikasi ini akan bisa:"
@@ -16791,6 +16868,9 @@ msgstr "Coba fitur akses awal dan pratinjau."
 msgid "Try it"
 msgstr "Coba"
 
+msgid "Try now"
+msgstr "Coba sekarang"
+
 msgid "Try Superset v2"
 msgstr "Coba Superset v2"
 
@@ -16930,6 +17010,9 @@ msgstr "Sedang berjalan"
 msgid "Undo"
 msgstr "Undo"
 
+msgid "Undo Archive"
+msgstr "Batalkan arsip"
+
 msgid "Ungroup"
 msgstr "Keluarkan dari grup"
 
@@ -16967,6 +17050,9 @@ msgstr "Tidak diketahui"
 msgctxt "person"
 msgid "Unknown"
 msgstr "Tidak diketahui"
+
+msgid "Unknown account"
+msgstr "Akun tidak dikenal"
 
 msgid "Unknown author"
 msgstr "Penulis tidak dikenal"
@@ -17253,6 +17339,10 @@ msgstr "Gunakan Superset di ponsel"
 
 msgid "Use Superset on your phone with Pro."
 msgstr "Gunakan Superset di ponsel dengan Pro."
+
+#. placeholder {0}: plugin.interface.displayName
+msgid "Use the {0} plugin to "
+msgstr "Gunakan plugin {0} untuk "
 
 msgid "Use the desktop app to start running parallel coding agents."
 msgstr "Pakai aplikasi desktop untuk mulai menjalankan agen coding paralel."
@@ -17837,9 +17927,6 @@ msgstr "Bekerja {0} mnt {1} dtk"
 
 msgid "Worked for {seconds}s"
 msgstr "Bekerja {seconds} dtk"
-
-msgid "Worked for 39s"
-msgstr "Bekerja 39 dtk"
 
 msgid "Workflow run completed…"
 msgstr "Run workflow selesai…"

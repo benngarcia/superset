@@ -99,6 +99,10 @@ msgstr "(không có đầu ra)"
 msgid "(so far)"
 msgstr "(đến nay)"
 
+#. placeholder {0}: connections.length
+msgid "{0, plural, one {# account connected} other {# accounts connected}}"
+msgstr "{0, plural, other {# tài khoản đã kết nối}}"
+
 #. placeholder {0}: ports.length
 msgid "{0, plural, one {# active port — hide details} other {# active ports — hide details}}"
 msgstr "{0, plural, one {# cổng đang hoạt động — ẩn chi tiết} other {# cổng đang hoạt động — ẩn chi tiết}}"
@@ -144,7 +148,6 @@ msgid "{0, plural, one {# failed} other {# failed}}"
 msgstr "{0, plural, one {# thất bại} other {# thất bại}}"
 
 #. placeholder {0}: detail.pullRequest.changedFiles
-#. placeholder {0}: diffFiles.length
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# tệp thay đổi} other {# tệp thay đổi}}"
 
@@ -273,9 +276,17 @@ msgstr "{0, plural, one {Đang tạo # workspace...} other {Đang tạo # worksp
 msgid "{0, plural, one {Delete # workspace?} other {Delete # workspaces?}}"
 msgstr "{0, plural, one {Xóa # workspace?} other {Xóa # workspace?}}"
 
+#. placeholder {0}: cleanup.hosts
+msgid "{0, plural, one {Deleted # host with no other owner, along with its workspaces.} other {Deleted # hosts with no other owner, along with their workspaces.}}"
+msgstr "{0, plural, other {Đã xóa # host không còn chủ sở hữu nào khác cùng với các workspace của nó.}}"
+
 #. placeholder {0}: deletedIds.length
 msgid "{0, plural, one {Deleted # workspace} other {Deleted # workspaces}}"
 msgstr "{0, plural, one {Đã xóa # workspace} other {Đã xóa # workspace}}"
+
+#. placeholder {0}: cleanup.hosts
+msgid "{0, plural, one {Deletes # host with no other owner, along with its workspaces} other {Deletes # hosts with no other owner, along with their workspaces}}"
+msgstr "{0, plural, other {Xóa # host không còn chủ sở hữu nào khác, cùng với các workspace của nó}}"
 
 #. placeholder {0}: item.hiddenCount
 msgid "{0, plural, one {Diff truncated — # more line on the host} other {Diff truncated — # more lines on the host}}"
@@ -296,6 +307,14 @@ msgstr "{0, plural, one {issue Linear} other {issue Linear}}"
 #. placeholder {0}: selectedWorkspaces.length
 msgid "{0, plural, one {Move # selected workspace to a group} other {Move # selected workspaces to a group}}"
 msgstr "{0, plural, one {Chuyển # workspace đã chọn vào một nhóm} other {Chuyển # workspace đã chọn vào một nhóm}}"
+
+#. placeholder {0}: cleanup.automations
+msgid "{0, plural, one {Paused # automation.} other {Paused # automations.}}"
+msgstr "{0, plural, other {Đã tạm dừng # tự động hóa.}}"
+
+#. placeholder {0}: cleanup.automations
+msgid "{0, plural, one {Pauses # automation} other {Pauses # automations}}"
+msgstr "{0, plural, other {Tạm dừng # tự động hóa}}"
 
 #. placeholder {0}: issues.length
 #. placeholder {0}: tasks.length
@@ -719,6 +738,9 @@ msgstr "Đã hoàn thành {completed}/{total}"
 msgid "{configTitle} font size"
 msgstr "Cỡ chữ {configTitle}"
 
+msgid "{connectorName} account"
+msgstr "Tài khoản {connectorName}"
+
 msgid "{cookieCount} cookies — forget this site"
 msgstr "{cookieCount} cookie — quên trang này"
 
@@ -924,14 +946,14 @@ msgstr "{minutes} phút trước"
 msgid "{modKey}↵ to create"
 msgstr "{modKey}↵ để tạo"
 
-msgid "{months}mo"
-msgstr "{months} tháng"
-
 msgid "{months}mo ago"
 msgstr "{months} tháng trước"
 
 msgid "{myFailedCount} of your automations failed their last run"
 msgstr "{myFailedCount} tự động hóa của bạn thất bại ở lần chạy gần nhất"
+
+msgid "{name} accounts"
+msgstr "Tài khoản {name}"
 
 #. js-lingui-explicit-id
 msgid "serverError.plugins.marketplaceBuiltinRemove"
@@ -1612,6 +1634,9 @@ msgstr "thêm một agent"
 msgid "Add an environment in Settings before creating a cloud workspace"
 msgstr "Thêm một environment trong Settings trước khi tạo workspace cloud"
 
+msgid "Add another account, or disconnect one you no longer use."
+msgstr "Kết nối tài khoản khác, hoặc ngắt tài khoản bạn không còn dùng."
+
 msgid "Add any machine as a host. Workspaces keep running when your laptop sleeps, and you can check in from wherever you are."
 msgstr "Thêm bất kỳ máy nào làm host. Workspace vẫn chạy khi laptop của bạn ngủ, và bạn có thể kiểm tra từ bất cứ đâu."
 
@@ -1705,9 +1730,6 @@ msgstr "Thêm vào từ điển"
 
 msgid "Add to project"
 msgstr "Thêm vào dự án"
-
-msgid "Add to prompt"
-msgstr "Thêm vào prompt"
 
 msgid "Add to sidebar"
 msgstr "Thêm vào thanh bên"
@@ -2171,6 +2193,9 @@ msgstr "Anthropic đã từ chối khóa API này."
 msgid "Anthropic rejected this token."
 msgstr "Anthropic đã từ chối token này."
 
+msgid "any account"
+msgstr "bất kỳ tài khoản nào"
+
 msgid "Any channel"
 msgstr "Kênh bất kỳ"
 
@@ -2182,6 +2207,9 @@ msgstr "Nguồn dữ liệu bất kỳ"
 
 msgid "Any issue event"
 msgstr "Sự kiện issue bất kỳ"
+
+msgid "any label"
+msgstr "nhãn bất kỳ"
 
 msgid "Any label"
 msgstr "Nhãn bất kỳ"
@@ -2198,14 +2226,14 @@ msgstr "Trang bất kỳ"
 msgid "Any project"
 msgstr "Dự án bất kỳ"
 
-msgid "Any recipient"
-msgstr "Người nhận bất kỳ"
+msgid "any recipient"
+msgstr "người nhận bất kỳ"
 
 msgid "Any review"
 msgstr "Review bất kỳ"
 
-msgid "Any sender"
-msgstr "Người gửi bất kỳ"
+msgid "any sender"
+msgstr "người gửi bất kỳ"
 
 msgid "Any status"
 msgstr "Trạng thái bất kỳ"
@@ -2319,6 +2347,9 @@ msgstr "Đã duyệt"
 msgid "Approved review"
 msgstr "Review đã duyệt"
 
+msgid "Apps"
+msgstr "Ứng dụng"
+
 msgid "apps/desktop/src/renderer"
 msgstr "apps/desktop/src/renderer"
 
@@ -2344,6 +2375,9 @@ msgstr "Đã lưu trữ"
 #. placeholder {0}: formatCompactRelativeTime(cloud.deletedAt)
 msgid "Archived · {0}"
 msgstr "Đã lưu trữ · {0}"
+
+msgid "Archived \"{name}\""
+msgstr "Đã lưu trữ \"{name}\""
 
 #. placeholder {0}: formatCompactRelativeTime(workspace.deletedAt, now)
 msgid "Archived {0}"
@@ -4041,9 +4075,6 @@ msgstr "Xác nhận trước khi thoát"
 msgid "Connect"
 msgstr "Kết nối"
 
-msgid "Connect {displayName}"
-msgstr "Kết nối {displayName}"
-
 msgid "Connect {name}"
 msgstr "Kết nối {name}"
 
@@ -4055,6 +4086,12 @@ msgstr "Kết nối tài khoản Google. Hộp thư chỉ ở chế độ đọc
 
 msgid "Connect a microphone to use dictation"
 msgstr "Kết nối micro để dùng đọc chính tả"
+
+msgid "Connect an account"
+msgstr "Kết nối tài khoản"
+
+msgid "Connect another account"
+msgstr "Kết nối tài khoản khác"
 
 msgid "Connect any AI agent to Superset."
 msgstr "Kết nối mọi agent AI với Superset."
@@ -4104,6 +4141,9 @@ msgstr "Kết nối máy tính này"
 msgid "Connect your GitHub repositories and sync pull requests. Track CI status and reviews across your team."
 msgstr "Kết nối các repository GitHub của bạn và đồng bộ pull request. Theo dõi trạng thái CI và review trong cả nhóm."
 
+msgid "Connect your Linear account before tracking tasks in Linear."
+msgstr "Hãy kết nối tài khoản Linear của bạn trước khi theo dõi công việc trong Linear."
+
 msgid "Connect your Linear account in Settings → Integrations to link Linear issues."
 msgstr "Kết nối tài khoản Linear của bạn trong Cài đặt → Tích hợp để liên kết issue Linear."
 
@@ -4130,6 +4170,9 @@ msgstr "Đã kết nối"
 
 msgid "Connected {label}"
 msgstr "Đã kết nối {label}"
+
+msgid "Connected accounts"
+msgstr "Tài khoản đã kết nối"
 
 msgid "Connected as"
 msgstr "Đã kết nối với tư cách"
@@ -4620,6 +4663,9 @@ msgstr "Không thể mở liên kết"
 msgid "Could not open Photos"
 msgstr "Không thể mở Photos"
 
+msgid "Could not reach a mobile simulator."
+msgstr "Không thể kết nối tới trình giả lập di động."
+
 msgid "Could not reach the desktop."
 msgstr "Không thể kết nối tới màn hình nền."
 
@@ -4723,11 +4769,17 @@ msgstr "Không xác minh được thông tin đăng nhập: {reason}"
 msgid "Couldn't ask the workspace for a description"
 msgstr "Không thể yêu cầu không gian làm việc tạo mô tả"
 
+msgid "Couldn't attach files"
+msgstr "Không thể đính kèm tệp"
+
 msgid "Couldn't branch into a new worktree"
 msgstr "Không thể tạo nhánh sang worktree mới"
 
 msgid "Couldn't branch the conversation"
 msgstr "Không thể tạo nhánh hội thoại"
+
+msgid "Couldn't check what removing this member affects"
+msgstr "Không kiểm tra được việc gỡ thành viên này ảnh hưởng đến những gì"
 
 msgid "Couldn't confirm star status — check that the GitHub CLI (`gh`) is installed, signed in, and that you have a network connection"
 msgstr "Không xác nhận được trạng thái sao — hãy kiểm tra GitHub CLI (`gh`) đã cài, đã đăng nhập và bạn có kết nối mạng"
@@ -5763,6 +5815,9 @@ msgstr "Ngắt kết nối"
 
 msgid "Disconnect {credential}?"
 msgstr "Ngắt kết nối {credential}?"
+
+msgid "Disconnect {title}"
+msgstr "Ngắt kết nối {title}"
 
 msgid "Disconnect GitHub?"
 msgstr "Ngắt kết nối GitHub?"
@@ -7263,9 +7318,6 @@ msgstr "Theo dõi chúng tôi trên LinkedIn"
 
 msgid "Follow us on X/Twitter"
 msgstr "Theo dõi chúng tôi trên X/Twitter"
-
-msgid "Follow-ups on web are coming soon"
-msgstr "Gửi tiếp trên web sẽ sớm có"
 
 msgid "Font family"
 msgstr "Họ font"
@@ -8910,9 +8962,6 @@ msgstr "Đã sao chép liên kết"
 msgid "Link GitHub issue"
 msgstr "Liên kết issue GitHub"
 
-msgid "Link issue"
-msgstr "Liên kết issue"
-
 msgid "Link Linear issue"
 msgstr "Liên kết issue Linear"
 
@@ -9156,6 +9205,9 @@ msgstr "Độ tin cậy dài hạn vượt một ngưỡng. Việc giao lúc 6 g
 msgid "Long-hover shortcut-only tooltip; its chip style is now the TooltipContent default"
 msgstr "Tooltip chỉ hiện phím tắt khi di chuột lâu; kiểu chip của nó giờ là mặc định của TooltipContent"
 
+msgid "Looking for a mobile simulator…"
+msgstr "Đang tìm trình giả lập di động…"
+
 msgid "Looking for installed browsers…"
 msgstr "Đang tìm các trình duyệt đã cài…"
 
@@ -9207,6 +9259,15 @@ msgstr "Phần mềm độc hại hoặc lừa đảo"
 
 msgid "Manage"
 msgstr "Quản lý"
+
+msgid "Manage {title}"
+msgstr "Quản lý {title}"
+
+msgid "Manage accounts"
+msgstr "Quản lý tài khoản"
+
+msgid "Manage accounts…"
+msgstr "Quản lý tài khoản…"
 
 msgid "Manage billing"
 msgstr "Quản lý thanh toán"
@@ -9377,9 +9438,6 @@ msgstr "Bộ nhớ"
 
 msgid "Memory share"
 msgstr "Tỷ lệ bộ nhớ"
-
-msgid "Menu"
-msgstr "Menu"
 
 msgid "Menubar"
 msgstr "Menubar"
@@ -9604,6 +9662,10 @@ msgstr "Số tháng kể từ tháng 8 năm 2026"
 
 msgid "More"
 msgstr "Thêm"
+
+#. placeholder {0}: plugin.interface.displayName
+msgid "More {0} actions"
+msgstr "Thao tác khác của {0}"
 
 msgid "More {kindLower} themes"
 msgstr "Thêm chủ đề {kindLower}"
@@ -9972,6 +10034,9 @@ msgstr "Cách tiếp cận hay"
 msgid "Nice, open a PR when ready."
 msgstr "Tốt, mở PR khi sẵn sàng nhé."
 
+msgid "Nickname"
+msgstr "Tên gọi"
+
 #. placeholder {0}: AGENT_LABELS[agent]
 msgid "No {0} logins on this host — sign in and usage appears here."
 msgstr "Chưa có lần đăng nhập {0} nào trên host này — hãy đăng nhập và mức sử dụng sẽ hiện ở đây."
@@ -10259,6 +10324,9 @@ msgstr "Không có pull request nào đã merge."
 msgid "No messages yet"
 msgstr "Chưa có tin nhắn nào"
 
+msgid "No mobile simulator available here. This needs either a Limrun-enabled cloud sandbox or a local iOS/Android toolchain."
+msgstr "Không có trình giả lập di động nào khả dụng ở đây. Cần có hộp cát đám mây hỗ trợ Limrun hoặc bộ công cụ iOS/Android cục bộ."
+
 msgid "No name on file"
 msgstr "Chưa có tên nào được lưu"
 
@@ -10409,9 +10477,6 @@ msgstr "Chưa có ảnh chụp màn hình nào"
 
 msgid "No sessions"
 msgstr "Không có phiên nào"
-
-msgid "No sessions found"
-msgstr "Không tìm thấy phiên nào"
 
 msgid "No sessions running"
 msgstr "Không có phiên nào đang chạy"
@@ -10841,8 +10906,8 @@ msgstr "Chỉ chủ sở hữu host mới thay đổi được thành viên"
 msgid "Only host owners can change this location."
 msgstr "Chỉ chủ sở hữu host mới đổi được vị trí này."
 
-msgid "Only host owners can delete this host"
-msgstr "Chỉ chủ sở hữu host mới xóa được host này"
+msgid "Only host owners or organization owners can delete this host"
+msgstr "Chỉ chủ sở hữu host hoặc chủ sở hữu tổ chức mới xóa được host này"
 
 msgid "Only organization owners can modify these settings."
 msgstr "Chỉ chủ sở hữu tổ chức mới sửa được các cài đặt này."
@@ -10882,6 +10947,9 @@ msgstr "Chỉ chủ sở hữu mới chạy được tự động hóa này"
 
 msgid "Only the owner can view prompt history"
 msgstr "Chỉ chủ sở hữu mới xem được lịch sử prompt"
+
+msgid "Only the owner or an organization owner can delete this automation"
+msgstr "Chỉ chủ sở hữu hoặc chủ sở hữu tổ chức mới xóa được tự động hóa này"
 
 msgid "Only the person who created this page can change it"
 msgstr "Chỉ người tạo trang này mới thay đổi được"
@@ -12599,6 +12667,9 @@ msgstr "Kích thước khuyến nghị 256×256."
 msgid "Reconnect"
 msgstr "Kết nối lại"
 
+msgid "Reconnect {name}"
+msgstr "Kết nối lại {name}"
+
 msgid "Reconnect Google"
 msgstr "Kết nối lại Google"
 
@@ -12837,14 +12908,14 @@ msgstr "Đang gỡ thành viên..."
 msgid "Removing terminal..."
 msgstr "Đang gỡ terminal..."
 
-msgid "Removing…"
-msgstr "Đang gỡ…"
-
 msgid "Rename"
 msgstr "Đổi tên"
 
 msgid "Rename {title}"
 msgstr "Đổi tên {title}"
+
+msgid "Rename account"
+msgstr "Đổi tên tài khoản"
 
 msgid "Rename branch"
 msgstr "Đổi tên nhánh"
@@ -13198,11 +13269,17 @@ msgstr "Khôi phục gói"
 msgid "restore the agent defaults"
 msgstr "khôi phục mặc định của agent"
 
+msgid "Restore the workspace you just archived"
+msgstr "Khôi phục không gian làm việc bạn vừa lưu trữ"
+
 msgid "Restore this version?"
 msgstr "Khôi phục phiên bản này?"
 
 msgid "Restored"
 msgstr "Đã khôi phục"
+
+msgid "Restored \"{name}\""
+msgstr "Đã khôi phục \"{name}\""
 
 msgid "Restored \"{projectName}\""
 msgstr "Đã khôi phục \"{projectName}\""
@@ -13816,12 +13893,6 @@ msgstr "Tìm pull request…"
 msgid "Search repositories..."
 msgstr "Tìm repository..."
 
-msgid "Search sessions"
-msgstr "Tìm phiên"
-
-msgid "Search sessions..."
-msgstr "Tìm phiên..."
-
 msgid "Search settings..."
 msgstr "Tìm trong cài đặt..."
 
@@ -13972,9 +14043,6 @@ msgstr "Chọn một tổ chức"
 msgid "Select base branch…"
 msgstr "Chọn nhánh gốc…"
 
-msgid "Select branch"
-msgstr "Chọn nhánh"
-
 msgid "Select branch..."
 msgstr "Chọn nhánh..."
 
@@ -14045,9 +14113,6 @@ msgid "Select range..."
 msgstr "Chọn khoảng..."
 
 msgid "Select repositories"
-msgstr "Chọn repository"
-
-msgid "Select repository"
 msgstr "Chọn repository"
 
 msgid "Select run"
@@ -14166,9 +14231,6 @@ msgstr "Phiên"
 msgid "Session {0}"
 msgstr "Phiên {0}"
 
-msgid "Session creation on web is coming soon"
-msgstr "Tạo phiên trên web sẽ sớm có"
-
 msgid "Session details"
 msgstr "Chi tiết phiên"
 
@@ -14189,9 +14251,6 @@ msgstr "Đã đổi tên phiên thành {trimmed}"
 
 msgid "Session snapshots & revert"
 msgstr "Ảnh chụp phiên & hoàn tác"
-
-msgid "Session view"
-msgstr "Chế độ xem phiên"
 
 msgid "Sessions"
 msgstr "Phiên"
@@ -14869,6 +14928,9 @@ msgstr "Chia sang phải"
 msgid "Split the current pane along its longer side"
 msgstr "Chia khung hiện tại theo cạnh dài hơn"
 
+msgid "Split the current pane and open a mobile simulator"
+msgstr "Chia khung hiện tại và mở một trình giả lập di động"
+
 msgid "Split the current pane and open a new browser pane"
 msgstr "Chia khung hiện tại và mở một khung trình duyệt mới"
 
@@ -14889,6 +14951,9 @@ msgstr "Xem chia đôi"
 
 msgid "Split with Desktop"
 msgstr "Chia với Màn hình nền"
+
+msgid "Split with Mobile Simulator"
+msgstr "Chia với Trình giả lập di động"
 
 msgid "Split with New Browser"
 msgstr "Chia kèm trình duyệt mới"
@@ -15062,6 +15127,9 @@ msgstr "Đang khởi động workspace trên cloud"
 
 msgid "Starting the agent…"
 msgstr "Đang khởi động tác nhân…"
+
+msgid "Starting the simulator…"
+msgstr "Đang khởi động trình giả lập…"
 
 msgid "Starting up. This should only take a moment."
 msgstr "Đang khởi động. Sẽ chỉ mất một lát."
@@ -15817,6 +15885,9 @@ msgstr "Cảm ơn, chúng tôi đã nhận được"
 msgid "That {plugin} sign-in link expired. Try connecting again."
 msgstr "Liên kết đăng nhập {plugin} đó đã hết hạn. Hãy thử kết nối lại."
 
+msgid "That account is no longer connected — choose another."
+msgstr "Tài khoản đó không còn được kết nối — hãy chọn tài khoản khác."
+
 msgid "That agent session has no conversation to open yet — it was started but never prompted."
 msgstr "Phiên tác nhân đó chưa có cuộc trò chuyện nào để mở — nó đã khởi động nhưng chưa từng nhận yêu cầu."
 
@@ -15828,6 +15899,9 @@ msgstr "Endpoint đó không được phép."
 
 msgid "That handle is taken."
 msgstr "Tên định danh đó đã có người dùng."
+
+msgid "That Linear issue doesn't exist or you can't see it."
+msgstr "Issue Linear đó không tồn tại hoặc bạn không thể xem."
 
 msgid "That link doesn't lead anywhere in the app."
 msgstr "Liên kết đó không dẫn tới đâu trong ứng dụng."
@@ -16096,6 +16170,9 @@ msgstr "Không tìm thấy server"
 msgid "The sign-in link was incomplete. Please try again."
 msgstr "Liên kết đăng nhập không đầy đủ. Vui lòng thử lại."
 
+msgid "The simulator instance was terminated."
+msgstr "Phiên bản trình giả lập đã bị chấm dứt."
+
 msgid "The site's certificate authority is not trusted"
 msgstr "Tổ chức cấp chứng chỉ của trang không được tin cậy"
 
@@ -16131,9 +16208,6 @@ msgstr "Lời mời vào nhóm đã hết hạn hoặc không tồn tại. Hãy 
 
 msgid "The title shows everywhere this page is listed and in its link preview."
 msgstr "Tiêu đề hiển thị ở mọi nơi trang này được liệt kê và trong bản xem trước liên kết."
-
-msgid "The web agents UI is a read-only preview for now."
-msgstr "Giao diện agent trên web hiện chỉ là bản xem trước chỉ đọc."
 
 msgid "The workspace is not ready yet. Try again."
 msgstr "Workspace chưa sẵn sàng. Hãy thử lại."
@@ -16206,6 +16280,9 @@ msgstr "Agent này không thể chạy trong workspace cloud"
 
 msgid "This agent no longer exists on the selected device (its agents may have been reset). Runs will fail until you pick a new one."
 msgstr "Agent này không còn tồn tại trên thiết bị đã chọn (agent trên đó có thể đã bị đặt lại). Các lần chạy sẽ thất bại cho đến khi bạn chọn agent khác."
+
+msgid "This also:"
+msgstr "Thao tác này cũng sẽ:"
 
 msgid "This application will be able to:"
 msgstr "Ứng dụng này sẽ có thể:"
@@ -16791,6 +16868,9 @@ msgstr "Dùng thử các tính năng và bản xem trước sớm."
 msgid "Try it"
 msgstr "Thử ngay"
 
+msgid "Try now"
+msgstr "Dùng thử"
+
 msgid "Try Superset v2"
 msgstr "Dùng thử Superset v2"
 
@@ -16930,6 +17010,9 @@ msgstr "Đang diễn ra"
 msgid "Undo"
 msgstr "Hoàn tác"
 
+msgid "Undo Archive"
+msgstr "Hoàn tác lưu trữ"
+
 msgid "Ungroup"
 msgstr "Bỏ nhóm"
 
@@ -16967,6 +17050,9 @@ msgstr "Không rõ"
 msgctxt "person"
 msgid "Unknown"
 msgstr "Không rõ"
+
+msgid "Unknown account"
+msgstr "Tài khoản không xác định"
 
 msgid "Unknown author"
 msgstr "Tác giả không xác định"
@@ -17253,6 +17339,10 @@ msgstr "Dùng Superset trên điện thoại"
 
 msgid "Use Superset on your phone with Pro."
 msgstr "Dùng Superset trên điện thoại với Pro."
+
+#. placeholder {0}: plugin.interface.displayName
+msgid "Use the {0} plugin to "
+msgstr "Dùng plugin {0} để "
 
 msgid "Use the desktop app to start running parallel coding agents."
 msgstr "Dùng ứng dụng máy tính để chạy song song nhiều agent lập trình."
@@ -17837,9 +17927,6 @@ msgstr "Đã chạy {0} phút {1} giây"
 
 msgid "Worked for {seconds}s"
 msgstr "Đã chạy {seconds} giây"
-
-msgid "Worked for 39s"
-msgstr "Đã làm trong 39 giây"
 
 msgid "Workflow run completed…"
 msgstr "Workflow chạy xong…"

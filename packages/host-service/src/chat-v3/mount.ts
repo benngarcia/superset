@@ -19,7 +19,10 @@ import {
 } from "@superset/chat-runtime";
 import type { Hono, MiddlewareHandler } from "hono";
 import type { HostDb } from "../db";
+import { cliFloor } from "./acpCatalogue";
 import { acpHarnessEntries } from "./acpHarnesses";
+import { resolveAgentCli } from "./agentCli";
+import { buildChatAgentEnv } from "./agentEnv";
 import { createResolveCwd } from "./resolveCwd";
 
 export const CHAT_V3_TRPC_PATH = "/chat-v3/trpc";
@@ -33,17 +36,51 @@ function migrationsFolder(): string {
 	return process.env.SUPERSET_CHAT_V3_MIGRATIONS ?? DEFAULT_MIGRATIONS_FOLDER;
 }
 
-function harnessRegistry(): HarnessRegistry {
+function harnessRegistry(db: HostDb): HarnessRegistry {
 	const entries: [string, HarnessFactory][] = [
 		[
 			"claude-code",
-			() =>
+			(options) =>
 				createClaudeAdapter({
-					pathToClaudeCodeExecutable: process.env.SUPERSET_CHAT_V3_CLAUDE_BIN,
+					launch: async () => {
+						const cli = await resolveAgentCli({
+							binary: "claude",
+							...cliFloor("claude-acp"),
+							env: () =>
+								buildChatAgentEnv({
+									db,
+									cwd: options.cwd,
+									workspaceId: options.scopeId,
+								}),
+						});
+						return {
+							pathToClaudeCodeExecutable:
+								process.env.SUPERSET_CHAT_V3_CLAUDE_BIN ?? cli.command,
+							env: cli.env,
+						};
+					},
 				}),
 		],
-		["codex", () => new CodexAdapter()],
-		...acpHarnessEntries(),
+		[
+			"codex",
+			(options) =>
+				new CodexAdapter({
+					launch: async () => {
+						const cli = await resolveAgentCli({
+							binary: "codex",
+							...cliFloor("codex-acp"),
+							env: () =>
+								buildChatAgentEnv({
+									db,
+									cwd: options.cwd,
+									workspaceId: options.scopeId,
+								}),
+						});
+						return { command: cli.command, env: cli.env };
+					},
+				}),
+		],
+		...acpHarnessEntries(db),
 	];
 	return new Map(entries);
 }
@@ -68,7 +105,7 @@ export function createChatV3Mount(options: {
 		built = createChatRuntime({
 			dataDir: dirname(options.dbPath),
 			migrationsFolder: migrationsFolder(),
-			harnesses: harnessRegistry(),
+			harnesses: harnessRegistry(options.db),
 		});
 		return built;
 	};
