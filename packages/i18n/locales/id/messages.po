@@ -5152,6 +5152,10 @@ msgstr "dibuat"
 msgid "Created"
 msgstr "Dibuat"
 
+msgctxt "file change"
+msgid "Created"
+msgstr "Dibuat"
+
 msgctxt "github release action"
 msgid "Created"
 msgstr "Dibuat"
@@ -5205,6 +5209,10 @@ msgstr "Membuat tim \"{trimmedName}\""
 msgid "creating"
 msgstr "membuat"
 
+msgid "Creating"
+msgstr "Membuat"
+
+msgctxt "file change"
 msgid "Creating"
 msgstr "Membuat"
 
@@ -5576,6 +5584,10 @@ msgstr "Hapus workspace \"{workspaceName}\"?"
 msgid "Deleted"
 msgstr "Dihapus"
 
+msgctxt "file change"
+msgid "Deleted"
+msgstr "Dihapus"
+
 msgctxt "github release action"
 msgid "Deleted"
 msgstr "Dihapus"
@@ -5626,6 +5638,7 @@ msgstr "Menghapus profil {0}, sesi masuknya yang tersimpan di mesin ini, dan riw
 msgid "Deletes this host, its access, and its workspaces. Files on the machine stay."
 msgstr "Menghapus host ini, aksesnya, dan workspace-nya. File di mesin itu tetap ada."
 
+msgctxt "file change"
 msgid "Deleting"
 msgstr "Menghapus"
 
@@ -6223,6 +6236,10 @@ msgstr "Edit komentar Anda…"
 msgid "Edited"
 msgstr "Diedit"
 
+msgctxt "file change"
+msgid "Edited"
+msgstr "Diedit"
+
 msgctxt "github release action"
 msgid "Edited"
 msgstr "Diedit"
@@ -6232,6 +6249,10 @@ msgstr "Diedit {ago}"
 
 msgid "Editing"
 msgstr "Pengeditan"
+
+msgctxt "file change"
+msgid "Editing"
+msgstr "Mengedit"
 
 msgid "Editing file..."
 msgstr "Mengedit file..."

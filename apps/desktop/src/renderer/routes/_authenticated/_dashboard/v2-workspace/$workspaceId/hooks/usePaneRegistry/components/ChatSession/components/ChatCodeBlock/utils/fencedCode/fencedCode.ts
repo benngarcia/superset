@@ -1,3 +1,4 @@
+import { parsePatchFiles } from "@pierre/diffs";
 import type { ReactNode } from "react";
 
 const LANGUAGE_CLASS = /(?:^|\s)language-([^\s]+)/;
@@ -24,4 +25,20 @@ const DIFF_LANGUAGES = new Set(["diff", "patch", "udiff"]);
 
 export function isDiffLanguage(language: string | null): boolean {
 	return language !== null && DIFF_LANGUAGES.has(language);
+}
+
+/**
+ * Whether the text is a patch the patch view can show: it renders exactly one
+ * file and throws on any other count, so a fence holding a whole `git diff`
+ * goes to the plain code view instead.
+ */
+export function isSingleFilePatch(text: string): boolean {
+	try {
+		const patches = parsePatchFiles(text);
+		if (patches.length !== 1) return false;
+		const files = patches[0]?.files ?? [];
+		return files.length === 1 && (files[0]?.hunks.length ?? 0) > 0;
+	} catch {
+		return false;
+	}
 }

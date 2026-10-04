@@ -1,5 +1,4 @@
 import { useLingui } from "@lingui/react/macro";
-import { parsePatchFiles } from "@pierre/diffs";
 import { File, PatchDiff } from "@pierre/diffs/react";
 import type { ComponentProps, CSSProperties, ReactNode } from "react";
 import { useMemo } from "react";
@@ -9,7 +8,12 @@ import {
 } from "renderer/screens/main/components/WorkspaceView/utils/code-theme";
 import { useResolvedTheme } from "renderer/stores/theme";
 import { CopyButton } from "../CopyButton";
-import { fenceLanguage, fenceText, isDiffLanguage } from "./utils/fencedCode";
+import {
+	fenceLanguage,
+	fenceText,
+	isDiffLanguage,
+	isSingleFilePatch,
+} from "./utils/fencedCode";
 
 const CHAT_CODE_FONT_SIZE = 12;
 const CHAT_CODE_LINE_HEIGHT = "20px";
@@ -21,17 +25,6 @@ type FencedCodeProps = ComponentProps<"code"> & {
 	node?: unknown;
 	children?: ReactNode;
 };
-
-function patchParses(text: string): boolean {
-	try {
-		const parsed = parsePatchFiles(text);
-		return parsed.some((patch) =>
-			patch.files.some((file) => file.hunks.length > 0),
-		);
-	} catch {
-		return false;
-	}
-}
 
 /**
  * A fenced block in agent prose, rendered by the same highlighter as the
@@ -45,7 +38,7 @@ export function ChatCodeBlock({ children, className }: FencedCodeProps) {
 	const language = fenceLanguage(className);
 	const text = useMemo(() => fenceText(children), [children]);
 	const asPatch = useMemo(
-		() => isDiffLanguage(language) && patchParses(text),
+		() => isDiffLanguage(language) && isSingleFilePatch(text),
 		[language, text],
 	);
 	const style = {

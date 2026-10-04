@@ -5152,6 +5152,10 @@ msgstr "создан"
 msgid "Created"
 msgstr "Создана"
 
+msgctxt "file change"
+msgid "Created"
+msgstr "Создан"
+
 msgctxt "github release action"
 msgid "Created"
 msgstr "Создан"
@@ -5205,6 +5209,10 @@ msgstr "Команда «{trimmedName}» создана"
 msgid "creating"
 msgstr "создаётся"
 
+msgid "Creating"
+msgstr "Создание"
+
+msgctxt "file change"
 msgid "Creating"
 msgstr "Создание"
 
@@ -5576,6 +5584,10 @@ msgstr "Удалить рабочую область «{workspaceName}»?"
 msgid "Deleted"
 msgstr "Удалено"
 
+msgctxt "file change"
+msgid "Deleted"
+msgstr "Удалён"
+
 msgctxt "github release action"
 msgid "Deleted"
 msgstr "Удалён"
@@ -5626,6 +5638,7 @@ msgstr "Удаляет профиль {0}, его сохранённый вхо�
 msgid "Deletes this host, its access, and its workspaces. Files on the machine stay."
 msgstr "Удаляет этот хост, доступ к нему и его рабочие области. Файлы на машине останутся."
 
+msgctxt "file change"
 msgid "Deleting"
 msgstr "Удаление"
 
@@ -6223,6 +6236,10 @@ msgstr "Измените комментарий…"
 msgid "Edited"
 msgstr "Изменено"
 
+msgctxt "file change"
+msgid "Edited"
+msgstr "Изменён"
+
 msgctxt "github release action"
 msgid "Edited"
 msgstr "Изменён"
@@ -6230,6 +6247,10 @@ msgstr "Изменён"
 msgid "Edited {ago}"
 msgstr "Изменено {ago}"
 
+msgid "Editing"
+msgstr "Редактирование"
+
+msgctxt "file change"
 msgid "Editing"
 msgstr "Редактирование"
 

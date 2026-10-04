@@ -16,6 +16,9 @@ describe("optionRole", () => {
 	test("reads scope from the id and label when there is no kind", () => {
 		expect(optionRole({ optionId: "deny", label: "Deny" })).toBe("reject");
 		expect(optionRole({ optionId: "no", label: "No" })).toBe("reject");
+		expect(optionRole({ optionId: "decline", label: "Decline" })).toBe(
+			"reject",
+		);
 		expect(
 			optionRole({ optionId: "allow_session", label: "Allow for session" }),
 		).toBe("allow_always");

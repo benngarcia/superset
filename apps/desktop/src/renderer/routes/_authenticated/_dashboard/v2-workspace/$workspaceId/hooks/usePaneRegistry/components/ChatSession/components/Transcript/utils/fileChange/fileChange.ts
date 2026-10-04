@@ -1,4 +1,4 @@
-import type { ToolCall, ToolContent } from "@superset/chat/protocol";
+import type { ToolCall, ToolContent, ToolKind } from "@superset/chat/protocol";
 
 export type FileChangeKind = "added" | "deleted" | "modified";
 
@@ -12,9 +12,16 @@ export type FileChange = {
 
 type DiffToolContent = Extract<ToolContent, { type: "diff" }>;
 
-export function fileChangeKind(content: DiffToolContent): FileChangeKind {
+/**
+ * Empty new text is what the file holds now, not proof it is gone: an edit
+ * can leave a file empty. Only the call's own kind says it was deleted.
+ */
+export function fileChangeKind(
+	content: DiffToolContent,
+	toolKind: ToolKind,
+): FileChangeKind {
+	if (toolKind === "delete") return "deleted";
 	if (content.oldText === null) return "added";
-	if (content.newText === "" && content.oldText !== "") return "deleted";
 	return "modified";
 }
 
@@ -48,7 +55,7 @@ export function fileChangeOf(item: ToolCall): FileChange | null {
 	);
 	if (!diff) return null;
 	return {
-		kind: fileChangeKind(diff),
+		kind: fileChangeKind(diff, item.toolKind),
 		path: diff.path,
 		name: fileName(diff.path),
 	};

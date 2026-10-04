@@ -41,6 +41,7 @@ export function DetailScroll({
 					MAX_HEIGHT_CLASS[size],
 					scrollClassName,
 				)}
+				onKeyDown={sticky.onKeyDown}
 				onPointerDown={sticky.onPointerDown}
 				onScroll={sticky.onScroll}
 				onTouchMove={sticky.onTouchMove}

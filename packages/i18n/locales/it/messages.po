@@ -5152,6 +5152,10 @@ msgstr "creata"
 msgid "Created"
 msgstr "Creato"
 
+msgctxt "file change"
+msgid "Created"
+msgstr "Creato"
+
 msgctxt "github release action"
 msgid "Created"
 msgstr "Creato"
@@ -5205,6 +5209,10 @@ msgstr "Team \"{trimmedName}\" creato"
 msgid "creating"
 msgstr "creazione"
 
+msgid "Creating"
+msgstr "Creazione"
+
+msgctxt "file change"
 msgid "Creating"
 msgstr "Creazione"
 
@@ -5576,6 +5584,10 @@ msgstr "Eliminare il workspace \"{workspaceName}\"?"
 msgid "Deleted"
 msgstr "Eliminato"
 
+msgctxt "file change"
+msgid "Deleted"
+msgstr "Eliminato"
+
 msgctxt "github release action"
 msgid "Deleted"
 msgstr "Eliminato"
@@ -5626,6 +5638,7 @@ msgstr "Elimina il profilo {0}, il suo accesso salvato su questa macchina e la c
 msgid "Deletes this host, its access, and its workspaces. Files on the machine stay."
 msgstr "Elimina questo host, i suoi accessi e i suoi workspace. I file sulla macchina restano."
 
+msgctxt "file change"
 msgid "Deleting"
 msgstr "Eliminazione"
 
@@ -6223,6 +6236,10 @@ msgstr "Modifica il tuo commento…"
 msgid "Edited"
 msgstr "Modificato"
 
+msgctxt "file change"
+msgid "Edited"
+msgstr "Modificato"
+
 msgctxt "github release action"
 msgid "Edited"
 msgstr "Modificato"
@@ -6230,6 +6247,10 @@ msgstr "Modificato"
 msgid "Edited {ago}"
 msgstr "Modificato {ago}"
 
+msgid "Editing"
+msgstr "Modifica"
+
+msgctxt "file change"
 msgid "Editing"
 msgstr "Modifica"
 
