@@ -201,9 +201,10 @@ export function Transcript({
 	const rowsRef = useRef(rows);
 	rowsRef.current = rows;
 	const mountedAtMs = useRef(Date.now());
-	const pinnedKeys = useRef(new Set<string>());
+	const pinnedKeys = useRef<Set<string> | null>(null);
 	useLayoutEffect(() => {
 		if (!anchorRowKey) return;
+		pinnedKeys.current ??= new Set(rowsRef.current.map((row) => row.key));
 		const row = rowsRef.current.find(
 			(candidate) => candidate.key === anchorRowKey,
 		);
