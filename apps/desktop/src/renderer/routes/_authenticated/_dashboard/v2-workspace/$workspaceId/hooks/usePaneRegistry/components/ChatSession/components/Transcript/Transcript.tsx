@@ -4,11 +4,7 @@ import type {
 	SessionSnapshot,
 	TurnGroup,
 } from "@superset/chat/core";
-import type {
-	ApprovalRequest,
-	Decision,
-	UserMessage,
-} from "@superset/chat/protocol";
+import type { ApprovalRequest, Decision } from "@superset/chat/protocol";
 import {
 	MessageScroller,
 	useMessageScroller,
@@ -21,13 +17,13 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { ChatForkTarget } from "../../types";
 import { TurnGroupSection } from "./components/TurnGroupSection";
 import { WorkingIndicator } from "./components/WorkingIndicator";
+import { useScrollAnchorKey } from "./hooks/useScrollAnchorKey";
+import { showsWorkingIndicator } from "./utils/showsWorkingIndicator";
 import { type TranscriptRow, transcriptRows } from "./utils/transcriptRows";
 
 const REMEMBER_SIZE_CLASSNAME = "[contain-intrinsic-size:auto_240px]";
 const OFFSCREEN_CLASSNAME = "[content-visibility:auto]";
 const RECENT_ROWS_RENDERED_IN_FULL = 30;
-const RESUME_FOLLOW_PX = 24;
-const CLOCK_SKEW_MS = 5_000;
 
 export type TranscriptProps = {
 	groups: TurnGroup[];
@@ -39,36 +35,9 @@ export type TranscriptProps = {
 	onRespond: (approvalId: string, decision: Decision) => void;
 	onFork?: ((target: ChatForkTarget) => void) | undefined;
 	canForkToWorktree?: boolean;
-	/**
-	 * An item the rail asked to see. Carries a nonce because selecting the
-	 * same message twice is a second request, not the same one.
-	 */
-	scrollRequest?: { itemId: string; nonce: number } | undefined;
 	onRetryPrompt: (clientId: string) => void;
 	onDiscardPrompt: (clientId: string) => void;
 };
-
-/**
- * Whether the end of the transcript needs its own "busy" line: a running
- * turn whose newest row is not itself live. A streaming message, a thought
- * mid-stream and a running tool call all shimmer on their own, and a pending
- * approval is the reader's turn, not the agent's; the line covers the gaps
- * between them, and the wait before the first one.
- */
-function showsWorkingIndicator(groups: TurnGroup[]): boolean {
-	const last = groups.at(-1);
-	if (!last || last.turn?.status !== "running") return false;
-	const entry = last.entries.at(-1);
-	if (!entry) return true;
-	if (entry.kind === "tool_run")
-		return entry.items.every((item) => item.status !== "running");
-	const item = entry.item;
-	if (item.kind === "tool_call") return item.status !== "running";
-	if (item.kind === "agent_message" || item.kind === "reasoning")
-		return item.completedAtMs !== undefined;
-	if (item.kind === "approval_request") return item.status !== "pending";
-	return true;
-}
 
 function rowMessageId(row: TranscriptRow): string {
 	if (row.kind === "item") return row.item.id;
@@ -76,39 +45,9 @@ function rowMessageId(row: TranscriptRow): string {
 	return row.key;
 }
 
-function sentInThisView(row: TranscriptRow, mountedAtMs: number): boolean {
-	if (row.kind === "outbox") return true;
-	return (
-		row.kind === "item" &&
-		row.item.kind === "user_message" &&
-		Boolean((row.item as UserMessage).clientId) &&
-		row.item.startedAtMs >= mountedAtMs - CLOCK_SKEW_MS
-	);
-}
-
-/**
- * The latest message sent from this view is the scroll anchor: the scroller
- * pins it to the top and follows the reply once it outgrows the screen. A
- * message that was there when the view opened, or that came from another
- * client, never moves the reader and never takes the anchor away.
- */
-export function Transcript(props: TranscriptProps) {
-	return (
-		<MessageScroller.Provider
-			autoScroll
-			defaultScrollPosition="end"
-			scrollEdgeThreshold={RESUME_FOLLOW_PX}
-			scrollPreviousItemPeek={0}
-		>
-			<TranscriptBody {...props} />
-		</MessageScroller.Provider>
-	);
-}
-
-function TranscriptBody({
+export function Transcript({
 	approvals,
 	canForkToWorktree,
-	scrollRequest,
 	groups,
 	hasOlder,
 	onDiscardPrompt,
@@ -152,27 +91,7 @@ function TranscriptBody({
 		[groups, outbox, pendingApprovalTargets],
 	);
 
-	const [mountedAtMs] = useState(() => Date.now());
-	const [rowKeysAtMount] = useState(() => new Set(rows.map((row) => row.key)));
-	const anchorRowKey = useMemo(
-		() =>
-			rows.findLast(
-				(row) =>
-					!rowKeysAtMount.has(row.key) && sentInThisView(row, mountedAtMs),
-			)?.key ?? null,
-		[rows, rowKeysAtMount, mountedAtMs],
-	);
-
-	// On the request object rather than its fields: the nonce is what makes
-	// choosing the same message twice a second scroll, and a dependency list
-	// of fields would drop it as redundant.
-	useEffect(() => {
-		if (!scrollRequest) return;
-		scrollerRef.current.scrollToMessage(scrollRequest.itemId, {
-			align: "start",
-			behavior: "smooth",
-		});
-	}, [scrollRequest]);
+	const anchorRowKey = useScrollAnchorKey(rows, outbox);
 
 	// A jump parks the scroller until the reader scrolls by hand, so it is
 	// only for a reader who already scrolled away from the end.

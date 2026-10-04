@@ -13,10 +13,11 @@ import {
 	useChatSession,
 	useTimeline,
 } from "@superset/chat/react";
-import { ChatHistorySidebar } from "@superset/ui/chat-history-sidebar";
+import { MessageScroller } from "@superset/chat-ui/MessageScroller";
+import { ChatHistorySidebarScroller } from "@superset/ui/chat-history-sidebar";
 import { Spinner } from "@superset/ui/spinner";
 import type { ReactNode } from "react";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useStableList } from "../../hooks/useStableList";
 import type { ChatForkTarget } from "../../types";
 import { buildChatHandoffTranscript } from "../../utils/chatHandoffTranscript";
@@ -25,6 +26,7 @@ import { Composer } from "../Composer";
 import { SessionHeader } from "../SessionHeader";
 import { Transcript } from "../Transcript";
 
+const RESUME_FOLLOW_PX = 24;
 const NO_COMMANDS: AvailableCommand[] = [];
 const NO_CONFIG_OPTIONS: SessionConfigOption[] = [];
 
@@ -66,16 +68,6 @@ export function SessionView({
 			previous.role === next.role &&
 			previous.preview === next.preview,
 	);
-	const [scrollRequest, setScrollRequest] = useState<{
-		itemId: string;
-		nonce: number;
-	}>();
-	const selectFromRail = useCallback((message: { id: string }) => {
-		setScrollRequest((previous) => ({
-			itemId: message.id,
-			nonce: (previous?.nonce ?? 0) + 1,
-		}));
-	}, []);
 	const approvals = useApprovals(session.snapshot);
 
 	const firstPromptSentRef = useRef(false);
@@ -207,30 +199,37 @@ export function SessionView({
 			) : (
 				// The rail floats over the transcript's left margin instead of
 				// taking a column, so the transcript and the composer center on the
-				// same axis whether or not the rail is showing.
-				<div className="@container relative flex min-h-0 flex-1">
-					<Transcript
-						approvals={approvals}
-						canForkToWorktree={canForkToWorktree}
-						groups={timeline}
-						hasOlder={session.hasOlder}
-						onDiscardPrompt={session.discardPrompt}
-						onFork={onFork ? forkWithTranscript : undefined}
-						onLoadOlder={onLoadOlder}
-						onRespond={onRespond}
-						onRetryPrompt={session.retryPrompt}
-						outbox={session.outbox}
-						scrollRequest={scrollRequest}
-						snapshot={session.snapshot}
-					/>
-					{rail.length > 1 && (
-						<ChatHistorySidebar
-							className="absolute inset-y-0 left-0 my-auto hidden h-fit max-h-full flex-col pl-3 @[56rem]:flex"
-							messages={rail}
-							onMessageSelect={selectFromRail}
+				// same axis whether or not the rail is showing. The rail and the
+				// transcript share one scroller, so a rail click scrolls it and
+				// the rail marks the turns on screen.
+				<MessageScroller.Provider
+					autoScroll
+					defaultScrollPosition="end"
+					scrollEdgeThreshold={RESUME_FOLLOW_PX}
+					scrollPreviousItemPeek={0}
+				>
+					<div className="@container relative flex min-h-0 flex-1">
+						<Transcript
+							approvals={approvals}
+							canForkToWorktree={canForkToWorktree}
+							groups={timeline}
+							hasOlder={session.hasOlder}
+							onDiscardPrompt={session.discardPrompt}
+							onFork={onFork ? forkWithTranscript : undefined}
+							onLoadOlder={onLoadOlder}
+							onRespond={onRespond}
+							onRetryPrompt={session.retryPrompt}
+							outbox={session.outbox}
+							snapshot={session.snapshot}
 						/>
-					)}
-				</div>
+						{rail.length > 1 && (
+							<ChatHistorySidebarScroller
+								className="absolute inset-y-0 left-0 my-auto hidden h-fit max-h-full flex-col pl-3 @[56rem]:flex"
+								messages={rail}
+							/>
+						)}
+					</div>
+				</MessageScroller.Provider>
 			)}
 			<Composer
 				availableCommands={sessionState?.availableCommands ?? NO_COMMANDS}

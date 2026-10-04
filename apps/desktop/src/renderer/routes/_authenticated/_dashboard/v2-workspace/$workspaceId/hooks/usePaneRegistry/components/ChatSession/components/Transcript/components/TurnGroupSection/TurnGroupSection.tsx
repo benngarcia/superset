@@ -3,10 +3,10 @@ import { displayText } from "@superset/chat/core";
 import type { Decision, UserMessage } from "@superset/chat/protocol";
 import type { ChatForkTarget } from "../../../../types";
 import type { TranscriptRow } from "../../utils/transcriptRows";
-import { WorkingFor } from "../WorkingFor";
 import { ItemRow } from "./components/ItemRow";
 import { ToolRunRow } from "./components/ToolRunRow";
 import { TurnStatusRow } from "./components/TurnStatusRow";
+import { WorkingFor } from "./components/WorkingFor";
 
 function outboxMessage(entry: OutboxEntry): UserMessage {
 	return {
