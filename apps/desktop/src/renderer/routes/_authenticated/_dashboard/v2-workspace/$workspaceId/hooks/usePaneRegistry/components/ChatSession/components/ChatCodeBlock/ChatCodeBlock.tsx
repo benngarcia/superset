@@ -1,7 +1,7 @@
 import { useLingui } from "@lingui/react/macro";
 import { parsePatchFiles } from "@pierre/diffs";
 import { File, PatchDiff } from "@pierre/diffs/react";
-import type { ComponentProps, ReactNode } from "react";
+import type { ComponentProps, CSSProperties, ReactNode } from "react";
 import { useMemo } from "react";
 import {
 	getDiffsTheme,
@@ -12,6 +12,7 @@ import { CopyButton } from "../CopyButton";
 import { fenceLanguage, fenceText, isDiffLanguage } from "./utils/fencedCode";
 
 const CHAT_CODE_FONT_SIZE = 12;
+const CHAT_CODE_LINE_HEIGHT = "20px";
 
 /** The renderer's shadow tree does not inherit the transcript's opt-in. */
 const SELECTABLE_CSS = "* { user-select: text; -webkit-user-select: text; }";
@@ -47,9 +48,10 @@ export function ChatCodeBlock({ children, className }: FencedCodeProps) {
 		() => isDiffLanguage(language) && patchParses(text),
 		[language, text],
 	);
-	const style = getDiffViewerStyle(activeTheme, {
-		fontSize: CHAT_CODE_FONT_SIZE,
-	});
+	const style = {
+		...getDiffViewerStyle(activeTheme, { fontSize: CHAT_CODE_FONT_SIZE }),
+		"--diffs-line-height": CHAT_CODE_LINE_HEIGHT,
+	} as CSSProperties;
 	const options = {
 		theme: getDiffsTheme(activeTheme),
 		themeType: activeTheme.type,
@@ -59,11 +61,11 @@ export function ChatCodeBlock({ children, className }: FencedCodeProps) {
 	};
 	return (
 		<div
-			className="my-2 overflow-hidden rounded-md border border-border/60 bg-background"
+			className="mb-2 overflow-hidden rounded-lg border border-border/60 bg-background"
 			data-chat-code-block={language ?? ""}
 		>
-			<div className="flex items-center justify-between pr-1 pl-3 pt-1">
-				<span className="font-mono text-[11px] text-muted-foreground uppercase">
+			<div className="flex items-center justify-between py-1 pr-1.5 pl-3">
+				<span className="font-mono text-muted-foreground text-xs uppercase">
 					{language ?? ""}
 				</span>
 				<CopyButton
