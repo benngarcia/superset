@@ -22,7 +22,7 @@ export function optionRole(option: ApprovalOption): OptionRole {
 			break;
 	}
 	const text = `${option.optionId} ${option.label}`;
-	if (/reject|deny|\bno\b/i.test(text)) return "reject";
+	if (/reject|deny|decline|refuse|\bno\b/i.test(text)) return "reject";
 	if (/session|always|\ball\b|forever|permanent/i.test(text)) {
 		return "allow_always";
 	}

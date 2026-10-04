@@ -5131,6 +5131,10 @@ msgstr "作成済み"
 msgid "Created"
 msgstr "作成日"
 
+msgctxt "file change"
+msgid "Created"
+msgstr "作成済み"
+
 msgctxt "github release action"
 msgid "Created"
 msgstr "作成"
@@ -5184,6 +5188,10 @@ msgstr "チーム「{trimmedName}」を作成しました"
 msgid "creating"
 msgstr "作成中"
 
+msgid "Creating"
+msgstr "作成中"
+
+msgctxt "file change"
 msgid "Creating"
 msgstr "作成中"
 
@@ -5555,6 +5563,10 @@ msgstr "ワークスペース「{workspaceName}」を削除しますか?"
 msgid "Deleted"
 msgstr "削除済み"
 
+msgctxt "file change"
+msgid "Deleted"
+msgstr "削除済み"
+
 msgctxt "github release action"
 msgid "Deleted"
 msgstr "削除"
@@ -5605,6 +5617,7 @@ msgstr "このマシンの{0}プロファイル、保存済みサインイン、
 msgid "Deletes this host, its access, and its workspaces. Files on the machine stay."
 msgstr "このホストとそのアクセス権、ワークスペースを削除します。マシン上のファイルは残ります。"
 
+msgctxt "file change"
 msgid "Deleting"
 msgstr "削除中"
 
@@ -6199,6 +6212,10 @@ msgstr "コメントを編集…"
 msgid "Edited"
 msgstr "編集"
 
+msgctxt "file change"
+msgid "Edited"
+msgstr "編集済み"
+
 msgctxt "github release action"
 msgid "Edited"
 msgstr "編集"
@@ -6208,6 +6225,10 @@ msgstr "{ago}に編集"
 
 msgid "Editing"
 msgstr "編集"
+
+msgctxt "file change"
+msgid "Editing"
+msgstr "編集中"
 
 msgid "Editing file..."
 msgstr "ファイルを編集中..."

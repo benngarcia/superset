@@ -5131,6 +5131,10 @@ msgstr "erstellt"
 msgid "Created"
 msgstr "Erstellt"
 
+msgctxt "file change"
+msgid "Created"
+msgstr "Erstellt"
+
 msgctxt "github release action"
 msgid "Created"
 msgstr "Erstellt"
@@ -5186,6 +5190,10 @@ msgstr "wird erstellt"
 
 msgid "Creating"
 msgstr "Wird erstellt"
+
+msgctxt "file change"
+msgid "Creating"
+msgstr "Erstelle"
 
 msgid "Creating PR..."
 msgstr "PR wird erstellt…"
@@ -5555,6 +5563,10 @@ msgstr "Arbeitsbereich \"{workspaceName}\" löschen?"
 msgid "Deleted"
 msgstr "Gelöscht"
 
+msgctxt "file change"
+msgid "Deleted"
+msgstr "Gelöscht"
+
 msgctxt "github release action"
 msgid "Deleted"
 msgstr "Gelöscht"
@@ -5605,8 +5617,9 @@ msgstr "Löscht das Profil {0}, dessen gespeicherte Anmeldung auf diesem Rechner
 msgid "Deletes this host, its access, and its workspaces. Files on the machine stay."
 msgstr "Löscht diesen Host, seine Zugriffsrechte und seine Arbeitsbereiche. Dateien auf dem Rechner bleiben erhalten."
 
+msgctxt "file change"
 msgid "Deleting"
-msgstr "Wird gelöscht"
+msgstr "Lösche"
 
 #. placeholder {0}: Math.min(completed + 1, total)
 #. placeholder {1}: targets.length
@@ -6199,6 +6212,10 @@ msgstr "Kommentar bearbeiten…"
 msgid "Edited"
 msgstr "Bearbeitet"
 
+msgctxt "file change"
+msgid "Edited"
+msgstr "Bearbeitet"
+
 msgctxt "github release action"
 msgid "Edited"
 msgstr "Bearbeitet"
@@ -6208,6 +6225,10 @@ msgstr "Bearbeitet {ago}"
 
 msgid "Editing"
 msgstr "Bearbeitung"
+
+msgctxt "file change"
+msgid "Editing"
+msgstr "Bearbeite"
 
 msgid "Editing file..."
 msgstr "Datei wird bearbeitet..."

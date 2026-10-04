@@ -5131,6 +5131,10 @@ msgstr "已创建"
 msgid "Created"
 msgstr "创建时间"
 
+msgctxt "file change"
+msgid "Created"
+msgstr "已创建"
+
 msgctxt "github release action"
 msgid "Created"
 msgstr "已创建"
@@ -5184,6 +5188,10 @@ msgstr "已创建团队“{trimmedName}”"
 msgid "creating"
 msgstr "创建中"
 
+msgid "Creating"
+msgstr "创建中"
+
+msgctxt "file change"
 msgid "Creating"
 msgstr "创建中"
 
@@ -5555,6 +5563,10 @@ msgstr "删除工作区“{workspaceName}”？"
 msgid "Deleted"
 msgstr "已删除"
 
+msgctxt "file change"
+msgid "Deleted"
+msgstr "已删除"
+
 msgctxt "github release action"
 msgid "Deleted"
 msgstr "已删除"
@@ -5605,6 +5617,7 @@ msgstr "删除本机上的{0}配置文件、其已保存的登录以及本地Cod
 msgid "Deletes this host, its access, and its workspaces. Files on the machine stay."
 msgstr "删除该主机、其访问权限及其工作区。机器上的文件会保留。"
 
+msgctxt "file change"
 msgid "Deleting"
 msgstr "删除中"
 
@@ -6199,6 +6212,10 @@ msgstr "编辑你的评论…"
 msgid "Edited"
 msgstr "已编辑"
 
+msgctxt "file change"
+msgid "Edited"
+msgstr "已编辑"
+
 msgctxt "github release action"
 msgid "Edited"
 msgstr "已编辑"
@@ -6208,6 +6225,10 @@ msgstr "编辑于{ago}"
 
 msgid "Editing"
 msgstr "编辑"
+
+msgctxt "file change"
+msgid "Editing"
+msgstr "编辑中"
 
 msgid "Editing file..."
 msgstr "正在编辑文件..."

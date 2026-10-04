@@ -1,1 +1,6 @@
-export { fenceLanguage, fenceText, isDiffLanguage } from "./fencedCode";
+export {
+	fenceLanguage,
+	fenceText,
+	isDiffLanguage,
+	isSingleFilePatch,
+} from "./fencedCode";

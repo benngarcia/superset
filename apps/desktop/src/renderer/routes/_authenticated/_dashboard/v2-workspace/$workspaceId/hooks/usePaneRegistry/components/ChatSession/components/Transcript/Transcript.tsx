@@ -8,6 +8,7 @@ import type { ApprovalRequest, Decision } from "@superset/chat/protocol";
 import {
 	MessageScroller,
 	useMessageScroller,
+	useMessageScrollerScrollable,
 } from "@superset/chat-ui/MessageScroller";
 import { ScrollToBottomButton } from "@superset/chat-ui/ScrollToBottomButton";
 import { Badge } from "@superset/ui/badge";
@@ -82,7 +83,9 @@ function outboxText(entry: OutboxEntry): string {
 /**
  * The scroller follows the newest content while a turn runs and lets go the
  * moment the reader scrolls up, so a reply never lands below the fold
- * unnoticed; the button brings them back.
+ * unnoticed; the button brings them back. A jump to a message parks the
+ * scroller until the reader scrolls by hand, so the automatic moves go to
+ * the end, and only a request from the rail jumps.
  */
 export function Transcript(props: TranscriptProps) {
 	return (
@@ -109,6 +112,9 @@ function TranscriptBody({
 	const scroller = useMessageScroller();
 	const scrollerRef = useRef(scroller);
 	scrollerRef.current = scroller;
+	const scrollable = useMessageScrollerScrollable();
+	const awayFromEndRef = useRef(scrollable.end);
+	awayFromEndRef.current = scrollable.end;
 	const [entryOverrides, setEntryOverrides] = useState<
 		ReadonlyMap<string, boolean>
 	>(new Map());
@@ -134,11 +140,11 @@ function TranscriptBody({
 		return targets;
 	}, [approvals]);
 
-	const anchorItemId = latestUserItemId(groups);
+	const latestPromptId = latestUserItemId(groups);
 	useEffect(() => {
-		if (!anchorItemId) return;
-		scrollerRef.current.scrollToMessage(anchorItemId, { align: "start" });
-	}, [anchorItemId]);
+		if (!latestPromptId) return;
+		scrollerRef.current.scrollToEnd();
+	}, [latestPromptId]);
 
 	// On the request object rather than its fields: the nonce is what makes
 	// choosing the same message twice a second scroll, and a dependency list
@@ -151,9 +157,12 @@ function TranscriptBody({
 		});
 	}, [scrollRequest]);
 
+	// A card at the end is already in view when the reader is there; the jump
+	// is for a reader who scrolled up, and it leaves them parked where they
+	// chose to be.
 	const firstPendingApprovalId = approvals[0]?.id ?? null;
 	useEffect(() => {
-		if (!firstPendingApprovalId) return;
+		if (!firstPendingApprovalId || !awayFromEndRef.current) return;
 		scrollerRef.current.scrollToMessage(firstPendingApprovalId, {
 			align: "nearest",
 		});

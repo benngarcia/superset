@@ -4,10 +4,7 @@ import { DiffStatText } from "../../../../../../../../../../../../components/Dif
 import { useChatPaneActions } from "../../../../../../../../providers/ChatPaneActionsProvider";
 import { CopyButton } from "../../../../../../../CopyButton";
 import type { DiffStats } from "../../../../../../utils/diffStats";
-import {
-	type FileChangeKind,
-	fileName,
-} from "../../../../../../utils/fileChange";
+import { fileName } from "../../../../../../utils/fileChange";
 import { TruncateStart } from "./components/TruncateStart";
 
 function directoryOf(path: string, name: string): string {
@@ -19,12 +16,10 @@ function directoryOf(path: string, name: string): string {
  * name, where it lives, a copy of its path, and what the change cost.
  */
 export function DiffCardHeader({
-	kind,
 	path,
 	stats,
 }: {
 	path: string;
-	kind: FileChangeKind;
 	stats: DiffStats | null;
 }) {
 	const { t } = useLingui();
@@ -67,8 +62,8 @@ export function DiffCardHeader({
 			{stats && (
 				<span className="shrink-0 whitespace-nowrap font-mono text-xs tabular-nums">
 					<DiffStatText
-						additions={kind === "deleted" ? 0 : stats.additions}
-						deletions={kind === "added" ? 0 : stats.deletions}
+						additions={stats.additions}
+						deletions={stats.deletions}
 					/>
 				</span>
 			)}
