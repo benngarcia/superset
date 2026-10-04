@@ -169,8 +169,10 @@ export function AcpChatPane({
 		autoResumed.current = true;
 		resumingFrom.current = sessionId;
 		attaching.current = false;
-		void wiring.transport.closeSession({ sessionId }).catch(() => undefined);
-		void start(harness, agentSessionId);
+		void wiring.transport
+			.closeSession({ sessionId })
+			.catch(() => undefined)
+			.then(() => start(harness, agentSessionId));
 	}, [canResume, harness, agentSessionId, sessionId, start, wiring.transport]);
 
 	const resuming =
