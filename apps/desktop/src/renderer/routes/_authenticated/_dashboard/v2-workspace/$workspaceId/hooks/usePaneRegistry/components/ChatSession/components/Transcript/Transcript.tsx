@@ -103,13 +103,45 @@ export function Transcript({
 		});
 	}, [firstPendingApprovalId]);
 
+	const contentChildren = rows.map((row, index) => (
+		<MessageScroller.Item
+			className={cn(
+				REMEMBER_SIZE_CLASSNAME,
+				index < rows.length - RECENT_ROWS_RENDERED_IN_FULL &&
+					OFFSCREEN_CLASSNAME,
+				row.groupStart && index > 0 && "mt-2",
+			)}
+			key={row.key}
+			messageId={rowMessageId(row)}
+			scrollAnchor={row.key === anchorRowKey}
+		>
+			<TurnGroupSection
+				canForkToWorktree={canForkToWorktree}
+				isEntryCollapsed={isEntryCollapsed}
+				onDiscardPrompt={onDiscardPrompt}
+				onFork={onFork}
+				onRespond={onRespond}
+				onRetryPrompt={onRetryPrompt}
+				onToggleEntry={onToggleEntry}
+				row={row}
+				snapshot={snapshot}
+			/>
+		</MessageScroller.Item>
+	));
+	if (showsWorkingIndicator(groups)) {
+		const firstOutboxIndex = rows.findIndex((row) => row.kind === "outbox");
+		contentChildren.splice(
+			firstOutboxIndex === -1 ? rows.length : firstOutboxIndex,
+			0,
+			<WorkingIndicator key="working-indicator" />,
+		);
+	}
+
 	return (
-		// The viewport spans the pane so its bar sits at the edge; the gutter
-		// is reserved on both sides so the column centers on the same axis as
-		// the composer below it, scrollbar or not. The app disables selection
-		// on body; the transcript is text, so it opts back in. Rows are direct
-		// children of Content: the scroller reads anchors and prepends from
-		// them, so the load button sits outside it.
+		// The scroller reads anchors and prepends from Content's direct
+		// children, and pins only an anchor appended after the last one: the
+		// load button stays outside Content, and the working line sits before
+		// the prompts still sending.
 		<MessageScroller.Root className="relative flex min-h-0 min-w-0 flex-1 flex-col">
 			<MessageScroller.Viewport className="min-h-0 flex-1 overflow-y-auto px-6 [scrollbar-gutter:stable_both-edges]">
 				{hasOlder && (
@@ -120,32 +152,7 @@ export function Transcript({
 					</div>
 				)}
 				<MessageScroller.Content className="mx-auto flex w-full max-w-3xl select-text flex-col gap-4 px-6 py-6">
-					{rows.map((row, index) => (
-						<MessageScroller.Item
-							className={cn(
-								REMEMBER_SIZE_CLASSNAME,
-								index < rows.length - RECENT_ROWS_RENDERED_IN_FULL &&
-									OFFSCREEN_CLASSNAME,
-								row.groupStart && index > 0 && "mt-2",
-							)}
-							key={row.key}
-							messageId={rowMessageId(row)}
-							scrollAnchor={row.key === anchorRowKey}
-						>
-							<TurnGroupSection
-								canForkToWorktree={canForkToWorktree}
-								isEntryCollapsed={isEntryCollapsed}
-								onDiscardPrompt={onDiscardPrompt}
-								onFork={onFork}
-								onRespond={onRespond}
-								onRetryPrompt={onRetryPrompt}
-								onToggleEntry={onToggleEntry}
-								row={row}
-								snapshot={snapshot}
-							/>
-						</MessageScroller.Item>
-					))}
-					{showsWorkingIndicator(groups) && <WorkingIndicator />}
+					{contentChildren}
 				</MessageScroller.Content>
 			</MessageScroller.Viewport>
 			<div className="pointer-events-none absolute inset-x-0 bottom-3 flex justify-center">

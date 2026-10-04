@@ -197,11 +197,6 @@ export function SessionView({
 					)}
 				</div>
 			) : (
-				// The rail floats over the transcript's left margin instead of
-				// taking a column, so the transcript and the composer center on the
-				// same axis whether or not the rail is showing. The rail and the
-				// transcript share one scroller, so a rail click scrolls it and
-				// the rail marks the turns on screen.
 				<MessageScroller.Provider
 					autoScroll
 					defaultScrollPosition="end"

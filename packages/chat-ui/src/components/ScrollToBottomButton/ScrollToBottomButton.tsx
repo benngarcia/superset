@@ -1,9 +1,9 @@
 "use client";
 
 import { useLingui } from "@lingui/react/macro";
-import { MessageScroller } from "../MessageScroller";
 import { cn } from "@superset/ui/utils";
 import { ArrowDownIcon } from "lucide-react";
+import { MessageScroller } from "../MessageScroller";
 
 export type ScrollToBottomButtonProps = {
 	className?: string;

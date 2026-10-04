@@ -61,11 +61,9 @@ export function useStickyBottomScroll({
 	const lastScrollAtRef = useRef(0);
 	const firstScrollRef = useRef(true);
 	const wasStreamingRef = useRef(streaming);
+	const followedStreamRef = useRef(streaming);
 	const maxOffsetRef = useRef(0);
 
-	// A pane narrowing or a diff finishing its layout grows the content with
-	// no new chunk to re-pin on, so a size change pins while still following,
-	// including the final layout after the stream ends.
 	useEffect(() => {
 		const element = scrollRef.current;
 		if (!element) return;
@@ -73,7 +71,7 @@ export function useStickyBottomScroll({
 		if (typeof ResizeObserver === "undefined") return;
 		const observer = new ResizeObserver(() => {
 			maxOffsetRef.current = maxScrollOffset(element);
-			if (stickRef.current) {
+			if (followedStreamRef.current && stickRef.current) {
 				element.scrollTop = maxOffsetRef.current;
 			}
 		});
@@ -86,6 +84,7 @@ export function useStickyBottomScroll({
 	useEffect(() => {
 		const wasStreaming = wasStreamingRef.current;
 		wasStreamingRef.current = streaming;
+		if (streaming) followedStreamRef.current = true;
 		if (!streaming && !wasStreaming) return;
 		const element = scrollRef.current;
 		if (!element || !stickRef.current) return;
