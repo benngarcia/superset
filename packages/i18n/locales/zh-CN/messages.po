@@ -3405,9 +3405,6 @@ msgstr "选择父目录"
 msgid "Choose a project from GitHub issues before opening an issue."
 msgstr "打开议题前，请先在GitHub议题中选择一个项目。"
 
-msgid "Choose a project from Pull requests before opening a pull request."
-msgstr "开拉取请求之前，请先在“拉取请求”里选择一个项目。"
-
 msgid "Choose a section."
 msgstr "选择一个分区。"
 
@@ -12354,9 +12351,6 @@ msgstr "拉取请求#{0}，{1}"
 
 msgid "Pull request actions"
 msgstr "拉取请求操作"
-
-msgid "Pull request not found."
-msgstr "未找到拉取请求。"
 
 msgid "Pull request title"
 msgstr "拉取请求标题"

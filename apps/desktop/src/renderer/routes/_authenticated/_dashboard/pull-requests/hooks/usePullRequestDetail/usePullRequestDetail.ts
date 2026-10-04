@@ -1,11 +1,13 @@
 import type { RouterOutputs } from "@superset/trpc";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
-import { getHostServiceClientByUrl } from "renderer/lib/host-service-client";
+import { useHostProjects } from "renderer/hooks/host-projects/useHostProjects";
+import { useActiveOrganizationId } from "renderer/hooks/useActiveOrganizationId";
 import { electronQueryClient } from "renderer/providers/ElectronTRPCProvider/ElectronTRPCProvider";
 import { DASHBOARD_SIDEBAR_PULL_REQUEST_QUERY_KEY_PREFIX } from "renderer/routes/_authenticated/_dashboard/components/DashboardSidebar/hooks/useDashboardSidebarData/derivePullRequestQueryTargets";
 import { V2_WORKSPACES_PULL_REQUEST_QUERY_KEY_PREFIX } from "renderer/routes/_authenticated/_dashboard/v2-workspaces/hooks/useAccessibleV2Workspaces/useAccessibleV2Workspaces";
-import { fromHostPullRequestContent } from "../../utils/fromHostPullRequestContent";
+import { resolvePullRequestTarget } from "../../utils/resolvePullRequestTarget";
+import { fetchPullRequestDetail } from "./utils/fetchPullRequestDetail";
 
 export type PullRequestDetail =
 	RouterOutputs["integration"]["github"]["getPullRequest"];
@@ -24,32 +26,49 @@ function pullRequestDetailQueryKey({
 	return ["pull-request-detail", projectId, hostUrl, prNumber] as const;
 }
 
-/**
- * The PR's GitHub content (title, body, state, checks) for the detail
- * header and summary. Shared by the Pull requests page and the workspace's
- * pull-request pane, so both stay on one cache entry per PR.
- */
 export function usePullRequestDetail({
 	projectId,
 	hostUrl,
 	prNumber,
+	repoFullName,
 	enabled = true,
-}: PullRequestDetailKey & { enabled?: boolean }) {
-	return useQuery({
-		queryKey: pullRequestDetailQueryKey({ projectId, hostUrl, prNumber }),
-		queryFn: async () => {
-			if (!hostUrl || !projectId || prNumber === null) return null;
-			const client = getHostServiceClientByUrl(hostUrl);
-			const content = await client.pullRequests.getContent.query({
-				projectId,
+}: PullRequestDetailKey & { repoFullName?: string | null; enabled?: boolean }) {
+	const organizationId = useActiveOrganizationId();
+	const { projects, isReady } = useHostProjects();
+	const target = resolvePullRequestTarget({
+		projectId,
+		repoFullName,
+		projects,
+	});
+
+	const query = useQuery({
+		queryKey: [
+			...pullRequestDetailQueryKey({
+				projectId: target.projectId,
+				hostUrl,
+				prNumber,
+			}),
+			organizationId,
+			target.repoFullName,
+		],
+		queryFn: () => {
+			if (prNumber === null) throw new Error("Invalid pull request number");
+			return fetchPullRequestDetail({
+				...target,
+				hostUrl,
+				organizationId,
 				prNumber,
 			});
-			return fromHostPullRequestContent(content);
 		},
-		enabled: enabled && !!hostUrl && !!projectId && prNumber !== null,
+		enabled: enabled && !!target.repoFullName && prNumber !== null,
 		staleTime: 30_000,
 		gcTime: 10 * 60_000,
 	});
+	return {
+		...query,
+		...target,
+		isLoading: query.isLoading || (!isReady && !target.repoFullName),
+	};
 }
 
 /**

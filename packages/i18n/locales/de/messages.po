@@ -3405,9 +3405,6 @@ msgstr "Übergeordnetes Verzeichnis wählen"
 msgid "Choose a project from GitHub issues before opening an issue."
 msgstr "Wähle unter GitHub-Issues ein Projekt, bevor du ein Issue öffnest."
 
-msgid "Choose a project from Pull requests before opening a pull request."
-msgstr "Wähle unter Pull Requests ein Projekt, bevor du einen Pull Request öffnest."
-
 msgid "Choose a section."
 msgstr "Wähle einen Bereich."
 
@@ -12354,9 +12351,6 @@ msgstr "Pull Request #{0}, {1}"
 
 msgid "Pull request actions"
 msgstr "Pull-Request-Aktionen"
-
-msgid "Pull request not found."
-msgstr "Pull Request nicht gefunden."
 
 msgid "Pull request title"
 msgstr "Titel des Pull Requests"

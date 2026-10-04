@@ -3405,9 +3405,6 @@ msgstr "Choose a parent directory"
 msgid "Choose a project from GitHub issues before opening an issue."
 msgstr "Choose a project from GitHub issues before opening an issue."
 
-msgid "Choose a project from Pull requests before opening a pull request."
-msgstr "Choose a project from Pull requests before opening a pull request."
-
 msgid "Choose a section."
 msgstr "Choose a section."
 
@@ -12354,9 +12351,6 @@ msgstr "Pull request #{0}, {1}"
 
 msgid "Pull request actions"
 msgstr "Pull request actions"
-
-msgid "Pull request not found."
-msgstr "Pull request not found."
 
 msgid "Pull request title"
 msgstr "Pull request title"

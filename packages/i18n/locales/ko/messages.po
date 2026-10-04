@@ -3405,9 +3405,6 @@ msgstr "상위 디렉터리 선택"
 msgid "Choose a project from GitHub issues before opening an issue."
 msgstr "이슈를 열기 전에 GitHub 이슈 화면에서 프로젝트를 선택하세요."
 
-msgid "Choose a project from Pull requests before opening a pull request."
-msgstr "풀 리퀘스트를 열기 전에 풀 리퀘스트 화면에서 프로젝트를 선택하세요."
-
 msgid "Choose a section."
 msgstr "섹션을 선택하세요."
 
@@ -12354,9 +12351,6 @@ msgstr "풀 리퀘스트 #{0}, {1}"
 
 msgid "Pull request actions"
 msgstr "풀 리퀘스트 작업"
-
-msgid "Pull request not found."
-msgstr "풀 리퀘스트를 찾을 수 없습니다."
 
 msgid "Pull request title"
 msgstr "풀 리퀘스트 제목"

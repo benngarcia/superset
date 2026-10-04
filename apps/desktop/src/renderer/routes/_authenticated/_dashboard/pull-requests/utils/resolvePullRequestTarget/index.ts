@@ -1,0 +1,1 @@
+export { resolvePullRequestTarget } from "./resolvePullRequestTarget";

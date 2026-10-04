@@ -3405,9 +3405,6 @@ msgstr "Pilih direktori induk"
 msgid "Choose a project from GitHub issues before opening an issue."
 msgstr "Pilih proyek dari issue GitHub sebelum membuka sebuah issue."
 
-msgid "Choose a project from Pull requests before opening a pull request."
-msgstr "Pilih proyek dari Pull request sebelum membuka pull request."
-
 msgid "Choose a section."
 msgstr "Pilih sebuah bagian."
 
@@ -12354,9 +12351,6 @@ msgstr "Pull request #{0}, {1}"
 
 msgid "Pull request actions"
 msgstr "Aksi pull request"
-
-msgid "Pull request not found."
-msgstr "Pull request tidak ditemukan."
 
 msgid "Pull request title"
 msgstr "Judul pull request"

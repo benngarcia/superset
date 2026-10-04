@@ -3405,9 +3405,6 @@ msgstr "選擇父目錄"
 msgid "Choose a project from GitHub issues before opening an issue."
 msgstr "開啟議題前，請先在GitHub議題中選擇一個專案。"
 
-msgid "Choose a project from Pull requests before opening a pull request."
-msgstr "開拉取請求之前，請先在「拉取請求」裡選擇一個專案。"
-
 msgid "Choose a section."
 msgstr "選擇一個分區。"
 
@@ -12354,9 +12351,6 @@ msgstr "拉取請求#{0}，{1}"
 
 msgid "Pull request actions"
 msgstr "拉取請求操作"
-
-msgid "Pull request not found."
-msgstr "未找到拉取請求。"
 
 msgid "Pull request title"
 msgstr "拉取請求標題"

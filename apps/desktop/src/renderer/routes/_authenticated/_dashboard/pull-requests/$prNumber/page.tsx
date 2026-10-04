@@ -4,16 +4,13 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useHostUrl } from "renderer/hooks/host-service/useHostTargetUrl";
 import { PageHeader } from "renderer/routes/_authenticated/_dashboard/components/PageHeader";
-import { WorkItemDetailState } from "renderer/routes/_authenticated/_dashboard/components/WorkItemDetailState";
 import { useProjectHost } from "renderer/routes/_authenticated/_dashboard/hooks/useProjectHost";
+import { PullRequestDetailContent } from "renderer/routes/_authenticated/_dashboard/pull-requests/components/PullRequestDetailContent";
 import { PullRequestDetailHeader } from "renderer/routes/_authenticated/_dashboard/pull-requests/components/PullRequestDetailHeader";
 import { PullRequestListToggle } from "renderer/routes/_authenticated/_dashboard/pull-requests/components/PullRequestListToggle";
-import { PullRequestSummaryContent } from "renderer/routes/_authenticated/_dashboard/pull-requests/components/PullRequestSummaryContent";
 import { usePullRequestDetail } from "renderer/routes/_authenticated/_dashboard/pull-requests/hooks/usePullRequestDetail";
-import { resolvePullRequestDetail } from "renderer/routes/_authenticated/_dashboard/pull-requests/utils/resolvePullRequestDetail";
 import { parsePositiveIntegerParam } from "renderer/routes/_authenticated/_dashboard/utils/parsePositiveIntegerParam";
 import { Route as PullRequestsLayoutRoute } from "../layout";
-import { PullRequestCodeTab } from "./components/PullRequestCodeTab";
 
 export const Route = createFileRoute(
 	"/_authenticated/_dashboard/pull-requests/$prNumber/",
@@ -43,19 +40,15 @@ function PullRequestDetailPage() {
 	const prNumber = parsePositiveIntegerParam(prNumberRaw);
 	const search = PullRequestsLayoutRoute.useSearch();
 	const projectId = search.project ?? null;
-	const {
-		hostId,
-		isReady: areProjectsReady,
-		project,
-	} = useProjectHost(projectId);
-	const hostUrl = useHostUrl(hostId ?? undefined);
+	const { hostId } = useProjectHost(projectId);
+	const hostUrl = useHostUrl(hostId);
 	const [activeTab, setActiveTab] = useState<DetailTab>("summary");
 
-	const { data, isLoading, error, refetch } = usePullRequestDetail({
+	const detail = usePullRequestDetail({
 		projectId,
 		hostUrl,
 		prNumber,
-		enabled: !!project,
+		repoFullName: search.repo,
 	});
 
 	// The list pane is always visible in the split view (or reachable via the
@@ -90,67 +83,28 @@ function PullRequestDetailPage() {
 				}
 			/>
 			<PullRequestDetailHeader
-				projectId={projectId}
+				projectId={detail.projectId}
 				hostId={hostId}
 				hostUrl={hostUrl}
 				prNumber={prNumber}
-				data={data}
-				isLoading={isLoading}
+				data={detail.data}
+				isLoading={detail.isLoading}
 			/>
 		</div>
 	);
 
-	const resolved = resolvePullRequestDetail({
-		prNumber,
-		projectId,
-		areProjectsReady,
-		hasProject: !!project,
-		hostUrl,
-		isLoading,
-		error,
-		data,
-		refetch: () => void refetch(),
-	});
-
-	if (resolved.status === "fallback") {
-		return (
-			<div className="flex min-h-0 flex-1 flex-col">
-				{header}
-				<WorkItemDetailState
-					message={resolved.message}
-					isLoading={resolved.isLoading}
-					isError={resolved.isError}
-					onRetry={resolved.onRetry}
-				/>
-			</div>
-		);
-	}
-
 	return (
 		<div className="@container flex min-h-0 flex-1 flex-col">
 			{header}
-			{/* Kept mounted (hidden via CSS, not unmounted) so Radix's
-			 *  ScrollArea instance survives a tab switch and away — swapping
-			 *  it out of a ternary would reset scrollTop every time the
-			 *  reviewer comes back from the Code tab. The Code tab itself
-			 *  still mounts/unmounts with the ternary below: it isn't a
-			 *  simple scroll container (its own virtualized diff viewer
-			 *  manages scrolling internally), and keeping its polling/agent
-			 *  subscriptions alive while hidden isn't worth the tradeoff. */}
-			<div
-				className={cn("min-h-0 flex-1", activeTab !== "summary" && "hidden")}
-			>
-				<PullRequestSummaryContent data={resolved.data} />
-			</div>
-			{activeTab === "code" && (
-				<PullRequestCodeTab
-					projectId={resolved.projectId}
-					prNumber={resolved.data.number}
-					prUrl={resolved.data.url}
-					hostUrl={resolved.hostUrl}
-					hostId={hostId}
-				/>
-			)}
+			<PullRequestDetailContent
+				activeTab={activeTab}
+				detail={detail}
+				projectId={detail.projectId}
+				repoFullName={detail.repoFullName}
+				prNumber={prNumber}
+				hostUrl={hostUrl}
+				hostId={hostId}
+			/>
 		</div>
 	);
 }

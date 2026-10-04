@@ -1,10 +1,8 @@
-import { db } from "@superset/db/client";
-import { githubInstallations, githubRepositories } from "@superset/db/schema";
-import { and, eq, sql } from "drizzle-orm";
 import { z } from "zod";
 import { installationOctokit } from "../../../lib/sandbox/clone-token";
-import { protectedProcedure, userError } from "../../../trpc";
+import { protectedProcedure } from "../../../trpc";
 import { verifyOrgMembership } from "../utils";
+import { findInstalledRepository } from "./find-installed-repository";
 
 export const getPullRequestDiff = protectedProcedure
 	.input(
@@ -16,31 +14,10 @@ export const getPullRequestDiff = protectedProcedure
 	)
 	.query(async ({ ctx, input }) => {
 		await verifyOrgMembership(ctx.session.user.id, input.organizationId);
-		const installation = await db.query.githubInstallations.findFirst({
-			where: eq(githubInstallations.organizationId, input.organizationId),
-		});
-		if (!installation) {
-			throw userError({
-				code: "PRECONDITION_FAILED",
-				message: "GitHub installation not found",
-				i18nKey: "serverError.integration.githubInstallationNotFound",
-			});
-		}
-		const repo = await db.query.githubRepositories.findFirst({
-			where: and(
-				eq(githubRepositories.installationId, installation.id),
-				sql`lower(${githubRepositories.fullName}) = ${input.repoFullName.toLowerCase()}`,
-			),
-			columns: { fullName: true },
-		});
-		if (!repo) {
-			throw userError({
-				code: "NOT_FOUND",
-				message: `${input.repoFullName} is not a repository the GitHub App is installed on`,
-				i18nKey: "serverError.integration.repositoryNotInstalled",
-				params: { repoFullName: input.repoFullName },
-			});
-		}
+		const { installation, repo } = await findInstalledRepository(
+			input.organizationId,
+			input.repoFullName,
+		);
 		const [owner, name] = repo.fullName.split("/");
 		const octokit = await installationOctokit(installation.installationId);
 		const { data } = await octokit.request(

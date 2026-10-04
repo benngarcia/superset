@@ -3405,9 +3405,6 @@ msgstr "親ディレクトリを選択"
 msgid "Choose a project from GitHub issues before opening an issue."
 msgstr "issueを開く前に、GitHub issueでプロジェクトを選択してください。"
 
-msgid "Choose a project from Pull requests before opening a pull request."
-msgstr "プルリクエストを作成する前に、プルリクエスト画面でプロジェクトを選んでください。"
-
 msgid "Choose a section."
 msgstr "セクションを選んでください。"
 
@@ -12354,9 +12351,6 @@ msgstr "プルリクエスト#{0}、{1}"
 
 msgid "Pull request actions"
 msgstr "プルリクエストの操作"
-
-msgid "Pull request not found."
-msgstr "プルリクエストが見つかりません。"
 
 msgid "Pull request title"
 msgstr "プルリクエストのタイトル"

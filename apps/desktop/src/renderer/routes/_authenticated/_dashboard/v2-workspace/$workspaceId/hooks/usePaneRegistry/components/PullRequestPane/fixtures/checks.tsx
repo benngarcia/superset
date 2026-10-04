@@ -9,7 +9,7 @@ let detail = {
 	data: undefined,
 	error: null as Error | null,
 	isLoading: false,
-	isFromHost: false,
+	projectId: null as string | null,
 	refetch: mock(),
 };
 const root = "renderer/routes/_authenticated/_dashboard";
@@ -72,7 +72,7 @@ for (const state of ["loading", "error"] as const) {
 	test(`Code loads by PR identity while Summary is ${state}`, () => {
 		detail = {
 			...detail,
-			isFromHost: false,
+			projectId: null as string | null,
 			isLoading: state === "loading",
 			error: state === "error" ? new Error("GitHub App unavailable") : null,
 		};
@@ -98,7 +98,12 @@ for (const state of ["loading", "error"] as const) {
 }
 
 test("matching projects retain project actions even while Summary loads", () => {
-	detail = { ...detail, isFromHost: true, isLoading: true, error: null };
+	detail = {
+		...detail,
+		projectId: "project",
+		isLoading: true,
+		error: null,
+	};
 	const view = render(
 		<PullRequestPane
 			data={{ repoFullName: "owner/repo", number: 12 }}

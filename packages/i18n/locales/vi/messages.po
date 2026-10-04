@@ -3405,9 +3405,6 @@ msgstr "Chọn một thư mục cha"
 msgid "Choose a project from GitHub issues before opening an issue."
 msgstr "Chọn một dự án trong mục Issue GitHub trước khi mở một issue."
 
-msgid "Choose a project from Pull requests before opening a pull request."
-msgstr "Chọn một dự án trong mục Pull request trước khi mở pull request."
-
 msgid "Choose a section."
 msgstr "Chọn một mục."
 
@@ -12354,9 +12351,6 @@ msgstr "Pull request #{0}, {1}"
 
 msgid "Pull request actions"
 msgstr "Hành động pull request"
-
-msgid "Pull request not found."
-msgstr "Không tìm thấy pull request."
 
 msgid "Pull request title"
 msgstr "Tiêu đề pull request"

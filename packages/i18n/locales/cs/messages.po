@@ -3405,9 +3405,6 @@ msgstr "Vyberte nadřazený adresář"
 msgid "Choose a project from GitHub issues before opening an issue."
 msgstr "Než otevřete issue, vyberte projekt v sekci GitHub issues."
 
-msgid "Choose a project from Pull requests before opening a pull request."
-msgstr "Než otevřete pull request, vyberte projekt v sekci Pull requesty."
-
 msgid "Choose a section."
 msgstr "Vyberte sekci."
 
@@ -12354,9 +12351,6 @@ msgstr "Pull request #{0}, {1}"
 
 msgid "Pull request actions"
 msgstr "Akce pull requestu"
-
-msgid "Pull request not found."
-msgstr "Pull request nenalezen."
 
 msgid "Pull request title"
 msgstr "Název pull requestu"
