@@ -16964,10 +16964,10 @@ msgid "Turn chores into scheduled agents: issue triage, changelog drafts, depend
 msgstr "Mach aus Fleißarbeit geplante Agenten: Issue-Triage, Changelog-Entwürfe, Abhängigkeits-Updates. Sie laufen von allein und öffnen PRs für dein Review."
 
 msgid "Turn failed"
-msgstr "Zug fehlgeschlagen"
+msgstr "Durchlauf fehlgeschlagen"
 
 msgid "Turn failed: {message}"
-msgstr "Zug fehlgeschlagen: {message}"
+msgstr "Durchlauf fehlgeschlagen: {message}"
 
 msgid "Turn on “Allow remote access to this device via relay”"
 msgstr "Aktiviere „Fernzugriff auf dieses Gerät über den Relay erlauben“"

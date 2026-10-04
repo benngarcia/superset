@@ -52,6 +52,8 @@ export type ClaudeSession = AsyncIterable<unknown> & {
 export const CLAUDE_MODES = [
 	{ id: "default", label: "Ask for approval" },
 	{ id: "acceptEdits", label: "Approve edits" },
+	{ id: "auto", label: "Approve for me" },
+	{ id: "plan", label: "Plan" },
 	{ id: "bypassPermissions", label: "Full access" },
 ] as const satisfies readonly { id: ClaudePermissionMode; label: string }[];
 

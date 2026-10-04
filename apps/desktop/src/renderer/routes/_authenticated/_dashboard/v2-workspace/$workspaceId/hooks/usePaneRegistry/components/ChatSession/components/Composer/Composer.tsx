@@ -142,6 +142,11 @@ export const Composer = memo(function Composer({
 		[draftKey],
 	);
 
+	const [seed, setSeed] = useState(() => ({
+		draftKey,
+		text: window.localStorage.getItem(draftKey) ?? undefined,
+	}));
+
 	const handleSubmit = useCallback(
 		async ({ text, files }: { text: string; files: File[] }) => {
 			if (disabled || (text.trim() === "" && files.length === 0)) return;
@@ -194,10 +199,6 @@ export const Composer = memo(function Composer({
 		[t],
 	);
 
-	const [seed, setSeed] = useState(() => ({
-		draftKey,
-		text: window.localStorage.getItem(draftKey) ?? undefined,
-	}));
 	const storedDraft =
 		seed.draftKey === draftKey
 			? seed.text

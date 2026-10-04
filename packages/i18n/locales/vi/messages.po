@@ -15243,7 +15243,7 @@ msgid "Stay connected (refresh tokens)"
 msgstr "Duy trì kết nối (refresh token)"
 
 msgid "Steer"
-msgstr "Điều hướng"
+msgstr "Dừng và gửi"
 
 #. placeholder {0}: step === "workspace" ? 1 : 2
 msgid "Step {0} of 2"

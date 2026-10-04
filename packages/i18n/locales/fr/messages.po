@@ -2446,7 +2446,7 @@ msgid "Ask for this to be removed"
 msgstr "Demander la suppression"
 
 msgid "Ask only for actions that look risky"
-msgstr "Demander uniquement pour les actions qui semblent risquées"
+msgstr "Demander une approbation uniquement pour les actions qui semblent risquées"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "Demandez à l'agent, @mentionnez des fichiers, lancez des /commandes"
@@ -12636,7 +12636,7 @@ msgid "Read and plan without changing anything"
 msgstr "Lire et planifier sans rien modifier"
 
 msgid "Read files; ask for anything else"
-msgstr "Lire les fichiers ; demander pour tout le reste"
+msgstr "Lire les fichiers ; demander une approbation pour tout le reste"
 
 msgid "Read only"
 msgstr "Lecture seule"

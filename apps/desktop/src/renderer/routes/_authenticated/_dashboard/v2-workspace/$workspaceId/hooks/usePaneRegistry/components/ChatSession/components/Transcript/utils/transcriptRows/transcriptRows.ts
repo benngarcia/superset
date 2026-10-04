@@ -74,7 +74,7 @@ export function transcriptRows(
 			}
 			push({
 				kind: "tool_run",
-				key: `tools:${group.turnId}:${index}`,
+				key: `tools:${group.turnId}:${entry.items[0]?.id ?? index}`,
 				groupStart,
 				items: entry.items,
 				defaultCollapsed:
