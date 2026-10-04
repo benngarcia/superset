@@ -231,6 +231,7 @@ export const Composer = memo(function Composer({
 			)}
 			<AgentComposer
 				className="mx-auto w-full max-w-3xl"
+				clearOnSubmit={!disabled}
 				commands={commands}
 				defaultValue={storedDraft}
 				key={draftKey}
