@@ -168,4 +168,29 @@ describe("ClaudeAdapter permission modes", () => {
 		adapter.setMode("not-a-mode");
 		expect(modes).toEqual(["bypassPermissions", "default"]);
 	});
+
+	test("reports the previous mode again when the session rejects a switch", async () => {
+		const stream: ClaudeSession = {
+			async *[Symbol.asyncIterator]() {
+				await new Promise(() => undefined);
+			},
+			setPermissionMode: async () => {
+				throw new Error("rejected");
+			},
+		};
+		const adapter = new ClaudeAdapter({ query: () => stream });
+		const iterator = adapter
+			.start({ cwd: "/workspace", modeId: "default" })
+			[Symbol.asyncIterator]();
+		await iterator.next();
+		await Bun.sleep(0);
+
+		adapter.setMode("bypassPermissions");
+		const switched = await iterator.next();
+		const reverted = await iterator.next();
+		expect(switched.value).toMatchObject({
+			session: { modeId: "bypassPermissions" },
+		});
+		expect(reverted.value).toMatchObject({ session: { modeId: "default" } });
+	});
 });

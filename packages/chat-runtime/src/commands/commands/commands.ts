@@ -180,7 +180,9 @@ export function createCommands(options: CommandsOptions): ChatCommands {
 		cancelTurn(input) {
 			const parsed: CancelTurnInput = cancelTurnInputSchema.parse(input);
 			options.dedupe.run(`cancelTurn:${parsed.commandId}`, () => {
-				options.live.require(parsed.sessionId).cancelTurn(parsed.turnId);
+				options.live
+					.require(parsed.sessionId)
+					.cancelTurn(parsed.turnId, parsed.pauseQueue);
 			});
 		},
 

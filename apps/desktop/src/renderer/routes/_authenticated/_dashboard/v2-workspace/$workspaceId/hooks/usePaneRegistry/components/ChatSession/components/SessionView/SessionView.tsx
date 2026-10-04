@@ -60,10 +60,7 @@ export function SessionView({
 	const session = useChatSession({ client });
 	const timeline = useTimeline(session.snapshot);
 	const rail = useStableList(
-		useMemo(
-			() => railMessages(timeline, session.snapshot),
-			[timeline, session.snapshot],
-		),
+		useMemo(() => railMessages(timeline), [timeline]),
 		(previous, next) =>
 			previous.id === next.id &&
 			previous.role === next.role &&
@@ -153,13 +150,17 @@ export function SessionView({
 		[sendPrompt],
 	);
 	const onCancelTurn = useMemo(
-		() => (runningTurnId ? () => void cancelTurn(runningTurnId) : null),
+		() =>
+			runningTurnId
+				? () => void cancelTurn(runningTurnId, { pauseQueue: true })
+				: null,
 		[runningTurnId, cancelTurn],
 	);
 	const promptQueue = useMemo(
 		() => ({
 			prompts: queuedPrompts,
 			paused: sessionState?.queuePaused === true,
+			actionable: sessionState?.queueControls === true,
 			remove: session.removeQueuedPrompt,
 			resume: session.resumeQueue,
 			steer: session.steerQueuedPrompt,
@@ -167,6 +168,7 @@ export function SessionView({
 		[
 			queuedPrompts,
 			sessionState?.queuePaused,
+			sessionState?.queueControls,
 			session.removeQueuedPrompt,
 			session.resumeQueue,
 			session.steerQueuedPrompt,

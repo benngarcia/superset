@@ -56,7 +56,7 @@ function withoutQueued(item: UserMessage): UserMessage {
 export class LiveSession {
 	private readonly queue: PendingPrompt[] = [];
 	private awaitingTurn: PendingPrompt | null = null;
-	private cancelOnTurnStart = false;
+	private steerTarget: string | null = null;
 	private queuePaused = false;
 	private sessionState: SessionState;
 	private currentTurn: Turn | null = null;
@@ -84,7 +84,7 @@ export class LiveSession {
 	}
 
 	start(startOptions: HarnessStartOptions): void {
-		this.emitSession({ status: "starting" });
+		this.emitSession({ status: "starting", queueControls: true });
 		this.pump = this.run(this.options.adapter.start(startOptions)).catch(
 			(error: unknown) => {
 				try {
@@ -122,11 +122,8 @@ export class LiveSession {
 		const index = this.requireQueuedIndex(itemId);
 		const [removed] = this.queue.splice(index, 1);
 		if (!removed) return;
-		this.appendDurable({
-			type: "item",
-			item: { ...withoutQueued(removed.item), discarded: true },
-			turnId: removed.turnId,
-		});
+		if (this.steerTarget === itemId) this.steerTarget = null;
+		this.discard(removed);
 		this.unpauseIfEmpty();
 	}
 
@@ -140,9 +137,10 @@ export class LiveSession {
 			this.emitSession({ queuePaused: false });
 		}
 		if (this.currentTurn?.status === "running") {
+			this.steerTarget = steered.item.id;
 			this.options.adapter.cancelTurn();
 		} else if (this.awaitingTurn) {
-			this.cancelOnTurnStart = true;
+			this.steerTarget = steered.item.id;
 		} else {
 			this.queue.shift();
 			this.deliver(steered);
@@ -170,9 +168,11 @@ export class LiveSession {
 		}
 	}
 
-	cancelTurn(turnId?: string): void {
+	cancelTurn(turnId?: string, pauseQueue = false): void {
 		if (turnId && this.currentTurn && this.currentTurn.id !== turnId) return;
-		if (this.queue.length > 0 && !this.queuePaused) {
+		const steering =
+			this.steerTarget !== null && this.queue[0]?.item.id === this.steerTarget;
+		if (pauseQueue && !steering && this.queue.length > 0 && !this.queuePaused) {
 			this.queuePaused = true;
 			this.emitSession({ queuePaused: true });
 		}
@@ -203,6 +203,7 @@ export class LiveSession {
 
 	async dispose(): Promise<void> {
 		this.stopped = true;
+		this.discardPending();
 		await this.options.adapter.dispose();
 		await this.pump;
 	}
@@ -228,8 +229,9 @@ export class LiveSession {
 				this.appendDurable({ type: "turn", turn: event.turn });
 				if (event.turn.status === "running") {
 					this.attributeAwaitingPrompt(event.turn.id);
-					if (this.cancelOnTurnStart) {
-						this.cancelOnTurnStart = false;
+					const steered = this.steerTarget;
+					this.steerTarget = null;
+					if (steered && this.queue[0]?.item.id === steered) {
 						this.options.adapter.cancelTurn();
 					}
 				} else {
@@ -268,6 +270,7 @@ export class LiveSession {
 			this.options.adapter.prompt(prompt.content);
 		} catch (error) {
 			this.awaitingTurn = null;
+			if (prompt.item.queued) this.discard(prompt);
 			throw error;
 		}
 	}
@@ -284,8 +287,7 @@ export class LiveSession {
 			};
 			this.appendDurable({ type: "turn", turn: this.currentTurn });
 		}
-		this.queue.length = 0;
-		this.awaitingTurn = null;
+		this.discardPending();
 		this.appendDurable({
 			type: "item",
 			item: {
@@ -299,6 +301,25 @@ export class LiveSession {
 			turnId: turn?.id ?? this.mintId(),
 		});
 		this.emitSession({ status: "dead" });
+	}
+
+	private discard(prompt: PendingPrompt): void {
+		this.appendDurable({
+			type: "item",
+			item: { ...withoutQueued(prompt.item), discarded: true },
+			turnId: prompt.turnId,
+		});
+	}
+
+	private discardPending(): void {
+		const pending = [
+			...(this.awaitingTurn?.item.queued ? [this.awaitingTurn] : []),
+			...this.queue,
+		];
+		this.queue.length = 0;
+		this.awaitingTurn = null;
+		this.steerTarget = null;
+		for (const prompt of pending) this.discard(prompt);
 	}
 
 	private requireQueuedIndex(itemId: string): number {

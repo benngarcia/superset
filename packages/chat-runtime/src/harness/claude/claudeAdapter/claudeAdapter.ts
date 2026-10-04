@@ -288,9 +288,15 @@ export class ClaudeAdapter implements HarnessAdapter {
 	}
 
 	setMode(modeId: string): void {
-		this.modeId = claudeMode(modeId);
-		void this.session?.setPermissionMode?.(this.modeId).catch(() => undefined);
-		this.events.push({ kind: "session", session: { modeId: this.modeId } });
+		const previous = this.modeId;
+		const next = claudeMode(modeId);
+		this.modeId = next;
+		this.events.push({ kind: "session", session: { modeId: next } });
+		void this.session?.setPermissionMode?.(next).catch(() => {
+			if (this.modeId !== next) return;
+			this.modeId = previous;
+			this.events.push({ kind: "session", session: { modeId: previous } });
+		});
 	}
 
 	async dispose(): Promise<void> {

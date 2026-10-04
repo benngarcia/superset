@@ -58,6 +58,7 @@ export const sessionStateSchema = z.looseObject({
 	 */
 	harnessSessionId: z.string().optional(),
 	queuePaused: z.boolean().optional(),
+	queueControls: z.boolean().optional(),
 });
 export type SessionState = z.infer<typeof sessionStateSchema>;
 

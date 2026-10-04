@@ -2357,10 +2357,10 @@ msgid "Approve"
 msgstr "批准"
 
 msgid "Approve edits"
-msgstr "核准編輯"
+msgstr "批准編輯"
 
 msgid "Approve for me"
-msgstr "替我核准"
+msgstr "替我批准"
 
 msgid "Approved"
 msgstr "已批准"
@@ -2444,7 +2444,7 @@ msgid "Ask before editing files or running commands"
 msgstr "編輯檔案或執行指令前先詢問"
 
 msgid "Ask for approval"
-msgstr "要求核准"
+msgstr "要求批准"
 
 msgid "Ask for this to be removed"
 msgstr "請求移除"
@@ -8037,7 +8037,7 @@ msgid "How people reach superset.sh and the docs, and how much of it is search a
 msgstr "人們如何到達 superset.sh 與文件站，其中有多少來自搜尋與助理而非品牌。"
 
 msgid "How should the agent's actions be approved?"
-msgstr "代理的操作應如何核准？"
+msgstr "代理的操作應如何批准？"
 
 msgid "How the command opens."
 msgstr "命令的開啟方式。"
@@ -16967,9 +16967,11 @@ msgstr "通道已建立"
 msgid "Turn chores into scheduled agents: issue triage, changelog drafts, dependency bumps. They run on their own and open PRs for you to review."
 msgstr "把雜活變成定時代理程式：議題分類、更新日誌草稿、相依性升級。它們自己執行，並開好PR等你審查。"
 
-#. placeholder {0}: message ? `: ${message}` : ""
-msgid "Turn failed{0}"
-msgstr "本輪失敗{0}"
+msgid "Turn failed"
+msgstr "本輪失敗"
+
+msgid "Turn failed: {message}"
+msgstr "本輪失敗：{message}"
 
 msgid "Turn on “Allow remote access to this device via relay”"
 msgstr "開啟「允許透過中繼遠端存取此裝置」"

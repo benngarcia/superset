@@ -16967,9 +16967,11 @@ msgstr "터널 연결됨"
 msgid "Turn chores into scheduled agents: issue triage, changelog drafts, dependency bumps. They run on their own and open PRs for you to review."
 msgstr "반복 업무를 예약된 에이전트로 바꾸세요. 이슈 분류, 변경 로그 초안, 의존성 업데이트를 알아서 실행하고 리뷰할 PR을 열어 줍니다."
 
-#. placeholder {0}: message ? `: ${message}` : ""
-msgid "Turn failed{0}"
-msgstr "턴 실패{0}"
+msgid "Turn failed"
+msgstr "턴 실패"
+
+msgid "Turn failed: {message}"
+msgstr "턴 실패: {message}"
 
 msgid "Turn on “Allow remote access to this device via relay”"
 msgstr "“릴레이를 통해 이 기기에 원격 액세스 허용” 켜기"

@@ -50,7 +50,7 @@ export type ChatSession = {
 	removeQueuedPrompt(itemId: string): Promise<void>;
 	steerQueuedPrompt(itemId: string): Promise<void>;
 	resumeQueue(): Promise<void>;
-	cancelTurn(turnId: string): Promise<void>;
+	cancelTurn(turnId: string, options?: { pauseQueue?: boolean }): Promise<void>;
 	respondToApproval(approvalId: string, decision: Decision): Promise<void>;
 	setMode(modeId: string): Promise<void>;
 	setConfigOption(configId: string, value: string): Promise<void>;
@@ -253,7 +253,8 @@ export function useChatSession(options: UseChatSessionOptions): ChatSession {
 	const resumeQueue = useCallback(() => client.resumeQueue(), [client]);
 
 	const cancelTurn = useCallback(
-		(turnId: string) => client.cancelTurn(turnId),
+		(turnId: string, options?: { pauseQueue?: boolean }) =>
+			client.cancelTurn(turnId, options),
 		[client],
 	);
 	const respondToApproval = useCallback(

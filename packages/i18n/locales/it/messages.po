@@ -12936,7 +12936,7 @@ msgid "Remove PR Link"
 msgstr "Rimuovi il link alla PR"
 
 msgid "Remove queued message"
-msgstr "Rimuovi messaggio in coda"
+msgstr "Rimuovi il messaggio dalla coda"
 
 msgid "Remove script"
 msgstr "Rimuovi lo script"
@@ -15247,7 +15247,7 @@ msgid "Stay connected (refresh tokens)"
 msgstr "Restare connessa (token di aggiornamento)"
 
 msgid "Steer"
-msgstr "Reindirizza"
+msgstr "Interrompi e invia"
 
 #. placeholder {0}: step === "workspace" ? 1 : 2
 msgid "Step {0} of 2"
@@ -16967,9 +16967,11 @@ msgstr "Tunnel stabilito"
 msgid "Turn chores into scheduled agents: issue triage, changelog drafts, dependency bumps. They run on their own and open PRs for you to review."
 msgstr "Trasforma le incombenze in agenti pianificati: smistamento delle issue, bozze di changelog, aggiornamenti delle dipendenze. Girano da soli e aprono PR da rivedere."
 
-#. placeholder {0}: message ? `: ${message}` : ""
-msgid "Turn failed{0}"
-msgstr "Turno non riuscito{0}"
+msgid "Turn failed"
+msgstr "Turno non riuscito"
+
+msgid "Turn failed: {message}"
+msgstr "Turno non riuscito: {message}"
 
 msgid "Turn on “Allow remote access to this device via relay”"
 msgstr "Attiva “Consenti l'accesso remoto a questo dispositivo tramite relay”"

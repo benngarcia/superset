@@ -16967,9 +16967,11 @@ msgstr "隧道已建立"
 msgid "Turn chores into scheduled agents: issue triage, changelog drafts, dependency bumps. They run on their own and open PRs for you to review."
 msgstr "把杂活变成定时智能体：议题分类、更新日志草稿、依赖升级。它们自己运行，并开好PR等你审查。"
 
-#. placeholder {0}: message ? `: ${message}` : ""
-msgid "Turn failed{0}"
-msgstr "本轮失败{0}"
+msgid "Turn failed"
+msgstr "本轮失败"
+
+msgid "Turn failed: {message}"
+msgstr "本轮失败：{message}"
 
 msgid "Turn on “Allow remote access to this device via relay”"
 msgstr "开启“允许通过中继远程访问本设备”"

@@ -16967,9 +16967,11 @@ msgstr "Túnel estabelecido"
 msgid "Turn chores into scheduled agents: issue triage, changelog drafts, dependency bumps. They run on their own and open PRs for you to review."
 msgstr "Transforme tarefas repetitivas em agentes agendados: triagem de issues, rascunhos de changelog, atualização de dependências. Eles rodam sozinhos e abrem PRs para você revisar."
 
-#. placeholder {0}: message ? `: ${message}` : ""
-msgid "Turn failed{0}"
-msgstr "O turno falhou{0}"
+msgid "Turn failed"
+msgstr "O turno falhou"
+
+msgid "Turn failed: {message}"
+msgstr "O turno falhou: {message}"
 
 msgid "Turn on “Allow remote access to this device via relay”"
 msgstr "Ative “Permitir acesso remoto a este dispositivo via relay”"

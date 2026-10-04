@@ -125,7 +125,7 @@ export function ModePicker({
 							)}
 							key={mode.id}
 							onSelect={() => {
-								if (mode.id !== current.id) onSelect(mode.id);
+								if (mode.id !== currentModeId) onSelect(mode.id);
 							}}
 						>
 							<Icon className="mt-0.5 size-4 shrink-0" />

@@ -16967,9 +16967,11 @@ msgstr "トンネル確立"
 msgid "Turn chores into scheduled agents: issue triage, changelog drafts, dependency bumps. They run on their own and open PRs for you to review."
 msgstr "面倒な作業をスケジュール実行のエージェントにしましょう。issueのトリアージ、changelogの下書き、依存関係の更新。自動で走り、レビュー用のPRを開いてくれます。"
 
-#. placeholder {0}: message ? `: ${message}` : ""
-msgid "Turn failed{0}"
-msgstr "ターンが失敗しました{0}"
+msgid "Turn failed"
+msgstr "ターンが失敗しました"
+
+msgid "Turn failed: {message}"
+msgstr "ターンが失敗しました：{message}"
 
 msgid "Turn on “Allow remote access to this device via relay”"
 msgstr "「リレー経由でこのデバイスへのリモートアクセスを許可」をオンにする"
