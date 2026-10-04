@@ -13,6 +13,9 @@ import { fenceLanguage, fenceText, isDiffLanguage } from "./utils/fencedCode";
 
 const CHAT_CODE_FONT_SIZE = 12;
 
+/** The renderer's shadow tree does not inherit the transcript's opt-in. */
+const SELECTABLE_CSS = "* { user-select: text; -webkit-user-select: text; }";
+
 type FencedCodeProps = ComponentProps<"code"> & {
 	node?: unknown;
 	children?: ReactNode;
@@ -52,6 +55,7 @@ export function ChatCodeBlock({ children, className }: FencedCodeProps) {
 		themeType: activeTheme.type,
 		overflow: "wrap" as const,
 		disableFileHeader: true,
+		unsafeCSS: SELECTABLE_CSS,
 	};
 	return (
 		<div

@@ -15,6 +15,9 @@ type DiffToolContent = Extract<ToolContent, { type: "diff" }>;
 
 const CHAT_DIFF_FONT_SIZE = 12;
 
+/** The renderer's shadow tree does not inherit the transcript's opt-in. */
+const SELECTABLE_CSS = "* { user-select: text; -webkit-user-select: text; }";
+
 /**
  * One file's change as a card: a header that stays put, and under it the
  * same diff renderer the PR pane uses, folded to the changed regions, in a
@@ -49,6 +52,7 @@ export function DiffContent({
 					themeType: activeTheme.type,
 					overflow: "wrap",
 					disableFileHeader: true,
+					unsafeCSS: SELECTABLE_CSS,
 				}}
 				style={getDiffViewerStyle(activeTheme, {
 					fontSize: CHAT_DIFF_FONT_SIZE,
