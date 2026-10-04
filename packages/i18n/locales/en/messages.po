@@ -2341,6 +2341,12 @@ msgstr "Apply"
 msgid "Approve"
 msgstr "Approve"
 
+msgid "Approve edits"
+msgstr "Approve edits"
+
+msgid "Approve for me"
+msgstr "Approve for me"
+
 msgid "Approved"
 msgstr "Approved"
 
@@ -2419,8 +2425,17 @@ msgstr "ascending"
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "Ask an agent to publish one from the desktop app."
 
+msgid "Ask before editing files or running commands"
+msgstr "Ask before editing files or running commands"
+
+msgid "Ask for approval"
+msgstr "Ask for approval"
+
 msgid "Ask for this to be removed"
 msgstr "Ask for this to be removed"
+
+msgid "Ask only for actions that look risky"
+msgstr "Ask only for actions that look risky"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "Ask the agent, @mention files, run /commands"
@@ -6164,6 +6179,9 @@ msgstr "Edit description"
 msgid "Edit environment"
 msgstr "Edit environment"
 
+msgid "Edit files without asking; ask before commands"
+msgstr "Edit files without asking; ask before commands"
+
 msgid "Edit name"
 msgstr "Edit name"
 
@@ -7466,6 +7484,9 @@ msgstr "Front matter hidden — switch to Markdown to edit it"
 msgid "Front matter hidden — switch to the Markdown view to edit it"
 msgstr "Front matter hidden — switch to the Markdown view to edit it"
 
+msgid "Full access"
+msgstr "Full access"
+
 msgid "Full changelog →"
 msgstr "Full changelog →"
 
@@ -7993,6 +8014,9 @@ msgstr "How much agent work engineers are actually running — tokens, cost, mod
 
 msgid "How people reach superset.sh and the docs, and how much of it is search and assistants rather than the brand."
 msgstr "How people reach superset.sh and the docs, and how much of it is search and assistants rather than the brand."
+
+msgid "How should the agent's actions be approved?"
+msgstr "How should the agent's actions be approved?"
 
 msgid "How the command opens."
 msgstr "How the command opens."
@@ -12591,6 +12615,15 @@ msgstr "Reactivating…"
 msgid "Read"
 msgstr "Read"
 
+msgid "Read and plan without changing anything"
+msgstr "Read and plan without changing anything"
+
+msgid "Read files; ask for anything else"
+msgstr "Read files; ask for anything else"
+
+msgid "Read only"
+msgstr "Read only"
+
 msgid "Read the changelog"
 msgstr "Read the changelog"
 
@@ -17164,6 +17197,9 @@ msgstr "Unresolve"
 
 msgid "Unresolved"
 msgstr "Unresolved"
+
+msgid "Unrestricted access to the internet and any file on your computer"
+msgstr "Unrestricted access to the internet and any file on your computer"
 
 msgid "Unsaved changes"
 msgstr "Unsaved changes"

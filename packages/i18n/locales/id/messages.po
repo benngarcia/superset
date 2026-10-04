@@ -2341,6 +2341,12 @@ msgstr "Lamar"
 msgid "Approve"
 msgstr "Setujui"
 
+msgid "Approve edits"
+msgstr "Setujui suntingan"
+
+msgid "Approve for me"
+msgstr "Setujui untuk saya"
+
 msgid "Approved"
 msgstr "Disetujui"
 
@@ -2419,8 +2425,17 @@ msgstr "menaik"
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "Minta agen untuk memublikasikan satu dari aplikasi desktop."
 
+msgid "Ask before editing files or running commands"
+msgstr "Tanya sebelum mengedit file atau menjalankan perintah"
+
+msgid "Ask for approval"
+msgstr "Minta persetujuan"
+
 msgid "Ask for this to be removed"
 msgstr "Minta ini dihapus"
+
+msgid "Ask only for actions that look risky"
+msgstr "Tanya hanya untuk tindakan yang tampak berisiko"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "Tanya agen, @sebut berkas, jalankan /perintah"
@@ -6164,6 +6179,9 @@ msgstr "Edit deskripsi"
 msgid "Edit environment"
 msgstr "Edit environment"
 
+msgid "Edit files without asking; ask before commands"
+msgstr "Edit file tanpa bertanya; tanya sebelum perintah"
+
 msgid "Edit name"
 msgstr "Edit nama"
 
@@ -7466,6 +7484,9 @@ msgstr "Front matter disembunyikan — beralih ke Markdown untuk mengeditnya"
 msgid "Front matter hidden — switch to the Markdown view to edit it"
 msgstr "Front matter disembunyikan — beralih ke tampilan Markdown untuk mengeditnya"
 
+msgid "Full access"
+msgstr "Akses penuh"
+
 msgid "Full changelog →"
 msgstr "Changelog lengkap →"
 
@@ -7993,6 +8014,9 @@ msgstr "Seberapa banyak pekerjaan agen yang benar-benar dijalankan engineer — 
 
 msgid "How people reach superset.sh and the docs, and how much of it is search and assistants rather than the brand."
 msgstr "Bagaimana orang mencapai superset.sh dan dokumentasi, dan seberapa banyak yang berasal dari pencarian dan asisten alih-alih merek."
+
+msgid "How should the agent's actions be approved?"
+msgstr "Bagaimana tindakan agen harus disetujui?"
 
 msgid "How the command opens."
 msgstr "Bagaimana perintahnya dibuka."
@@ -12591,6 +12615,15 @@ msgstr "Mengaktifkan kembali…"
 msgid "Read"
 msgstr "Dibaca"
 
+msgid "Read and plan without changing anything"
+msgstr "Baca dan rencanakan tanpa mengubah apa pun"
+
+msgid "Read files; ask for anything else"
+msgstr "Baca file; tanya untuk hal lainnya"
+
+msgid "Read only"
+msgstr "Hanya baca"
+
 msgid "Read the changelog"
 msgstr "Baca changelog"
 
@@ -17164,6 +17197,9 @@ msgstr "Buka lagi"
 
 msgid "Unresolved"
 msgstr "Belum selesai"
+
+msgid "Unrestricted access to the internet and any file on your computer"
+msgstr "Akses tanpa batas ke internet dan semua file di komputer Anda"
 
 msgid "Unsaved changes"
 msgstr "Perubahan belum disimpan"

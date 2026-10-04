@@ -2341,6 +2341,12 @@ msgstr "Bewerben"
 msgid "Approve"
 msgstr "Genehmigen"
 
+msgid "Approve edits"
+msgstr "Änderungen freigeben"
+
+msgid "Approve for me"
+msgstr "Für mich freigeben"
+
 msgid "Approved"
 msgstr "Genehmigt"
 
@@ -2419,8 +2425,17 @@ msgstr "aufsteigend"
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "Bitte einen Agenten, eine aus der Desktop-App zu veröffentlichen."
 
+msgid "Ask before editing files or running commands"
+msgstr "Vor dem Bearbeiten von Dateien oder Ausführen von Befehlen fragen"
+
+msgid "Ask for approval"
+msgstr "Um Freigabe bitten"
+
 msgid "Ask for this to be removed"
 msgstr "Entfernung anfragen"
+
+msgid "Ask only for actions that look risky"
+msgstr "Nur bei riskant wirkenden Aktionen fragen"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "Frag den Agenten, @erwähne Dateien, nutze /Befehle"
@@ -6164,6 +6179,9 @@ msgstr "Beschreibung bearbeiten"
 msgid "Edit environment"
 msgstr "Umgebung bearbeiten"
 
+msgid "Edit files without asking; ask before commands"
+msgstr "Dateien ohne Rückfrage bearbeiten; vor Befehlen fragen"
+
 msgid "Edit name"
 msgstr "Namen bearbeiten"
 
@@ -7466,6 +7484,9 @@ msgstr "Front Matter ausgeblendet — wechsle zu Markdown, um es zu bearbeiten"
 msgid "Front matter hidden — switch to the Markdown view to edit it"
 msgstr "Front Matter ausgeblendet — wechsle zur Markdown-Ansicht, um es zu bearbeiten"
 
+msgid "Full access"
+msgstr "Vollzugriff"
+
 msgid "Full changelog →"
 msgstr "Vollständiger Changelog →"
 
@@ -7993,6 +8014,9 @@ msgstr "Wie viel Agent-Arbeit Engineers tatsächlich laufen lassen — Tokens, K
 
 msgid "How people reach superset.sh and the docs, and how much of it is search and assistants rather than the brand."
 msgstr "Wie Leute superset.sh und die Doku erreichen und wie viel davon Suche und Assistenten statt der Marke sind."
+
+msgid "How should the agent's actions be approved?"
+msgstr "Wie sollen die Aktionen des Agenten freigegeben werden?"
 
 msgid "How the command opens."
 msgstr "Wie der Befehl geöffnet wird."
@@ -12591,6 +12615,15 @@ msgstr "Wird reaktiviert…"
 msgid "Read"
 msgstr "Gelesen"
 
+msgid "Read and plan without changing anything"
+msgstr "Lesen und planen, ohne etwas zu ändern"
+
+msgid "Read files; ask for anything else"
+msgstr "Dateien lesen; bei allem anderen fragen"
+
+msgid "Read only"
+msgstr "Nur lesen"
+
 msgid "Read the changelog"
 msgstr "Changelog lesen"
 
@@ -17164,6 +17197,9 @@ msgstr "Wieder öffnen"
 
 msgid "Unresolved"
 msgstr "Nicht gelöst"
+
+msgid "Unrestricted access to the internet and any file on your computer"
+msgstr "Uneingeschränkter Zugriff auf das Internet und alle Dateien auf deinem Computer"
 
 msgid "Unsaved changes"
 msgstr "Nicht gespeicherte Änderungen"

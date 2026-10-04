@@ -2341,6 +2341,12 @@ msgstr "Solliciteer"
 msgid "Approve"
 msgstr "Goedkeuren"
 
+msgid "Approve edits"
+msgstr "Bewerkingen goedkeuren"
+
+msgid "Approve for me"
+msgstr "Voor mij goedkeuren"
+
 msgid "Approved"
 msgstr "Goedgekeurd"
 
@@ -2419,8 +2425,17 @@ msgstr "oplopend"
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "Vraag een agent om er een te publiceren vanuit de desktop-app."
 
+msgid "Ask before editing files or running commands"
+msgstr "Vragen voordat bestanden worden bewerkt of commando's worden uitgevoerd"
+
+msgid "Ask for approval"
+msgstr "Om goedkeuring vragen"
+
 msgid "Ask for this to be removed"
 msgstr "Vraag om verwijdering"
+
+msgid "Ask only for actions that look risky"
+msgstr "Alleen vragen bij acties die riskant lijken"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "Vraag de agent, @vermeld bestanden, gebruik /commando's"
@@ -6164,6 +6179,9 @@ msgstr "Beschrijving bewerken"
 msgid "Edit environment"
 msgstr "Omgeving bewerken"
 
+msgid "Edit files without asking; ask before commands"
+msgstr "Bestanden bewerken zonder te vragen; vragen vóór commando's"
+
 msgid "Edit name"
 msgstr "Naam bewerken"
 
@@ -7466,6 +7484,9 @@ msgstr "Front matter verborgen — schakel over naar Markdown om die te bewerken
 msgid "Front matter hidden — switch to the Markdown view to edit it"
 msgstr "Front matter verborgen — schakel over naar de Markdown-weergave om die te bewerken"
 
+msgid "Full access"
+msgstr "Volledige toegang"
+
 msgid "Full changelog →"
 msgstr "Volledige changelog →"
 
@@ -7993,6 +8014,9 @@ msgstr "Hoeveel agentwerk engineers daadwerkelijk draaien — tokens, kosten, mo
 
 msgid "How people reach superset.sh and the docs, and how much of it is search and assistants rather than the brand."
 msgstr "Hoe mensen superset.sh en de docs bereiken, en hoeveel daarvan zoeken en assistenten is in plaats van het merk."
+
+msgid "How should the agent's actions be approved?"
+msgstr "Hoe moeten de acties van de agent worden goedgekeurd?"
 
 msgid "How the command opens."
 msgstr "Hoe het commando opent."
@@ -12591,6 +12615,15 @@ msgstr "Reactiveren…"
 msgid "Read"
 msgstr "Gelezen"
 
+msgid "Read and plan without changing anything"
+msgstr "Lezen en plannen zonder iets te wijzigen"
+
+msgid "Read files; ask for anything else"
+msgstr "Bestanden lezen; voor al het andere vragen"
+
+msgid "Read only"
+msgstr "Alleen lezen"
+
 msgid "Read the changelog"
 msgstr "Lees de changelog"
 
@@ -17164,6 +17197,9 @@ msgstr "Heropenen"
 
 msgid "Unresolved"
 msgstr "Onopgelost"
+
+msgid "Unrestricted access to the internet and any file on your computer"
+msgstr "Onbeperkte toegang tot internet en alle bestanden op je computer"
 
 msgid "Unsaved changes"
 msgstr "Niet-opgeslagen wijzigingen"

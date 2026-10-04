@@ -106,6 +106,11 @@ export type ComposerBodyProps = Required<
 		| "onAttachmentClick"
 		| "onChipClick"
 		| "ref"
+		| "header"
+		| "onAddFiles"
+		| "allowEmptySubmit"
+		| "hideSubmit"
+		| "autoFocus"
 	>;
 
 function $insertChipAtSelection(chip: ComposerChip) {
@@ -155,6 +160,11 @@ export function ComposerBody({
 	onAttachmentClick,
 	onChipClick,
 	ref,
+	header,
+	onAddFiles,
+	allowEmptySubmit,
+	hideSubmit,
+	autoFocus,
 }: ComposerBodyProps) {
 	const { t } = useLingui();
 	const [editor] = useLexicalComposerContext();
@@ -172,6 +182,12 @@ export function ComposerBody({
 					}
 				});
 				editor.focus();
+			},
+			openFileDialog() {
+				fileInputRef.current?.click();
+			},
+			focus() {
+				editor.focus(() => $getRoot().selectEnd());
 			},
 		}),
 		[editor],
@@ -197,6 +213,7 @@ export function ComposerBody({
 		onSubmit,
 		status,
 		submitWhileStreaming,
+		allowEmptySubmit,
 	});
 	stateRef.current = {
 		attachments,
@@ -205,6 +222,7 @@ export function ComposerBody({
 		onSubmit,
 		status,
 		submitWhileStreaming,
+		allowEmptySubmit,
 	};
 
 	// A draft the host had stored. Read once: after mount the editor is the
@@ -237,6 +255,10 @@ export function ComposerBody({
 	const addFiles = (files: FileList | File[]) => {
 		const incoming = Array.from(files);
 		if (incoming.length === 0) return;
+		if (onAddFiles) {
+			onAddFiles(incoming);
+			return;
+		}
 		setAttachments((previous) => [
 			...previous,
 			...incoming.map((file) => ({
@@ -371,7 +393,9 @@ export function ComposerBody({
 		const files = stateRef.current.attachments.map(
 			(attachment) => attachment.file,
 		);
-		if (!text && files.length === 0) return;
+		if (!text && files.length === 0 && !stateRef.current.allowEmptySubmit) {
+			return;
+		}
 		stateRef.current.onSubmit?.({ text, files, mentions });
 		editor.update(() => $getRoot().clear());
 		setAttachments((previous) => {
@@ -612,7 +636,11 @@ export function ComposerBody({
 		return () => document.removeEventListener("pointerdown", onPointerDown);
 	}, []);
 
-	const canSend = !isEmpty || attachments.length > 0;
+	const canSend = allowEmptySubmit || !isEmpty || attachments.length > 0;
+
+	useEffect(() => {
+		if (autoFocus) editor.focus(() => $getRoot().selectEnd());
+	}, [autoFocus, editor]);
 
 	return (
 		// biome-ignore lint/a11y/noStaticElementInteractions: drag-and-drop target; keyboard users attach via the file picker button
@@ -689,6 +717,7 @@ export function ComposerBody({
 					<Trans>Drop to attach</Trans>
 				</span>
 			</div>
+			{header}
 			<AttachmentPills
 				attachments={attachments}
 				onAttachmentClick={onAttachmentClick}
@@ -713,9 +742,14 @@ export function ComposerBody({
 			/>
 			<div className="relative px-4 pt-3.5 pb-1">
 				<PlainTextPlugin
-					contentEditable={<ContentEditable className="prompt-input-editor" />}
+					contentEditable={
+						<ContentEditable
+							className="prompt-input-editor"
+							spellCheck={false}
+						/>
+					}
 					placeholder={
-						<span className="pointer-events-none absolute top-3.5 left-4 text-sm text-muted-foreground/70">
+						<span className="pointer-events-none absolute top-3.5 left-4 text-sm leading-[1.625] text-muted-foreground/70">
 							{placeholder}
 						</span>
 					}
@@ -891,7 +925,8 @@ export function ComposerBody({
 								<MicIcon className="size-4.5" />
 							</button>
 						)}
-						{status === "streaming" && !(submitWhileStreaming && canSend) ? (
+						{hideSubmit ? null : status === "streaming" &&
+							!(submitWhileStreaming && canSend) ? (
 							<button
 								type="button"
 								aria-label={t({

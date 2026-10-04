@@ -2341,6 +2341,12 @@ msgstr "應徵"
 msgid "Approve"
 msgstr "批准"
 
+msgid "Approve edits"
+msgstr "核准編輯"
+
+msgid "Approve for me"
+msgstr "替我核准"
+
 msgid "Approved"
 msgstr "已批准"
 
@@ -2419,8 +2425,17 @@ msgstr "升序"
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "請代理程式從桌面應用程式發佈一個頁面。"
 
+msgid "Ask before editing files or running commands"
+msgstr "編輯檔案或執行指令前先詢問"
+
+msgid "Ask for approval"
+msgstr "要求核准"
+
 msgid "Ask for this to be removed"
 msgstr "請求移除"
+
+msgid "Ask only for actions that look risky"
+msgstr "僅對看似有風險的操作詢問"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "向代理提問，用 @ 提及檔案，執行 /命令"
@@ -6164,6 +6179,9 @@ msgstr "編輯描述"
 msgid "Edit environment"
 msgstr "編輯環境"
 
+msgid "Edit files without asking; ask before commands"
+msgstr "無需詢問即可編輯檔案；執行指令前詢問"
+
 msgid "Edit name"
 msgstr "編輯名稱"
 
@@ -7466,6 +7484,9 @@ msgstr "已隱藏front matter，切換到Markdown可編輯"
 msgid "Front matter hidden — switch to the Markdown view to edit it"
 msgstr "已隱藏front matter — 切換到Markdown檢視進行編輯"
 
+msgid "Full access"
+msgstr "完整存取"
+
 msgid "Full changelog →"
 msgstr "完整更新日誌 →"
 
@@ -7993,6 +8014,9 @@ msgstr "工程師實際執行的代理工作量 — tokens、成本、模型與�
 
 msgid "How people reach superset.sh and the docs, and how much of it is search and assistants rather than the brand."
 msgstr "人們如何到達 superset.sh 與文件站，其中有多少來自搜尋與助理而非品牌。"
+
+msgid "How should the agent's actions be approved?"
+msgstr "代理的操作應如何核准？"
 
 msgid "How the command opens."
 msgstr "命令的開啟方式。"
@@ -12591,6 +12615,15 @@ msgstr "正在重新啟用…"
 msgid "Read"
 msgstr "已讀取"
 
+msgid "Read and plan without changing anything"
+msgstr "只讀取和規劃，不做任何變更"
+
+msgid "Read files; ask for anything else"
+msgstr "讀取檔案；其他操作都先詢問"
+
+msgid "Read only"
+msgstr "唯讀"
+
 msgid "Read the changelog"
 msgstr "檢視更新日誌"
 
@@ -17164,6 +17197,9 @@ msgstr "取消解決"
 
 msgid "Unresolved"
 msgstr "未解決"
+
+msgid "Unrestricted access to the internet and any file on your computer"
+msgstr "不受限制地存取網際網路和你電腦上的任何檔案"
 
 msgid "Unsaved changes"
 msgstr "未儲存的更改"

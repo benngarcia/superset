@@ -22,6 +22,7 @@ import { pluginMentionText } from "renderer/components/PluginMention";
 import { usePluginMentionOptions } from "renderer/hooks/usePluginMentionOptions";
 import { userMessageText } from "../../utils/userMessageText";
 import { ModelPicker } from "./components/ModelPicker";
+import { ModePicker, type SessionMode } from "./components/ModePicker";
 import { QueuedPrompts } from "./components/QueuedPrompts";
 
 const DRAFT_DEBOUNCE_MS = 300;
@@ -32,6 +33,9 @@ export type ComposerProps = {
 	availableCommands: AvailableCommand[];
 	configOptions?: SessionConfigOption[];
 	onSetConfigOption?: (configId: string, value: string) => unknown;
+	modes?: SessionMode[];
+	currentModeId?: string;
+	onSetMode?: (modeId: string) => void;
 	onSend: (content: UserContent[]) => unknown;
 	placeholder?: string;
 	disabled?: boolean;
@@ -66,7 +70,10 @@ function toMenuCommands(commands: AvailableCommand[]): PromptInputCommand[] {
 export const Composer = memo(function Composer({
 	availableCommands,
 	configOptions,
+	currentModeId,
+	modes,
 	onSetConfigOption,
+	onSetMode,
 	disabled,
 	draftKey,
 	onCancelTurn,
@@ -264,6 +271,15 @@ export const Composer = memo(function Composer({
 				}
 				status={onCancelTurn ? "streaming" : "ready"}
 				submitWhileStreaming={promptQueue !== undefined}
+				toolbar={
+					modes && onSetMode ? (
+						<ModePicker
+							currentModeId={currentModeId}
+							modes={modes}
+							onSelect={onSetMode}
+						/>
+					) : null
+				}
 				toolbarEnd={
 					configOptions && onSetConfigOption ? (
 						<ModelPicker

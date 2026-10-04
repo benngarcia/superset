@@ -2341,6 +2341,12 @@ msgstr "Aplikuj"
 msgid "Approve"
 msgstr "Zatwierdź"
 
+msgid "Approve edits"
+msgstr "Zatwierdzaj edycje"
+
+msgid "Approve for me"
+msgstr "Zatwierdzaj za mnie"
+
 msgid "Approved"
 msgstr "Zatwierdzony"
 
@@ -2419,8 +2425,17 @@ msgstr "rosnąco"
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "Poproś agenta, aby opublikował jakąś z aplikacji na komputer."
 
+msgid "Ask before editing files or running commands"
+msgstr "Pytaj przed edycją plików lub uruchomieniem poleceń"
+
+msgid "Ask for approval"
+msgstr "Proś o zatwierdzenie"
+
 msgid "Ask for this to be removed"
 msgstr "Poproś o usunięcie"
+
+msgid "Ask only for actions that look risky"
+msgstr "Pytaj tylko o działania, które wyglądają na ryzykowne"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "Zapytaj agenta, @wspomnij pliki, użyj /poleceń"
@@ -6164,6 +6179,9 @@ msgstr "Edytuj opis"
 msgid "Edit environment"
 msgstr "Edytuj środowisko"
 
+msgid "Edit files without asking; ask before commands"
+msgstr "Edytuj pliki bez pytania; pytaj przed poleceniami"
+
 msgid "Edit name"
 msgstr "Edytuj nazwę"
 
@@ -7466,6 +7484,9 @@ msgstr "Front matter ukryty — przełącz na Markdown, aby go edytować"
 msgid "Front matter hidden — switch to the Markdown view to edit it"
 msgstr "Front matter ukryty — przełącz na widok Markdown, aby go edytować"
 
+msgid "Full access"
+msgstr "Pełny dostęp"
+
 msgid "Full changelog →"
 msgstr "Pełny changelog →"
 
@@ -7993,6 +8014,9 @@ msgstr "Ile pracy agentów faktycznie wykonują inżynierowie — tokeny, koszt,
 
 msgid "How people reach superset.sh and the docs, and how much of it is search and assistants rather than the brand."
 msgstr "Jak ludzie trafiają na superset.sh i do dokumentacji oraz jaka część pochodzi z wyszukiwania i od asystentów, a nie z marki."
+
+msgid "How should the agent's actions be approved?"
+msgstr "Jak zatwierdzać działania agenta?"
 
 msgid "How the command opens."
 msgstr "Jak otwiera się polecenie."
@@ -12591,6 +12615,15 @@ msgstr "Reaktywowanie…"
 msgid "Read"
 msgstr "Odczytano"
 
+msgid "Read and plan without changing anything"
+msgstr "Czytaj i planuj bez wprowadzania zmian"
+
+msgid "Read files; ask for anything else"
+msgstr "Czytaj pliki; pytaj o wszystko inne"
+
+msgid "Read only"
+msgstr "Tylko odczyt"
+
 msgid "Read the changelog"
 msgstr "Przeczytaj changelog"
 
@@ -17164,6 +17197,9 @@ msgstr "Cofnij rozwiązanie"
 
 msgid "Unresolved"
 msgstr "Nierozwiązany"
+
+msgid "Unrestricted access to the internet and any file on your computer"
+msgstr "Nieograniczony dostęp do internetu i wszystkich plików na komputerze"
 
 msgid "Unsaved changes"
 msgstr "Niezapisane zmiany"

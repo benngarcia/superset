@@ -128,6 +128,7 @@ export function SessionView({
 		respondToApproval,
 		sendPrompt,
 		setConfigOption,
+		setMode,
 	} = session;
 	const onRespond = useCallback(
 		(approvalId: string, decision: Decision) =>
@@ -138,6 +139,10 @@ export function SessionView({
 	const onSetConfigOption = useCallback(
 		(configId: string, value: string) => void setConfigOption(configId, value),
 		[setConfigOption],
+	);
+	const onSetMode = useCallback(
+		(modeId: string) => void setMode(modeId),
+		[setMode],
 	);
 	const onSend = useCallback(
 		(content: UserContent[]) => sendPrompt(content),
@@ -222,6 +227,9 @@ export function SessionView({
 						availableCommands={sessionState?.availableCommands ?? NO_COMMANDS}
 						configOptions={sessionState?.configOptions ?? NO_CONFIG_OPTIONS}
 						onSetConfigOption={onSetConfigOption}
+						modes={sessionState?.availableModes}
+						currentModeId={sessionState?.modeId}
+						onSetMode={onSetMode}
 						disabled={session.status !== "ready"}
 						draftKey={`chat-v3-draft:${sessionId}`}
 						onCancelTurn={onCancelTurn}
