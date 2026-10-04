@@ -25,11 +25,7 @@ import { ToolRunRow } from "./components/ToolRunRow";
 import { TurnStatusRow } from "./components/TurnStatusRow";
 import { WorkingFor } from "./components/WorkingFor";
 import { WorkingIndicator } from "./components/WorkingIndicator";
-import {
-	latestUserRowKey,
-	type TranscriptRow,
-	transcriptRows,
-} from "./utils/transcriptRows";
+import { type TranscriptRow, transcriptRows } from "./utils/transcriptRows";
 
 const REMEMBER_SIZE_CLASSNAME = "[contain-intrinsic-size:auto_240px]";
 const OFFSCREEN_CLASSNAME = "[content-visibility:auto]";
@@ -105,10 +101,10 @@ function sentInThisView(row: TranscriptRow, mountedAtMs: number): boolean {
 }
 
 /**
- * A message sent from this view is the scroll anchor: the scroller pins it
- * to the top and follows the reply once it outgrows the screen. A message
- * that was there when the view opened, or that came from another client,
- * never moves the reader.
+ * The latest message sent from this view is the scroll anchor: the scroller
+ * pins it to the top and follows the reply once it outgrows the screen. A
+ * message that was there when the view opened, or that came from another
+ * client, never moves the reader and never takes the anchor away.
  */
 export function Transcript(props: TranscriptProps) {
 	return (
@@ -169,12 +165,14 @@ function TranscriptBody({
 
 	const [mountedAtMs] = useState(() => Date.now());
 	const [rowKeysAtMount] = useState(() => new Set(rows.map((row) => row.key)));
-	const latestUserKey = latestUserRowKey(rows);
-	const anchorRowKey = useMemo(() => {
-		const row = rows.find((candidate) => candidate.key === latestUserKey);
-		if (!row || rowKeysAtMount.has(row.key)) return null;
-		return sentInThisView(row, mountedAtMs) ? row.key : null;
-	}, [rows, latestUserKey, rowKeysAtMount, mountedAtMs]);
+	const anchorRowKey = useMemo(
+		() =>
+			rows.findLast(
+				(row) =>
+					!rowKeysAtMount.has(row.key) && sentInThisView(row, mountedAtMs),
+			)?.key ?? null,
+		[rows, rowKeysAtMount, mountedAtMs],
+	);
 
 	// On the request object rather than its fields: the nonce is what makes
 	// choosing the same message twice a second scroll, and a dependency list

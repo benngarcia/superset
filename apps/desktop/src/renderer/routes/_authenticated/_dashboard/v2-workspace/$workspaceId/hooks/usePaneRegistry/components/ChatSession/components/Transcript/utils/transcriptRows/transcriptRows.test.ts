@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import type { OutboxEntry, TurnGroup } from "@superset/chat/core";
 import type { UserMessage } from "@superset/chat/protocol";
-import { latestUserRowKey, transcriptRows } from "./transcriptRows";
+import { transcriptRows } from "./transcriptRows";
 
 const prompt: UserMessage = {
 	id: "item-1",
@@ -43,7 +43,5 @@ describe("transcriptRows", () => {
 		expect(
 			attributed.filter((row) => row.kind === "item").map((row) => row.key),
 		).toEqual(["client-1"]);
-		expect(latestUserRowKey(pending)).toBe("client-1");
-		expect(latestUserRowKey(attributed)).toBe("client-1");
 	});
 });

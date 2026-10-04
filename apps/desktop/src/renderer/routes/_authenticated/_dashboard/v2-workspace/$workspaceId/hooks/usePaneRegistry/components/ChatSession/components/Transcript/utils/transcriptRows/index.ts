@@ -1,5 +1,1 @@
-export {
-	latestUserRowKey,
-	type TranscriptRow,
-	transcriptRows,
-} from "./transcriptRows";
+export { type TranscriptRow, transcriptRows } from "./transcriptRows";
