@@ -44,8 +44,9 @@ new box is created from it.
 host it happens to reach: a cloud workspace goes to `cloudWorkspace.archive`,
 which marks the row archived, stops the sandbox about a minute later and
 deletes it (and its snapshots) at the provider after 7 days; only a machine
-someone owns gets the host-side destroy. Verified 2026-09-11, before archiving
-kept the box: four deletes from the sidebar, four sandboxes gone at Vercel. Left
+someone owns gets the host-side destroy. Verified 2026-09-11, when a delete
+still removed the sandbox at once: four deletes from the sidebar, four
+sandboxes gone at Vercel. Left
 over: a pane still open on the deleted workspace keeps asking
 `cloudWorkspace.access` and logs "Cloud workspace is deleted" until it is
 closed.

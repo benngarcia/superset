@@ -10,7 +10,7 @@ export function register(server: McpServer): void {
 		name: "workspaces_delete",
 		annotations: { destructiveHint: true },
 		description:
-			"Delete a workspace by UUID. Without hostId it is a cloud workspace, which is archived: its sandbox stops about a minute later and is deleted after 7 days, and an unarchive before then keeps the disk; returns { archived: false } when no such workspace exists. With hostId, the host runs the project's teardown script (.superset/config.json teardown commands or .superset/teardown.sh, if configured), then removes the git worktree; a teardown failure does not block the delete and is reported in `warnings`, and 'main'-type workspaces cannot be deleted.",
+			"Delete a workspace by UUID. Without hostId it is a cloud workspace, which is archived: its sandbox stops about a minute later, the sandbox and its disk are deleted after 7 days, and an unarchive before then keeps the disk; returns { archived: false } when no such workspace exists. With hostId, the host runs the project's teardown script (.superset/config.json teardown commands or .superset/teardown.sh, if configured), then removes the git worktree; a teardown failure does not block the delete and is reported in `warnings`, and 'main'-type workspaces cannot be deleted.",
 		inputSchema: {
 			hostId: z
 				.string()

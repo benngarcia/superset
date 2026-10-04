@@ -139,8 +139,9 @@ export class Workspaces extends APIResource {
 	}
 
 	/**
-	 * Archive a cloud workspace. Its sandbox stops about a minute later and is
-	 * deleted after 7 days; an unarchive before then keeps the disk.
+	 * Archive a cloud workspace. Its sandbox stops about a minute later, and the
+	 * sandbox and its disk are deleted after 7 days; an unarchive before then
+	 * keeps the disk.
 	 * `archived` is false when no workspace has that id.
 	 *
 	 * Mirrors `superset workspaces delete`.

@@ -5,7 +5,7 @@ import { resolveHostTarget } from "../../../lib/host-target";
 
 export default command({
 	description:
-		"Delete workspaces by ID: cloud workspaces by default if your account has them (archived: the sandbox stops a minute later and is deleted after 7 days), else on this machine; --local or --host picks a host",
+		"Delete workspaces by ID: cloud workspaces by default if your account has them (archived: the sandbox stops a minute later, and the sandbox and its disk are deleted after 7 days), else on this machine; --local or --host picks a host",
 	args: [positional("ids").required().variadic().desc("Workspace IDs")],
 	options: {
 		host: string().desc("Host the workspaces live on"),
