@@ -39,6 +39,7 @@ import {
 	XIcon,
 } from "lucide-react";
 import {
+	useCallback,
 	useEffect,
 	useImperativeHandle,
 	useMemo,
@@ -109,6 +110,7 @@ export type ComposerBodyProps = Required<
 		| "header"
 		| "onAddFiles"
 		| "allowEmptySubmit"
+		| "clearOnSubmit"
 		| "hideSubmit"
 		| "autoFocus"
 	>;
@@ -163,11 +165,16 @@ export function ComposerBody({
 	header,
 	onAddFiles,
 	allowEmptySubmit,
+	clearOnSubmit,
 	hideSubmit,
 	autoFocus,
 }: ComposerBodyProps) {
 	const { t } = useLingui();
 	const [editor] = useLexicalComposerContext();
+	const focusAtEnd = useCallback(() => {
+		editor.update(() => $getRoot().selectEnd());
+		editor.focus();
+	}, [editor]);
 	useImperativeHandle(
 		ref,
 		() => ({
@@ -187,10 +194,10 @@ export function ComposerBody({
 				fileInputRef.current?.click();
 			},
 			focus() {
-				editor.focus(() => $getRoot().selectEnd());
+				focusAtEnd();
 			},
 		}),
-		[editor],
+		[editor, focusAtEnd],
 	);
 	const [attachments, setAttachments] = useState<PromptInputAttachment[]>([]);
 	const [isEmpty, setIsEmpty] = useState(true);
@@ -214,6 +221,7 @@ export function ComposerBody({
 		status,
 		submitWhileStreaming,
 		allowEmptySubmit,
+		clearOnSubmit,
 	});
 	stateRef.current = {
 		attachments,
@@ -223,6 +231,7 @@ export function ComposerBody({
 		status,
 		submitWhileStreaming,
 		allowEmptySubmit,
+		clearOnSubmit,
 	};
 
 	// A draft the host had stored. Read once: after mount the editor is the
@@ -397,6 +406,7 @@ export function ComposerBody({
 			return;
 		}
 		stateRef.current.onSubmit?.({ text, files, mentions });
+		if (!stateRef.current.clearOnSubmit) return;
 		editor.update(() => $getRoot().clear());
 		setAttachments((previous) => {
 			for (const attachment of previous) releaseAttachment(attachment);
@@ -639,8 +649,8 @@ export function ComposerBody({
 	const canSend = allowEmptySubmit || !isEmpty || attachments.length > 0;
 
 	useEffect(() => {
-		if (autoFocus) editor.focus(() => $getRoot().selectEnd());
-	}, [autoFocus, editor]);
+		if (autoFocus) focusAtEnd();
+	}, [autoFocus, focusAtEnd]);
 
 	return (
 		// biome-ignore lint/a11y/noStaticElementInteractions: drag-and-drop target; keyboard users attach via the file picker button

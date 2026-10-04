@@ -49,6 +49,7 @@ export function PromptInput({
 	header,
 	onAddFiles,
 	allowEmptySubmit = false,
+	clearOnSubmit = true,
 	hideSubmit = false,
 	autoFocus = false,
 	onMentionHighlight,
@@ -85,6 +86,7 @@ export function PromptInput({
 					header={header}
 					onAddFiles={onAddFiles}
 					allowEmptySubmit={allowEmptySubmit}
+					clearOnSubmit={clearOnSubmit}
 					hideSubmit={hideSubmit}
 					autoFocus={autoFocus}
 					onMentionHighlight={onMentionHighlight}
