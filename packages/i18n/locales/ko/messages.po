@@ -4966,6 +4966,9 @@ msgstr "파일 스테이징을 해제하지 못했습니다"
 msgid "Couldn't update pull request"
 msgstr "풀 리퀘스트를 업데이트하지 못했습니다"
 
+msgid "Couldn't update the queue"
+msgstr "대기열을 업데이트할 수 없습니다"
+
 msgid "Couldn't update thread"
 msgstr "스레드를 업데이트하지 못했습니다"
 
@@ -12479,6 +12482,9 @@ msgstr "질문"
 msgid "Questions, feedback, support, or anything else. Send a note and we'll route it to the right person."
 msgstr "질문, 피드백, 지원 등 무엇이든 좋습니다. 메시지를 보내 주시면 담당자에게 전달하겠습니다."
 
+msgid "Queue paused because you interrupted"
+msgstr "중단했기 때문에 대기열이 일시 중지되었습니다"
+
 msgid "Queue work for agents"
 msgstr "에이전트 작업 대기열에 추가"
 
@@ -12874,6 +12880,9 @@ msgstr "{path} 멘션 제거"
 
 msgid "Remove PR Link"
 msgstr "PR 링크 제거"
+
+msgid "Remove queued message"
+msgstr "대기 중인 메시지 삭제"
 
 msgid "Remove script"
 msgstr "스크립트 제거"
@@ -15180,6 +15189,9 @@ msgstr "상태 변경됨"
 msgid "Stay connected (refresh tokens)"
 msgstr "연결 유지 (리프레시 토큰)"
 
+msgid "Steer"
+msgstr "방향 전환"
+
 #. placeholder {0}: step === "workspace" ? 1 : 2
 msgid "Step {0} of 2"
 msgstr "2단계 중 {0}단계"
@@ -15215,6 +15227,9 @@ msgstr "응답 중지"
 
 msgid "Stop Superset here to delete from another device."
 msgstr "다른 기기에서 삭제하려면 여기에서 Superset을 종료하세요."
+
+msgid "Stop the agent and send this now"
+msgstr "에이전트를 중지하고 지금 보내기"
 
 msgid "Stop watching"
 msgstr "감시 중지"

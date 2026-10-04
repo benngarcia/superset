@@ -4966,6 +4966,9 @@ msgstr "Không thể bỏ stage tệp"
 msgid "Couldn't update pull request"
 msgstr "Không thể cập nhật pull request"
 
+msgid "Couldn't update the queue"
+msgstr "Không thể cập nhật hàng đợi"
+
 msgid "Couldn't update thread"
 msgstr "Không thể cập nhật luồng"
 
@@ -12479,6 +12482,9 @@ msgstr "Câu hỏi"
 msgid "Questions, feedback, support, or anything else. Send a note and we'll route it to the right person."
 msgstr "Câu hỏi, góp ý, hỗ trợ hay bất cứ điều gì. Gửi một tin nhắn và chúng tôi sẽ chuyển đến đúng người."
 
+msgid "Queue paused because you interrupted"
+msgstr "Hàng đợi đã tạm dừng vì bạn đã ngắt"
+
 msgid "Queue work for agents"
 msgstr "Xếp việc cho agent"
 
@@ -12874,6 +12880,9 @@ msgstr "Xóa nhắc đến {path}"
 
 msgid "Remove PR Link"
 msgstr "Gỡ liên kết PR"
+
+msgid "Remove queued message"
+msgstr "Xóa tin nhắn trong hàng đợi"
 
 msgid "Remove script"
 msgstr "Gỡ script"
@@ -15180,6 +15189,9 @@ msgstr "Trạng thái thay đổi"
 msgid "Stay connected (refresh tokens)"
 msgstr "Duy trì kết nối (refresh token)"
 
+msgid "Steer"
+msgstr "Điều hướng"
+
 #. placeholder {0}: step === "workspace" ? 1 : 2
 msgid "Step {0} of 2"
 msgstr "Bước {0} / 2"
@@ -15215,6 +15227,9 @@ msgstr "Dừng phản hồi"
 
 msgid "Stop Superset here to delete from another device."
 msgstr "Hãy dừng Superset ở đây để xóa từ thiết bị khác."
+
+msgid "Stop the agent and send this now"
+msgstr "Dừng tác tử và gửi ngay"
 
 msgid "Stop watching"
 msgstr "Ngừng theo dõi"

@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ReactNode, Ref } from "react";
 
 export type ComposerChip = {
 	label: string;
@@ -93,11 +93,17 @@ export type PromptInputDictation = {
 	onError?(error: PromptInputDictationError): void;
 };
 
+export type PromptInputHandle = {
+	appendText(text: string): void;
+};
+
 export type PromptInputProps = {
+	ref?: Ref<PromptInputHandle>;
 	placeholder?: string;
 	mentionProviders: ComposerMentionProvider[];
 	commands: PromptInputCommand[];
 	status?: "ready" | "streaming";
+	submitWhileStreaming?: boolean;
 	placement?: "top" | "bottom";
 	// Enables the mic button; the app owns speech-to-text.
 	dictation?: PromptInputDictation;

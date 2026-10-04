@@ -2,6 +2,7 @@ import type { SessionSnapshot, TurnGroup } from "@superset/chat/core";
 import { displayText } from "@superset/chat/core";
 import type { UserMessage } from "@superset/chat/protocol";
 import type { ChatHistorySidebarMessage } from "@superset/ui/chat-history-sidebar";
+import { userMessageText } from "../userMessageText";
 
 const PREVIEW_CHARS = 120;
 
@@ -27,11 +28,7 @@ export function railMessages(
 			if (entry.kind !== "item") continue;
 			const { item } = entry;
 			if (item.kind === "user_message") {
-				const text = (item as UserMessage).content
-					.filter((content) => content.type === "text")
-					.map((content) => content.text)
-					.join("\n");
-				const line = preview(text);
+				const line = preview(userMessageText(item as UserMessage));
 				if (line) messages.push({ id: item.id, role: "user", preview: line });
 				continue;
 			}

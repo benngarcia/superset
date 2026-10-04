@@ -4966,6 +4966,9 @@ msgstr "Impossible de désindexer le fichier"
 msgid "Couldn't update pull request"
 msgstr "Impossible de mettre à jour la pull request"
 
+msgid "Couldn't update the queue"
+msgstr "Impossible de mettre à jour la file"
+
 msgid "Couldn't update thread"
 msgstr "Impossible de mettre à jour le fil"
 
@@ -12479,6 +12482,9 @@ msgstr "Question"
 msgid "Questions, feedback, support, or anything else. Send a note and we'll route it to the right person."
 msgstr "Questions, retours, support ou autre. Écrivez-nous et nous transmettrons votre message à la bonne personne."
 
+msgid "Queue paused because you interrupted"
+msgstr "File en pause car vous avez interrompu"
+
 msgid "Queue work for agents"
 msgstr "Mettre du travail en file d'attente pour les agents"
 
@@ -12874,6 +12880,9 @@ msgstr "Retirer la mention {path}"
 
 msgid "Remove PR Link"
 msgstr "Retirer le lien de la PR"
+
+msgid "Remove queued message"
+msgstr "Retirer le message de la file"
 
 msgid "Remove script"
 msgstr "Retirer le script"
@@ -15180,6 +15189,9 @@ msgstr "Statut modifié"
 msgid "Stay connected (refresh tokens)"
 msgstr "Rester connectée (tokens de rafraîchissement)"
 
+msgid "Steer"
+msgstr "Réorienter"
+
 #. placeholder {0}: step === "workspace" ? 1 : 2
 msgid "Step {0} of 2"
 msgstr "Étape {0} sur 2"
@@ -15215,6 +15227,9 @@ msgstr "Arrêter la réponse"
 
 msgid "Stop Superset here to delete from another device."
 msgstr "Arrêtez Superset ici pour le supprimer depuis un autre appareil."
+
+msgid "Stop the agent and send this now"
+msgstr "Arrêter l'agent et envoyer maintenant"
 
 msgid "Stop watching"
 msgstr "Arrêter la surveillance"

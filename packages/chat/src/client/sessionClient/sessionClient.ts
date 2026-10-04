@@ -54,6 +54,9 @@ export type SessionClient = {
 	getSession(): Promise<ChatRouterOutputs["getSession"]>;
 	getItems(page?: GetItemsPage): Promise<ChatRouterOutputs["getItems"]>;
 	prompt(options: PromptOptions): Promise<ChatRouterOutputs["prompt"]>;
+	removeQueuedPrompt(itemId: string): Promise<void>;
+	steerQueuedPrompt(itemId: string): Promise<void>;
+	resumeQueue(): Promise<void>;
 	cancelTurn(turnId: string): Promise<void>;
 	respondToApproval(approvalId: string, decision: Decision): Promise<void>;
 	setMode(modeId: string): Promise<void>;
@@ -88,6 +91,26 @@ export function createSessionClient(
 				clientId: promptOptions.clientId,
 				content: promptOptions.content,
 			}),
+
+		removeQueuedPrompt: async (itemId) => {
+			await options.transport.removeQueuedPrompt({
+				commandId: mintId(),
+				sessionId,
+				itemId,
+			});
+		},
+
+		steerQueuedPrompt: async (itemId) => {
+			await options.transport.steerQueuedPrompt({
+				commandId: mintId(),
+				sessionId,
+				itemId,
+			});
+		},
+
+		resumeQueue: async () => {
+			await options.transport.resumeQueue({ commandId: mintId(), sessionId });
+		},
 
 		cancelTurn: async (turnId) => {
 			await options.transport.cancelTurn({

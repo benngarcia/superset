@@ -11,13 +11,7 @@ import {
 import { cn } from "@superset/ui/utils";
 import { ChevronRight } from "lucide-react";
 import { useState } from "react";
-
-function messageText(item: UserMessage): string {
-	return item.content
-		.filter((content) => content.type === "text")
-		.map((content) => content.text)
-		.join("\n");
-}
+import { userMessageText } from "../../../../utils/userMessageText";
 
 /**
  * A harness bookkeeping turn: one muted line with the raw block behind a
@@ -54,7 +48,7 @@ export function UserMessageRow({
 	/** Which harness spelled this turn; its reader decides what is bookkeeping. */
 	harness: string | undefined;
 }) {
-	const text = messageText(item);
+	const text = userMessageText(item);
 	const note = readBookkeeping(harness, text);
 	if (note) return <BookkeepingRow label={note.label} text={text} />;
 
