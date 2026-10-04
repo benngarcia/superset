@@ -152,9 +152,9 @@ export function AcpChatPane({
 	const sessionStopped =
 		stored !== undefined && stored !== null && !stored.live;
 	// A stopped or dead chat has not lost anything: the agent session it was
-	// bound to can be loaded again. A load with no transcript opens a new
-	// session instead, so dead means the agent failed to start, which a later
-	// attempt can get past. Reopening a pane should just work, so do it.
+	// bound to can be loaded again. Dead means the agent exited or failed to
+	// start, and a later attempt may get past either. Reopening a pane should
+	// just work, so do it.
 	const canResume = Boolean(
 		(sessionStopped || sessionDead) && harness && agentSessionId,
 	);
@@ -162,15 +162,21 @@ export function AcpChatPane({
 	// Once per mount: if the session we resume into is itself unusable, fall
 	// through to the panel instead of spawning adapters in a loop.
 	const autoResumed = useRef(false);
+	const resumingFrom = useRef<string | null>(null);
 	useEffect(() => {
 		if (!canResume || autoResumed.current) return;
-		if (!harness || !agentSessionId) return;
+		if (!harness || !agentSessionId || !sessionId) return;
 		autoResumed.current = true;
+		resumingFrom.current = sessionId;
 		attaching.current = false;
+		void wiring.transport.closeSession({ sessionId }).catch(() => undefined);
 		void start(harness, agentSessionId);
-	}, [canResume, harness, agentSessionId, start]);
+	}, [canResume, harness, agentSessionId, sessionId, start, wiring.transport]);
 
-	if (canResume && !autoResumed.current) {
+	const resuming =
+		canResume &&
+		(!autoResumed.current || (resumingFrom.current === sessionId && !failure));
+	if (resuming) {
 		return (
 			<AcpChatPending>
 				<Trans>Resuming the conversation…</Trans>
