@@ -9,8 +9,8 @@ import {
 import { cn } from "@superset/ui/utils";
 import { ChevronRight } from "lucide-react";
 import { memo } from "react";
-import { ToolCallRow } from "../ToolCallRow";
-import { stepCounts } from "./utils/stepCounts";
+import { ToolCallRow } from "../../../ToolCallRow";
+import { stepCounts } from "../../utils/stepCounts";
 
 /** One phrase of a step summary; `count` is the placeholder every plural shares. */
 function stepPhrase(

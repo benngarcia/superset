@@ -43,7 +43,7 @@ describe("stepCounts", () => {
 			tools: 2,
 		});
 	});
-	test("counts the files a patch touches, not the call", () => {
+	test("counts the files a step touches, not its calls", () => {
 		expect(
 			stepCounts([
 				call("edit", [
@@ -52,8 +52,10 @@ describe("stepCounts", () => {
 					diff("/repo/a.ts"),
 				]),
 				call("edit", [diff("/repo/c.ts")]),
+				call("edit", [diff("/repo/a.ts")]),
+				call("delete"),
 			]).edits,
-		).toBe(3);
+		).toBe(4);
 	});
 	test("is all zeros for an empty run", () => {
 		expect(stepCounts([])).toEqual({

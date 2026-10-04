@@ -24,6 +24,7 @@ export function stepCounts(items: readonly ToolCall[]): StepCounts {
 		fetches: 0,
 		tools: 0,
 	};
+	const editedPaths = new Set<string>();
 	for (const item of items) {
 		switch (item.toolKind) {
 			case "execute":
@@ -31,9 +32,12 @@ export function stepCounts(items: readonly ToolCall[]): StepCounts {
 				break;
 			case "edit":
 			case "delete":
-			case "move":
-				counts.edits += Math.max(1, changedPaths(item).length);
+			case "move": {
+				const paths = changedPaths(item);
+				if (paths.length === 0) counts.edits += 1;
+				for (const path of paths) editedPaths.add(path);
 				break;
+			}
 			case "read":
 				counts.reads += 1;
 				break;
@@ -47,5 +51,6 @@ export function stepCounts(items: readonly ToolCall[]): StepCounts {
 				counts.tools += 1;
 		}
 	}
+	counts.edits += editedPaths.size;
 	return counts;
 }

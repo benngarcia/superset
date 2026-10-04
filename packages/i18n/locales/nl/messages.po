@@ -5152,6 +5152,10 @@ msgstr "aangemaakt"
 msgid "Created"
 msgstr "Aangemaakt"
 
+msgctxt "file change"
+msgid "Created"
+msgstr "Aangemaakt"
+
 msgctxt "github release action"
 msgid "Created"
 msgstr "Aangemaakt"
@@ -5205,6 +5209,10 @@ msgstr "Team \"{trimmedName}\" aangemaakt"
 msgid "creating"
 msgstr "aanmaken"
 
+msgid "Creating"
+msgstr "Aanmaken"
+
+msgctxt "file change"
 msgid "Creating"
 msgstr "Aanmaken"
 
@@ -5576,6 +5584,10 @@ msgstr "Werkruimte \"{workspaceName}\" verwijderen?"
 msgid "Deleted"
 msgstr "Verwijderd"
 
+msgctxt "file change"
+msgid "Deleted"
+msgstr "Verwijderd"
+
 msgctxt "github release action"
 msgid "Deleted"
 msgstr "Verwijderd"
@@ -5626,6 +5638,7 @@ msgstr "Verwijdert het {0}-profiel, de opgeslagen login op deze machine en de lo
 msgid "Deletes this host, its access, and its workspaces. Files on the machine stay."
 msgstr "Verwijdert deze host, de toegang en de werkruimtes. Bestanden op de machine blijven staan."
 
+msgctxt "file change"
 msgid "Deleting"
 msgstr "Verwijderen"
 
@@ -6223,6 +6236,10 @@ msgstr "Bewerk je reactie…"
 msgid "Edited"
 msgstr "Bewerkt"
 
+msgctxt "file change"
+msgid "Edited"
+msgstr "Bewerkt"
+
 msgctxt "github release action"
 msgid "Edited"
 msgstr "Bewerkt"
@@ -6230,6 +6247,10 @@ msgstr "Bewerkt"
 msgid "Edited {ago}"
 msgstr "Bewerkt {ago}"
 
+msgid "Editing"
+msgstr "Bewerken"
+
+msgctxt "file change"
 msgid "Editing"
 msgstr "Bewerken"
 
@@ -13839,9 +13860,6 @@ msgstr "Naar beneden scrollen"
 
 msgid "Scroll to Bottom"
 msgstr "Naar beneden scrollen"
-
-msgid "Scroll to latest"
-msgstr "Naar het nieuwste scrollen"
 
 msgid "Scroll to the first session"
 msgstr "Naar de eerste sessie"

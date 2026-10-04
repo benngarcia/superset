@@ -12,6 +12,15 @@ import {
 const STICKY_BOTTOM_THRESHOLD_PX = 4;
 const USER_SCROLL_INTENT_MS = 350;
 const SMOOTH_SCROLL_MIN_GAP_MS = 250;
+const SCROLL_KEYS = new Set([
+	"ArrowUp",
+	"ArrowDown",
+	"PageUp",
+	"PageDown",
+	"Home",
+	"End",
+	" ",
+]);
 
 export type StickyBottomScrollBinding = {
 	contentRef: RefObject<HTMLDivElement | null>;
@@ -32,9 +41,9 @@ function prefersReducedMotion(): boolean {
 
 /**
  * Keeps a scroll box pinned to its bottom while content streams in, and lets
- * go the moment the reader scrolls away on purpose: a wheel, a touch or a
- * pointer drag marks intent, a programmatic scroll does not. Scrolling back
- * within a few pixels of the bottom pins it again.
+ * go the moment the reader scrolls away on purpose: a wheel, a touch, a
+ * pointer drag or a scrolling key marks intent, a programmatic scroll does
+ * not. Scrolling back within a few pixels of the bottom pins it again.
  */
 export function useStickyBottomScroll({
 	contentKey,
@@ -52,6 +61,7 @@ export function useStickyBottomScroll({
 	const lastScrollAtRef = useRef(0);
 	const firstScrollRef = useRef(true);
 	const wasStreamingRef = useRef(streaming);
+	const followedStreamRef = useRef(streaming);
 	const maxOffsetRef = useRef(0);
 
 	useEffect(() => {
@@ -61,6 +71,9 @@ export function useStickyBottomScroll({
 		if (typeof ResizeObserver === "undefined") return;
 		const observer = new ResizeObserver(() => {
 			maxOffsetRef.current = maxScrollOffset(element);
+			if (followedStreamRef.current && stickRef.current) {
+				element.scrollTop = maxOffsetRef.current;
+			}
 		});
 		observer.observe(element);
 		if (contentRef.current) observer.observe(contentRef.current);
@@ -71,6 +84,7 @@ export function useStickyBottomScroll({
 	useEffect(() => {
 		const wasStreaming = wasStreamingRef.current;
 		wasStreamingRef.current = streaming;
+		if (streaming) followedStreamRef.current = true;
 		if (!streaming && !wasStreaming) return;
 		const element = scrollRef.current;
 		if (!element || !stickRef.current) return;
@@ -93,6 +107,15 @@ export function useStickyBottomScroll({
 	const onPointerDown = useCallback<PointerEventHandler<HTMLDivElement>>(() => {
 		pointerIntentRef.current = true;
 	}, []);
+	useEffect(() => {
+		const element = scrollRef.current;
+		if (!element) return;
+		const onKeyDown = (event: KeyboardEvent) => {
+			if (SCROLL_KEYS.has(event.key)) markIntent();
+		};
+		element.addEventListener("keydown", onKeyDown);
+		return () => element.removeEventListener("keydown", onKeyDown);
+	}, [markIntent, scrollRef]);
 	const onScroll = useCallback<UIEventHandler<HTMLDivElement>>((event) => {
 		if (
 			maxOffsetRef.current - event.currentTarget.scrollTop <=

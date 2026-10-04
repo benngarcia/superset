@@ -7,7 +7,6 @@ import {
 } from "renderer/screens/main/components/WorkspaceView/utils/code-theme";
 import { useResolvedTheme } from "renderer/stores/theme";
 import { diffStats } from "../../../../utils/diffStats";
-import { fileChangeKind } from "../../../../utils/fileChange";
 import { DetailScroll } from "../DetailScroll";
 import { DiffCardHeader } from "./components/DiffCardHeader";
 
@@ -32,7 +31,6 @@ export function DiffContent({
 }) {
 	const activeTheme = useResolvedTheme();
 	const stats = useMemo(() => diffStats(content), [content]);
-	const kind = fileChangeKind(content);
 	const contentKey = [
 		content.path,
 		content.oldText ?? "",
@@ -45,7 +43,7 @@ export function DiffContent({
 			scrollClassName="rounded-lg border border-border/60 bg-background"
 			streaming={streaming}
 		>
-			<DiffCardHeader kind={kind} path={content.path} stats={stats} />
+			<DiffCardHeader path={content.path} stats={stats} />
 			<MultiFileDiff
 				newFile={{ name: content.path, contents: content.newText }}
 				oldFile={{ name: content.path, contents: content.oldText ?? "" }}

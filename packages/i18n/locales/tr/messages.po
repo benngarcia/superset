@@ -5152,6 +5152,10 @@ msgstr "oluşturuldu"
 msgid "Created"
 msgstr "Oluşturuldu"
 
+msgctxt "file change"
+msgid "Created"
+msgstr "Oluşturuldu"
+
 msgctxt "github release action"
 msgid "Created"
 msgstr "Oluşturuldu"
@@ -5205,6 +5209,10 @@ msgstr "\"{trimmedName}\" takımı oluşturuldu"
 msgid "creating"
 msgstr "oluşturuluyor"
 
+msgid "Creating"
+msgstr "Oluşturuluyor"
+
+msgctxt "file change"
 msgid "Creating"
 msgstr "Oluşturuluyor"
 
@@ -5576,6 +5584,10 @@ msgstr "\"{workspaceName}\" çalışma alanı silinsin mi?"
 msgid "Deleted"
 msgstr "Silindi"
 
+msgctxt "file change"
+msgid "Deleted"
+msgstr "Silindi"
+
 msgctxt "github release action"
 msgid "Deleted"
 msgstr "Silindi"
@@ -5626,6 +5638,7 @@ msgstr "{0} profilini, bu makinedeki kayıtlı oturumunu ve yerel Codex oturum g
 msgid "Deletes this host, its access, and its workspaces. Files on the machine stay."
 msgstr "Bu host'u, erişimini ve çalışma alanlarını siler. Makinedeki dosyalar kalır."
 
+msgctxt "file change"
 msgid "Deleting"
 msgstr "Siliniyor"
 
@@ -6223,6 +6236,10 @@ msgstr "Yorumunu düzenle…"
 msgid "Edited"
 msgstr "Düzenlendi"
 
+msgctxt "file change"
+msgid "Edited"
+msgstr "Düzenlendi"
+
 msgctxt "github release action"
 msgid "Edited"
 msgstr "Düzenlendi"
@@ -6232,6 +6249,10 @@ msgstr "{ago} düzenlendi"
 
 msgid "Editing"
 msgstr "Düzenleme"
+
+msgctxt "file change"
+msgid "Editing"
+msgstr "Düzenleniyor"
 
 msgid "Editing file..."
 msgstr "Dosya düzenleniyor..."
@@ -13839,9 +13860,6 @@ msgstr "En alta kaydır"
 
 msgid "Scroll to Bottom"
 msgstr "En alta kaydır"
-
-msgid "Scroll to latest"
-msgstr "En sona kaydır"
 
 msgid "Scroll to the first session"
 msgstr "İlk oturuma git"

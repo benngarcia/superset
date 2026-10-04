@@ -123,15 +123,15 @@ function FileChangeTitle({
 	}, [item.content]);
 	const verb = running
 		? change.kind === "added"
-			? t({ message: "Creating" })
+			? t({ message: "Creating", context: "file change" })
 			: change.kind === "deleted"
-				? t({ message: "Deleting" })
-				: t({ message: "Editing" })
+				? t({ message: "Deleting", context: "file change" })
+				: t({ message: "Editing", context: "file change" })
 		: change.kind === "added"
-			? t({ message: "Created" })
+			? t({ message: "Created", context: "file change" })
 			: change.kind === "deleted"
-				? t({ message: "Deleted" })
-				: t({ message: "Edited" });
+				? t({ message: "Deleted", context: "file change" })
+				: t({ message: "Edited", context: "file change" });
 	return (
 		<>
 			<span className="shrink-0">

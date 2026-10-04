@@ -99,16 +99,3 @@ export function transcriptRows(
 	}
 	return rows;
 }
-
-export function latestUserRowKey(
-	rows: readonly TranscriptRow[],
-): string | null {
-	for (let index = rows.length - 1; index >= 0; index -= 1) {
-		const row = rows[index];
-		if (row?.kind === "outbox") return row.key;
-		if (row?.kind === "item" && row.item.kind === "user_message") {
-			return row.key;
-		}
-	}
-	return null;
-}

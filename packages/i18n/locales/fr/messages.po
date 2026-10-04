@@ -5152,6 +5152,10 @@ msgstr "créée"
 msgid "Created"
 msgstr "Créée"
 
+msgctxt "file change"
+msgid "Created"
+msgstr "Créé"
+
 msgctxt "github release action"
 msgid "Created"
 msgstr "Créée"
@@ -5207,6 +5211,10 @@ msgstr "création"
 
 msgid "Creating"
 msgstr "Création"
+
+msgctxt "file change"
+msgid "Creating"
+msgstr "Création de"
 
 msgid "Creating PR..."
 msgstr "Création de la PR…"
@@ -5576,6 +5584,10 @@ msgstr "Supprimer l'espace de travail \"{workspaceName}\" ?"
 msgid "Deleted"
 msgstr "Supprimés"
 
+msgctxt "file change"
+msgid "Deleted"
+msgstr "Supprimé"
+
 msgctxt "github release action"
 msgid "Deleted"
 msgstr "Supprimée"
@@ -5626,8 +5638,9 @@ msgstr "Supprime le profil {0}, sa connexion enregistrée sur cette machine et s
 msgid "Deletes this host, its access, and its workspaces. Files on the machine stay."
 msgstr "Supprime cet hôte, ses accès et ses espaces de travail. Les fichiers présents sur la machine sont conservés."
 
+msgctxt "file change"
 msgid "Deleting"
-msgstr "Suppression"
+msgstr "Suppression de"
 
 #. placeholder {0}: Math.min(completed + 1, total)
 #. placeholder {1}: targets.length
@@ -6223,6 +6236,10 @@ msgstr "Modifiez votre commentaire…"
 msgid "Edited"
 msgstr "Modifié"
 
+msgctxt "file change"
+msgid "Edited"
+msgstr "Modifié"
+
 msgctxt "github release action"
 msgid "Edited"
 msgstr "Modifiée"
@@ -6232,6 +6249,10 @@ msgstr "Modifié {ago}"
 
 msgid "Editing"
 msgstr "Édition"
+
+msgctxt "file change"
+msgid "Editing"
+msgstr "Modification de"
 
 msgid "Editing file..."
 msgstr "Modification du fichier..."
@@ -13839,9 +13860,6 @@ msgstr "Aller en bas"
 
 msgid "Scroll to Bottom"
 msgstr "Défiler vers le bas"
-
-msgid "Scroll to latest"
-msgstr "Aller au plus récent"
 
 msgid "Scroll to the first session"
 msgstr "Aller à la première session"

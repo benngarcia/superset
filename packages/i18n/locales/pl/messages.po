@@ -5152,6 +5152,10 @@ msgstr "utworzone"
 msgid "Created"
 msgstr "Utworzono"
 
+msgctxt "file change"
+msgid "Created"
+msgstr "Utworzono"
+
 msgctxt "github release action"
 msgid "Created"
 msgstr "Utworzono"
@@ -5205,6 +5209,10 @@ msgstr "Utworzono zespół „{trimmedName}”"
 msgid "creating"
 msgstr "tworzenie"
 
+msgid "Creating"
+msgstr "Tworzenie"
+
+msgctxt "file change"
 msgid "Creating"
 msgstr "Tworzenie"
 
@@ -5576,6 +5584,10 @@ msgstr "Usunąć obszar roboczy „{workspaceName}”?"
 msgid "Deleted"
 msgstr "Usunięte"
 
+msgctxt "file change"
+msgid "Deleted"
+msgstr "Usunięto"
+
 msgctxt "github release action"
 msgid "Deleted"
 msgstr "Usunięto"
@@ -5626,6 +5638,7 @@ msgstr "Usuwa profil {0}, jego zapisane logowanie na tej maszynie oraz lokalną 
 msgid "Deletes this host, its access, and its workspaces. Files on the machine stay."
 msgstr "Usuwa tego hosta, dostęp do niego i jego obszary robocze. Pliki na maszynie zostają."
 
+msgctxt "file change"
 msgid "Deleting"
 msgstr "Usuwanie"
 
@@ -6223,6 +6236,10 @@ msgstr "Edytuj komentarz…"
 msgid "Edited"
 msgstr "Edytowano"
 
+msgctxt "file change"
+msgid "Edited"
+msgstr "Edytowano"
+
 msgctxt "github release action"
 msgid "Edited"
 msgstr "Edytowano"
@@ -6230,6 +6247,10 @@ msgstr "Edytowano"
 msgid "Edited {ago}"
 msgstr "Edytowano {ago}"
 
+msgid "Editing"
+msgstr "Edycja"
+
+msgctxt "file change"
 msgid "Editing"
 msgstr "Edycja"
 
@@ -13839,9 +13860,6 @@ msgstr "Przewiń na dół"
 
 msgid "Scroll to Bottom"
 msgstr "Przewiń na dół"
-
-msgid "Scroll to latest"
-msgstr "Przewiń do najnowszych"
 
 msgid "Scroll to the first session"
 msgstr "Przejdź do pierwszej sesji"

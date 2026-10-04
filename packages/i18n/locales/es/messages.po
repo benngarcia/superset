@@ -5152,6 +5152,10 @@ msgstr "creada"
 msgid "Created"
 msgstr "Creado"
 
+msgctxt "file change"
+msgid "Created"
+msgstr "Creado"
+
 msgctxt "github release action"
 msgid "Created"
 msgstr "Creada"
@@ -5205,6 +5209,10 @@ msgstr "Equipo \"{trimmedName}\" creado"
 msgid "creating"
 msgstr "creando"
 
+msgid "Creating"
+msgstr "Creando"
+
+msgctxt "file change"
 msgid "Creating"
 msgstr "Creando"
 
@@ -5576,6 +5584,10 @@ msgstr "¿Eliminar el espacio de trabajo \"{workspaceName}\"?"
 msgid "Deleted"
 msgstr "Eliminados"
 
+msgctxt "file change"
+msgid "Deleted"
+msgstr "Eliminado"
+
 msgctxt "github release action"
 msgid "Deleted"
 msgstr "Eliminada"
@@ -5626,6 +5638,7 @@ msgstr "Elimina el perfil {0}, su sesión guardada en esta máquina y su histori
 msgid "Deletes this host, its access, and its workspaces. Files on the machine stay."
 msgstr "Elimina este host, su acceso y sus espacios de trabajo. Los archivos de la máquina se conservan."
 
+msgctxt "file change"
 msgid "Deleting"
 msgstr "Eliminando"
 
@@ -6223,6 +6236,10 @@ msgstr "Edita tu comentario…"
 msgid "Edited"
 msgstr "Editado"
 
+msgctxt "file change"
+msgid "Edited"
+msgstr "Editado"
+
 msgctxt "github release action"
 msgid "Edited"
 msgstr "Editada"
@@ -6232,6 +6249,10 @@ msgstr "Editado {ago}"
 
 msgid "Editing"
 msgstr "Edición"
+
+msgctxt "file change"
+msgid "Editing"
+msgstr "Editando"
 
 msgid "Editing file..."
 msgstr "Editando archivo..."
@@ -13839,9 +13860,6 @@ msgstr "Ir al final"
 
 msgid "Scroll to Bottom"
 msgstr "Desplazar al final"
-
-msgid "Scroll to latest"
-msgstr "Ir a lo más reciente"
 
 msgid "Scroll to the first session"
 msgstr "Ir a la primera sesión"

@@ -5152,6 +5152,10 @@ msgstr "created"
 msgid "Created"
 msgstr "Created"
 
+msgctxt "file change"
+msgid "Created"
+msgstr "Created"
+
 msgctxt "github release action"
 msgid "Created"
 msgstr "Created"
@@ -5205,6 +5209,10 @@ msgstr "Created team \"{trimmedName}\""
 msgid "creating"
 msgstr "creating"
 
+msgid "Creating"
+msgstr "Creating"
+
+msgctxt "file change"
 msgid "Creating"
 msgstr "Creating"
 
@@ -5576,6 +5584,10 @@ msgstr "Delete workspace \"{workspaceName}\"?"
 msgid "Deleted"
 msgstr "Deleted"
 
+msgctxt "file change"
+msgid "Deleted"
+msgstr "Deleted"
+
 msgctxt "github release action"
 msgid "Deleted"
 msgstr "Deleted"
@@ -5626,6 +5638,7 @@ msgstr "Deletes the {0} profile, its saved sign-in on this machine, and its loca
 msgid "Deletes this host, its access, and its workspaces. Files on the machine stay."
 msgstr "Deletes this host, its access, and its workspaces. Files on the machine stay."
 
+msgctxt "file change"
 msgid "Deleting"
 msgstr "Deleting"
 
@@ -6223,6 +6236,10 @@ msgstr "Edit your comment…"
 msgid "Edited"
 msgstr "Edited"
 
+msgctxt "file change"
+msgid "Edited"
+msgstr "Edited"
+
 msgctxt "github release action"
 msgid "Edited"
 msgstr "Edited"
@@ -6230,6 +6247,10 @@ msgstr "Edited"
 msgid "Edited {ago}"
 msgstr "Edited {ago}"
 
+msgid "Editing"
+msgstr "Editing"
+
+msgctxt "file change"
 msgid "Editing"
 msgstr "Editing"
 
@@ -13839,9 +13860,6 @@ msgstr "Scroll to bottom"
 
 msgid "Scroll to Bottom"
 msgstr "Scroll to Bottom"
-
-msgid "Scroll to latest"
-msgstr "Scroll to latest"
 
 msgid "Scroll to the first session"
 msgstr "Scroll to the first session"

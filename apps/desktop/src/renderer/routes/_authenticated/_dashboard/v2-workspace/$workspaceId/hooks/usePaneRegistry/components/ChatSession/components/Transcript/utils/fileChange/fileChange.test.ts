@@ -39,20 +39,32 @@ describe("fileName", () => {
 describe("fileChangeKind", () => {
 	test("a missing old text is a new file", () => {
 		expect(
-			fileChangeKind({ type: "diff", path: "a", oldText: null, newText: "x" }),
+			fileChangeKind(
+				{ type: "diff", path: "a", oldText: null, newText: "x" },
+				"edit",
+			),
 		).toBe("added");
 	});
-	test("an emptied file is a deletion", () => {
+	test("a delete call is a deletion whatever its diff says", () => {
 		expect(
-			fileChangeKind({ type: "diff", path: "a", oldText: "x", newText: "" }),
+			fileChangeKind(
+				{ type: "diff", path: "a", oldText: "x", newText: "" },
+				"delete",
+			),
 		).toBe("deleted");
 	});
-	test("anything else is an edit, including emptying an already empty file", () => {
+	test("an edit that empties a file is still an edit", () => {
 		expect(
-			fileChangeKind({ type: "diff", path: "a", oldText: "x", newText: "y" }),
+			fileChangeKind(
+				{ type: "diff", path: "a", oldText: "x", newText: "" },
+				"edit",
+			),
 		).toBe("modified");
 		expect(
-			fileChangeKind({ type: "diff", path: "a", oldText: "", newText: "" }),
+			fileChangeKind(
+				{ type: "diff", path: "a", oldText: "x", newText: "y" },
+				"edit",
+			),
 		).toBe("modified");
 	});
 });
@@ -80,6 +92,16 @@ describe("fileChangeOf", () => {
 				]),
 			),
 		).toBeNull();
+	});
+	test("names a delete call's file as deleted", () => {
+		expect(
+			fileChangeOf(
+				call(
+					[{ type: "diff", path: "/repo/src/a.ts", oldText: "1", newText: "" }],
+					"delete",
+				),
+			),
+		).toEqual({ kind: "deleted", path: "/repo/src/a.ts", name: "a.ts" });
 	});
 	test("is null for a move, whose title names both paths", () => {
 		expect(

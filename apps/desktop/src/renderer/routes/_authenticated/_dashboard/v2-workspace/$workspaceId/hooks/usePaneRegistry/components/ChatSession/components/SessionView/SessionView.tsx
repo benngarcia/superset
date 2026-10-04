@@ -13,10 +13,11 @@ import {
 	useChatSession,
 	useTimeline,
 } from "@superset/chat/react";
-import { ChatHistorySidebar } from "@superset/ui/chat-history-sidebar";
+import { MessageScroller } from "@superset/chat-ui/MessageScroller";
+import { ChatHistorySidebarScroller } from "@superset/ui/chat-history-sidebar";
 import { Spinner } from "@superset/ui/spinner";
 import type { ReactNode } from "react";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useStableList } from "../../hooks/useStableList";
 import type { ChatForkTarget } from "../../types";
 import { buildChatHandoffTranscript } from "../../utils/chatHandoffTranscript";
@@ -25,6 +26,7 @@ import { Composer } from "../Composer";
 import { SessionHeader } from "../SessionHeader";
 import { Transcript } from "../Transcript";
 
+const RESUME_FOLLOW_PX = 24;
 const NO_COMMANDS: AvailableCommand[] = [];
 const NO_CONFIG_OPTIONS: SessionConfigOption[] = [];
 
@@ -66,16 +68,6 @@ export function SessionView({
 			previous.role === next.role &&
 			previous.preview === next.preview,
 	);
-	const [scrollRequest, setScrollRequest] = useState<{
-		itemId: string;
-		nonce: number;
-	}>();
-	const selectFromRail = useCallback((message: { id: string }) => {
-		setScrollRequest((previous) => ({
-			itemId: message.id,
-			nonce: (previous?.nonce ?? 0) + 1,
-		}));
-	}, []);
 	const approvals = useApprovals(session.snapshot);
 
 	const firstPromptSentRef = useRef(false);
@@ -195,25 +187,23 @@ export function SessionView({
 					session={session.snapshot.session}
 				/>
 			)}
-			<div className="@container flex min-h-0 flex-1">
-				{!loadingTranscript && rail.length > 1 && (
-					<ChatHistorySidebar
-						className="hidden max-h-full shrink-0 flex-col self-center pl-3 @[56rem]:flex"
-						messages={rail}
-						onMessageSelect={selectFromRail}
-					/>
-				)}
-				<div className="flex min-h-0 min-w-0 flex-1 flex-col">
-					{loadingTranscript ? (
-						<div className="flex flex-1 flex-col items-center justify-center gap-3">
-							<Spinner className="size-5" />
-							{booting && (
-								<span className="text-muted-foreground text-xs">
-									<Trans>Opening the conversation…</Trans>
-								</span>
-							)}
-						</div>
-					) : (
+			{loadingTranscript ? (
+				<div className="flex flex-1 flex-col items-center justify-center gap-3">
+					<Spinner className="size-5" />
+					{booting && (
+						<span className="text-muted-foreground text-xs">
+							<Trans>Opening the conversation…</Trans>
+						</span>
+					)}
+				</div>
+			) : (
+				<MessageScroller.Provider
+					autoScroll
+					defaultScrollPosition="end"
+					scrollEdgeThreshold={RESUME_FOLLOW_PX}
+					scrollPreviousItemPeek={0}
+				>
+					<div className="@container relative flex min-h-0 flex-1">
 						<Transcript
 							approvals={approvals}
 							canForkToWorktree={canForkToWorktree}
@@ -225,26 +215,31 @@ export function SessionView({
 							onRespond={onRespond}
 							onRetryPrompt={session.retryPrompt}
 							outbox={session.outbox}
-							scrollRequest={scrollRequest}
 							snapshot={session.snapshot}
 						/>
-					)}
-					<Composer
-						availableCommands={sessionState?.availableCommands ?? NO_COMMANDS}
-						configOptions={sessionState?.configOptions ?? NO_CONFIG_OPTIONS}
-						onSetConfigOption={onSetConfigOption}
-						modes={sessionState?.availableModes}
-						currentModeId={sessionState?.modeId}
-						onSetMode={onSetMode}
-						disabled={session.status !== "ready"}
-						draftKey={`chat-v3-draft:${sessionId}`}
-						onCancelTurn={onCancelTurn}
-						onSend={onSend}
-						promptQueue={promptQueue}
-						workspaceId={workspaceId}
-					/>
-				</div>
-			</div>
+						{rail.length > 1 && (
+							<ChatHistorySidebarScroller
+								className="absolute inset-y-0 left-0 my-auto hidden h-fit max-h-full flex-col pl-3 @[56rem]:flex"
+								messages={rail}
+							/>
+						)}
+					</div>
+				</MessageScroller.Provider>
+			)}
+			<Composer
+				availableCommands={sessionState?.availableCommands ?? NO_COMMANDS}
+				configOptions={sessionState?.configOptions ?? NO_CONFIG_OPTIONS}
+				onSetConfigOption={onSetConfigOption}
+				modes={sessionState?.availableModes}
+				currentModeId={sessionState?.modeId}
+				onSetMode={onSetMode}
+				disabled={session.status !== "ready"}
+				draftKey={`chat-v3-draft:${sessionId}`}
+				onCancelTurn={onCancelTurn}
+				onSend={onSend}
+				promptQueue={promptQueue}
+				workspaceId={workspaceId}
+			/>
 		</div>
 	);
 }
