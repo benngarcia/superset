@@ -53,8 +53,9 @@ function latestUserItemId(groups: TurnGroup[]): string | null {
 /**
  * Whether the end of the transcript needs its own "busy" line: a running
  * turn whose newest row is not itself live. A streaming message, a thought
- * mid-stream and a running tool call all shimmer on their own; the line
- * covers the gaps between them, and the wait before the first one.
+ * mid-stream and a running tool call all shimmer on their own, and a pending
+ * approval is the reader's turn, not the agent's; the line covers the gaps
+ * between them, and the wait before the first one.
  */
 function showsWorkingIndicator(groups: TurnGroup[]): boolean {
 	const last = groups.at(-1);
@@ -67,6 +68,7 @@ function showsWorkingIndicator(groups: TurnGroup[]): boolean {
 	if (item.kind === "tool_call") return item.status !== "running";
 	if (item.kind === "agent_message" || item.kind === "reasoning")
 		return item.completedAtMs !== undefined;
+	if (item.kind === "approval_request") return item.status !== "pending";
 	return true;
 }
 
