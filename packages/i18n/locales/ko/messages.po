@@ -13841,6 +13841,9 @@ msgstr "맨 아래로 스크롤"
 msgid "Scroll to Bottom"
 msgstr "맨 아래로 스크롤"
 
+msgid "Scroll to latest"
+msgstr "최신으로 스크롤"
+
 msgid "Scroll to the first session"
 msgstr "첫 세션으로 이동"
 

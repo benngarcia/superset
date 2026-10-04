@@ -13841,6 +13841,9 @@ msgstr "Scroll to bottom"
 msgid "Scroll to Bottom"
 msgstr "Scroll to Bottom"
 
+msgid "Scroll to latest"
+msgstr "Scroll to latest"
+
 msgid "Scroll to the first session"
 msgstr "Scroll to the first session"
 

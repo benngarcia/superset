@@ -13841,6 +13841,9 @@ msgstr "Przewiń na dół"
 msgid "Scroll to Bottom"
 msgstr "Przewiń na dół"
 
+msgid "Scroll to latest"
+msgstr "Przewiń do najnowszych"
+
 msgid "Scroll to the first session"
 msgstr "Przejdź do pierwszej sesji"
 

@@ -50,7 +50,9 @@ export function collapseWorkLog(items: readonly Item[]): TimelineEntry[] {
 	return entries;
 }
 
-export function deriveTimeline(snapshot: SessionSnapshot): TurnGroup[] {
+export function deriveTimeline(
+	snapshot: Pick<SessionSnapshot, "items" | "turns">,
+): TurnGroup[] {
 	const itemsByTurn = new Map<string, Item[]>();
 	for (const stored of snapshot.items.values() as Iterable<StoredItem>) {
 		if (isQueuedPrompt(stored.item) || isDiscardedPrompt(stored.item)) continue;
@@ -87,7 +89,7 @@ function firstItemStart(group: TurnGroup): number {
 }
 
 export function derivePendingApprovals(
-	snapshot: SessionSnapshot,
+	snapshot: Pick<SessionSnapshot, "items">,
 ): ApprovalRequest[] {
 	const pending: ApprovalRequest[] = [];
 	for (const stored of snapshot.items.values()) {
@@ -111,7 +113,9 @@ function isDiscardedPrompt(item: Item): boolean {
 	);
 }
 
-export function deriveQueuedPrompts(snapshot: SessionSnapshot): UserMessage[] {
+export function deriveQueuedPrompts(
+	snapshot: Pick<SessionSnapshot, "items">,
+): UserMessage[] {
 	const queued: UserMessage[] = [];
 	for (const stored of snapshot.items.values()) {
 		if (isQueuedPrompt(stored.item)) queued.push(stored.item);

@@ -13841,6 +13841,9 @@ msgstr "滚动到底部"
 msgid "Scroll to Bottom"
 msgstr "滚动到底部"
 
+msgid "Scroll to latest"
+msgstr "滚动到最新"
+
 msgid "Scroll to the first session"
 msgstr "回到第一个会话"
 

@@ -13841,6 +13841,9 @@ msgstr "Přejít dolů"
 msgid "Scroll to Bottom"
 msgstr "Přejít dolů"
 
+msgid "Scroll to latest"
+msgstr "Přejít na nejnovější"
+
 msgid "Scroll to the first session"
 msgstr "Přejít na první relaci"
 

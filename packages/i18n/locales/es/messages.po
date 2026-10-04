@@ -13841,6 +13841,9 @@ msgstr "Ir al final"
 msgid "Scroll to Bottom"
 msgstr "Desplazar al final"
 
+msgid "Scroll to latest"
+msgstr "Ir a lo más reciente"
+
 msgid "Scroll to the first session"
 msgstr "Ir a la primera sesión"
 

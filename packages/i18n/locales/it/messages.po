@@ -13841,6 +13841,9 @@ msgstr "Vai in fondo"
 msgid "Scroll to Bottom"
 msgstr "Vai in fondo"
 
+msgid "Scroll to latest"
+msgstr "Vai al più recente"
+
 msgid "Scroll to the first session"
 msgstr "Vai alla prima sessione"
 
