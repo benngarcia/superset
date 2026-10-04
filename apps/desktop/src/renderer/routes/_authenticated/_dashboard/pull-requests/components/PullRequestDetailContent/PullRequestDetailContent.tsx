@@ -3,8 +3,9 @@ import { errorMessage } from "@superset/i18n/errors";
 import { cn } from "@superset/ui/utils";
 import type { ReactNode } from "react";
 import { WorkItemDetailState } from "../../../components/WorkItemDetailState";
-import { PullRequestCodeTab } from "../../$prNumber/components/PullRequestCodeTab";
 import type { PullRequestDetail } from "../../hooks/usePullRequestDetail";
+import { PullRequestCodeTab } from "../PullRequestCodeTab";
+import type { PullRequestDetailTab } from "../PullRequestDetailTabs";
 import { PullRequestSummaryContent } from "../PullRequestSummaryContent";
 
 export function PullRequestDetailContent({
@@ -17,7 +18,7 @@ export function PullRequestDetailContent({
 	detail,
 	children,
 }: {
-	activeTab: "summary" | "code";
+	activeTab: PullRequestDetailTab;
 	projectId: string | null;
 	hostUrl: string | null;
 	hostId: string | null;

@@ -1,5 +1,3 @@
-import { useLingui } from "@lingui/react/macro";
-import { cn } from "@superset/ui/utils";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useHostUrl } from "renderer/hooks/host-service/useHostTargetUrl";
@@ -7,6 +5,10 @@ import { PageHeader } from "renderer/routes/_authenticated/_dashboard/components
 import { useProjectHost } from "renderer/routes/_authenticated/_dashboard/hooks/useProjectHost";
 import { PullRequestDetailContent } from "renderer/routes/_authenticated/_dashboard/pull-requests/components/PullRequestDetailContent";
 import { PullRequestDetailHeader } from "renderer/routes/_authenticated/_dashboard/pull-requests/components/PullRequestDetailHeader";
+import {
+	type PullRequestDetailTab,
+	PullRequestDetailTabs,
+} from "renderer/routes/_authenticated/_dashboard/pull-requests/components/PullRequestDetailTabs";
 import { PullRequestListToggle } from "renderer/routes/_authenticated/_dashboard/pull-requests/components/PullRequestListToggle";
 import { usePullRequestDetail } from "renderer/routes/_authenticated/_dashboard/pull-requests/hooks/usePullRequestDetail";
 import { parsePositiveIntegerParam } from "renderer/routes/_authenticated/_dashboard/utils/parsePositiveIntegerParam";
@@ -18,31 +20,14 @@ export const Route = createFileRoute(
 	component: PullRequestDetailPage,
 });
 
-type DetailTab = "summary" | "code";
-
 function PullRequestDetailPage() {
-	const { t } = useLingui();
-	const detailTabs: ReadonlyArray<{ value: DetailTab; label: string }> = [
-		{
-			value: "summary",
-			label: t({
-				message: "Summary",
-			}),
-		},
-		{
-			value: "code",
-			label: t({
-				message: "Code",
-			}),
-		},
-	];
 	const { prNumber: prNumberRaw } = Route.useParams();
 	const prNumber = parsePositiveIntegerParam(prNumberRaw);
 	const search = PullRequestsLayoutRoute.useSearch();
 	const projectId = search.project ?? null;
 	const { hostId } = useProjectHost(projectId);
 	const hostUrl = useHostUrl(hostId);
-	const [activeTab, setActiveTab] = useState<DetailTab>("summary");
+	const [activeTab, setActiveTab] = useState<PullRequestDetailTab>("summary");
 
 	const detail = usePullRequestDetail({
 		projectId,
@@ -61,24 +46,11 @@ function PullRequestDetailPage() {
 				start={
 					<>
 						<PullRequestListToggle />
-						<div className="ml-2 flex items-center gap-1">
-							{detailTabs.map(({ value, label }) => (
-								<button
-									key={value}
-									type="button"
-									onClick={() => setActiveTab(value)}
-									aria-current={activeTab === value ? "true" : undefined}
-									className={cn(
-										"rounded-md px-2 py-1 text-xs font-medium transition-colors",
-										activeTab === value
-											? "bg-accent text-foreground"
-											: "text-muted-foreground hover:text-foreground",
-									)}
-								>
-									{label}
-								</button>
-							))}
-						</div>
+						<PullRequestDetailTabs
+							activeTab={activeTab}
+							onTabChange={setActiveTab}
+							className="ml-2"
+						/>
 					</>
 				}
 			/>

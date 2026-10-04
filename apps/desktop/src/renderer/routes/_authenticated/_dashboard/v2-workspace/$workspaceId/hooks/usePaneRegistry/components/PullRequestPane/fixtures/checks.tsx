@@ -50,22 +50,19 @@ mock.module(`${root}/components/WorkItemDetailState`, () => ({
 		<div data-testid="summary-state">{message}</div>
 	),
 }));
-mock.module(
-	`${root}/pull-requests/$prNumber/components/PullRequestCodeTab`,
-	() => ({
-		PullRequestCodeTab: ({
-			projectId,
-			prUrl,
-		}: {
-			projectId: string | null;
-			prUrl: string;
-		}) => (
-			<div data-testid="code" data-project={projectId ?? ""}>
-				{prUrl}
-			</div>
-		),
-	}),
-);
+mock.module(`${root}/pull-requests/components/PullRequestCodeTab`, () => ({
+	PullRequestCodeTab: ({
+		projectId,
+		prUrl,
+	}: {
+		projectId: string | null;
+		prUrl: string;
+	}) => (
+		<div data-testid="code" data-project={projectId ?? ""}>
+			{prUrl}
+		</div>
+	),
+}));
 const { PullRequestPane } = await import("../PullRequestPane");
 
 for (const state of ["loading", "error"] as const) {

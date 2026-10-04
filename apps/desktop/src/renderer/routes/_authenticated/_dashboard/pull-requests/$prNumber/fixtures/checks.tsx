@@ -54,22 +54,19 @@ mock.module(`${root}/components/WorkItemDetailState`, () => ({
 		<div>{message}</div>
 	),
 }));
-mock.module(
-	`${root}/pull-requests/$prNumber/components/PullRequestCodeTab`,
-	() => ({
-		PullRequestCodeTab: ({
-			prUrl,
-			projectId,
-		}: {
-			prUrl: string;
-			projectId: string | null;
-		}) => (
-			<div data-testid="code" data-project={projectId ?? ""}>
-				{prUrl}
-			</div>
-		),
-	}),
-);
+mock.module(`${root}/pull-requests/components/PullRequestCodeTab`, () => ({
+	PullRequestCodeTab: ({
+		prUrl,
+		projectId,
+	}: {
+		prUrl: string;
+		projectId: string | null;
+	}) => (
+		<div data-testid="code" data-project={projectId ?? ""}>
+			{prUrl}
+		</div>
+	),
+}));
 const { Route } = await import("../page");
 const Page = Route.options.component as () => ReactNode;
 for (const project of [undefined, "unrelated", "removed"]) {

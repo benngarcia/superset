@@ -1,5 +1,3 @@
-import { useLingui } from "@lingui/react/macro";
-import { cn } from "@superset/ui/utils";
 import { workspaceTrpc } from "@superset/workspace-client";
 import { useMemo, useState } from "react";
 import {
@@ -8,6 +6,10 @@ import {
 } from "renderer/lib/github/pullRequestRef";
 import { PullRequestDetailContent } from "renderer/routes/_authenticated/_dashboard/pull-requests/components/PullRequestDetailContent";
 import { PullRequestDetailHeader } from "renderer/routes/_authenticated/_dashboard/pull-requests/components/PullRequestDetailHeader";
+import {
+	type PullRequestDetailTab,
+	PullRequestDetailTabs,
+} from "renderer/routes/_authenticated/_dashboard/pull-requests/components/PullRequestDetailTabs";
 import { useWorkspace } from "renderer/routes/_authenticated/_dashboard/v2-workspace/providers/WorkspaceProvider";
 import { normalizeThreadsToComments } from "../../../../components/CommentsSection/utils/normalizeThreadsToComments";
 import type { CommentPaneData, PullRequestPaneData } from "../../../../types";
@@ -24,19 +26,12 @@ interface PullRequestPaneProps {
 	onOpenComment: (comment: CommentPaneData) => void;
 }
 
-type DetailTab = "summary" | "code";
-
 export function PullRequestPane({
 	data,
 	onOpenDiff,
 	onOpenComment,
 }: PullRequestPaneProps) {
-	const { t } = useLingui();
-	const detailTabs: ReadonlyArray<{ value: DetailTab; label: string }> = [
-		{ value: "summary", label: t({ message: "Summary" }) },
-		{ value: "code", label: t({ message: "Code" }) },
-	];
-	const [activeTab, setActiveTab] = useState<DetailTab>("summary");
+	const [activeTab, setActiveTab] = useState<PullRequestDetailTab>("summary");
 	const { workspace, hostUrl: workspaceHostUrl } = useWorkspace();
 	const detail = usePullRequestPaneDetail(data);
 
@@ -79,24 +74,11 @@ export function PullRequestPane({
 					isLoading={detail.isLoading}
 					showStartWorkspace={false}
 				/>
-				<div className="flex items-center gap-1 px-4 pb-2">
-					{detailTabs.map(({ value, label }) => (
-						<button
-							key={value}
-							type="button"
-							onClick={() => setActiveTab(value)}
-							aria-current={activeTab === value ? "true" : undefined}
-							className={cn(
-								"rounded-md px-2 py-1 text-xs font-medium transition-colors",
-								activeTab === value
-									? "bg-accent text-foreground"
-									: "text-muted-foreground hover:text-foreground",
-							)}
-						>
-							{label}
-						</button>
-					))}
-				</div>
+				<PullRequestDetailTabs
+					activeTab={activeTab}
+					onTabChange={setActiveTab}
+					className="px-4 pb-2"
+				/>
 			</div>
 			<PullRequestDetailContent
 				activeTab={activeTab}

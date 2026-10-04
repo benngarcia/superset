@@ -34,8 +34,8 @@ import { DiffFileHeaderName } from "renderer/screens/main/components/DiffFileHea
 import { DiffViewToolbar } from "renderer/screens/main/components/DiffViewToolbar";
 import { ResizablePanel } from "renderer/screens/main/components/ResizablePanel";
 import { useWorkspaceCreates } from "renderer/stores/workspace-creates/useWorkspaceCreates";
-import { PullRequestCommentComposer } from "../PullRequestCommentComposer";
-import { PullRequestCommentThread } from "../PullRequestCommentThread";
+import { PullRequestCommentComposer } from "./components/PullRequestCommentComposer";
+import { PullRequestCommentThread } from "./components/PullRequestCommentThread";
 import { fetchPullRequestDiff } from "./utils/fetchPullRequestDiff";
 
 interface PullRequestCodeTabProps {
