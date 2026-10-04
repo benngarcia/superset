@@ -4,7 +4,6 @@ import type {
 	SessionSnapshot,
 	TurnGroup,
 } from "@superset/chat/core";
-import { displayText } from "@superset/chat/core";
 import type {
 	ApprovalRequest,
 	Decision,
@@ -20,10 +19,7 @@ import { Button } from "@superset/ui/button";
 import { cn } from "@superset/ui/utils";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { ChatForkTarget } from "../../types";
-import { ItemRow } from "./components/ItemRow";
-import { ToolRunRow } from "./components/ToolRunRow";
-import { TurnStatusRow } from "./components/TurnStatusRow";
-import { WorkingFor } from "./components/WorkingFor";
+import { TurnGroupSection } from "./components/TurnGroupSection";
 import { WorkingIndicator } from "./components/WorkingIndicator";
 import { type TranscriptRow, transcriptRows } from "./utils/transcriptRows";
 
@@ -72,16 +68,6 @@ function showsWorkingIndicator(groups: TurnGroup[]): boolean {
 		return item.completedAtMs !== undefined;
 	if (item.kind === "approval_request") return item.status !== "pending";
 	return true;
-}
-
-function outboxMessage(entry: OutboxEntry): UserMessage {
-	return {
-		id: entry.clientId,
-		kind: "user_message",
-		clientId: entry.clientId,
-		startedAtMs: 0,
-		content: entry.content,
-	};
 }
 
 function rowMessageId(row: TranscriptRow): string {
@@ -140,13 +126,16 @@ function TranscriptBody({
 	const awayFromEndRef = useRef(scrollable.end);
 	awayFromEndRef.current = scrollable.end;
 
-	const [collapseOverrides, setCollapseOverrides] = useState<
+	const [entryOverrides, setEntryOverrides] = useState<
 		ReadonlyMap<string, boolean>
 	>(new Map());
-	const onToggleToolRun = useCallback((rowKey: string, collapsed: boolean) => {
-		setCollapseOverrides((previous) =>
-			new Map(previous).set(rowKey, collapsed),
-		);
+	const isEntryCollapsed = useCallback(
+		(entryKey: string, defaultCollapsed: boolean) =>
+			entryOverrides.get(entryKey) ?? defaultCollapsed,
+		[entryOverrides],
+	);
+	const onToggleEntry = useCallback((entryKey: string, collapsed: boolean) => {
+		setEntryOverrides((previous) => new Map(previous).set(entryKey, collapsed));
 	}, []);
 
 	const pendingApprovalTargets = useMemo(() => {
@@ -195,55 +184,6 @@ function TranscriptBody({
 		});
 	}, [firstPendingApprovalId]);
 
-	const harness = snapshot.session?.harness;
-	const renderRow = (row: TranscriptRow) => {
-		switch (row.kind) {
-			case "working":
-				return (
-					<WorkingFor
-						completedAtMs={row.completedAtMs}
-						startedAtMs={row.startedAtMs}
-					/>
-				);
-			case "item":
-				return (
-					<ItemRow
-						canForkToWorktree={canForkToWorktree}
-						harness={harness}
-						item={row.item}
-						onFork={onFork}
-						onRespond={onRespond}
-						text={displayText(snapshot, row.item.id)}
-					/>
-				);
-			case "outbox":
-				return (
-					<ItemRow
-						harness={harness}
-						item={outboxMessage(row.entry)}
-						onRespond={onRespond}
-						pending={{
-							failed: row.entry.state === "failed",
-							onRetry: () => onRetryPrompt(row.entry.clientId),
-							onDiscard: () => onDiscardPrompt(row.entry.clientId),
-						}}
-						text=""
-					/>
-				);
-			case "tool_run":
-				return (
-					<ToolRunRow
-						collapsed={collapseOverrides.get(row.key) ?? row.defaultCollapsed}
-						items={row.items}
-						onToggle={onToggleToolRun}
-						rowKey={row.key}
-					/>
-				);
-			case "turn_status":
-				return <TurnStatusRow message={row.message} status={row.status} />;
-		}
-	};
-
 	return (
 		// The viewport spans the pane so its bar sits at the edge; the gutter
 		// is reserved on both sides so the column centers on the same axis as
@@ -254,26 +194,36 @@ function TranscriptBody({
 		<MessageScroller.Root className="relative flex min-h-0 min-w-0 flex-1 flex-col">
 			<MessageScroller.Viewport className="min-h-0 flex-1 overflow-y-auto px-6 [scrollbar-gutter:stable_both-edges]">
 				{hasOlder && (
-					<div className="mx-auto flex w-full max-w-3xl items-center gap-2 pt-6">
+					<div className="mx-auto flex w-full max-w-3xl items-center gap-2 px-6 pt-6">
 						<Button onClick={onLoadOlder} size="sm" variant="ghost">
 							<Trans>Load earlier messages</Trans>
 						</Button>
 					</div>
 				)}
-				<MessageScroller.Content className="mx-auto flex w-full max-w-3xl select-text flex-col gap-4 py-6">
+				<MessageScroller.Content className="mx-auto flex w-full max-w-3xl select-text flex-col gap-4 px-6 py-6">
 					{rows.map((row, index) => (
 						<MessageScroller.Item
 							className={cn(
 								REMEMBER_SIZE_CLASSNAME,
 								index < rows.length - RECENT_ROWS_RENDERED_IN_FULL &&
 									OFFSCREEN_CLASSNAME,
-								row.groupStart && "mt-2",
+								row.groupStart && index > 0 && "mt-2",
 							)}
 							key={row.key}
 							messageId={rowMessageId(row)}
 							scrollAnchor={row.key === anchorRowKey}
 						>
-							{renderRow(row)}
+							<TurnGroupSection
+								canForkToWorktree={canForkToWorktree}
+								isEntryCollapsed={isEntryCollapsed}
+								onDiscardPrompt={onDiscardPrompt}
+								onFork={onFork}
+								onRespond={onRespond}
+								onRetryPrompt={onRetryPrompt}
+								onToggleEntry={onToggleEntry}
+								row={row}
+								snapshot={snapshot}
+							/>
 						</MessageScroller.Item>
 					))}
 					{showsWorkingIndicator(groups) && <WorkingIndicator />}

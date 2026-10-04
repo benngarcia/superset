@@ -1,16 +1,16 @@
 import type { Decision, Item } from "@superset/chat/protocol";
 import { isKnownItem } from "@superset/chat/protocol";
 import { memo } from "react";
-import type { ChatForkTarget } from "../../../../types";
-import { rowKindForItem } from "../../utils/rowKind";
-import { AgentMessageRow } from "../AgentMessageRow";
-import { ApprovalRow } from "../ApprovalRow";
-import { NoticeRow } from "../NoticeRow";
-import { PlanRow } from "../PlanRow";
-import { ReasoningRow } from "../ReasoningRow";
-import { ToolCallRow } from "../ToolCallRow";
-import { UnknownItemRow } from "../UnknownItemRow";
-import { type PendingPrompt, UserMessageRow } from "../UserMessageRow";
+import type { ChatForkTarget } from "../../../../../../types";
+import { rowKindForItem } from "../../../../utils/rowKind";
+import { AgentMessageRow } from "../../../AgentMessageRow";
+import { ApprovalRow } from "../../../ApprovalRow";
+import { NoticeRow } from "../../../NoticeRow";
+import { PlanRow } from "../../../PlanRow";
+import { ReasoningRow } from "../../../ReasoningRow";
+import { ToolCallRow } from "../../../ToolCallRow";
+import { UnknownItemRow } from "../../../UnknownItemRow";
+import { type PendingPrompt, UserMessageRow } from "../../../UserMessageRow";
 
 export type ItemRowProps = {
 	item: Item;
