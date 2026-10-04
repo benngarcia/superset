@@ -124,6 +124,7 @@ export type PromptInputProps = {
 	// the composer's own attachment list.
 	onAddFiles?: (files: File[]) => void;
 	allowEmptySubmit?: boolean;
+	clearOnSubmit?: boolean;
 	hideSubmit?: boolean;
 	autoFocus?: boolean;
 	onMentionHighlight?: (entry: ComposerMentionEntry | null) => void;

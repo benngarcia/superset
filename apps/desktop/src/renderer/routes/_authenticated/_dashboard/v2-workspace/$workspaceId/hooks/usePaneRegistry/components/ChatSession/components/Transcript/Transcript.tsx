@@ -35,6 +35,7 @@ const REMEMBER_SIZE_CLASSNAME = "[contain-intrinsic-size:auto_240px]";
 const OFFSCREEN_CLASSNAME = "[content-visibility:auto]";
 const RECENT_ROWS_RENDERED_IN_FULL = 30;
 const PINNED_ROW_TOP_GAP_PX = 24;
+const RESUME_FOLLOW_PX = 8;
 
 export type TranscriptProps = {
 	groups: TurnGroup[];
@@ -117,6 +118,7 @@ export function Transcript({
 		);
 	}, []);
 
+	const spacerHeight = useRef(0);
 	const sizeSpacer = useCallback(() => {
 		const container = containerRef.current;
 		const spacer = spacerRef.current;
@@ -126,7 +128,8 @@ export function Transcript({
 		const height = row
 			? container.clientHeight - contentBelowRow - PINNED_ROW_TOP_GAP_PX
 			: 0;
-		spacer.style.height = `${Math.max(0, height)}px`;
+		spacerHeight.current = Math.max(0, height);
+		spacer.style.height = `${spacerHeight.current}px`;
 	}, [pinnedRow]);
 
 	const holdPin = useRef(false);
@@ -134,9 +137,11 @@ export function Transcript({
 		sizeSpacer();
 		const container = containerRef.current;
 		const row = pinnedRow();
-		if (holdPin.current && container && row) {
-			container.scrollTop = row.offsetTop - PINNED_ROW_TOP_GAP_PX;
-		}
+		if (!holdPin.current || !container || !row) return;
+		container.scrollTop =
+			spacerHeight.current > 0
+				? row.offsetTop - PINNED_ROW_TOP_GAP_PX
+				: container.scrollHeight;
 	}, [pinnedRow, sizeSpacer]);
 
 	useEffect(() => {
@@ -145,12 +150,21 @@ export function Transcript({
 		const release = () => {
 			holdPin.current = false;
 		};
+		const resumeAtBottom = () => {
+			const distance =
+				container.scrollHeight - container.scrollTop - container.clientHeight;
+			if (spacerHeight.current === 0 && distance < RESUME_FOLLOW_PX) {
+				holdPin.current = true;
+			}
+		};
 		const events = ["wheel", "touchstart", "keydown", "pointerdown"] as const;
 		for (const event of events) {
 			container.addEventListener(event, release, { passive: true });
 		}
+		container.addEventListener("scroll", resumeAtBottom, { passive: true });
 		return () => {
 			for (const event of events) container.removeEventListener(event, release);
+			container.removeEventListener("scroll", resumeAtBottom);
 		};
 	}, []);
 
