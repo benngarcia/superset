@@ -117,7 +117,7 @@ export function SessionView({
 				<div className="flex min-h-0 flex-1">
 					{rail.length > 1 && (
 						<ChatHistorySidebar
-							className="hidden shrink-0 self-center pl-3 lg:block"
+							className="hidden max-h-full shrink-0 flex-col self-center pl-3 lg:flex"
 							messages={rail}
 							onMessageSelect={selectFromRail}
 						/>
