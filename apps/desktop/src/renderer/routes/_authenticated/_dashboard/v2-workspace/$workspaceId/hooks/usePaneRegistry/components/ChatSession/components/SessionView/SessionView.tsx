@@ -89,6 +89,7 @@ export function SessionView({
 	// spawn and, when resuming, replay the whole transcript. Showing an empty
 	// pane through that reads as a broken chat rather than a loading one.
 	const booting = sessionState?.status === "starting" && timeline.length === 0;
+	const loadingTranscript = session.status === "loading" || booting;
 
 	return (
 		// w-full because the pane lays its children out in a row: without it this
@@ -104,68 +105,74 @@ export function SessionView({
 					session={session.snapshot.session}
 				/>
 			)}
-			{session.status === "loading" || booting ? (
-				<div className="flex flex-1 flex-col items-center justify-center gap-3">
-					<Spinner className="size-5" />
-					{booting && (
-						<span className="text-muted-foreground text-xs">
-							<Trans>Opening the conversation…</Trans>
-						</span>
-					)}
-				</div>
-			) : (
-				<div className="flex min-h-0 flex-1">
-					{rail.length > 1 && (
-						<ChatHistorySidebar
-							className="hidden max-h-full shrink-0 flex-col self-center pl-3 lg:flex"
-							messages={rail}
-							onMessageSelect={selectFromRail}
+			<div className="flex min-h-0 flex-1">
+				{!loadingTranscript && rail.length > 1 && (
+					<ChatHistorySidebar
+						className="hidden max-h-full shrink-0 flex-col self-center pl-3 lg:flex"
+						messages={rail}
+						onMessageSelect={selectFromRail}
+					/>
+				)}
+				<div className="flex min-h-0 min-w-0 flex-1 flex-col">
+					{loadingTranscript ? (
+						<div className="flex flex-1 flex-col items-center justify-center gap-3">
+							<Spinner className="size-5" />
+							{booting && (
+								<span className="text-muted-foreground text-xs">
+									<Trans>Opening the conversation…</Trans>
+								</span>
+							)}
+						</div>
+					) : (
+						<Transcript
+							approvals={approvals}
+							canForkToWorktree={canForkToWorktree}
+							groups={timeline}
+							hasOlder={session.hasOlder}
+							onDiscardPrompt={session.discardPrompt}
+							onFork={
+								onFork
+									? (target) =>
+											onFork(
+												target,
+												buildChatHandoffTranscript(
+													timeline,
+													session.snapshot,
+													agentLabel ?? "Agent",
+												),
+											)
+									: undefined
+							}
+							onLoadOlder={() => void session.loadOlder()}
+							onRespond={(approvalId, decision) =>
+								void session.respondToApproval(approvalId, decision)
+							}
+							onRetryPrompt={session.retryPrompt}
+							outbox={session.outbox}
+							scrollRequest={scrollRequest}
+							snapshot={session.snapshot}
 						/>
 					)}
-					<Transcript
-						approvals={approvals}
-						canForkToWorktree={canForkToWorktree}
-						groups={timeline}
-						hasOlder={session.hasOlder}
-						onDiscardPrompt={session.discardPrompt}
-						onFork={
-							onFork
-								? (target) =>
-										onFork(
-											target,
-											buildChatHandoffTranscript(
-												timeline,
-												session.snapshot,
-												agentLabel ?? "Agent",
-											),
-										)
-								: undefined
+					<Composer
+						availableCommands={
+							session.snapshot.session?.availableCommands ?? []
 						}
-						onLoadOlder={() => void session.loadOlder()}
-						onRespond={(approvalId, decision) =>
-							void session.respondToApproval(approvalId, decision)
+						configOptions={session.snapshot.session?.configOptions ?? []}
+						onSetConfigOption={(configId, value) =>
+							void session.setConfigOption(configId, value)
 						}
-						onRetryPrompt={session.retryPrompt}
-						outbox={session.outbox}
-						scrollRequest={scrollRequest}
-						snapshot={session.snapshot}
+						disabled={session.status !== "ready"}
+						draftKey={`chat-v3-draft:${sessionId}`}
+						onCancelTurn={
+							runningTurnId
+								? () => void session.cancelTurn(runningTurnId)
+								: null
+						}
+						onSend={(content) => session.sendPrompt(content)}
+						workspaceId={workspaceId}
 					/>
 				</div>
-			)}
-			<Composer
-				availableCommands={session.snapshot.session?.availableCommands ?? []}
-				configOptions={session.snapshot.session?.configOptions ?? []}
-				onSetConfigOption={(configId, value) =>
-					void session.setConfigOption(configId, value)
-				}
-				disabled={session.status !== "ready"}
-				draftKey={`chat-v3-draft:${sessionId}`}
-				onCancelTurn={
-					runningTurnId ? () => void session.cancelTurn(runningTurnId) : null
-				}
-				onSend={(content) => session.sendPrompt(content)}
-				workspaceId={workspaceId}
-			/>
+			</div>
 		</div>
 	);
 }

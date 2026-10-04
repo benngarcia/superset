@@ -120,8 +120,8 @@ export function Transcript({
 	return (
 		// The scroller spans the pane so its bar sits at the edge; the column
 		// inside it holds the reading measure.
-		<div className="min-h-0 flex-1 overflow-y-auto" ref={containerRef}>
-			<div className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-6 py-6">
+		<div className="min-h-0 flex-1 overflow-y-auto px-6" ref={containerRef}>
+			<div className="mx-auto flex w-full max-w-3xl flex-col gap-6 py-6">
 				{hasOlder && (
 					<div className="flex items-center gap-2">
 						<Button onClick={onLoadOlder} size="sm" variant="ghost">
