@@ -117,7 +117,7 @@ export function SessionView({
 				// The rail floats over the transcript's margin instead of taking a
 				// column, so the reading measure centers on the same axis as the
 				// composer whether or not the rail is showing.
-				<div className="relative flex min-h-0 flex-1">
+				<div className="@container relative flex min-h-0 flex-1">
 					<Transcript
 						approvals={approvals}
 						canForkToWorktree={canForkToWorktree}
@@ -148,7 +148,9 @@ export function SessionView({
 					/>
 					{rail.length > 1 && (
 						<ChatHistorySidebar
-							className="absolute top-0 right-0 hidden py-6 pr-3 lg:block"
+							// The rail lives in the margin beside the transcript column, so it
+							// shows only when the pane has one, whatever the window is.
+							className="absolute top-0 right-0 hidden py-6 pr-3 @[56rem]:block"
 							messages={rail}
 							onMessageSelect={selectFromRail}
 						/>

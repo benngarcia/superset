@@ -5605,6 +5605,9 @@ msgstr "Usuwa profil {0}, jego zapisane logowanie na tej maszynie oraz lokalną 
 msgid "Deletes this host, its access, and its workspaces. Files on the machine stay."
 msgstr "Usuwa tego hosta, dostęp do niego i jego obszary robocze. Pliki na maszynie zostają."
 
+msgid "Deleting"
+msgstr "Usuwanie"
+
 #. placeholder {0}: Math.min(completed + 1, total)
 #. placeholder {1}: targets.length
 msgid "Deleting {0} of {1}…"
@@ -17973,7 +17976,7 @@ msgid "Working for {seconds}s"
 msgstr "Pracuje od {seconds} s"
 
 msgid "Working…"
-msgstr "Pracuję…"
+msgstr "Pracuje…"
 
 msgid "Works when environments are clean. Environments are rarely clean."
 msgstr "Działa, gdy środowiska są czyste. Środowiska rzadko są czyste."

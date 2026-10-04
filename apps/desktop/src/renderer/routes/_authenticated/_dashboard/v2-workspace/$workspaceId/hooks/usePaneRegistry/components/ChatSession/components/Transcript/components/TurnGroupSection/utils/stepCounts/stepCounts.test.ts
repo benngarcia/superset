@@ -2,7 +2,7 @@ import { describe, expect, test } from "bun:test";
 import type { ToolCall, ToolKind } from "@superset/chat/protocol";
 import { stepCounts } from "./stepCounts";
 
-function call(toolKind: ToolKind): ToolCall {
+function call(toolKind: ToolKind, content: ToolCall["content"] = []): ToolCall {
 	return {
 		id: `t-${Math.random()}`,
 		kind: "tool_call",
@@ -11,8 +11,12 @@ function call(toolKind: ToolKind): ToolCall {
 		toolName: toolKind,
 		status: "completed",
 		startedAtMs: 1,
-		content: [],
+		content,
 	};
+}
+
+function diff(path: string): ToolCall["content"][number] {
+	return { type: "diff", path, oldText: "a", newText: "b" };
 }
 
 describe("stepCounts", () => {
@@ -38,6 +42,18 @@ describe("stepCounts", () => {
 			fetches: 1,
 			tools: 2,
 		});
+	});
+	test("counts the files a patch touches, not the call", () => {
+		expect(
+			stepCounts([
+				call("edit", [
+					diff("/repo/a.ts"),
+					diff("/repo/b.ts"),
+					diff("/repo/a.ts"),
+				]),
+				call("edit", [diff("/repo/c.ts")]),
+			]).edits,
+		).toBe(3);
 	});
 	test("is all zeros for an empty run", () => {
 		expect(stepCounts([])).toEqual({

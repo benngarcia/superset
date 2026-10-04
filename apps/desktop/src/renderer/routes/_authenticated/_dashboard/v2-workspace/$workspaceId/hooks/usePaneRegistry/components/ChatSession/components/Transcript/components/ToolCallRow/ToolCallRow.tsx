@@ -42,7 +42,8 @@ const ICON_BY_KIND: Record<ToolKind, ComponentType<{ className?: string }>> = {
 
 function durationLabel(item: ToolCall): string | null {
 	if (item.completedAtMs === undefined) return null;
-	return `${((item.completedAtMs - item.startedAtMs) / 1000).toFixed(1)}s`;
+	const seconds = Math.max(0, item.completedAtMs - item.startedAtMs) / 1000;
+	return `${seconds.toFixed(1)}s`;
 }
 
 /**
@@ -123,7 +124,9 @@ function FileChangeTitle({
 	const verb = running
 		? change.kind === "added"
 			? t({ message: "Creating" })
-			: t({ message: "Editing" })
+			: change.kind === "deleted"
+				? t({ message: "Deleting" })
+				: t({ message: "Editing" })
 		: change.kind === "added"
 			? t({ message: "Created" })
 			: change.kind === "deleted"

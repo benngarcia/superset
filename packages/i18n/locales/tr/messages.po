@@ -5605,6 +5605,9 @@ msgstr "{0} profilini, bu makinedeki kayıtlı oturumunu ve yerel Codex oturum g
 msgid "Deletes this host, its access, and its workspaces. Files on the machine stay."
 msgstr "Bu host'u, erişimini ve çalışma alanlarını siler. Makinedeki dosyalar kalır."
 
+msgid "Deleting"
+msgstr "Siliniyor"
+
 #. placeholder {0}: Math.min(completed + 1, total)
 #. placeholder {1}: targets.length
 msgid "Deleting {0} of {1}…"

@@ -5605,6 +5605,9 @@ msgstr "Elimina el perfil {0}, su sesión guardada en esta máquina y su histori
 msgid "Deletes this host, its access, and its workspaces. Files on the machine stay."
 msgstr "Elimina este host, su acceso y sus espacios de trabajo. Los archivos de la máquina se conservan."
 
+msgid "Deleting"
+msgstr "Eliminando"
+
 #. placeholder {0}: Math.min(completed + 1, total)
 #. placeholder {1}: targets.length
 msgid "Deleting {0} of {1}…"

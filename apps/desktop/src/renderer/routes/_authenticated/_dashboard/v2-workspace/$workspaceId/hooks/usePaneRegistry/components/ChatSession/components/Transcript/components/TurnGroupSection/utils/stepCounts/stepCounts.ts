@@ -1,4 +1,5 @@
 import type { ToolCall } from "@superset/chat/protocol";
+import { changedPaths } from "../../../../utils/fileChange";
 
 /**
  * What a run of tool calls amounted to, by the concept a reader cares about
@@ -31,7 +32,7 @@ export function stepCounts(items: readonly ToolCall[]): StepCounts {
 			case "edit":
 			case "delete":
 			case "move":
-				counts.edits += 1;
+				counts.edits += Math.max(1, changedPaths(item).length);
 				break;
 			case "read":
 				counts.reads += 1;

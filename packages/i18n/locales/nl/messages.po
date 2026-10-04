@@ -5605,6 +5605,9 @@ msgstr "Verwijdert het {0}-profiel, de opgeslagen login op deze machine en de lo
 msgid "Deletes this host, its access, and its workspaces. Files on the machine stay."
 msgstr "Verwijdert deze host, de toegang en de werkruimtes. Bestanden op de machine blijven staan."
 
+msgid "Deleting"
+msgstr "Verwijderen"
+
 #. placeholder {0}: Math.min(completed + 1, total)
 #. placeholder {1}: targets.length
 msgid "Deleting {0} of {1}…"

@@ -1,2 +1,8 @@
-export type { FileChange, FileChangeKind } from "./fileChange";
-export { fileChangeKind, fileChangeOf, fileName } from "./fileChange";
+export {
+	changedPaths,
+	type FileChange,
+	type FileChangeKind,
+	fileChangeKind,
+	fileChangeOf,
+	fileName,
+} from "./fileChange";

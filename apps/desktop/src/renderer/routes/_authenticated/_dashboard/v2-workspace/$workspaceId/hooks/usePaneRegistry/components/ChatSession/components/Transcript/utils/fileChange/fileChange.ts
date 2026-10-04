@@ -24,8 +24,25 @@ export function fileName(path: string): string {
 	return index === -1 ? trimmed : trimmed.slice(index + 1);
 }
 
-/** The file a call changed, when it carried a diff; null for every other call. */
+/** Every path a call's diffs touch, once each; empty for a call without diffs. */
+export function changedPaths(item: ToolCall): string[] {
+	return [
+		...new Set(
+			item.content.flatMap((content) =>
+				content.type === "diff" ? [content.path] : [],
+			),
+		),
+	];
+}
+
+/**
+ * The file a call changed, when it changed exactly one; null for every other
+ * call. A move names two paths and a patch may touch several files, and the
+ * agent's own title says that better than one name would.
+ */
 export function fileChangeOf(item: ToolCall): FileChange | null {
+	if (item.toolKind === "move") return null;
+	if (changedPaths(item).length !== 1) return null;
 	const diff = item.content.find(
 		(content): content is DiffToolContent => content.type === "diff",
 	);

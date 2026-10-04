@@ -25,7 +25,8 @@ export function diffStats(content: DiffToolContent): DiffStats | null {
 			deletions += hunk.deletionLines;
 		}
 		return { additions, deletions };
-	} catch {
+	} catch (error) {
+		console.warn("[chat] diff stats failed", content.path, error);
 		return null;
 	}
 }

@@ -5605,6 +5605,9 @@ msgstr "Xóa hồ sơ {0}, lần đăng nhập đã lưu của nó trên máy n�
 msgid "Deletes this host, its access, and its workspaces. Files on the machine stay."
 msgstr "Xóa host này, quyền truy cập và các workspace của nó. Tệp trên máy vẫn giữ nguyên."
 
+msgid "Deleting"
+msgstr "Đang xóa"
+
 #. placeholder {0}: Math.min(completed + 1, total)
 #. placeholder {1}: targets.length
 msgid "Deleting {0} of {1}…"

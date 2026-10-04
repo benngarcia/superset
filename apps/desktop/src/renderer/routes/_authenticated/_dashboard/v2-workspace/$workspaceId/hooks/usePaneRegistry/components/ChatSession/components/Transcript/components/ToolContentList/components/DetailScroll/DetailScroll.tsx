@@ -50,16 +50,17 @@ export function DetailScroll({
 			>
 				<div ref={sticky.contentRef}>{children}</div>
 			</div>
+			{/* Over the scrolling body, under a card's sticky header. */}
 			{overflow.above && (
 				<div
 					aria-hidden
-					className="pointer-events-none absolute inset-x-0 top-0 z-20 h-6 bg-gradient-to-b from-background to-transparent"
+					className="pointer-events-none absolute inset-x-0 top-0 z-[5] h-6 bg-gradient-to-b from-background to-transparent"
 				/>
 			)}
 			{overflow.below && (
 				<div
 					aria-hidden
-					className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-6 bg-gradient-to-t from-background to-transparent"
+					className="pointer-events-none absolute inset-x-0 bottom-0 z-[5] h-6 bg-gradient-to-t from-background to-transparent"
 				/>
 			)}
 		</div>

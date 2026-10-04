@@ -1,7 +1,8 @@
 import { useLingui } from "@lingui/react/macro";
 import { cn } from "@superset/ui/utils";
 import { Check, Copy } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback } from "react";
+import { useCopyToClipboard } from "renderer/hooks/useCopyToClipboard";
 
 const COPIED_MS = 1500;
 
@@ -18,20 +19,12 @@ export function CopyButton({
 	iconClassName?: string;
 }) {
 	const { t } = useLingui();
-	const [copied, setCopied] = useState(false);
-	useEffect(() => {
-		if (!copied) return;
-		const timer = setTimeout(() => setCopied(false), COPIED_MS);
-		return () => clearTimeout(timer);
-	}, [copied]);
+	const { copied, copyToClipboard } = useCopyToClipboard(COPIED_MS);
 	const copy = useCallback(() => {
-		void navigator.clipboard
-			.writeText(text)
-			.then(() => setCopied(true))
-			.catch((error: unknown) => {
-				console.error("[chat] copy failed", error);
-			});
-	}, [text]);
+		copyToClipboard(text).catch((error: unknown) => {
+			console.error("[chat] copy failed", error);
+		});
+	}, [copyToClipboard, text]);
 	return (
 		<button
 			aria-label={copied ? t({ message: "Copied" }) : label}

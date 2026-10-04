@@ -26,6 +26,10 @@ function maxScrollOffset(element: HTMLElement): number {
 	return Math.max(0, element.scrollHeight - element.clientHeight);
 }
 
+function prefersReducedMotion(): boolean {
+	return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
 /**
  * Keeps a scroll box pinned to its bottom while content streams in, and lets
  * go the moment the reader scrolls away on purpose: a wheel, a touch or a
@@ -75,7 +79,8 @@ export function useStickyBottomScroll({
 		maxOffsetRef.current = top;
 		const smooth =
 			!firstScrollRef.current &&
-			now - lastScrollAtRef.current >= SMOOTH_SCROLL_MIN_GAP_MS;
+			now - lastScrollAtRef.current >= SMOOTH_SCROLL_MIN_GAP_MS &&
+			!prefersReducedMotion();
 		if (smooth) element.scrollTo({ top, behavior: "smooth" });
 		else element.scrollTop = top;
 		lastScrollAtRef.current = now;
