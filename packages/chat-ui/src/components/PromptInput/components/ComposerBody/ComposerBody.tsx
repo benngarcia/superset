@@ -214,7 +214,9 @@ export function ComposerBody({
 		if (seeded.current || !defaultValue) return;
 		seeded.current = true;
 		editor.update(() => {
-			$getRoot().selectEnd();
+			const root = $getRoot();
+			if (root.getTextContent() !== "") return;
+			root.selectEnd();
 			const selection = $getSelection();
 			if ($isRangeSelection(selection)) selection.insertText(defaultValue);
 		});
