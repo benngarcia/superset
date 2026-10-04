@@ -3,11 +3,13 @@ import type {
 	AvailableCommand,
 	SessionConfigOption,
 	UserContent,
+	UserMessage,
 } from "@superset/chat/protocol";
 import type {
 	ComposerMentionEntry,
 	ComposerMentionProvider,
 	PromptInputCommand,
+	PromptInputHandle,
 } from "@superset/chat-ui/PromptInput";
 import { PromptInput } from "@superset/chat-ui/PromptInput";
 import { errorMessage } from "@superset/i18n/errors";
@@ -18,7 +20,9 @@ import { useIsDarkTheme } from "renderer/assets/app-icons/preset-icons";
 import { getPluginIconUrl, PluginIcon } from "renderer/components/PluginIcon";
 import { pluginMentionText } from "renderer/components/PluginMention";
 import { usePluginMentionOptions } from "renderer/hooks/usePluginMentionOptions";
+import { userMessageText } from "../../utils/userMessageText";
 import { ModelPicker } from "./components/ModelPicker";
+import { QueuedPrompts } from "./components/QueuedPrompts";
 
 const DRAFT_DEBOUNCE_MS = 300;
 
@@ -32,6 +36,13 @@ export type ComposerProps = {
 	placeholder?: string;
 	disabled?: boolean;
 	onCancelTurn?: (() => void) | null;
+	promptQueue?: {
+		prompts: UserMessage[];
+		paused: boolean;
+		remove: (itemId: string) => Promise<void>;
+		resume: () => Promise<void>;
+		steer: (itemId: string) => Promise<void>;
+	};
 };
 
 /**
@@ -61,6 +72,7 @@ export function Composer({
 	onCancelTurn,
 	onSend,
 	placeholder,
+	promptQueue,
 	workspaceId,
 }: ComposerProps) {
 	const { t } = useLingui();
@@ -192,8 +204,45 @@ export function Composer({
 		[disabled, onSend, draftKey, uploadAttachment, t],
 	);
 
+	const runQueueAction = useCallback(
+		async (action: () => Promise<void>) => {
+			try {
+				await action();
+				return true;
+			} catch (error) {
+				toast.error(t({ message: "Couldn't update the queue" }), {
+					description: errorMessage(error, t({ message: "Unknown error" })),
+				});
+				return false;
+			}
+		},
+		[t],
+	);
+
+	const promptInputRef = useRef<PromptInputHandle>(null);
+	const editQueued = useCallback(
+		async (prompt: UserMessage) => {
+			if (!promptQueue) return;
+			if (!(await runQueueAction(() => promptQueue.remove(prompt.id)))) return;
+			promptInputRef.current?.appendText(userMessageText(prompt));
+		},
+		[promptQueue, runQueueAction],
+	);
+
 	return (
 		<div className="px-6 pt-1 pb-5">
+			{promptQueue && (
+				<div className="mx-auto w-full max-w-3xl">
+					<QueuedPrompts
+						onEdit={(prompt) => void editQueued(prompt)}
+						onRemove={(id) => void runQueueAction(() => promptQueue.remove(id))}
+						onResume={() => void runQueueAction(promptQueue.resume)}
+						onSteer={(id) => void runQueueAction(() => promptQueue.steer(id))}
+						paused={promptQueue.paused}
+						prompts={promptQueue.prompts}
+					/>
+				</div>
+			)}
 			<PromptInput
 				className="mx-auto w-full max-w-3xl"
 				commands={commands}
@@ -203,11 +252,13 @@ export function Composer({
 				onChange={onChange}
 				onStop={onCancelTurn ?? undefined}
 				onSubmit={handleSubmit}
+				ref={promptInputRef}
 				placeholder={
 					placeholder ??
 					t({ message: "Ask the agent, @mention files, run /commands" })
 				}
 				status={onCancelTurn ? "streaming" : "ready"}
+				submitWhileStreaming={promptQueue !== undefined}
 				toolbarEnd={
 					configOptions && onSetConfigOption ? (
 						<ModelPicker

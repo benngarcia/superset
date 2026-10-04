@@ -4980,6 +4980,9 @@ msgstr "Dosya hazırlıktan çıkarılamadı"
 msgid "Couldn't update pull request"
 msgstr "Pull request güncellenemedi"
 
+msgid "Couldn't update the queue"
+msgstr "Kuyruk güncellenemedi"
+
 msgid "Couldn't update thread"
 msgstr "Konu güncellenemedi"
 
@@ -12496,6 +12499,9 @@ msgstr "Soru"
 msgid "Questions, feedback, support, or anything else. Send a note and we'll route it to the right person."
 msgstr "Sorular, geri bildirim, destek veya başka herhangi bir şey. Bir not gönderin, doğru kişiye yönlendirelim."
 
+msgid "Queue paused because you interrupted"
+msgstr "Kesintiye uğrattığınız için kuyruk duraklatıldı"
+
 msgid "Queue work for agents"
 msgstr "Ajanlar için işi kuyruğa alın"
 
@@ -12891,6 +12897,9 @@ msgstr "{path} bahsini kaldır"
 
 msgid "Remove PR Link"
 msgstr "PR bağlantısını kaldır"
+
+msgid "Remove queued message"
+msgstr "Kuyruktaki mesajı kaldır"
 
 msgid "Remove script"
 msgstr "Betiği kaldır"
@@ -15197,6 +15206,9 @@ msgstr "Durum değişti"
 msgid "Stay connected (refresh tokens)"
 msgstr "Bağlı kalma (yenileme token'ları)"
 
+msgid "Steer"
+msgstr "Yönlendir"
+
 #. placeholder {0}: step === "workspace" ? 1 : 2
 msgid "Step {0} of 2"
 msgstr "Adım {0} / 2"
@@ -15232,6 +15244,9 @@ msgstr "Yanıtı durdur"
 
 msgid "Stop Superset here to delete from another device."
 msgstr "Başka bir cihazdan silmek için Superset'i burada durdurun."
+
+msgid "Stop the agent and send this now"
+msgstr "Ajanı durdur ve şimdi gönder"
 
 msgid "Stop watching"
 msgstr "İzlemeyi durdur"

@@ -5,6 +5,7 @@ import { emptySnapshot, reduceMany } from "../reducer/reducer";
 import {
 	collapseWorkLog,
 	derivePendingApprovals,
+	deriveQueuedPrompts,
 	deriveTimeline,
 } from "./deriveTimeline";
 
@@ -133,5 +134,50 @@ describe("derivePendingApprovals", () => {
 			"a1",
 			"a2",
 		]);
+	});
+});
+
+describe("deriveQueuedPrompts", () => {
+	function prompt(id: string, extra: Record<string, unknown> = {}): Item {
+		return {
+			kind: "user_message",
+			id,
+			startedAtMs: 1,
+			content: [{ type: "text", text: id }],
+			...extra,
+		};
+	}
+
+	test("moves queued prompts out of the timeline and drops discarded ones", () => {
+		const snapshot = reduceMany(emptySnapshot(), [
+			env(prompt("sent"), "t1"),
+			env(prompt("waiting", { queued: true }), "q1"),
+			env(prompt("dropped", { queued: true }), "q2"),
+			env(prompt("dropped", { discarded: true }), "q2"),
+		]);
+
+		expect(deriveQueuedPrompts(snapshot).map((item) => item.id)).toEqual([
+			"waiting",
+		]);
+		const timelineIds = deriveTimeline(snapshot).flatMap((group) =>
+			group.entries.flatMap((entry) =>
+				entry.kind === "item" ? [entry.item.id] : [],
+			),
+		);
+		expect(timelineIds).toEqual(["sent"]);
+	});
+
+	test("an older page cannot bring back a discarded prompt", () => {
+		const latest = reduceMany(emptySnapshot(), [
+			env(prompt("dropped", { discarded: true }), "q2"),
+		]);
+		const older = reduceMany(emptySnapshot(), [
+			env(prompt("dropped", { queued: true }), "q2"),
+		]);
+		const merged = {
+			...latest,
+			items: new Map([...older.items, ...latest.items]),
+		};
+		expect(deriveQueuedPrompts(merged)).toEqual([]);
 	});
 });

@@ -22,11 +22,13 @@ export type {
 	PromptInputAttachment,
 	PromptInputCommand,
 	PromptInputDictation,
+	PromptInputHandle,
 	PromptInputProps,
 	PromptInputSubmitPayload,
 } from "./types";
 
 export function PromptInput({
+	ref,
 	placeholder = i18n._(
 		msg({
 			message: "Do anything",
@@ -36,6 +38,7 @@ export function PromptInput({
 	commands,
 	dictation,
 	status = "ready",
+	submitWhileStreaming = false,
 	placement = "top",
 	toolbar,
 	toolbarEnd,
@@ -60,11 +63,13 @@ export function PromptInput({
 		<div className={className}>
 			<LexicalRoot initialConfig={initialConfig}>
 				<ComposerBody
+					ref={ref}
 					placeholder={placeholder}
 					mentionProviders={mentionProviders}
 					commands={commands}
 					dictation={dictation}
 					status={status}
+					submitWhileStreaming={submitWhileStreaming}
 					placement={placement}
 					toolbar={toolbar}
 					toolbarEnd={toolbarEnd}

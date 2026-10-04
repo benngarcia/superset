@@ -76,6 +76,7 @@ export const userMessageSchema = z.looseObject({
 	kind: z.literal("user_message"),
 	clientId: z.string().min(1).optional(),
 	queued: z.boolean().optional(),
+	discarded: z.boolean().optional(),
 	content: z.array(userContentSchema),
 });
 export type UserMessage = z.infer<typeof userMessageSchema>;

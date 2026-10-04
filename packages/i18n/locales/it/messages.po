@@ -4980,6 +4980,9 @@ msgstr "Impossibile togliere il file dallo stage"
 msgid "Couldn't update pull request"
 msgstr "Impossibile aggiornare la pull request"
 
+msgid "Couldn't update the queue"
+msgstr "Impossibile aggiornare la coda"
+
 msgid "Couldn't update thread"
 msgstr "Impossibile aggiornare il thread"
 
@@ -12496,6 +12499,9 @@ msgstr "Domanda"
 msgid "Questions, feedback, support, or anything else. Send a note and we'll route it to the right person."
 msgstr "Domande, feedback, supporto o altro. Mandaci un messaggio e lo inoltreremo alla persona giusta."
 
+msgid "Queue paused because you interrupted"
+msgstr "Coda in pausa perché hai interrotto"
+
 msgid "Queue work for agents"
 msgstr "Metti in coda il lavoro per gli agenti"
 
@@ -12891,6 +12897,9 @@ msgstr "Rimuovi la menzione {path}"
 
 msgid "Remove PR Link"
 msgstr "Rimuovi il link alla PR"
+
+msgid "Remove queued message"
+msgstr "Rimuovi messaggio in coda"
 
 msgid "Remove script"
 msgstr "Rimuovi lo script"
@@ -15197,6 +15206,9 @@ msgstr "Stato cambiato"
 msgid "Stay connected (refresh tokens)"
 msgstr "Restare connessa (token di aggiornamento)"
 
+msgid "Steer"
+msgstr "Reindirizza"
+
 #. placeholder {0}: step === "workspace" ? 1 : 2
 msgid "Step {0} of 2"
 msgstr "Passaggio {0} di 2"
@@ -15232,6 +15244,9 @@ msgstr "Interrompi la risposta"
 
 msgid "Stop Superset here to delete from another device."
 msgstr "Chiudi Superset qui per eliminarlo da un altro dispositivo."
+
+msgid "Stop the agent and send this now"
+msgstr "Ferma l'agente e invia ora"
 
 msgid "Stop watching"
 msgstr "Smetti di osservare"

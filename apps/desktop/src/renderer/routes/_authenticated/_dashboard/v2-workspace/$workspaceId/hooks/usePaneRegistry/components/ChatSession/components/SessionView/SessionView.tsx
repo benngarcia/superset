@@ -1,5 +1,6 @@
 import { Trans } from "@lingui/react/macro";
 import type { SessionClient } from "@superset/chat/client";
+import { deriveQueuedPrompts } from "@superset/chat/core";
 import type { SessionState, UserContent } from "@superset/chat/protocol";
 import {
 	useApprovals,
@@ -85,6 +86,27 @@ export function SessionView({
 		return null;
 	}, [session.snapshot.turns]);
 
+	const queuedPrompts = useMemo(
+		() => deriveQueuedPrompts(session.snapshot),
+		[session.snapshot],
+	);
+	const promptQueue = useMemo(
+		() => ({
+			prompts: queuedPrompts,
+			paused: sessionState?.queuePaused === true,
+			remove: session.removeQueuedPrompt,
+			resume: session.resumeQueue,
+			steer: session.steerQueuedPrompt,
+		}),
+		[
+			queuedPrompts,
+			sessionState?.queuePaused,
+			session.removeQueuedPrompt,
+			session.resumeQueue,
+			session.steerQueuedPrompt,
+		],
+	);
+
 	// The stream is ready well before the agent is: the harness still has to
 	// spawn and, when resuming, replay the whole transcript. Showing an empty
 	// pane through that reads as a broken chat rather than a loading one.
@@ -169,6 +191,7 @@ export function SessionView({
 								: null
 						}
 						onSend={(content) => session.sendPrompt(content)}
+						promptQueue={promptQueue}
 						workspaceId={workspaceId}
 					/>
 				</div>

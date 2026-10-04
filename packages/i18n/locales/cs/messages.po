@@ -4980,6 +4980,9 @@ msgstr "Nepodařilo se zrušit přípravu souboru"
 msgid "Couldn't update pull request"
 msgstr "Pull request se nepodařilo aktualizovat"
 
+msgid "Couldn't update the queue"
+msgstr "Frontu se nepodařilo aktualizovat"
+
 msgid "Couldn't update thread"
 msgstr "Nepodařilo se aktualizovat vlákno"
 
@@ -12496,6 +12499,9 @@ msgstr "Otázka"
 msgid "Questions, feedback, support, or anything else. Send a note and we'll route it to the right person."
 msgstr "Dotazy, zpětná vazba, podpora nebo cokoli jiného. Napište nám a předáme to správnému člověku."
 
+msgid "Queue paused because you interrupted"
+msgstr "Fronta pozastavena, protože jste přerušili agenta"
+
 msgid "Queue work for agents"
 msgstr "Fronta práce pro agenty"
 
@@ -12891,6 +12897,9 @@ msgstr "Odebrat zmínku {path}"
 
 msgid "Remove PR Link"
 msgstr "Odebrat propojení s PR"
+
+msgid "Remove queued message"
+msgstr "Odebrat zprávu z fronty"
 
 msgid "Remove script"
 msgstr "Odebrat skript"
@@ -15197,6 +15206,9 @@ msgstr "Změna stavu"
 msgid "Stay connected (refresh tokens)"
 msgstr "zůstat připojená (obnovovací tokeny)"
 
+msgid "Steer"
+msgstr "Usměrnit"
+
 #. placeholder {0}: step === "workspace" ? 1 : 2
 msgid "Step {0} of 2"
 msgstr "Krok {0} ze 2"
@@ -15232,6 +15244,9 @@ msgstr "Zastavit odpověď"
 
 msgid "Stop Superset here to delete from another device."
 msgstr "Ukončete tady Superset, ať ho smažete z jiného zařízení."
+
+msgid "Stop the agent and send this now"
+msgstr "Zastavit agenta a odeslat hned"
 
 msgid "Stop watching"
 msgstr "Přestat sledovat"

@@ -4980,6 +4980,9 @@ msgstr "Kan bestand niet unstagen"
 msgid "Couldn't update pull request"
 msgstr "Kan pull request niet bijwerken"
 
+msgid "Couldn't update the queue"
+msgstr "Kan de wachtrij niet bijwerken"
+
 msgid "Couldn't update thread"
 msgstr "Kan thread niet bijwerken"
 
@@ -12496,6 +12499,9 @@ msgstr "Vraag"
 msgid "Questions, feedback, support, or anything else. Send a note and we'll route it to the right person."
 msgstr "Vragen, feedback, support of iets anders. Stuur een bericht, dan sturen we het door naar de juiste persoon."
 
+msgid "Queue paused because you interrupted"
+msgstr "Wachtrij gepauzeerd omdat je hebt onderbroken"
+
 msgid "Queue work for agents"
 msgstr "Werk in de wachtrij zetten voor agents"
 
@@ -12891,6 +12897,9 @@ msgstr "Vermelding {path} verwijderen"
 
 msgid "Remove PR Link"
 msgstr "PR-koppeling verwijderen"
+
+msgid "Remove queued message"
+msgstr "Bericht uit wachtrij verwijderen"
 
 msgid "Remove script"
 msgstr "Script verwijderen"
@@ -15197,6 +15206,9 @@ msgstr "Status gewijzigd"
 msgid "Stay connected (refresh tokens)"
 msgstr "Verbonden blijven (refresh-tokens)"
 
+msgid "Steer"
+msgstr "Bijsturen"
+
 #. placeholder {0}: step === "workspace" ? 1 : 2
 msgid "Step {0} of 2"
 msgstr "Stap {0} van 2"
@@ -15232,6 +15244,9 @@ msgstr "Antwoord stoppen"
 
 msgid "Stop Superset here to delete from another device."
 msgstr "Stop Superset hier om vanaf een ander apparaat te verwijderen."
+
+msgid "Stop the agent and send this now"
+msgstr "Agent stoppen en nu verzenden"
 
 msgid "Stop watching"
 msgstr "Stoppen met volgen"

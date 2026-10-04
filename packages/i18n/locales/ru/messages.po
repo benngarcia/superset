@@ -4980,6 +4980,9 @@ msgstr "Не удалось снять индексацию с файла"
 msgid "Couldn't update pull request"
 msgstr "Не удалось обновить пул-реквест"
 
+msgid "Couldn't update the queue"
+msgstr "Не удалось обновить очередь"
+
 msgid "Couldn't update thread"
 msgstr "Не удалось обновить ветку обсуждения"
 
@@ -12496,6 +12499,9 @@ msgstr "Вопрос"
 msgid "Questions, feedback, support, or anything else. Send a note and we'll route it to the right person."
 msgstr "Вопросы, отзывы, поддержка или что угодно ещё. Напишите, и мы направим сообщение нужному человеку."
 
+msgid "Queue paused because you interrupted"
+msgstr "Очередь приостановлена, потому что вы прервали агента"
+
 msgid "Queue work for agents"
 msgstr "Ставьте работу агентам в очередь"
 
@@ -12891,6 +12897,9 @@ msgstr "Удалить упоминание {path}"
 
 msgid "Remove PR Link"
 msgstr "Отвязать PR"
+
+msgid "Remove queued message"
+msgstr "Удалить сообщение из очереди"
 
 msgid "Remove script"
 msgstr "Удалить скрипт"
@@ -15197,6 +15206,9 @@ msgstr "Статус изменён"
 msgid "Stay connected (refresh tokens)"
 msgstr "оставаться подключённым (токены обновления)"
 
+msgid "Steer"
+msgstr "Направить"
+
 #. placeholder {0}: step === "workspace" ? 1 : 2
 msgid "Step {0} of 2"
 msgstr "Шаг {0} из 2"
@@ -15232,6 +15244,9 @@ msgstr "Остановить ответ"
 
 msgid "Stop Superset here to delete from another device."
 msgstr "Остановите Superset здесь, чтобы удалить с другого устройства."
+
+msgid "Stop the agent and send this now"
+msgstr "Остановить агента и отправить сейчас"
 
 msgid "Stop watching"
 msgstr "Прекратить отслеживание"

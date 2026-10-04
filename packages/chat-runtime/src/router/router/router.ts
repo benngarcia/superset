@@ -7,7 +7,9 @@ import {
 	getSessionInputSchema,
 	listSessionsInputSchema,
 	promptInputSchema,
+	queuedPromptInputSchema,
 	respondToApprovalInputSchema,
+	resumeQueueInputSchema,
 	setConfigOptionInputSchema,
 	setModeInputSchema,
 } from "@superset/chat/protocol";
@@ -26,6 +28,7 @@ export type ChatRouterOptions = {
 
 const UNKNOWN_HARNESS = /^unknown harness /;
 const NOT_RUNNING = /^chat session (.+) is not running$/;
+const NOT_QUEUED = /^prompt .+ is not queued$/;
 
 function mapCommandError(runtime: ChatRuntime, error: unknown): unknown {
 	if (error instanceof TRPCError) return error;
@@ -33,6 +36,13 @@ function mapCommandError(runtime: ChatRuntime, error: unknown): unknown {
 	if (UNKNOWN_HARNESS.test(error.message)) {
 		return new TRPCError({
 			code: "BAD_REQUEST",
+			message: error.message,
+			cause: error,
+		});
+	}
+	if (NOT_QUEUED.test(error.message)) {
+		return new TRPCError({
+			code: "NOT_FOUND",
 			message: error.message,
 			cause: error,
 		});
@@ -79,6 +89,24 @@ export function createChatRouter(
 			.input(promptInputSchema)
 			.mutation(({ input }) => guarded(() => runtime.commands.prompt(input))),
 
+		removeQueuedPrompt: t.procedure
+			.input(queuedPromptInputSchema)
+			.mutation(({ input }) =>
+				guarded(() => runtime.commands.removeQueuedPrompt(input)),
+			),
+
+		steerQueuedPrompt: t.procedure
+			.input(queuedPromptInputSchema)
+			.mutation(({ input }) =>
+				guarded(() => runtime.commands.steerQueuedPrompt(input)),
+			),
+
+		resumeQueue: t.procedure
+			.input(resumeQueueInputSchema)
+			.mutation(({ input }) =>
+				guarded(() => runtime.commands.resumeQueue(input)),
+			),
+
 		cancelTurn: t.procedure
 			.input(cancelTurnInputSchema)
 			.mutation(({ input }) =>
@@ -116,6 +144,10 @@ export function createChatRouter(
 		getSession: t.procedure
 			.input(getSessionInputSchema)
 			.query(({ input }) => runtime.commands.getSession(input)),
+
+		getQueue: t.procedure
+			.input(getSessionInputSchema)
+			.query(({ input }) => runtime.commands.getQueue(input)),
 
 		listSessions: t.procedure
 			.input(listSessionsInputSchema)

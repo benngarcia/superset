@@ -4980,6 +4980,9 @@ msgstr "无法取消暂存文件"
 msgid "Couldn't update pull request"
 msgstr "无法更新拉取请求"
 
+msgid "Couldn't update the queue"
+msgstr "无法更新队列"
+
 msgid "Couldn't update thread"
 msgstr "无法更新讨论"
 
@@ -12496,6 +12499,9 @@ msgstr "问题"
 msgid "Questions, feedback, support, or anything else. Send a note and we'll route it to the right person."
 msgstr "问题、反馈、支持，或者别的什么都行。写给我们，我们会转给合适的人。"
 
+msgid "Queue paused because you interrupted"
+msgstr "由于你中断了操作，队列已暂停"
+
 msgid "Queue work for agents"
 msgstr "为智能体排队安排工作"
 
@@ -12891,6 +12897,9 @@ msgstr "移除提及{path}"
 
 msgid "Remove PR Link"
 msgstr "移除PR链接"
+
+msgid "Remove queued message"
+msgstr "移除排队消息"
 
 msgid "Remove script"
 msgstr "移除脚本"
@@ -15197,6 +15206,9 @@ msgstr "状态变更"
 msgid "Stay connected (refresh tokens)"
 msgstr "保持连接（刷新令牌）"
 
+msgid "Steer"
+msgstr "引导"
+
 #. placeholder {0}: step === "workspace" ? 1 : 2
 msgid "Step {0} of 2"
 msgstr "第{0}步，共2步"
@@ -15232,6 +15244,9 @@ msgstr "停止回复"
 
 msgid "Stop Superset here to delete from another device."
 msgstr "在此停止Superset，然后从其他设备删除。"
+
+msgid "Stop the agent and send this now"
+msgstr "停止智能体并立即发送"
 
 msgid "Stop watching"
 msgstr "停止关注"

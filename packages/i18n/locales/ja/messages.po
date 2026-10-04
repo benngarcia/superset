@@ -4980,6 +4980,9 @@ msgstr "ファイルをステージ解除できませんでした"
 msgid "Couldn't update pull request"
 msgstr "プルリクエストを更新できませんでした"
 
+msgid "Couldn't update the queue"
+msgstr "キューを更新できませんでした"
+
 msgid "Couldn't update thread"
 msgstr "スレッドを更新できませんでした"
 
@@ -12496,6 +12499,9 @@ msgstr "質問"
 msgid "Questions, feedback, support, or anything else. Send a note and we'll route it to the right person."
 msgstr "ご質問、フィードバック、サポート、その他何でも。メッセージをお送りいただければ、適切な担当者にお繋ぎします。"
 
+msgid "Queue paused because you interrupted"
+msgstr "中断したためキューを一時停止しました"
+
 msgid "Queue work for agents"
 msgstr "エージェントの作業をキューに入れる"
 
@@ -12891,6 +12897,9 @@ msgstr "メンション{path}を削除"
 
 msgid "Remove PR Link"
 msgstr "PRリンクを解除"
+
+msgid "Remove queued message"
+msgstr "キューのメッセージを削除"
 
 msgid "Remove script"
 msgstr "スクリプトを削除"
@@ -15197,6 +15206,9 @@ msgstr "ステータス変更"
 msgid "Stay connected (refresh tokens)"
 msgstr "接続の維持(リフレッシュトークン)"
 
+msgid "Steer"
+msgstr "軌道修正"
+
 #. placeholder {0}: step === "workspace" ? 1 : 2
 msgid "Step {0} of 2"
 msgstr "ステップ {0} / 2"
@@ -15232,6 +15244,9 @@ msgstr "応答を停止"
 
 msgid "Stop Superset here to delete from another device."
 msgstr "別のデバイスから削除するには、ここでSupersetを停止してください。"
+
+msgid "Stop the agent and send this now"
+msgstr "エージェントを停止して今すぐ送信"
 
 msgid "Stop watching"
 msgstr "監視を停止"
