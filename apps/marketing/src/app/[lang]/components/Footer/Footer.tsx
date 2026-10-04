@@ -22,7 +22,6 @@ import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { FaApple } from "react-icons/fa";
 import { track } from "@/lib/analytics";
-import { useIsMobileLaunched } from "../../providers/MobileLaunchProvider";
 import { Soc2Badge } from "../Soc2Badge";
 import { SocialLinks } from "../SocialLinks";
 
@@ -51,15 +50,14 @@ interface FooterLink {
 	external?: boolean;
 }
 
-const MOBILE_LINK: FooterLink = {
-	href: "/mobile",
-	label: <Trans>Mobile</Trans>,
-};
-
 const PRODUCT_LINKS: FooterLink[] = [
 	{
 		href: "/download",
 		label: <Trans>Download</Trans>,
+	},
+	{
+		href: "/mobile",
+		label: <Trans>Mobile</Trans>,
 	},
 	{
 		href: "/#how-it-works",
@@ -170,7 +168,6 @@ export function Footer({
 	locale?: SupportedLocale;
 	year: number;
 }) {
-	const isMobileLaunched = useIsMobileLaunched();
 	const pathname = usePathname();
 	if (pathname === "/download") return null;
 
@@ -223,18 +220,7 @@ export function Footer({
 						<FooterLanguageSwitcher locale={locale} />
 					</div>
 
-					<FooterColumn
-						title={<Trans>Product</Trans>}
-						links={
-							isMobileLaunched
-								? [
-										...PRODUCT_LINKS.slice(0, 1),
-										MOBILE_LINK,
-										...PRODUCT_LINKS.slice(1),
-									]
-								: PRODUCT_LINKS
-						}
-					/>
+					<FooterColumn title={<Trans>Product</Trans>} links={PRODUCT_LINKS} />
 					<FooterColumn title={<Trans>Company</Trans>} links={COMPANY_LINKS} />
 					<FooterColumn
 						title={<Trans>Resources</Trans>}
