@@ -1,6 +1,6 @@
-interface PullRequestProject {
+export interface PullRequestProject {
 	id: string;
-	projectKey: string;
+	projectKey?: string;
 	repoOwner?: string | null;
 	repoName?: string | null;
 }

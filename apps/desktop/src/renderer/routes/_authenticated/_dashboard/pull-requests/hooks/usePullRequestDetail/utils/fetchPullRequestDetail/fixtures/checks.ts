@@ -1,18 +1,26 @@
 import { beforeEach, expect, mock, test } from "bun:test";
 
-const getContent = mock(async (_input: unknown) => ({
+const hostContent = {
 	number: 12,
 	url: "https://github.com/owner/repo/pull/12",
 	title: "host title",
 	state: "open",
 	checks: [],
+};
+const getContent = mock(async (_input: unknown) => hostContent);
+const getContentByRepo = mock(async (_input: unknown) => ({
+	...hostContent,
+	title: "repository title",
 }));
 const getPullRequest = mock(async (_input: unknown) => ({
 	title: "API title",
 }));
 mock.module("renderer/lib/host-service-client", () => ({
 	getHostServiceClientByUrl: () => ({
-		pullRequests: { getContent: { query: getContent } },
+		pullRequests: {
+			getContent: { query: getContent },
+			getContentByRepo: { query: getContentByRepo },
+		},
 	}),
 }));
 mock.module("renderer/lib/cloud-trpc", () => ({
@@ -30,30 +38,33 @@ const input = {
 };
 beforeEach(() => {
 	getContent.mockClear();
+	getContentByRepo.mockClear();
 	getPullRequest.mockClear();
 });
-test("loads Summary without a project", async () => {
+test("loads Summary through gh without a project", async () => {
 	expect(await fetchPullRequestDetail(input)).toMatchObject({
-		title: "API title",
+		title: "repository title",
 	});
 	expect(getContent).not.toHaveBeenCalled();
-	expect(getPullRequest).toHaveBeenCalledWith({
-		organizationId: "org",
+	expect(getContentByRepo).toHaveBeenCalledWith({
 		repoFullName: "owner/repo",
-		number: 12,
+		prNumber: 12,
 	});
+	expect(getPullRequest).not.toHaveBeenCalled();
 });
 test("matching projects keep the existing host path", async () => {
 	expect(
 		(await fetchPullRequestDetail({ ...input, projectId: "project" })).title,
 	).toBe("host title");
+	expect(getContentByRepo).not.toHaveBeenCalled();
 	expect(getPullRequest).not.toHaveBeenCalled();
 });
-test("falls back when the matching host fails", async () => {
+test("tries repository gh access when the matching project path fails", async () => {
 	getContent.mockRejectedValueOnce(new Error("offline"));
 	expect(
 		await fetchPullRequestDetail({ ...input, projectId: "project" }),
-	).toMatchObject({ title: "API title" });
+	).toMatchObject({ title: "repository title" });
+	expect(getPullRequest).not.toHaveBeenCalled();
 });
 test("falls back when the host is absent", async () => {
 	expect(
@@ -65,8 +76,9 @@ test("falls back when the host is absent", async () => {
 	).toMatchObject({ title: "API title" });
 	expect(getContent).not.toHaveBeenCalled();
 });
-test("preserves host failures if cloud fallback is unavailable", async () => {
-	getContent.mockRejectedValueOnce(new Error("offline"));
+test("preserves repository host failures if cloud fallback is unavailable", async () => {
+	getContent.mockRejectedValueOnce(new Error("project unavailable"));
+	getContentByRepo.mockRejectedValueOnce(new Error("offline"));
 	await expect(
 		fetchPullRequestDetail({
 			...input,
@@ -110,8 +122,59 @@ test("Summary does not race the API against a pending host request", async () =>
 	expect(getPullRequest).not.toHaveBeenCalled();
 });
 test("Summary surfaces a cloud failure instead of returning empty content", async () => {
+	getContentByRepo.mockRejectedValueOnce(new Error("gh unavailable"));
 	getPullRequest.mockRejectedValueOnce(new Error("Access denied"));
 	await expect(fetchPullRequestDetail(input)).rejects.toThrow("Access denied");
+});
+
+test("an older host without the repository endpoint falls back to the API", async () => {
+	getContent.mockRejectedValueOnce(new Error("project unavailable"));
+	getContentByRepo.mockRejectedValueOnce(
+		new Error('No procedure found on path "pullRequests.getContentByRepo"'),
+	);
+	expect(
+		await fetchPullRequestDetail({ ...input, projectId: "project" }),
+	).toMatchObject({ title: "API title" });
+	expect(getPullRequest).toHaveBeenCalledWith({
+		organizationId: "org",
+		repoFullName: "owner/repo",
+		number: 12,
+	});
+});
+
+test("repository gh access does not require an organization or GitHub App", async () => {
+	expect(
+		await fetchPullRequestDetail({ ...input, organizationId: null }),
+	).toMatchObject({ title: "repository title" });
+	expect(getPullRequest).not.toHaveBeenCalled();
+});
+
+test("preserves legacy project failures when no repository identity is available", async () => {
+	getContent.mockRejectedValueOnce(new Error("project unavailable"));
+	await expect(
+		fetchPullRequestDetail({
+			...input,
+			projectId: "project",
+			repoFullName: null,
+		}),
+	).rejects.toThrow("project unavailable");
+	expect(getContentByRepo).not.toHaveBeenCalled();
+	expect(getPullRequest).not.toHaveBeenCalled();
+});
+
+test("Summary waits for repository gh access before using the API", async () => {
+	let resolve!: (value: Awaited<ReturnType<typeof getContentByRepo>>) => void;
+	getContentByRepo.mockImplementationOnce(
+		() =>
+			new Promise((done) => {
+				resolve = done;
+			}),
+	);
+	const request = fetchPullRequestDetail(input);
+	expect(getPullRequest).not.toHaveBeenCalled();
+	resolve({ ...hostContent, title: "repository title" });
+	expect((await request).title).toBe("repository title");
+	expect(getPullRequest).not.toHaveBeenCalled();
 });
 
 const { GlobalRegistrator } = await import("@happy-dom/global-registrator");
@@ -211,11 +274,11 @@ test("project-only links derive repository identity from the host response when 
 	expect(getPullRequest).not.toHaveBeenCalled();
 });
 
-test("uses the API after project discovery confirms the project is absent", async () => {
+test("uses repository gh access after project discovery confirms the project is absent", async () => {
 	hostProjects = { projects: [], isReady: true };
 	const view = mountDetail("owner/repo");
 	await waitFor(() =>
-		expect(view.result.current.data?.title).toBe("API title"),
+		expect(view.result.current.data?.title).toBe("repository title"),
 	);
 	expect(getContent).not.toHaveBeenCalled();
 	expect(view.result.current.projectId).toBeNull();
@@ -231,4 +294,35 @@ test("a legacy link with no host or repository fails instead of loading forever"
 	expect(view.result.current.isLoading).toBe(false);
 	expect(getContent).not.toHaveBeenCalled();
 	expect(getPullRequest).not.toHaveBeenCalled();
+});
+
+test("retains the repository gh failure when the cloud fallback also fails", async () => {
+	const hostError = new Error("gh: diff exceeds the maximum number of lines");
+	const cloudError = new Error("Not Found - installation access token");
+	getContentByRepo.mockRejectedValueOnce(hostError);
+	getPullRequest.mockRejectedValueOnce(cloudError);
+	await expect(fetchPullRequestDetail(input)).rejects.toMatchObject({
+		name: "AggregateError",
+		message: `${hostError.message}\n${cloudError.message}`,
+		errors: [hostError, cloudError],
+	});
+});
+
+test("preserves the original cloud error when an older host lacks the endpoint", async () => {
+	const hostError = Object.assign(new Error("Unsupported procedure"), {
+		data: { code: "NOT_FOUND" },
+	});
+	const cloudError = new Error("Repository access denied");
+	getContentByRepo.mockRejectedValueOnce(hostError);
+	getPullRequest.mockRejectedValueOnce(cloudError);
+	await expect(fetchPullRequestDetail(input)).rejects.toBe(cloudError);
+});
+
+test("preserves the original cloud error when no host was tried", async () => {
+	const cloudError = new Error("Repository access denied");
+	getPullRequest.mockRejectedValueOnce(cloudError);
+	await expect(
+		fetchPullRequestDetail({ ...input, hostUrl: null }),
+	).rejects.toBe(cloudError);
+	expect(getContentByRepo).not.toHaveBeenCalled();
 });

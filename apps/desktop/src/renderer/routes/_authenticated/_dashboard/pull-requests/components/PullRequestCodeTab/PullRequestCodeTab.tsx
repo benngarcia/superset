@@ -34,6 +34,7 @@ import { DiffFileHeaderName } from "renderer/screens/main/components/DiffFileHea
 import { DiffViewToolbar } from "renderer/screens/main/components/DiffViewToolbar";
 import { ResizablePanel } from "renderer/screens/main/components/ResizablePanel";
 import { useWorkspaceCreates } from "renderer/stores/workspace-creates/useWorkspaceCreates";
+import { pullRequestReadErrorMessage } from "../../utils/combinePullRequestReadErrors";
 import { PullRequestCommentComposer } from "./components/PullRequestCommentComposer";
 import { PullRequestCommentThread } from "./components/PullRequestCommentThread";
 import { fetchPullRequestDiff } from "./utils/fetchPullRequestDiff";
@@ -852,7 +853,7 @@ export function PullRequestCodeTab({
 			<div ref={rootRef} className="flex min-h-0 flex-1 flex-col">
 				<div className="flex flex-1 items-center justify-center">
 					<WorkItemDetailState
-						message={error.message}
+						message={pullRequestReadErrorMessage(error)}
 						isError
 						onRetry={() => void refetch()}
 					/>

@@ -1,9 +1,9 @@
 import { useLingui } from "@lingui/react/macro";
-import { errorMessage } from "@superset/i18n/errors";
 import { cn } from "@superset/ui/utils";
 import type { ReactNode } from "react";
 import { WorkItemDetailState } from "../../../components/WorkItemDetailState";
 import type { PullRequestDetail } from "../../hooks/usePullRequestDetail";
+import { pullRequestReadErrorMessage } from "../../utils/combinePullRequestReadErrors";
 import { PullRequestCodeTab } from "../PullRequestCodeTab";
 import type { PullRequestDetailTab } from "../PullRequestDetailTabs";
 import { PullRequestSummaryContent } from "../PullRequestSummaryContent";
@@ -68,7 +68,7 @@ export function PullRequestDetailContent({
 				<WorkItemDetailState
 					message={
 						detail.error
-							? errorMessage(detail.error)
+							? pullRequestReadErrorMessage(detail.error)
 							: t({ message: "Loading pull request…" })
 					}
 					isLoading={detail.isLoading}

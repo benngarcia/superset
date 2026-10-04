@@ -1,5 +1,6 @@
 import { cloudTrpcClient } from "renderer/lib/cloud-trpc";
 import { getHostServiceClientByUrl } from "renderer/lib/host-service-client";
+import { combinePullRequestReadErrors } from "../../../../utils/combinePullRequestReadErrors";
 
 interface PullRequestDiffInput {
 	projectId: string | null;
@@ -16,6 +17,7 @@ export async function fetchPullRequestDiff({
 	prNumber,
 	organizationId,
 }: PullRequestDiffInput): Promise<{ patch: string }> {
+	let repositoryError: unknown;
 	if (hostUrl) {
 		if (projectId) {
 			try {
@@ -34,15 +36,20 @@ export async function fetchPullRequestDiff({
 				});
 			} catch (error) {
 				if (!organizationId) throw error;
+				repositoryError = error;
 			}
 		}
 	}
 	if (!organizationId || !repoFullName) {
 		throw new Error("No GitHub repository available to fetch the diff");
 	}
-	return cloudTrpcClient.integration.github.getPullRequestDiff.query({
-		organizationId,
-		repoFullName,
-		number: prNumber,
-	});
+	try {
+		return await cloudTrpcClient.integration.github.getPullRequestDiff.query({
+			organizationId,
+			repoFullName,
+			number: prNumber,
+		});
+	} catch (error) {
+		throw combinePullRequestReadErrors(repositoryError, error);
+	}
 }

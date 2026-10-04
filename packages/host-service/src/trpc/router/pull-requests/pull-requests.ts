@@ -2,6 +2,7 @@ import { z } from "zod";
 import { protectedProcedure, router } from "../../index";
 import { createForWorkspace } from "./procedures/create-for-workspace";
 import { getContent } from "./procedures/get-content";
+import { getContentByRepo } from "./procedures/get-content-by-repo";
 import { getDiff } from "./procedures/get-diff";
 import { getDiffByRepo } from "./procedures/get-diff-by-repo";
 import { getLinkedWorkspace } from "./procedures/get-linked-workspace";
@@ -73,6 +74,7 @@ export const pullRequestsRouter = router({
 		}),
 	createForWorkspace,
 	getContent,
+	getContentByRepo,
 	getDiff,
 	getDiffByRepo,
 	getLinkedWorkspace,

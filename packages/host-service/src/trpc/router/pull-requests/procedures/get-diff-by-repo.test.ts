@@ -54,9 +54,14 @@ describe("pullRequests.getDiffByRepo", () => {
 	});
 
 	test("propagates gh failures so the client can use the API fallback", async () => {
-		spyOn(gh, "execGh").mockRejectedValue(new Error("gh not authenticated"));
+		const error = new Error("gh not authenticated");
+		spyOn(gh, "execGh").mockRejectedValue(error);
 		await expect(
 			caller.getDiffByRepo({ repoFullName: "owner/repo", prNumber: 12 }),
-		).rejects.toMatchObject({ code: "INTERNAL_SERVER_ERROR" });
+		).rejects.toMatchObject({
+			code: "INTERNAL_SERVER_ERROR",
+			message: "Failed to fetch diff for owner/repo#12: gh not authenticated",
+			cause: error,
+		});
 	});
 });

@@ -1,1 +1,4 @@
-export { resolvePullRequestTarget } from "./resolvePullRequestTarget";
+export {
+	type PullRequestProject,
+	resolvePullRequestTarget,
+} from "./resolvePullRequestTarget";

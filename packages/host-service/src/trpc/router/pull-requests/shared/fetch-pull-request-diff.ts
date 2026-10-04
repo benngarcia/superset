@@ -1,10 +1,11 @@
 import { execGh } from "../../workspace-creation/utils/exec-gh";
+import { fetchPullRequestGitDiff } from "./fetch-pull-request-git-diff";
 
 const CACHE_TTL_MS = 30_000;
 const MAX_CACHE_ENTRIES = 20;
 const entries = new Map<
 	string,
-	{ promise: Promise<string>; fetchedAt: number }
+	{ promise: Promise<string>; fetchedAt: number | null }
 >();
 
 export function fetchPullRequestDiff(
@@ -14,21 +15,47 @@ export function fetchPullRequestDiff(
 	const key = `${repoFullName.toLowerCase()}#${prNumber}`;
 	const now = Date.now();
 	for (const [otherKey, entry] of entries) {
-		if (now - entry.fetchedAt >= CACHE_TTL_MS) entries.delete(otherKey);
+		if (entry.fetchedAt !== null && now - entry.fetchedAt >= CACHE_TTL_MS) {
+			entries.delete(otherKey);
+		}
 	}
 	const cached = entries.get(key);
 	if (cached) return cached.promise;
 	const promise = execGh(
 		["pr", "diff", String(prNumber), "--repo", repoFullName],
 		{ timeout: 30_000, maxBuffer: 200 * 1024 * 1024 },
-	).then((raw) => (typeof raw === "string" ? raw : ""));
+	)
+		.then((raw) => (typeof raw === "string" ? raw : ""))
+		.catch((error: unknown) => {
+			if (
+				error instanceof Error &&
+				/PullRequest\.diff too_large|diff exceeded the maximum number of lines/i.test(
+					error.message,
+				)
+			) {
+				return fetchPullRequestGitDiff(repoFullName, prNumber);
+			}
+			throw error;
+		});
 	if (entries.size >= MAX_CACHE_ENTRIES) {
-		const oldest = entries.keys().next().value;
-		if (oldest !== undefined) entries.delete(oldest);
+		for (const [otherKey, entry] of entries) {
+			if (entry.fetchedAt !== null) {
+				entries.delete(otherKey);
+				break;
+			}
+		}
 	}
-	entries.set(key, { promise, fetchedAt: now });
-	void promise.catch(() => {
-		if (entries.get(key)?.promise === promise) entries.delete(key);
-	});
+	if (entries.size < MAX_CACHE_ENTRIES) {
+		entries.set(key, { promise, fetchedAt: null });
+	}
+	void promise.then(
+		() => {
+			const entry = entries.get(key);
+			if (entry?.promise === promise) entry.fetchedAt = Date.now();
+		},
+		() => {
+			if (entries.get(key)?.promise === promise) entries.delete(key);
+		},
+	);
 	return promise;
 }

@@ -6,7 +6,10 @@ import { useActiveOrganizationId } from "renderer/hooks/useActiveOrganizationId"
 import { electronQueryClient } from "renderer/providers/ElectronTRPCProvider/ElectronTRPCProvider";
 import { DASHBOARD_SIDEBAR_PULL_REQUEST_QUERY_KEY_PREFIX } from "renderer/routes/_authenticated/_dashboard/components/DashboardSidebar/hooks/useDashboardSidebarData/derivePullRequestQueryTargets";
 import { V2_WORKSPACES_PULL_REQUEST_QUERY_KEY_PREFIX } from "renderer/routes/_authenticated/_dashboard/v2-workspaces/hooks/useAccessibleV2Workspaces/useAccessibleV2Workspaces";
-import { resolvePullRequestTarget } from "../../utils/resolvePullRequestTarget";
+import {
+	type PullRequestProject,
+	resolvePullRequestTarget,
+} from "../../utils/resolvePullRequestTarget";
 import { fetchPullRequestDetail } from "./utils/fetchPullRequestDetail";
 
 export type PullRequestDetail =
@@ -31,20 +34,34 @@ export function usePullRequestDetail({
 	hostUrl,
 	prNumber,
 	repoFullName,
+	projectQuery,
 	enabled = true,
-}: PullRequestDetailKey & { repoFullName?: string | null; enabled?: boolean }) {
+}: PullRequestDetailKey & {
+	repoFullName?: string | null;
+	projectQuery?: {
+		data?: PullRequestProject | null;
+		isPending: boolean;
+	};
+	enabled?: boolean;
+}) {
 	const organizationId = useActiveOrganizationId();
 	const { projects, isReady } = useHostProjects();
+	const availableProjects = projectQuery
+		? projectQuery.data
+			? [projectQuery.data]
+			: []
+		: projects;
+	const projectReady = projectQuery ? !projectQuery.isPending : isReady;
 	const target = resolvePullRequestTarget({
 		projectId,
 		repoFullName,
-		projects,
+		projects: availableProjects,
 	});
 
 	const isResolvingProject =
 		!!projectId &&
-		!isReady &&
-		!projects.some(
+		!projectReady &&
+		!availableProjects.some(
 			(project) => project.id === projectId || project.projectKey === projectId,
 		);
 	const query = useQuery({

@@ -20,7 +20,7 @@ export const getDiffByRepo = protectedProcedure
 		} catch (cause) {
 			throw new TRPCError({
 				code: "INTERNAL_SERVER_ERROR",
-				message: `Failed to fetch diff for ${input.repoFullName}#${input.prNumber}`,
+				message: `Failed to fetch diff for ${input.repoFullName}#${input.prNumber}: ${cause instanceof Error ? cause.message : String(cause)}`,
 				cause,
 			});
 		}

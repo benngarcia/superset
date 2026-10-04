@@ -6,6 +6,7 @@ import * as gh from "../../workspace-creation/utils/exec-gh";
 import { getDiff } from "../procedures/get-diff";
 import { getDiffByRepo } from "../procedures/get-diff-by-repo";
 import { fetchPullRequestDiff } from "./fetch-pull-request-diff";
+import * as gitDiff from "./fetch-pull-request-git-diff";
 
 afterEach(() => mock.restore());
 
@@ -74,4 +75,119 @@ test("keeps repositories and PR numbers separate", async () => {
 		fetchPullRequestDiff("owner/one", 3),
 	]);
 	expect(exec).toHaveBeenCalledTimes(3);
+});
+
+test("preserves the legacy patch without invoking the Git fallback", async () => {
+	const patch =
+		"diff --git a/a b/a\n--- a/a\n+++ b/a\n@@ -1 +1 @@\n-old\n+new\n";
+	spyOn(gh, "execGh").mockResolvedValue(patch);
+	const fallback = spyOn(gitDiff, "fetchPullRequestGitDiff").mockResolvedValue(
+		"fallback",
+	);
+	expect(await fetchPullRequestDiff("owner/legacy-patch", 1)).toBe(patch);
+	expect(fallback).not.toHaveBeenCalled();
+});
+
+test("preserves a successful empty legacy diff", async () => {
+	spyOn(gh, "execGh").mockResolvedValue("");
+	const fallback = spyOn(gitDiff, "fetchPullRequestGitDiff").mockResolvedValue(
+		"fallback",
+	);
+	expect(await fetchPullRequestDiff("owner/legacy-empty", 1)).toBe("");
+	expect(fallback).not.toHaveBeenCalled();
+});
+
+test.each([
+	"GraphQL: PullRequest.diff too_large",
+	"HTTP 406: diff exceeded the maximum number of lines",
+])("uses Git for a size-limited diff: %s", async (message) => {
+	spyOn(gh, "execGh").mockRejectedValue(new Error(message));
+	const fallback = spyOn(gitDiff, "fetchPullRequestGitDiff").mockResolvedValue(
+		"complete patch",
+	);
+	const prNumber = message.startsWith("GraphQL") ? 1 : 2;
+	expect(await fetchPullRequestDiff("owner/large-diff", prNumber)).toBe(
+		"complete patch",
+	);
+	expect(fallback).toHaveBeenCalledWith("owner/large-diff", prNumber);
+	expect(await fetchPullRequestDiff("OWNER/LARGE-DIFF", prNumber)).toBe(
+		"complete patch",
+	);
+	expect(fallback).toHaveBeenCalledTimes(1);
+});
+
+test.each([
+	"HTTP 401: Bad credentials",
+	"HTTP 404: Not Found",
+	"HTTP 429: API rate limit exceeded",
+	"network connection lost",
+])("preserves non-size errors without fetching Git objects: %s", async (message) => {
+	const error = new Error(message);
+	spyOn(gh, "execGh").mockRejectedValue(error);
+	const fallback = spyOn(gitDiff, "fetchPullRequestGitDiff").mockResolvedValue(
+		"fallback",
+	);
+	await expect(fetchPullRequestDiff("owner/unchanged-errors", 1)).rejects.toBe(
+		error,
+	);
+	expect(fallback).not.toHaveBeenCalled();
+});
+
+test("evicts a failed Git fallback so a retry can recover", async () => {
+	spyOn(gh, "execGh").mockRejectedValue(
+		new Error("PullRequest.diff too_large"),
+	);
+	const fallback = spyOn(gitDiff, "fetchPullRequestGitDiff").mockRejectedValue(
+		new Error("fetch failed"),
+	);
+	await expect(fetchPullRequestDiff("owner/git-retry", 1)).rejects.toThrow(
+		"fetch failed",
+	);
+	fallback.mockResolvedValue("recovered patch");
+	expect(await fetchPullRequestDiff("owner/git-retry", 1)).toBe(
+		"recovered patch",
+	);
+	expect(fallback).toHaveBeenCalledTimes(2);
+});
+
+test("shares slow in-flight requests and starts their TTL when they finish", async () => {
+	const now = spyOn(Date, "now").mockReturnValue(200_000);
+	let resolve!: (patch: string) => void;
+	const exec = spyOn(gh, "execGh").mockImplementation(
+		() =>
+			new Promise<string>((done) => {
+				resolve = done;
+			}),
+	);
+	const first = fetchPullRequestDiff("owner/slow-fetch", 1);
+	now.mockReturnValue(260_000);
+	const second = fetchPullRequestDiff("OWNER/SLOW-FETCH", 1);
+	expect(exec).toHaveBeenCalledTimes(1);
+	resolve("slow patch");
+	expect(await Promise.all([first, second])).toEqual([
+		"slow patch",
+		"slow patch",
+	]);
+	now.mockReturnValue(289_999);
+	expect(await fetchPullRequestDiff("owner/slow-fetch", 1)).toBe("slow patch");
+	expect(exec).toHaveBeenCalledTimes(1);
+	now.mockReturnValue(290_000);
+	exec.mockResolvedValue("fresh patch");
+	expect(await fetchPullRequestDiff("owner/slow-fetch", 1)).toBe("fresh patch");
+	expect(exec).toHaveBeenCalledTimes(2);
+});
+
+test("keeps in-flight requests shared when the cache reaches its limit", async () => {
+	const resolvers: Array<(patch: string) => void> = [];
+	const exec = spyOn(gh, "execGh").mockImplementation(
+		() => new Promise<string>((resolve) => resolvers.push(resolve)),
+	);
+	const pending = Array.from({ length: 20 }, (_, index) =>
+		fetchPullRequestDiff("owner/cache-pressure", index + 1),
+	);
+	pending.push(fetchPullRequestDiff("owner/cache-pressure", 21));
+	pending.push(fetchPullRequestDiff("owner/cache-pressure", 1));
+	expect(exec).toHaveBeenCalledTimes(21);
+	for (const resolve of resolvers) resolve("patch");
+	expect(await Promise.all(pending)).toEqual(Array(22).fill("patch"));
 });

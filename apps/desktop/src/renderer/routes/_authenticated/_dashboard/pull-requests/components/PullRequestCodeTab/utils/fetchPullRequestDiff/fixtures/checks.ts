@@ -170,3 +170,34 @@ test("rejects missing fallback identity without issuing an API request", async (
 	}
 	expect(getPullRequestDiff).not.toHaveBeenCalled();
 });
+
+test("retains the repository gh failure when the cloud fallback also fails", async () => {
+	const hostError = new Error("gh: diff exceeds the maximum number of lines");
+	const cloudError = new Error("Not Found - installation access token");
+	getDiffByRepo.mockRejectedValueOnce(hostError);
+	getPullRequestDiff.mockRejectedValueOnce(cloudError);
+	await expect(fetchPullRequestDiff(input)).rejects.toMatchObject({
+		name: "AggregateError",
+		message: `${hostError.message}\n${cloudError.message}`,
+		errors: [hostError, cloudError],
+	});
+});
+
+test("preserves the original cloud error when an older host lacks the endpoint", async () => {
+	const hostError = Object.assign(new Error("Unsupported procedure"), {
+		data: { code: "NOT_FOUND" },
+	});
+	const cloudError = new Error("Repository access denied");
+	getDiffByRepo.mockRejectedValueOnce(hostError);
+	getPullRequestDiff.mockRejectedValueOnce(cloudError);
+	await expect(fetchPullRequestDiff(input)).rejects.toBe(cloudError);
+});
+
+test("preserves the original cloud error when no host was tried", async () => {
+	const cloudError = new Error("Repository access denied");
+	getPullRequestDiff.mockRejectedValueOnce(cloudError);
+	await expect(fetchPullRequestDiff({ ...input, hostUrl: null })).rejects.toBe(
+		cloudError,
+	);
+	expect(getDiffByRepo).not.toHaveBeenCalled();
+});
