@@ -13861,9 +13861,6 @@ msgstr "Aller en bas"
 msgid "Scroll to Bottom"
 msgstr "Défiler vers le bas"
 
-msgid "Scroll to latest"
-msgstr "Aller au plus récent"
-
 msgid "Scroll to the first session"
 msgstr "Aller à la première session"
 

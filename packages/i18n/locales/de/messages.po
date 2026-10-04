@@ -13861,9 +13861,6 @@ msgstr "Nach unten scrollen"
 msgid "Scroll to Bottom"
 msgstr "Nach ganz unten scrollen"
 
-msgid "Scroll to latest"
-msgstr "Zur neuesten Nachricht"
-
 msgid "Scroll to the first session"
 msgstr "Zur ersten Sitzung springen"
 

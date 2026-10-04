@@ -13861,9 +13861,6 @@ msgstr "Cuộn xuống cuối"
 msgid "Scroll to Bottom"
 msgstr "Cuộn xuống cuối"
 
-msgid "Scroll to latest"
-msgstr "Cuộn đến mới nhất"
-
 msgid "Scroll to the first session"
 msgstr "Đến phiên đầu tiên"
 

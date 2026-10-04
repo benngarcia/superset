@@ -13861,9 +13861,6 @@ msgstr "Прокрутить вниз"
 msgid "Scroll to Bottom"
 msgstr "Прокрутить вниз"
 
-msgid "Scroll to latest"
-msgstr "К последним"
-
 msgid "Scroll to the first session"
 msgstr "Перейти к первой сессии"
 

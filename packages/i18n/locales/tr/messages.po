@@ -13861,9 +13861,6 @@ msgstr "En alta kaydır"
 msgid "Scroll to Bottom"
 msgstr "En alta kaydır"
 
-msgid "Scroll to latest"
-msgstr "En sona kaydır"
-
 msgid "Scroll to the first session"
 msgstr "İlk oturuma git"
 
