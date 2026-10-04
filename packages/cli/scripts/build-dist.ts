@@ -453,7 +453,7 @@ async function main(): Promise<void> {
 	});
 
 	cpSync(
-		resolve(import.meta.dir, "../../chat-runtime/src/db/drizzle"),
+		join(dirname(hostServiceBundle), "chat-migrations"),
 		join(stagingRoot, "lib", "chat-migrations"),
 		{ recursive: true },
 	);

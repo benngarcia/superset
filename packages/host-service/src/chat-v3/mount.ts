@@ -32,7 +32,8 @@ export const CHAT_V3_STREAM_PATH = "/chat-v3/sessions/:sessionId/stream";
 
 /**
  * `src/db/drizzle/` is a runtime file dependency no bundle inlines: the desktop
- * points here at its copy, the CLI and sandbox ship it next to host-service.js.
+ * points here at its copy, and the host-service build emits it next to
+ * host-service.js.
  */
 function migrationsFolder(): string {
 	const fromEnv = process.env.SUPERSET_CHAT_V3_MIGRATIONS?.trim();
