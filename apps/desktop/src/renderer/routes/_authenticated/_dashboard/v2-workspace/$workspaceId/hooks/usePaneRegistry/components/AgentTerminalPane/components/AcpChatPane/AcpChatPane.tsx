@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useV2AgentConfigs } from "renderer/hooks/useV2AgentConfigs";
 import { acpHarnessForPreset } from "renderer/lib/acpHarness";
+import type { OpenFile } from "../../../../../../types";
 import { SessionView } from "../../../ChatSession/components/SessionView";
 import { useSessionClient } from "../../../ChatSession/hooks/useSessionClient";
 import type { ChatForkTarget } from "../../../ChatSession/types";
@@ -22,6 +23,7 @@ export function AcpChatPane({
 	agent,
 	onAgentSessionChanged,
 	onFirstPromptSent,
+	onOpenFile,
 	onSessionCreated,
 	pendingFirstPrompt,
 	sessionId,
@@ -37,6 +39,7 @@ export function AcpChatPane({
 	onFirstPromptSent?: (() => void) | undefined;
 	onSessionCreated: (sessionId: string) => void;
 	onAgentSessionChanged: (harnessSessionId: string) => void;
+	onOpenFile?: OpenFile;
 	modelId?: string;
 	modeId?: string;
 }) {
@@ -232,6 +235,7 @@ export function AcpChatPane({
 			agentLabel={agentLabel}
 			canForkToWorktree={canForkToWorktree}
 			onFork={fork}
+			openFile={onOpenFile}
 			onSessionState={(state) => {
 				// A resume that found no transcript lands on a different agent
 				// session. Keep the pane pointed at the live one, or the trip back

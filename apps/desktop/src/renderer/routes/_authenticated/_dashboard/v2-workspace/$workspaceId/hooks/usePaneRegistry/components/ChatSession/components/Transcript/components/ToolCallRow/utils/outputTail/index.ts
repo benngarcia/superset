@@ -1,0 +1,1 @@
+export { outputTail } from "./outputTail";

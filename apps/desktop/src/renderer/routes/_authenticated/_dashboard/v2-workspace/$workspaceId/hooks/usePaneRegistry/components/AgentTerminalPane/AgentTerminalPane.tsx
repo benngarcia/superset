@@ -6,7 +6,6 @@ import type {
 	PaneViewerData,
 } from "renderer/routes/_authenticated/_dashboard/v2-workspace/$workspaceId/types";
 import type { TerminalPaneData } from "../../../../types";
-import { ChatPaneActionsProvider } from "../ChatSession/providers/ChatPaneActionsProvider";
 import { TerminalPane } from "../TerminalPane";
 import { AcpChatPane } from "./components/AcpChatPane";
 import { AcpChatPending } from "./components/AcpChatPane/components/AcpChatPending";
@@ -58,52 +57,51 @@ export function AgentTerminalPane({
 			);
 		}
 		return (
-			<ChatPaneActionsProvider openFile={onOpenFile}>
-				<AcpChatPane
-					key={data.terminalId}
-					agent={data.agent}
-					onFirstPromptSent={() => {
-						if (
-							data.pendingPrompt === undefined &&
-							data.pendingAttachments === undefined
-						)
-							return;
-						const {
-							pendingPrompt: _sent,
-							pendingAttachments: _attached,
-							...rest
-						} = data;
-						ctx.actions.updateData(rest);
-					}}
-					pendingFirstPrompt={
-						data.pendingPrompt || data.pendingAttachments?.length
-							? [
-									...(data.pendingPrompt
-										? [{ type: "text" as const, text: data.pendingPrompt }]
-										: []),
-									...(data.pendingAttachments ?? []).map((attachment) => ({
-										type: "attachment" as const,
-										...attachment,
-									})),
-								]
-							: null
-					}
-					modelId={data.chatModelId}
-					modeId={data.chatModeId}
-					onAgentSessionChanged={(sessionId) => {
-						if (!data.agent) return;
-						ctx.actions.updateData({
-							...data,
-							agent: { ...data.agent, sessionId },
-						});
-					}}
-					onSessionCreated={(acpSessionId) =>
-						ctx.actions.updateData({ ...data, acpSessionId })
-					}
-					sessionId={data.acpSessionId ?? null}
-					workspaceId={workspaceId}
-				/>
-			</ChatPaneActionsProvider>
+			<AcpChatPane
+				key={data.terminalId}
+				agent={data.agent}
+				onFirstPromptSent={() => {
+					if (
+						data.pendingPrompt === undefined &&
+						data.pendingAttachments === undefined
+					)
+						return;
+					const {
+						pendingPrompt: _sent,
+						pendingAttachments: _attached,
+						...rest
+					} = data;
+					ctx.actions.updateData(rest);
+				}}
+				pendingFirstPrompt={
+					data.pendingPrompt || data.pendingAttachments?.length
+						? [
+								...(data.pendingPrompt
+									? [{ type: "text" as const, text: data.pendingPrompt }]
+									: []),
+								...(data.pendingAttachments ?? []).map((attachment) => ({
+									type: "attachment" as const,
+									...attachment,
+								})),
+							]
+						: null
+				}
+				modelId={data.chatModelId}
+				modeId={data.chatModeId}
+				onAgentSessionChanged={(sessionId) => {
+					if (!data.agent) return;
+					ctx.actions.updateData({
+						...data,
+						agent: { ...data.agent, sessionId },
+					});
+				}}
+				onSessionCreated={(acpSessionId) =>
+					ctx.actions.updateData({ ...data, acpSessionId })
+				}
+				onOpenFile={onOpenFile}
+				sessionId={data.acpSessionId ?? null}
+				workspaceId={workspaceId}
+			/>
 		);
 	}
 

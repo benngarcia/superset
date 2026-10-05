@@ -20,13 +20,12 @@ import {
 } from "lucide-react";
 import type { ComponentType, ReactNode } from "react";
 import { useMemo, useState } from "react";
-import { DiffStatText } from "../../../../../../../../components/DiffStatText";
-import { diffStats } from "../../utils/diffStats";
-import { type FileChange, fileChangeOf } from "../../utils/fileChange";
+import { fileChangeOf } from "../../utils/fileChange";
 import { ToolContentList } from "../ToolContentList";
-
-/** How many trailing output lines a call shows without being expanded. */
-const PREVIEW_LINES = 3;
+import { FileChangeTitle } from "./components/FileChangeTitle";
+import { StatusWord } from "./components/StatusWord";
+import { durationLabel } from "./utils/durationLabel";
+import { outputTail } from "./utils/outputTail";
 
 const ICON_BY_KIND: Record<ToolKind, ComponentType<{ className?: string }>> = {
 	read: FileText,
@@ -39,125 +38,6 @@ const ICON_BY_KIND: Record<ToolKind, ComponentType<{ className?: string }>> = {
 	fetch: Globe,
 	other: Wrench,
 };
-
-function durationLabel(item: ToolCall): string | null {
-	if (item.completedAtMs === undefined) return null;
-	const seconds = Math.max(0, item.completedAtMs - item.startedAtMs) / 1000;
-	return `${seconds.toFixed(1)}s`;
-}
-
-/**
- * The tail, not the head: the end of a command's output is the part worth
- * seeing without opening anything.
- */
-function outputTail(
-	item: ToolCall,
-): { lines: string[]; hidden: number } | null {
-	const text = item.content
-		.map((content) =>
-			content.type === "text"
-				? content.text
-				: content.type === "terminal"
-					? content.output
-					: null,
-		)
-		.filter((value): value is string => value !== null)
-		.join("\n")
-		.trimEnd();
-	if (text === "") return null;
-	// A fence delimiter is markup, not a line of output, and in a three-line
-	// preview it costs a third of what there is to see. Dropped rather than
-	// peeled off the ends: the text may hold several blocks.
-	const all = text
-		.split("\n")
-		.filter((line) => !line.trimStart().startsWith("```"));
-	return {
-		lines: all.slice(-PREVIEW_LINES),
-		hidden: Math.max(0, all.length - PREVIEW_LINES),
-	};
-}
-
-function StatusWord({ status }: { status: ToolCall["status"] }) {
-	switch (status) {
-		case "failed":
-			return (
-				<span className="shrink-0 font-mono text-[11px] text-destructive/80 lowercase">
-					<Trans>Failed</Trans>
-				</span>
-			);
-		case "declined":
-			return (
-				<span className="shrink-0 font-mono text-[11px] text-destructive/80 lowercase">
-					<Trans>Denied</Trans>
-				</span>
-			);
-		case "canceled":
-			return (
-				<span className="shrink-0 font-mono text-[11px] text-muted-foreground/70 lowercase">
-					<Trans>Canceled</Trans>
-				</span>
-			);
-		default:
-			return null;
-	}
-}
-
-/**
- * "Edited README.md +5 −1": the verb says what happened and whether it is
- * still happening, the name is what a row has room for, the tally is what it
- * cost. The agent's own title ("Write /full/path") says the same thing worse.
- */
-function FileChangeTitle({
-	change,
-	item,
-	running,
-}: {
-	change: FileChange;
-	item: ToolCall;
-	running: boolean;
-}) {
-	const { t } = useLingui();
-	const stats = useMemo(() => {
-		const diff = item.content.find((content) => content.type === "diff");
-		return diff && diff.type === "diff" ? diffStats(diff) : null;
-	}, [item.content]);
-	const verb = running
-		? change.kind === "added"
-			? t({ message: "Creating", context: "file change" })
-			: change.kind === "deleted"
-				? t({ message: "Deleting", context: "file change" })
-				: t({ message: "Editing", context: "file change" })
-		: change.kind === "added"
-			? t({ message: "Created", context: "file change" })
-			: change.kind === "deleted"
-				? t({ message: "Deleted", context: "file change" })
-				: t({ message: "Edited", context: "file change" });
-	return (
-		<>
-			<span className="shrink-0">
-				{running ? (
-					<ShimmerLabel className="font-normal">{verb}</ShimmerLabel>
-				) : (
-					verb
-				)}
-			</span>
-			<span
-				className="min-w-0 truncate font-medium text-foreground/90"
-				title={change.path}
-			>
-				{change.name}
-			</span>
-			{stats && !running && (
-				<span className="shrink-0 whitespace-nowrap font-mono text-xs tabular-nums">
-					<DiffStatText
-						additions={change.kind === "deleted" ? 0 : stats.additions}
-						deletions={change.kind === "added" ? 0 : stats.deletions}
-					/>
-				</span>
-			)}
-		</>
-	);
-}
 
 /**
  * One line per call, the way an editor lists what an agent did: the tool's own

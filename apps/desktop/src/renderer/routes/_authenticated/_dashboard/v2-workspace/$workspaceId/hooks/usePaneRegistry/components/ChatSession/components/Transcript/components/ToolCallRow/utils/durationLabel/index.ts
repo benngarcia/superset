@@ -1,0 +1,1 @@
+export { durationLabel } from "./durationLabel";

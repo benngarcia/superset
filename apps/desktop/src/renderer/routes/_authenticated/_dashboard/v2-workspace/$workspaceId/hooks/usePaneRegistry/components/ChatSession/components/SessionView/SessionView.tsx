@@ -18,13 +18,15 @@ import { ChatHistorySidebarScroller } from "@superset/ui/chat-history-sidebar";
 import { Spinner } from "@superset/ui/spinner";
 import type { ReactNode } from "react";
 import { useCallback, useEffect, useMemo, useRef } from "react";
-import { useStableList } from "../../hooks/useStableList";
+import type { OpenFile } from "../../../../../../types";
+import { ChatPaneActionsProvider } from "../../providers/ChatPaneActionsProvider";
 import type { ChatForkTarget } from "../../types";
 import { buildChatHandoffTranscript } from "../../utils/chatHandoffTranscript";
 import { railMessages } from "../../utils/railMessages";
 import { Composer } from "../Composer";
 import { SessionHeader } from "../SessionHeader";
 import { Transcript } from "../Transcript";
+import { useStableList } from "./hooks/useStableList";
 
 const RESUME_FOLLOW_PX = 24;
 const NO_COMMANDS: AvailableCommand[] = [];
@@ -39,6 +41,7 @@ export function SessionView({
 	onFirstPromptSent,
 	onFork,
 	onSessionState,
+	openFile,
 	sessionId,
 	workspaceId,
 }: {
@@ -58,6 +61,7 @@ export function SessionView({
 	canForkToWorktree?: boolean;
 	/** Names the speaker in a handed-over transcript. */
 	agentLabel?: string;
+	openFile?: OpenFile;
 }) {
 	const session = useChatSession({ client });
 	const timeline = useTimeline(session.snapshot);
@@ -173,73 +177,75 @@ export function SessionView({
 	const booting = sessionState?.status === "starting" && timeline.length === 0;
 	const loadingTranscript = session.status === "loading" || booting;
 
+	// w-full because the pane lays its children out in a row: without it this
+	// sizes to its content and leaves the right of the pane empty.
 	return (
-		// w-full because the pane lays its children out in a row: without it this
-		// sizes to its content and leaves the right of the pane empty.
-		<div className="flex h-full min-h-0 w-full min-w-0 flex-col">
-			{/* Only worth a row when it carries a control: the pane header above
-			    already names the agent, and harness/status/connection repeated
-			    under it read louder than the transcript. */}
-			{headerLeft && (
-				<SessionHeader
-					connection={session.connection}
-					left={headerLeft}
-					session={session.snapshot.session}
-				/>
-			)}
-			{loadingTranscript ? (
-				<div className="flex flex-1 flex-col items-center justify-center gap-3">
-					<Spinner className="size-5" />
-					{booting && (
-						<span className="text-muted-foreground text-xs">
-							<Trans>Opening the conversation…</Trans>
-						</span>
-					)}
-				</div>
-			) : (
-				<MessageScroller.Provider
-					autoScroll
-					defaultScrollPosition="end"
-					scrollEdgeThreshold={RESUME_FOLLOW_PX}
-					scrollPreviousItemPeek={0}
-				>
-					<div className="@container relative flex min-h-0 flex-1">
-						<Transcript
-							approvals={approvals}
-							canForkToWorktree={canForkToWorktree}
-							groups={timeline}
-							hasOlder={session.hasOlder}
-							onDiscardPrompt={session.discardPrompt}
-							onFork={onFork ? forkWithTranscript : undefined}
-							onLoadOlder={onLoadOlder}
-							onRespond={onRespond}
-							onRetryPrompt={session.retryPrompt}
-							outbox={session.outbox}
-							snapshot={session.snapshot}
-						/>
-						{rail.length > 1 && (
-							<ChatHistorySidebarScroller
-								className="absolute inset-y-0 left-0 my-auto hidden h-fit max-h-full flex-col pl-3 @[56rem]:flex"
-								messages={rail}
-							/>
+		<ChatPaneActionsProvider openFile={openFile}>
+			<div className="flex h-full min-h-0 w-full min-w-0 flex-col">
+				{/* Only worth a row when it carries a control: the pane header above
+				    already names the agent, and harness/status/connection repeated
+				    under it read louder than the transcript. */}
+				{headerLeft && (
+					<SessionHeader
+						connection={session.connection}
+						left={headerLeft}
+						session={session.snapshot.session}
+					/>
+				)}
+				{loadingTranscript ? (
+					<div className="flex flex-1 flex-col items-center justify-center gap-3">
+						<Spinner className="size-5" />
+						{booting && (
+							<span className="text-muted-foreground text-xs">
+								<Trans>Opening the conversation…</Trans>
+							</span>
 						)}
 					</div>
-				</MessageScroller.Provider>
-			)}
-			<Composer
-				availableCommands={sessionState?.availableCommands ?? NO_COMMANDS}
-				configOptions={sessionState?.configOptions ?? NO_CONFIG_OPTIONS}
-				onSetConfigOption={onSetConfigOption}
-				modes={sessionState?.availableModes}
-				currentModeId={sessionState?.modeId}
-				onSetMode={onSetMode}
-				disabled={session.status !== "ready"}
-				draftKey={`chat-v3-draft:${sessionId}`}
-				onCancelTurn={onCancelTurn}
-				onSend={onSend}
-				promptQueue={promptQueue}
-				workspaceId={workspaceId}
-			/>
-		</div>
+				) : (
+					<MessageScroller.Provider
+						autoScroll
+						defaultScrollPosition="end"
+						scrollEdgeThreshold={RESUME_FOLLOW_PX}
+						scrollPreviousItemPeek={0}
+					>
+						<div className="@container relative flex min-h-0 flex-1">
+							<Transcript
+								approvals={approvals}
+								canForkToWorktree={canForkToWorktree}
+								groups={timeline}
+								hasOlder={session.hasOlder}
+								onDiscardPrompt={session.discardPrompt}
+								onFork={onFork ? forkWithTranscript : undefined}
+								onLoadOlder={onLoadOlder}
+								onRespond={onRespond}
+								onRetryPrompt={session.retryPrompt}
+								outbox={session.outbox}
+								snapshot={session.snapshot}
+							/>
+							{rail.length > 1 && (
+								<ChatHistorySidebarScroller
+									className="absolute inset-y-0 left-0 my-auto hidden h-fit max-h-full flex-col pl-3 @[56rem]:flex"
+									messages={rail}
+								/>
+							)}
+						</div>
+					</MessageScroller.Provider>
+				)}
+				<Composer
+					availableCommands={sessionState?.availableCommands ?? NO_COMMANDS}
+					configOptions={sessionState?.configOptions ?? NO_CONFIG_OPTIONS}
+					onSetConfigOption={onSetConfigOption}
+					modes={sessionState?.availableModes}
+					currentModeId={sessionState?.modeId}
+					onSetMode={onSetMode}
+					disabled={session.status !== "ready"}
+					draftKey={`chat-v3-draft:${sessionId}`}
+					onCancelTurn={onCancelTurn}
+					onSend={onSend}
+					promptQueue={promptQueue}
+					workspaceId={workspaceId}
+				/>
+			</div>
+		</ChatPaneActionsProvider>
 	);
 }
