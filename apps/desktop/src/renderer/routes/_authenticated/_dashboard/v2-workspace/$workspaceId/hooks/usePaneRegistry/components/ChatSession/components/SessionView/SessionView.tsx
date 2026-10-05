@@ -77,9 +77,8 @@ export function SessionView({
 	);
 	const approvals = useApprovals(session.snapshot);
 	const harness = session.snapshot.session?.harness;
-	const history = useMemo(
-		() => promptHistory(timeline, harness),
-		[timeline, harness],
+	const history = useStableList(
+		useMemo(() => promptHistory(timeline, harness), [timeline, harness]),
 	);
 
 	const firstPromptSentRef = useRef(false);

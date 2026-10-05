@@ -11,12 +11,10 @@ import { getClipboardFiles } from "@superset/ui/lib/clipboard-files";
 import { cn } from "@superset/ui/utils";
 import {
 	$createNodeSelection,
-	$createParagraphNode,
 	$createTextNode,
 	$getNearestNodeFromDOMNode,
 	$getRoot,
 	$getSelection,
-	$isElementNode,
 	$isNodeSelection,
 	$isRangeSelection,
 	$isTextNode,
@@ -25,16 +23,12 @@ import {
 	COMMAND_PRIORITY_HIGH,
 	COMMAND_PRIORITY_LOW,
 	DROP_COMMAND,
-	type EditorState,
-	KEY_ARROW_DOWN_COMMAND,
-	KEY_ARROW_UP_COMMAND,
 	KEY_BACKSPACE_COMMAND,
 	KEY_DELETE_COMMAND,
 	KEY_ENTER_COMMAND,
 	KEY_ESCAPE_COMMAND,
 	type LexicalNode,
 	PASTE_COMMAND,
-	type RangeSelection,
 } from "lexical";
 import {
 	ArrowUpIcon,
@@ -68,6 +62,7 @@ import type {
 	PromptInputAttachment,
 	PromptInputProps,
 } from "../../types";
+import { registerHistoryNavigation } from "../../utils/historyNavigation";
 import { matchToken } from "../../utils/matchToken";
 import { rankCommands } from "../../utils/rankCommands";
 import {
@@ -131,33 +126,6 @@ function $insertChipAtSelection(chip: ComposerChip) {
 	if (!$isRangeSelection(selection)) return;
 	const chipNode = MentionChipNode.fromChip(chip);
 	selection.insertNodes([chipNode, $createTextNode(" ")]);
-}
-
-function $isCaretAt(edge: "start" | "end", selection: RangeSelection) {
-	const { anchor } = selection;
-	let node: LexicalNode | null = anchor.getNode();
-	const edgeOffset =
-		edge === "start"
-			? 0
-			: $isTextNode(node)
-				? node.getTextContentSize()
-				: $isElementNode(node)
-					? node.getChildrenSize()
-					: 1;
-	if (anchor.offset !== edgeOffset) return false;
-	while (node && node.getParent() !== null) {
-		const sibling =
-			edge === "start" ? node.getPreviousSibling() : node.getNextSibling();
-		if (sibling) return false;
-		node = node.getParent();
-	}
-	return true;
-}
-
-function $replaceText(text: string) {
-	const paragraph = $createParagraphNode();
-	$getRoot().clear().append(paragraph);
-	paragraph.select().insertRawText(text);
 }
 
 function $collectChips(): ComposerChip[] {
@@ -270,11 +238,7 @@ export function ComposerBody({
 		clearOnSubmit,
 		history,
 	};
-	const historyNavRef = useRef<{
-		index: number | null;
-		draft: EditorState | null;
-		recalled: string;
-	}>({ index: null, draft: null, recalled: "" });
+	const historyNavigationRef = useRef<{ reset: () => void } | null>(null);
 
 	// A draft the host had stored. Read once: after mount the editor is the
 	// only writer, and re-applying would fight what is being typed.
@@ -448,8 +412,7 @@ export function ComposerBody({
 			return;
 		}
 		stateRef.current.onSubmit?.({ text, files, mentions, steer });
-		historyNavRef.current.index = null;
-		historyNavRef.current.draft = null;
+		historyNavigationRef.current?.reset();
 		if (!stateRef.current.clearOnSubmit) return;
 		editor.update(() => $getRoot().clear());
 		setAttachments((previous) => {
@@ -497,59 +460,11 @@ export function ComposerBody({
 			},
 			COMMAND_PRIORITY_LOW,
 		);
-		const navigateHistory = (
-			direction: "older" | "newer",
-			event: KeyboardEvent | null,
-		) => {
-			const history = stateRef.current.history ?? [];
-			if (history.length === 0 || event?.defaultPrevented) return false;
-			if (event?.shiftKey || event?.altKey || event?.metaKey || event?.ctrlKey)
-				return false;
-			const selection = $getSelection();
-			if (!$isRangeSelection(selection) || !selection.isCollapsed())
-				return false;
-			const nav = historyNavRef.current;
-			const text = $getRoot().getTextContent();
-			const unedited = nav.index !== null && text === nav.recalled;
-			let next: number | null;
-			if (direction === "older") {
-				if (!unedited && text !== "" && !$isCaretAt("start", selection))
-					return false;
-				next =
-					nav.index === null ? history.length - 1 : Math.max(0, nav.index - 1);
-				if (nav.index === null) nav.draft = editor.getEditorState();
-			} else {
-				if (nav.index === null) return false;
-				if (!unedited && !$isCaretAt("end", selection)) return false;
-				next = nav.index + 1 < history.length ? nav.index + 1 : null;
-			}
-			event?.preventDefault();
-			nav.index = next;
-			if (next !== null) {
-				nav.recalled = history[next] ?? "";
-				$replaceText(nav.recalled);
-				return true;
-			}
-			nav.recalled = "";
-			const draft = nav.draft;
-			nav.draft = null;
-			queueMicrotask(() => {
-				if (draft) editor.setEditorState(draft);
-				else editor.update(() => $getRoot().clear());
-				editor.update(() => $getRoot().selectEnd());
-			});
-			return true;
-		};
-		const unregisterArrowUp = editor.registerCommand<KeyboardEvent | null>(
-			KEY_ARROW_UP_COMMAND,
-			(event) => navigateHistory("older", event),
-			COMMAND_PRIORITY_LOW,
+		const historyNavigation = registerHistoryNavigation(
+			editor,
+			() => stateRef.current.history ?? [],
 		);
-		const unregisterArrowDown = editor.registerCommand<KeyboardEvent | null>(
-			KEY_ARROW_DOWN_COMMAND,
-			(event) => navigateHistory("newer", event),
-			COMMAND_PRIORITY_LOW,
-		);
+		historyNavigationRef.current = historyNavigation;
 		const unregisterEscape = editor.registerCommand<KeyboardEvent | null>(
 			KEY_ESCAPE_COMMAND,
 			(event) => {
@@ -634,8 +549,7 @@ export function ComposerBody({
 		return () => {
 			unregisterText();
 			unregisterEnter();
-			unregisterArrowUp();
-			unregisterArrowDown();
+			historyNavigation.unregister();
 			unregisterEscape();
 			unregisterDrop();
 			unregisterPaste();
