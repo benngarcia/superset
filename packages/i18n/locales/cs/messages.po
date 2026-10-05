@@ -1739,6 +1739,9 @@ msgstr "Přidat tento štítek"
 msgid "Add to Dictionary"
 msgstr "Přidat do slovníku"
 
+msgid "Add to favorites"
+msgstr "Přidat do oblíbených"
+
 msgid "Add to project"
 msgstr "Přidat do projektu"
 
@@ -1996,6 +1999,9 @@ msgstr "Vše v aktuální kartě"
 
 msgid "All in current tab (split panes)"
 msgstr "Vše v aktuální kartě (rozdělené panely)"
+
+msgid "All models"
+msgstr "Všechny modely"
 
 msgid "All objectives cleared. Top rung, nothing left to reach for."
 msgstr "Všechny cíle splněny. Nejvyšší příčka, výš už to nejde."
@@ -7096,6 +7102,9 @@ msgstr "FAQ"
 msgid "Fatal"
 msgstr "Fatální"
 
+msgid "Favorites"
+msgstr "Oblíbené"
+
 msgid "Featured"
 msgstr "Doporučené"
 
@@ -10287,6 +10296,9 @@ msgstr "Bez rozšířeného přemýšlení"
 msgid "No failed runs."
 msgstr "Žádná neúspěšná spuštění."
 
+msgid "No favorite models"
+msgstr "Žádné oblíbené modely"
+
 msgid "No files found"
 msgstr "Nenalezeny žádné soubory"
 
@@ -10373,6 +10385,9 @@ msgstr "Žádné shody"
 
 msgid "No matching files"
 msgstr "Žádné odpovídající soubory"
+
+msgid "No matching models"
+msgstr "Žádné odpovídající modely"
 
 msgid "No matching org members."
 msgstr "Žádní odpovídající členové organizace."
@@ -12913,6 +12928,9 @@ msgstr "Odebrat {label}?"
 msgid "Remove attachment"
 msgstr "Odebrat přílohu"
 
+msgid "Remove from favorites"
+msgstr "Odebrat z oblíbených"
+
 msgid "Remove from Queue"
 msgstr "Odebrat z fronty"
 
@@ -13943,6 +13961,9 @@ msgstr "Hledat v Linearu"
 msgid "Search Linear…"
 msgstr "Hledat v Linearu…"
 
+msgid "Search models"
+msgstr "Hledat modely"
+
 msgid "Search pages"
 msgstr "Hledat stránky"
 
@@ -14164,9 +14185,6 @@ msgstr "Vybrat issue"
 
 msgid "Select method"
 msgstr "Vyberte metodu"
-
-msgid "Select model"
-msgstr "Vyberte model"
 
 msgid "Select new project location"
 msgstr "Vyberte nové umístění projektu"

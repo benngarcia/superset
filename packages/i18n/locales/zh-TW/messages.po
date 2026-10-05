@@ -1739,6 +1739,9 @@ msgstr "新增此標籤"
 msgid "Add to Dictionary"
 msgstr "新增到詞典"
 
+msgid "Add to favorites"
+msgstr "加入最愛"
+
 msgid "Add to project"
 msgstr "新增至專案"
 
@@ -1996,6 +1999,9 @@ msgstr "全部在目前分頁"
 
 msgid "All in current tab (split panes)"
 msgstr "全部在目前分頁（分屏窗格）"
+
+msgid "All models"
+msgstr "所有模型"
 
 msgid "All objectives cleared. Top rung, nothing left to reach for."
 msgstr "所有目標均已達成。已在最高一級，沒有更高可追。"
@@ -7096,6 +7102,9 @@ msgstr "常見問題"
 msgid "Fatal"
 msgstr "致命"
 
+msgid "Favorites"
+msgstr "最愛"
+
 msgid "Featured"
 msgstr "精選"
 
@@ -10287,6 +10296,9 @@ msgstr "不使用擴充套件思考"
 msgid "No failed runs."
 msgstr "沒有失敗的執行。"
 
+msgid "No favorite models"
+msgstr "沒有最愛的模型"
+
 msgid "No files found"
 msgstr "未找到檔案"
 
@@ -10373,6 +10385,9 @@ msgstr "沒有匹配項"
 
 msgid "No matching files"
 msgstr "沒有符合的檔案"
+
+msgid "No matching models"
+msgstr "沒有符合的模型"
 
 msgid "No matching org members."
 msgstr "沒有匹配的組織成員。"
@@ -12913,6 +12928,9 @@ msgstr "移除{label}？"
 msgid "Remove attachment"
 msgstr "移除附件"
 
+msgid "Remove from favorites"
+msgstr "從最愛移除"
+
 msgid "Remove from Queue"
 msgstr "移出佇列"
 
@@ -13943,6 +13961,9 @@ msgstr "搜尋Linear"
 msgid "Search Linear…"
 msgstr "搜尋Linear…"
 
+msgid "Search models"
+msgstr "搜尋模型"
+
 msgid "Search pages"
 msgstr "搜尋頁面"
 
@@ -14164,9 +14185,6 @@ msgstr "選擇議題"
 
 msgid "Select method"
 msgstr "選擇方式"
-
-msgid "Select model"
-msgstr "選擇模型"
 
 msgid "Select new project location"
 msgstr "選擇新的專案位置"

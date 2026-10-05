@@ -23,7 +23,7 @@ import { ChatPaneActionsProvider } from "../../providers/ChatPaneActionsProvider
 import type { ChatForkTarget } from "../../types";
 import { buildChatHandoffTranscript } from "../../utils/chatHandoffTranscript";
 import { railMessages } from "../../utils/railMessages";
-import { Composer } from "../Composer";
+import { type AgentChoice, type AgentSwitcher, Composer } from "../Composer";
 import { SessionHeader } from "../SessionHeader";
 import { Transcript } from "../Transcript";
 import { useStableList } from "./hooks/useStableList";
@@ -34,10 +34,12 @@ const NO_CONFIG_OPTIONS: SessionConfigOption[] = [];
 
 export function SessionView({
 	agentLabel,
+	agentSwitch,
 	canForkToWorktree,
 	client,
 	headerLeft,
 	pendingFirstPrompt,
+	preferredModelLabel,
 	onFirstPromptSent,
 	onFork,
 	onSessionState,
@@ -50,6 +52,8 @@ export function SessionView({
 	workspaceId: string;
 	headerLeft?: ReactNode;
 	pendingFirstPrompt: UserContent[] | null;
+	/** Selected by name once the agent lists its models, before the first prompt goes out. */
+	preferredModelLabel?: string;
 	onFirstPromptSent: () => void;
 	onSessionState?: (session: SessionState | null) => void;
 	/**
@@ -61,6 +65,16 @@ export function SessionView({
 	canForkToWorktree?: boolean;
 	/** Names the speaker in a handed-over transcript. */
 	agentLabel?: string;
+	/** The transcript goes with the switch: the next agent cannot load this session. */
+	agentSwitch?: {
+		currentPresetId: string;
+		agents: AgentChoice[];
+		onSwitch: (
+			presetId: string,
+			model: { id: string; label: string } | null,
+			transcript: string,
+		) => void;
+	};
 	openFile?: OpenFile;
 }) {
 	const session = useChatSession({ client });
@@ -74,10 +88,26 @@ export function SessionView({
 	);
 	const approvals = useApprovals(session.snapshot);
 
+	const configOptions = session.snapshot.session?.configOptions;
+	const modelSettled = useRef(preferredModelLabel === undefined);
+	useEffect(() => {
+		if (modelSettled.current || session.status !== "ready") return;
+		if (configOptions === undefined) return;
+		modelSettled.current = true;
+		const option = configOptions.find((entry) => entry.category === "model");
+		const wanted = option?.options.find(
+			(entry) =>
+				entry.label.toLowerCase() === preferredModelLabel?.toLowerCase(),
+		);
+		if (option && wanted && wanted.id !== option.currentValue) {
+			void session.setConfigOption(option.id, wanted.id);
+		}
+	}, [configOptions, preferredModelLabel, session]);
+
 	const firstPromptSentRef = useRef(false);
 	useEffect(() => {
 		if (!pendingFirstPrompt || firstPromptSentRef.current) return;
-		if (session.status !== "ready") return;
+		if (session.status !== "ready" || !modelSettled.current) return;
 		firstPromptSentRef.current = true;
 		session.sendPrompt(pendingFirstPrompt);
 		onFirstPromptSent();
@@ -118,6 +148,24 @@ export function SessionView({
 				),
 			),
 		[onFork, agentLabel],
+	);
+	const agentSwitcher = useMemo<AgentSwitcher | undefined>(
+		() =>
+			agentSwitch && {
+				currentPresetId: agentSwitch.currentPresetId,
+				agents: agentSwitch.agents,
+				onSwitch: (presetId, model) =>
+					agentSwitch.onSwitch(
+						presetId,
+						model,
+						buildChatHandoffTranscript(
+							timelineRef.current,
+							snapshotRef.current,
+							agentLabel ?? "Agent",
+						),
+					),
+			},
+		[agentSwitch, agentLabel],
 	);
 	const {
 		cancelTurn,
@@ -232,6 +280,7 @@ export function SessionView({
 					</MessageScroller.Provider>
 				)}
 				<Composer
+					agentSwitcher={agentSwitcher}
 					availableCommands={sessionState?.availableCommands ?? NO_COMMANDS}
 					configOptions={sessionState?.configOptions ?? NO_CONFIG_OPTIONS}
 					onSetConfigOption={onSetConfigOption}

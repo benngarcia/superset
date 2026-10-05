@@ -1739,6 +1739,9 @@ msgstr "Добавить эту метку"
 msgid "Add to Dictionary"
 msgstr "Добавить в словарь"
 
+msgid "Add to favorites"
+msgstr "Добавить в избранное"
+
 msgid "Add to project"
 msgstr "Добавить в проект"
 
@@ -1996,6 +1999,9 @@ msgstr "Все в текущей вкладке"
 
 msgid "All in current tab (split panes)"
 msgstr "Все в текущей вкладке (разделённые панели)"
+
+msgid "All models"
+msgstr "Все модели"
 
 msgid "All objectives cleared. Top rung, nothing left to reach for."
 msgstr "Все цели выполнены. Верхняя ступень, дальше некуда."
@@ -7096,6 +7102,9 @@ msgstr "FAQ"
 msgid "Fatal"
 msgstr "Критическая"
 
+msgid "Favorites"
+msgstr "Избранное"
+
 msgid "Featured"
 msgstr "Рекомендуемые"
 
@@ -10287,6 +10296,9 @@ msgstr "Без расширенного мышления"
 msgid "No failed runs."
 msgstr "Неудачных запусков нет."
 
+msgid "No favorite models"
+msgstr "Нет избранных моделей"
+
 msgid "No files found"
 msgstr "Файлы не найдены"
 
@@ -10373,6 +10385,9 @@ msgstr "Нет совпадений"
 
 msgid "No matching files"
 msgstr "Нет подходящих файлов"
+
+msgid "No matching models"
+msgstr "Нет подходящих моделей"
 
 msgid "No matching org members."
 msgstr "Нет подходящих участников организации."
@@ -12913,6 +12928,9 @@ msgstr "Удалить {label}?"
 msgid "Remove attachment"
 msgstr "Удалить вложение"
 
+msgid "Remove from favorites"
+msgstr "Удалить из избранного"
+
 msgid "Remove from Queue"
 msgstr "Убрать из очереди"
 
@@ -13943,6 +13961,9 @@ msgstr "Поиск в Linear"
 msgid "Search Linear…"
 msgstr "Поиск в Linear…"
 
+msgid "Search models"
+msgstr "Поиск моделей"
+
 msgid "Search pages"
 msgstr "Поиск страниц"
 
@@ -14164,9 +14185,6 @@ msgstr "Выбрать задачу"
 
 msgid "Select method"
 msgstr "Выберите способ"
-
-msgid "Select model"
-msgstr "Выберите модель"
 
 msgid "Select new project location"
 msgstr "Выберите новое расположение проекта"

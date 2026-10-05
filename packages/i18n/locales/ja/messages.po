@@ -1739,6 +1739,9 @@ msgstr "このラベルを追加"
 msgid "Add to Dictionary"
 msgstr "辞書に追加"
 
+msgid "Add to favorites"
+msgstr "お気に入りに追加"
+
 msgid "Add to project"
 msgstr "プロジェクトに追加"
 
@@ -1996,6 +1999,9 @@ msgstr "すべて現在のタブで"
 
 msgid "All in current tab (split panes)"
 msgstr "すべて現在のタブで(ペイン分割)"
+
+msgid "All models"
+msgstr "すべてのモデル"
 
 msgid "All objectives cleared. Top rung, nothing left to reach for."
 msgstr "すべての目標をクリア。最上段で、これ以上目指すものはありません。"
@@ -7096,6 +7102,9 @@ msgstr "FAQ"
 msgid "Fatal"
 msgstr "致命的"
 
+msgid "Favorites"
+msgstr "お気に入り"
+
 msgid "Featured"
 msgstr "注目"
 
@@ -10287,6 +10296,9 @@ msgstr "拡張思考なし"
 msgid "No failed runs."
 msgstr "失敗した実行はありません。"
 
+msgid "No favorite models"
+msgstr "お気に入りのモデルはありません"
+
 msgid "No files found"
 msgstr "ファイルが見つかりません"
 
@@ -10373,6 +10385,9 @@ msgstr "一致なし"
 
 msgid "No matching files"
 msgstr "一致するファイルはありません"
+
+msgid "No matching models"
+msgstr "一致するモデルがありません"
 
 msgid "No matching org members."
 msgstr "一致する組織メンバーがいません。"
@@ -12913,6 +12928,9 @@ msgstr "{label}を削除しますか?"
 msgid "Remove attachment"
 msgstr "添付ファイルを削除"
 
+msgid "Remove from favorites"
+msgstr "お気に入りから削除"
+
 msgid "Remove from Queue"
 msgstr "キューから削除"
 
@@ -13943,6 +13961,9 @@ msgstr "Linearを検索"
 msgid "Search Linear…"
 msgstr "Linearを検索…"
 
+msgid "Search models"
+msgstr "モデルを検索"
+
 msgid "Search pages"
 msgstr "ページを検索"
 
@@ -14164,9 +14185,6 @@ msgstr "issueを選択"
 
 msgid "Select method"
 msgstr "方法を選択"
-
-msgid "Select model"
-msgstr "モデルを選択"
 
 msgid "Select new project location"
 msgstr "新しいプロジェクトの場所を選択"

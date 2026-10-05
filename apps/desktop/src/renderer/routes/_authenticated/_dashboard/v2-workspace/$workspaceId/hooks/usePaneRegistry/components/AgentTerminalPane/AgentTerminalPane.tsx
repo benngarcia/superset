@@ -58,7 +58,7 @@ export function AgentTerminalPane({
 		}
 		return (
 			<AcpChatPane
-				key={data.terminalId}
+				key={`${data.terminalId}:${data.agent.id}`}
 				agent={data.agent}
 				onFirstPromptSent={() => {
 					if (
@@ -87,12 +87,33 @@ export function AgentTerminalPane({
 						: null
 				}
 				modelId={data.chatModelId}
+				modelLabel={data.chatModelLabel}
 				modeId={data.chatModeId}
 				onAgentSessionChanged={(sessionId) => {
 					if (!data.agent) return;
 					ctx.actions.updateData({
 						...data,
 						agent: { ...data.agent, sessionId },
+					});
+				}}
+				onSwitchAgent={(presetId, model, handoffPrompt, label) => {
+					ctx.actions.setTitle(label);
+					const {
+						acpSessionId: _session,
+						chatModelId: _model,
+						chatModelLabel: _modelLabel,
+						chatModeId: _mode,
+						pendingPrompt: _prompt,
+						pendingAttachments: _attachments,
+						...rest
+					} = data;
+					ctx.actions.updateData({
+						...rest,
+						agent: { id: presetId },
+						...(model
+							? { chatModelId: model.id, chatModelLabel: model.label }
+							: {}),
+						...(handoffPrompt ? { pendingPrompt: handoffPrompt } : {}),
 					});
 				}}
 				onSessionCreated={(acpSessionId) =>

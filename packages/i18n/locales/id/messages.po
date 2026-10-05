@@ -1739,6 +1739,9 @@ msgstr "Tambahkan label ini"
 msgid "Add to Dictionary"
 msgstr "Tambahkan ke Kamus"
 
+msgid "Add to favorites"
+msgstr "Tambahkan ke favorit"
+
 msgid "Add to project"
 msgstr "Tambahkan ke proyek"
 
@@ -1996,6 +1999,9 @@ msgstr "Semua di tab saat ini"
 
 msgid "All in current tab (split panes)"
 msgstr "Semua di tab saat ini (panel terbagi)"
+
+msgid "All models"
+msgstr "Semua model"
 
 msgid "All objectives cleared. Top rung, nothing left to reach for."
 msgstr "Semua sasaran tercapai. Anak tangga teratas, tidak ada lagi yang bisa dikejar."
@@ -7096,6 +7102,9 @@ msgstr "FAQ"
 msgid "Fatal"
 msgstr "Fatal"
 
+msgid "Favorites"
+msgstr "Favorit"
+
 msgid "Featured"
 msgstr "Unggulan"
 
@@ -10287,6 +10296,9 @@ msgstr "Tanpa extended thinking"
 msgid "No failed runs."
 msgstr "Tidak ada eksekusi yang gagal."
 
+msgid "No favorite models"
+msgstr "Tidak ada model favorit"
+
 msgid "No files found"
 msgstr "File tidak ditemukan"
 
@@ -10373,6 +10385,9 @@ msgstr "Tidak ada yang cocok"
 
 msgid "No matching files"
 msgstr "Tidak ada berkas yang cocok"
+
+msgid "No matching models"
+msgstr "Tidak ada model yang cocok"
 
 msgid "No matching org members."
 msgstr "Tidak ada anggota organisasi yang cocok."
@@ -12913,6 +12928,9 @@ msgstr "Hapus {label}?"
 msgid "Remove attachment"
 msgstr "Hapus lampiran"
 
+msgid "Remove from favorites"
+msgstr "Hapus dari favorit"
+
 msgid "Remove from Queue"
 msgstr "Keluarkan dari Antrean"
 
@@ -13943,6 +13961,9 @@ msgstr "Cari di Linear"
 msgid "Search Linear…"
 msgstr "Cari di Linear…"
 
+msgid "Search models"
+msgstr "Cari model"
+
 msgid "Search pages"
 msgstr "Cari halaman"
 
@@ -14164,9 +14185,6 @@ msgstr "Pilih issue"
 
 msgid "Select method"
 msgstr "Pilih metode"
-
-msgid "Select model"
-msgstr "Pilih model"
 
 msgid "Select new project location"
 msgstr "Pilih lokasi proyek yang baru"

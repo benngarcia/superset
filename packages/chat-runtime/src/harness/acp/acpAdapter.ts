@@ -136,6 +136,8 @@ export type AcpAttachment = {
 
 export type AcpAdapterOptions = SpawnAcpOptions & {
 	launch?: () => Promise<Pick<SpawnAcpOptions, "command" | "args" | "env">>;
+	/** Selected at start when the client asks for no mode and the agent offers it. */
+	defaultModeId?: string;
 	resolveAttachment?: (attachmentId: string) => Promise<AcpAttachment | null>;
 	now?: () => number;
 	mintId?: () => string;
@@ -160,6 +162,10 @@ type PendingApproval = {
 	turnId: string;
 	item: ApprovalRequest;
 };
+
+type AcpSessionModes = NonNullable<
+	ReturnType<typeof acpNewSessionResponseSchema.parse>["modes"]
+>;
 
 /**
  * Bridges an Agent Client Protocol subprocess (Claude Code / Codex ACP
@@ -461,7 +467,10 @@ export class AcpAdapter implements HarnessAdapter {
 					: {}),
 			});
 			this.handleConfigOptions(response);
-			this.applyStartSelections(startOptions);
+			this.applyStartSelections(
+				startOptions,
+				parsed.success ? parsed.data.modes : undefined,
+			);
 
 			const queued = this.queuedPrompts.splice(0, this.queuedPrompts.length);
 			for (const content of queued) await this.runTurn(content);
@@ -953,10 +962,14 @@ export class AcpAdapter implements HarnessAdapter {
 		});
 	}
 
-	private applyStartSelections(startOptions: HarnessStartOptions): void {
+	private applyStartSelections(
+		startOptions: HarnessStartOptions,
+		sessionModes: AcpSessionModes | undefined,
+	): void {
+		const modeId = startOptions.modeId ?? this.options.defaultModeId;
 		for (const [category, value] of [
 			["model", startOptions.modelId],
-			["mode", startOptions.modeId],
+			["mode", modeId],
 		] as const) {
 			const option = this.configOptions.find(
 				(entry) => entry.category === category,
@@ -969,6 +982,14 @@ export class AcpAdapter implements HarnessAdapter {
 			) {
 				this.setConfigOption(option.id, value);
 			}
+		}
+		if (
+			modeId &&
+			!this.modeConfigId &&
+			sessionModes?.currentModeId !== modeId &&
+			sessionModes?.availableModes?.some((mode) => mode.id === modeId)
+		) {
+			this.setMode(modeId);
 		}
 	}
 

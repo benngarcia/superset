@@ -1739,6 +1739,9 @@ msgstr "Dit label toevoegen"
 msgid "Add to Dictionary"
 msgstr "Toevoegen aan woordenboek"
 
+msgid "Add to favorites"
+msgstr "Toevoegen aan favorieten"
+
 msgid "Add to project"
 msgstr "Aan project toevoegen"
 
@@ -1996,6 +1999,9 @@ msgstr "Alles in huidig tabblad"
 
 msgid "All in current tab (split panes)"
 msgstr "Alles in huidig tabblad (gesplitste panelen)"
+
+msgid "All models"
+msgstr "Alle modellen"
 
 msgid "All objectives cleared. Top rung, nothing left to reach for."
 msgstr "Alle doelen gehaald. Hoogste trede, er is niets meer om naar te streven."
@@ -7096,6 +7102,9 @@ msgstr "FAQ"
 msgid "Fatal"
 msgstr "Fatal"
 
+msgid "Favorites"
+msgstr "Favorieten"
+
 msgid "Featured"
 msgstr "Uitgelicht"
 
@@ -10287,6 +10296,9 @@ msgstr "Geen uitgebreid nadenken"
 msgid "No failed runs."
 msgstr "Geen mislukte uitvoeringen."
 
+msgid "No favorite models"
+msgstr "Geen favoriete modellen"
+
 msgid "No files found"
 msgstr "Geen bestanden gevonden"
 
@@ -10373,6 +10385,9 @@ msgstr "Geen overeenkomsten"
 
 msgid "No matching files"
 msgstr "Geen overeenkomende bestanden"
+
+msgid "No matching models"
+msgstr "Geen overeenkomende modellen"
 
 msgid "No matching org members."
 msgstr "Geen overeenkomende leden in de organisatie."
@@ -12913,6 +12928,9 @@ msgstr "{label} verwijderen?"
 msgid "Remove attachment"
 msgstr "Bijlage verwijderen"
 
+msgid "Remove from favorites"
+msgstr "Verwijderen uit favorieten"
+
 msgid "Remove from Queue"
 msgstr "Uit wachtrij halen"
 
@@ -13943,6 +13961,9 @@ msgstr "Linear doorzoeken"
 msgid "Search Linear…"
 msgstr "Linear doorzoeken…"
 
+msgid "Search models"
+msgstr "Modellen zoeken"
+
 msgid "Search pages"
 msgstr "Pagina's zoeken"
 
@@ -14164,9 +14185,6 @@ msgstr "Issue kiezen"
 
 msgid "Select method"
 msgstr "Kies methode"
-
-msgid "Select model"
-msgstr "Kies model"
 
 msgid "Select new project location"
 msgstr "Nieuwe projectlocatie kiezen"

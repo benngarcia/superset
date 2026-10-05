@@ -164,6 +164,10 @@ export const PERSISTED_KEY_REGISTRY: ReadonlyArray<
 		["leaderboard-auto-publish-v2"],
 	],
 	[
+		"src/renderer/routes/_authenticated/_dashboard/v2-workspace/$workspaceId/hooks/usePaneRegistry/components/ChatSession/components/Composer/components/ModelPicker/hooks/useFavoriteModels/useFavoriteModels.ts",
+		["chatFavoriteModels"],
+	],
+	[
 		"src/renderer/hooks/useAgentModelPreference/useAgentModelPreference.ts",
 		["lastSelectedV2WorkspaceCreateModelByPreset"],
 	],

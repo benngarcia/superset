@@ -1739,6 +1739,9 @@ msgstr "Adicionar este rótulo"
 msgid "Add to Dictionary"
 msgstr "Adicionar ao dicionário"
 
+msgid "Add to favorites"
+msgstr "Adicionar aos favoritos"
+
 msgid "Add to project"
 msgstr "Adicionar a um projeto"
 
@@ -1996,6 +1999,9 @@ msgstr "Todos na aba atual"
 
 msgid "All in current tab (split panes)"
 msgstr "Todos na aba atual (painéis divididos)"
+
+msgid "All models"
+msgstr "Todos os modelos"
 
 msgid "All objectives cleared. Top rung, nothing left to reach for."
 msgstr "Todos os objetivos alcançados. Degrau máximo, não há mais nada a buscar."
@@ -7096,6 +7102,9 @@ msgstr "FAQ"
 msgid "Fatal"
 msgstr "Fatal"
 
+msgid "Favorites"
+msgstr "Favoritos"
+
 msgid "Featured"
 msgstr "Em destaque"
 
@@ -10287,6 +10296,9 @@ msgstr "Sem raciocínio estendido"
 msgid "No failed runs."
 msgstr "Nenhuma execução com falha."
 
+msgid "No favorite models"
+msgstr "Nenhum modelo favorito"
+
 msgid "No files found"
 msgstr "Nenhum arquivo encontrado"
 
@@ -10373,6 +10385,9 @@ msgstr "Nenhuma ocorrência"
 
 msgid "No matching files"
 msgstr "Nenhum arquivo correspondente"
+
+msgid "No matching models"
+msgstr "Nenhum modelo correspondente"
 
 msgid "No matching org members."
 msgstr "Nenhum membro da organização corresponde."
@@ -12913,6 +12928,9 @@ msgstr "Remover {label}?"
 msgid "Remove attachment"
 msgstr "Remover anexo"
 
+msgid "Remove from favorites"
+msgstr "Remover dos favoritos"
+
 msgid "Remove from Queue"
 msgstr "Remover da fila"
 
@@ -13943,6 +13961,9 @@ msgstr "Buscar no Linear"
 msgid "Search Linear…"
 msgstr "Buscar no Linear…"
 
+msgid "Search models"
+msgstr "Buscar modelos"
+
 msgid "Search pages"
 msgstr "Buscar páginas"
 
@@ -14164,9 +14185,6 @@ msgstr "Selecionar issue"
 
 msgid "Select method"
 msgstr "Selecionar método"
-
-msgid "Select model"
-msgstr "Selecionar modelo"
 
 msgid "Select new project location"
 msgstr "Selecionar o novo local do projeto"

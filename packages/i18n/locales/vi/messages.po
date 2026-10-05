@@ -1739,6 +1739,9 @@ msgstr "Thêm nhãn này"
 msgid "Add to Dictionary"
 msgstr "Thêm vào từ điển"
 
+msgid "Add to favorites"
+msgstr "Thêm vào mục yêu thích"
+
 msgid "Add to project"
 msgstr "Thêm vào dự án"
 
@@ -1996,6 +1999,9 @@ msgstr "Tất cả trong tab hiện tại"
 
 msgid "All in current tab (split panes)"
 msgstr "Tất cả trong tab hiện tại (chia khung)"
+
+msgid "All models"
+msgstr "Tất cả mô hình"
 
 msgid "All objectives cleared. Top rung, nothing left to reach for."
 msgstr "Đã đạt mọi mục tiêu. Nấc cao nhất, không còn gì để với tới."
@@ -7096,6 +7102,9 @@ msgstr "FAQ"
 msgid "Fatal"
 msgstr "Nghiêm trọng"
 
+msgid "Favorites"
+msgstr "Yêu thích"
+
 msgid "Featured"
 msgstr "Nổi bật"
 
@@ -10287,6 +10296,9 @@ msgstr "Không suy nghĩ mở rộng"
 msgid "No failed runs."
 msgstr "Không có lần chạy thất bại."
 
+msgid "No favorite models"
+msgstr "Không có mô hình yêu thích"
+
 msgid "No files found"
 msgstr "Không tìm thấy tệp nào"
 
@@ -10373,6 +10385,9 @@ msgstr "Không có kết quả khớp"
 
 msgid "No matching files"
 msgstr "Không có tệp phù hợp"
+
+msgid "No matching models"
+msgstr "Không có mô hình phù hợp"
 
 msgid "No matching org members."
 msgstr "Không có thành viên tổ chức nào khớp."
@@ -12913,6 +12928,9 @@ msgstr "Gỡ {label}?"
 msgid "Remove attachment"
 msgstr "Xóa tệp đính kèm"
 
+msgid "Remove from favorites"
+msgstr "Xóa khỏi mục yêu thích"
+
 msgid "Remove from Queue"
 msgstr "Bỏ khỏi hàng đợi"
 
@@ -13943,6 +13961,9 @@ msgstr "Tìm trong Linear"
 msgid "Search Linear…"
 msgstr "Tìm trong Linear…"
 
+msgid "Search models"
+msgstr "Tìm mô hình"
+
 msgid "Search pages"
 msgstr "Tìm trang"
 
@@ -14164,9 +14185,6 @@ msgstr "Chọn issue"
 
 msgid "Select method"
 msgstr "Chọn phương thức"
-
-msgid "Select model"
-msgstr "Chọn mô hình"
 
 msgid "Select new project location"
 msgstr "Chọn vị trí dự án mới"

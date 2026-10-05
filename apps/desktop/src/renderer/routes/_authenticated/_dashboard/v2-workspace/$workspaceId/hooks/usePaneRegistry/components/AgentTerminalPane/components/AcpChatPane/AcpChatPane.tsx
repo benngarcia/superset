@@ -1,9 +1,11 @@
 import { Trans, useLingui } from "@lingui/react/macro";
 import type { UserContent } from "@superset/chat/protocol";
+import { getAgentModelSupport } from "@superset/shared/agent-models";
+import { buildChatSessionHandoffPrompt } from "@superset/shared/terminal-session-handoff";
 import { toast } from "@superset/ui/sonner";
 import { useWorkspaceClient } from "@superset/workspace-client";
 import { useQuery } from "@tanstack/react-query";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useV2AgentConfigs } from "renderer/hooks/useV2AgentConfigs";
 import { acpHarnessForPreset } from "renderer/lib/acpHarness";
 import type { OpenFile } from "../../../../../../types";
@@ -25,10 +27,12 @@ export function AcpChatPane({
 	onFirstPromptSent,
 	onOpenFile,
 	onSessionCreated,
+	onSwitchAgent,
 	pendingFirstPrompt,
 	sessionId,
 	workspaceId,
 	modelId,
+	modelLabel,
 	modeId,
 }: {
 	workspaceId: string;
@@ -40,7 +44,14 @@ export function AcpChatPane({
 	onSessionCreated: (sessionId: string) => void;
 	onAgentSessionChanged: (harnessSessionId: string) => void;
 	onOpenFile?: OpenFile;
+	onSwitchAgent?: (
+		presetId: string,
+		model: { id: string; label: string } | null,
+		handoffPrompt: string | null,
+		label: string,
+	) => void;
 	modelId?: string;
+	modelLabel?: string;
 	modeId?: string;
 }) {
 	const { t } = useLingui();
@@ -151,6 +162,49 @@ export function AcpChatPane({
 		void start(harness);
 	}, [harness, start]);
 
+	const agentSwitch = useMemo(() => {
+		if (!agent || !onSwitchAgent) return undefined;
+		const presetIds = [
+			...new Set((agentConfigs ?? []).map((config) => config.presetId)),
+		].filter((presetId) => acpHarnessForPreset(presetId));
+		if (!presetIds.includes(agent.id)) return undefined;
+		return {
+			currentPresetId: agent.id,
+			agents: presetIds.map((presetId) => ({
+				presetId,
+				label:
+					agentConfigs?.find((config) => config.presetId === presetId)?.label ??
+					presetId,
+				models: (getAgentModelSupport(presetId)?.models ?? []).map(
+					({ id, label }) => ({ id, label }),
+				),
+			})),
+			onSwitch: (
+				presetId: string,
+				nextModel: { id: string; label: string } | null,
+				transcript: string,
+			) => {
+				if (sessionId) {
+					void wiring.transport.closeSession({ sessionId }).catch(() => {});
+				}
+				onSwitchAgent(
+					presetId,
+					nextModel,
+					transcript.trim()
+						? buildChatSessionHandoffPrompt({
+								transcript,
+								sourceAgentLabel: agentConfigs?.find(
+									(config) => config.presetId === agent.id,
+								)?.label,
+							})
+						: null,
+					agentConfigs?.find((config) => config.presetId === presetId)?.label ??
+						presetId,
+				);
+			},
+		};
+	}, [agent, agentConfigs, onSwitchAgent, sessionId, wiring.transport]);
+
 	const sessionDead = stored?.session?.status === "dead";
 	const sessionStopped =
 		stored !== undefined && stored !== null && !stored.live;
@@ -233,6 +287,7 @@ export function AcpChatPane({
 			key={sessionId}
 			onFirstPromptSent={onFirstPromptSent ?? NOOP}
 			agentLabel={agentLabel}
+			agentSwitch={agentSwitch}
 			canForkToWorktree={canForkToWorktree}
 			onFork={fork}
 			openFile={onOpenFile}
@@ -244,6 +299,7 @@ export function AcpChatPane({
 				if (bound && bound !== agent?.sessionId) onAgentSessionChanged(bound);
 			}}
 			pendingFirstPrompt={pendingFirstPrompt ?? null}
+			preferredModelLabel={modelLabel}
 			sessionId={sessionId}
 			workspaceId={workspaceId}
 		/>

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import type { Item } from "@superset/chat/protocol";
 import type { AdapterEvent } from "../types";
-import { AcpAdapter } from "./acpAdapter";
+import { AcpAdapter, type AcpAdapterOptions } from "./acpAdapter";
 import type { AcpTransport, AcpTransportHandlers } from "./rpcClient";
 
 /**
@@ -22,6 +22,8 @@ class FakeAcpAgent {
 	/** Replay history with v2's whole-message variants instead of chunks. */
 	wholeMessageReplay = false;
 	newSessionConfigOptions: Array<Record<string, unknown>> | null = null;
+	/** v1's session/new `modes` block; v2 agents report the mode as a config option. */
+	newSessionModes: Record<string, unknown> | null = null;
 	private handlers!: AcpTransportHandlers;
 
 	transport(handlers: AcpTransportHandlers): AcpTransport {
@@ -97,6 +99,7 @@ class FakeAcpAgent {
 					...(this.newSessionConfigOptions
 						? { configOptions: this.newSessionConfigOptions }
 						: {}),
+					...(this.newSessionModes ? { modes: this.newSessionModes } : {}),
 				});
 			} else if (frame.method === "session/fork") {
 				this.respond(frame.id as number, { sessionId: "sess-forked" });
@@ -178,7 +181,8 @@ async function flush(times = 8): Promise<void> {
 function startAdapter(
 	agent: FakeAcpAgent,
 	resume?: string,
-	selections: { modelId?: string } = {},
+	selections: { modelId?: string; modeId?: string } = {},
+	adapterOptions: Pick<AcpAdapterOptions, "defaultModeId"> = {},
 ): { adapter: AcpAdapter; events: AdapterEvent[] } {
 	let counter = 0;
 	const adapter = new AcpAdapter({
@@ -186,6 +190,7 @@ function startAdapter(
 		createTransport: (_opts, handlers) => agent.transport(handlers),
 		now: () => 1,
 		mintId: () => `id-${++counter}`,
+		...adapterOptions,
 	});
 	const events: AdapterEvent[] = [];
 	void collect(
@@ -788,6 +793,103 @@ describe("AcpAdapter on protocol v2", () => {
 		agent.notify("sess-1", { sessionUpdate: "state_update", state: "unknown" });
 		await flush();
 		expect(sessionsOf(events).length).toBe(before);
+
+		await adapter.dispose();
+	});
+
+	it("starts in the harness default mode when the client asks for none", async () => {
+		const agent = new FakeAcpAgent();
+		agent.newSessionConfigOptions = [
+			{
+				configId: "mode",
+				name: "Mode",
+				type: "select",
+				category: "mode",
+				currentValue: "default",
+				options: [
+					{ value: "default", name: "Ask for approval" },
+					{ value: "bypassPermissions", name: "Full access" },
+				],
+			},
+		];
+		const { adapter, events } = startAdapter(
+			agent,
+			undefined,
+			{},
+			{ defaultModeId: "bypassPermissions" },
+		);
+		await flush();
+
+		const sent = agent.sent.find(
+			(f) => f.method === "session/set_config_option",
+		);
+		expect(sent?.params).toMatchObject({
+			configId: "mode",
+			value: "bypassPermissions",
+		});
+		expect(sessionsOf(events).pop()?.modeId).toBe("bypassPermissions");
+
+		await adapter.dispose();
+	});
+
+	it("sets the default mode over session/set_mode on a v1 agent", async () => {
+		const agent = new FakeAcpAgent();
+		agent.protocolVersion = 1;
+		agent.newSessionModes = {
+			currentModeId: "default",
+			availableModes: [
+				{ id: "default", name: "Ask for approval" },
+				{ id: "bypassPermissions", name: "Full access" },
+			],
+		};
+		const { adapter, events } = startAdapter(
+			agent,
+			undefined,
+			{},
+			{ defaultModeId: "bypassPermissions" },
+		);
+		await flush();
+
+		const sent = agent.sent.find((f) => f.method === "session/set_mode");
+		expect(sent?.params).toEqual({
+			sessionId: "sess-1",
+			modeId: "bypassPermissions",
+		});
+		expect(sessionsOf(events).pop()?.modeId).toBe("bypassPermissions");
+
+		await adapter.dispose();
+	});
+
+	it("lets a requested start mode win over the harness default", async () => {
+		const agent = new FakeAcpAgent();
+		agent.newSessionConfigOptions = [
+			{
+				configId: "mode",
+				name: "Mode",
+				type: "select",
+				category: "mode",
+				currentValue: "default",
+				options: [
+					{ value: "default", name: "Ask for approval" },
+					{ value: "acceptEdits", name: "Approve edits" },
+					{ value: "bypassPermissions", name: "Full access" },
+				],
+			},
+		];
+		const { adapter } = startAdapter(
+			agent,
+			undefined,
+			{ modeId: "acceptEdits" },
+			{ defaultModeId: "bypassPermissions" },
+		);
+		await flush();
+
+		const sent = agent.sent.filter(
+			(f) => f.method === "session/set_config_option",
+		);
+		expect(sent.map((f) => (f.params as { value: string }).value)).toEqual([
+			"acceptEdits",
+		]);
 
 		await adapter.dispose();
 	});

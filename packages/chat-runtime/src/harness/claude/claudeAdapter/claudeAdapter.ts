@@ -57,7 +57,10 @@ export const CLAUDE_MODES = [
 	{ id: "bypassPermissions", label: "Full access" },
 ] as const satisfies readonly { id: ClaudePermissionMode; label: string }[];
 
+export const DEFAULT_CLAUDE_MODE: ClaudePermissionMode = "bypassPermissions";
+
 function claudeMode(modeId: string | undefined): ClaudePermissionMode {
+	if (modeId === undefined) return DEFAULT_CLAUDE_MODE;
 	return CLAUDE_MODES.find((mode) => mode.id === modeId)?.id ?? "default";
 }
 
@@ -179,7 +182,7 @@ export class ClaudeAdapter implements HarnessAdapter {
 	private readonly abortController = new AbortController();
 	private translator: ClaudeTranslator | null = null;
 	private session: ClaudeSession | null = null;
-	private modeId: ClaudePermissionMode = "default";
+	private modeId: ClaudePermissionMode = DEFAULT_CLAUDE_MODE;
 	private pump: Promise<void> | null = null;
 	private disposed = false;
 
