@@ -1,0 +1,129 @@
+---
+title: Create a Plugin
+description: Build a plugin from a manifest and skills, test it locally, and publish it
+---
+
+A plugin ships no code. It is a folder with a manifest and, if you want, some skills:
+
+```text
+plugins/my-plugin/
+├── plugin.json          # name, version, and where the tools come from
+└── skills/
+    └── my-plugin-workflow/
+        └── SKILL.md     # when and how the agent uses the tools
+```
+
+Tools come from an MCP server the service already runs. Superset proxies calls to it and adds the user's credentials, so you write no server code.
+
+<Callout type="info">
+Plugins in your own marketplace deliver their **skills** to agents. MCP tools reach agents only for plugins in the Superset marketplace. To ship tools, add your plugin to the [Superset repository](https://github.com/superset-sh/superset).
+</Callout>
+
+## 1. Scaffold the plugin
+
+Run this from the root of a marketplace repository: a repo with `.agent-marketplace.json` at its root.
+
+```bash
+# Tools from a remote MCP server
+superset plugins create my-plugin --kind url --url https://mcp.example.com/mcp --skills
+
+# Skills only
+superset plugins create my-plugin --kind none --skills
+```
+
+This creates `plugins/my-plugin/` and adds the plugin to `.agent-marketplace.json`.
+
+| Option | Use |
+|:-------|:----|
+| `--kind` | `url` for a remote MCP server, `none` for skills only |
+| `--url` | The MCP server URL. Required with `--kind url` |
+| `--skills` | Adds a `skills/` folder with a starter skill |
+| `--connector` | The connection the tools need, for example `linear_mcp` |
+| `--display-name` | The name shown in the app |
+| `--description` | One line shown in the app |
+| `--category` | The category shown in the app |
+
+## 2. Edit the manifest
+
+`plugin.json` uses the Codex plugin fields (`name`, `version`, `description`, `author`, `license`). Everything Superset-specific goes under `extensions.superset`:
+
+```json
+{
+	"$schema": "https://superset.sh/schemas/plugin/1.0.0.json",
+	"name": "my-plugin",
+	"version": "1.0.0",
+	"description": "One line about what the agent can do with it.",
+	"author": { "name": "Your Name" },
+	"license": "MIT",
+	"extensions": {
+		"superset": {
+			"interface": {
+				"displayName": "My Plugin",
+				"category": "Productivity",
+				"icon": "my-plugin"
+			},
+			"connector": { "slug": "my_connector" },
+			"mcp": {
+				"type": "streamable-http",
+				"url": "https://mcp.example.com/mcp"
+			}
+		}
+	}
+}
+```
+
+| Field | What it is |
+|:------|:-----------|
+| `interface` | How the plugin looks in the app: `displayName`, `category`, and `icon` |
+| `connector` | The account connection the tools need. Leave it out if the tools need no account |
+| `mcp` | The service's MCP server. A plugin gets its tools from one server only |
+
+The manifest holds no OAuth settings. Superset finds the sign-in endpoints from the MCP server when the user connects.
+
+## 3. Write skills
+
+A skill tells the agent when to use your tools and how to use them well. Each skill is a folder under `skills/` with a `SKILL.md`:
+
+```markdown
+---
+name: file-issue
+description: Turn a rough report into an issue someone can pick up. Use when the user reports a bug or asks to file an issue.
+---
+
+1. Reproduce the claim before you file it.
+2. Search for an existing issue first.
+3. ...
+```
+
+The `description` decides when the agent loads the skill, so say what the skill does and when to use it. Superset installs each skill as `<plugin>-<skill>`, so two plugins can use the same skill name.
+
+## 4. Test it locally
+
+Validate the manifest, then add your working tree as a marketplace and install from it:
+
+```bash
+superset plugins validate my-plugin
+superset plugins marketplace add ./path/to/your/repo
+superset plugins install my-plugin
+```
+
+A marketplace added from a local path installs the working tree, so edits show up after `superset plugins sync`.
+
+## 5. Publish
+
+A release is a git tag. Bump the version, commit, and push the tag:
+
+```bash
+superset plugins publish my-plugin --bump patch
+git commit -am "publish my-plugin@1.0.1"
+git tag my-plugin@1.0.1 && git push --tags
+```
+
+Users install the plugin from your repository:
+
+```bash
+superset plugins marketplace add your-org/your-repo
+superset plugins install my-plugin
+```
+
+Bump the version for every change. Do not move a tag: users who installed that version must keep getting the same files.

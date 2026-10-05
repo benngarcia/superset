@@ -1,0 +1,21 @@
+{
+	"title": "Plugins",
+	"icon": "Puzzle",
+	"pages": [
+		"overview",
+		"create",
+		"---Available Plugins---",
+		"available",
+		"github",
+		"sentry",
+		"stripe",
+		"linear",
+		"notion",
+		"granola",
+		"circleback",
+		"ynab",
+		"slack",
+		"gmail",
+		"superhuman"
+	]
+}

@@ -1,0 +1,19 @@
+---
+title: Chat UI
+description: Run a coding agent as a chat instead of a terminal, and which agents support it
+---
+
+The Chat UI shows an agent session as a chat instead of a terminal. You see the agent's messages, tool calls, and file edits as a readable transcript, and you approve or decline actions with a click instead of a keypress.
+
+It is not a separate agent. Superset runs the agent CLI you already installed, over the [Agent Client Protocol](https://agentclientprotocol.com), so a chat uses the same login, settings, and MCP servers as that CLI in a terminal. A session can move between the chat and the terminal without starting over.
+
+## Supported Agents
+
+| Agent | Chat UI | Minimum CLI version | Upgrade |
+|:------|:-------:|:--------------------|:--------|
+| Claude Code | ✅ | 2.1.226 | `npm i -g @anthropic-ai/claude-code@latest` |
+| Codex | ✅ | 0.160.0 | `npm i -g @openai/codex@latest` |
+| Pi | ✅ | Any | — |
+| Other agents | — | — | — |
+
+If your CLI is older than the minimum, Superset tells you and shows the upgrade command. Agents without chat support still run in a Superset terminal.
