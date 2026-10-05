@@ -1037,9 +1037,6 @@ msgstr "{reason}"
 msgid "{received} of {total}"
 msgstr "{received} dari {total}"
 
-msgid "{runLabel} · everybody to {operatorTier}"
-msgstr "{runLabel} · semua ke {operatorTier}"
-
 msgid "{seconds}s ago"
 msgstr "{seconds}d lalu"
 
@@ -5982,9 +5979,6 @@ msgstr "Unduh starter"
 
 msgid "Download Superset"
 msgstr "Unduh Superset"
-
-msgid "Download Superset and publish yours"
-msgstr "Unduh Superset dan publikasikan milik Anda"
 
 #. placeholder {0}: COMPANY.DOMAIN
 msgid "Download Superset at <0>{0}/download</0>."
@@ -12241,9 +12235,6 @@ msgstr "Gambar produk"
 msgid "Production run"
 msgstr "Proses produksi"
 
-msgid "Production run status"
-msgstr "Status Production Run"
-
 msgid "Productivity"
 msgstr "Produktivitas"
 
@@ -13506,9 +13497,6 @@ msgstr "Jalankan"
 msgid "Run {0} now"
 msgstr "Jalankan {0} sekarang"
 
-msgid "Run {runNumber}"
-msgstr "Run {runNumber}"
-
 msgid "Run <0>{tokenCommand}</0><1><2/></1> in a terminal and paste the token here."
 msgstr "Jalankan <0>{tokenCommand}</0><1><2/></1> di terminal lalu tempel tokennya di sini."
 
@@ -13988,6 +13976,9 @@ msgstr "Lihat bagaimana Superset dibandingkan dengan alat coding AI lain, dari e
 
 msgid "See how Superset compares to other tools"
 msgstr "Lihat perbandingan Superset dengan alat lain"
+
+msgid "See how your agent usage compares. Explore the models behind each profile."
+msgstr "Bandingkan penggunaan agen Anda dengan pengguna lain. Jelajahi model di balik setiap profil."
 
 msgid "See Less"
 msgstr "Lihat Lebih Sedikit"
@@ -17858,9 +17849,6 @@ msgstr "Di mana skrip terminal ini tersedia."
 
 msgid "Where to look next"
 msgstr "Ke mana mencari berikutnya"
-
-msgid "Where you actually are"
-msgstr "Posisi Anda yang sebenarnya"
 
 msgid "Whether the people acquired stay and what they pay."
 msgstr "Apakah orang yang diperoleh bertahan dan berapa yang mereka bayar."

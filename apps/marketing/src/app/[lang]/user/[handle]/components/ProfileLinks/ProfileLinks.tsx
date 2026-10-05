@@ -24,7 +24,7 @@ export function ProfileLinks({
 	if (!githubHandle && !xHandle && !websiteUrl) return null;
 
 	const linkClass =
-		"font-mono text-[0.66rem] uppercase tracking-[0.1em] text-muted-foreground hover:text-brand transition-colors";
+		"inline-flex min-h-11 items-center text-sm text-muted-foreground hover:text-brand transition-colors";
 
 	return (
 		<div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 mt-5">

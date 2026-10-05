@@ -11,7 +11,7 @@ interface ShareButtonsProps {
 }
 
 const BUTTON =
-	"inline-flex items-center gap-2 px-3 py-1.5 text-[0.68rem] font-mono uppercase tracking-[0.12em] border border-border rounded-[2px] text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors";
+	"inline-flex min-h-11 items-center gap-2 px-3 py-2 text-sm border border-border rounded-[2px] text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors";
 
 export function ShareButtons({ url, text }: ShareButtonsProps) {
 	const [copied, setCopied] = useState(false);

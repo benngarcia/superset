@@ -1037,9 +1037,6 @@ msgstr "{reason}"
 msgid "{received} of {total}"
 msgstr "{received} из {total}"
 
-msgid "{runLabel} · everybody to {operatorTier}"
-msgstr "{runLabel} · все к {operatorTier}"
-
 msgid "{seconds}s ago"
 msgstr "{seconds} с назад"
 
@@ -5982,9 +5979,6 @@ msgstr "Скачать заготовку"
 
 msgid "Download Superset"
 msgstr "Скачать Superset"
-
-msgid "Download Superset and publish yours"
-msgstr "Скачайте Superset и опубликуйте свои показатели"
 
 #. placeholder {0}: COMPANY.DOMAIN
 msgid "Download Superset at <0>{0}/download</0>."
@@ -12241,9 +12235,6 @@ msgstr "Изображения продукта"
 msgid "Production run"
 msgstr "Производственный цикл"
 
-msgid "Production run status"
-msgstr "Статус Production Run"
-
 msgid "Productivity"
 msgstr "Продуктивность"
 
@@ -13506,9 +13497,6 @@ msgstr "Запустить"
 msgid "Run {0} now"
 msgstr "Запустить {0} сейчас"
 
-msgid "Run {runNumber}"
-msgstr "Run {runNumber}"
-
 msgid "Run <0>{tokenCommand}</0><1><2/></1> in a terminal and paste the token here."
 msgstr "Выполните в терминале <0>{tokenCommand}</0><1><2/></1> и вставьте токен сюда."
 
@@ -13988,6 +13976,9 @@ msgstr "Посмотрите, как Superset соотносится с друг
 
 msgid "See how Superset compares to other tools"
 msgstr "Посмотреть, как Superset сравнивается с другими инструментами"
+
+msgid "See how your agent usage compares. Explore the models behind each profile."
+msgstr "Сравните своё использование агентов с другими. Узнайте, какие модели используются в каждом профиле."
 
 msgid "See Less"
 msgstr "Показать меньше"
@@ -17858,9 +17849,6 @@ msgstr "Где доступен этот скрипт терминала."
 
 msgid "Where to look next"
 msgstr "Куда посмотреть дальше"
-
-msgid "Where you actually are"
-msgstr "Где вы на самом деле"
 
 msgid "Whether the people acquired stay and what they pay."
 msgstr "Остаются ли привлечённые люди и сколько платят."

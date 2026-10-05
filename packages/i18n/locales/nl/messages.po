@@ -1037,9 +1037,6 @@ msgstr "{reason}"
 msgid "{received} of {total}"
 msgstr "{received} van {total}"
 
-msgid "{runLabel} · everybody to {operatorTier}"
-msgstr "{runLabel} · iedereen naar {operatorTier}"
-
 msgid "{seconds}s ago"
 msgstr "{seconds}s geleden"
 
@@ -5982,9 +5979,6 @@ msgstr "Startbestand downloaden"
 
 msgid "Download Superset"
 msgstr "Superset downloaden"
-
-msgid "Download Superset and publish yours"
-msgstr "Download Superset en publiceer die van jou"
 
 #. placeholder {0}: COMPANY.DOMAIN
 msgid "Download Superset at <0>{0}/download</0>."
@@ -12241,9 +12235,6 @@ msgstr "Productafbeeldingen"
 msgid "Production run"
 msgstr "Productieronde"
 
-msgid "Production run status"
-msgstr "Status van de Production Run"
-
 msgid "Productivity"
 msgstr "Productiviteit"
 
@@ -13506,9 +13497,6 @@ msgstr "Uitvoeren"
 msgid "Run {0} now"
 msgstr "{0} nu uitvoeren"
 
-msgid "Run {runNumber}"
-msgstr "Run {runNumber}"
-
 msgid "Run <0>{tokenCommand}</0><1><2/></1> in a terminal and paste the token here."
 msgstr "Voer <0>{tokenCommand}</0><1><2/></1> uit in een terminal en plak het token hier."
 
@@ -13988,6 +13976,9 @@ msgstr "Zie hoe Superset zich verhoudt tot andere AI-codetools, van AI-editors t
 
 msgid "See how Superset compares to other tools"
 msgstr "Zie hoe Superset zich verhoudt tot andere tools"
+
+msgid "See how your agent usage compares. Explore the models behind each profile."
+msgstr "Vergelijk je agentgebruik met dat van anderen. Ontdek de modellen achter elk profiel."
 
 msgid "See Less"
 msgstr "Minder tonen"
@@ -17858,9 +17849,6 @@ msgstr "Waar dit terminalscript beschikbaar is."
 
 msgid "Where to look next"
 msgstr "Waar je verder kunt kijken"
-
-msgid "Where you actually are"
-msgstr "Waar je echt staat"
 
 msgid "Whether the people acquired stay and what they pay."
 msgstr "Of de geworven mensen blijven en wat ze betalen."

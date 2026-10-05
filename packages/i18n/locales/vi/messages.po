@@ -1037,9 +1037,6 @@ msgstr "{reason}"
 msgid "{received} of {total}"
 msgstr "{received} trên {total}"
 
-msgid "{runLabel} · everybody to {operatorTier}"
-msgstr "{runLabel} · tất cả lên {operatorTier}"
-
 msgid "{seconds}s ago"
 msgstr "{seconds} giây trước"
 
@@ -5982,9 +5979,6 @@ msgstr "Tải bản mẫu"
 
 msgid "Download Superset"
 msgstr "Tải Superset"
-
-msgid "Download Superset and publish yours"
-msgstr "Tải Superset và công bố số liệu của bạn"
 
 #. placeholder {0}: COMPANY.DOMAIN
 msgid "Download Superset at <0>{0}/download</0>."
@@ -12241,9 +12235,6 @@ msgstr "Hình ảnh sản phẩm"
 msgid "Production run"
 msgstr "Đợt sản xuất"
 
-msgid "Production run status"
-msgstr "Trạng thái Production Run"
-
 msgid "Productivity"
 msgstr "Năng suất"
 
@@ -13506,9 +13497,6 @@ msgstr "Chạy"
 msgid "Run {0} now"
 msgstr "Chạy {0} ngay"
 
-msgid "Run {runNumber}"
-msgstr "Run {runNumber}"
-
 msgid "Run <0>{tokenCommand}</0><1><2/></1> in a terminal and paste the token here."
 msgstr "Chạy <0>{tokenCommand}</0><1><2/></1> trong terminal rồi dán token vào đây."
 
@@ -13988,6 +13976,9 @@ msgstr "Xem Superset so với các công cụ lập trình AI khác, từ editor
 
 msgid "See how Superset compares to other tools"
 msgstr "Xem Superset so với các công cụ khác"
+
+msgid "See how your agent usage compares. Explore the models behind each profile."
+msgstr "So sánh mức sử dụng tác tử của bạn với người khác. Khám phá các mô hình trong từng hồ sơ."
 
 msgid "See Less"
 msgstr "Xem ít hơn"
@@ -17858,9 +17849,6 @@ msgstr "Nơi script terminal này khả dụng."
 
 msgid "Where to look next"
 msgstr "Xem tiếp ở đâu"
-
-msgid "Where you actually are"
-msgstr "Vị trí thật sự của bạn"
 
 msgid "Whether the people acquired stay and what they pay."
 msgstr "Liệu những người thu hút được có ở lại và họ trả bao nhiêu."

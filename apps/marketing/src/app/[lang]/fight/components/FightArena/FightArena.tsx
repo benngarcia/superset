@@ -517,11 +517,12 @@ export function FightArena({ initialA, initialB }: FightArenaProps) {
 									)}
 
 									<DinoSprite
+										identity={fighter.handle}
 										frame={frameFor(side)}
 										rgb={rgb}
 										facing={side === "a" ? "right" : "left"}
 										flash={defending && impact}
-										title={`${fighter.name} as a terminal dinosaur`}
+										title={fighter.name}
 										style={{ width: "var(--dino)" }}
 										className={`relative z-10 h-auto origin-bottom transition-opacity duration-700 ${
 											down && koSettled ? "opacity-70" : ""

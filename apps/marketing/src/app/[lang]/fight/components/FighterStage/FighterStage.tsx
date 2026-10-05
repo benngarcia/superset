@@ -27,14 +27,11 @@ export function FighterStage({
 			<div className="relative">
 				<div className="fight-bob">
 					<DinoSprite
+						identity={fighter?.handle}
 						frame="stand"
 						rgb={rgb}
 						facing={right ? "left" : "right"}
-						title={
-							fighter
-								? `${fighter.name} as a terminal dinosaur`
-								: "An empty fighter slot"
-						}
+						title={fighter ? fighter.name : "An empty fighter slot"}
 						style={{ width: "var(--stage-dino)" }}
 						className={`h-auto ${fighter ? "" : "opacity-25"}`}
 					/>

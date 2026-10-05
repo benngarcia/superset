@@ -1037,9 +1037,6 @@ msgstr "{reason}"
 msgid "{received} of {total}"
 msgstr "{received}/{total}"
 
-msgid "{runLabel} · everybody to {operatorTier}"
-msgstr "{runLabel} · 全員晉級{operatorTier}"
-
 msgid "{seconds}s ago"
 msgstr "{seconds}秒前"
 
@@ -5982,9 +5979,6 @@ msgstr "下載模板"
 
 msgid "Download Superset"
 msgstr "下載Superset"
-
-msgid "Download Superset and publish yours"
-msgstr "下載 Superset，公開你自己的數據"
 
 #. placeholder {0}: COMPANY.DOMAIN
 msgid "Download Superset at <0>{0}/download</0>."
@@ -12241,9 +12235,6 @@ msgstr "產品圖片"
 msgid "Production run"
 msgstr "生產運行"
 
-msgid "Production run status"
-msgstr "生產運行狀態"
-
 msgid "Productivity"
 msgstr "效率"
 
@@ -13506,9 +13497,6 @@ msgstr "執行"
 msgid "Run {0} now"
 msgstr "立即執行{0}"
 
-msgid "Run {runNumber}"
-msgstr "第 {runNumber} 期"
-
 msgid "Run <0>{tokenCommand}</0><1><2/></1> in a terminal and paste the token here."
 msgstr "在終端中執行<0>{tokenCommand}</0><1><2/></1>，然後把權杖貼到這裡。"
 
@@ -13988,6 +13976,9 @@ msgstr "看看Superset與其他AI編碼工具的對比，涵蓋AI編輯器、編
 
 msgid "See how Superset compares to other tools"
 msgstr "看看Superset與其他工具的對比"
+
+msgid "See how your agent usage compares. Explore the models behind each profile."
+msgstr "比較你與其他開發者的代理程式用量，探索每個個人檔案使用的模型。"
 
 msgid "See Less"
 msgstr "收起"
@@ -17858,9 +17849,6 @@ msgstr "此終端指令碼在哪些地方可用。"
 
 msgid "Where to look next"
 msgstr "接下來可以看這些"
-
-msgid "Where you actually are"
-msgstr "你的真實位置"
 
 msgid "Whether the people acquired stay and what they pay."
 msgstr "獲得的使用者是否留下，以及付了多少。"

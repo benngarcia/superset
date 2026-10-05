@@ -1037,9 +1037,6 @@ msgstr "{reason}"
 msgid "{received} of {total}"
 msgstr "{received} de {total}"
 
-msgid "{runLabel} · everybody to {operatorTier}"
-msgstr "{runLabel} · todos a {operatorTier}"
-
 msgid "{seconds}s ago"
 msgstr "hace {seconds} s"
 
@@ -5982,9 +5979,6 @@ msgstr "Descargar plantilla inicial"
 
 msgid "Download Superset"
 msgstr "Descargar Superset"
-
-msgid "Download Superset and publish yours"
-msgstr "Descarga Superset y publica los tuyos"
 
 #. placeholder {0}: COMPANY.DOMAIN
 msgid "Download Superset at <0>{0}/download</0>."
@@ -12241,9 +12235,6 @@ msgstr "Imágenes del producto"
 msgid "Production run"
 msgstr "Ciclo de producción"
 
-msgid "Production run status"
-msgstr "Estado de la Production Run"
-
 msgid "Productivity"
 msgstr "Productividad"
 
@@ -13506,9 +13497,6 @@ msgstr "Ejecutar"
 msgid "Run {0} now"
 msgstr "Ejecutar {0} ahora"
 
-msgid "Run {runNumber}"
-msgstr "Run {runNumber}"
-
 msgid "Run <0>{tokenCommand}</0><1><2/></1> in a terminal and paste the token here."
 msgstr "Ejecuta <0>{tokenCommand}</0><1><2/></1> en un terminal y pega el token aquí."
 
@@ -13988,6 +13976,9 @@ msgstr "Descubre cómo se compara Superset con otras herramientas de código con
 
 msgid "See how Superset compares to other tools"
 msgstr "Ver cómo se compara Superset con otras herramientas"
+
+msgid "See how your agent usage compares. Explore the models behind each profile."
+msgstr "Compara tu uso de agentes con el de otros. Explora los modelos de cada perfil."
 
 msgid "See Less"
 msgstr "Ver menos"
@@ -17858,9 +17849,6 @@ msgstr "Dónde está disponible este script de terminal."
 
 msgid "Where to look next"
 msgstr "Dónde buscar ahora"
-
-msgid "Where you actually are"
-msgstr "Dónde estás en realidad"
 
 msgid "Whether the people acquired stay and what they pay."
 msgstr "Si las personas adquiridas se quedan y cuánto pagan."

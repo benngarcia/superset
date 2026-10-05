@@ -1037,9 +1037,6 @@ msgstr "{reason}"
 msgid "{received} of {total}"
 msgstr "{total} 중 {received}"
 
-msgid "{runLabel} · everybody to {operatorTier}"
-msgstr "{runLabel} · 모두 {operatorTier}로"
-
 msgid "{seconds}s ago"
 msgstr "{seconds}초 전"
 
@@ -5982,9 +5979,6 @@ msgstr "스타터 다운로드"
 
 msgid "Download Superset"
 msgstr "Superset 다운로드"
-
-msgid "Download Superset and publish yours"
-msgstr "Superset을 내려받아 내 기록을 공개하세요"
 
 #. placeholder {0}: COMPANY.DOMAIN
 msgid "Download Superset at <0>{0}/download</0>."
@@ -12241,9 +12235,6 @@ msgstr "제품 이미지"
 msgid "Production run"
 msgstr "생산 실행"
 
-msgid "Production run status"
-msgstr "프로덕션 런 상태"
-
 msgid "Productivity"
 msgstr "생산성"
 
@@ -13506,9 +13497,6 @@ msgstr "실행"
 msgid "Run {0} now"
 msgstr "{0} 지금 실행"
 
-msgid "Run {runNumber}"
-msgstr "런 {runNumber}"
-
 msgid "Run <0>{tokenCommand}</0><1><2/></1> in a terminal and paste the token here."
 msgstr "터미널에서 <0>{tokenCommand}</0><1><2/></1>을 실행해 토큰을 여기에 붙여넣으세요."
 
@@ -13988,6 +13976,9 @@ msgstr "AI 에디터부터 코딩 에이전트, 클라우드 기반 AI 엔지니
 
 msgid "See how Superset compares to other tools"
 msgstr "다른 도구와 Superset 비교 보기"
+
+msgid "See how your agent usage compares. Explore the models behind each profile."
+msgstr "다른 개발자와 에이전트 사용량을 비교하세요. 각 프로필에서 사용하는 모델을 살펴보세요."
 
 msgid "See Less"
 msgstr "간단히 보기"
@@ -17858,9 +17849,6 @@ msgstr "이 터미널 스크립트를 사용할 수 있는 범위입니다."
 
 msgid "Where to look next"
 msgstr "다음으로 찾아볼 곳"
-
-msgid "Where you actually are"
-msgstr "당신의 실제 위치"
 
 msgid "Whether the people acquired stay and what they pay."
 msgstr "획득한 사람들이 남아 있는지, 얼마를 내는지."

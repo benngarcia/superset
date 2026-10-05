@@ -25,6 +25,7 @@ export function RosterCard({ fighter, seated, onPick }: RosterCardProps) {
 		>
 			<div className="fight-card-dino">
 				<DinoSprite
+					identity={fighter.handle}
 					frame="stand"
 					rgb={rgb}
 					facing="right"

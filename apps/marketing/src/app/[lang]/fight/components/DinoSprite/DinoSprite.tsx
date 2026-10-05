@@ -1,7 +1,9 @@
-import { FRAMES, type FrameName, SPRITE_SIZE } from "./frames";
+import { type FrameName, SPRITE_SIZE } from "./frames";
+import { monsterFrame } from "./monsters";
 
 interface DinoSpriteProps {
 	frame: FrameName;
+	identity?: string;
 	rgb: string;
 	facing: "left" | "right";
 	className?: string;
@@ -12,6 +14,7 @@ interface DinoSpriteProps {
 
 export function DinoSprite({
 	frame,
+	identity = "",
 	rgb,
 	facing,
 	className = "",
@@ -19,7 +22,7 @@ export function DinoSprite({
 	flash = false,
 	title,
 }: DinoSpriteProps) {
-	const rows = FRAMES[frame];
+	const rows = monsterFrame(identity, frame);
 	const pixels: Array<{ x: number; y: number }> = [];
 
 	rows.forEach((row, y) => {

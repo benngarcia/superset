@@ -5,6 +5,8 @@ import { formatDate, formatList, formatNumber } from "@superset/i18n/format";
 import { I18nProvider } from "@superset/i18n/react";
 import { renderToReadableStream, renderToStaticMarkup } from "react-dom/server";
 
+import { Providers } from "./providers";
+
 function FormattedGreeting() {
 	const { i18n: requestI18n } = useLingui();
 	const locale = requestI18n.locale;
@@ -57,4 +59,14 @@ describe("server-resolved client translations", () => {
 		expect(german).toBe("Hallo");
 		expect(i18n.locale).toBe("en");
 	});
+});
+
+test("marketing providers render without a client-injected theme script", () => {
+	const html = renderToStaticMarkup(
+		<Providers locale="en" messages={{}}>
+			<div>Profile content</div>
+		</Providers>,
+	);
+	expect(html).toContain("Profile content");
+	expect(html).not.toContain("<script");
 });
