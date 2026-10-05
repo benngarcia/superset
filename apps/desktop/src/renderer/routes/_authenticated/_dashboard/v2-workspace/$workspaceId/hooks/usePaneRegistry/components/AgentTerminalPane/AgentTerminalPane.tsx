@@ -98,6 +98,7 @@ export function AgentTerminalPane({
 				onSessionCreated={(acpSessionId) =>
 					ctx.actions.updateData({ ...data, acpSessionId })
 				}
+				onOpenFile={onOpenFile}
 				sessionId={data.acpSessionId ?? null}
 				workspaceId={workspaceId}
 			/>

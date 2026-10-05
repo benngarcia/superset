@@ -751,6 +751,7 @@ export function usePaneRegistry({
 								return (
 									<ChatV3Pane
 										workspaceId={workspaceId}
+										onOpenFile={onOpenFile}
 										sessionId={data.sessionId}
 										onSessionIdChange={(id) =>
 											ctx.actions.updateData({ ...data, sessionId: id })

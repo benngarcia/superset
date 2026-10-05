@@ -57,6 +57,8 @@ export const sessionStateSchema = z.looseObject({
 	 * session, and the caller has to know which one it ended up on.
 	 */
 	harnessSessionId: z.string().optional(),
+	queuePaused: z.boolean().optional(),
+	queueControls: z.boolean().optional(),
 });
 export type SessionState = z.infer<typeof sessionStateSchema>;
 

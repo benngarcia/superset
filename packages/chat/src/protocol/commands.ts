@@ -31,9 +31,19 @@ export const steerInputSchema = z.object({
 });
 export type SteerInput = z.infer<typeof steerInputSchema>;
 
+export const queuedPromptInputSchema = z.object({
+	...commandBaseFields,
+	itemId: z.string().min(1),
+});
+export type QueuedPromptInput = z.infer<typeof queuedPromptInputSchema>;
+
+export const resumeQueueInputSchema = z.object(commandBaseFields);
+export type ResumeQueueInput = z.infer<typeof resumeQueueInputSchema>;
+
 export const cancelTurnInputSchema = z.object({
 	...commandBaseFields,
 	turnId: z.string().min(1),
+	pauseQueue: z.boolean().optional(),
 });
 export type CancelTurnInput = z.infer<typeof cancelTurnInputSchema>;
 

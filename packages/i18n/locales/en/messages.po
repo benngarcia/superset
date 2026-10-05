@@ -241,18 +241,10 @@ msgstr "{0, plural, one {# task} other {# tasks}}"
 msgid "{0, plural, one {# terminal running} other {# terminals running}}"
 msgstr "{0, plural, one {# terminal running} other {# terminals running}}"
 
-#. placeholder {0}: entry.items.length
-msgid "{0, plural, one {# tool call} other {# tool calls}}"
-msgstr "{0, plural, one {# tool call} other {# tool calls}}"
-
 #. placeholder {0}: group.workspaceCount
 #. placeholder {0}: selectedWorkspaces.length
 msgid "{0, plural, one {# workspace} other {# workspaces}}"
 msgstr "{0, plural, one {# workspace} other {# workspaces}}"
-
-#. placeholder {0}: tail.hidden
-msgid "{0, plural, one {+# more line} other {+# more lines}}"
-msgstr "{0, plural, one {+# more line} other {+# more lines}}"
 
 #. placeholder {0}: shown?.count ?? 0
 msgid "{0, plural, one {A running agent still uses the previous account — the switch only reaches new launches.} other {# running agents still use the previous account — the switch only reaches new launches.}}"
@@ -771,6 +763,9 @@ msgstr "{count, plural, one {Created # workspace} other {Created # workspaces}}"
 msgid "{count, plural, one {Delete # Workspace} other {Delete # Workspaces}}"
 msgstr "{count, plural, one {Delete # Workspace} other {Delete # Workspaces}}"
 
+msgid "{count, plural, one {edited # file} other {edited # files}}"
+msgstr "{count, plural, one {edited # file} other {edited # files}}"
+
 msgid "{count, plural, one {Every # day at {time}} other {Every # days at {time}}}"
 msgstr "{count, plural, one {Every # day at {time}} other {Every # days at {time}}}"
 
@@ -789,14 +784,26 @@ msgstr "{count, plural, one {Every # week on {day} at {time}} other {Every # wee
 msgid "{count, plural, one {Every # week on {day}} other {Every # weeks on {day}}}"
 msgstr "{count, plural, one {Every # week on {day}} other {Every # weeks on {day}}}"
 
+msgid "{count, plural, one {fetched # page} other {fetched # pages}}"
+msgstr "{count, plural, one {fetched # page} other {fetched # pages}}"
+
 msgid "{count, plural, one {Import # worktree} other {Import # worktrees}}"
 msgstr "{count, plural, one {Import # worktree} other {Import # worktrees}}"
 
 msgid "{count, plural, one {Project opened} other {# projects opened}}"
 msgstr "{count, plural, one {Project opened} other {# projects opened}}"
 
+msgid "{count, plural, one {ran # command} other {ran # commands}}"
+msgstr "{count, plural, one {ran # command} other {ran # commands}}"
+
+msgid "{count, plural, one {read # file} other {read # files}}"
+msgstr "{count, plural, one {read # file} other {read # files}}"
+
 msgid "{count, plural, one {Used # source} other {Used # sources}}"
 msgstr "{count, plural, one {Used # source} other {Used # sources}}"
+
+msgid "{count, plural, one {used # tool} other {used # tools}}"
+msgstr "{count, plural, one {used # tool} other {used # tools}}"
 
 msgid "{count} GitHub stars"
 msgstr "{count} GitHub stars"
@@ -2338,6 +2345,12 @@ msgstr "Apply"
 msgid "Approve"
 msgstr "Approve"
 
+msgid "Approve edits"
+msgstr "Approve edits"
+
+msgid "Approve for me"
+msgstr "Approve for me"
+
 msgid "Approved"
 msgstr "Approved"
 
@@ -2416,8 +2429,17 @@ msgstr "ascending"
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "Ask an agent to publish one from the desktop app."
 
+msgid "Ask before editing files or running commands"
+msgstr "Ask before editing files or running commands"
+
+msgid "Ask for approval"
+msgstr "Ask for approval"
+
 msgid "Ask for this to be removed"
 msgstr "Ask for this to be removed"
+
+msgid "Ask only for actions that look risky"
+msgstr "Ask only for actions that look risky"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "Ask the agent, @mention files, run /commands"
@@ -3436,9 +3458,6 @@ msgstr "Choose a parent directory"
 msgid "Choose a project from GitHub issues before opening an issue."
 msgstr "Choose a project from GitHub issues before opening an issue."
 
-msgid "Choose a project from Pull requests before opening a pull request."
-msgstr "Choose a project from Pull requests before opening a pull request."
-
 msgid "Choose a section."
 msgstr "Choose a section."
 
@@ -3492,6 +3511,9 @@ msgstr "Clean up stale TODOs…"
 
 msgid "Cleaner, denser sidebar"
 msgstr "Cleaner, denser sidebar"
+
+msgid "Clear all"
+msgstr "Clear all"
 
 msgid "Clear browsing data"
 msgstr "Clear browsing data"
@@ -3831,9 +3853,6 @@ msgstr "Code block"
 
 msgid "Code Block"
 msgstr "Code Block"
-
-msgid "Code isn't available — this workspace's project doesn't have this pull request's repository."
-msgstr "Code isn't available — this workspace's project doesn't have this pull request's repository."
 
 msgid "Cohort"
 msgstr "Cohort"
@@ -4418,6 +4437,9 @@ msgstr "Copy Branch Name"
 msgid "Copy browsing history and logins from Chrome, Brave, Arc, or another Chromium browser into Superset."
 msgstr "Copy browsing history and logins from Chrome, Brave, Arc, or another Chromium browser into Superset."
 
+msgid "Copy code"
+msgstr "Copy code"
+
 msgid "Copy Code"
 msgstr "Copy Code"
 
@@ -4963,6 +4985,9 @@ msgstr "Couldn't unstage file"
 msgid "Couldn't update pull request"
 msgstr "Couldn't update pull request"
 
+msgid "Couldn't update the queue"
+msgstr "Couldn't update the queue"
+
 msgid "Couldn't update thread"
 msgstr "Couldn't update thread"
 
@@ -5114,6 +5139,10 @@ msgstr "created"
 msgid "Created"
 msgstr "Created"
 
+msgctxt "file change"
+msgid "Created"
+msgstr "Created"
+
 msgctxt "github release action"
 msgid "Created"
 msgstr "Created"
@@ -5167,6 +5196,10 @@ msgstr "Created team \"{trimmedName}\""
 msgid "creating"
 msgstr "creating"
 
+msgid "Creating"
+msgstr "Creating"
+
+msgctxt "file change"
 msgid "Creating"
 msgstr "Creating"
 
@@ -5538,6 +5571,10 @@ msgstr "Delete workspace \"{workspaceName}\"?"
 msgid "Deleted"
 msgstr "Deleted"
 
+msgctxt "file change"
+msgid "Deleted"
+msgstr "Deleted"
+
 msgctxt "github release action"
 msgid "Deleted"
 msgstr "Deleted"
@@ -5587,6 +5624,10 @@ msgstr "Deletes the {0} profile, its saved sign-in on this machine, and its loca
 
 msgid "Deletes this host, its access, and its workspaces. Files on the machine stay."
 msgstr "Deletes this host, its access, and its workspaces. Files on the machine stay."
+
+msgctxt "file change"
+msgid "Deleting"
+msgstr "Deleting"
 
 #. placeholder {0}: Math.min(completed + 1, total)
 #. placeholder {1}: targets.length
@@ -6155,6 +6196,9 @@ msgstr "Edit description"
 msgid "Edit environment"
 msgstr "Edit environment"
 
+msgid "Edit files without asking; ask before commands"
+msgstr "Edit files without asking; ask before commands"
+
 msgid "Edit name"
 msgstr "Edit name"
 
@@ -6176,6 +6220,10 @@ msgstr "Edit your comment…"
 msgid "Edited"
 msgstr "Edited"
 
+msgctxt "file change"
+msgid "Edited"
+msgstr "Edited"
+
 msgctxt "github release action"
 msgid "Edited"
 msgstr "Edited"
@@ -6183,6 +6231,10 @@ msgstr "Edited"
 msgid "Edited {ago}"
 msgstr "Edited {ago}"
 
+msgid "Editing"
+msgstr "Editing"
+
+msgctxt "file change"
 msgid "Editing"
 msgstr "Editing"
 
@@ -7457,6 +7509,9 @@ msgstr "Front matter hidden — switch to Markdown to edit it"
 msgid "Front matter hidden — switch to the Markdown view to edit it"
 msgstr "Front matter hidden — switch to the Markdown view to edit it"
 
+msgid "Full access"
+msgstr "Full access"
+
 msgid "Full changelog →"
 msgstr "Full changelog →"
 
@@ -7788,9 +7843,6 @@ msgstr "Hide"
 msgid "Hide checks"
 msgstr "Hide checks"
 
-msgid "Hide detail"
-msgstr "Hide detail"
-
 msgid "Hide details"
 msgstr "Hide details"
 
@@ -7984,6 +8036,9 @@ msgstr "How much agent work engineers are actually running — tokens, cost, mod
 
 msgid "How people reach superset.sh and the docs, and how much of it is search and assistants rather than the brand."
 msgstr "How people reach superset.sh and the docs, and how much of it is search and assistants rather than the brand."
+
+msgid "How should the agent's actions be approved?"
+msgstr "How should the agent's actions be approved?"
 
 msgid "How the command opens."
 msgstr "How the command opens."
@@ -12417,9 +12472,6 @@ msgstr "Pull request #{0}, {1}"
 msgid "Pull request actions"
 msgstr "Pull request actions"
 
-msgid "Pull request not found."
-msgstr "Pull request not found."
-
 msgid "Pull request title"
 msgstr "Pull request title"
 
@@ -12469,6 +12521,9 @@ msgstr "Question"
 
 msgid "Questions, feedback, support, or anything else. Send a note and we'll route it to the right person."
 msgstr "Questions, feedback, support, or anything else. Send a note and we'll route it to the right person."
+
+msgid "Queue paused because you interrupted"
+msgstr "Queue paused because you interrupted"
 
 msgid "Queue work for agents"
 msgstr "Queue work for agents"
@@ -12575,6 +12630,15 @@ msgstr "Reactivating…"
 
 msgid "Read"
 msgstr "Read"
+
+msgid "Read and plan without changing anything"
+msgstr "Read and plan without changing anything"
+
+msgid "Read files; ask for anything else"
+msgstr "Read files; ask for anything else"
+
+msgid "Read only"
+msgstr "Read only"
 
 msgid "Read the changelog"
 msgstr "Read the changelog"
@@ -12865,6 +12929,9 @@ msgstr "Remove mention {path}"
 
 msgid "Remove PR Link"
 msgstr "Remove PR Link"
+
+msgid "Remove queued message"
+msgstr "Remove queued message"
 
 msgid "Remove script"
 msgstr "Remove script"
@@ -14443,9 +14510,6 @@ msgstr "Show closed"
 msgid "Show CPU and memory usage in the top bar"
 msgstr "Show CPU and memory usage in the top bar"
 
-msgid "Show detail"
-msgstr "Show detail"
-
 msgid "Show details"
 msgstr "Show details"
 
@@ -15171,6 +15235,9 @@ msgstr "Status changed"
 msgid "Stay connected (refresh tokens)"
 msgstr "Stay connected (refresh tokens)"
 
+msgid "Steer"
+msgstr "Steer"
+
 #. placeholder {0}: step === "workspace" ? 1 : 2
 msgid "Step {0} of 2"
 msgstr "Step {0} of 2"
@@ -15206,6 +15273,9 @@ msgstr "Stop response"
 
 msgid "Stop Superset here to delete from another device."
 msgstr "Stop Superset here to delete from another device."
+
+msgid "Stop the agent and send this now"
+msgstr "Stop the agent and send this now"
 
 msgid "Stop watching"
 msgstr "Stop watching"
@@ -16886,9 +16956,11 @@ msgstr "Tunnel established"
 msgid "Turn chores into scheduled agents: issue triage, changelog drafts, dependency bumps. They run on their own and open PRs for you to review."
 msgstr "Turn chores into scheduled agents: issue triage, changelog drafts, dependency bumps. They run on their own and open PRs for you to review."
 
-#. placeholder {0}: group.turn.error ? `: ${group.turn.error.message}` : ""
-msgid "Turn failed{0}"
-msgstr "Turn failed{0}"
+msgid "Turn failed"
+msgstr "Turn failed"
+
+msgid "Turn failed: {message}"
+msgstr "Turn failed: {message}"
 
 msgid "Turn on “Allow remote access to this device via relay”"
 msgstr "Turn on “Allow remote access to this device via relay”"
@@ -17140,6 +17212,9 @@ msgstr "Unresolve"
 
 msgid "Unresolved"
 msgstr "Unresolved"
+
+msgid "Unrestricted access to the internet and any file on your computer"
+msgstr "Unrestricted access to the internet and any file on your computer"
 
 msgid "Unsaved changes"
 msgstr "Unsaved changes"

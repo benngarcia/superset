@@ -113,6 +113,10 @@
 			"types": "./src/sandbox-contract.ts",
 			"default": "./src/sandbox-contract.ts"
 		},
+		"./pull-request-diff": {
+			"types": "./src/pull-request-diff/index.ts",
+			"default": "./src/pull-request-diff/index.ts"
+		},
 		"./pull-request": {
 			"types": "./src/pull-request.ts",
 			"default": "./src/pull-request.ts"

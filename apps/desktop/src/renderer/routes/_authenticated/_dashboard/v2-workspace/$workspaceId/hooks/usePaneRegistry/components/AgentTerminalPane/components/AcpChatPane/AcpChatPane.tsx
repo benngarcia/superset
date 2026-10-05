@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useV2AgentConfigs } from "renderer/hooks/useV2AgentConfigs";
 import { acpHarnessForPreset } from "renderer/lib/acpHarness";
+import type { OpenFile } from "../../../../../../types";
 import { SessionView } from "../../../ChatSession/components/SessionView";
 import { useSessionClient } from "../../../ChatSession/hooks/useSessionClient";
 import type { ChatForkTarget } from "../../../ChatSession/types";
@@ -22,6 +23,7 @@ export function AcpChatPane({
 	agent,
 	onAgentSessionChanged,
 	onFirstPromptSent,
+	onOpenFile,
 	onSessionCreated,
 	pendingFirstPrompt,
 	sessionId,
@@ -37,6 +39,7 @@ export function AcpChatPane({
 	onFirstPromptSent?: (() => void) | undefined;
 	onSessionCreated: (sessionId: string) => void;
 	onAgentSessionChanged: (harnessSessionId: string) => void;
+	onOpenFile?: OpenFile;
 	modelId?: string;
 	modeId?: string;
 }) {
@@ -151,25 +154,34 @@ export function AcpChatPane({
 	const sessionDead = stored?.session?.status === "dead";
 	const sessionStopped =
 		stored !== undefined && stored !== null && !stored.live;
-	// A stopped chat has not lost anything: the agent session it was bound to
-	// can be loaded again. Reopening a pane should just work, so do it rather
-	// than asking. Dead is different — that load already found no transcript.
+	// A stopped or dead chat has not lost anything: the agent session it was
+	// bound to can be loaded again. Dead means the agent exited or failed to
+	// start, and a later attempt may get past either. Reopening a pane should
+	// just work, so do it.
 	const canResume = Boolean(
-		sessionStopped && !sessionDead && harness && agentSessionId,
+		(sessionStopped || sessionDead) && harness && agentSessionId,
 	);
 
 	// Once per mount: if the session we resume into is itself unusable, fall
 	// through to the panel instead of spawning adapters in a loop.
 	const autoResumed = useRef(false);
+	const resumingFrom = useRef<string | null>(null);
 	useEffect(() => {
 		if (!canResume || autoResumed.current) return;
-		if (!harness || !agentSessionId) return;
+		if (!harness || !agentSessionId || !sessionId) return;
 		autoResumed.current = true;
+		resumingFrom.current = sessionId;
 		attaching.current = false;
-		void start(harness, agentSessionId);
-	}, [canResume, harness, agentSessionId, start]);
+		void wiring.transport
+			.closeSession({ sessionId })
+			.catch(() => undefined)
+			.then(() => start(harness, agentSessionId));
+	}, [canResume, harness, agentSessionId, sessionId, start, wiring.transport]);
 
-	if (canResume && !autoResumed.current) {
+	const resuming =
+		canResume &&
+		(!autoResumed.current || (resumingFrom.current === sessionId && !failure));
+	if (resuming) {
 		return (
 			<AcpChatPending>
 				<Trans>Resuming the conversation…</Trans>
@@ -223,6 +235,7 @@ export function AcpChatPane({
 			agentLabel={agentLabel}
 			canForkToWorktree={canForkToWorktree}
 			onFork={fork}
+			openFile={onOpenFile}
 			onSessionState={(state) => {
 				// A resume that found no transcript lands on a different agent
 				// session. Keep the pane pointed at the live one, or the trip back

@@ -241,18 +241,10 @@ msgstr "{0, plural, one {#个任务} other {#个任务}}"
 msgid "{0, plural, one {# terminal running} other {# terminals running}}"
 msgstr "{0, plural, other {# 个终端正在运行}}"
 
-#. placeholder {0}: entry.items.length
-msgid "{0, plural, one {# tool call} other {# tool calls}}"
-msgstr "{0, plural, one {#次工具调用} other {#次工具调用}}"
-
 #. placeholder {0}: group.workspaceCount
 #. placeholder {0}: selectedWorkspaces.length
 msgid "{0, plural, one {# workspace} other {# workspaces}}"
 msgstr "{0, plural, one {#个工作区} other {#个工作区}}"
-
-#. placeholder {0}: tail.hidden
-msgid "{0, plural, one {+# more line} other {+# more lines}}"
-msgstr "{0, plural, other {另有 # 行}}"
 
 #. placeholder {0}: shown?.count ?? 0
 msgid "{0, plural, one {A running agent still uses the previous account — the switch only reaches new launches.} other {# running agents still use the previous account — the switch only reaches new launches.}}"
@@ -771,6 +763,9 @@ msgstr "{count, plural, one {已创建#个工作区} other {已创建#个工作�
 msgid "{count, plural, one {Delete # Workspace} other {Delete # Workspaces}}"
 msgstr "{count, plural, one {删除#个工作区} other {删除#个工作区}}"
 
+msgid "{count, plural, one {edited # file} other {edited # files}}"
+msgstr "{count, plural, one {编辑了 # 个文件} other {编辑了 # 个文件}}"
+
 msgid "{count, plural, one {Every # day at {time}} other {Every # days at {time}}}"
 msgstr "{count, plural, one {每#天{time}} other {每#天{time}}}"
 
@@ -789,14 +784,26 @@ msgstr "{count, plural, one {每#周的{day}{time}} other {每#周的{day}{time}
 msgid "{count, plural, one {Every # week on {day}} other {Every # weeks on {day}}}"
 msgstr "{count, plural, one {每#周的{day}} other {每#周的{day}}}"
 
+msgid "{count, plural, one {fetched # page} other {fetched # pages}}"
+msgstr "{count, plural, one {获取了 # 个页面} other {获取了 # 个页面}}"
+
 msgid "{count, plural, one {Import # worktree} other {Import # worktrees}}"
 msgstr "{count, plural, one {导入#个worktree} other {导入#个worktree}}"
 
 msgid "{count, plural, one {Project opened} other {# projects opened}}"
 msgstr "{count, plural, one {已打开#个项目} other {已打开#个项目}}"
 
+msgid "{count, plural, one {ran # command} other {ran # commands}}"
+msgstr "{count, plural, one {运行了 # 个命令} other {运行了 # 个命令}}"
+
+msgid "{count, plural, one {read # file} other {read # files}}"
+msgstr "{count, plural, one {读取了 # 个文件} other {读取了 # 个文件}}"
+
 msgid "{count, plural, one {Used # source} other {Used # sources}}"
 msgstr "{count, plural, one {使用了#个来源} other {使用了#个来源}}"
+
+msgid "{count, plural, one {used # tool} other {used # tools}}"
+msgstr "{count, plural, one {使用了 # 个工具} other {使用了 # 个工具}}"
 
 msgid "{count} GitHub stars"
 msgstr "{count}个GitHub星标"
@@ -2338,6 +2345,12 @@ msgstr "申请"
 msgid "Approve"
 msgstr "批准"
 
+msgid "Approve edits"
+msgstr "批准编辑"
+
+msgid "Approve for me"
+msgstr "替我批准"
+
 msgid "Approved"
 msgstr "已批准"
 
@@ -2416,8 +2429,17 @@ msgstr "升序"
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "让智能体从桌面应用中发布一个页面。"
 
+msgid "Ask before editing files or running commands"
+msgstr "编辑文件或运行命令前先询问"
+
+msgid "Ask for approval"
+msgstr "请求批准"
+
 msgid "Ask for this to be removed"
 msgstr "请求移除"
+
+msgid "Ask only for actions that look risky"
+msgstr "仅对看起来有风险的操作询问"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "向智能体提问，用 @ 提及文件，运行 /命令"
@@ -3436,9 +3458,6 @@ msgstr "选择父目录"
 msgid "Choose a project from GitHub issues before opening an issue."
 msgstr "打开议题前，请先在GitHub议题中选择一个项目。"
 
-msgid "Choose a project from Pull requests before opening a pull request."
-msgstr "开拉取请求之前，请先在“拉取请求”里选择一个项目。"
-
 msgid "Choose a section."
 msgstr "选择一个分区。"
 
@@ -3492,6 +3511,9 @@ msgstr "清理过期的TODO…"
 
 msgid "Cleaner, denser sidebar"
 msgstr "更清爽紧凑的侧边栏"
+
+msgid "Clear all"
+msgstr "全部清除"
 
 msgid "Clear browsing data"
 msgstr "清除浏览数据"
@@ -3831,9 +3853,6 @@ msgstr "代码块"
 
 msgid "Code Block"
 msgstr "代码块"
-
-msgid "Code isn't available — this workspace's project doesn't have this pull request's repository."
-msgstr "代码不可用 — 此工作区的项目没有此拉取请求所在的仓库。"
 
 msgid "Cohort"
 msgstr "同期群"
@@ -4418,6 +4437,9 @@ msgstr "复制分支名"
 msgid "Copy browsing history and logins from Chrome, Brave, Arc, or another Chromium browser into Superset."
 msgstr "将Chrome、Brave、Arc或其他Chromium浏览器的浏览历史和登录信息复制到Superset。"
 
+msgid "Copy code"
+msgstr "复制代码"
+
 msgid "Copy Code"
 msgstr "复制认证码"
 
@@ -4963,6 +4985,9 @@ msgstr "无法取消暂存文件"
 msgid "Couldn't update pull request"
 msgstr "无法更新拉取请求"
 
+msgid "Couldn't update the queue"
+msgstr "无法更新队列"
+
 msgid "Couldn't update thread"
 msgstr "无法更新讨论"
 
@@ -5114,6 +5139,10 @@ msgstr "已创建"
 msgid "Created"
 msgstr "创建时间"
 
+msgctxt "file change"
+msgid "Created"
+msgstr "已创建"
+
 msgctxt "github release action"
 msgid "Created"
 msgstr "已创建"
@@ -5167,6 +5196,10 @@ msgstr "已创建团队“{trimmedName}”"
 msgid "creating"
 msgstr "创建中"
 
+msgid "Creating"
+msgstr "创建中"
+
+msgctxt "file change"
 msgid "Creating"
 msgstr "创建中"
 
@@ -5538,6 +5571,10 @@ msgstr "删除工作区“{workspaceName}”？"
 msgid "Deleted"
 msgstr "已删除"
 
+msgctxt "file change"
+msgid "Deleted"
+msgstr "已删除"
+
 msgctxt "github release action"
 msgid "Deleted"
 msgstr "已删除"
@@ -5587,6 +5624,10 @@ msgstr "删除本机上的{0}配置文件、其已保存的登录以及本地Cod
 
 msgid "Deletes this host, its access, and its workspaces. Files on the machine stay."
 msgstr "删除该主机、其访问权限及其工作区。机器上的文件会保留。"
+
+msgctxt "file change"
+msgid "Deleting"
+msgstr "删除中"
 
 #. placeholder {0}: Math.min(completed + 1, total)
 #. placeholder {1}: targets.length
@@ -6155,6 +6196,9 @@ msgstr "编辑描述"
 msgid "Edit environment"
 msgstr "编辑环境"
 
+msgid "Edit files without asking; ask before commands"
+msgstr "无需询问即可编辑文件；运行命令前询问"
+
 msgid "Edit name"
 msgstr "编辑名称"
 
@@ -6176,6 +6220,10 @@ msgstr "编辑你的评论…"
 msgid "Edited"
 msgstr "已编辑"
 
+msgctxt "file change"
+msgid "Edited"
+msgstr "已编辑"
+
 msgctxt "github release action"
 msgid "Edited"
 msgstr "已编辑"
@@ -6185,6 +6233,10 @@ msgstr "编辑于{ago}"
 
 msgid "Editing"
 msgstr "编辑"
+
+msgctxt "file change"
+msgid "Editing"
+msgstr "编辑中"
 
 msgid "Editing file..."
 msgstr "正在编辑文件..."
@@ -7457,6 +7509,9 @@ msgstr "已隐藏front matter，切换到Markdown可编辑"
 msgid "Front matter hidden — switch to the Markdown view to edit it"
 msgstr "已隐藏front matter — 切换到Markdown视图进行编辑"
 
+msgid "Full access"
+msgstr "完全访问"
+
 msgid "Full changelog →"
 msgstr "完整更新日志 →"
 
@@ -7788,9 +7843,6 @@ msgstr "隐藏"
 msgid "Hide checks"
 msgstr "隐藏检查"
 
-msgid "Hide detail"
-msgstr "隐藏详情"
-
 msgid "Hide details"
 msgstr "隐藏详情"
 
@@ -7984,6 +8036,9 @@ msgstr "工程师实际运行了多少智能体工作量 —— token、成本�
 
 msgid "How people reach superset.sh and the docs, and how much of it is search and assistants rather than the brand."
 msgstr "人们如何到达 superset.sh 和文档站，其中有多少来自搜索和助手而不是品牌。"
+
+msgid "How should the agent's actions be approved?"
+msgstr "智能体的操作应如何批准？"
 
 msgid "How the command opens."
 msgstr "命令的打开方式。"
@@ -12417,9 +12472,6 @@ msgstr "拉取请求#{0}，{1}"
 msgid "Pull request actions"
 msgstr "拉取请求操作"
 
-msgid "Pull request not found."
-msgstr "未找到拉取请求。"
-
 msgid "Pull request title"
 msgstr "拉取请求标题"
 
@@ -12469,6 +12521,9 @@ msgstr "问题"
 
 msgid "Questions, feedback, support, or anything else. Send a note and we'll route it to the right person."
 msgstr "问题、反馈、支持，或者别的什么都行。写给我们，我们会转给合适的人。"
+
+msgid "Queue paused because you interrupted"
+msgstr "由于你中断了操作，队列已暂停"
 
 msgid "Queue work for agents"
 msgstr "为智能体排队安排工作"
@@ -12575,6 +12630,15 @@ msgstr "正在重新激活…"
 
 msgid "Read"
 msgstr "已读取"
+
+msgid "Read and plan without changing anything"
+msgstr "只读取和规划，不做任何更改"
+
+msgid "Read files; ask for anything else"
+msgstr "读取文件；其他操作都先询问"
+
+msgid "Read only"
+msgstr "只读"
 
 msgid "Read the changelog"
 msgstr "查看更新日志"
@@ -12865,6 +12929,9 @@ msgstr "移除提及{path}"
 
 msgid "Remove PR Link"
 msgstr "移除PR链接"
+
+msgid "Remove queued message"
+msgstr "移除排队消息"
 
 msgid "Remove script"
 msgstr "移除脚本"
@@ -14443,9 +14510,6 @@ msgstr "显示已关闭"
 msgid "Show CPU and memory usage in the top bar"
 msgstr "在顶栏显示CPU和内存用量"
 
-msgid "Show detail"
-msgstr "显示详情"
-
 msgid "Show details"
 msgstr "显示详情"
 
@@ -15171,6 +15235,9 @@ msgstr "状态变更"
 msgid "Stay connected (refresh tokens)"
 msgstr "保持连接（刷新令牌）"
 
+msgid "Steer"
+msgstr "引导"
+
 #. placeholder {0}: step === "workspace" ? 1 : 2
 msgid "Step {0} of 2"
 msgstr "第{0}步，共2步"
@@ -15206,6 +15273,9 @@ msgstr "停止回复"
 
 msgid "Stop Superset here to delete from another device."
 msgstr "在此停止Superset，然后从其他设备删除。"
+
+msgid "Stop the agent and send this now"
+msgstr "停止智能体并立即发送"
 
 msgid "Stop watching"
 msgstr "停止关注"
@@ -16886,9 +16956,11 @@ msgstr "隧道已建立"
 msgid "Turn chores into scheduled agents: issue triage, changelog drafts, dependency bumps. They run on their own and open PRs for you to review."
 msgstr "把杂活变成定时智能体：议题分类、更新日志草稿、依赖升级。它们自己运行，并开好PR等你审查。"
 
-#. placeholder {0}: group.turn.error ? `: ${group.turn.error.message}` : ""
-msgid "Turn failed{0}"
-msgstr "本轮失败{0}"
+msgid "Turn failed"
+msgstr "本轮失败"
+
+msgid "Turn failed: {message}"
+msgstr "本轮失败：{message}"
 
 msgid "Turn on “Allow remote access to this device via relay”"
 msgstr "开启“允许通过中继远程访问本设备”"
@@ -17140,6 +17212,9 @@ msgstr "取消解决"
 
 msgid "Unresolved"
 msgstr "未解决"
+
+msgid "Unrestricted access to the internet and any file on your computer"
+msgstr "不受限制地访问互联网和你电脑上的任何文件"
 
 msgid "Unsaved changes"
 msgstr "未保存的更改"

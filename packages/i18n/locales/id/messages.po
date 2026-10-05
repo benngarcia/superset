@@ -241,18 +241,10 @@ msgstr "{0, plural, one {# tugas} other {# tugas}}"
 msgid "{0, plural, one {# terminal running} other {# terminals running}}"
 msgstr "{0, plural, other {# terminal berjalan}}"
 
-#. placeholder {0}: entry.items.length
-msgid "{0, plural, one {# tool call} other {# tool calls}}"
-msgstr "{0, plural, one {# panggilan alat} other {# panggilan alat}}"
-
 #. placeholder {0}: group.workspaceCount
 #. placeholder {0}: selectedWorkspaces.length
 msgid "{0, plural, one {# workspace} other {# workspaces}}"
 msgstr "{0, plural, one {# workspace} other {# workspace}}"
-
-#. placeholder {0}: tail.hidden
-msgid "{0, plural, one {+# more line} other {+# more lines}}"
-msgstr "{0, plural, other {+# baris lagi}}"
 
 #. placeholder {0}: shown?.count ?? 0
 msgid "{0, plural, one {A running agent still uses the previous account — the switch only reaches new launches.} other {# running agents still use the previous account — the switch only reaches new launches.}}"
@@ -771,6 +763,9 @@ msgstr "{count, plural, one {Membuat # workspace} other {Membuat # workspace}}"
 msgid "{count, plural, one {Delete # Workspace} other {Delete # Workspaces}}"
 msgstr "{count, plural, one {Hapus # Workspace} other {Hapus # Workspace}}"
 
+msgid "{count, plural, one {edited # file} other {edited # files}}"
+msgstr "{count, plural, one {mengedit # file} other {mengedit # file}}"
+
 msgid "{count, plural, one {Every # day at {time}} other {Every # days at {time}}}"
 msgstr "{count, plural, one {Tiap # hari pukul {time}} other {Tiap # hari pukul {time}}}"
 
@@ -789,14 +784,26 @@ msgstr "{count, plural, one {Tiap # minggu pada {day} pukul {time}} other {Tiap 
 msgid "{count, plural, one {Every # week on {day}} other {Every # weeks on {day}}}"
 msgstr "{count, plural, one {Tiap # minggu pada {day}} other {Tiap # minggu pada {day}}}"
 
+msgid "{count, plural, one {fetched # page} other {fetched # pages}}"
+msgstr "{count, plural, one {mengambil # halaman} other {mengambil # halaman}}"
+
 msgid "{count, plural, one {Import # worktree} other {Import # worktrees}}"
 msgstr "{count, plural, one {Impor # worktree} other {Impor # worktree}}"
 
 msgid "{count, plural, one {Project opened} other {# projects opened}}"
 msgstr "{count, plural, one {Proyek dibuka} other {# proyek dibuka}}"
 
+msgid "{count, plural, one {ran # command} other {ran # commands}}"
+msgstr "{count, plural, one {menjalankan # perintah} other {menjalankan # perintah}}"
+
+msgid "{count, plural, one {read # file} other {read # files}}"
+msgstr "{count, plural, one {membaca # file} other {membaca # file}}"
+
 msgid "{count, plural, one {Used # source} other {Used # sources}}"
 msgstr "{count, plural, one {Memakai # sumber} other {Memakai # sumber}}"
+
+msgid "{count, plural, one {used # tool} other {used # tools}}"
+msgstr "{count, plural, one {menggunakan # alat} other {menggunakan # alat}}"
 
 msgid "{count} GitHub stars"
 msgstr "{count} star GitHub"
@@ -2338,6 +2345,12 @@ msgstr "Lamar"
 msgid "Approve"
 msgstr "Setujui"
 
+msgid "Approve edits"
+msgstr "Setujui suntingan"
+
+msgid "Approve for me"
+msgstr "Setujui untuk saya"
+
 msgid "Approved"
 msgstr "Disetujui"
 
@@ -2416,8 +2429,17 @@ msgstr "menaik"
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "Minta agen untuk memublikasikan satu dari aplikasi desktop."
 
+msgid "Ask before editing files or running commands"
+msgstr "Tanya sebelum mengedit file atau menjalankan perintah"
+
+msgid "Ask for approval"
+msgstr "Minta persetujuan"
+
 msgid "Ask for this to be removed"
 msgstr "Minta ini dihapus"
+
+msgid "Ask only for actions that look risky"
+msgstr "Tanya hanya untuk tindakan yang tampak berisiko"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "Tanya agen, @sebut berkas, jalankan /perintah"
@@ -3436,9 +3458,6 @@ msgstr "Pilih direktori induk"
 msgid "Choose a project from GitHub issues before opening an issue."
 msgstr "Pilih proyek dari issue GitHub sebelum membuka sebuah issue."
 
-msgid "Choose a project from Pull requests before opening a pull request."
-msgstr "Pilih proyek dari Pull request sebelum membuka pull request."
-
 msgid "Choose a section."
 msgstr "Pilih sebuah bagian."
 
@@ -3492,6 +3511,9 @@ msgstr "Bereskan TODO yang basi…"
 
 msgid "Cleaner, denser sidebar"
 msgstr "Sidebar lebih bersih dan padat"
+
+msgid "Clear all"
+msgstr "Hapus semua"
 
 msgid "Clear browsing data"
 msgstr "Bersihkan data penjelajahan"
@@ -3831,9 +3853,6 @@ msgstr "Blok kode"
 
 msgid "Code Block"
 msgstr "Blok Kode"
-
-msgid "Code isn't available — this workspace's project doesn't have this pull request's repository."
-msgstr "Kode tidak tersedia — proyek workspace ini tidak memiliki repositori pull request ini."
 
 msgid "Cohort"
 msgstr "Kohor"
@@ -4418,6 +4437,9 @@ msgstr "Salin Nama Branch"
 msgid "Copy browsing history and logins from Chrome, Brave, Arc, or another Chromium browser into Superset."
 msgstr "Salin riwayat penjelajahan dan login dari Chrome, Brave, Arc, atau browser Chromium lain ke Superset."
 
+msgid "Copy code"
+msgstr "Salin kode"
+
 msgid "Copy Code"
 msgstr "Salin Kode"
 
@@ -4963,6 +4985,9 @@ msgstr "Tidak bisa meng-unstage file"
 msgid "Couldn't update pull request"
 msgstr "Tidak bisa memperbarui pull request"
 
+msgid "Couldn't update the queue"
+msgstr "Tidak dapat memperbarui antrean"
+
 msgid "Couldn't update thread"
 msgstr "Tidak bisa memperbarui thread"
 
@@ -5114,6 +5139,10 @@ msgstr "dibuat"
 msgid "Created"
 msgstr "Dibuat"
 
+msgctxt "file change"
+msgid "Created"
+msgstr "Dibuat"
+
 msgctxt "github release action"
 msgid "Created"
 msgstr "Dibuat"
@@ -5167,6 +5196,10 @@ msgstr "Membuat tim \"{trimmedName}\""
 msgid "creating"
 msgstr "membuat"
 
+msgid "Creating"
+msgstr "Membuat"
+
+msgctxt "file change"
 msgid "Creating"
 msgstr "Membuat"
 
@@ -5538,6 +5571,10 @@ msgstr "Hapus workspace \"{workspaceName}\"?"
 msgid "Deleted"
 msgstr "Dihapus"
 
+msgctxt "file change"
+msgid "Deleted"
+msgstr "Dihapus"
+
 msgctxt "github release action"
 msgid "Deleted"
 msgstr "Dihapus"
@@ -5587,6 +5624,10 @@ msgstr "Menghapus profil {0}, sesi masuknya yang tersimpan di mesin ini, dan riw
 
 msgid "Deletes this host, its access, and its workspaces. Files on the machine stay."
 msgstr "Menghapus host ini, aksesnya, dan workspace-nya. File di mesin itu tetap ada."
+
+msgctxt "file change"
+msgid "Deleting"
+msgstr "Menghapus"
 
 #. placeholder {0}: Math.min(completed + 1, total)
 #. placeholder {1}: targets.length
@@ -6155,6 +6196,9 @@ msgstr "Edit deskripsi"
 msgid "Edit environment"
 msgstr "Edit environment"
 
+msgid "Edit files without asking; ask before commands"
+msgstr "Edit file tanpa bertanya; tanya sebelum perintah"
+
 msgid "Edit name"
 msgstr "Edit nama"
 
@@ -6176,6 +6220,10 @@ msgstr "Edit komentar Anda…"
 msgid "Edited"
 msgstr "Diedit"
 
+msgctxt "file change"
+msgid "Edited"
+msgstr "Diedit"
+
 msgctxt "github release action"
 msgid "Edited"
 msgstr "Diedit"
@@ -6185,6 +6233,10 @@ msgstr "Diedit {ago}"
 
 msgid "Editing"
 msgstr "Pengeditan"
+
+msgctxt "file change"
+msgid "Editing"
+msgstr "Mengedit"
 
 msgid "Editing file..."
 msgstr "Mengedit file..."
@@ -7457,6 +7509,9 @@ msgstr "Front matter disembunyikan — beralih ke Markdown untuk mengeditnya"
 msgid "Front matter hidden — switch to the Markdown view to edit it"
 msgstr "Front matter disembunyikan — beralih ke tampilan Markdown untuk mengeditnya"
 
+msgid "Full access"
+msgstr "Akses penuh"
+
 msgid "Full changelog →"
 msgstr "Changelog lengkap →"
 
@@ -7788,9 +7843,6 @@ msgstr "Sembunyikan"
 msgid "Hide checks"
 msgstr "Sembunyikan check"
 
-msgid "Hide detail"
-msgstr "Sembunyikan detail"
-
 msgid "Hide details"
 msgstr "Sembunyikan detail"
 
@@ -7984,6 +8036,9 @@ msgstr "Seberapa banyak pekerjaan agen yang benar-benar dijalankan engineer — 
 
 msgid "How people reach superset.sh and the docs, and how much of it is search and assistants rather than the brand."
 msgstr "Bagaimana orang mencapai superset.sh dan dokumentasi, dan seberapa banyak yang berasal dari pencarian dan asisten alih-alih merek."
+
+msgid "How should the agent's actions be approved?"
+msgstr "Bagaimana tindakan agen harus disetujui?"
 
 msgid "How the command opens."
 msgstr "Bagaimana perintahnya dibuka."
@@ -12417,9 +12472,6 @@ msgstr "Pull request #{0}, {1}"
 msgid "Pull request actions"
 msgstr "Aksi pull request"
 
-msgid "Pull request not found."
-msgstr "Pull request tidak ditemukan."
-
 msgid "Pull request title"
 msgstr "Judul pull request"
 
@@ -12469,6 +12521,9 @@ msgstr "Pertanyaan"
 
 msgid "Questions, feedback, support, or anything else. Send a note and we'll route it to the right person."
 msgstr "Pertanyaan, masukan, dukungan, atau apa pun. Kirim pesan dan kami akan meneruskannya ke orang yang tepat."
+
+msgid "Queue paused because you interrupted"
+msgstr "Antrean dijeda karena Anda menginterupsi"
 
 msgid "Queue work for agents"
 msgstr "Antrekan pekerjaan untuk agen"
@@ -12575,6 +12630,15 @@ msgstr "Mengaktifkan kembali…"
 
 msgid "Read"
 msgstr "Dibaca"
+
+msgid "Read and plan without changing anything"
+msgstr "Baca dan rencanakan tanpa mengubah apa pun"
+
+msgid "Read files; ask for anything else"
+msgstr "Baca file; tanya untuk hal lainnya"
+
+msgid "Read only"
+msgstr "Hanya baca"
 
 msgid "Read the changelog"
 msgstr "Baca changelog"
@@ -12865,6 +12929,9 @@ msgstr "Hapus mention {path}"
 
 msgid "Remove PR Link"
 msgstr "Hapus Tautan PR"
+
+msgid "Remove queued message"
+msgstr "Hapus pesan dari antrean"
 
 msgid "Remove script"
 msgstr "Hapus skrip"
@@ -14443,9 +14510,6 @@ msgstr "Tampilkan yang ditutup"
 msgid "Show CPU and memory usage in the top bar"
 msgstr "Tampilkan penggunaan CPU dan memori di bilah atas"
 
-msgid "Show detail"
-msgstr "Tampilkan detail"
-
 msgid "Show details"
 msgstr "Tampilkan detail"
 
@@ -15171,6 +15235,9 @@ msgstr "Status berubah"
 msgid "Stay connected (refresh tokens)"
 msgstr "Tetap terhubung (refresh token)"
 
+msgid "Steer"
+msgstr "Arahkan"
+
 #. placeholder {0}: step === "workspace" ? 1 : 2
 msgid "Step {0} of 2"
 msgstr "Langkah {0} dari 2"
@@ -15206,6 +15273,9 @@ msgstr "Hentikan respons"
 
 msgid "Stop Superset here to delete from another device."
 msgstr "Hentikan Superset di sini untuk menghapus dari perangkat lain."
+
+msgid "Stop the agent and send this now"
+msgstr "Hentikan agen dan kirim sekarang"
 
 msgid "Stop watching"
 msgstr "Berhenti memantau"
@@ -16886,9 +16956,11 @@ msgstr "Tunnel tersambung"
 msgid "Turn chores into scheduled agents: issue triage, changelog drafts, dependency bumps. They run on their own and open PRs for you to review."
 msgstr "Ubah pekerjaan rutin jadi agen terjadwal: triase issue, draf changelog, pembaruan dependensi. Semuanya berjalan sendiri dan membuka PR untuk Anda review."
 
-#. placeholder {0}: group.turn.error ? `: ${group.turn.error.message}` : ""
-msgid "Turn failed{0}"
-msgstr "Giliran gagal{0}"
+msgid "Turn failed"
+msgstr "Giliran gagal"
+
+msgid "Turn failed: {message}"
+msgstr "Giliran gagal: {message}"
 
 msgid "Turn on “Allow remote access to this device via relay”"
 msgstr "Aktifkan “Izinkan akses jarak jauh ke perangkat ini melalui relay”"
@@ -17140,6 +17212,9 @@ msgstr "Buka lagi"
 
 msgid "Unresolved"
 msgstr "Belum selesai"
+
+msgid "Unrestricted access to the internet and any file on your computer"
+msgstr "Akses tanpa batas ke internet dan semua file di komputer Anda"
 
 msgid "Unsaved changes"
 msgstr "Perubahan belum disimpan"

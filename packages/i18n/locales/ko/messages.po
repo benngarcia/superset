@@ -241,18 +241,10 @@ msgstr "{0, plural, one {작업 #개} other {작업 #개}}"
 msgid "{0, plural, one {# terminal running} other {# terminals running}}"
 msgstr "{0, plural, other {터미널 #개 실행 중}}"
 
-#. placeholder {0}: entry.items.length
-msgid "{0, plural, one {# tool call} other {# tool calls}}"
-msgstr "{0, plural, one {도구 호출 #건} other {도구 호출 #건}}"
-
 #. placeholder {0}: group.workspaceCount
 #. placeholder {0}: selectedWorkspaces.length
 msgid "{0, plural, one {# workspace} other {# workspaces}}"
 msgstr "{0, plural, one {워크스페이스 #개} other {워크스페이스 #개}}"
-
-#. placeholder {0}: tail.hidden
-msgid "{0, plural, one {+# more line} other {+# more lines}}"
-msgstr "{0, plural, other {+#줄 더}}"
 
 #. placeholder {0}: shown?.count ?? 0
 msgid "{0, plural, one {A running agent still uses the previous account — the switch only reaches new launches.} other {# running agents still use the previous account — the switch only reaches new launches.}}"
@@ -771,6 +763,9 @@ msgstr "{count, plural, one {워크스페이스 #개를 만들었습니다} othe
 msgid "{count, plural, one {Delete # Workspace} other {Delete # Workspaces}}"
 msgstr "{count, plural, one {워크스페이스 #개 삭제} other {워크스페이스 #개 삭제}}"
 
+msgid "{count, plural, one {edited # file} other {edited # files}}"
+msgstr "{count, plural, one {파일 #개 편집} other {파일 #개 편집}}"
+
 msgid "{count, plural, one {Every # day at {time}} other {Every # days at {time}}}"
 msgstr "{count, plural, one {#일마다 {time}} other {#일마다 {time}}}"
 
@@ -789,14 +784,26 @@ msgstr "{count, plural, one {#주마다 {day} {time}} other {#주마다 {day} {t
 msgid "{count, plural, one {Every # week on {day}} other {Every # weeks on {day}}}"
 msgstr "{count, plural, one {#주마다 {day}} other {#주마다 {day}}}"
 
+msgid "{count, plural, one {fetched # page} other {fetched # pages}}"
+msgstr "{count, plural, one {페이지 #개 가져옴} other {페이지 #개 가져옴}}"
+
 msgid "{count, plural, one {Import # worktree} other {Import # worktrees}}"
 msgstr "{count, plural, one {worktree #개 가져오기} other {worktree #개 가져오기}}"
 
 msgid "{count, plural, one {Project opened} other {# projects opened}}"
 msgstr "{count, plural, one {프로젝트 #개를 열었습니다} other {프로젝트 #개를 열었습니다}}"
 
+msgid "{count, plural, one {ran # command} other {ran # commands}}"
+msgstr "{count, plural, one {명령 #개 실행} other {명령 #개 실행}}"
+
+msgid "{count, plural, one {read # file} other {read # files}}"
+msgstr "{count, plural, one {파일 #개 읽음} other {파일 #개 읽음}}"
+
 msgid "{count, plural, one {Used # source} other {Used # sources}}"
 msgstr "{count, plural, one {출처 #개 사용} other {출처 #개 사용}}"
+
+msgid "{count, plural, one {used # tool} other {used # tools}}"
+msgstr "{count, plural, one {도구 #개 사용} other {도구 #개 사용}}"
 
 msgid "{count} GitHub stars"
 msgstr "GitHub 스타 {count}개"
@@ -2338,6 +2345,12 @@ msgstr "지원"
 msgid "Approve"
 msgstr "승인"
 
+msgid "Approve edits"
+msgstr "편집 승인"
+
+msgid "Approve for me"
+msgstr "대신 승인"
+
 msgid "Approved"
 msgstr "승인됨"
 
@@ -2416,8 +2429,17 @@ msgstr "오름차순"
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "데스크톱 앱에서 에이전트에게 게시를 요청하세요."
 
+msgid "Ask before editing files or running commands"
+msgstr "파일 편집이나 명령 실행 전에 확인"
+
+msgid "Ask for approval"
+msgstr "승인 요청"
+
 msgid "Ask for this to be removed"
 msgstr "삭제 요청"
+
+msgid "Ask only for actions that look risky"
+msgstr "위험해 보이는 작업만 확인"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "에이전트에게 요청하고, @로 파일을 언급하고, /명령을 실행하세요"
@@ -3436,9 +3458,6 @@ msgstr "상위 디렉터리 선택"
 msgid "Choose a project from GitHub issues before opening an issue."
 msgstr "이슈를 열기 전에 GitHub 이슈 화면에서 프로젝트를 선택하세요."
 
-msgid "Choose a project from Pull requests before opening a pull request."
-msgstr "풀 리퀘스트를 열기 전에 풀 리퀘스트 화면에서 프로젝트를 선택하세요."
-
 msgid "Choose a section."
 msgstr "섹션을 선택하세요."
 
@@ -3492,6 +3511,9 @@ msgstr "오래된 TODO 정리…"
 
 msgid "Cleaner, denser sidebar"
 msgstr "더 깔끔하고 촘촘한 사이드바"
+
+msgid "Clear all"
+msgstr "모두 지우기"
 
 msgid "Clear browsing data"
 msgstr "인터넷 사용 기록 삭제"
@@ -3831,9 +3853,6 @@ msgstr "코드 블록"
 
 msgid "Code Block"
 msgstr "코드 블록"
-
-msgid "Code isn't available — this workspace's project doesn't have this pull request's repository."
-msgstr "코드를 사용할 수 없습니다 — 이 워크스페이스의 프로젝트에 이 풀 리퀘스트의 리포지토리가 없습니다."
 
 msgid "Cohort"
 msgstr "코호트"
@@ -4418,6 +4437,9 @@ msgstr "브랜치 이름 복사"
 msgid "Copy browsing history and logins from Chrome, Brave, Arc, or another Chromium browser into Superset."
 msgstr "Chrome, Brave, Arc 등 Chromium 브라우저의 방문 기록과 로그인 정보를 Superset으로 복사합니다."
 
+msgid "Copy code"
+msgstr "코드 복사"
+
 msgid "Copy Code"
 msgstr "코드 복사"
 
@@ -4963,6 +4985,9 @@ msgstr "파일 스테이징을 해제하지 못했습니다"
 msgid "Couldn't update pull request"
 msgstr "풀 리퀘스트를 업데이트하지 못했습니다"
 
+msgid "Couldn't update the queue"
+msgstr "대기열을 업데이트할 수 없습니다"
+
 msgid "Couldn't update thread"
 msgstr "스레드를 업데이트하지 못했습니다"
 
@@ -5114,6 +5139,10 @@ msgstr "생성됨"
 msgid "Created"
 msgstr "생성됨"
 
+msgctxt "file change"
+msgid "Created"
+msgstr "만듦"
+
 msgctxt "github release action"
 msgid "Created"
 msgstr "생성됨"
@@ -5167,6 +5196,10 @@ msgstr "\"{trimmedName}\" 팀을 만들었습니다"
 msgid "creating"
 msgstr "생성 중"
 
+msgid "Creating"
+msgstr "만드는 중"
+
+msgctxt "file change"
 msgid "Creating"
 msgstr "만드는 중"
 
@@ -5538,6 +5571,10 @@ msgstr "워크스페이스 \"{workspaceName}\"을(를) 삭제할까요?"
 msgid "Deleted"
 msgstr "삭제됨"
 
+msgctxt "file change"
+msgid "Deleted"
+msgstr "삭제함"
+
 msgctxt "github release action"
 msgid "Deleted"
 msgstr "삭제됨"
@@ -5587,6 +5624,10 @@ msgstr "이 머신에서 {0} 프로필, 저장된 로그인, 로컬 Codex 세션
 
 msgid "Deletes this host, its access, and its workspaces. Files on the machine stay."
 msgstr "이 호스트와 그 접근 권한, 워크스페이스를 삭제합니다. 컴퓨터의 파일은 그대로 남습니다."
+
+msgctxt "file change"
+msgid "Deleting"
+msgstr "삭제 중"
 
 #. placeholder {0}: Math.min(completed + 1, total)
 #. placeholder {1}: targets.length
@@ -6155,6 +6196,9 @@ msgstr "설명 편집"
 msgid "Edit environment"
 msgstr "환경 편집"
 
+msgid "Edit files without asking; ask before commands"
+msgstr "파일은 묻지 않고 편집하고 명령 전에는 확인"
+
 msgid "Edit name"
 msgstr "이름 수정"
 
@@ -6176,6 +6220,10 @@ msgstr "댓글 수정…"
 msgid "Edited"
 msgstr "수정됨"
 
+msgctxt "file change"
+msgid "Edited"
+msgstr "편집함"
+
 msgctxt "github release action"
 msgid "Edited"
 msgstr "편집됨"
@@ -6185,6 +6233,10 @@ msgstr "{ago} 편집됨"
 
 msgid "Editing"
 msgstr "편집"
+
+msgctxt "file change"
+msgid "Editing"
+msgstr "편집 중"
 
 msgid "Editing file..."
 msgstr "파일 수정 중..."
@@ -7457,6 +7509,9 @@ msgstr "프런트매터 숨김 — 편집하려면 Markdown으로 전환하세�
 msgid "Front matter hidden — switch to the Markdown view to edit it"
 msgstr "front matter 숨김 — 편집하려면 Markdown 보기로 전환하세요"
 
+msgid "Full access"
+msgstr "전체 액세스"
+
 msgid "Full changelog →"
 msgstr "전체 변경 로그 →"
 
@@ -7788,9 +7843,6 @@ msgstr "숨기기"
 msgid "Hide checks"
 msgstr "검사 숨기기"
 
-msgid "Hide detail"
-msgstr "세부 정보 숨기기"
-
 msgid "Hide details"
 msgstr "상세 정보 숨기기"
 
@@ -7984,6 +8036,9 @@ msgstr "엔지니어들이 실제로 돌리는 에이전트 작업량 — 참여
 
 msgid "How people reach superset.sh and the docs, and how much of it is search and assistants rather than the brand."
 msgstr "사람들이 superset.sh와 문서에 어떻게 도달하는지, 그중 브랜드가 아닌 검색과 어시스턴트 비중은 얼마인지."
+
+msgid "How should the agent's actions be approved?"
+msgstr "에이전트의 작업을 어떻게 승인할까요?"
 
 msgid "How the command opens."
 msgstr "명령이 열리는 방식입니다."
@@ -12417,9 +12472,6 @@ msgstr "풀 리퀘스트 #{0}, {1}"
 msgid "Pull request actions"
 msgstr "풀 리퀘스트 작업"
 
-msgid "Pull request not found."
-msgstr "풀 리퀘스트를 찾을 수 없습니다."
-
 msgid "Pull request title"
 msgstr "풀 리퀘스트 제목"
 
@@ -12469,6 +12521,9 @@ msgstr "질문"
 
 msgid "Questions, feedback, support, or anything else. Send a note and we'll route it to the right person."
 msgstr "질문, 피드백, 지원 등 무엇이든 좋습니다. 메시지를 보내 주시면 담당자에게 전달하겠습니다."
+
+msgid "Queue paused because you interrupted"
+msgstr "중단했기 때문에 대기열이 일시 중지되었습니다"
 
 msgid "Queue work for agents"
 msgstr "에이전트 작업 대기열에 추가"
@@ -12575,6 +12630,15 @@ msgstr "다시 활성화하는 중…"
 
 msgid "Read"
 msgstr "읽음"
+
+msgid "Read and plan without changing anything"
+msgstr "아무것도 변경하지 않고 읽고 계획만"
+
+msgid "Read files; ask for anything else"
+msgstr "파일을 읽고 그 외에는 확인"
+
+msgid "Read only"
+msgstr "읽기 전용"
 
 msgid "Read the changelog"
 msgstr "변경 로그 읽기"
@@ -12865,6 +12929,9 @@ msgstr "{path} 멘션 제거"
 
 msgid "Remove PR Link"
 msgstr "PR 링크 제거"
+
+msgid "Remove queued message"
+msgstr "대기 중인 메시지 삭제"
 
 msgid "Remove script"
 msgstr "스크립트 제거"
@@ -14443,9 +14510,6 @@ msgstr "닫힌 항목 표시"
 msgid "Show CPU and memory usage in the top bar"
 msgstr "상단 바에 CPU와 메모리 사용량을 표시합니다"
 
-msgid "Show detail"
-msgstr "세부 정보 표시"
-
 msgid "Show details"
 msgstr "상세 정보 보기"
 
@@ -15171,6 +15235,9 @@ msgstr "상태 변경됨"
 msgid "Stay connected (refresh tokens)"
 msgstr "연결 유지 (리프레시 토큰)"
 
+msgid "Steer"
+msgstr "방향 전환"
+
 #. placeholder {0}: step === "workspace" ? 1 : 2
 msgid "Step {0} of 2"
 msgstr "2단계 중 {0}단계"
@@ -15206,6 +15273,9 @@ msgstr "응답 중지"
 
 msgid "Stop Superset here to delete from another device."
 msgstr "다른 기기에서 삭제하려면 여기에서 Superset을 종료하세요."
+
+msgid "Stop the agent and send this now"
+msgstr "에이전트를 중지하고 지금 보내기"
 
 msgid "Stop watching"
 msgstr "감시 중지"
@@ -16886,9 +16956,11 @@ msgstr "터널 연결됨"
 msgid "Turn chores into scheduled agents: issue triage, changelog drafts, dependency bumps. They run on their own and open PRs for you to review."
 msgstr "반복 업무를 예약된 에이전트로 바꾸세요. 이슈 분류, 변경 로그 초안, 의존성 업데이트를 알아서 실행하고 리뷰할 PR을 열어 줍니다."
 
-#. placeholder {0}: group.turn.error ? `: ${group.turn.error.message}` : ""
-msgid "Turn failed{0}"
-msgstr "턴 실패{0}"
+msgid "Turn failed"
+msgstr "턴 실패"
+
+msgid "Turn failed: {message}"
+msgstr "턴 실패: {message}"
 
 msgid "Turn on “Allow remote access to this device via relay”"
 msgstr "“릴레이를 통해 이 기기에 원격 액세스 허용” 켜기"
@@ -17140,6 +17212,9 @@ msgstr "해결 취소"
 
 msgid "Unresolved"
 msgstr "미해결"
+
+msgid "Unrestricted access to the internet and any file on your computer"
+msgstr "인터넷과 컴퓨터의 모든 파일에 대한 무제한 액세스"
 
 msgid "Unsaved changes"
 msgstr "저장하지 않은 변경 사항"

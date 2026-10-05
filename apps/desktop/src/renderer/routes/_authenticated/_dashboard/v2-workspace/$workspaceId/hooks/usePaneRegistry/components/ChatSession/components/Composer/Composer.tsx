@@ -3,24 +3,25 @@ import type {
 	AvailableCommand,
 	SessionConfigOption,
 	UserContent,
+	UserMessage,
 } from "@superset/chat/protocol";
 import type {
 	ComposerMentionEntry,
 	ComposerMentionProvider,
 	PromptInputCommand,
+	PromptInputHandle,
 } from "@superset/chat-ui/PromptInput";
-import { PromptInput } from "@superset/chat-ui/PromptInput";
-import { errorMessage } from "@superset/i18n/errors";
-import { toast } from "@superset/ui/sonner";
+import { cn } from "@superset/ui/utils";
 import { workspaceTrpc } from "@superset/workspace-client";
-import { useCallback, useMemo, useRef } from "react";
-import { useIsDarkTheme } from "renderer/assets/app-icons/preset-icons";
-import { getPluginIconUrl, PluginIcon } from "renderer/components/PluginIcon";
-import { pluginMentionText } from "renderer/components/PluginMention";
-import { usePluginMentionOptions } from "renderer/hooks/usePluginMentionOptions";
+import { memo, useCallback, useMemo, useRef } from "react";
+import { AgentComposer } from "renderer/routes/_authenticated/components/AgentComposer";
+import { CHAT_COLUMN_CLASSNAME, CHAT_GUTTER_CLASSNAME } from "../../constants";
 import { ModelPicker } from "./components/ModelPicker";
-
-const DRAFT_DEBOUNCE_MS = 300;
+import { ModePicker, type SessionMode } from "./components/ModePicker";
+import { QueuedPrompts } from "./components/QueuedPrompts";
+import { useComposerDraft } from "./hooks/useComposerDraft";
+import { useQueueActions } from "./hooks/useQueueActions";
+import { useUploadAttachments } from "./hooks/useUploadAttachments";
 
 export type ComposerProps = {
 	workspaceId: string;
@@ -28,10 +29,21 @@ export type ComposerProps = {
 	availableCommands: AvailableCommand[];
 	configOptions?: SessionConfigOption[];
 	onSetConfigOption?: (configId: string, value: string) => unknown;
+	modes?: SessionMode[];
+	currentModeId?: string;
+	onSetMode?: (modeId: string) => void;
 	onSend: (content: UserContent[]) => unknown;
 	placeholder?: string;
 	disabled?: boolean;
 	onCancelTurn?: (() => void) | null;
+	promptQueue?: {
+		prompts: UserMessage[];
+		paused: boolean;
+		actionable: boolean;
+		remove: (itemId: string) => Promise<void>;
+		resume: () => Promise<void>;
+		steer: (itemId: string) => Promise<void>;
+	};
 };
 
 /**
@@ -52,44 +64,27 @@ function toMenuCommands(commands: AvailableCommand[]): PromptInputCommand[] {
 	}));
 }
 
-export function Composer({
+export const Composer = memo(function Composer({
 	availableCommands,
 	configOptions,
+	currentModeId,
+	modes,
 	onSetConfigOption,
+	onSetMode,
 	disabled,
 	draftKey,
 	onCancelTurn,
 	onSend,
 	placeholder,
+	promptQueue,
 	workspaceId,
 }: ComposerProps) {
 	const { t } = useLingui();
 	const trpcUtils = workspaceTrpc.useUtils();
-	const uploadAttachment = workspaceTrpc.attachments.upload.useMutation();
-	const pluginMentions = usePluginMentionOptions();
-	const isDark = useIsDarkTheme();
-	const pluginEntries = useMemo(
-		() =>
-			pluginMentions.map(
-				(plugin): ComposerMentionEntry => ({
-					id: `plugin:${plugin.name}`,
-					label: plugin.displayName,
-					description: plugin.description,
-					icon: (
-						<PluginIcon pluginName={plugin.name} className="size-4 rounded" />
-					),
-					keywords: [plugin.name, plugin.description],
-					select: (ctx) =>
-						ctx.insertChip({
-							label: plugin.displayName,
-							serialized: pluginMentionText(plugin.name),
-							iconUrl: getPluginIconUrl(plugin.name, isDark),
-						}),
-				}),
-			),
-		[isDark, pluginMentions],
-	);
-
+	const uploadAttachments = useUploadAttachments();
+	const { storedDraft, onChange, clearDraft } = useComposerDraft(draftKey);
+	const promptInputRef = useRef<PromptInputHandle>(null);
+	const queueActions = useQueueActions(promptQueue, promptInputRef);
 	const searchFiles = useCallback(
 		async (query: string) => {
 			const { matches } = await trpcUtils.filesystem.searchFiles.fetch({
@@ -118,12 +113,6 @@ export function Composer({
 	const mentionProviders = useMemo<ComposerMentionProvider[]>(
 		() => [
 			{
-				id: "plugins",
-				title: t({ message: "Plugins" }),
-				priority: 0,
-				source: { kind: "static", load: () => pluginEntries },
-			},
-			{
 				id: "files",
 				title: t({ message: "Files" }),
 				priority: 1,
@@ -134,7 +123,7 @@ export function Composer({
 				},
 			},
 		],
-		[pluginEntries, searchFiles, t],
+		[searchFiles, t],
 	);
 
 	const commands = useMemo(
@@ -142,72 +131,58 @@ export function Composer({
 		[availableCommands],
 	);
 
-	// Debounced so a draft costs one write per pause rather than one per
-	// keystroke; the last value is flushed when the pane goes away.
-	const draftTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-	const onChange = useCallback(
-		(text: string) => {
-			if (draftTimer.current) clearTimeout(draftTimer.current);
-			draftTimer.current = setTimeout(() => {
-				if (text === "") window.localStorage.removeItem(draftKey);
-				else window.localStorage.setItem(draftKey, text);
-			}, DRAFT_DEBOUNCE_MS);
-		},
-		[draftKey],
-	);
-
 	const handleSubmit = useCallback(
 		async ({ text, files }: { text: string; files: File[] }) => {
 			if (disabled || (text.trim() === "" && files.length === 0)) return;
-			let attachments: UserContent[];
-			try {
-				attachments = await Promise.all(
-					files.map(async (file) => {
-						const mimeType = file.type || "application/octet-stream";
-						const { attachmentId } = await uploadAttachment.mutateAsync({
-							data: { kind: "base64", data: await fileToBase64(file) },
-							mediaType: mimeType,
-							originalFilename: file.name,
-						});
-						return {
-							type: "attachment" as const,
-							attachmentId,
-							name: file.name,
-							mimeType,
-						};
-					}),
-				);
-			} catch (error) {
-				toast.error(t({ message: "Couldn't attach files" }), {
-					description: errorMessage(error, t({ message: "Unknown error" })),
-				});
-				return;
-			}
+			const attachments = await uploadAttachments(files);
+			if (!attachments) return;
 			onSend([
 				...(text.trim() === "" ? [] : [{ type: "text" as const, text }]),
 				...attachments,
 			]);
-			window.localStorage.removeItem(draftKey);
+			clearDraft();
 		},
-		[disabled, onSend, draftKey, uploadAttachment, t],
+		[disabled, onSend, uploadAttachments, clearDraft],
 	);
 
 	return (
-		<div className="px-6 pt-1 pb-5">
-			<PromptInput
-				className="mx-auto w-full max-w-3xl"
+		<div className={cn(CHAT_GUTTER_CLASSNAME, "pt-1 pb-5")}>
+			{promptQueue && (
+				<div className={CHAT_COLUMN_CLASSNAME}>
+					<QueuedPrompts
+						{...queueActions}
+						actionable={promptQueue.actionable}
+						paused={promptQueue.paused}
+						prompts={promptQueue.prompts}
+					/>
+				</div>
+			)}
+			<AgentComposer
+				className={CHAT_COLUMN_CLASSNAME}
+				clearOnSubmit={!disabled}
 				commands={commands}
-				defaultValue={window.localStorage.getItem(draftKey) ?? undefined}
+				defaultValue={storedDraft}
 				key={draftKey}
 				mentionProviders={mentionProviders}
 				onChange={onChange}
 				onStop={onCancelTurn ?? undefined}
 				onSubmit={handleSubmit}
+				ref={promptInputRef}
 				placeholder={
 					placeholder ??
 					t({ message: "Ask the agent, @mention files, run /commands" })
 				}
 				status={onCancelTurn ? "streaming" : "ready"}
+				submitWhileStreaming={promptQueue !== undefined}
+				toolbar={
+					modes && onSetMode ? (
+						<ModePicker
+							currentModeId={currentModeId}
+							modes={modes}
+							onSelect={onSetMode}
+						/>
+					) : null
+				}
 				toolbarEnd={
 					configOptions && onSetConfigOption ? (
 						<ModelPicker
@@ -219,13 +194,4 @@ export function Composer({
 			/>
 		</div>
 	);
-}
-
-async function fileToBase64(file: File): Promise<string> {
-	const bytes = new Uint8Array(await file.arrayBuffer());
-	let binary = "";
-	for (let i = 0; i < bytes.length; i += 0x8000) {
-		binary += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
-	}
-	return btoa(binary);
-}
+});
