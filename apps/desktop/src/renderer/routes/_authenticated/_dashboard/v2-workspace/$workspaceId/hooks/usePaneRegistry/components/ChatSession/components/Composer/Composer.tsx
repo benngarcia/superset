@@ -13,7 +13,14 @@ import type {
 } from "@superset/chat-ui/PromptInput";
 import { cn } from "@superset/ui/utils";
 import { workspaceTrpc } from "@superset/workspace-client";
-import { memo, useCallback, useEffect, useMemo, useRef } from "react";
+import {
+	memo,
+	type KeyboardEvent as ReactKeyboardEvent,
+	useCallback,
+	useEffect,
+	useMemo,
+	useRef,
+} from "react";
 import { AgentComposer } from "renderer/routes/_authenticated/components/AgentComposer";
 import { CHAT_COLUMN_CLASSNAME, CHAT_GUTTER_CLASSNAME } from "../../constants";
 import { ModelPicker } from "./components/ModelPicker";
@@ -185,13 +192,36 @@ export const Composer = memo(function Composer({
 		[disabled, onSend, uploadAttachments, clearDraft, steerOnArrival],
 	);
 
+	const queueListRef = useRef<HTMLUListElement>(null);
+	const focusQueue = (event: ReactKeyboardEvent<HTMLDivElement>) => {
+		if (event.key !== "Tab" || !event.shiftKey || !promptQueue?.actionable)
+			return;
+		if (
+			!(event.target instanceof HTMLElement) ||
+			!event.target.closest(".prompt-input-editor")
+		)
+			return;
+		const rows =
+			queueListRef.current?.querySelectorAll<HTMLElement>("[data-queue-row]");
+		const newest = rows?.[rows.length - 1];
+		if (!newest) return;
+		event.preventDefault();
+		event.stopPropagation();
+		newest.focus();
+	};
+
 	return (
-		<div className={cn(CHAT_GUTTER_CLASSNAME, "pt-1 pb-5")}>
+		<div
+			className={cn(CHAT_GUTTER_CLASSNAME, "pt-1 pb-5")}
+			onKeyDownCapture={focusQueue}
+		>
 			{promptQueue && (
 				<div className={CHAT_COLUMN_CLASSNAME}>
 					<QueuedPrompts
 						{...queueActions}
 						actionable={promptQueue.actionable}
+						listRef={queueListRef}
+						onExit={() => promptInputRef.current?.focus()}
 						paused={promptQueue.paused}
 						prompts={promptQueue.prompts}
 					/>

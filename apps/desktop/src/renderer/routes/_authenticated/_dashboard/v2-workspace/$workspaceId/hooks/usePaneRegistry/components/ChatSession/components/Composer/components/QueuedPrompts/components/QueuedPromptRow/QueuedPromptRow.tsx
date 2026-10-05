@@ -36,7 +36,12 @@ export function QueuedPromptRow({
 	);
 
 	return (
-		<QueueItem className="flex-row items-center gap-2 pr-2 pl-3">
+		<QueueItem
+			aria-label={text || attachmentNames.join(", ")}
+			className="flex-row items-center gap-2 pr-2 pl-3 outline-none focus-visible:bg-muted focus-visible:ring-1 focus-visible:ring-ring"
+			data-queue-row
+			tabIndex={actionable ? -1 : undefined}
+		>
 			<ListEnd className="size-4 shrink-0 text-muted-foreground" />
 			<QueueItemContent className="min-w-0 truncate text-foreground">
 				{text || attachmentNames.join(", ")}
