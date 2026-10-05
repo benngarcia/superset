@@ -2438,17 +2438,11 @@ msgstr "昇順"
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "デスクトップアプリからエージェントに公開してもらいましょう。"
 
-msgid "Ask before editing files or running commands"
-msgstr "ファイルの編集やコマンドの実行前に確認"
-
 msgid "Ask for approval"
 msgstr "承認を求める"
 
 msgid "Ask for this to be removed"
 msgstr "削除を依頼"
-
-msgid "Ask only for actions that look risky"
-msgstr "危険そうな操作のみ確認"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "エージェントに依頼、@でファイルを指定、/コマンドを実行"
@@ -2467,6 +2461,12 @@ msgstr "変更を依頼"
 
 msgid "Ask to make changes, @mention files, run /commands"
 msgstr "変更を依頼、@でファイルをメンション、/でコマンドを実行"
+
+msgid "Asks before edits and commands"
+msgstr "編集とコマンドの前に確認"
+
+msgid "Asks only for risky actions"
+msgstr "リスクのある操作のみ確認"
 
 msgid "Aspect Ratio"
 msgstr "Aspect Ratio"
@@ -9913,6 +9913,9 @@ msgstr "ネットワークが変更されました"
 msgid "Never"
 msgstr "未使用"
 
+msgid "Never asks before acting"
+msgstr "確認なしで実行"
+
 msgctxt "badge on a page published since the menu was last opened"
 msgid "New"
 msgstr "新着"
@@ -12657,12 +12660,6 @@ msgstr "読み取り"
 
 msgid "Read and plan without changing anything"
 msgstr "何も変更せずに読み取りと計画のみ"
-
-msgid "Read files; ask for anything else"
-msgstr "ファイルを読み取り、それ以外は確認"
-
-msgid "Read only"
-msgstr "読み取り専用"
 
 msgid "Read the changelog"
 msgstr "Changelogを読む"
@@ -17239,9 +17236,6 @@ msgstr "解決を取り消す"
 
 msgid "Unresolved"
 msgstr "未解決"
-
-msgid "Unrestricted access to the internet and any file on your computer"
-msgstr "インターネットとコンピューター上のすべてのファイルへの無制限アクセス"
 
 msgid "Unsaved changes"
 msgstr "未保存の変更"

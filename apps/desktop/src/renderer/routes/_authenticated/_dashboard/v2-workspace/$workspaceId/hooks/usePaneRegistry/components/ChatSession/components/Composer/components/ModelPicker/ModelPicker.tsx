@@ -13,6 +13,10 @@ import { cn } from "@superset/ui/utils";
 import { type KeyboardEvent, useRef, useState } from "react";
 import { LuCheck, LuChevronDown, LuZap } from "react-icons/lu";
 import {
+	getPresetIcon,
+	useIsDarkTheme,
+} from "renderer/assets/app-icons/preset-icons";
+import {
 	MENU_ROW_CLASS,
 	PILL_CHEVRON_CLASS,
 	PILL_TRIGGER_CLASS,
@@ -48,6 +52,10 @@ export function ModelPicker({
 }: ModelPickerProps) {
 	const [open, setOpen] = useState(false);
 	const searchRef = useRef<HTMLInputElement>(null);
+	const isDark = useIsDarkTheme();
+	const agentIcon = agentSwitcher
+		? getPresetIcon(agentSwitcher.currentPresetId, isDark)
+		: undefined;
 	const model = configOptions.find(
 		(option) => option.category === "model" && option.options.length > 0,
 	);
@@ -93,6 +101,13 @@ export function ModelPicker({
 		<DropdownMenu onOpenChange={setOpen} open={open}>
 			<DropdownMenuTrigger asChild>
 				<button className={cn(PILL_TRIGGER_CLASS, "group")} type="button">
+					{agentIcon ? (
+						<img
+							alt=""
+							className="size-3.5 shrink-0 object-contain"
+							src={agentIcon}
+						/>
+					) : null}
 					<span className="truncate">{pillLabel}</span>
 					{effortLabel ? (
 						<span className="shrink-0 text-muted-foreground">
@@ -171,8 +186,17 @@ export function ModelPicker({
 							<span className="min-w-0 flex-1 truncate">
 								<Trans>Model</Trans>
 							</span>
-							<span className="max-w-36 truncate text-muted-foreground">
-								{currentLabel(model) ?? <Trans>Default</Trans>}
+							<span className="flex max-w-36 min-w-0 items-center gap-1 text-muted-foreground">
+								{agentIcon ? (
+									<img
+										alt=""
+										className="size-3.5 shrink-0 object-contain"
+										src={agentIcon}
+									/>
+								) : null}
+								<span className="truncate">
+									{currentLabel(model) ?? <Trans>Default</Trans>}
+								</span>
 							</span>
 						</DropdownMenuSubTrigger>
 						<DropdownMenuSubContent

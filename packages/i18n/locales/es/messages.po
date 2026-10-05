@@ -2438,17 +2438,11 @@ msgstr "ascendente"
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "Pide a un agente que publique una desde la aplicación de escritorio."
 
-msgid "Ask before editing files or running commands"
-msgstr "Preguntar antes de editar archivos o ejecutar comandos"
-
 msgid "Ask for approval"
 msgstr "Pedir aprobación"
 
 msgid "Ask for this to be removed"
 msgstr "Pedir que se elimine"
-
-msgid "Ask only for actions that look risky"
-msgstr "Pedir aprobación solo para las acciones que parezcan arriesgadas"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "Pregunta al agente, @menciona archivos, usa /comandos"
@@ -2467,6 +2461,12 @@ msgstr "Pide que se hagan cambios"
 
 msgid "Ask to make changes, @mention files, run /commands"
 msgstr "Pedir cambios, mencionar archivos con @, ejecutar /comandos"
+
+msgid "Asks before edits and commands"
+msgstr "Pregunta antes de editar o ejecutar"
+
+msgid "Asks only for risky actions"
+msgstr "Pregunta solo en acciones arriesgadas"
 
 msgid "Aspect Ratio"
 msgstr "Relación de aspecto"
@@ -9913,6 +9913,9 @@ msgstr "La red cambió"
 msgid "Never"
 msgstr "Nunca"
 
+msgid "Never asks before acting"
+msgstr "Nunca pregunta antes de actuar"
+
 msgctxt "badge on a page published since the menu was last opened"
 msgid "New"
 msgstr "Nueva"
@@ -12657,12 +12660,6 @@ msgstr "Lectura"
 
 msgid "Read and plan without changing anything"
 msgstr "Leer y planificar sin cambiar nada"
-
-msgid "Read files; ask for anything else"
-msgstr "Leer archivos; pedir permiso para cualquier otra acción"
-
-msgid "Read only"
-msgstr "Solo lectura"
 
 msgid "Read the changelog"
 msgstr "Leer el registro de cambios"
@@ -17239,9 +17236,6 @@ msgstr "Reabrir"
 
 msgid "Unresolved"
 msgstr "Sin resolver"
-
-msgid "Unrestricted access to the internet and any file on your computer"
-msgstr "Acceso sin restricciones a internet y a cualquier archivo de tu ordenador"
 
 msgid "Unsaved changes"
 msgstr "Cambios sin guardar"
