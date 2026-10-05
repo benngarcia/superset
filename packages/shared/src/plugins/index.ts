@@ -139,6 +139,15 @@ function packageFromArgs(args: readonly string[] | undefined): string | null {
 	return null;
 }
 
+function urlPath(value: string): string | null {
+	try {
+		const url = new URL(value);
+		return `${url.hostname}${url.pathname.replace(/\/+$/, "")}`;
+	} catch {
+		return null;
+	}
+}
+
 function externalMatchesConfig(
 	server: ExternalMcpServer,
 	catalogName: string,
@@ -148,7 +157,8 @@ function externalMatchesConfig(
 	if ("url" in config && server.url) {
 		const catalogHost = urlHost(config.url);
 		if (catalogHost !== null && catalogHost === urlHost(server.url)) {
-			return true;
+			if (catalogHost !== urlHost(SUPERSET_API_URL)) return true;
+			if (urlPath(config.url) === urlPath(server.url)) return true;
 		}
 	}
 	if ("command" in config) {
