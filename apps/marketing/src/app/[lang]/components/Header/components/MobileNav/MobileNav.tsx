@@ -43,7 +43,7 @@ export function MobileNav({ ctaButtons, starCounter }: MobileNavProps) {
 			<AnimatePresence>
 				{isOpen && (
 					<m.div
-						className="absolute inset-x-0 top-14 border-t border-border bg-background/95 backdrop-blur-sm"
+						className="absolute inset-x-0 top-16 max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-border bg-background"
 						initial={{ opacity: 0, height: 0 }}
 						animate={{ opacity: 1, height: "auto" }}
 						exit={{ opacity: 0, height: 0 }}

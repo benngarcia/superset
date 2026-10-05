@@ -1,14 +1,17 @@
-const STYLE = "voxel-bot";
+const STYLE = "bottts";
 
 const PARAMS = [
- "scale=1.15",
- "topProbability=100",
- "chestVariant=vents,screen,heart,dial,slot",
- "backgroundColor=17232d,232037,172a25,302219,2b1e2a",
- "bodyColor=7db9d8,c089e8,7bc9a8,e2a36f,d88b9c,9ea6ef",
- "accentColor=3a546b,614c7a,3c685a,815b3c,724756",
- "screenColor=111821",
- "glowColor=7ee7e0,ffcb6b,b5ed83,e7a5ef",
+	"scale=1.05",
+	"headVariant=round01,round02,square01,square02,square03,square04",
+	"eyesVariant=happy,hearts,eva,round,roundFrame01,roundFrame02,bulging",
+	"mouthVariant=smile01,smile02,bite,square01",
+	"topProbability=100",
+	"topVariant=antenna,antennaCrooked,bulb01,horns,radar,lights",
+	"sidesProbability=100",
+	"sidesVariant=antenna01,antenna02,round,square,cables01",
+	"textureProbability=0",
+	"backgroundColor=17232d,232037,172a25,302219,2b1e2a",
+	"baseColor=83c9e8,b7a0ed,89d4af,f4ba80,ee9cb0,f1d77e",
 ].join("&");
 
 export function avatarUrl(handle: string): string {

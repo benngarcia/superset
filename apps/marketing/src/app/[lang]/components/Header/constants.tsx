@@ -21,6 +21,16 @@ export const PRODUCT_LINKS: NavLink[] = [
 		description: <Trans>Run your agents from your phone.</Trans>,
 	},
 	{
+		href: "/leaderboard",
+		label: <Trans>Leaderboard</Trans>,
+		description: (
+			<Trans>
+				See how your agent usage compares. Explore the models behind each
+				profile.
+			</Trans>
+		),
+	},
+	{
 		href: "/changelog",
 		label: <Trans>Changelog</Trans>,
 		description: <Trans>New releases and product updates.</Trans>,
