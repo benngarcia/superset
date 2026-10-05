@@ -12587,9 +12587,6 @@ msgstr "Ícone aleatório"
 msgid "Rank"
 msgstr "Posição"
 
-msgid "rank #{rank} of {total}"
-msgstr "posição {rank} de {total}"
-
 msgid "Rank by"
 msgstr "Classificar por"
 
@@ -18368,8 +18365,8 @@ msgstr "Seu degrau é uma pontuação ponderada dos {0} objetivos medidos para v
 msgid "Your Slack account has been linked to Superset. You can close this tab and return to Slack."
 msgstr "Sua conta do Slack foi vinculada ao Superset. Você pode fechar esta aba e voltar ao Slack."
 
-msgid "Your stats, settled in combat"
-msgstr "Suas estatísticas, resolvidas no combate"
+msgid "Your stats, settled in mortal combat"
+msgstr "Suas estatísticas decidem um combate mortal"
 
 msgid "Your subscription has been activated. You can now access all Pro features."
 msgstr "Sua assinatura foi ativada. Agora você tem acesso a todos os recursos Pro."

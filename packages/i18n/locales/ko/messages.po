@@ -12587,9 +12587,6 @@ msgstr "무작위 아이콘"
 msgid "Rank"
 msgstr "순위"
 
-msgid "rank #{rank} of {total}"
-msgstr "{total}명 중 {rank}위"
-
 msgid "Rank by"
 msgstr "정렬 기준"
 
@@ -18368,8 +18365,8 @@ msgstr "등급은 측정된 {0}개 목표의 가중 점수라서 강한 항목�
 msgid "Your Slack account has been linked to Superset. You can close this tab and return to Slack."
 msgstr "Slack 계정이 Superset에 연결되었습니다. 이 탭을 닫고 Slack으로 돌아가셔도 됩니다."
 
-msgid "Your stats, settled in combat"
-msgstr "당신의 기록으로, 대결로 가리다"
+msgid "Your stats, settled in mortal combat"
+msgstr "당신의 기록, 목숨을 건 대결로 결판내세요"
 
 msgid "Your subscription has been activated. You can now access all Pro features."
 msgstr "구독이 활성화되었습니다. 이제 모든 Pro 기능을 사용할 수 있습니다."

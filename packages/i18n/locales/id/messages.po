@@ -12587,9 +12587,6 @@ msgstr "Ikon acak"
 msgid "Rank"
 msgstr "Peringkat"
 
-msgid "rank #{rank} of {total}"
-msgstr "peringkat #{rank} dari {total}"
-
 msgid "Rank by"
 msgstr "Urutkan berdasarkan"
 
@@ -18368,8 +18365,8 @@ msgstr "Tingkat Anda adalah skor berbobot dari {0} sasaran yang terukur untuk An
 msgid "Your Slack account has been linked to Superset. You can close this tab and return to Slack."
 msgstr "Akun Slack Anda sudah ditautkan ke Superset. Anda bisa menutup tab ini dan kembali ke Slack."
 
-msgid "Your stats, settled in combat"
-msgstr "Statistik Anda, diadu dalam pertarungan"
+msgid "Your stats, settled in mortal combat"
+msgstr "Statistikmu menentukan hasil pertarungan hidup mati"
 
 msgid "Your subscription has been activated. You can now access all Pro features."
 msgstr "Langganan Anda sudah aktif. Sekarang Anda bisa mengakses semua fitur Pro."

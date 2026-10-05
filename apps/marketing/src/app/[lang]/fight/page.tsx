@@ -11,6 +11,7 @@ import { localeUrl, localizedAlternates } from "@/app/[lang]/metadata";
 import { fetchParticipant } from "@/app/[lang]/utils/fetchLeaderboard";
 import { initServerI18n } from "@/app/i18n-server";
 import { FightArena } from "./components/FightArena";
+import { FightWordmark } from "./components/FightWordmark";
 import { HOUSE_FIGHTERS } from "./constants";
 import type { Fighter } from "./utils/simulateFight";
 import { fromParticipant } from "./utils/toFighter";
@@ -66,7 +67,9 @@ export async function generateMetadata({
 					}),
 				)
 			: i18n._(msg({ message: "Super Fights" }));
-	const description = i18n._(msg({ message: "Your stats, settled in combat" }));
+	const description = i18n._(
+		msg({ message: "Your stats, settled in mortal combat" }),
+	);
 
 	return {
 		title,
@@ -95,8 +98,8 @@ export default async function FightPage({ searchParams }: PageProps) {
 		<LeaderboardLayout>
 			<div className="mb-6">
 				<LeaderboardHeader
-					title={<Trans>Super Fights</Trans>}
-					description={<Trans>Your stats, settled in combat</Trans>}
+					title={<FightWordmark />}
+					description={<Trans>Your stats, settled in mortal combat</Trans>}
 					navigation={<LeaderboardBackLink />}
 				/>
 			</div>

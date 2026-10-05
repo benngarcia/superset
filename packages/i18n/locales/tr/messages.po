@@ -12587,9 +12587,6 @@ msgstr "Rastgele simge"
 msgid "Rank"
 msgstr "Sıra"
 
-msgid "rank #{rank} of {total}"
-msgstr "{total} kişi içinde {rank}. sıra"
-
 msgid "Rank by"
 msgstr "Sıralama ölçütü"
 
@@ -18368,8 +18365,8 @@ msgstr "Basamağın, senin için ölçülen {0} hedefin ağırlıklı puanıdır
 msgid "Your Slack account has been linked to Superset. You can close this tab and return to Slack."
 msgstr "Slack hesabınız Superset'e bağlandı. Bu sekmeyi kapatıp Slack'e dönebilirsiniz."
 
-msgid "Your stats, settled in combat"
-msgstr "İstatistiklerin, dövüşte belli olsun"
+msgid "Your stats, settled in mortal combat"
+msgstr "İstatistiklerin ölümüne dövüşte kozlarını paylaşıyor"
 
 msgid "Your subscription has been activated. You can now access all Pro features."
 msgstr "Aboneliğiniz etkinleştirildi. Artık tüm Pro özelliklerine erişebilirsiniz."

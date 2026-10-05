@@ -12587,9 +12587,6 @@ msgstr "Willekeurig pictogram"
 msgid "Rank"
 msgstr "Plek"
 
-msgid "rank #{rank} of {total}"
-msgstr "plaats {rank} van {total}"
-
 msgid "Rank by"
 msgstr "Rangschikken op"
 
@@ -18368,8 +18365,8 @@ msgstr "Je trede is een gewogen score over de {0} doelen die voor jou gemeten zi
 msgid "Your Slack account has been linked to Superset. You can close this tab and return to Slack."
 msgstr "Je Slack-account is gekoppeld aan Superset. Je kunt dit tabblad sluiten en terug naar Slack gaan."
 
-msgid "Your stats, settled in combat"
-msgstr "Jouw statistieken, beslecht in een gevecht"
+msgid "Your stats, settled in mortal combat"
+msgstr "Jouw statistieken beslissen in een gevecht op leven en dood"
 
 msgid "Your subscription has been activated. You can now access all Pro features."
 msgstr "Je abonnement is geactiveerd. Je hebt nu toegang tot alle Pro-functies."

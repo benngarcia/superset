@@ -26,7 +26,7 @@ export function ShareButtons({ url, text }: ShareButtonsProps) {
 	};
 
 	return (
-		<div className="flex flex-wrap items-center justify-center gap-2">
+		<div className="flex flex-wrap items-center justify-start gap-2">
 			<a
 				className={BUTTON}
 				href={`https://x.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`}

@@ -12587,9 +12587,6 @@ msgstr "ランダムなアイコン"
 msgid "Rank"
 msgstr "順位"
 
-msgid "rank #{rank} of {total}"
-msgstr "{total} 人中 {rank} 位"
-
 msgid "Rank by"
 msgstr "ランキングの基準"
 
@@ -18368,8 +18365,8 @@ msgstr "あなたの段位は、計測できた{0}項目の加重スコアです
 msgid "Your Slack account has been linked to Superset. You can close this tab and return to Slack."
 msgstr "SlackアカウントをSupersetに紐付けました。このタブを閉じてSlackに戻れます。"
 
-msgid "Your stats, settled in combat"
-msgstr "あなたの統計で、戦って決着を"
+msgid "Your stats, settled in mortal combat"
+msgstr "君のステータス、決着は死闘で"
 
 msgid "Your subscription has been activated. You can now access all Pro features."
 msgstr "サブスクリプションが有効になりました。すべてのPro機能を利用できます。"

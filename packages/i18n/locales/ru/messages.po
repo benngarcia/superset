@@ -12587,9 +12587,6 @@ msgstr "Случайный значок"
 msgid "Rank"
 msgstr "Место"
 
-msgid "rank #{rank} of {total}"
-msgstr "место {rank} из {total}"
-
 msgid "Rank by"
 msgstr "Ранжировать по"
 
@@ -18368,8 +18365,8 @@ msgstr "Ваша ступень — взвешенная оценка по це�
 msgid "Your Slack account has been linked to Superset. You can close this tab and return to Slack."
 msgstr "Ваш аккаунт Slack связан с Superset. Можно закрыть эту вкладку и вернуться в Slack."
 
-msgid "Your stats, settled in combat"
-msgstr "Ваша статистика, решённая в бою"
+msgid "Your stats, settled in mortal combat"
+msgstr "Твоя статистика решит исход смертельной схватки"
 
 msgid "Your subscription has been activated. You can now access all Pro features."
 msgstr "Ваша подписка активирована. Теперь доступны все возможности Pro."

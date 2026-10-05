@@ -27,7 +27,7 @@ export function ProfileLinks({
 		"inline-flex min-h-11 items-center text-sm text-muted-foreground hover:text-brand transition-colors";
 
 	return (
-		<div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 mt-5">
+		<div className="flex flex-wrap items-center justify-start gap-x-5 gap-y-2 mt-5">
 			{githubHandle && (
 				<a
 					href={`https://github.com/${githubHandle}`}

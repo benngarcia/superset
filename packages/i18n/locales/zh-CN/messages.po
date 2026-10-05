@@ -12587,9 +12587,6 @@ msgstr "随机图标"
 msgid "Rank"
 msgstr "排名"
 
-msgid "rank #{rank} of {total}"
-msgstr "第 {rank} 名，共 {total} 名"
-
 msgid "Rank by"
 msgstr "排序依据"
 
@@ -18368,8 +18365,8 @@ msgstr "你的档位是为你测得的 {0} 项目标的加权得分，强项可�
 msgid "Your Slack account has been linked to Superset. You can close this tab and return to Slack."
 msgstr "你的Slack账户已关联到Superset。你可以关闭这个标签页并返回Slack。"
 
-msgid "Your stats, settled in combat"
-msgstr "用你的数据，在对战中见分晓"
+msgid "Your stats, settled in mortal combat"
+msgstr "用你的数据，在生死对决中一决高下"
 
 msgid "Your subscription has been activated. You can now access all Pro features."
 msgstr "你的订阅已激活。现在可以使用全部Pro功能。"

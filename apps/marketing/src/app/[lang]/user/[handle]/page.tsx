@@ -1,7 +1,6 @@
 import { Trans, useLingui } from "@lingui/react/macro";
 import { COMPANY } from "@superset/shared/constants";
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { connection } from "next/server";
@@ -15,13 +14,10 @@ import {
 	toTokenRows,
 } from "@/app/[lang]/components/ModelBars";
 import { StatStrip } from "@/app/[lang]/components/StatStrip";
-import { tierRgb } from "@/app/[lang]/components/TierBadge";
-import { TierIcon } from "@/app/[lang]/components/TierIcon";
 import { TierObjectives } from "@/app/[lang]/components/TierObjectives";
 import { TierTube } from "@/app/[lang]/components/TierTube";
 import { TokenSplitBar } from "@/app/[lang]/components/TokenSplitBar";
 import { localeUrl, localizedAlternates } from "@/app/[lang]/metadata";
-import { avatarUrl } from "@/app/[lang]/utils/avatarUrl";
 import {
 	dayCount,
 	formatCount,
@@ -31,9 +27,9 @@ import {
 } from "@/app/[lang]/utils/formatUsage";
 import { initServerI18n } from "@/app/i18n-server";
 import { AchievementShelf } from "./components/AchievementShelf";
-import { ProfileLinks } from "./components/ProfileLinks";
+import { ModelMix } from "./components/ModelMix";
+import { ProfileIdentity } from "./components/ProfileIdentity";
 import { ProfileUnavailable } from "./components/ProfileUnavailable";
-import { ShareButtons } from "./components/ShareButtons";
 import { ViewToggle } from "./components/ViewToggle";
 import { loadProfile } from "./utils/loadProfile";
 
@@ -116,154 +112,114 @@ export default async function UserProfilePage({ params }: PageProps) {
 	});
 
 	const tier = profile.factory?.tier ?? 0;
-	const tint = tier >= 1 ? tierRgb(tier) : undefined;
 
 	return (
-		<LeaderboardLayout compact>
+		<LeaderboardLayout>
 			<div className="flex flex-wrap items-center justify-between gap-3 mb-6">
 				<LeaderboardBackLink />
 				<ViewToggle handle={profileHandle} />
 			</div>
 
-			<header className="text-center">
-				<div className="relative mx-auto w-fit">
-					<Image
-						src={avatarUrl(profile.handle)}
-						alt=""
-						width={72}
-						height={72}
-						unoptimized
-						className="size-18 rounded-[2px] bg-foreground/[0.04] [image-rendering:pixelated]"
-						style={
-							tint
-								? {
-										boxShadow: `0 0 0 1px rgba(${tint},0.45), 0 0 28px rgba(${tint},0.22)`,
-									}
-								: undefined
-						}
+			<div className="grid items-start gap-8 lg:grid-cols-[240px_minmax(0,1fr)]">
+				<ProfileIdentity
+					profile={profile}
+					shareUrl={shareUrl}
+					shareText={shareText}
+				/>
+				<div className="min-w-0 space-y-6">
+					<StatStrip
+						stats={[
+							{
+								label: t({
+									message: "Tokens",
+								}),
+								value: tokens,
+								hint: t({
+									message: "all time",
+								}),
+							},
+							{
+								label: t({
+									message: "Cost",
+								}),
+								value: formatUsd(profile.allTime.usd, locale),
+								hint: t({
+									message: "API-equivalent",
+								}),
+							},
+							{
+								label: t({
+									message: "Rank",
+								}),
+								value: `#${rank}`,
+								hint: t({
+									message: `of ${total}`,
+								}),
+							},
+							{
+								label: t({
+									message: "Tracking",
+								}),
+
+								value: profile.dayRange
+									? t({
+											message: `${days}d`,
+										})
+									: "—",
+								hint: profile.dayRange
+									? formatDayRange(profile.dayRange, locale)
+									: undefined,
+							},
+						]}
 					/>
-					{tier >= 1 && (
-						<span
-							className="absolute -bottom-2 -right-2 flex size-7 items-center justify-center border border-border bg-background"
-							style={{ color: `rgb(${tint})` }}
-						>
-							<TierIcon tier={tier} size={18} />
-						</span>
-					)}
-				</div>
-				<h1 className="text-3xl sm:text-4xl font-medium tracking-tight text-foreground mt-5 leading-tight">
-					{profile.name ?? profile.handle}
-				</h1>
-				<p className="text-sm text-muted-foreground mt-2.5">
-					{`@${profileHandle}`}
-					<span className="mx-2 text-muted-foreground/40">·</span>
-					<Link
-						href="/leaderboard"
-						className="hover:text-brand transition-colors"
+
+					<LeaderboardPanel
+						title={<Trans>Models</Trans>}
+						meta={t({ message: "All time" })}
 					>
-						<Trans>
-							rank #{rank} of {total}
-						</Trans>
+						<ModelMix
+							models={profile.models}
+							totalTokens={profile.allTime.tokens}
+							locale={locale}
+						/>
+						<ModelBars
+							rows={toTokenRows(
+								profile.models.map((model) => ({ ...model, usd: model.usd })),
+								locale,
+							)}
+							colors={colors}
+						/>
+					</LeaderboardPanel>
+
+					<LeaderboardPanel title={<Trans>Contributions</Trans>}>
+						<ContributionGraph
+							daily={profile.daily}
+							endDay={new Date().toISOString().slice(0, 10)}
+							rgb="210,86,17"
+						/>
+					</LeaderboardPanel>
+
+					<LeaderboardPanel title={<Trans>Token breakdown</Trans>}>
+						<TokenSplitBar split={profile.tokenSplit} />
+					</LeaderboardPanel>
+					<TierTube
+						subject="you"
+						position={
+							profile.factory
+								? profile.factory.tier + Math.min(0.9, profile.factory.progress)
+								: 0
+						}
+						footer={<TierObjectives tier={tier} axes={profile.axes} />}
+					/>
+
+					<Link
+						href="/the-production-run"
+						className="inline-flex min-h-11 items-center text-sm text-muted-foreground transition-colors hover:text-brand"
+					>
+						<Trans>How tiers work →</Trans>
 					</Link>
-				</p>
-
-				{profile.bio && (
-					<p className="max-w-md mx-auto text-sm text-foreground/80 leading-relaxed mt-5">
-						{profile.bio}
-					</p>
-				)}
-
-				<ProfileLinks
-					githubHandle={profile.githubHandle}
-					xHandle={profile.xHandle}
-					websiteUrl={profile.websiteUrl}
-				/>
-
-				<div className="mt-7">
-					<ShareButtons url={shareUrl} text={shareText} />
+					<AchievementShelf awards={profile.awards} />
 				</div>
-			</header>
-
-			<div className="mt-10 md:mt-12 space-y-6">
-				<TierTube
-					subject="you"
-					position={
-						profile.factory
-							? profile.factory.tier + Math.min(0.9, profile.factory.progress)
-							: 0
-					}
-					footer={<TierObjectives tier={tier} axes={profile.axes} />}
-				/>
-
-				<AchievementShelf awards={profile.awards} />
-
-				<StatStrip
-					stats={[
-						{
-							label: t({
-								message: "Tokens",
-							}),
-							value: tokens,
-							hint: t({
-								message: "all time",
-							}),
-						},
-						{
-							label: t({
-								message: "Cost",
-							}),
-							value: formatUsd(profile.allTime.usd, locale),
-							hint: t({
-								message: "API-equivalent",
-							}),
-						},
-						{
-							label: t({
-								message: "Rank",
-							}),
-							value: `#${rank}`,
-							hint: t({
-								message: `of ${total}`,
-							}),
-						},
-						{
-							label: t({
-								message: "Tracking",
-							}),
-
-							value: profile.dayRange
-								? t({
-										message: `${days}d`,
-									})
-								: "—",
-							hint: profile.dayRange
-								? formatDayRange(profile.dayRange, locale)
-								: undefined,
-						},
-					]}
-				/>
-
-				<LeaderboardPanel title={<Trans>Contributions</Trans>}>
-					<ContributionGraph
-						daily={profile.daily}
-						endDay={new Date().toISOString().slice(0, 10)}
-						rgb="210,86,17"
-					/>
-				</LeaderboardPanel>
-
-				<LeaderboardPanel title={<Trans>Models</Trans>}>
-					<ModelBars
-						rows={toTokenRows(
-							profile.models.map((model) => ({ ...model, usd: model.usd })),
-							locale,
-						)}
-						colors={colors}
-					/>
-				</LeaderboardPanel>
-
-				<LeaderboardPanel title={<Trans>Token breakdown</Trans>}>
-					<TokenSplitBar split={profile.tokenSplit} />
-				</LeaderboardPanel>
 			</div>
 		</LeaderboardLayout>
 	);

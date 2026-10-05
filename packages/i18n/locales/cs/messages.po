@@ -12587,9 +12587,6 @@ msgstr "Náhodná ikona"
 msgid "Rank"
 msgstr "Pořadí"
 
-msgid "rank #{rank} of {total}"
-msgstr "{rank}. místo z {total}"
-
 msgid "Rank by"
 msgstr "Řadit podle"
 
@@ -18368,8 +18365,8 @@ msgstr "Tvůj stupeň je vážené skóre z cílů, kterých bylo změřeno {0},
 msgid "Your Slack account has been linked to Superset. You can close this tab and return to Slack."
 msgstr "Váš účet Slack byl propojen se Superset. Tuto kartu můžete zavřít a vrátit se do Slacku."
 
-msgid "Your stats, settled in combat"
-msgstr "Tvoje statistiky, rozhodnuté v souboji"
+msgid "Your stats, settled in mortal combat"
+msgstr "Tvé statistiky rozhodnou v boji na život a na smrt"
 
 msgid "Your subscription has been activated. You can now access all Pro features."
 msgstr "Vaše předplatné bylo aktivováno. Teď máte přístup ke všem funkcím Pro."

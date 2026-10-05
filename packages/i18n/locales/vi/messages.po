@@ -12587,9 +12587,6 @@ msgstr "Biểu tượng ngẫu nhiên"
 msgid "Rank"
 msgstr "Hạng"
 
-msgid "rank #{rank} of {total}"
-msgstr "hạng {rank} trên {total}"
-
 msgid "Rank by"
 msgstr "Xếp hạng theo"
 
@@ -18368,8 +18365,8 @@ msgstr "Bậc của bạn là điểm số có trọng số trên {0} mục tiê
 msgid "Your Slack account has been linked to Superset. You can close this tab and return to Slack."
 msgstr "Tài khoản Slack của bạn đã được liên kết với Superset. Bạn có thể đóng tab này và quay lại Slack."
 
-msgid "Your stats, settled in combat"
-msgstr "Thống kê của bạn, phân định bằng trận đấu"
+msgid "Your stats, settled in mortal combat"
+msgstr "Chỉ số của bạn phân thắng bại trong trận tử chiến"
 
 msgid "Your subscription has been activated. You can now access all Pro features."
 msgstr "Gói đăng ký của bạn đã được kích hoạt. Bây giờ bạn có thể dùng mọi tính năng Pro."
