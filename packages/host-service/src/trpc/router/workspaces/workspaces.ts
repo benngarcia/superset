@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { mkdirSync } from "node:fs";
+import { existsSync, mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 import {
 	deriveWorkspaceBranchFromPrompt,
@@ -10,7 +10,7 @@ import { workspaceTagsInputSchema } from "@superset/shared/workspace-tags";
 import { TRPCError } from "@trpc/server";
 import { and, eq, isNull } from "drizzle-orm";
 import { z } from "zod";
-import { projects, workspaces } from "../../../db/schema";
+import { projects, pullRequests, workspaces } from "../../../db/schema";
 import { createGitEnvResolver } from "../../../runtime/git";
 import { getGitAuthorName } from "../../../runtime/git/identity";
 import { type ResolvedRef, resolveRef } from "../../../runtime/git/refs";
@@ -26,6 +26,7 @@ import {
 	type HostWorkspaceRow,
 	insertLocalWorkspace,
 	toCloudShape,
+	unarchiveLocalWorkspace,
 } from "../../../workspaces/local-workspace-store";
 import { setWorkspaceNamingState } from "../../../workspaces/workspace-naming-state";
 import {
@@ -44,6 +45,7 @@ import {
 	listLiveLocalWorkspaces,
 } from "../project/utils/create-local-workspace";
 import { getHostWorktreeBaseDir } from "../settings/worktree-location";
+import { isDestroyInFlight } from "../workspace-cleanup";
 import { createSession } from "../workspace-creation/procedures/create-session";
 import { adoptExistingWorktree } from "../workspace-creation/shared/adopt-existing-worktree";
 import {
@@ -604,6 +606,216 @@ async function registerLocalWorkspace(args: {
 		});
 
 	return toCloudShape(localRow, ctx.organizationId);
+}
+
+const restoresInFlight = new Set<string>();
+
+/**
+ * Bring a deleted or merged workspace back on its original branch and path.
+ * The delete removed the worktree and maybe the local branch, and GitHub
+ * often deletes the remote branch after a merge, so the linked PR's head is
+ * the last source to try.
+ */
+async function restoreArchivedWorkspace(
+	ctx: HostServiceContext,
+	workspaceId: string,
+): Promise<CloudWorkspace> {
+	const row = getLocalWorkspace(ctx.db, workspaceId);
+	if (!row) {
+		throw new TRPCError({
+			code: "NOT_FOUND",
+			message: `Workspace not found: ${workspaceId}`,
+		});
+	}
+	if (row.archivedAt == null) return toCloudShape(row, ctx.organizationId);
+	if (restoresInFlight.has(workspaceId) || isDestroyInFlight(workspaceId)) {
+		throw new TRPCError({
+			code: "CONFLICT",
+			message: "This workspace is already being restored or deleted",
+		});
+	}
+	restoresInFlight.add(workspaceId);
+	try {
+		const restoredCheckout = await recreateArchivedCheckout(ctx, row);
+		unarchiveLocalWorkspace(ctx, workspaceId);
+		if (restoredCheckout) {
+			const { warning } = await startSetupTerminalIfPresent({
+				ctx,
+				workspaceId,
+			});
+			if (warning)
+				console.warn(`[workspaces.restore] setup warning: ${warning}`);
+		}
+	} finally {
+		restoresInFlight.delete(workspaceId);
+	}
+	const restored = getLocalWorkspace(ctx.db, workspaceId) ?? row;
+	return toCloudShape(restored, ctx.organizationId);
+}
+
+/** Returns true when a new worktree was checked out. */
+async function recreateArchivedCheckout(
+	ctx: HostServiceContext,
+	row: HostWorkspaceRow,
+): Promise<boolean> {
+	if (row.type === "session" || !row.projectId) {
+		throw new TRPCError({
+			code: "BAD_REQUEST",
+			message: "Session workspaces cannot be restored",
+		});
+	}
+	const project = requireLocalProject(ctx, row.projectId);
+	const repoPath = requireProjectRepoPath(project);
+	if (
+		row.type === "local" ||
+		normalizeWorktreePath(row.worktreePath) === normalizeWorktreePath(repoPath)
+	) {
+		return false;
+	}
+
+	const liveOnBranch = findExistingWorkspaceByBranch(
+		ctx,
+		row.projectId,
+		row.branch,
+	);
+	if (liveOnBranch) {
+		throw new TRPCError({
+			code: "CONFLICT",
+			message: `Branch "${row.branch}" is already open in workspace "${liveOnBranch.name}"`,
+		});
+	}
+
+	const git = await ctx.git(repoPath);
+	await git
+		.raw(["worktree", "prune"])
+		.catch((err) =>
+			console.warn("[workspaces.restore] worktree prune failed:", err),
+		);
+	const registeredPath = (await listWorktreeBranches(git)).worktreeMap.get(
+		row.branch,
+	);
+	if (registeredPath) {
+		if (
+			normalizeWorktreePath(registeredPath) ===
+			normalizeWorktreePath(row.worktreePath)
+		) {
+			return false;
+		}
+		throw new TRPCError({
+			code: "CONFLICT",
+			message: `Branch "${row.branch}" is checked out at ${registeredPath}`,
+		});
+	}
+	if (existsSync(row.worktreePath)) {
+		throw new TRPCError({
+			code: "CONFLICT",
+			message: `A folder already exists at ${row.worktreePath}`,
+		});
+	}
+
+	const worktreePath = row.worktreePath;
+	const sparsePaths = parseSparseCheckoutPaths(project.sparseCheckoutPaths);
+	mkdirSync(dirname(worktreePath), { recursive: true });
+
+	const resolved = await resolveRef(git, row.branch);
+	if (resolved?.kind === "local" || resolved?.kind === "remote-tracking") {
+		try {
+			await addBranchWorktree({
+				git,
+				plan: {
+					branch: resolved.shortName,
+					startPoint: resolved,
+					usedExistingBranch: true,
+				},
+				worktreePath,
+				sparsePaths,
+			});
+		} catch (err) {
+			throw new TRPCError({
+				code: "CONFLICT",
+				message: err instanceof Error ? err.message : "Failed to add worktree",
+			});
+		}
+	} else {
+		await checkoutBranchFromLinkedPr({
+			ctx,
+			git,
+			row,
+			repoPath,
+			remoteName: project.remoteName ?? "origin",
+			worktreePath,
+			sparsePaths,
+		});
+	}
+
+	await enablePushAutoSetupRemote(git, worktreePath, "[workspaces.restore]");
+	return true;
+}
+
+async function checkoutBranchFromLinkedPr(args: {
+	ctx: HostServiceContext;
+	git: GitClient;
+	row: HostWorkspaceRow;
+	repoPath: string;
+	remoteName: string;
+	worktreePath: string;
+	sparsePaths: string[];
+}): Promise<void> {
+	const { ctx, git, row, worktreePath } = args;
+	const prNumber = row.pullRequestId
+		? ctx.db.query.pullRequests
+				.findFirst({ where: eq(pullRequests.id, row.pullRequestId) })
+				.sync()?.prNumber
+		: undefined;
+	if (prNumber === undefined) {
+		throw new TRPCError({
+			code: "NOT_FOUND",
+			message: `Branch "${row.branch}" no longer exists locally or on the remote`,
+		});
+	}
+
+	const pr = await fetchPrMetadata({
+		cwd: args.repoPath,
+		prNumber,
+		execGh: ctx.execGh,
+	});
+	let materialized: MaterializePrBranchResult | null = null;
+	try {
+		materialized = await materializePrBranch({
+			git,
+			branch: row.branch,
+			remoteName: args.remoteName,
+			pr,
+		});
+		if (materialized.warning) {
+			console.warn(`[workspaces.restore] ${materialized.warning}`);
+		}
+		await addWorktreeWithSparseCheckout({
+			git,
+			worktreeArgs: [worktreePath, row.branch],
+			worktreePath,
+			sparsePaths: args.sparsePaths,
+			logPrefix: "[workspaces.restore]",
+		});
+	} catch (err) {
+		await git
+			.raw(["worktree", "remove", "--force", worktreePath])
+			.catch(() => {});
+		if (materialized?.createdBranch) {
+			await deleteMaterializedPrBranchIfSafe({
+				git,
+				branch: row.branch,
+				expectedHeadOid: pr.headRefOid,
+			}).catch(() => {});
+		}
+		throw new TRPCError({
+			code: "CONFLICT",
+			message:
+				err instanceof Error
+					? err.message
+					: `Failed to check out PR #${prNumber}`,
+		});
+	}
 }
 
 export const workspacesRouter = router({
@@ -1450,6 +1662,17 @@ export const workspacesRouter = router({
 				checkout: "local",
 			}),
 	),
+
+	/**
+	 * Bring back an archived (deleted or merged) workspace: re-create its
+	 * worktree from the branch, or the linked PR's head when the branch is
+	 * gone, then un-archive the row.
+	 */
+	restore: protectedProcedure
+		.input(z.object({ workspaceId: z.string() }))
+		.mutation(async ({ ctx, input }) => ({
+			workspace: await restoreArchivedWorkspace(ctx, input.workspaceId),
+		})),
 
 	aiRename: protectedProcedure
 		.input(

@@ -1,1 +1,5 @@
-export { destroyWorkspace, workspaceCleanupRouter } from "./workspace-cleanup";
+export {
+	destroyWorkspace,
+	isDestroyInFlight,
+	workspaceCleanupRouter,
+} from "./workspace-cleanup";

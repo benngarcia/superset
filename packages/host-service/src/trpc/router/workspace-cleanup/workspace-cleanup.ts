@@ -48,6 +48,10 @@ const destroysInFlight = new Set<string>();
 /** @internal — exposed for tests to introspect / clear the guard. */
 export const __testDestroysInFlight = destroysInFlight;
 
+export function isDestroyInFlight(workspaceId: string): boolean {
+	return destroysInFlight.has(workspaceId);
+}
+
 export interface DestroyWorkspaceInput {
 	workspaceId: string;
 	deleteBranch: boolean;
