@@ -13,7 +13,7 @@ import type {
 } from "@superset/chat-ui/PromptInput";
 import { cn } from "@superset/ui/utils";
 import { workspaceTrpc } from "@superset/workspace-client";
-import { memo, useCallback, useMemo, useRef } from "react";
+import { memo, useCallback, useEffect, useMemo, useRef } from "react";
 import { AgentComposer } from "renderer/routes/_authenticated/components/AgentComposer";
 import { CHAT_COLUMN_CLASSNAME, CHAT_GUTTER_CLASSNAME } from "../../constants";
 import { ModelPicker } from "./components/ModelPicker";
@@ -21,6 +21,7 @@ import { ModePicker, type SessionMode } from "./components/ModePicker";
 import { QueuedPrompts } from "./components/QueuedPrompts";
 import { useComposerDraft } from "./hooks/useComposerDraft";
 import { useQueueActions } from "./hooks/useQueueActions";
+import { useSteerOnArrival } from "./hooks/useSteerOnArrival";
 import { useUploadAttachments } from "./hooks/useUploadAttachments";
 
 export type ComposerProps = {
@@ -32,7 +33,9 @@ export type ComposerProps = {
 	modes?: SessionMode[];
 	currentModeId?: string;
 	onSetMode?: (modeId: string) => void;
-	onSend: (content: UserContent[]) => unknown;
+	onSend: (content: UserContent[]) => { clientId: string } | null;
+	history?: string[];
+	isActive?: boolean;
 	placeholder?: string;
 	disabled?: boolean;
 	onCancelTurn?: (() => void) | null;
@@ -45,6 +48,8 @@ export type ComposerProps = {
 		steer: (itemId: string) => Promise<void>;
 	};
 };
+
+const NO_PROMPTS: UserMessage[] = [];
 
 /**
  * The agent's own slash commands, in the shape the composer's menu takes.
@@ -73,6 +78,8 @@ export const Composer = memo(function Composer({
 	onSetMode,
 	disabled,
 	draftKey,
+	history,
+	isActive,
 	onCancelTurn,
 	onSend,
 	placeholder,
@@ -85,6 +92,30 @@ export const Composer = memo(function Composer({
 	const { storedDraft, onChange, clearDraft } = useComposerDraft(draftKey);
 	const promptInputRef = useRef<PromptInputHandle>(null);
 	const queueActions = useQueueActions(promptQueue, promptInputRef);
+	const steerOnArrival = useSteerOnArrival({
+		prompts: promptQueue?.prompts ?? NO_PROMPTS,
+		actionable: promptQueue?.actionable ?? false,
+		streaming: onCancelTurn != null,
+		onSteer: queueActions.onSteer,
+	});
+	useEffect(() => {
+		if (!isActive) return;
+		const onKeyDown = (event: KeyboardEvent) => {
+			if (event.key !== "/" || event.defaultPrevented) return;
+			if (event.metaKey || event.ctrlKey || event.altKey) return;
+			const target = event.target;
+			if (
+				target instanceof HTMLElement &&
+				(target.isContentEditable ||
+					target.closest("input, textarea, select, [contenteditable]"))
+			)
+				return;
+			event.preventDefault();
+			promptInputRef.current?.focus();
+		};
+		window.addEventListener("keydown", onKeyDown);
+		return () => window.removeEventListener("keydown", onKeyDown);
+	}, [isActive]);
 	const searchFiles = useCallback(
 		async (query: string) => {
 			const { matches } = await trpcUtils.filesystem.searchFiles.fetch({
@@ -132,17 +163,26 @@ export const Composer = memo(function Composer({
 	);
 
 	const handleSubmit = useCallback(
-		async ({ text, files }: { text: string; files: File[] }) => {
+		async ({
+			text,
+			files,
+			steer,
+		}: {
+			text: string;
+			files: File[];
+			steer: boolean;
+		}) => {
 			if (disabled || (text.trim() === "" && files.length === 0)) return;
 			const attachments = await uploadAttachments(files);
 			if (!attachments) return;
-			onSend([
+			const sent = onSend([
 				...(text.trim() === "" ? [] : [{ type: "text" as const, text }]),
 				...attachments,
 			]);
+			if (steer && sent) steerOnArrival(sent.clientId);
 			clearDraft();
 		},
-		[disabled, onSend, uploadAttachments, clearDraft],
+		[disabled, onSend, uploadAttachments, clearDraft, steerOnArrival],
 	);
 
 	return (
@@ -162,6 +202,7 @@ export const Composer = memo(function Composer({
 				clearOnSubmit={!disabled}
 				commands={commands}
 				defaultValue={storedDraft}
+				history={history}
 				key={draftKey}
 				mentionProviders={mentionProviders}
 				onChange={onChange}

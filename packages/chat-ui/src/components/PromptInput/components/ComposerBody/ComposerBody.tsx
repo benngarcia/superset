@@ -11,10 +11,12 @@ import { getClipboardFiles } from "@superset/ui/lib/clipboard-files";
 import { cn } from "@superset/ui/utils";
 import {
 	$createNodeSelection,
+	$createParagraphNode,
 	$createTextNode,
 	$getNearestNodeFromDOMNode,
 	$getRoot,
 	$getSelection,
+	$isElementNode,
 	$isNodeSelection,
 	$isRangeSelection,
 	$isTextNode,
@@ -23,12 +25,15 @@ import {
 	COMMAND_PRIORITY_HIGH,
 	COMMAND_PRIORITY_LOW,
 	DROP_COMMAND,
+	KEY_ARROW_DOWN_COMMAND,
+	KEY_ARROW_UP_COMMAND,
 	KEY_BACKSPACE_COMMAND,
 	KEY_DELETE_COMMAND,
 	KEY_ENTER_COMMAND,
 	KEY_ESCAPE_COMMAND,
 	type LexicalNode,
 	PASTE_COMMAND,
+	type RangeSelection,
 } from "lexical";
 import {
 	ArrowUpIcon,
@@ -113,6 +118,7 @@ export type ComposerBodyProps = Required<
 		| "clearOnSubmit"
 		| "hideSubmit"
 		| "autoFocus"
+		| "history"
 	>;
 
 function $insertChipAtSelection(chip: ComposerChip) {
@@ -124,6 +130,31 @@ function $insertChipAtSelection(chip: ComposerChip) {
 	if (!$isRangeSelection(selection)) return;
 	const chipNode = MentionChipNode.fromChip(chip);
 	selection.insertNodes([chipNode, $createTextNode(" ")]);
+}
+
+function $isCaretAt(edge: "start" | "end", selection: RangeSelection) {
+	const root = $getRoot();
+	const node =
+		edge === "start" ? root.getFirstDescendant() : root.getLastDescendant();
+	if (!node) return true;
+	const edgeOffset =
+		edge === "start"
+			? 0
+			: $isTextNode(node)
+				? node.getTextContentSize()
+				: $isElementNode(node)
+					? node.getChildrenSize()
+					: 1;
+	return (
+		selection.anchor.key === node.getKey() &&
+		selection.anchor.offset === edgeOffset
+	);
+}
+
+function $replaceText(text: string) {
+	const paragraph = $createParagraphNode();
+	$getRoot().clear().append(paragraph);
+	paragraph.select().insertRawText(text);
 }
 
 function $collectChips(): ComposerChip[] {
@@ -168,6 +199,7 @@ export function ComposerBody({
 	clearOnSubmit,
 	hideSubmit,
 	autoFocus,
+	history,
 }: ComposerBodyProps) {
 	const { t } = useLingui();
 	const [editor] = useLexicalComposerContext();
@@ -222,6 +254,7 @@ export function ComposerBody({
 		submitWhileStreaming,
 		allowEmptySubmit,
 		clearOnSubmit,
+		history,
 	});
 	stateRef.current = {
 		attachments,
@@ -232,7 +265,13 @@ export function ComposerBody({
 		submitWhileStreaming,
 		allowEmptySubmit,
 		clearOnSubmit,
+		history,
 	};
+	const historyNavRef = useRef<{
+		index: number | null;
+		draft: string;
+		recalled: string;
+	}>({ index: null, draft: "", recalled: "" });
 
 	// A draft the host had stored. Read once: after mount the editor is the
 	// only writer, and re-applying would fight what is being typed.
@@ -389,7 +428,7 @@ export function ComposerBody({
 		if (attachment.previewUrl) URL.revokeObjectURL(attachment.previewUrl);
 	};
 
-	const submit = () => {
+	const submit = ({ steer = false }: { steer?: boolean } = {}) => {
 		if (
 			stateRef.current.status === "streaming" &&
 			!stateRef.current.submitWhileStreaming
@@ -405,7 +444,8 @@ export function ComposerBody({
 		if (!text && files.length === 0 && !stateRef.current.allowEmptySubmit) {
 			return;
 		}
-		stateRef.current.onSubmit?.({ text, files, mentions });
+		stateRef.current.onSubmit?.({ text, files, mentions, steer });
+		historyNavRef.current.index = null;
 		if (!stateRef.current.clearOnSubmit) return;
 		editor.update(() => $getRoot().clear());
 		setAttachments((previous) => {
@@ -445,9 +485,53 @@ export function ComposerBody({
 			(event) => {
 				if (event?.shiftKey) return false;
 				event?.preventDefault();
-				submitRef.current();
+				submitRef.current({
+					steer: Boolean(event?.metaKey || event?.ctrlKey),
+				});
 				return true;
 			},
+			COMMAND_PRIORITY_LOW,
+		);
+		const navigateHistory = (
+			direction: "older" | "newer",
+			event: KeyboardEvent | null,
+		) => {
+			const history = stateRef.current.history ?? [];
+			if (history.length === 0 || event?.defaultPrevented) return false;
+			if (event?.shiftKey || event?.altKey || event?.metaKey || event?.ctrlKey)
+				return false;
+			const selection = $getSelection();
+			if (!$isRangeSelection(selection) || !selection.isCollapsed())
+				return false;
+			const nav = historyNavRef.current;
+			const text = $getRoot().getTextContent();
+			const unedited = nav.index !== null && text === nav.recalled;
+			let next: number | null;
+			if (direction === "older") {
+				if (!unedited && text !== "" && !$isCaretAt("start", selection))
+					return false;
+				next =
+					nav.index === null ? history.length - 1 : Math.max(0, nav.index - 1);
+				if (nav.index === null) nav.draft = text;
+			} else {
+				if (nav.index === null) return false;
+				if (!unedited && !$isCaretAt("end", selection)) return false;
+				next = nav.index + 1 < history.length ? nav.index + 1 : null;
+			}
+			event?.preventDefault();
+			nav.index = next;
+			nav.recalled = next === null ? "" : (history[next] ?? "");
+			$replaceText(next === null ? nav.draft : nav.recalled);
+			return true;
+		};
+		const unregisterArrowUp = editor.registerCommand<KeyboardEvent | null>(
+			KEY_ARROW_UP_COMMAND,
+			(event) => navigateHistory("older", event),
+			COMMAND_PRIORITY_LOW,
+		);
+		const unregisterArrowDown = editor.registerCommand<KeyboardEvent | null>(
+			KEY_ARROW_DOWN_COMMAND,
+			(event) => navigateHistory("newer", event),
 			COMMAND_PRIORITY_LOW,
 		);
 		const unregisterEscape = editor.registerCommand<KeyboardEvent | null>(
@@ -534,6 +618,8 @@ export function ComposerBody({
 		return () => {
 			unregisterText();
 			unregisterEnter();
+			unregisterArrowUp();
+			unregisterArrowDown();
 			unregisterEscape();
 			unregisterDrop();
 			unregisterPaste();
@@ -954,7 +1040,7 @@ export function ComposerBody({
 									message: "Send message",
 								})}
 								disabled={!canSend}
-								onClick={submit}
+								onClick={() => submit()}
 								className={cn(
 									"flex size-8 items-center justify-center rounded-lg transition-colors",
 									canSend

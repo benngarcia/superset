@@ -21,6 +21,7 @@ import { AcpRecovery } from "./components/AcpRecovery";
  */
 export function AcpChatPane({
 	agent,
+	isActive,
 	onAgentSessionChanged,
 	onFirstPromptSent,
 	onOpenFile,
@@ -34,6 +35,7 @@ export function AcpChatPane({
 	workspaceId: string;
 	/** `sessionId` is absent until the agent has run a turn to report one. */
 	agent: { id: string; sessionId?: string } | undefined;
+	isActive: boolean;
 	sessionId: string | null;
 	pendingFirstPrompt?: UserContent[] | null;
 	onFirstPromptSent?: (() => void) | undefined;
@@ -234,6 +236,7 @@ export function AcpChatPane({
 			onFirstPromptSent={onFirstPromptSent ?? NOOP}
 			agentLabel={agentLabel}
 			canForkToWorktree={canForkToWorktree}
+			isActive={isActive}
 			onFork={fork}
 			openFile={onOpenFile}
 			onSessionState={(state) => {

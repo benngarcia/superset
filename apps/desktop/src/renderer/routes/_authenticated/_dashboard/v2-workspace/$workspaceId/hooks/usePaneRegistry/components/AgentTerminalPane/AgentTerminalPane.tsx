@@ -60,6 +60,7 @@ export function AgentTerminalPane({
 			<AcpChatPane
 				key={data.terminalId}
 				agent={data.agent}
+				isActive={ctx.isActive}
 				onFirstPromptSent={() => {
 					if (
 						data.pendingPrompt === undefined &&

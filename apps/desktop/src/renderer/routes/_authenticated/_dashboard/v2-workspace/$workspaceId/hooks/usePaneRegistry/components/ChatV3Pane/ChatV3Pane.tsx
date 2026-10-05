@@ -8,12 +8,14 @@ import { NewSessionView } from "./components/NewSessionView";
 import { SessionPicker } from "./components/SessionPicker";
 
 export function ChatV3Pane({
+	isActive,
 	onOpenFile,
 	onSessionIdChange,
 	sessionId,
 	workspaceId,
 }: {
 	workspaceId: string;
+	isActive: boolean;
 	sessionId: string | null;
 	onSessionIdChange: (sessionId: string | null) => void;
 	onOpenFile?: OpenFile;
@@ -64,6 +66,7 @@ export function ChatV3Pane({
 			workspaceId={workspaceId}
 			client={client}
 			headerLeft={picker}
+			isActive={isActive}
 			key={sessionId}
 			onFirstPromptSent={() => setPendingFirstPrompt(null)}
 			openFile={onOpenFile}

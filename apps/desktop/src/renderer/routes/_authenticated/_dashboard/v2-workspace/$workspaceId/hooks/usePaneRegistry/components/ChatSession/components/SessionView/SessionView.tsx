@@ -22,6 +22,7 @@ import type { OpenFile } from "../../../../../../types";
 import { ChatPaneActionsProvider } from "../../providers/ChatPaneActionsProvider";
 import type { ChatForkTarget } from "../../types";
 import { buildChatHandoffTranscript } from "../../utils/chatHandoffTranscript";
+import { promptHistory } from "../../utils/promptHistory";
 import { railMessages } from "../../utils/railMessages";
 import { Composer } from "../Composer";
 import { SessionHeader } from "../SessionHeader";
@@ -37,6 +38,7 @@ export function SessionView({
 	canForkToWorktree,
 	client,
 	headerLeft,
+	isActive,
 	pendingFirstPrompt,
 	onFirstPromptSent,
 	onFork,
@@ -49,6 +51,7 @@ export function SessionView({
 	sessionId: string;
 	workspaceId: string;
 	headerLeft?: ReactNode;
+	isActive?: boolean;
 	pendingFirstPrompt: UserContent[] | null;
 	onFirstPromptSent: () => void;
 	onSessionState?: (session: SessionState | null) => void;
@@ -73,6 +76,7 @@ export function SessionView({
 			previous.preview === next.preview,
 	);
 	const approvals = useApprovals(session.snapshot);
+	const history = useMemo(() => promptHistory(timeline), [timeline]);
 
 	const firstPromptSentRef = useRef(false);
 	useEffect(() => {
@@ -240,6 +244,8 @@ export function SessionView({
 					onSetMode={onSetMode}
 					disabled={session.status !== "ready"}
 					draftKey={`chat-v3-draft:${sessionId}`}
+					history={history}
+					isActive={isActive}
 					onCancelTurn={onCancelTurn}
 					onSend={onSend}
 					promptQueue={promptQueue}
