@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 import { closeSync, mkdirSync, openSync } from "node:fs";
-import { readFile } from "node:fs/promises";
+import { readFile, stat } from "node:fs/promises";
 import { join } from "node:path";
 import {
 	assignAttachmentFileName,
@@ -208,9 +208,18 @@ export const attachmentsRouter = router({
 					message: "No image attachment with that id",
 				});
 			}
-			const bytes = await readFile(
-				getAttachmentFilePath(metadata.attachmentId, metadata.mediaType),
+			const path = getAttachmentFilePath(
+				metadata.attachmentId,
+				metadata.mediaType,
 			);
+			const { size } = await stat(path);
+			if (size > MAX_INLINE_ATTACHMENT_BYTES) {
+				throw new TRPCError({
+					code: "NOT_FOUND",
+					message: "No image attachment with that id",
+				});
+			}
+			const bytes = await readFile(path);
 			return {
 				mediaType: metadata.mediaType,
 				data: bytes.toString("base64"),

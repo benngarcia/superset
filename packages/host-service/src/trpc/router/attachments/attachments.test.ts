@@ -1,5 +1,11 @@
 import { afterEach, beforeEach, describe, expect, it } from "bun:test";
-import { existsSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
+import {
+	existsSync,
+	mkdtempSync,
+	readFileSync,
+	rmSync,
+	truncateSync,
+} from "node:fs";
 import { homedir, tmpdir } from "node:os";
 import { join } from "node:path";
 import type { HostServiceContext } from "../../../types";
@@ -191,6 +197,22 @@ describe("attachmentsRouter.read", () => {
 		});
 		await expect(
 			caller.read({ attachmentId: text.attachmentId }),
+		).rejects.toMatchObject({ code: "NOT_FOUND" });
+	});
+
+	it("refuses a file larger than the cap even when its metadata is smaller", async () => {
+		const caller = createCaller();
+		const image = await caller.upload({
+			data: { kind: "base64", data: PNG_BASE64 },
+			mediaType: "image/png",
+		});
+		truncateSync(
+			getAttachmentFilePath(image.attachmentId, "image/png"),
+			MAX_INLINE_ATTACHMENT_BYTES + 1,
+		);
+
+		await expect(
+			caller.read({ attachmentId: image.attachmentId }),
 		).rejects.toMatchObject({ code: "NOT_FOUND" });
 	});
 });

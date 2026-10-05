@@ -33,7 +33,8 @@ export function useSteerOnArrival({
 
 	return useCallback((clientId: string) => {
 		const { actionable, runningTurnId } = stateRef.current;
-		if (actionable && runningTurnId)
-			pendingRef.current = { clientId, turnId: runningTurnId };
+		if (!actionable || !runningTurnId) return;
+		if (pendingRef.current?.turnId === runningTurnId) return;
+		pendingRef.current = { clientId, turnId: runningTurnId };
 	}, []);
 }

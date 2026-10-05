@@ -487,7 +487,8 @@ export function ComposerBody({
 		const unregisterEnter = editor.registerCommand<KeyboardEvent | null>(
 			KEY_ENTER_COMMAND,
 			(event) => {
-				if (event?.shiftKey) return false;
+				if (event?.shiftKey || event?.isComposing || event?.keyCode === 229)
+					return false;
 				event?.preventDefault();
 				submitRef.current({
 					steer: Boolean(event?.metaKey || event?.ctrlKey),
