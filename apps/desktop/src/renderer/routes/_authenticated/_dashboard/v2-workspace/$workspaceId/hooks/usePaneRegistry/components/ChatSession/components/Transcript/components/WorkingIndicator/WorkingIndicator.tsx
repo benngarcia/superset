@@ -9,7 +9,7 @@ export function WorkingIndicator() {
 	const { t } = useLingui();
 	return (
 		<output className="flex items-center gap-2 py-0.5 text-muted-foreground text-sm">
-			<ShimmerLabel className="font-normal">
+			<ShimmerLabel className="font-normal" duration={1.2}>
 				{t({ message: "Working…" })}
 			</ShimmerLabel>
 		</output>

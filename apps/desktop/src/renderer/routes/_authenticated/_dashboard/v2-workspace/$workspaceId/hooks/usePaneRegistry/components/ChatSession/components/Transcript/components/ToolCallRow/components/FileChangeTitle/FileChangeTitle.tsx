@@ -40,7 +40,9 @@ export function FileChangeTitle({
 		<>
 			<span className="shrink-0">
 				{running ? (
-					<ShimmerLabel className="font-normal">{verb}</ShimmerLabel>
+					<ShimmerLabel className="font-normal" duration={1.2}>
+						{verb}
+					</ShimmerLabel>
 				) : (
 					verb
 				)}
