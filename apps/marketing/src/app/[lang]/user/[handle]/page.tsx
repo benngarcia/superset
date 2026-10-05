@@ -114,7 +114,7 @@ export default async function UserProfilePage({ params }: PageProps) {
 	const tier = profile.factory?.tier ?? 0;
 
 	return (
-		<LeaderboardLayout>
+		<LeaderboardLayout wide>
 			<div className="flex flex-wrap items-center justify-between gap-3 mb-6">
 				<LeaderboardBackLink />
 				<ViewToggle handle={profileHandle} />
@@ -202,8 +202,6 @@ export default async function UserProfilePage({ params }: PageProps) {
 					<LeaderboardPanel title={<Trans>Token breakdown</Trans>}>
 						<TokenSplitBar split={profile.tokenSplit} />
 					</LeaderboardPanel>
-				</div>
-				<aside className="min-w-0 space-y-6 lg:col-start-1 lg:row-start-2">
 					<TierTube
 						subject="you"
 						position={
@@ -220,6 +218,8 @@ export default async function UserProfilePage({ params }: PageProps) {
 					>
 						<Trans>How tiers work →</Trans>
 					</Link>
+				</div>
+				<aside className="min-w-0 space-y-6 lg:col-start-1 lg:row-start-2">
 					<AchievementShelf awards={profile.awards} />
 				</aside>
 			</div>
