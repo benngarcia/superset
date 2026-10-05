@@ -65,14 +65,7 @@ export function LeaderboardTable({
 					>
 						<Trans>Clear search</Trans>
 					</button>
-				) : (
-					<a
-						href="superset://settings/account"
-						className="inline-block mt-5 border border-border px-4 py-2 font-mono text-[0.65rem] uppercase tracking-[0.12em] text-brand hover:border-brand/50 transition-colors"
-					>
-						<Trans>Open Superset</Trans>
-					</a>
-				)}
+				) : null}
 			</div>
 		);
 	}

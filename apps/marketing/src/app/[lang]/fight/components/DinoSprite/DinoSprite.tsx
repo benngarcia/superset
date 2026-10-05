@@ -1,5 +1,5 @@
 import { type FrameName, SPRITE_SIZE } from "./frames";
-import { monsterFrame } from "./monsters";
+import { monsterFrame, monsterIndex } from "./monsters";
 
 interface DinoSpriteProps {
 	frame: FrameName;
@@ -23,15 +23,42 @@ export function DinoSprite({
 	title,
 }: DinoSpriteProps) {
 	const rows = monsterFrame(identity, frame);
-	const pixels: Array<{ x: number; y: number }> = [];
-
+	const variant = monsterIndex(identity);
+	const palettes = [
+		["#83c8a3", "#c6e6a4", "#385f56"],
+		["#dfad86", "#f6d895", "#81564e"],
+		["#85bad7", "#ffe09b", "#3c6079"],
+		["#9bc98a", "#e4eeaf", "#527858"],
+		["#b69cda", "#ffd5b1", "#655480"],
+	] as const;
+	const [base, accent, shade] = palettes[variant] ?? palettes[0];
+	const pixels: Array<{ x: number; y: number; eye: boolean; fill: string }> =
+		[];
 	rows.forEach((row, y) => {
 		for (let x = 0; x < row.length; x++) {
-			if (row[x] === "#") pixels.push({ x, y });
+			if (row[x] !== "#" && row[x] !== "o") continue;
+			const eye = row[x] === "o";
+			const topEdge = !rows[y - 1] || rows[y - 1]?.[x] === ".";
+			const bottomEdge = !rows[y + 1] || rows[y + 1]?.[x] === ".";
+			const rightEdge = row[x + 1] !== "#" && row[x + 1] !== "o";
+			const highlight =
+				topEdge || (variant === 0 && x >= 15 && y > 5 && y < 13);
+			pixels.push({
+				x,
+				y,
+				eye,
+				fill: flash
+					? "#fff"
+					: eye
+						? "#fff1cf"
+						: highlight
+							? accent
+							: bottomEdge || rightEdge
+								? shade
+								: base,
+			});
 		}
 	});
-
-	const fill = flash ? "rgb(255,255,255)" : `rgb(${rgb})`;
 
 	return (
 		<svg
@@ -48,7 +75,7 @@ export function DinoSprite({
 					.join(" "),
 				filter: flash
 					? "drop-shadow(0 0 10px rgba(255,255,255,0.9))"
-					: `drop-shadow(0 0 7px rgba(${rgb},0.4))`,
+					: `drop-shadow(2px 3px 0 rgba(0,0,0,0.5)) drop-shadow(0 0 10px rgba(${rgb},0.12))`,
 			}}
 			role="img"
 			aria-label={title}
@@ -61,9 +88,22 @@ export function DinoSprite({
 					y={pixel.y}
 					width={1}
 					height={1}
-					fill={fill}
+					fill={pixel.fill}
 				/>
 			))}
+			{!flash &&
+				pixels
+					.filter((pixel) => pixel.eye)
+					.map((pixel) => (
+						<rect
+							key={`eye-${pixel.x}-${pixel.y}`}
+							x={pixel.x + 0.45}
+							y={pixel.y + 0.3}
+							width={0.5}
+							height={0.6}
+							fill="#18202a"
+						/>
+					))}
 		</svg>
 	);
 }

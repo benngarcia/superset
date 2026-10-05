@@ -419,7 +419,7 @@ export function FightArena({ initialA, initialB }: FightArenaProps) {
 					/>
 				)}
 
-				<div className="fight-stage relative h-64 md:h-72">
+				<div className="fight-stage relative h-64 md:h-72 bg-[radial-gradient(ellipse_at_25%_85%,rgba(182,156,218,0.08),transparent_45%),radial-gradient(ellipse_at_75%_85%,rgba(131,200,163,0.08),transparent_45%)]">
 					<div
 						aria-hidden="true"
 						className="absolute inset-x-0 bottom-14 h-px bg-border"

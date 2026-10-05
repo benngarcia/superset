@@ -52,6 +52,7 @@ export function LeaderboardBoard({
 	const [loading, setLoading] = useState(false);
 	const [touched, setTouched] = useState(false);
 	const [loadingMore, setLoadingMore] = useState(false);
+	const [loadMoreError, setLoadMoreError] = useState(false);
 	const [error, setError] = useState(!initialStandings);
 	const [searchError, setSearchError] = useState(false);
 	const [search, setSearch] = useState("");
@@ -173,6 +174,7 @@ export function LeaderboardBoard({
 		if (!standings || loadingMore || loading) return;
 		const generation = queryGeneration.current;
 		setLoadingMore(true);
+		setLoadMoreError(false);
 		try {
 			const next = await fetchStandings({
 				...buildStandingsQuery(selection, metric),
@@ -181,7 +183,7 @@ export function LeaderboardBoard({
 			});
 			if (generation !== queryGeneration.current) return;
 			if (!next) {
-				setError(true);
+				setLoadMoreError(true);
 				return;
 			}
 			setStandings({
@@ -197,6 +199,7 @@ export function LeaderboardBoard({
 		next: Partial<{ metric: LeaderboardMetric; selection: RangeSelection }>,
 	) => {
 		queryGeneration.current += 1;
+		setLoadMoreError(false);
 		setTouched(true);
 		if (next.metric) setMetric(next.metric);
 		if (next.selection) setSelection(next.selection);
@@ -278,13 +281,24 @@ export function LeaderboardBoard({
 				standings &&
 				total > shown && (
 					<div className="flex flex-col items-center gap-3">
+						{loadMoreError && (
+							<p role="alert" className="text-sm text-muted-foreground">
+								<Trans>Something went wrong</Trans>
+							</p>
+						)}
 						<button
 							type="button"
 							onClick={loadMore}
 							disabled={loadingMore || loading}
 							className="px-5 py-2 text-xs font-mono uppercase tracking-wider border border-border rounded-[2px] text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors disabled:opacity-50"
 						>
-							{loadingMore ? <Trans>Loading…</Trans> : <Trans>Load more</Trans>}
+							{loadingMore ? (
+								<Trans>Loading…</Trans>
+							) : loadMoreError ? (
+								<Trans>Try again</Trans>
+							) : (
+								<Trans>Load more</Trans>
+							)}
 						</button>
 						<span className="text-xs text-muted-foreground">
 							<Trans>
