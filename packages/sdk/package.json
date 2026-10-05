@@ -1,6 +1,6 @@
 {
 	"name": "@superset/sdk",
-	"version": "0.0.1-alpha.12",
+	"version": "0.0.1-alpha.13",
 	"description": "TypeScript SDK for the Superset API",
 	"homepage": "https://superset.sh",
 	"repository": {
