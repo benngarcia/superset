@@ -27,7 +27,7 @@ const ShimmerComponent = ({
 				: "inline-block",
 			className,
 			"relative animate-shimmer bg-[length:250%_100%,auto] bg-clip-text text-transparent",
-			"[background-image:linear-gradient(90deg,#0000_calc(50%-var(--spread)),var(--color-foreground),#0000_calc(50%+var(--spread))),linear-gradient(var(--color-muted-foreground),var(--color-muted-foreground))] [background-repeat:no-repeat,padding-box]",
+			"bg-no-repeat [background-image:linear-gradient(90deg,#0000_calc(50%-var(--spread)),var(--color-foreground),#0000_calc(50%+var(--spread))),linear-gradient(color-mix(in_oklab,var(--color-foreground)_40%,transparent),color-mix(in_oklab,var(--color-foreground)_40%,transparent))]",
 			"motion-reduce:animate-none motion-reduce:bg-none motion-reduce:text-muted-foreground",
 		)}
 		style={
