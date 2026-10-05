@@ -13,6 +13,15 @@ describe("displayStorage", () => {
 		expect(output).toMatch(/votes\s+3/);
 	});
 
+	test("prints a long key whole so it can be passed to --key", () => {
+		const key = "k".repeat(128);
+		const output = displayStorage({
+			pageId: "page-1",
+			keys: [{ key, records: 1, updatedAt: UPDATED }],
+		});
+		expect(output).toContain(key);
+	});
+
 	test("shows every person's slot for one key", () => {
 		const output = displayStorage({
 			pageId: "page-1",

@@ -1365,10 +1365,10 @@ unless `--yes` is passed; non-interactive input does not prompt.
 		{ flag: "--key <key>", description: "Show each person's value for this key." },
 	]}
 	output="{ pageId, keys: Array<{ key, records, updatedAt }> } | { pageId, key, records: Array<{ userId, name, image, value, updatedAt }> }"
-	humanColumns={["KEY", "RECORDS", "UPDATED"]}
 >
 Read what viewers stored with `window.superset.storage` on a page you created.
-Without `--key`, lists each key with its record count. Only the page's creator
+Without `--key`, lists each key with its record count (KEY, RECORDS, UPDATED).
+With `--key`, lists each person's value for that key (NAME, VALUE, UPDATED). Only the page's creator
 can read its storage; anyone else gets an error.
 
 ```bash

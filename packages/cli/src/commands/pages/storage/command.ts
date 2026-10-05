@@ -1,4 +1,5 @@
 import { positional, string, table } from "@superset/cli-framework";
+import { MAX_PAGE_STORAGE_KEY_LENGTH } from "@superset/shared/page-storage";
 import { command } from "../../../lib/command";
 import { pageRefFromArg } from "../pageRef";
 
@@ -30,7 +31,7 @@ export function displayStorage(data: StorageView): string {
 			})),
 			["key", "records", "updated"],
 			["KEY", "RECORDS", "UPDATED"],
-			[48, 8, 24],
+			[MAX_PAGE_STORAGE_KEY_LENGTH, 8, 24],
 		);
 	}
 	if (data.records.length === 0) return `No records for key "${data.key}".`;
@@ -55,9 +56,10 @@ export default command({
 	},
 	run: async ({ ctx, args, options }) => {
 		const ref = pageRefFromArg(args.page as string);
-		const data = options.key
-			? await ctx.api.page.storageRecords.query({ ...ref, key: options.key })
-			: await ctx.api.page.storageKeys.query(ref);
+		const data =
+			options.key !== undefined
+				? await ctx.api.page.storageRecords.query({ ...ref, key: options.key })
+				: await ctx.api.page.storageKeys.query(ref);
 		return { data };
 	},
 	display: (data) => displayStorage(data as StorageView),
