@@ -5,6 +5,8 @@ import {
 	transcriptItemKey,
 } from "@superset/chat/core";
 import type { Item, ToolCall, UserMessage } from "@superset/chat/protocol";
+import type { PageLink, PageLinkFinder } from "../../../../utils/pageLinks";
+import { turnPageLinks } from "../turnPageLinks";
 
 export type TranscriptRow =
 	| {
@@ -14,7 +16,16 @@ export type TranscriptRow =
 			startedAtMs: number;
 			completedAtMs: number | undefined;
 	  }
-	| { kind: "item"; key: string; groupStart: boolean; item: Item }
+	| {
+			kind: "item";
+			key: string;
+			groupStart: boolean;
+			item: Item;
+			/** Pages to show as cards under a tool call. */
+			pages?: readonly PageLink[];
+			/** Slugs an agent message leaves to the earlier message that shows them. */
+			pagesShownEarlier?: readonly string[];
+	  }
 	| { kind: "outbox"; key: string; groupStart: boolean; entry: OutboxEntry }
 	| {
 			kind: "tool_run";
@@ -22,6 +33,8 @@ export type TranscriptRow =
 			groupStart: boolean;
 			items: ToolCall[];
 			defaultCollapsed: boolean;
+			/** Pages to show as cards under the run, so a collapsed run still shows them. */
+			pages?: readonly PageLink[];
 	  }
 	| {
 			kind: "turn_status";
@@ -35,6 +48,7 @@ export function transcriptRows(
 	groups: readonly TurnGroup[],
 	outbox: readonly OutboxEntry[],
 	pendingApprovalTargets: ReadonlySet<string>,
+	findPageLinks: PageLinkFinder,
 ): TranscriptRow[] {
 	const rows: TranscriptRow[] = [];
 	const echoedClientIds = new Set<string>();
@@ -59,6 +73,7 @@ export function transcriptRows(
 			});
 		};
 		const turnSettled = turn !== null && turn.status !== "running";
+		const links = turnPageLinks(group.entries, turnSettled, findPageLinks);
 		group.entries.forEach((entry, index) => {
 			if (entry.kind !== "item" || entry.item.kind !== "user_message") {
 				placeClock();
@@ -69,14 +84,21 @@ export function transcriptRows(
 						? (entry.item as UserMessage).clientId
 						: undefined;
 				if (clientId) echoedClientIds.add(clientId);
+				const pages = links.fromTools.get(entry.item.id);
+				const pagesShownEarlier = links.shownEarlier.get(entry.item.id);
 				push({
 					kind: "item",
 					key: transcriptItemKey(entry.item),
 					groupStart,
 					item: entry.item,
+					...(pages ? { pages } : {}),
+					...(pagesShownEarlier ? { pagesShownEarlier } : {}),
 				});
 				return;
 			}
+			const pages = entry.items.flatMap(
+				(tool) => links.fromTools.get(tool.id) ?? [],
+			);
 			push({
 				kind: "tool_run",
 				key: toolRunKey(group.turnId, entry.items, index),
@@ -87,6 +109,7 @@ export function transcriptRows(
 						(index < group.entries.length - 1 &&
 							!entry.items.some((tool) => tool.status === "running"))) &&
 					!entry.items.some((tool) => pendingApprovalTargets.has(tool.id)),
+				...(pages.length > 0 ? { pages } : {}),
 			});
 		});
 		placeClock();
