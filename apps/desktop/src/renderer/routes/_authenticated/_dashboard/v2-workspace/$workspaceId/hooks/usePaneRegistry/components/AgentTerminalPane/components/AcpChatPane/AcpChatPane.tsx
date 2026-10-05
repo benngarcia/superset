@@ -1,5 +1,5 @@
 import { Trans, useLingui } from "@lingui/react/macro";
-import type { UserContent } from "@superset/chat/protocol";
+import { AGENT_DEFAULT_MODE, type UserContent } from "@superset/chat/protocol";
 import { getAgentModelSupport } from "@superset/shared/agent-models";
 import { buildChatSessionHandoffPrompt } from "@superset/shared/terminal-session-handoff";
 import { toast } from "@superset/ui/sonner";
@@ -12,7 +12,9 @@ import type { OpenFile } from "../../../../../../types";
 import { SessionView } from "../../../ChatSession/components/SessionView";
 import { useSessionClient } from "../../../ChatSession/hooks/useSessionClient";
 import type { ChatForkTarget } from "../../../ChatSession/types";
+import { isUnrestrictedMode } from "../../../ChatSession/utils/isUnrestrictedMode";
 import { useForkChat } from "../../hooks/useForkChat";
+import { readSavedChatMode } from "../../utils/savedChatMode";
 import { AcpChatPending } from "./components/AcpChatPending";
 import { AcpRecovery } from "./components/AcpRecovery";
 
@@ -46,12 +48,13 @@ export function AcpChatPane({
 	onModeChange?: (modeId: string) => void;
 	onAgentSessionChanged: (harnessSessionId: string) => void;
 	onOpenFile?: OpenFile;
-	onSwitchAgent?: (
-		presetId: string,
-		model: { id: string; label: string } | null,
-		handoffPrompt: string | null,
-		label: string,
-	) => void;
+	onSwitchAgent?: (target: {
+		presetId: string;
+		label: string;
+		model: { id: string; label: string } | null;
+		modeId: string | undefined;
+		handoffPrompt: string | null;
+	}) => void;
 	modelId?: string;
 	modelLabel?: string;
 	modeId?: string;
@@ -94,12 +97,15 @@ export function AcpChatPane({
 			attaching.current = true;
 			setFailure(null);
 			try {
+				const startModeId =
+					modeId ??
+					(resume || !agent ? undefined : readSavedChatMode(agent.id));
 				const created = await wiring.transport.createSession({
 					commandId: crypto.randomUUID(),
 					workspaceId,
 					harness: resumeHarness,
 					...(modelId ? { modelId } : {}),
-					...(modeId ? { modeId } : {}),
+					...(startModeId ? { modeId: startModeId } : {}),
 					...(resume ? { resume: { harnessSessionId: resume } } : {}),
 				});
 				if (mounted.current) onSessionCreated(created.sessionId);
@@ -108,7 +114,7 @@ export function AcpChatPane({
 				setFailure(error instanceof Error ? error.message : String(error));
 			}
 		},
-		[wiring.transport, workspaceId, onSessionCreated, modelId, modeId],
+		[wiring.transport, workspaceId, onSessionCreated, modelId, modeId, agent],
 	);
 
 	const agentSessionId = agent?.sessionId;
@@ -194,6 +200,7 @@ export function AcpChatPane({
 				presetId: string,
 				nextModel: { id: string; label: string } | null,
 				transcript: string,
+				currentModeId: string | undefined,
 			) => {
 				if (sessionId) {
 					try {
@@ -205,10 +212,20 @@ export function AcpChatPane({
 					}
 				}
 				if (!mounted.current) return;
-				onSwitchAgent(
+				onSwitchAgent({
 					presetId,
-					nextModel,
-					transcript.trim()
+					label:
+						agentConfigs?.find((config) => config.presetId === presetId)
+							?.label ?? presetId,
+					model: nextModel,
+					// Never more access than the chat being left, unless the user
+					// already chose otherwise for the agent being switched to.
+					modeId:
+						readSavedChatMode(presetId) ??
+						(isUnrestrictedMode(currentModeId)
+							? undefined
+							: AGENT_DEFAULT_MODE),
+					handoffPrompt: transcript.trim()
 						? buildChatSessionHandoffPrompt({
 								transcript,
 								sourceAgentLabel: agentConfigs?.find(
@@ -216,9 +233,7 @@ export function AcpChatPane({
 								)?.label,
 							})
 						: null,
-					agentConfigs?.find((config) => config.presetId === presetId)?.label ??
-						presetId,
-				);
+				});
 			},
 		};
 	}, [agent, agentConfigs, onSwitchAgent, sessionId, t, wiring.transport]);

@@ -17,6 +17,7 @@ import {
 	ShieldCheck,
 } from "lucide-react";
 import { LuCheck, LuChevronDown } from "react-icons/lu";
+import { isUnrestrictedMode } from "../../../../utils/isUnrestrictedMode";
 import {
 	MENU_DESCRIPTION_CLASS,
 	PILL_CHEVRON_CLASS,
@@ -84,7 +85,6 @@ export function ModePicker({
 					"Unrestricted access to the internet and any file on your computer",
 			}),
 			icon: ShieldAlert,
-			unrestricted: true,
 		},
 		"full-access": {
 			title: t({ message: "Full access" }),
@@ -93,7 +93,6 @@ export function ModePicker({
 					"Unrestricted access to the internet and any file on your computer",
 			}),
 			icon: ShieldAlert,
-			unrestricted: true,
 		},
 		"agent-full-access": {
 			title: t({ message: "Full access" }),
@@ -102,7 +101,6 @@ export function ModePicker({
 					"Unrestricted access to the internet and any file on your computer",
 			}),
 			icon: ShieldAlert,
-			unrestricted: true,
 		},
 		agent: {
 			title: t({ message: "Approve for me" }),
@@ -110,8 +108,14 @@ export function ModePicker({
 			icon: ShieldCheck,
 		},
 	};
-	const copyFor = (mode: SessionMode): ModeCopy =>
-		knownModes[mode.id] ?? { title: mode.label, description: "", icon: Hand };
+	const copyFor = (mode: SessionMode): ModeCopy => ({
+		...(knownModes[mode.id] ?? {
+			title: mode.label,
+			description: "",
+			icon: Hand,
+		}),
+		unrestricted: isUnrestrictedMode(mode.id),
+	});
 
 	const current =
 		modes.find((mode) => mode.id === currentModeId) ?? offeredModes[0];

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import type { Item } from "@superset/chat/protocol";
+import { AGENT_DEFAULT_MODE } from "@superset/chat/protocol";
 import type { AdapterEvent } from "../types";
 import { AcpAdapter, type AcpAdapterOptions } from "./acpAdapter";
 import type { AcpTransport, AcpTransportHandlers } from "./rpcClient";
@@ -26,6 +27,9 @@ class FakeAcpAgent {
 	newSessionModes: Record<string, unknown> | null = null;
 	/** Reported while a session loads, as an agent restoring its saved options does. */
 	loadConfigOptions: Array<Record<string, unknown>> | null = null;
+	/** Hold mode and option answers until `releaseSelections`. */
+	holdSelections = false;
+	private heldSelections: number[] = [];
 	private handlers!: AcpTransportHandlers;
 
 	transport(handlers: AcpTransportHandlers): AcpTransport {
@@ -71,6 +75,10 @@ class FakeAcpAgent {
 		return id;
 	}
 
+	releaseSelections(): void {
+		for (const id of this.heldSelections.splice(0)) this.respond(id, null);
+	}
+
 	lastPermissionResponse(): Record<string, unknown> | undefined {
 		return this.sent.find((f) => f.id === 9001);
 	}
@@ -103,6 +111,12 @@ class FakeAcpAgent {
 						: {}),
 					...(this.newSessionModes ? { modes: this.newSessionModes } : {}),
 				});
+			} else if (
+				frame.method === "session/set_config_option" ||
+				frame.method === "session/set_mode"
+			) {
+				if (this.holdSelections) this.heldSelections.push(frame.id as number);
+				else this.respond(frame.id as number, null);
 			} else if (frame.method === "session/fork") {
 				this.respond(frame.id as number, { sessionId: "sess-forked" });
 			} else if (frame.method === "session/load" && this.loadFails) {
@@ -191,7 +205,10 @@ function startAdapter(
 	agent: FakeAcpAgent,
 	resume?: string,
 	selections: { modelId?: string; modeId?: string } = {},
-	adapterOptions: Pick<AcpAdapterOptions, "defaultModeId"> = {},
+	adapterOptions: Pick<
+		AcpAdapterOptions,
+		"defaultModeId" | "selectionWaitMs"
+	> = {},
 ): { adapter: AcpAdapter; events: AdapterEvent[] } {
 	let counter = 0;
 	const adapter = new AcpAdapter({
@@ -900,6 +917,106 @@ describe("AcpAdapter on protocol v2", () => {
 				session.modeId ? [session.modeId] : [],
 			),
 		).toEqual(["default"]);
+
+		await adapter.dispose();
+	});
+
+	it("applies the harness default when a resume falls back to a new session", async () => {
+		const agent = new FakeAcpAgent();
+		agent.loadFails = true;
+		agent.newSessionConfigOptions = [
+			{
+				configId: "mode",
+				name: "Mode",
+				type: "select",
+				category: "mode",
+				currentValue: "default",
+				options: [
+					{ value: "default", name: "Ask for approval" },
+					{ value: "bypassPermissions", name: "Full access" },
+				],
+			},
+		];
+		const { adapter } = startAdapter(
+			agent,
+			"sess-gone",
+			{},
+			{ defaultModeId: "bypassPermissions" },
+		);
+		await flush(16);
+
+		const sent = agent.sent.find(
+			(f) => f.method === "session/set_config_option",
+		);
+		expect(sent?.params).toMatchObject({ value: "bypassPermissions" });
+
+		await adapter.dispose();
+	});
+
+	it("opens in the agent's own mode when asked for the agent default", async () => {
+		const agent = new FakeAcpAgent();
+		agent.newSessionConfigOptions = [
+			{
+				configId: "mode",
+				name: "Mode",
+				type: "select",
+				category: "mode",
+				currentValue: "default",
+				options: [
+					{ value: "default", name: "Ask for approval" },
+					{ value: "bypassPermissions", name: "Full access" },
+				],
+			},
+		];
+		const { adapter } = startAdapter(
+			agent,
+			undefined,
+			{ modeId: AGENT_DEFAULT_MODE },
+			{ defaultModeId: "bypassPermissions" },
+		);
+		await flush();
+
+		expect(agent.sent.map((f) => f.method)).not.toContain(
+			"session/set_config_option",
+		);
+
+		await adapter.dispose();
+	});
+
+	it("holds a prompt until the agent answers the start mode", async () => {
+		const agent = new FakeAcpAgent();
+		agent.holdSelections = true;
+		agent.newSessionConfigOptions = [
+			{
+				configId: "mode",
+				name: "Mode",
+				type: "select",
+				category: "mode",
+				currentValue: "default",
+				options: [
+					{ value: "default", name: "Ask for approval" },
+					{ value: "bypassPermissions", name: "Full access" },
+				],
+			},
+		];
+		const { adapter } = startAdapter(
+			agent,
+			undefined,
+			{},
+			{ defaultModeId: "bypassPermissions" },
+		);
+		adapter.prompt([{ type: "text", text: "go" }]);
+		await flush(16);
+
+		const methods = () => agent.sent.map((f) => f.method);
+		expect(methods()).toContain("session/set_config_option");
+		expect(methods()).not.toContain("session/prompt");
+
+		agent.releaseSelections();
+		await flush(16);
+		expect(methods().indexOf("session/prompt")).toBeGreaterThan(
+			methods().indexOf("session/set_config_option"),
+		);
 
 		await adapter.dispose();
 	});

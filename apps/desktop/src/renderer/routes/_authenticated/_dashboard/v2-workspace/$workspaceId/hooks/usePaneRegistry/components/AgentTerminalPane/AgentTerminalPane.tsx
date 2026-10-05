@@ -11,6 +11,7 @@ import { AcpChatPane } from "./components/AcpChatPane";
 import { AcpChatPending } from "./components/AcpChatPane/components/AcpChatPending";
 import { useAgentSurface } from "./hooks/useAgentSurface";
 import { useAgentSurfaceSwitch } from "./hooks/useAgentSurfaceSwitch";
+import { saveChatMode } from "./utils/savedChatMode";
 
 /**
  * A terminal pane, shown on whichever surface its agent calls for. The choice
@@ -96,7 +97,7 @@ export function AgentTerminalPane({
 						agent: { ...data.agent, sessionId },
 					});
 				}}
-				onSwitchAgent={(presetId, model, handoffPrompt, label) => {
+				onSwitchAgent={({ presetId, label, model, modeId, handoffPrompt }) => {
 					ctx.actions.setTitle(label);
 					const {
 						acpSessionId: _session,
@@ -113,12 +114,14 @@ export function AgentTerminalPane({
 						...(model
 							? { chatModelId: model.id, chatModelLabel: model.label }
 							: {}),
+						...(modeId ? { chatModeId: modeId } : {}),
 						...(handoffPrompt ? { pendingPrompt: handoffPrompt } : {}),
 					});
 				}}
-				onModeChange={(chatModeId) =>
-					ctx.actions.updateData({ ...data, chatModeId })
-				}
+				onModeChange={(chatModeId) => {
+					if (data.agent) saveChatMode(data.agent.id, chatModeId);
+					ctx.actions.updateData({ ...data, chatModeId });
+				}}
 				onSessionCreated={(acpSessionId) =>
 					ctx.actions.updateData({ ...data, acpSessionId })
 				}

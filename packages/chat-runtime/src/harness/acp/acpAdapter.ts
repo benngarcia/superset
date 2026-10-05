@@ -12,6 +12,7 @@ import type {
 	Turn,
 	UserContent,
 } from "@superset/chat/protocol";
+import { AGENT_DEFAULT_MODE } from "@superset/chat/protocol";
 import { EventQueue } from "../eventQueue";
 import type {
 	AdapterEvent,
@@ -134,10 +135,14 @@ export type AcpAttachment = {
 	data: string;
 };
 
+const SELECTION_WAIT_MS = 5000;
+
 export type AcpAdapterOptions = SpawnAcpOptions & {
 	launch?: () => Promise<Pick<SpawnAcpOptions, "command" | "args" | "env">>;
 	/** Selected for a new session that asks for no mode, when the agent offers it. */
 	defaultModeId?: string;
+	/** How long a prompt waits for mode and option changes the agent has not answered. */
+	selectionWaitMs?: number;
 	resolveAttachment?: (attachmentId: string) => Promise<AcpAttachment | null>;
 	now?: () => number;
 	mintId?: () => string;
@@ -215,6 +220,7 @@ export class AcpAdapter implements HarnessAdapter {
 	private agentCapabilities: Record<string, unknown> = {};
 	/** The v2 config option that stands in for v1's session mode, once seen. */
 	private modeConfigId: string | null = null;
+	private readonly selectionsInFlight = new Set<Promise<void>>();
 	private configOptions: SessionConfigOption[] = [];
 	private replaying = false;
 	private queuedPrompts: UserContent[][] = [];
@@ -279,9 +285,35 @@ export class AcpAdapter implements HarnessAdapter {
 						sessionId: this.sessionId,
 						modeId,
 					});
+		this.trackSelection(pending);
 		void pending.catch((error: Error) =>
 			this.emitNotice("error", error.message),
 		);
+	}
+
+	private trackSelection(request: Promise<unknown>): void {
+		const settled = request.then(
+			() => undefined,
+			() => undefined,
+		);
+		this.selectionsInFlight.add(settled);
+		void settled.then(() => this.selectionsInFlight.delete(settled));
+	}
+
+	/** An agent may run a prompt before it applies a mode or model it was just sent. */
+	private async selectionsApplied(): Promise<void> {
+		if (this.selectionsInFlight.size === 0) return;
+		let timer: ReturnType<typeof setTimeout> | undefined;
+		await Promise.race([
+			Promise.all(this.selectionsInFlight),
+			new Promise<void>((resolve) => {
+				timer = setTimeout(
+					resolve,
+					this.options.selectionWaitMs ?? SELECTION_WAIT_MS,
+				);
+			}),
+		]);
+		clearTimeout(timer);
 	}
 
 	setConfigOption(configId: string, value: string): void {
@@ -296,13 +328,14 @@ export class AcpAdapter implements HarnessAdapter {
 			configOptions: this.configOptions,
 			...(configId === this.modeConfigId ? { modeId: value } : {}),
 		});
-		client
-			.request("session/set_config_option", {
-				sessionId,
-				configId,
-				value,
-				...(this.negotiatedVersion >= 2 ? { type: "id" } : {}),
-			})
+		const request = client.request("session/set_config_option", {
+			sessionId,
+			configId,
+			value,
+			...(this.negotiatedVersion >= 2 ? { type: "id" } : {}),
+		});
+		this.trackSelection(request);
+		request
 			.then((response) => this.handleConfigOptions(response))
 			.catch((error: Error) => {
 				this.configOptions = previous;
@@ -401,6 +434,7 @@ export class AcpAdapter implements HarnessAdapter {
 			}
 
 			let response: unknown;
+			let resumed = false;
 			if (startOptions.resume) {
 				this.replaying = true;
 				try {
@@ -409,6 +443,7 @@ export class AcpAdapter implements HarnessAdapter {
 						cwd: startOptions.cwd,
 						mcpServers: [],
 					});
+					resumed = true;
 				} catch (loadError) {
 					// An agent that was started but never prompted has a session id and
 					// no transcript behind it, so loading one answers "not found".
@@ -470,6 +505,7 @@ export class AcpAdapter implements HarnessAdapter {
 			this.applyStartSelections(
 				startOptions,
 				parsed.success ? parsed.data.modes : undefined,
+				resumed,
 			);
 
 			const queued = this.queuedPrompts.splice(0, this.queuedPrompts.length);
@@ -482,6 +518,7 @@ export class AcpAdapter implements HarnessAdapter {
 	}
 
 	private async runTurn(content: UserContent[]): Promise<void> {
+		await this.selectionsApplied();
 		const client = this.client;
 		if (!client || !this.sessionId) return;
 		const turnId = this.mintId();
@@ -962,13 +999,21 @@ export class AcpAdapter implements HarnessAdapter {
 		});
 	}
 
+	private startModeId(
+		startOptions: HarnessStartOptions,
+		resumed: boolean,
+	): string | undefined {
+		if (startOptions.modeId === AGENT_DEFAULT_MODE) return undefined;
+		if (startOptions.modeId) return startOptions.modeId;
+		return resumed ? undefined : this.options.defaultModeId;
+	}
+
 	private applyStartSelections(
 		startOptions: HarnessStartOptions,
 		sessionModes: AcpSessionModes | undefined,
+		resumed: boolean,
 	): void {
-		const modeId =
-			startOptions.modeId ??
-			(startOptions.resume ? undefined : this.options.defaultModeId);
+		const modeId = this.startModeId(startOptions, resumed);
 		for (const [category, value] of [
 			["model", startOptions.modelId],
 			["mode", modeId],

@@ -7,6 +7,9 @@ const commandBaseFields = {
 	sessionId: z.string().min(1),
 };
 
+/** A start `modeId` asking for no harness default: the agent opens in its own mode. */
+export const AGENT_DEFAULT_MODE = "agent-default";
+
 export const createSessionInputSchema = z.object({
 	commandId: z.uuid(),
 	workspaceId: z.string().min(1),

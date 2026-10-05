@@ -78,6 +78,7 @@ export function SessionView({
 			presetId: string,
 			model: { id: string; label: string } | null,
 			transcript: string,
+			currentModeId: string | undefined,
 		) => void;
 	};
 	openFile?: OpenFile;
@@ -98,6 +99,7 @@ export function SessionView({
 	const [modelSettled, setModelSettled] = useState(
 		preferredModelLabel === undefined,
 	);
+	const modelRequested = useRef(false);
 	useEffect(() => {
 		if (modelSettled || session.status !== "ready") return;
 		if (configOptions === undefined) {
@@ -109,23 +111,21 @@ export function SessionView({
 			);
 			return () => clearTimeout(timer);
 		}
-		setModelSettled(true);
+		if (modelRequested.current) return;
 		const option = configOptions.find((entry) => entry.category === "model");
 		const wanted = option?.options.find(
 			(entry) =>
 				entry.label.toLowerCase() === preferredModelLabel?.toLowerCase(),
 		);
-		if (option && wanted && wanted.id !== option.currentValue) {
-			void session.setConfigOption(option.id, wanted.id);
+		if (!option || !wanted || wanted.id === option.currentValue) {
+			setModelSettled(true);
+			return;
 		}
-	}, [
-		agentStatus,
-		configOptions,
-		modelSettled,
-		preferredModelLabel,
-		session,
-		setModelSettled,
-	]);
+		modelRequested.current = true;
+		void session
+			.setConfigOption(option.id, wanted.id)
+			.finally(() => setModelSettled(true));
+	}, [agentStatus, configOptions, modelSettled, preferredModelLabel, session]);
 
 	const firstPromptSentRef = useRef(false);
 	useEffect(() => {
@@ -186,6 +186,7 @@ export function SessionView({
 							snapshotRef.current,
 							agentLabel ?? "Agent",
 						),
+						snapshotRef.current.session?.modeId,
 					),
 			},
 		[agentSwitch, agentLabel],
