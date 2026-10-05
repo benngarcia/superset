@@ -12,6 +12,7 @@ import {
 import { cn } from "@superset/ui/utils";
 import { ChevronRight } from "lucide-react";
 import { useRef, useState } from "react";
+import { parseAttachmentTags } from "../../../../utils/attachmentTags";
 import { userMessageText } from "../../../../utils/userMessageText";
 import { AttachmentImage } from "./components/AttachmentImage";
 import { useFitsOneLine } from "./hooks/useFitsOneLine";
@@ -59,22 +60,29 @@ export function UserMessageRow({
 	harness: string | undefined;
 	pending?: PendingPrompt | undefined;
 }) {
-	const text = userMessageText(item);
-	const note = readBookkeeping(harness, text);
+	const raw = userMessageText(item);
+	const note = readBookkeeping(harness, raw);
+	const { text, attachments } = parseAttachmentTags(raw);
 	const textRef = useRef<HTMLDivElement>(null);
 	const oneLine = useFitsOneLine(textRef);
-	if (note && !pending)
-		return <BookkeepingRow label={note.label} text={text} />;
+	if (note && !pending) return <BookkeepingRow label={note.label} text={raw} />;
 
-	const attachments = item.content.filter(
-		(content) => content.type === "attachment",
-	);
 	const images = attachments.filter((attachment) =>
-		attachment.mimeType.startsWith("image/"),
+		attachment.type.startsWith("image/"),
 	);
-	const files = attachments.filter(
-		(attachment) => !attachment.mimeType.startsWith("image/"),
-	);
+	const files = [
+		...attachments
+			.filter((attachment) => !attachment.type.startsWith("image/"))
+			.map((attachment) => ({
+				key: attachment.path,
+				name: attachment.path.split("/").pop() ?? attachment.path,
+			})),
+		...item.content.flatMap((content) =>
+			content.type === "attachment"
+				? [{ key: content.attachmentId, name: content.name }]
+				: [],
+		),
+	];
 	return (
 		<Message className="pt-1.5 pb-5 pl-10" from="user">
 			{images.length > 0 && (
@@ -86,9 +94,9 @@ export function UserMessageRow({
 				>
 					{images.map((image) => (
 						<AttachmentImage
-							attachmentId={image.attachmentId}
-							key={image.attachmentId}
-							name={image.name}
+							key={image.path}
+							path={image.path}
+							type={image.type}
 						/>
 					))}
 				</div>
@@ -112,7 +120,7 @@ export function UserMessageRow({
 					{files.length > 0 && (
 						<div className="mt-1 flex flex-wrap gap-1">
 							{files.map((file) => (
-								<Badge key={file.attachmentId} variant="secondary">
+								<Badge key={file.key} variant="secondary">
 									{file.name}
 								</Badge>
 							))}

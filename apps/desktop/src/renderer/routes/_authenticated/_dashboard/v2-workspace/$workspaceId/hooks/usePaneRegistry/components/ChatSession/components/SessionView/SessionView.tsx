@@ -188,7 +188,7 @@ export function SessionView({
 	// w-full because the pane lays its children out in a row: without it this
 	// sizes to its content and leaves the right of the pane empty.
 	return (
-		<ChatPaneActionsProvider openFile={openFile}>
+		<ChatPaneActionsProvider openFile={openFile} workspaceId={workspaceId}>
 			<div className="flex h-full min-h-0 w-full min-w-0 flex-col">
 				{/* Only worth a row when it carries a control: the pane header above
 				    already names the agent, and harness/status/connection repeated

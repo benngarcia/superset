@@ -14,6 +14,7 @@ import {
 } from "@superset/ui/dropdown-menu";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@superset/ui/tooltip";
 import { CornerDownRight, Ellipsis, ListEnd, Trash2 } from "lucide-react";
+import { parseAttachmentTags } from "../../../../../../utils/attachmentTags";
 import { userMessageText } from "../../../../../../utils/userMessageText";
 
 export function QueuedPromptRow({
@@ -30,10 +31,15 @@ export function QueuedPromptRow({
 	onSteer: (id: string) => void;
 }) {
 	const { t } = useLingui();
-	const text = userMessageText(prompt);
-	const attachmentNames = prompt.content.flatMap((content) =>
-		content.type === "attachment" ? [content.name] : [],
-	);
+	const { text, attachments } = parseAttachmentTags(userMessageText(prompt));
+	const attachmentNames = [
+		...attachments.map(
+			(attachment) => attachment.path.split("/").pop() ?? attachment.path,
+		),
+		...prompt.content.flatMap((content) =>
+			content.type === "attachment" ? [content.name] : [],
+		),
+	];
 
 	return (
 		<QueueItem

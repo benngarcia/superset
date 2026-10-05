@@ -1,6 +1,5 @@
 import { randomUUID } from "node:crypto";
 import { closeSync, mkdirSync, openSync } from "node:fs";
-import { readFile, stat } from "node:fs/promises";
 import { join } from "node:path";
 import {
 	assignAttachmentFileName,
@@ -17,9 +16,7 @@ import { type CloudAttachment, downloadAttachment } from "./download";
 import {
 	type AttachmentMetadata,
 	deleteAttachment,
-	getAttachmentFilePath,
 	prepareAttachmentTarget,
-	readAttachmentMetadata,
 	writeAttachment,
 	writeAttachmentMetadata,
 } from "./storage";
@@ -193,37 +190,6 @@ export const attachmentsRouter = router({
 				paths.push(`${WORKSPACE_ATTACHMENTS_DIR}/${fileName}`);
 			}
 			return { paths };
-		}),
-
-	read: protectedProcedure
-		.input(z.object({ attachmentId: z.string().uuid() }))
-		.query(async ({ input }) => {
-			const metadata = readAttachmentMetadata(input.attachmentId);
-			if (
-				!metadata?.mediaType.startsWith("image/") ||
-				metadata.sizeBytes > MAX_INLINE_ATTACHMENT_BYTES
-			) {
-				throw new TRPCError({
-					code: "NOT_FOUND",
-					message: "No image attachment with that id",
-				});
-			}
-			const path = getAttachmentFilePath(
-				metadata.attachmentId,
-				metadata.mediaType,
-			);
-			const { size } = await stat(path);
-			if (size > MAX_INLINE_ATTACHMENT_BYTES) {
-				throw new TRPCError({
-					code: "NOT_FOUND",
-					message: "No image attachment with that id",
-				});
-			}
-			const bytes = await readFile(path);
-			return {
-				mediaType: metadata.mediaType,
-				data: bytes.toString("base64"),
-			};
 		}),
 
 	/**

@@ -1,6 +1,8 @@
 import type { UserMessage } from "@superset/chat/protocol";
 import { Queue } from "@superset/ui/ai-elements/queue";
 import type { KeyboardEvent, RefObject } from "react";
+import { parseAttachmentTags } from "../../../../utils/attachmentTags";
+import { userMessageText } from "../../../../utils/userMessageText";
 import { QueuedPromptRow } from "./components/QueuedPromptRow";
 import { QueuePausedBar } from "./components/QueuePausedBar";
 
@@ -38,9 +40,9 @@ export function QueuedPrompts({
 			event.target instanceof HTMLElement ? rows.indexOf(event.target) : -1;
 		const prompt = prompts[index];
 		if (!prompt) return;
-		const hasAttachments = prompt.content.some(
-			(content) => content.type === "attachment",
-		);
+		const hasAttachments =
+			prompt.content.some((content) => content.type === "attachment") ||
+			parseAttachmentTags(userMessageText(prompt)).attachments.length > 0;
 		switch (event.key) {
 			case "ArrowUp":
 				rows[Math.max(0, index - 1)]?.focus();

@@ -1,5 +1,6 @@
 import { readBookkeeping, type TurnGroup } from "@superset/chat/core";
 import type { UserMessage } from "@superset/chat/protocol";
+import { parseAttachmentTags } from "../attachmentTags";
 import { userMessageText } from "../userMessageText";
 
 export function promptHistory(
@@ -10,8 +11,10 @@ export function promptHistory(
 	for (const group of groups) {
 		for (const entry of group.entries) {
 			if (entry.kind !== "item" || entry.item.kind !== "user_message") continue;
-			const text = userMessageText(entry.item as UserMessage).trim();
-			if (!text || readBookkeeping(harness, text)) continue;
+			const raw = userMessageText(entry.item as UserMessage);
+			if (readBookkeeping(harness, raw)) continue;
+			const { text } = parseAttachmentTags(raw);
+			if (!text) continue;
 			if (text !== history.at(-1)) history.push(text);
 		}
 	}

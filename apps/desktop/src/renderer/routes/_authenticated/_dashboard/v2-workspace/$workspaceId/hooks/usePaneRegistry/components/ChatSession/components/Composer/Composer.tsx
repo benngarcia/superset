@@ -97,7 +97,7 @@ export const Composer = memo(function Composer({
 }: ComposerProps) {
 	const { t } = useLingui();
 	const trpcUtils = workspaceTrpc.useUtils();
-	const uploadAttachments = useUploadAttachments();
+	const uploadAttachments = useUploadAttachments(workspaceId);
 	const { storedDraft, onChange, clearDraft } = useComposerDraft(draftKey);
 	const promptInputRef = useRef<PromptInputHandle>(null);
 	const queueActions = useQueueActions(promptQueue, promptInputRef);
@@ -182,11 +182,13 @@ export const Composer = memo(function Composer({
 			steer: boolean;
 		}) => {
 			if (disabled || (text.trim() === "" && files.length === 0)) return;
-			const attachments = await uploadAttachments(files);
-			if (!attachments) return;
+			const tags = await uploadAttachments(files);
+			if (!tags) return;
 			const sent = onSend([
-				...(text.trim() === "" ? [] : [{ type: "text" as const, text }]),
-				...attachments,
+				{
+					type: "text",
+					text: [text.trim(), ...tags].filter(Boolean).join("\n"),
+				},
 			]);
 			if (steer && sent) steerOnArrival(sent.clientId);
 			clearDraft();
