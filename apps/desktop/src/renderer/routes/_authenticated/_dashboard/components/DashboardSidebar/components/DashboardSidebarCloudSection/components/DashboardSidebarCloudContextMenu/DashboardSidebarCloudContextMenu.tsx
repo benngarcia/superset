@@ -26,6 +26,7 @@ import {
 	LuPanelLeftClose,
 	LuPencil,
 	LuRadioTower,
+	LuSend,
 	LuTag,
 } from "react-icons/lu";
 import type { CloudTask } from "renderer/routes/_authenticated/_dashboard/components/CloudTaskRow";
@@ -67,6 +68,8 @@ interface DashboardSidebarCloudContextMenuProps {
 	isClosingPorts?: boolean;
 	onOpenChange?: (open: boolean) => void;
 	onOpenDetails: () => void;
+	/** Absent while the sandbox is not ready to be moved. */
+	onTeleport?: () => void;
 	onRename?: () => void;
 	onSaveAsEnvironment?: () => void;
 	onSetProject: (projectId: string | null) => void;
@@ -97,6 +100,7 @@ export function DashboardSidebarCloudContextMenu({
 	isClosingPorts = false,
 	onOpenChange,
 	onOpenDetails,
+	onTeleport,
 	onRename,
 	onSaveAsEnvironment,
 	onSetProject,
@@ -122,6 +126,12 @@ export function DashboardSidebarCloudContextMenu({
 					<LuArrowUpRight />
 					<Trans>Open details</Trans>
 				</ContextMenuItem>
+				{onTeleport && (
+					<ContextMenuItem onSelect={() => runAfterClose(onTeleport)}>
+						<LuSend />
+						<Trans>Teleport…</Trans>
+					</ContextMenuItem>
+				)}
 				<ContextMenuSeparator />
 				{onRename && (
 					<ContextMenuItem onSelect={() => runAfterClose(onRename)}>

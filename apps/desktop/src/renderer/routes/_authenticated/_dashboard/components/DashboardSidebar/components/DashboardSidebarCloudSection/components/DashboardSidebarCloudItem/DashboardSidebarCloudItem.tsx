@@ -4,6 +4,7 @@ import { errorMessage } from "@superset/i18n/errors";
 import { toast } from "@superset/ui/sonner";
 import { useMatchRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
+import { TeleportDialogContainer } from "renderer/components/TeleportDialog/TeleportDialogContainer";
 import { resolveProjectIconUrl } from "renderer/hooks/host-projects/resolveProjectIconUrl";
 import type { CloudWorkspaceRow } from "renderer/hooks/useCloudWorkspaces";
 import { useCopyToClipboard } from "renderer/hooks/useCopyToClipboard";
@@ -77,6 +78,7 @@ export function DashboardSidebarCloudItem({
 	const { t } = useLingui();
 	const navigate = useNavigate();
 	const matchRoute = useMatchRoute();
+	const [isTeleportOpen, setIsTeleportOpen] = useState(false);
 	const { copyToClipboard } = useCopyToClipboard();
 	const copyShareLink = useCopyShareLink();
 	const { setProject, linkTask, unlinkTask, addLabel, removeLabel } =
@@ -153,146 +155,162 @@ export function DashboardSidebarCloudItem({
 	const repoOwner = repoFullName?.split("/")[0];
 
 	return (
-		<DashboardSidebarCloudContextMenu
-			isUnread={hasFinished && !isRead}
-			groups={groups}
-			groupId={entry?.groupId ?? null}
-			archiveShortcut={isActive ? archiveShortcut : null}
-			isClosingPorts={isClosingPorts}
-			onOpenChange={onSuppressHover}
-			onOpenDetails={() =>
-				navigate({
-					to: "/cloud-workspaces/$workspaceId",
-					params: { workspaceId: workspace.id },
-				})
-			}
-			onRename={() => {
-				setRenameValue(workspace.name);
-				setIsRenaming(true);
-			}}
-			onSaveAsEnvironment={
-				workspace.status === "ready"
-					? () => requestSaveAsEnvironment(workspace.id)
-					: undefined
-			}
-			projectId={workspace.projectId}
-			projects={projects}
-			linkedTaskIds={linkedTaskIds}
-			labels={labels}
-			knownLabels={knownLabels}
-			onAddLabel={(name) => addLabel(workspace.id, name)}
-			onRemoveLabel={(labelId) => removeLabel(workspace.id, labelId)}
-			onSetProject={(projectId) => setProject(workspace.id, projectId)}
-			onToggleTask={(task, isLinked) =>
-				isLinked
-					? unlinkTask(workspace.id, task.id)
-					: linkTask(workspace.id, task)
-			}
-			onCopyLink={() => copyShareLink(`workspaces/${workspace.id}`)}
-			onCopyWorkspaceId={() =>
-				copy(workspace.id, t({ message: "Workspace ID copied" }))
-			}
-			onToggleUnread={
-				hasFinished
-					? () =>
-							isRead
-								? markUnread(organizationId, workspace.id)
-								: markRead(
-										organizationId,
-										workspace.id,
-										workspace.agentStatusAt?.getTime() ?? null,
-									)
-					: undefined
-			}
-			onCreateGroup={() => onCreateGroup(workspace.id)}
-			onMoveToGroup={(groupId) =>
-				moveToGroup(organizationId, workspace.id, groupId)
-			}
-			onCloseAllPorts={ports.length > 0 ? closeAllPorts : undefined}
-			onHideFromSidebar={
-				isMine
-					? undefined
-					: () => setInSidebar(organizationId, workspace.id, false)
-			}
-			onArchive={() =>
-				useDeleteWorkspaceIntent.getState().request({
-					workspaceId: workspace.id,
-					workspaceName: workspace.name || branch,
-				})
-			}
-		>
-			<DashboardSidebarCloudRow
-				onPointerEnter={(event) => onHoverStart(event.currentTarget)}
-				onPointerLeave={onHoverEnd}
-				onOpen={open}
-				workspace={workspace}
-				isMine={isMine}
-				isRead={isRead}
-				nameSlot={
-					isRenaming ? (
-						<RenameInput
-							value={renameValue}
-							onChange={setRenameValue}
-							onSubmit={submitRename}
-							onCancel={() => setIsRenaming(false)}
-							className="h-5 min-w-0 flex-1 border-none bg-transparent p-0 text-[13px] leading-tight text-foreground outline-none"
-						/>
-					) : undefined
+		<>
+			{isTeleportOpen && (
+				<TeleportDialogContainer
+					open={isTeleportOpen}
+					onOpenChange={setIsTeleportOpen}
+					workspaceId={workspace.id}
+					workspaceLabel={workspace.name || branch}
+					source={{ kind: "cloud", cloudWorkspaceId: workspace.id }}
+				/>
+			)}
+			<DashboardSidebarCloudContextMenu
+				isUnread={hasFinished && !isRead}
+				groups={groups}
+				groupId={entry?.groupId ?? null}
+				archiveShortcut={isActive ? archiveShortcut : null}
+				isClosingPorts={isClosingPorts}
+				onOpenChange={onSuppressHover}
+				onOpenDetails={() =>
+					navigate({
+						to: "/cloud-workspaces/$workspaceId",
+						params: { workspaceId: workspace.id },
+					})
 				}
-				repo={
-					repoFullName
-						? {
-								name: repoFullName,
-								iconUrl: resolveProjectIconUrl({
-									icon: null,
-									repoOwner: repoOwner || null,
-								}),
-							}
-						: null
+				onTeleport={
+					workspace.status === "ready"
+						? () => setIsTeleportOpen(true)
+						: undefined
 				}
-				ports={
-					ports.length > 0
-						? {
-								count: ports.length,
-								onOpenChange: onSuppressHover,
-								card: (
-									<DashboardSidebarPortsCard
-										ports={ports.map((port) => ({
-											...port,
-											forward: forwardFor(port),
-										}))}
-										isBusy={isClosingPorts}
-										onOpenPort={(portNumber) => {
-											const port = ports.find(
-												(candidate) => candidate.port === portNumber,
-											);
-											if (port) openPort(port, forwardFor(port));
-										}}
-										onClosePort={(portNumber) => {
-											const port = ports.find(
-												(candidate) => candidate.port === portNumber,
-											);
-											if (port) void killPort(port);
-										}}
-										onCloseAll={() => void closeAllPorts()}
-									/>
-								),
-							}
-						: null
-				}
-				pullRequest={pullRequest}
-				now={now}
-				isActive={isActive}
-				onOpenPullRequest={() => {
-					if (pullRequest) openPullRequest(workspace.id, pullRequest.url);
+				onRename={() => {
+					setRenameValue(workspace.name);
+					setIsRenaming(true);
 				}}
+				onSaveAsEnvironment={
+					workspace.status === "ready"
+						? () => requestSaveAsEnvironment(workspace.id)
+						: undefined
+				}
+				projectId={workspace.projectId}
+				projects={projects}
+				linkedTaskIds={linkedTaskIds}
+				labels={labels}
+				knownLabels={knownLabels}
+				onAddLabel={(name) => addLabel(workspace.id, name)}
+				onRemoveLabel={(labelId) => removeLabel(workspace.id, labelId)}
+				onSetProject={(projectId) => setProject(workspace.id, projectId)}
+				onToggleTask={(task, isLinked) =>
+					isLinked
+						? unlinkTask(workspace.id, task.id)
+						: linkTask(workspace.id, task)
+				}
+				onCopyLink={() => copyShareLink(`workspaces/${workspace.id}`)}
+				onCopyWorkspaceId={() =>
+					copy(workspace.id, t({ message: "Workspace ID copied" }))
+				}
+				onToggleUnread={
+					hasFinished
+						? () =>
+								isRead
+									? markUnread(organizationId, workspace.id)
+									: markRead(
+											organizationId,
+											workspace.id,
+											workspace.agentStatusAt?.getTime() ?? null,
+										)
+						: undefined
+				}
+				onCreateGroup={() => onCreateGroup(workspace.id)}
+				onMoveToGroup={(groupId) =>
+					moveToGroup(organizationId, workspace.id, groupId)
+				}
+				onCloseAllPorts={ports.length > 0 ? closeAllPorts : undefined}
+				onHideFromSidebar={
+					isMine
+						? undefined
+						: () => setInSidebar(organizationId, workspace.id, false)
+				}
 				onArchive={() =>
 					useDeleteWorkspaceIntent.getState().request({
 						workspaceId: workspace.id,
 						workspaceName: workspace.name || branch,
 					})
 				}
-			/>
-		</DashboardSidebarCloudContextMenu>
+			>
+				<DashboardSidebarCloudRow
+					onPointerEnter={(event) => onHoverStart(event.currentTarget)}
+					onPointerLeave={onHoverEnd}
+					onOpen={open}
+					workspace={workspace}
+					isMine={isMine}
+					isRead={isRead}
+					nameSlot={
+						isRenaming ? (
+							<RenameInput
+								value={renameValue}
+								onChange={setRenameValue}
+								onSubmit={submitRename}
+								onCancel={() => setIsRenaming(false)}
+								className="h-5 min-w-0 flex-1 border-none bg-transparent p-0 text-[13px] leading-tight text-foreground outline-none"
+							/>
+						) : undefined
+					}
+					repo={
+						repoFullName
+							? {
+									name: repoFullName,
+									iconUrl: resolveProjectIconUrl({
+										icon: null,
+										repoOwner: repoOwner || null,
+									}),
+								}
+							: null
+					}
+					ports={
+						ports.length > 0
+							? {
+									count: ports.length,
+									onOpenChange: onSuppressHover,
+									card: (
+										<DashboardSidebarPortsCard
+											ports={ports.map((port) => ({
+												...port,
+												forward: forwardFor(port),
+											}))}
+											isBusy={isClosingPorts}
+											onOpenPort={(portNumber) => {
+												const port = ports.find(
+													(candidate) => candidate.port === portNumber,
+												);
+												if (port) openPort(port, forwardFor(port));
+											}}
+											onClosePort={(portNumber) => {
+												const port = ports.find(
+													(candidate) => candidate.port === portNumber,
+												);
+												if (port) void killPort(port);
+											}}
+											onCloseAll={() => void closeAllPorts()}
+										/>
+									),
+								}
+							: null
+					}
+					pullRequest={pullRequest}
+					now={now}
+					isActive={isActive}
+					onOpenPullRequest={() => {
+						if (pullRequest) openPullRequest(workspace.id, pullRequest.url);
+					}}
+					onArchive={() =>
+						useDeleteWorkspaceIntent.getState().request({
+							workspaceId: workspace.id,
+							workspaceName: workspace.name || branch,
+						})
+					}
+				/>
+			</DashboardSidebarCloudContextMenu>
+		</>
 	);
 }

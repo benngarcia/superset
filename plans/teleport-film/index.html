@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Teleport, filmed</title>
+    <style>
+      :root {
+        --rule: 1px solid var(--sp-border);
+      }
+      body {
+        margin: 0;
+        font-family: var(--sp-font-sans);
+      }
+      .wrap {
+        max-width: 60rem;
+        margin: 0 auto;
+        padding: clamp(2rem, 6vw, 4rem) clamp(1.25rem, 5vw, 3rem) 5rem;
+      }
+      .eyebrow {
+        font-family: var(--sp-font-mono);
+        font-size: 0.75rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--sp-muted);
+        margin: 0 0 1rem;
+      }
+      h1 {
+        font-size: clamp(1.875rem, 5vw, 2.75rem);
+        letter-spacing: -0.03em;
+        line-height: 1.05;
+        margin: 0 0 0.875rem;
+        font-weight: 600;
+      }
+      h2 {
+        font-size: 1.25rem;
+        margin: 3rem 0 0.75rem;
+        letter-spacing: -0.02em;
+      }
+      .lede {
+        font-size: 1.0625rem;
+        line-height: 1.55;
+        color: var(--sp-muted);
+        max-width: var(--sp-measure);
+        margin: 0 0 2rem;
+      }
+      video {
+        width: 100%;
+        display: block;
+        border-radius: 10px;
+        border: var(--rule);
+        background: #05070a;
+      }
+      .cap {
+        font-size: 0.8125rem;
+        color: var(--sp-muted);
+        margin: 0.625rem 0 0;
+        line-height: 1.5;
+      }
+      .beats {
+        margin: 1.5rem 0 0;
+        border-top: var(--rule);
+      }
+      .beats > div {
+        display: grid;
+        grid-template-columns: 4rem 1fr;
+        gap: 0 1.25rem;
+        padding: 0.875rem 0;
+        border-bottom: var(--rule);
+        align-items: baseline;
+      }
+      .t {
+        font-family: var(--sp-font-mono);
+        font-size: 0.75rem;
+        color: var(--sp-muted);
+      }
+      .beats p,
+      p.body {
+        margin: 0;
+        font-size: 0.9375rem;
+        line-height: 1.55;
+      }
+      p.body {
+        max-width: var(--sp-measure);
+        margin-bottom: 0.875rem;
+      }
+      pre {
+        font-family: var(--sp-font-mono);
+        font-size: 0.8125rem;
+        line-height: 1.6;
+        border: var(--rule);
+        border-radius: var(--sp-radius);
+        padding: 1rem 1.125rem;
+        overflow-x: auto;
+        margin: 1rem 0;
+      }
+      .ok {
+        color: var(--sp-chart-2);
+      }
+      .honest {
+        border-left: 2px solid var(--sp-chart-4);
+        padding-left: 1.25rem;
+        margin: 1.5rem 0;
+      }
+      .honest p {
+        margin: 0 0 0.625rem;
+        font-size: 0.9375rem;
+        line-height: 1.55;
+        max-width: var(--sp-measure);
+      }
+      .honest p:last-child {
+        margin-bottom: 0;
+      }
+      a {
+        color: var(--sp-accent);
+      }
+      footer {
+        margin-top: 3rem;
+        padding-top: 1.25rem;
+        border-top: var(--rule);
+        font-size: 0.8125rem;
+        color: var(--sp-muted);
+      }
+    </style>
+  </head>
+  <body class="auto">
+    <div class="wrap">
+      <p class="eyebrow">Workspace teleport · recorded in the dev app</p>
+      <h1>Teleport, filmed</h1>
+      <p class="lede">
+        Four screen recordings of the real Superset desktop app. Every frame
+        is what the renderer painted, captured over the Chrome DevTools
+        Protocol and driven by real mouse input. Where a recording waits on a
+        sandbox, static stretches are held for at most five seconds; nothing
+        is drawn, staged, or re-rendered.
+      </p>
+
+      <h2>Machine → cloud, in 27 seconds</h2>
+      <p class="body">
+        The workspace this feature was built in, with a live Claude pane and
+        97 uncommitted changes, is teleported to a brand-new cloud sandbox.
+        The recording ends on the destination: the arrival terminal with the
+        restore's own result line, then the Claude pane that resumed from the
+        carried transcript.
+      </p>
+      <video controls playsinline preload="metadata" poster="poster-cloud-app.jpg">
+        <source src="teleport-cloud-app.mp4" type="video/mp4" />
+      </video>
+      <p class="cap">
+        The box is created the moment Teleport is pressed and boots while the
+        source is captured; it fetches the default branch over its image's
+        clone instead of cloning; every wait polls once a second.
+      </p>
+      <pre>t+0.8s   handoff notes requested; box create and wake begin
+t+2.1s   capture starts
+t+8.1s   ref pushed to origin
+t+18.4s  box awake, checkout fetched, workspace row read
+t+26.7s  restored, agent configs seeded, Claude relaunched, source stopped
+
+on the box, over its own host-service:
+  TELEPORT_RESTORED 97 files on superset/cloud-workspace-8fa92831 @ b8c5ad79
+  resumed agent: ◑ TELEPORT_HANDOFF newest trap append
+  git status: 98 entries on superset/cloud-workspace-8fa92831 @ b8c5ad79</pre>
+
+      <h2>Keep working while it moves</h2>
+      <p class="body">
+        The same move, sent to the background as soon as the capture is
+        done. The dialog closes. A line is
+        appended to a file in the source's shell while the box is still
+        coming up. A toast announces the end; "Open on Cloud" lands in the
+        sandbox, where the arrival terminal is asked for that file's last
+        line and shows the late edit. The last step of a move is a second
+        capture that carries only what changed, and pushes nothing when
+        nothing did.
+      </p>
+      <video controls playsinline preload="metadata" poster="poster-background.jpg">
+        <source src="teleport-background.mp4" type="video/mp4" />
+      </video>
+      <pre>t+0s     Teleport pressed
+t+2.7s   capture pushed; Run in background; the dialog closes
+t+7s     a line is appended to TELEPORT_HANDOFF.md in the source
+t+25.7s  toast: Teleported to Cloud
+t+30s    Open on Cloud: the arrival terminal, asked live, shows the line
+
+on the box, over its own host-service:
+  two arrivals, both TELEPORT_RESTORED 101 files on superset/cloud-workspace-8fa92831
+  resumed agent: ◑ TELEPORT_HANDOFF.md newest trap
+  last line of TELEPORT_HANDOFF.md: late change at 02:38:19</pre>
+
+      <h2>Cloud → this device, in 14 seconds</h2>
+      <p class="body">
+        The other direction, on the same code path. A cloud sandbox with two
+        files written in it and a Claude session is teleported onto this
+        device: the box, which runs the released host-service, captures and
+        pushes the hidden ref with plain git typed into one of its own
+        terminals; this device makes a worktree for the branch and arrives the
+        same way a sandbox would. The recording ends in the new worktree, with
+        the Claude pane resumed inside it and the two cloud files in the
+        Changes panel.
+      </p>
+      <video controls playsinline preload="metadata" poster="poster-cloud-to-machine.jpg">
+        <source src="teleport-cloud-to-machine.mp4" type="video/mp4" />
+      </video>
+      <p class="cap">
+        The device is this workspace's own dev host-service, standing in for a
+        machine: a real remote machine cannot be reached from inside a sandbox.
+        On a signed-in desktop the picker lists your hosts.
+      </p>
+      <pre>t+2.0s   handoff read; capture pushed from the box's terminal
+t+6.2s   worktree created on this device
+t+10.8s  arrived, setup ran
+t+14.4s  late changes checked, Claude relaunched
+
+on this device afterwards:
+  worktree ~/.superset/worktrees/project/superset/cloud-source-042ecfd0
+  branch   superset/cloud-source-042ecfd0
+  status   ?? CLOUD_NOTES.md   ?? packages/shared/src/teleport.ts
+  pane     ◑ CLOUD_NOTES.md review, resumed from the box's transcript</pre>
+
+      <h2>The dialog, step by step</h2>
+      <p class="body">
+        The first recording, before any destination existed to arrive at:
+        the context-menu verb, the host picker, and a plan the host computes
+        from the checkout on disk.
+      </p>
+      <video controls playsinline preload="metadata" poster="poster-real.jpg">
+        <source src="teleport-real-app.mp4" type="video/mp4" />
+      </video>
+      <div class="beats">
+        <div>
+          <span class="t">0:01</span>
+          <p><strong>Right-click the workspace.</strong> A real local workspace on a real project.</p>
+        </div>
+        <div>
+          <span class="t">0:03</span>
+          <p><strong>Teleport…</strong> sits with the other workspace verbs. It is hidden, not disabled, for cloud workspaces.</p>
+        </div>
+        <div>
+          <span class="t">0:05</span>
+          <p><strong>Pick a destination.</strong> Two registered hosts, both offline, both still selectable. Nothing preselected.</p>
+        </div>
+        <div>
+          <span class="t">0:08</span>
+          <p>
+            <strong>The plan, from the host.</strong> <code>feature/login</code> ·
+            1 unpushed commit · 1 modified, 1 untracked, 1 env file · clones the
+            repository on beelink first. Read by <code>teleport.sourceState</code>
+            from the live host-service, not from a fixture.
+          </p>
+        </div>
+      </div>
+
+      <h2>Every direction, one composition</h2>
+      <div class="scroll">
+      <table>
+        <thead><tr><th>Direction</th><th>Destination created by</th><th>Transport</th><th>Restore</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>machine → cloud</td><td>cloud API</td><td>hidden ref on origin</td><td>arrival command in a launched terminal</td><td>recorded above</td></tr>
+          <tr><td>cloud → machine</td><td>host <code>workspaces.create</code></td><td>hidden ref on origin, pushed from the box's terminal</td><td>arrival command</td><td>recorded above</td></tr>
+          <tr><td>cloud → cloud</td><td>cloud API</td><td>hidden ref on origin</td><td>arrival command</td><td>same composition; the top recordings run from a sandbox's checkout</td></tr>
+          <tr><td>machine → machine</td><td>host <code>workspaces.create</code></td><td>hidden ref on origin (bundle over the relay kept for offline, not wired)</td><td>arrival command</td><td>same composition; needs two machines to film</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="body">
+        A move is a source endpoint and a destination endpoint with one
+        composition between them. A source is any host-service with a
+        checkout; when a host predates the teleport procedures, the same work
+        is typed into its terminal as plain git. A destination is anything
+        that can produce a checkout: a worktree on a host, or a new sandbox.
+        The capture is ordinary git objects behind an ordinary ref, and any
+        checkout that can reach origin can take it.
+      </p>
+
+      <h2>What is real, and how it was wired</h2>
+      <p class="body">
+        The context-menu item, the dialog, the plan, the capture, the sandbox,
+        the restore, and the resumed agents are the shipped code running in
+        the dev app. The git core underneath is tested against real
+        repositories, including this monorepo's own checkout: a capture of 82
+        dirty files bundled in under a second and restored byte for byte.
+      </p>
+      <div class="honest">
+        <p>
+          This dev app runs inside a cloud workspace whose dev API cannot
+          start sandboxes. For these recordings a local façade on the dev
+          API's port sent the five cloud procedures the dialog uses to the
+          production API under the sandbox's own credential, and everything
+          else to the dev API. Only the address of those five calls changed;
+          the renderer's CSP also had to admit the real sandbox domain. The
+          machine-to-machine run needs two machines to film; its eight steps
+          are exercised end to end in <code>flow.test.ts</code>.
+        </p>
+      </div>
+
+      <footer>
+        Design and mechanism:
+        <a href="https://app.superset.sh/page/workspace-teleport-xh2ema"
+          >Workspace teleport</a
+        >. Source: <code>plans/teleport-film/</code>. Recorders in
+        <code>apps/desktop/scripts/</code>:
+        <code>cdp-teleport-record-cloud.ts</code>,
+        <code>cdp-teleport-record-background.ts</code>,
+        <code>cdp-teleport-record-cloud-to-machine.ts</code>,
+        <code>cdp-teleport-record.ts</code>.
+      </footer>
+    </div>
+  </body>
+</html>

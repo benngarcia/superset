@@ -1,0 +1,246 @@
+import { describe, expect, test } from "bun:test";
+import {
+	ARRIVAL_MARKER,
+	buildArrivalCommand,
+	buildDepartureCommand,
+	buildStateProbeCommand,
+	buildTeleportPlan,
+	DEPARTURE_MARKER,
+	derivePaneDisposition,
+	handoffRef,
+	STATE_MARKER,
+	type TabPlan,
+} from "./teleport";
+
+const CLEAN = {
+	modified: 0,
+	untracked: 0,
+	preciousFiles: 0,
+	unpushedCommits: 0,
+};
+
+const TAB_WITH_AGENT: TabPlan = {
+	tabId: "tab-1",
+	title: "agent",
+	panes: [
+		{
+			paneId: "pane-1",
+			label: "claude",
+			disposition: { kind: "agent-resumes", agent: "claude" },
+		},
+	],
+};
+
+describe("buildTeleportPlan", () => {
+	test("says clone when the destination has no copy of the repository", () => {
+		const plan = buildTeleportPlan({
+			branch: "feature/login",
+			destinationHostName: "beelink",
+			destinationHasRepository: false,
+			workingTree: CLEAN,
+			tabs: [],
+		});
+		expect(plan.repository).toBe("clone");
+	});
+
+	test("says fetch when it already has one", () => {
+		const plan = buildTeleportPlan({
+			branch: "feature/login",
+			destinationHostName: "beelink",
+			destinationHasRepository: true,
+			workingTree: CLEAN,
+			tabs: [],
+		});
+		expect(plan.repository).toBe("fetch");
+	});
+
+	test("is empty when there is no work and no panes", () => {
+		const plan = buildTeleportPlan({
+			branch: "main",
+			destinationHostName: "beelink",
+			destinationHasRepository: true,
+			workingTree: CLEAN,
+			tabs: [{ tabId: "tab-1", title: "shell", panes: [] }],
+		});
+		expect(plan.isEmpty).toBe(true);
+	});
+
+	test("is not empty when only ignored env files would move", () => {
+		// The case worth getting right: a clean checkout whose .env is the
+		// entire reason the move is worth making.
+		const plan = buildTeleportPlan({
+			branch: "main",
+			destinationHostName: "beelink",
+			destinationHasRepository: true,
+			workingTree: { ...CLEAN, preciousFiles: 1 },
+			tabs: [],
+		});
+		expect(plan.isEmpty).toBe(false);
+	});
+
+	test("is not empty when a pane is running", () => {
+		const plan = buildTeleportPlan({
+			branch: "main",
+			destinationHostName: "beelink",
+			destinationHasRepository: true,
+			workingTree: CLEAN,
+			tabs: [TAB_WITH_AGENT],
+		});
+		expect(plan.isEmpty).toBe(false);
+	});
+
+	test("carries refusals through untouched", () => {
+		const plan = buildTeleportPlan({
+			branch: "main",
+			destinationHostName: "beelink",
+			destinationHasRepository: true,
+			workingTree: CLEAN,
+			tabs: [],
+			refusals: [{ kind: "branch-checked-out", branch: "main", path: "/repo" }],
+		});
+		expect(plan.refusals).toHaveLength(1);
+	});
+});
+
+describe("derivePaneDisposition", () => {
+	test("resumes an agent with a session the harness can restore", () => {
+		expect(
+			derivePaneDisposition({
+				agentId: "claude",
+				agentSessionId: "abc123",
+				canResumeSession: true,
+				foregroundCommand: "claude",
+			}),
+		).toEqual({ kind: "agent-resumes", agent: "claude" });
+	});
+
+	test("restarts an agent whose harness cannot resume by id", () => {
+		expect(
+			derivePaneDisposition({
+				agentId: "grok",
+				agentSessionId: "abc123",
+				canResumeSession: false,
+				foregroundCommand: "grok",
+			}),
+		).toEqual({ kind: "agent-restarts", agent: "grok" });
+	});
+
+	test("restarts an agent that never reported a session", () => {
+		expect(
+			derivePaneDisposition({
+				agentId: "claude",
+				agentSessionId: null,
+				canResumeSession: true,
+				foregroundCommand: "claude",
+			}),
+		).toEqual({ kind: "agent-restarts", agent: "claude" });
+	});
+
+	test("an agent outranks the command it is running", () => {
+		// A pane bound to an agent is an agent pane, even though its
+		// foreground process is just the harness binary.
+		expect(
+			derivePaneDisposition({
+				agentId: "claude",
+				agentSessionId: "abc123",
+				canResumeSession: true,
+				foregroundCommand: "bun dev",
+			}).kind,
+		).toBe("agent-resumes");
+	});
+
+	test("restarts a plain long-running process", () => {
+		expect(
+			derivePaneDisposition({
+				agentId: null,
+				agentSessionId: null,
+				canResumeSession: false,
+				foregroundCommand: "bun dev",
+			}),
+		).toEqual({ kind: "process-restarts", command: "bun dev" });
+	});
+
+	test("opens an empty shell for a pane running nothing", () => {
+		expect(
+			derivePaneDisposition({
+				agentId: null,
+				agentSessionId: null,
+				canResumeSession: false,
+				foregroundCommand: null,
+			}),
+		).toEqual({ kind: "shell-opens" });
+	});
+});
+
+describe("buildArrivalCommand", () => {
+	test("fetches, lands on the branch at the capture base, restores both trees", () => {
+		const cmd = buildArrivalCommand(
+			"refs/superset/teleport/w1",
+			"feature/login",
+		);
+		expect(cmd).toContain(
+			"git fetch -q origin 'refs/superset/teleport/w1:refs/superset/teleport/w1'",
+		);
+		expect(cmd).toContain(
+			"git checkout -q -B 'feature/login' 'refs/superset/teleport/w1~2'",
+		);
+		expect(cmd.indexOf("read-tree -u --reset")).toBeLessThan(
+			cmd.indexOf("read-tree 'refs/superset/teleport/w1^'"),
+		);
+		expect(cmd).toContain("TELEPORT_RESTORED");
+	});
+
+	test("quotes a branch name that contains a single quote", () => {
+		expect(buildArrivalCommand("refs/superset/teleport/w1", "it's")).toContain(
+			`'it'\\''s'`,
+		);
+	});
+
+	test("the marker regex reads back what the command prints", () => {
+		const m = "TELEPORT_RESTORED 86 files on feature/login @ b8c5ad7".match(
+			ARRIVAL_MARKER,
+		);
+		expect(m?.[1]).toBe("86");
+		expect(m?.[2]).toBe("feature/login");
+	});
+});
+
+describe("buildDepartureCommand", () => {
+	test("captures both trees, pushes the ref by force, and prints the marker", () => {
+		const cmd = buildDepartureCommand("refs/superset/teleport/w1");
+		expect(cmd).toContain("STAGED_TREE=$(git write-tree)");
+		expect(cmd).toContain('GIT_INDEX_FILE="$SCRATCH_INDEX" git add -A');
+		expect(cmd).toContain("user.name='Superset Teleport'");
+		expect(cmd).toContain(
+			"git push -q --force 'origin' 'refs/superset/teleport/w1:refs/superset/teleport/w1'",
+		);
+		expect(
+			cmd.endsWith(
+				'echo "TELEPORT_PUBLISHED $HEAD_SHA $WORKING_COMMIT $WORKING_TREE"',
+			),
+		).toBe(true);
+	});
+
+	test("the marker regex reads back head, working commit and tree", () => {
+		const m = "TELEPORT_PUBLISHED b8c5ad79 d982b8fa 4b825dc6".match(
+			DEPARTURE_MARKER,
+		);
+		expect(m?.[1]).toBe("b8c5ad79");
+		expect(m?.[2]).toBe("d982b8fa");
+		expect(m?.[3]).toBe("4b825dc6");
+	});
+});
+
+describe("buildStateProbeCommand", () => {
+	test("prints modified and untracked counts and the branch", () => {
+		expect(buildStateProbeCommand()).toContain("TELEPORT_STATE");
+		const m = "TELEPORT_STATE 86 9 feature/login".match(STATE_MARKER);
+		expect(m?.[1]).toBe("86");
+		expect(m?.[2]).toBe("9");
+		expect(m?.[3]).toBe("feature/login");
+	});
+});
+
+test("handoffRef names the capture by workspace", () => {
+	expect(handoffRef("w1")).toBe("refs/superset/teleport/w1");
+});
