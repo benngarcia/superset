@@ -122,10 +122,6 @@ export {
 	writePluginConnections,
 } from "./plugin-connections";
 export {
-	desiredPluginMcpServers,
-	syncPluginMcpServers,
-} from "./plugin-mcp-servers";
-export {
 	type McpReconcileReport,
 	reconcileMcpServers,
 } from "./reconcile-mcp-servers";

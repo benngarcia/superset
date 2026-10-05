@@ -5,7 +5,6 @@ import { promisify } from "node:util";
 import {
 	createManagedSkills,
 	resolveDisabledSkillIds,
-	syncPluginMcpServers,
 } from "@superset/agent-setup";
 import { CLIError } from "@superset/cli-framework";
 import {
@@ -599,7 +598,6 @@ export async function syncPlugins(): Promise<SyncResult> {
 	await createManagedSkills({
 		disabledSkills: resolveDisabledSkillIds(),
 	});
-	syncPluginMcpServers();
 
 	// Both halves of a plugin, converged together. Skills without MCP entries is
 	// the half-on state installed_plugins.json exists to prevent, and an install

@@ -1,6 +1,6 @@
 import {
 	mcpHeadersHelperCommand,
-	readInstalledPluginSources,
+	readEnabledPlugins,
 	readPluginConnections,
 	type SyncManagedMcpServersOptions,
 	syncManagedMcpServers,
@@ -21,7 +21,7 @@ export function syncPluginMcpServers(
 	servers: number;
 	error: string | null;
 } {
-	const desired = desiredPluginMcpServers(readInstalledPluginSources() ?? [], {
+	const desired = desiredPluginMcpServers(readEnabledPlugins() ?? [], {
 		connections: readPluginConnections(),
 		headersHelper: mcpHeadersHelperCommand(),
 	});

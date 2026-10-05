@@ -58,7 +58,6 @@ import { createArtifactGuardScript } from "./artifact-guard-hook";
 import { resolveDisabledSkillIds } from "./disabled-skills";
 import { createManagedSkills } from "./managed-skills";
 import { createNotifyScript } from "./notify-hook";
-import { syncPluginMcpServers } from "./plugin-mcp-servers";
 
 type LabeledAction = readonly [label: string, action: () => void];
 
@@ -229,10 +228,6 @@ export function setupAgentCapabilities({
 		)
 	) {
 		failed.push("managed-skills");
-	}
-
-	if (!runSetupAction("plugin-mcp-servers", syncPluginMcpServers)) {
-		failed.push("plugin-mcp-servers");
 	}
 
 	for (const target of AGENT_SETUP_TARGETS) {
