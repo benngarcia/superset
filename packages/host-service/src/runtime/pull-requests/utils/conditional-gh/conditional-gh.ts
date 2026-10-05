@@ -107,7 +107,9 @@ export class ConditionalGh {
 			throw new Error(`Unexpected GitHub response: HTTP ${response.status}`);
 		}
 		const result: unknown = JSON.parse(response.body);
-		if (generation !== this.generation) return result;
+		if (generation !== this.generation || this.cache.get(key) !== cached) {
+			return result;
+		}
 		this.remove(key);
 		if (response.etag) {
 			this.store(key, {

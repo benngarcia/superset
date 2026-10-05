@@ -32,7 +32,9 @@ function createRunner(responses: unknown[]) {
 }
 
 describe("conditional GitHub REST requests", () => {
-	test("keeps a newer response when an older revalidation finishes last", async () => {
+	test.each([
+		200, 304,
+	])("keeps a newer response when an older %i revalidation finishes last", async (status) => {
 		const pending = Promise.withResolvers<unknown>();
 		const { run, calls } = createRunner([
 			response([], '"first"'),
@@ -44,7 +46,8 @@ describe("conditional GitHub REST requests", () => {
 		await gh.exec(GET);
 		const older = gh.exec(GET);
 		await gh.exec(GET);
-		pending.reject(notModified());
+		if (status === 304) pending.reject(notModified());
+		else pending.resolve(response([], '"older"'));
 		await older;
 		expect(await gh.exec(GET)).toEqual([{ number: 42 }]);
 		expect(calls[3]?.args).toContain('If-None-Match: "second"');
