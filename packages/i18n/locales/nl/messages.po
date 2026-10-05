@@ -14418,6 +14418,9 @@ msgstr "Delen"
 msgid "Share designs and reports. Let your agent handle the feedback."
 msgstr "Deel ontwerpen en rapporten. Laat je agent de feedback verwerken."
 
+msgid "Share of listed models"
+msgstr "Aandeel van de getoonde modellen"
+
 msgid "Share page"
 msgstr "Pagina delen"
 

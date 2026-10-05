@@ -134,15 +134,19 @@ export default async function UserProfilePage({ params }: PageProps) {
 								? profile.factory.tier + Math.min(0.9, profile.factory.progress)
 								: 0
 						}
-						footer={<TierObjectives tier={tier} axes={profile.axes} />}
+						footer={
+							<>
+								<TierObjectives tier={tier} axes={profile.axes} />
+								<Link
+									href="/the-production-run"
+									className="inline-flex min-h-11 items-center px-5 pb-2 text-xs text-muted-foreground transition-colors hover:text-brand"
+								>
+									<Trans>How tiers work →</Trans>
+								</Link>
+							</>
+						}
 					/>
 
-					<Link
-						href="/the-production-run"
-						className="inline-flex min-h-11 items-center text-sm text-muted-foreground transition-colors hover:text-brand"
-					>
-						<Trans>How tiers work →</Trans>
-					</Link>
 					<StatStrip
 						stats={[
 							{
@@ -201,16 +205,9 @@ export default async function UserProfilePage({ params }: PageProps) {
 						title={<Trans>Models</Trans>}
 						meta={t({ message: "All time" })}
 					>
-						<ModelMix
-							models={profile.models}
-							totalTokens={profile.allTime.tokens}
-							locale={locale}
-						/>
+						<ModelMix models={profile.models} locale={locale} />
 						<ModelBars
-							rows={toTokenRows(
-								profile.models.map((model) => ({ ...model, usd: model.usd })),
-								locale,
-							)}
+							rows={toTokenRows(profile.models, locale)}
 							colors={colors}
 						/>
 					</LeaderboardPanel>

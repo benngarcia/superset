@@ -14418,6 +14418,9 @@ msgstr "Teilen"
 msgid "Share designs and reports. Let your agent handle the feedback."
 msgstr "Teile Entwürfe und Berichte. Lass deinen Agenten das Feedback bearbeiten."
 
+msgid "Share of listed models"
+msgstr "Anteil der aufgeführten Modelle"
+
 msgid "Share page"
 msgstr "Seite teilen"
 

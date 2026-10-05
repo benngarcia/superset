@@ -14418,6 +14418,9 @@ msgstr "공유"
 msgid "Share designs and reports. Let your agent handle the feedback."
 msgstr "디자인과 보고서를 공유하세요. 피드백 처리는 에이전트에게 맡기세요."
 
+msgid "Share of listed models"
+msgstr "표시된 모델의 비율"
+
 msgid "Share page"
 msgstr "페이지 공유"
 

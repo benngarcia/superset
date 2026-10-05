@@ -14418,6 +14418,9 @@ msgstr "Udostępnij"
 msgid "Share designs and reports. Let your agent handle the feedback."
 msgstr "Udostępniaj projekty i raporty. Pozwól agentowi zająć się opiniami."
 
+msgid "Share of listed models"
+msgstr "Udział wymienionych modeli"
+
 msgid "Share page"
 msgstr "Udostępnij stronę"
 

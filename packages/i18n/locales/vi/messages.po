@@ -14418,6 +14418,9 @@ msgstr "Chia sẻ"
 msgid "Share designs and reports. Let your agent handle the feedback."
 msgstr "Chia sẻ thiết kế và báo cáo. Hãy để agent của bạn xử lý phản hồi."
 
+msgid "Share of listed models"
+msgstr "Tỷ lệ của các mô hình được liệt kê"
+
 msgid "Share page"
 msgstr "Chia sẻ trang"
 

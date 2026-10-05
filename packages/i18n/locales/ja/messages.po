@@ -14418,6 +14418,9 @@ msgstr "共有"
 msgid "Share designs and reports. Let your agent handle the feedback."
 msgstr "デザインやレポートを共有しましょう。フィードバックへの対応はエージェントに任せられます。"
 
+msgid "Share of listed models"
+msgstr "表示モデルに占める割合"
+
 msgid "Share page"
 msgstr "ページを共有"
 

@@ -14418,6 +14418,9 @@ msgstr "Поделиться"
 msgid "Share designs and reports. Let your agent handle the feedback."
 msgstr "Делитесь дизайнами и отчётами. Пусть ваш агент обработает отзывы."
 
+msgid "Share of listed models"
+msgstr "Доля перечисленных моделей"
+
 msgid "Share page"
 msgstr "Поделиться страницей"
 

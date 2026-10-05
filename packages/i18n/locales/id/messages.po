@@ -14418,6 +14418,9 @@ msgstr "Bagikan"
 msgid "Share designs and reports. Let your agent handle the feedback."
 msgstr "Bagikan desain dan laporan. Biarkan agen Anda menangani masukan."
 
+msgid "Share of listed models"
+msgstr "Proporsi model yang ditampilkan"
+
 msgid "Share page"
 msgstr "Bagikan halaman"
 

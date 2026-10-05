@@ -24,7 +24,7 @@ export function ProfileLinks({
 	if (!githubHandle && !xHandle && !websiteUrl) return null;
 
 	const linkClass =
-		"inline-flex min-h-11 items-center text-sm text-muted-foreground hover:text-brand transition-colors";
+		"inline-flex min-h-11 max-w-full items-center [overflow-wrap:anywhere] text-sm text-muted-foreground hover:text-brand transition-colors";
 
 	return (
 		<div className="flex flex-wrap items-center justify-start gap-x-5 gap-y-2 mt-5">
@@ -39,7 +39,7 @@ export function ProfileLinks({
 					})}
 				>
 					<span className="text-brand mr-1">✓</span>
-					{`github.com/${githubHandle}`}
+					<span className="min-w-0">{`github.com/${githubHandle}`}</span>
 				</a>
 			)}
 			{xHandle && (
@@ -50,7 +50,7 @@ export function ProfileLinks({
 					className={linkClass}
 				>
 					<span className="text-muted-foreground/50 mr-1">↗</span>
-					{`x.com/${xHandle}`}
+					<span className="min-w-0">{`x.com/${xHandle}`}</span>
 				</a>
 			)}
 			{websiteUrl && (
@@ -61,7 +61,7 @@ export function ProfileLinks({
 					className={linkClass}
 				>
 					<span className="text-muted-foreground/50 mr-1">↗</span>
-					{hostname(websiteUrl)}
+					<span className="min-w-0">{hostname(websiteUrl)}</span>
 				</a>
 			)}
 		</div>

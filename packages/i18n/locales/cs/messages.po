@@ -14418,6 +14418,9 @@ msgstr "Sdílet"
 msgid "Share designs and reports. Let your agent handle the feedback."
 msgstr "Sdílejte návrhy a zprávy. Zpětnou vazbu nechte na svém agentovi."
 
+msgid "Share of listed models"
+msgstr "Podíl uvedených modelů"
+
 msgid "Share page"
 msgstr "Sdílet stránku"
 

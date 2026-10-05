@@ -14418,6 +14418,9 @@ msgstr "Paylaş"
 msgid "Share designs and reports. Let your agent handle the feedback."
 msgstr "Tasarımları ve raporları paylaşın. Geri bildirimleri ajanınız ele alsın."
 
+msgid "Share of listed models"
+msgstr "Listelenen modellerin payı"
+
 msgid "Share page"
 msgstr "Sayfayı paylaş"
 

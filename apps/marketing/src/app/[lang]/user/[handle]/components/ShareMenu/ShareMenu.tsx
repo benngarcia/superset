@@ -11,12 +11,12 @@ import { CheckIcon, ChevronDownIcon, LinkIcon, Share2Icon } from "lucide-react";
 import { useState } from "react";
 import { RiLinkedinBoxFill, RiTwitterXFill } from "react-icons/ri";
 
-interface ShareButtonsProps {
+interface ShareMenuProps {
 	url: string;
 	text: string;
 }
 
-export function ShareButtons({ url, text }: ShareButtonsProps) {
+export function ShareMenu({ url, text }: ShareMenuProps) {
 	const [copied, setCopied] = useState(false);
 	const copy = async () => {
 		try {
@@ -30,7 +30,7 @@ export function ShareButtons({ url, text }: ShareButtonsProps) {
 			<DropdownMenuTrigger asChild>
 				<button
 					type="button"
-					className="inline-flex min-h-11 items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand"
+					className="inline-flex min-h-11 shrink-0 items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand"
 				>
 					{copied ? (
 						<CheckIcon className="size-3.5" />

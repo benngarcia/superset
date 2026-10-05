@@ -14418,6 +14418,9 @@ msgstr "分享"
 msgid "Share designs and reports. Let your agent handle the feedback."
 msgstr "分享設計和報告，讓你的代理程式處理回饋。"
 
+msgid "Share of listed models"
+msgstr "所列模型的佔比"
+
 msgid "Share page"
 msgstr "分享頁面"
 

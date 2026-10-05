@@ -1,35 +1,32 @@
-import { useLingui } from "@lingui/react/macro";
+import { Trans, useLingui } from "@lingui/react/macro";
 import { formatPercent } from "@superset/i18n/format";
+
+import { getModelMix } from "./utils/getModelMix";
 
 export function ModelMix({
 	models,
-	totalTokens,
 	locale,
 }: {
 	models: ReadonlyArray<{ model: string; tokens: string }>;
-	totalTokens: string;
 	locale: string;
 }) {
 	const { t } = useLingui();
-	const total = Number(totalTokens);
+	const { total, claude, gpt, other } = getModelMix(models);
 	if (!(total > 0)) return null;
-	const claude = models
-		.filter((m) => m.model.startsWith("claude-"))
-		.reduce((sum, m) => sum + Number(m.tokens), 0);
-	const gpt = models
-		.filter((m) => m.model.startsWith("gpt-"))
-		.reduce((sum, m) => sum + Number(m.tokens), 0);
 	const segments = [
 		{ name: "Claude", value: claude, color: "#d25611" },
 		{ name: "GPT", value: gpt, color: "#6b8ca3" },
 		{
 			name: t({ message: "Other" }),
-			value: Math.max(0, total - claude - gpt),
+			value: other,
 			color: "#8a8a9e",
 		},
 	].filter((s) => s.value > 0);
 	return (
 		<div className="mb-6 border-b border-border pb-5">
+			<p className="mb-3 text-xs text-muted-foreground">
+				<Trans>Share of listed models</Trans>
+			</p>
 			<dl className="flex flex-wrap gap-x-8 gap-y-3">
 				{segments.map((s) => (
 					<div key={s.name}>
