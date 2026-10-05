@@ -333,6 +333,8 @@ function hostService(): void {
 			"cp /out/stage/pty-daemon/pty-daemon.js /rt/pty-daemon.js",
 			"cd /rt && npm init -y >/dev/null && npm pkg set type=module >/dev/null",
 			`npm install ${[...natives, ...acpAdapters.map(pinned)].join(" ")} @parcel/watcher @xterm/headless --no-audit --no-fund >/dev/null`,
+			// The adapters bring their own claude and codex binaries (~650 MB); host-service points them at the box's pinned CLIs instead.
+			"rm -rf node_modules/@anthropic-ai/claude-agent-sdk-linux-* node_modules/@openai/codex-linux-*",
 			"test -d node_modules/node-pty/prebuilds/linux-x64 || (echo 'node-pty prebuild missing' && exit 1)",
 			...acpAdapters.map(
 				(adapter) =>
