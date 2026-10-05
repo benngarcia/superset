@@ -34,7 +34,8 @@ export function QueuedPrompts({
 		const rows = [
 			...event.currentTarget.querySelectorAll<HTMLElement>("[data-queue-row]"),
 		];
-		const index = rows.findIndex((row) => row === event.target);
+		const index =
+			event.target instanceof HTMLElement ? rows.indexOf(event.target) : -1;
 		const prompt = prompts[index];
 		if (!prompt) return;
 		const hasAttachments = prompt.content.some(
