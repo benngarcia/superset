@@ -14,6 +14,7 @@ import { ScrollToBottomButton } from "@superset/chat-ui/ScrollToBottomButton";
 import { Button } from "@superset/ui/button";
 import { cn } from "@superset/ui/utils";
 import {
+	type CSSProperties,
 	type KeyboardEvent,
 	type PointerEvent,
 	useCallback,
@@ -22,9 +23,14 @@ import {
 	useRef,
 	useState,
 } from "react";
+import {
+	CHAT_COLUMN_CLASSNAME,
+	CHAT_SCROLLER_GUTTER_CLASSNAME,
+} from "../../constants";
 import type { ChatForkTarget } from "../../types";
 import { TurnGroupSection } from "./components/TurnGroupSection";
 import { useScrollAnchorKey } from "./hooks/useScrollAnchorKey";
+import { useScrollbarGutter } from "./hooks/useScrollbarGutter";
 import { lastReplyKeys } from "./utils/lastReplyKeys";
 import { type TranscriptRow, transcriptRows } from "./utils/transcriptRows";
 
@@ -92,6 +98,7 @@ export function Transcript({
 	snapshot,
 }: TranscriptProps) {
 	const { t } = useLingui();
+	const [viewportRef, scrollbarGutter] = useScrollbarGutter<HTMLDivElement>();
 	const scroller = useMessageScroller();
 	const scrollerRef = useRef(scroller);
 	scrollerRef.current = scroller;
@@ -196,20 +203,37 @@ export function Transcript({
 		<MessageScroller.Root className="relative flex min-h-0 min-w-0 flex-1 flex-col">
 			<MessageScroller.Viewport
 				aria-label={t({ message: "Messages" })}
-				className="min-h-0 flex-1 overflow-y-auto [scrollbar-gutter:stable_both-edges]"
+				className={cn(
+					"min-h-0 flex-1 overflow-y-auto [scrollbar-gutter:stable_both-edges]",
+					CHAT_SCROLLER_GUTTER_CLASSNAME,
+				)}
 				onKeyDown={onViewportKeyDown}
 				onPointerDown={onViewportPointerDown}
 				onTouchMove={markReaderScroll}
 				onWheel={markReaderScroll}
+				ref={viewportRef}
+				style={
+					{ "--scrollbar-gutter": `${scrollbarGutter}px` } as CSSProperties
+				}
 			>
 				{hasOlder && (
-					<div className="mx-auto flex w-full max-w-4xl items-center gap-2 px-4 pt-4">
+					<div
+						className={cn(
+							CHAT_COLUMN_CLASSNAME,
+							"flex items-center gap-2 px-4 pt-4",
+						)}
+					>
 						<Button onClick={onLoadOlder} size="sm" variant="ghost">
 							<Trans>Load earlier messages</Trans>
 						</Button>
 					</div>
 				)}
-				<MessageScroller.Content className="mx-auto flex w-full max-w-4xl select-text flex-col pt-4 pb-8">
+				<MessageScroller.Content
+					className={cn(
+						CHAT_COLUMN_CLASSNAME,
+						"flex select-text flex-col pt-4 pb-8",
+					)}
+				>
 					{contentChildren}
 				</MessageScroller.Content>
 			</MessageScroller.Viewport>

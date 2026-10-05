@@ -11,9 +11,11 @@ import type {
 	PromptInputCommand,
 	PromptInputHandle,
 } from "@superset/chat-ui/PromptInput";
+import { cn } from "@superset/ui/utils";
 import { workspaceTrpc } from "@superset/workspace-client";
 import { memo, useCallback, useMemo, useRef } from "react";
 import { AgentComposer } from "renderer/routes/_authenticated/components/AgentComposer";
+import { CHAT_COLUMN_CLASSNAME, CHAT_GUTTER_CLASSNAME } from "../../constants";
 import { ModelPicker } from "./components/ModelPicker";
 import { ModePicker, type SessionMode } from "./components/ModePicker";
 import { QueuedPrompts } from "./components/QueuedPrompts";
@@ -144,9 +146,9 @@ export const Composer = memo(function Composer({
 	);
 
 	return (
-		<div className="px-6 pt-1 pb-5">
+		<div className={cn(CHAT_GUTTER_CLASSNAME, "pt-1 pb-5")}>
 			{promptQueue && (
-				<div className="mx-auto w-full max-w-3xl">
+				<div className={CHAT_COLUMN_CLASSNAME}>
 					<QueuedPrompts
 						{...queueActions}
 						actionable={promptQueue.actionable}
@@ -156,7 +158,7 @@ export const Composer = memo(function Composer({
 				</div>
 			)}
 			<AgentComposer
-				className="mx-auto w-full max-w-3xl"
+				className={CHAT_COLUMN_CLASSNAME}
 				clearOnSubmit={!disabled}
 				commands={commands}
 				defaultValue={storedDraft}
