@@ -58,7 +58,7 @@ export const PERSISTED_KEY_REGISTRY: ReadonlyArray<
 		["v2-workspaces-view"],
 	],
 	[
-		"src/renderer/routes/_authenticated/_dashboard/v2-workspace/$workspaceId/hooks/usePaneRegistry/components/ChatSession/components/Composer/Composer.tsx",
+		"src/renderer/routes/_authenticated/_dashboard/v2-workspace/$workspaceId/hooks/usePaneRegistry/components/ChatSession/components/Composer/hooks/useComposerDraft/useComposerDraft.ts",
 		["chat-v3-draft:*"],
 	],
 	["src/renderer/stores/changes/store.ts", ["changes-store"]],
