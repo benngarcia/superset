@@ -29,7 +29,7 @@ export function ModelFlyout({
 	searchRef,
 }: {
 	agentSwitcher?: AgentSwitcher;
-	model: SessionConfigOption;
+	model: SessionConfigOption | undefined;
 	onPick: (modelId: string) => void;
 	searchRef: RefObject<HTMLInputElement | null>;
 }) {
@@ -53,12 +53,14 @@ export function ModelFlyout({
 				favorite.presetId === row.presetId && favorite.id === row.id,
 		);
 	const rowsFor = (presetId: string): Row[] => {
-		if (presetId === currentPresetId) {
+		if (presetId === currentPresetId && model) {
 			return model.options.map((option) => ({ ...option, presetId }));
 		}
 		const models =
-			agentSwitcher?.agents.find((agent) => agent.presetId === presetId)
-				?.models ?? [];
+			presetId === currentPresetId
+				? []
+				: (agentSwitcher?.agents.find((agent) => agent.presetId === presetId)
+						?.models ?? []);
 		return models.length > 0
 			? models.map((entry) => ({ ...entry, presetId }))
 			: [{ presetId, id: null, label: t({ message: "Default" }) }];
@@ -152,7 +154,8 @@ export function ModelFlyout({
 					<LuStar className={cn("size-3.5", favorited && "fill-current")} />
 				</button>
 				<span className="grid size-5 shrink-0 place-items-center">
-					{row.presetId === currentPresetId && row.id === model.currentValue ? (
+					{row.presetId === currentPresetId &&
+					row.id === (model?.currentValue ?? null) ? (
 						<LuCheck className="size-3.5" />
 					) : null}
 				</span>

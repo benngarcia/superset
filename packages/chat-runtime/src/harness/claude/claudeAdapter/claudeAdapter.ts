@@ -60,7 +60,6 @@ export const CLAUDE_MODES = [
 export const DEFAULT_CLAUDE_MODE: ClaudePermissionMode = "bypassPermissions";
 
 function claudeMode(modeId: string | undefined): ClaudePermissionMode {
-	if (modeId === undefined) return DEFAULT_CLAUDE_MODE;
 	return CLAUDE_MODES.find((mode) => mode.id === modeId)?.id ?? "default";
 }
 
@@ -182,7 +181,7 @@ export class ClaudeAdapter implements HarnessAdapter {
 	private readonly abortController = new AbortController();
 	private translator: ClaudeTranslator | null = null;
 	private session: ClaudeSession | null = null;
-	private modeId: ClaudePermissionMode = DEFAULT_CLAUDE_MODE;
+	private modeId: ClaudePermissionMode = "default";
 	private pump: Promise<void> | null = null;
 	private disposed = false;
 
@@ -196,7 +195,10 @@ export class ClaudeAdapter implements HarnessAdapter {
 		});
 		this.translator = translator;
 
-		this.modeId = claudeMode(startOptions.modeId);
+		this.modeId = claudeMode(
+			startOptions.modeId ??
+				(startOptions.resume ? undefined : DEFAULT_CLAUDE_MODE),
+		);
 		this.events.push({
 			kind: "session",
 			session: { modeId: this.modeId, availableModes: [...CLAUDE_MODES] },

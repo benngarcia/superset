@@ -48,9 +48,10 @@ export function ModelPicker({
 }: ModelPickerProps) {
 	const [open, setOpen] = useState(false);
 	const searchRef = useRef<HTMLInputElement>(null);
-	const model = configOptions.find((option) => option.category === "model");
-	if (!model?.options.length) return null;
-
+	const model = configOptions.find(
+		(option) => option.category === "model" && option.options.length > 0,
+	);
+	const canSwitchAgent = (agentSwitcher?.agents.length ?? 0) > 1;
 	const settings = configOptions.filter(
 		(option) =>
 			option.category !== "model" &&
@@ -65,6 +66,15 @@ export function ModelPicker({
 	const effortLabel = currentLabel(
 		settings.find((option) => option.category === "thought_level"),
 	);
+	if (!model && settings.length === 0 && !canSwitchAgent) return null;
+	const currentAgentLabel = agentSwitcher?.agents.find(
+		(agent) => agent.presetId === agentSwitcher.currentPresetId,
+	)?.label;
+	const pillLabel =
+		currentLabel(model) ??
+		model?.label ??
+		currentAgentLabel ??
+		settings[0]?.label;
 	const pick = (option: SessionConfigOption, value: string) => {
 		if (value !== option.currentValue) onSelect(option.id, value);
 		setOpen(false);
@@ -83,7 +93,7 @@ export function ModelPicker({
 		<DropdownMenu onOpenChange={setOpen} open={open}>
 			<DropdownMenuTrigger asChild>
 				<button className={cn(PILL_TRIGGER_CLASS, "group")} type="button">
-					<span className="truncate">{currentLabel(model) ?? model.label}</span>
+					<span className="truncate">{pillLabel}</span>
 					{effortLabel ? (
 						<span className="shrink-0 text-muted-foreground">
 							{effortLabel}
@@ -155,35 +165,39 @@ export function ModelPicker({
 						</DropdownMenuSubContent>
 					</DropdownMenuSub>
 				))}
-				<DropdownMenuSub>
-					<DropdownMenuSubTrigger className={SUB_TRIGGER_CLASS}>
-						<span className="min-w-0 flex-1 truncate">
-							<Trans>Model</Trans>
-						</span>
-						<span className="max-w-36 truncate text-muted-foreground">
-							{currentLabel(model)}
-						</span>
-					</DropdownMenuSubTrigger>
-					<DropdownMenuSubContent
-						className="flex h-[min(20rem,var(--radix-dropdown-menu-content-available-height))] w-[310px] flex-row overflow-hidden rounded-xl p-0"
-						onKeyDownCapture={sendTypingToSearch}
-					>
-						<ModelFlyout
-							agentSwitcher={
-								agentSwitcher && {
-									...agentSwitcher,
-									onSwitch: (presetId, picked) => {
-										setOpen(false);
-										agentSwitcher.onSwitch(presetId, picked);
-									},
+				{model || canSwitchAgent ? (
+					<DropdownMenuSub>
+						<DropdownMenuSubTrigger className={SUB_TRIGGER_CLASS}>
+							<span className="min-w-0 flex-1 truncate">
+								<Trans>Model</Trans>
+							</span>
+							<span className="max-w-36 truncate text-muted-foreground">
+								{currentLabel(model) ?? <Trans>Default</Trans>}
+							</span>
+						</DropdownMenuSubTrigger>
+						<DropdownMenuSubContent
+							className="flex h-[min(20rem,var(--radix-dropdown-menu-content-available-height))] w-[310px] flex-row overflow-hidden rounded-xl p-0"
+							onKeyDownCapture={sendTypingToSearch}
+						>
+							<ModelFlyout
+								agentSwitcher={
+									agentSwitcher && {
+										...agentSwitcher,
+										onSwitch: (presetId, picked) => {
+											setOpen(false);
+											agentSwitcher.onSwitch(presetId, picked);
+										},
+									}
 								}
-							}
-							model={model}
-							onPick={(modelId) => pick(model, modelId)}
-							searchRef={searchRef}
-						/>
-					</DropdownMenuSubContent>
-				</DropdownMenuSub>
+								model={model}
+								onPick={(modelId) => {
+									if (model) pick(model, modelId);
+								}}
+								searchRef={searchRef}
+							/>
+						</DropdownMenuSubContent>
+					</DropdownMenuSub>
+				) : null}
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);

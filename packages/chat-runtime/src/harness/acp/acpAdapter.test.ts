@@ -24,6 +24,8 @@ class FakeAcpAgent {
 	newSessionConfigOptions: Array<Record<string, unknown>> | null = null;
 	/** v1's session/new `modes` block; v2 agents report the mode as a config option. */
 	newSessionModes: Record<string, unknown> | null = null;
+	/** Reported while a session loads, as an agent restoring its saved options does. */
+	loadConfigOptions: Array<Record<string, unknown>> | null = null;
 	private handlers!: AcpTransportHandlers;
 
 	transport(handlers: AcpTransportHandlers): AcpTransport {
@@ -120,6 +122,13 @@ class FakeAcpAgent {
 					sessionUpdate: "agent_message",
 					messageId: "a1",
 					content: [{ type: "text", text: "On it." }],
+				});
+				this.respond(frame.id as number, null);
+			} else if (frame.method === "session/load" && this.loadConfigOptions) {
+				const sessionId = (frame.params as { sessionId: string }).sessionId;
+				this.notify(sessionId, {
+					sessionUpdate: "config_option_update",
+					configOptions: this.loadConfigOptions,
 				});
 				this.respond(frame.id as number, null);
 			} else if (frame.method === "session/load") {
@@ -856,6 +865,41 @@ describe("AcpAdapter on protocol v2", () => {
 			modeId: "bypassPermissions",
 		});
 		expect(sessionsOf(events).pop()?.modeId).toBe("bypassPermissions");
+
+		await adapter.dispose();
+	});
+
+	it("keeps a resumed session's own mode instead of the harness default", async () => {
+		const agent = new FakeAcpAgent();
+		agent.loadConfigOptions = [
+			{
+				configId: "mode",
+				name: "Mode",
+				type: "select",
+				category: "mode",
+				currentValue: "default",
+				options: [
+					{ value: "default", name: "Ask for approval" },
+					{ value: "bypassPermissions", name: "Full access" },
+				],
+			},
+		];
+		const { adapter, events } = startAdapter(
+			agent,
+			"sess-1",
+			{},
+			{ defaultModeId: "bypassPermissions" },
+		);
+		await flush();
+
+		expect(
+			agent.sent.some((f) => f.method === "session/set_config_option"),
+		).toBe(false);
+		expect(
+			sessionsOf(events).flatMap((session) =>
+				session.modeId ? [session.modeId] : [],
+			),
+		).toEqual(["default"]);
 
 		await adapter.dispose();
 	});

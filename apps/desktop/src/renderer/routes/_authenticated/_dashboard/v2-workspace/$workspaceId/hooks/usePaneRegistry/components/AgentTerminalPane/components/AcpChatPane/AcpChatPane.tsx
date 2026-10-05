@@ -26,6 +26,7 @@ export function AcpChatPane({
 	onAgentSessionChanged,
 	onFirstPromptSent,
 	onOpenFile,
+	onModeChange,
 	onSessionCreated,
 	onSwitchAgent,
 	pendingFirstPrompt,
@@ -42,6 +43,7 @@ export function AcpChatPane({
 	pendingFirstPrompt?: UserContent[] | null;
 	onFirstPromptSent?: (() => void) | undefined;
 	onSessionCreated: (sessionId: string) => void;
+	onModeChange?: (modeId: string) => void;
 	onAgentSessionChanged: (harnessSessionId: string) => void;
 	onOpenFile?: OpenFile;
 	onSwitchAgent?: (
@@ -78,6 +80,15 @@ export function AcpChatPane({
 	});
 
 	const attaching = useRef(false);
+	// A switch to another agent remounts this pane; its pending calls must not
+	// write the old agent back over the new one.
+	const mounted = useRef(true);
+	useEffect(() => {
+		mounted.current = true;
+		return () => {
+			mounted.current = false;
+		};
+	}, []);
 	const start = useCallback(
 		async (resumeHarness: string, resume?: string) => {
 			attaching.current = true;
@@ -91,7 +102,7 @@ export function AcpChatPane({
 					...(modeId ? { modeId } : {}),
 					...(resume ? { resume: { harnessSessionId: resume } } : {}),
 				});
-				onSessionCreated(created.sessionId);
+				if (mounted.current) onSessionCreated(created.sessionId);
 			} catch (error) {
 				attaching.current = false;
 				setFailure(error instanceof Error ? error.message : String(error));
@@ -122,7 +133,7 @@ export function AcpChatPane({
 			})
 			.then((forked) => {
 				if (forked) {
-					onSessionCreated(forked.sessionId);
+					if (mounted.current) onSessionCreated(forked.sessionId);
 					return;
 				}
 				// The adapter declines rather than sending a `session/fork` an
@@ -179,14 +190,21 @@ export function AcpChatPane({
 					({ id, label }) => ({ id, label }),
 				),
 			})),
-			onSwitch: (
+			onSwitch: async (
 				presetId: string,
 				nextModel: { id: string; label: string } | null,
 				transcript: string,
 			) => {
 				if (sessionId) {
-					void wiring.transport.closeSession({ sessionId }).catch(() => {});
+					try {
+						await wiring.transport.closeSession({ sessionId });
+					} catch (error) {
+						console.warn("[acp-chat] could not stop the chat session", error);
+						toast.error(t({ message: "Couldn't stop the chat" }));
+						return;
+					}
 				}
+				if (!mounted.current) return;
 				onSwitchAgent(
 					presetId,
 					nextModel,
@@ -203,7 +221,7 @@ export function AcpChatPane({
 				);
 			},
 		};
-	}, [agent, agentConfigs, onSwitchAgent, sessionId, wiring.transport]);
+	}, [agent, agentConfigs, onSwitchAgent, sessionId, t, wiring.transport]);
 
 	const sessionDead = stored?.session?.status === "dead";
 	const sessionStopped =
@@ -288,6 +306,7 @@ export function AcpChatPane({
 			onFirstPromptSent={onFirstPromptSent ?? NOOP}
 			agentLabel={agentLabel}
 			agentSwitch={agentSwitch}
+			onModeChange={onModeChange}
 			canForkToWorktree={canForkToWorktree}
 			onFork={fork}
 			openFile={onOpenFile}
@@ -296,7 +315,9 @@ export function AcpChatPane({
 				// session. Keep the pane pointed at the live one, or the trip back
 				// to the CLI resumes an id that no longer exists.
 				const bound = state?.harnessSessionId;
-				if (bound && bound !== agent?.sessionId) onAgentSessionChanged(bound);
+				if (bound && bound !== agent?.sessionId && mounted.current) {
+					onAgentSessionChanged(bound);
+				}
 			}}
 			pendingFirstPrompt={pendingFirstPrompt ?? null}
 			preferredModelLabel={modelLabel}

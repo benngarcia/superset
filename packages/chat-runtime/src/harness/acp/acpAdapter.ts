@@ -136,7 +136,7 @@ export type AcpAttachment = {
 
 export type AcpAdapterOptions = SpawnAcpOptions & {
 	launch?: () => Promise<Pick<SpawnAcpOptions, "command" | "args" | "env">>;
-	/** Selected at start when the client asks for no mode and the agent offers it. */
+	/** Selected for a new session that asks for no mode, when the agent offers it. */
 	defaultModeId?: string;
 	resolveAttachment?: (attachmentId: string) => Promise<AcpAttachment | null>;
 	now?: () => number;
@@ -966,7 +966,9 @@ export class AcpAdapter implements HarnessAdapter {
 		startOptions: HarnessStartOptions,
 		sessionModes: AcpSessionModes | undefined,
 	): void {
-		const modeId = startOptions.modeId ?? this.options.defaultModeId;
+		const modeId =
+			startOptions.modeId ??
+			(startOptions.resume ? undefined : this.options.defaultModeId);
 		for (const [category, value] of [
 			["model", startOptions.modelId],
 			["mode", modeId],

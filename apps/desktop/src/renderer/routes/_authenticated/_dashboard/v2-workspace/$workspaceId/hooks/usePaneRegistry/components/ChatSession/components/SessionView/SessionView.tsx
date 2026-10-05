@@ -17,7 +17,7 @@ import { MessageScroller } from "@superset/chat-ui/MessageScroller";
 import { ChatHistorySidebarScroller } from "@superset/ui/chat-history-sidebar";
 import { Spinner } from "@superset/ui/spinner";
 import type { ReactNode } from "react";
-import { useCallback, useEffect, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { OpenFile } from "../../../../../../types";
 import { ChatPaneActionsProvider } from "../../providers/ChatPaneActionsProvider";
 import type { ChatForkTarget } from "../../types";
@@ -32,12 +32,15 @@ const RESUME_FOLLOW_PX = 24;
 const NO_COMMANDS: AvailableCommand[] = [];
 const NO_CONFIG_OPTIONS: SessionConfigOption[] = [];
 
+const MODEL_OPTIONS_GRACE_MS = 1000;
+
 export function SessionView({
 	agentLabel,
 	agentSwitch,
 	canForkToWorktree,
 	client,
 	headerLeft,
+	onModeChange,
 	pendingFirstPrompt,
 	preferredModelLabel,
 	onFirstPromptSent,
@@ -56,6 +59,8 @@ export function SessionView({
 	preferredModelLabel?: string;
 	onFirstPromptSent: () => void;
 	onSessionState?: (session: SessionState | null) => void;
+	/** The mode the user picked, so a resumed session can start in it again. */
+	onModeChange?: (modeId: string) => void;
 	/**
 	 * Absent when the agent cannot branch its own session. The transcript is
 	 * built here because only this view holds the timeline; a branch into
@@ -89,11 +94,22 @@ export function SessionView({
 	const approvals = useApprovals(session.snapshot);
 
 	const configOptions = session.snapshot.session?.configOptions;
-	const modelSettled = useRef(preferredModelLabel === undefined);
+	const agentStatus = session.snapshot.session?.status;
+	const [modelSettled, setModelSettled] = useState(
+		preferredModelLabel === undefined,
+	);
 	useEffect(() => {
-		if (modelSettled.current || session.status !== "ready") return;
-		if (configOptions === undefined) return;
-		modelSettled.current = true;
+		if (modelSettled || session.status !== "ready") return;
+		if (configOptions === undefined) {
+			// An agent that reports no options never sends them.
+			if (agentStatus !== "idle") return;
+			const timer = setTimeout(
+				() => setModelSettled(true),
+				MODEL_OPTIONS_GRACE_MS,
+			);
+			return () => clearTimeout(timer);
+		}
+		setModelSettled(true);
 		const option = configOptions.find((entry) => entry.category === "model");
 		const wanted = option?.options.find(
 			(entry) =>
@@ -102,16 +118,23 @@ export function SessionView({
 		if (option && wanted && wanted.id !== option.currentValue) {
 			void session.setConfigOption(option.id, wanted.id);
 		}
-	}, [configOptions, preferredModelLabel, session]);
+	}, [
+		agentStatus,
+		configOptions,
+		modelSettled,
+		preferredModelLabel,
+		session,
+		setModelSettled,
+	]);
 
 	const firstPromptSentRef = useRef(false);
 	useEffect(() => {
 		if (!pendingFirstPrompt || firstPromptSentRef.current) return;
-		if (session.status !== "ready" || !modelSettled.current) return;
+		if (session.status !== "ready" || !modelSettled) return;
 		firstPromptSentRef.current = true;
 		session.sendPrompt(pendingFirstPrompt);
 		onFirstPromptSent();
-	}, [pendingFirstPrompt, session, onFirstPromptSent]);
+	}, [pendingFirstPrompt, session, onFirstPromptSent, modelSettled]);
 
 	const sessionState = session.snapshot.session;
 	useEffect(() => {
@@ -186,8 +209,11 @@ export function SessionView({
 		[setConfigOption],
 	);
 	const onSetMode = useCallback(
-		(modeId: string) => void setMode(modeId),
-		[setMode],
+		(modeId: string) => {
+			onModeChange?.(modeId);
+			void setMode(modeId);
+		},
+		[onModeChange, setMode],
 	);
 	const onSend = useCallback(
 		(content: UserContent[]) => sendPrompt(content),

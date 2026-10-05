@@ -116,6 +116,9 @@ export function AgentTerminalPane({
 						...(handoffPrompt ? { pendingPrompt: handoffPrompt } : {}),
 					});
 				}}
+				onModeChange={(chatModeId) =>
+					ctx.actions.updateData({ ...data, chatModeId })
+				}
 				onSessionCreated={(acpSessionId) =>
 					ctx.actions.updateData({ ...data, acpSessionId })
 				}
