@@ -30,8 +30,7 @@ export function ReasoningRow({
 	const streaming = item.completedAtMs === undefined;
 	const summary = useMemo(() => thoughtSummary(text), [text]);
 
-	if (!summary) {
-		if (!streaming) return null;
+	if (!summary && streaming) {
 		return (
 			<div className="py-1 font-sans text-sm">
 				<Shimmer duration={THINKING_SWEEP_SECONDS} variant="text">
@@ -40,6 +39,7 @@ export function ReasoningRow({
 			</div>
 		);
 	}
+	if (!text.trim()) return null;
 
 	return (
 		<Collapsible onOpenChange={setOpen} open={open}>
@@ -50,7 +50,7 @@ export function ReasoningRow({
 						streaming && "animate-thinking-pulse motion-reduce:animate-none",
 					)}
 				>
-					{summary}
+					{summary || t({ message: "Thought for a few seconds" })}
 				</span>
 			</CollapsibleTrigger>
 			<CollapsibleContent className="pb-2">
