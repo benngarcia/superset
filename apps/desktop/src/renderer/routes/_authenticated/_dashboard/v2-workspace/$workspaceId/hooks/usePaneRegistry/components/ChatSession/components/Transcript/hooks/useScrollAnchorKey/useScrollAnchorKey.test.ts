@@ -45,8 +45,9 @@ function outboxRow(clientId: string): TranscriptRow {
 }
 
 test("anchors the latest message sent here, not one from another client", () => {
+	const idle = { turnRunning: false, readerScrolledAway: { current: false } };
 	const { result, rerender } = renderHook(
-		({ rows, outbox }) => useScrollAnchorKey(rows, outbox),
+		({ rows, outbox }) => useScrollAnchorKey(rows, outbox, idle),
 		{ initialProps: { rows: [userRow("old")], outbox: [] as OutboxEntry[] } },
 	);
 	expect(result.current).toBeNull();
@@ -62,4 +63,63 @@ test("anchors the latest message sent here, not one from another client", () => 
 		outbox: [],
 	});
 	expect(result.current).toBe("mine");
+});
+
+test("a prompt sent mid-turn is anchored when it starts, not while it waits", () => {
+	const readerScrolledAway = { current: false };
+	const { result, rerender } = renderHook(
+		({ rows, outbox, turnRunning }) =>
+			useScrollAnchorKey(rows, outbox, { turnRunning, readerScrolledAway }),
+		{
+			initialProps: {
+				rows: [userRow("old")],
+				outbox: [] as OutboxEntry[],
+				turnRunning: false,
+			},
+		},
+	);
+	rerender({
+		rows: [userRow("old"), outboxRow("first")],
+		outbox: [outboxEntry("first")],
+		turnRunning: false,
+	});
+	expect(result.current).toBe("first");
+
+	rerender({
+		rows: [userRow("old"), userRow("first"), outboxRow("queued")],
+		outbox: [outboxEntry("queued")],
+		turnRunning: true,
+	});
+	expect(result.current).toBe("first");
+
+	rerender({
+		rows: [userRow("old"), userRow("first"), userRow("queued")],
+		outbox: [],
+		turnRunning: true,
+	});
+	expect(result.current).toBe("queued");
+});
+
+test("a queued prompt that starts does not move a reader who scrolled away", () => {
+	const readerScrolledAway = { current: false };
+	const { result, rerender } = renderHook(
+		({ rows, outbox }) =>
+			useScrollAnchorKey(rows, outbox, {
+				turnRunning: true,
+				readerScrolledAway,
+			}),
+		{
+			initialProps: {
+				rows: [userRow("first")],
+				outbox: [] as OutboxEntry[],
+			},
+		},
+	);
+	rerender({
+		rows: [userRow("first"), outboxRow("queued")],
+		outbox: [outboxEntry("queued")],
+	});
+	readerScrolledAway.current = true;
+	rerender({ rows: [userRow("first"), userRow("queued")], outbox: [] });
+	expect(result.current).toBeNull();
 });

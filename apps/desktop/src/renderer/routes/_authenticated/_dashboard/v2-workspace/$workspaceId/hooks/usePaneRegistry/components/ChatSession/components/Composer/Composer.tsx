@@ -11,7 +11,7 @@ import type {
 	PromptInputCommand,
 	PromptInputHandle,
 } from "@superset/chat-ui/PromptInput";
-import { errorMessage } from "@superset/i18n/errors";
+import { errorMessage, rawErrorMessage } from "@superset/i18n/errors";
 import { toast } from "@superset/ui/sonner";
 import { workspaceTrpc } from "@superset/workspace-client";
 import { memo, useCallback, useMemo, useRef, useState } from "react";
@@ -22,6 +22,7 @@ import { ModePicker, type SessionMode } from "./components/ModePicker";
 import { QueuedPrompts } from "./components/QueuedPrompts";
 
 const DRAFT_DEBOUNCE_MS = 300;
+const ALREADY_GONE = /is not queued$/;
 
 export type ComposerProps = {
 	workspaceId: string;
@@ -220,7 +221,11 @@ export const Composer = memo(function Composer({
 			const results = await Promise.allSettled(
 				promptQueue.prompts.map((prompt) => promptQueue.remove(prompt.id)),
 			);
-			const failed = results.find((result) => result.status === "rejected");
+			const failed = results.find(
+				(result): result is PromiseRejectedResult =>
+					result.status === "rejected" &&
+					!ALREADY_GONE.test(rawErrorMessage(result.reason)),
+			);
 			if (failed) throw failed.reason;
 		});
 	}, [promptQueue, runQueueAction]);

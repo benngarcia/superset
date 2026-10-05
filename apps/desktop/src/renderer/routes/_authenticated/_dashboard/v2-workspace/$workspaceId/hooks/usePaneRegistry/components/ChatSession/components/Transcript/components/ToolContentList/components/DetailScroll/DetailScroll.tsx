@@ -37,7 +37,7 @@ export function DetailScroll({
 		<div className={cn("relative isolate min-w-0", className)}>
 			<div
 				className={cn(
-					"min-w-0 overflow-y-auto overflow-x-hidden",
+					"min-w-0 overflow-y-auto overflow-x-hidden outline-none",
 					MAX_HEIGHT_CLASS[size],
 					scrollClassName,
 				)}
@@ -47,6 +47,7 @@ export function DetailScroll({
 				onTouchStart={sticky.onTouchStart}
 				onWheel={sticky.onWheel}
 				ref={scrollRef}
+				tabIndex={-1}
 			>
 				<div ref={sticky.contentRef}>{children}</div>
 			</div>

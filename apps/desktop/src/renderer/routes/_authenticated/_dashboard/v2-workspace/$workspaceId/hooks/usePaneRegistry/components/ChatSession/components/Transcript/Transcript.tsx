@@ -1,4 +1,4 @@
-import { Trans } from "@lingui/react/macro";
+import { Trans, useLingui } from "@lingui/react/macro";
 import type {
 	OutboxEntry,
 	SessionSnapshot,
@@ -13,7 +13,14 @@ import {
 import { ScrollToBottomButton } from "@superset/chat-ui/ScrollToBottomButton";
 import { Button } from "@superset/ui/button";
 import { cn } from "@superset/ui/utils";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+	type PointerEvent,
+	useCallback,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+} from "react";
 import type { ChatForkTarget } from "../../types";
 import { TurnGroupSection } from "./components/TurnGroupSection";
 import { WorkingIndicator } from "./components/WorkingIndicator";
@@ -58,12 +65,31 @@ export function Transcript({
 	outbox,
 	snapshot,
 }: TranscriptProps) {
+	const { t } = useLingui();
 	const scroller = useMessageScroller();
 	const scrollerRef = useRef(scroller);
 	scrollerRef.current = scroller;
 	const scrollable = useMessageScrollerScrollable();
 	const awayFromEndRef = useRef(scrollable.end);
 	awayFromEndRef.current = scrollable.end;
+	const readerScrolledAway = useRef(false);
+	useEffect(() => {
+		if (!scrollable.end) readerScrolledAway.current = false;
+	}, [scrollable.end]);
+	const markReaderScroll = useCallback(() => {
+		readerScrolledAway.current = true;
+	}, []);
+	const onViewportPointerDown = useCallback(
+		(event: PointerEvent<HTMLDivElement>) => {
+			if (event.target !== event.currentTarget) return;
+			readerScrolledAway.current = true;
+			// The scroller counts only wheel, touch and scroll keys as the reader's own scroll.
+			event.currentTarget.dispatchEvent(
+				new WheelEvent("wheel", { bubbles: true }),
+			);
+		},
+		[],
+	);
 
 	const [entryOverrides, setEntryOverrides] = useState<
 		ReadonlyMap<string, boolean>
@@ -91,10 +117,11 @@ export function Transcript({
 		[groups, outbox, pendingApprovalTargets],
 	);
 
-	const anchorRowKey = useScrollAnchorKey(rows, outbox);
+	const anchorRowKey = useScrollAnchorKey(rows, outbox, {
+		turnRunning: groups.at(-1)?.turn?.status === "running",
+		readerScrolledAway,
+	});
 
-	// A jump parks the scroller until the reader scrolls by hand, so it is
-	// only for a reader who already scrolled away from the end.
 	const firstPendingApprovalId = approvals[0]?.id ?? null;
 	useEffect(() => {
 		if (!firstPendingApprovalId || !awayFromEndRef.current) return;
@@ -138,12 +165,14 @@ export function Transcript({
 	}
 
 	return (
-		// The scroller reads anchors and prepends from Content's direct
-		// children, and pins only an anchor appended after the last one: the
-		// load button stays outside Content, and the working line sits before
-		// the prompts still sending.
 		<MessageScroller.Root className="relative flex min-h-0 min-w-0 flex-1 flex-col">
-			<MessageScroller.Viewport className="min-h-0 flex-1 overflow-y-auto px-6 [scrollbar-gutter:stable_both-edges]">
+			<MessageScroller.Viewport
+				aria-label={t({ message: "Messages" })}
+				className="min-h-0 flex-1 overflow-y-auto px-6 [scrollbar-gutter:stable_both-edges]"
+				onPointerDown={onViewportPointerDown}
+				onTouchMove={markReaderScroll}
+				onWheel={markReaderScroll}
+			>
 				{hasOlder && (
 					<div className="mx-auto flex w-full max-w-3xl items-center gap-2 px-6 pt-6">
 						<Button onClick={onLoadOlder} size="sm" variant="ghost">
