@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { TierBadge, tierRgb } from "@/app/[lang]/components/TierBadge";
+import { tierRgb } from "@/app/[lang]/components/TierBadge";
 import { avatarUrl } from "@/app/[lang]/utils/avatarUrl";
 import type { ParticipantProfile } from "@/app/[lang]/utils/fetchLeaderboard";
 import { ProfileLinks } from "../ProfileLinks";
@@ -41,9 +41,6 @@ export function ProfileIdentity({
 					<p className="mt-1 text-sm text-muted-foreground break-all">
 						@{profile.handle}
 					</p>
-					<div className="mt-3">
-						<TierBadge tier={tier} />
-					</div>
 				</div>
 			</div>
 			{profile.bio && (
@@ -56,7 +53,7 @@ export function ProfileIdentity({
 				xHandle={profile.xHandle}
 				websiteUrl={profile.websiteUrl}
 			/>
-			<div className="mt-5">
+			<div className="mt-2">
 				<ShareButtons url={shareUrl} text={shareText} />
 			</div>
 		</header>
