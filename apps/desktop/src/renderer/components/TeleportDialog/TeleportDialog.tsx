@@ -131,7 +131,7 @@ export function TeleportDialog({
 				{phase.kind === "reviewing" && (
 					<TeleportPlanStep
 						plan={plan}
-						hostName={phase.host.name}
+						destination={phase.host}
 						onBack={() => setPhase({ kind: "picking" })}
 						onConfirm={() => {
 							setPhase({ kind: "running", host: phase.host });
@@ -143,7 +143,7 @@ export function TeleportDialog({
 				{phase.kind === "running" && (
 					<TeleportProgressStep
 						run={run}
-						hostName={phase.host.name}
+						destination={phase.host}
 						isDone={outcome === "done"}
 						onClose={close}
 						onOpenThere={() => {

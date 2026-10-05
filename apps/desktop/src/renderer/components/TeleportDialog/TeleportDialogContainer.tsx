@@ -1,8 +1,9 @@
 import { useLingui } from "@lingui/react/macro";
-import type { TeleportPlan } from "@superset/shared/teleport";
+import type { TeleportPlan, TeleportRefusal } from "@superset/shared/teleport";
 import {
 	buildTeleportPlan,
 	derivePaneDisposition,
+	repositoryIdentity,
 } from "@superset/shared/teleport";
 import {
 	runTeleport,
@@ -13,6 +14,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useActiveOrganizationId } from "renderer/hooks/useActiveOrganizationId";
 import { useWorkspaceHostOptions } from "renderer/hooks/useWorkspaceHostOptions";
+import { apiTrpcClient } from "renderer/lib/api-trpc-client";
 import {
 	getHostServiceClientByUrl,
 	type HostServiceClient,
@@ -24,7 +26,10 @@ import {
 	createCloudDestination,
 	createHostDestination,
 	createSourceEndpoint,
+	environmentForRepository,
+	type SourceState,
 	type TeleportDestinationEndpoint,
+	type TeleportSourceEndpoint,
 } from "./hooks/useTeleport/endpoints";
 import { useTeleportRunsStore } from "./stores/teleportRunsStore";
 import { TeleportDialog } from "./TeleportDialog";
@@ -44,6 +49,11 @@ import { deriveRunOutcome } from "./utils/runOutcome";
  * by workspace, not here: the dialog can be closed while the move
  * continues, reopened onto it, and a move nobody is watching announces its
  * end with a toast.
+ *
+ * Nothing that cannot be verified is allowed through. A destination that
+ * cannot be reached, a repository it does not have, a check that errored:
+ * each becomes a refusal on the plan, because moving blind is how work gets
+ * buried.
  */
 
 interface TeleportDialogContainerProps {
@@ -144,115 +154,99 @@ export function TeleportDialogContainer({
 		async (host: TeleportDestination) => {
 			const request = ++planRequest.current;
 			setPlan(null);
-			if (!sourceUrl) return;
-
-			const sourceEndpoint = createSourceEndpoint(
-				getHostServiceClientByUrl(sourceUrl),
-				workspaceId,
-			);
-			const [state, entries] = await Promise.all([
-				sourceEndpoint.state(),
-				sourceEndpoint.handoff(),
-			]);
-			const { branch } = state;
-			// Every live agent pane gets a row and a verb.
-			const panes = entries.map((entry) => ({
-				paneId: entry.terminalId,
-				label: entry.agent,
-				disposition: derivePaneDisposition({
-					agentId: entry.agent,
-					agentSessionId: null,
-					// Context travels as a prompt, so a pane resumes whether or
-					// not its harness can restore a session id.
-					canResumeSession: true,
-					foregroundCommand: null,
-				}),
-			}));
-			const tabs =
-				panes.length > 0 ? [{ tabId: "panes", title: "Panes", panes }] : [];
-
-			if (host.kind === "cloud") {
-				// A sandbox is new by construction: nothing to diverge from,
-				// and it fetches the repository before anything else.
-				if (request !== planRequest.current) return;
+			const current = () => request === planRequest.current;
+			let branch = "";
+			try {
+				if (!sourceUrl) {
+					throw new Error(
+						t({ message: "This workspace's host cannot be reached" }),
+					);
+				}
+				const sourceEndpoint = createSourceEndpoint(
+					getHostServiceClientByUrl(sourceUrl),
+					workspaceId,
+				);
+				const [state, entries] = await Promise.all([
+					sourceEndpoint.state(),
+					sourceEndpoint.handoff(),
+				]);
+				branch = state.branch;
+				const tabs = tabsFor(entries);
+				const refusal =
+					host.kind === "cloud"
+						? await cloudRefusal(state, organizationId)
+						: await hostRefusal(state, sourceEndpoint, hostUrlFor(host.id));
+				if (!current()) return;
 				setPlan(
 					buildTeleportPlan({
 						branch,
 						destinationHostName: host.name,
-						destinationHasRepository: false,
+						// A sandbox is new by construction and clones before
+						// anything else; a host only qualifies once it has the
+						// repository as a project.
+						destinationHasRepository: host.kind === "host",
 						workingTree: state.workingTree,
 						tabs,
+						refusals: refusal ? [refusal] : [],
 					}),
 				);
-				return;
+			} catch (error) {
+				if (!current()) return;
+				setPlan(
+					buildTeleportPlan({
+						branch,
+						destinationHostName: host.name,
+						destinationHasRepository: true,
+						workingTree: {
+							modified: 0,
+							untracked: 0,
+							preciousFiles: 0,
+							unpushedCommits: 0,
+						},
+						tabs: [],
+						refusals: [
+							{ kind: "unverified", branch, reason: errorText(error) },
+						],
+					}),
+				);
 			}
-
-			// The destination's own view of the branch, judged by the source,
-			// which is the side that knows what it contains.
-			const destinationUrl = hostUrlFor(host.id);
-			const destination = destinationUrl
-				? getHostServiceClientByUrl(destinationUrl)
-				: null;
-			const project = destination
-				? await findProject(destination, state.worktreePath)
-				: null;
-			const destinationState =
-				destination && project
-					? await destination.teleport.destinationState
-							.query({ repositoryPath: project.repoPath, branch })
-							.catch(() => null)
-					: null;
-			const refusal = destinationState
-				? await sourceEndpoint
-						.refusalFor(branch, destinationState)
-						.catch(() => null)
-				: null;
-
-			if (request !== planRequest.current) return;
-			setPlan(
-				buildTeleportPlan({
-					branch,
-					destinationHostName: host.name,
-					destinationHasRepository: project !== null,
-					workingTree: state.workingTree,
-					tabs,
-					refusals: refusal ? [refusal] : [],
-				}),
-			);
 		},
-		[workspaceId, sourceUrl, hostUrlFor],
+		[workspaceId, sourceUrl, hostUrlFor, organizationId, t],
 	);
 
 	const start = useCallback(
 		async (host: TeleportDestination) => {
 			if (!sourceUrl || !plan) return;
-			const sourceEndpoint = createSourceEndpoint(
-				getHostServiceClientByUrl(sourceUrl),
-				workspaceId,
-			);
-			const destination = await resolveDestination(host, {
-				organizationId,
-				workspaceLabel,
-				branch: plan.branch,
-				hostUrlFor,
-				sourceWorktreePath: (await sourceEndpoint.state()).worktreePath,
-			});
-			if (!destination) return;
-
-			useTeleportRunsStore.getState().begin(workspaceId, host);
-			await runTeleport(
-				composeTeleportOperations({
-					source: sourceEndpoint,
-					destination,
+			const store = useTeleportRunsStore.getState();
+			store.begin(workspaceId, host);
+			try {
+				const sourceEndpoint = createSourceEndpoint(
+					getHostServiceClientByUrl(sourceUrl),
+					workspaceId,
+				);
+				const destination = await resolveDestination(host, {
+					organizationId,
+					workspaceLabel,
 					branch: plan.branch,
-					onDestinationReady: (destinationWorkspaceId) =>
-						useTeleportRunsStore
-							.getState()
-							.setDestinationWorkspace(workspaceId, destinationWorkspaceId),
-				}),
-				(event: TeleportProgress) =>
-					useTeleportRunsStore.getState().progress(workspaceId, event),
-			);
+					hostUrlFor,
+					source: await sourceEndpoint.state(),
+				});
+				await runTeleport(
+					composeTeleportOperations({
+						source: sourceEndpoint,
+						destination,
+						branch: plan.branch,
+						onDestinationReady: (destinationWorkspaceId) =>
+							useTeleportRunsStore
+								.getState()
+								.setDestinationWorkspace(workspaceId, destinationWorkspaceId),
+					}),
+					(event: TeleportProgress) =>
+						useTeleportRunsStore.getState().progress(workspaceId, event),
+				);
+			} catch (error) {
+				useTeleportRunsStore.getState().fail(workspaceId, errorText(error));
+			}
 			announce(host);
 		},
 		[
@@ -296,15 +290,92 @@ export function TeleportDialogContainer({
 	);
 }
 
+/** Every live agent pane gets a row and a verb. */
+function tabsFor(entries: Array<{ terminalId: string; agent: string }>) {
+	const panes = entries.map((entry) => ({
+		paneId: entry.terminalId,
+		label: entry.agent,
+		disposition: derivePaneDisposition({
+			agentId: entry.agent,
+			agentSessionId: null,
+			// Context travels as a prompt, so a pane resumes whether or not
+			// its harness can restore a session id.
+			canResumeSession: true,
+			foregroundCommand: null,
+		}),
+	}));
+	return panes.length > 0 ? [{ tabId: "panes", title: "Agents", panes }] : [];
+}
+
+/**
+ * Why a host cannot take this branch, judged by the source, which is the
+ * side that knows what it contains. Null when the move is safe.
+ */
+async function hostRefusal(
+	source: SourceState,
+	sourceEndpoint: TeleportSourceEndpoint,
+	destinationUrl: string | null,
+): Promise<TeleportRefusal | null> {
+	const { branch } = source;
+	if (!destinationUrl) {
+		return {
+			kind: "unverified",
+			branch,
+			reason: "The destination cannot be reached right now",
+		};
+	}
+	const repository = repositoryIdentity(source.remoteUrl);
+	if (!repository) {
+		return {
+			kind: "unverified",
+			branch,
+			reason: "This workspace has no origin remote to send the work through",
+		};
+	}
+	const destination = getHostServiceClientByUrl(destinationUrl);
+	const project = await findProject(destination, repository);
+	if (!project) return { kind: "repository-missing", branch, repository };
+	const destinationState = await destination.teleport.destinationState.query({
+		repositoryPath: project.repoPath,
+		branch,
+	});
+	return sourceEndpoint.refusalFor(branch, destinationState);
+}
+
+/** A sandbox is new, so the only question is whether one can be made for this repository. */
+async function cloudRefusal(
+	source: SourceState,
+	organizationId: string | null,
+): Promise<TeleportRefusal | null> {
+	const { branch } = source;
+	const repository = repositoryIdentity(source.remoteUrl);
+	if (!repository) {
+		return {
+			kind: "unverified",
+			branch,
+			reason: "This workspace has no origin remote to send the work through",
+		};
+	}
+	if (!organizationId) {
+		return { kind: "unverified", branch, reason: "No organization is active" };
+	}
+	const environments = await apiTrpcClient.environment.list.query({
+		organizationId,
+	});
+	return environmentForRepository(environments, repository)
+		? null
+		: { kind: "repository-missing", branch, repository };
+}
+
 interface ResolveDestinationInput {
 	organizationId: string | null;
 	workspaceLabel: string;
 	branch: string;
 	hostUrlFor: (hostId: string) => string | null;
-	sourceWorktreePath: string;
+	source: SourceState;
 }
 
-/** The chosen destination as an endpoint; null when it cannot be addressed. */
+/** The chosen destination as an endpoint; throws when it cannot be addressed. */
 async function resolveDestination(
 	host: TeleportDestination,
 	{
@@ -312,45 +383,49 @@ async function resolveDestination(
 		workspaceLabel,
 		branch,
 		hostUrlFor,
-		sourceWorktreePath,
+		source,
 	}: ResolveDestinationInput,
-): Promise<TeleportDestinationEndpoint | null> {
+): Promise<TeleportDestinationEndpoint> {
+	const repository = repositoryIdentity(source.remoteUrl);
 	if (host.kind === "cloud") {
-		if (!organizationId) return null;
+		if (!organizationId) throw new Error("No organization is active");
 		return createCloudDestination({
 			organizationId,
 			workspaceName: workspaceLabel,
+			repository,
 		});
 	}
 	const url = hostUrlFor(host.id);
-	if (!url) return null;
+	if (!url) throw new Error(`${host.name} cannot be reached right now`);
 	const client = getHostServiceClientByUrl(url);
-	const project = await findProject(client, sourceWorktreePath);
+	const project = repository ? await findProject(client, repository) : null;
+	if (!project) {
+		throw new Error(`${host.name} has no project for ${repository}`);
+	}
 	return createHostDestination({
 		client,
-		projectId: project?.id ?? "",
+		projectId: project.id,
 		branch,
 		name: workspaceLabel,
 	});
 }
 
 /**
- * The destination's project for the same repository, matched on the repo
- * directory name. A destination that has never seen the repository returns
- * null, which is what turns the plan's "Repo" row into "clones first".
+ * The destination's project for the same repository, matched on the
+ * repository's identity rather than on a folder name: two worktrees of the
+ * same clone share a repository and two unrelated clones can share a name.
  */
 async function findProject(
 	client: HostServiceClient,
-	sourceWorktreePath: string,
+	repository: string,
 ): Promise<{ id: string; repoPath: string } | null> {
-	const projects = await client.project.list.query().catch(() => []);
-	const name = repoNameOf(sourceWorktreePath);
+	const projects = await client.project.list.query();
 	const match = projects.find(
-		(project: { repoPath: string }) => repoNameOf(project.repoPath) === name,
+		(project) => repositoryIdentity(project.repoUrl) === repository,
 	);
 	return match ? { id: match.id, repoPath: match.repoPath } : null;
 }
 
-function repoNameOf(path: string): string {
-	return path.replace(/\/+$/, "").split("/").pop() ?? "";
+function errorText(error: unknown): string {
+	return error instanceof Error ? error.message : String(error);
 }

@@ -589,6 +589,10 @@ msgstr "{1} turun ardından {0} hasar üstünlüğüyle kazanıyor"
 msgid "{0}, {outcome}{1}"
 msgstr "{0}, {outcome}{1}"
 
+#. placeholder {0}: refusal.reason
+msgid "{0}. Nothing moved: teleporting blind could bury work there."
+msgstr "{0}. Hiçbir şey taşınmadı: körlemesine ışınlama oradaki işi gömebilir."
+
 #. placeholder {0}: String(met)
 #. placeholder {1}: String(gaps.length)
 msgid "{0}/{1}"
@@ -892,9 +896,16 @@ msgstr "{hidden, plural, one {# yanıt daha göster} other {# yanıt daha göste
 msgid "{hiddenCount, plural, one {Show # more frame} other {Show # more frames}}"
 msgstr "{hiddenCount, plural, one {# çerçeve daha göster} other {# çerçeve daha göster}}"
 
+msgid "{hostName} couldn't be checked."
+msgstr "{hostName} kontrol edilemedi."
+
+#. placeholder {0}: refusal.repository
+msgid "{hostName} doesn't have {0} yet."
+msgstr "{hostName} üzerinde henüz {0} yok."
+
 #. placeholder {0}: refusal.branch
-msgid "{hostName} has commits on {0} that this device doesn't."
-msgstr "{hostName} üzerinde, bu cihazda bulunmayan {0} commit'leri var."
+msgid "{hostName} has commits on {0} that this side doesn't."
+msgstr "{hostName} üzerinde {0} dalında bu tarafta olmayan commit'ler var."
 
 msgid "{hostName} is offline"
 msgstr "{hostName} çevrimdışı"
@@ -1032,8 +1043,8 @@ msgstr "{plugin} için bu dağıtımda henüz bir OAuth istemcisi yapılandırı
 msgid "{plugin} is no longer installed."
 msgstr "{plugin} artık yüklü değil."
 
-msgid "{preciousFiles, plural, one {# env file} other {# env files}}"
-msgstr "{preciousFiles, plural, one {# env dosyası} other {# env dosyası}}"
+msgid "{preciousFiles, plural, one {# env file stays here — ignored files don't travel} other {# env files stay here — ignored files don't travel}}"
+msgstr "{preciousFiles, plural, one {# env dosyası burada kalır — yoksayılan dosyalar taşınmaz} other {# env dosyası burada kalır — yoksayılan dosyalar taşınmaz}}"
 
 msgid "{presetLabel} reset to defaults"
 msgstr "{presetLabel} varsayılanlara sıfırlandı"
@@ -1659,6 +1670,9 @@ msgstr "ajan ekleme"
 msgid "Add an environment in Settings before creating a cloud workspace"
 msgstr "Bulut çalışma alanı oluşturmadan önce Ayarlar'da bir ortam ekleyin"
 
+msgid "Add an environment with this repository in Settings, then try again."
+msgstr "Ayarlar'da bu depoyu içeren bir ortam ekleyin, sonra yeniden deneyin."
+
 msgid "Add another account, or disconnect one you no longer use."
 msgstr "Başka bir hesap bağla ya da artık kullanmadığın birini kaldır."
 
@@ -1746,6 +1760,9 @@ msgstr "Test edilmemiş en riskli kod için test ekle…"
 
 msgid "Add tests where they're missing"
 msgstr "Eksik olan yerlere test ekle"
+
+msgid "Add the repository as a project on {hostName}, then try again."
+msgstr "Depoyu {hostName} üzerinde proje olarak ekleyin, sonra yeniden deneyin."
 
 msgid "Add this label"
 msgstr "Bu etiketi ekle"
@@ -2470,10 +2487,6 @@ msgstr "Değişiklik isteyin"
 
 msgid "Ask to make changes, @mention files, run /commands"
 msgstr "Değişiklik isteyin, dosyaları @ ile anın, /komut çalıştırın"
-
-msgctxt "teleport step"
-msgid "Asking agents for handoff notes"
-msgstr "Aracılardan devir notları isteniyor"
 
 msgid "Aspect Ratio"
 msgstr "En boy oranı"
@@ -3421,8 +3434,8 @@ msgstr "Gelen kutunuzu kontrol edin"
 msgid "Checkbox · Radio · Switch"
 msgstr "Onay kutusu · Radyo · Anahtar"
 
-msgid "Checking {hostName} and the running programs…"
-msgstr "{hostName} ve çalışan programlar denetleniyor…"
+msgid "Checking {hostName} and the running agents…"
+msgstr "{hostName} ve çalışan ajanlar kontrol ediliyor…"
 
 msgid "Checking + savings + Treasury over time; fundraise tranches are the steps"
 msgstr "Vadesiz + birikim + Treasury zaman içinde; yatırım dilimleri basamakları oluşturur"
@@ -4136,6 +4149,9 @@ msgstr "{name} bağla"
 msgid "Connect a device"
 msgstr "Cihaz bağla"
 
+msgid "Connect a device to teleport this workspace to it."
+msgstr "Bu çalışma alanını ışınlamak için bir cihaz bağlayın."
+
 msgid "Connect a Google account. Its mailbox is read-only, and triggers run for the person who connected it."
 msgstr "Bir Google hesabı bağlayın. Posta kutusu salt okunurdur ve tetikleyiciler hesabı bağlayan kişi için çalışır."
 
@@ -4148,8 +4164,8 @@ msgstr "Hesap bağla"
 msgid "Connect another account"
 msgstr "Başka bir hesap bağla"
 
-msgid "Connect another device to teleport this workspace to it."
-msgstr "Bu çalışma alanını ışınlamak için başka bir cihaz bağlayın."
+msgid "Connect another device, or enable cloud workspaces, to teleport this workspace somewhere."
+msgstr "Bu çalışma alanını bir yere ışınlamak için başka bir cihaz bağlayın veya bulut çalışma alanlarını etkinleştirin."
 
 msgid "Connect any AI agent to Superset."
 msgstr "Herhangi bir AI ajanını Superset'e bağlayın."
@@ -5990,6 +6006,10 @@ msgstr "Tamam — hazır ayarlar çubuğunun kullandığı çerçeveli çip stil
 
 msgid "Done (isShimmering=false)"
 msgstr "Bitti (isShimmering=false)"
+
+#. placeholder {0}: destination.name
+msgid "Done. This workspace is stopped here; the work continues on {0}."
+msgstr "Tamam. Bu çalışma alanı burada durduruldu; iş {0} üzerinde devam ediyor."
 
 msgid "Downgrade to Free"
 msgstr "Ücretsiz plana düş"
@@ -10278,6 +10298,10 @@ msgstr "Henüz indirme yok"
 msgid "No emoji found"
 msgstr "Emoji bulunamadı"
 
+#. placeholder {0}: refusal.repository
+msgid "No environment carries {0}."
+msgstr "Hiçbir ortam {0} içermiyor."
+
 msgid "No environments available"
 msgstr "Kullanılabilir ortam yok"
 
@@ -10705,6 +10729,9 @@ msgstr "Yok"
 msgid "none (session)"
 msgstr "yok (oturum)"
 
+msgid "None running · a terminal opens empty"
+msgstr "Çalışan yok · boş bir terminal açılır"
+
 msgid "None. This is the floor."
 msgstr "Yok. Bu, taban düzeydir."
 
@@ -10792,6 +10819,9 @@ msgstr "Güncellenmiyor"
 
 msgid "Notes"
 msgstr "Notlar"
+
+msgid "Nothing changed here. Fix the cause and teleport again."
+msgstr "Burada hiçbir şey değişmedi. Nedeni giderin ve yeniden ışınlayın."
 
 msgid "Nothing here yet."
 msgstr "Burada henüz bir şey yok."
@@ -11319,12 +11349,10 @@ msgstr "Menüyü aç"
 msgid "Open navigation"
 msgstr "Gezinmeyi aç"
 
+#. placeholder {0}: destination.name
 #. placeholder {0}: host.name
 msgid "Open on {0}"
 msgstr "{0} üzerinde aç"
-
-msgid "Open on {hostName}"
-msgstr "{hostName} üzerinde aç"
 
 msgid "Open on GitHub"
 msgstr "GitHub'da aç"
@@ -12684,6 +12712,10 @@ msgstr "Paralel kodlama ajanları rehberini okuyun"
 msgid "Read the setup guide"
 msgstr "Kurulum rehberini okuyun"
 
+msgctxt "teleport step"
+msgid "Reading the agents' transcripts"
+msgstr "Ajanların transkriptleri okunuyor"
+
 msgid "Reading usage…"
 msgstr "Kullanım okunuyor…"
 
@@ -13421,6 +13453,10 @@ msgstr "Otomasyonu sürdür"
 #. placeholder {0}: candidate.agentLabel
 msgid "Resuming {0}…"
 msgstr "{0} sürdürülüyor…"
+
+msgctxt "teleport step"
+msgid "Resuming agents"
+msgstr "Ajanlar devam ettiriliyor"
 
 msgid "Resuming the conversation…"
 msgstr "Sohbete devam ediliyor…"
@@ -14479,9 +14515,6 @@ msgstr "Kurulum"
 msgid "Setup script"
 msgstr "Kurulum betiği"
 
-msgid "Setup scripts run on arrival. This workspace stays here, stopped, until you delete it."
-msgstr "Kurulum betikleri varışta çalışır. Bu çalışma alanı, siz silene kadar burada durdurulmuş olarak kalır."
-
 msgid "Sexual content"
 msgstr "Cinsel içerik"
 
@@ -15263,12 +15296,12 @@ msgstr "Başlatılıyor"
 msgid "Starting {agentLabel}"
 msgstr "{agentLabel} başlatılıyor"
 
+msgctxt "teleport step"
+msgid "Starting a sandbox"
+msgstr "Bir sandbox başlatılıyor"
+
 msgid "Starting cloud workspace"
 msgstr "Bulut çalışma alanı başlatılıyor"
-
-msgctxt "teleport step"
-msgid "Starting programs"
-msgstr "Programlar başlatılıyor"
 
 msgid "Starting the agent…"
 msgstr "Aracı başlatılıyor…"
@@ -16379,6 +16412,10 @@ msgstr "Başlık, bu sayfanın listelendiği her yerde ve bağlantı önizlemesi
 msgid "The web agents UI is a read-only preview for now."
 msgstr "Web ajan arayüzü şimdilik salt okunur bir önizlemedir."
 
+#. placeholder {0}: destination.name
+msgid "The work reached {0}; check both sides before continuing."
+msgstr "İş {0} üzerine ulaştı; devam etmeden önce iki tarafı da kontrol edin."
+
 msgid "The workspace is not ready yet. Try again."
 msgstr "Çalışma alanı henüz hazır değil. Yeniden deneyin."
 
@@ -16764,6 +16801,9 @@ msgstr "Bu çalışma alanı kaldırılmış olabilir ya da artık erişiminiz o
 
 msgid "This workspace record still exists, but its worktree folder is no longer on this host. Terminals and file actions are unavailable."
 msgstr "Bu çalışma alanı kaydı hâlâ var, ancak worktree klasörü artık bu host'ta değil. Terminaller ve dosya eylemleri kullanılamıyor."
+
+msgid "This workspace's host cannot be reached"
+msgstr "Bu çalışma alanının ana makinesine ulaşılamıyor"
 
 msgid "This workspace's host is offline"
 msgstr "Bu çalışma alanının host'u çevrimdışı"
@@ -18347,6 +18387,9 @@ msgstr "Sürüm {version} görüntüleniyor, salt okunur"
 
 msgid "You can attach up to {MAX_ATTACHMENTS} files"
 msgstr "En fazla {MAX_ATTACHMENTS} dosya ekleyebilirsiniz"
+
+msgid "You can keep working while it moves; whatever changes late is sent again at the end. This workspace stays here, stopped, until you delete it."
+msgstr "Taşınırken çalışmaya devam edebilirsiniz; geç değişenler sonunda yeniden gönderilir. Bu çalışma alanı siz silene kadar burada durdurulmuş olarak kalır."
 
 msgid "You can restore it from Settings → Projects for 30 days. The repository folder is never deleted."
 msgstr "30 gün boyunca Ayarlar → Projeler bölümünden geri yükleyebilirsin. Depo klasörü asla silinmez."

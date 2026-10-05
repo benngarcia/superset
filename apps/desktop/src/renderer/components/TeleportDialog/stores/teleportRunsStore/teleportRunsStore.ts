@@ -29,6 +29,8 @@ interface TeleportRunsState {
 		destinationWorkspaceId: string,
 	) => void;
 	setWatched: (workspaceId: string, watched: boolean) => void;
+	/** The run ended outside a driver step, before or around them. */
+	fail: (workspaceId: string, error: string) => void;
 	clear: (workspaceId: string) => void;
 }
 
@@ -77,6 +79,20 @@ export const useTeleportRunsStore = create<TeleportRunsState>()((set) => ({
 			const record = state.runs[workspaceId];
 			if (!record || record.watched === watched) return state;
 			return { runs: { ...state.runs, [workspaceId]: { ...record, watched } } };
+		}),
+	fail: (workspaceId, error) =>
+		set((state) => {
+			const record = state.runs[workspaceId];
+			if (!record) return state;
+			return {
+				runs: {
+					...state.runs,
+					[workspaceId]: {
+						...record,
+						run: { ...record.run, error: record.run.error ?? error },
+					},
+				},
+			};
 		}),
 	clear: (workspaceId) =>
 		set((state) => {

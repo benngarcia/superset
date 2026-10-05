@@ -46,6 +46,7 @@ socket.onmessage = (event) => {
 	pending.get(message.id)?.(message);
 	pending.delete(message.id);
 };
+// biome-ignore lint/suspicious/noExplicitAny: raw CDP envelopes
 function send(method: string, params: unknown = {}): Promise<any> {
 	const id = nextId++;
 	socket.send(JSON.stringify({ id, method, params }));

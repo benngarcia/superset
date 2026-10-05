@@ -47,18 +47,29 @@ function fakes({
 				preciousFiles: 0,
 				unpushedCommits: 0,
 			},
+			remoteUrl: "https://github.com/acme/repo.git",
 		}),
 		refusalFor: async () => null,
 		handoff: async () => {
 			log.push("handoff");
 			return handoffs[Math.min(handoffCalls++, handoffs.length - 1)] ?? [];
 		},
-		publish: async (unlessWorkingTree): Promise<PublishedCapture> => {
+		publish: async (unless): Promise<PublishedCapture> => {
 			const workingTree = trees[Math.min(publishes++, trees.length - 1)] ?? "";
 			const unchanged =
-				unlessWorkingTree !== undefined && workingTree === unlessWorkingTree;
+				unless !== undefined &&
+				unless.head === "head-1" &&
+				workingTree === unless.workingTree;
 			log.push(`publish${unchanged ? " (unchanged)" : ""}`);
-			return { ref: "refs/superset/teleport/src-ws", workingTree, unchanged };
+			return {
+				ref: "refs/superset/teleport/src-ws",
+				head: "head-1",
+				workingTree,
+				unchanged,
+			};
+		},
+		stopAgents: async () => {
+			log.push("stop agents");
 		},
 		discard: async () => {
 			log.push("discard");
@@ -135,6 +146,25 @@ describe("composeTeleportOperations", () => {
 		expect(f.log.indexOf("seed agents")).toBeLessThan(
 			f.log.indexOf(launches[0] ?? ""),
 		);
+	});
+
+	it("reads the last transcripts before ending the source's agents, and launches after", async () => {
+		const f = fakes({
+			handoffs: [[{ terminalId: "t1", agent: "claude", prompt: "early" }]],
+		});
+		await runTeleport(
+			composeTeleportOperations({
+				source: f.source,
+				destination: f.destination,
+				branch: "main",
+			}),
+			() => {},
+		);
+		const lastHandoff = f.log.lastIndexOf("handoff");
+		const stop = f.log.indexOf("stop agents");
+		expect(lastHandoff).toBeLessThan(stop);
+		expect(stop).toBeLessThan(f.log.indexOf("discard"));
+		expect(stop).toBeLessThan(f.log.indexOf("launch claude: early"));
 	});
 
 	it("reports the destination id as soon as it is ready", async () => {

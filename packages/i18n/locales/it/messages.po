@@ -589,6 +589,10 @@ msgstr "{0} vince ai danni dopo {1} turni"
 msgid "{0}, {outcome}{1}"
 msgstr "{0}, {outcome}{1}"
 
+#. placeholder {0}: refusal.reason
+msgid "{0}. Nothing moved: teleporting blind could bury work there."
+msgstr "{0}. Nulla è stato spostato: teletrasportare alla cieca potrebbe seppellire del lavoro lì."
+
 #. placeholder {0}: String(met)
 #. placeholder {1}: String(gaps.length)
 msgid "{0}/{1}"
@@ -892,9 +896,16 @@ msgstr "{hidden, plural, one {Mostra # altra risposta} other {Mostra # altre ris
 msgid "{hiddenCount, plural, one {Show # more frame} other {Show # more frames}}"
 msgstr "{hiddenCount, plural, one {Mostra # altro frame} other {Mostra altri # frame}}"
 
+msgid "{hostName} couldn't be checked."
+msgstr "Impossibile verificare {hostName}."
+
+#. placeholder {0}: refusal.repository
+msgid "{hostName} doesn't have {0} yet."
+msgstr "{hostName} non ha ancora {0}."
+
 #. placeholder {0}: refusal.branch
-msgid "{hostName} has commits on {0} that this device doesn't."
-msgstr "{hostName} ha commit su {0} che questo dispositivo non ha."
+msgid "{hostName} has commits on {0} that this side doesn't."
+msgstr "{hostName} ha commit su {0} che questo lato non ha."
 
 msgid "{hostName} is offline"
 msgstr "{hostName} è offline"
@@ -1032,8 +1043,8 @@ msgstr "{plugin} non ha ancora un client OAuth configurato su questo deployment.
 msgid "{plugin} is no longer installed."
 msgstr "{plugin} non è più installato."
 
-msgid "{preciousFiles, plural, one {# env file} other {# env files}}"
-msgstr "{preciousFiles, plural, one {# file env} other {# file env}}"
+msgid "{preciousFiles, plural, one {# env file stays here — ignored files don't travel} other {# env files stay here — ignored files don't travel}}"
+msgstr "{preciousFiles, plural, one {# file env resta qui — i file ignorati non viaggiano} other {# file env restano qui — i file ignorati non viaggiano}}"
 
 msgid "{presetLabel} reset to defaults"
 msgstr "{presetLabel} reimpostato ai valori predefiniti"
@@ -1659,6 +1670,9 @@ msgstr "aggiungere un agente"
 msgid "Add an environment in Settings before creating a cloud workspace"
 msgstr "Aggiungi un ambiente nelle Impostazioni prima di creare un workspace cloud"
 
+msgid "Add an environment with this repository in Settings, then try again."
+msgstr "Aggiungi un ambiente con questo repository nelle Impostazioni, poi riprova."
+
 msgid "Add another account, or disconnect one you no longer use."
 msgstr "Collega un altro account o scollega quello che non usi più."
 
@@ -1746,6 +1760,9 @@ msgstr "Aggiungi test per il codice non testato più a rischio…"
 
 msgid "Add tests where they're missing"
 msgstr "Aggiungi i test che mancano"
+
+msgid "Add the repository as a project on {hostName}, then try again."
+msgstr "Aggiungi il repository come progetto su {hostName}, poi riprova."
 
 msgid "Add this label"
 msgstr "Aggiungi questa etichetta"
@@ -2470,10 +2487,6 @@ msgstr "Chiedi delle modifiche"
 
 msgid "Ask to make changes, @mention files, run /commands"
 msgstr "Chiedi modifiche, @menziona file, esegui /comandi"
-
-msgctxt "teleport step"
-msgid "Asking agents for handoff notes"
-msgstr "Richiesta delle note di passaggio agli agenti"
 
 msgid "Aspect Ratio"
 msgstr "Aspect Ratio"
@@ -3421,8 +3434,8 @@ msgstr "Controlla la tua casella di posta"
 msgid "Checkbox · Radio · Switch"
 msgstr "Checkbox · Radio · Switch"
 
-msgid "Checking {hostName} and the running programs…"
-msgstr "Controllo di {hostName} e dei programmi in esecuzione…"
+msgid "Checking {hostName} and the running agents…"
+msgstr "Controllo di {hostName} e degli agenti in esecuzione…"
 
 msgid "Checking + savings + Treasury over time; fundraise tranches are the steps"
 msgstr "Conto corrente + risparmio + Treasury nel tempo; i gradini sono le tranche di raccolta"
@@ -4136,6 +4149,9 @@ msgstr "Collega {name}"
 msgid "Connect a device"
 msgstr "Collega un dispositivo"
 
+msgid "Connect a device to teleport this workspace to it."
+msgstr "Collega un dispositivo per teletrasportarvi questo workspace."
+
 msgid "Connect a Google account. Its mailbox is read-only, and triggers run for the person who connected it."
 msgstr "Collega un account Google. La sua casella di posta è in sola lettura e i trigger vengono eseguiti per la persona che l’ha collegato."
 
@@ -4148,8 +4164,8 @@ msgstr "Collega un account"
 msgid "Connect another account"
 msgstr "Collega un altro account"
 
-msgid "Connect another device to teleport this workspace to it."
-msgstr "Collega un altro dispositivo per teletrasportarci questo spazio di lavoro."
+msgid "Connect another device, or enable cloud workspaces, to teleport this workspace somewhere."
+msgstr "Collega un altro dispositivo o abilita i workspace cloud per teletrasportare questo workspace da qualche parte."
 
 msgid "Connect any AI agent to Superset."
 msgstr "Collega qualsiasi agente AI a Superset."
@@ -5990,6 +6006,10 @@ msgstr "Fatto — lo stile chip con bordo usato dalla barra dei preset è ora il
 
 msgid "Done (isShimmering=false)"
 msgstr "Fatto (isShimmering=false)"
+
+#. placeholder {0}: destination.name
+msgid "Done. This workspace is stopped here; the work continues on {0}."
+msgstr "Fatto. Questo workspace è fermo qui; il lavoro continua su {0}."
 
 msgid "Downgrade to Free"
 msgstr "Torna a Free"
@@ -10278,6 +10298,10 @@ msgstr "Ancora nessun download"
 msgid "No emoji found"
 msgstr "Nessuna emoji trovata"
 
+#. placeholder {0}: refusal.repository
+msgid "No environment carries {0}."
+msgstr "Nessun ambiente contiene {0}."
+
 msgid "No environments available"
 msgstr "Nessun ambiente disponibile"
 
@@ -10705,6 +10729,9 @@ msgstr "Nessuno"
 msgid "none (session)"
 msgstr "nessuno (sessione)"
 
+msgid "None running · a terminal opens empty"
+msgstr "Nessuno in esecuzione · un terminale si apre vuoto"
+
 msgid "None. This is the floor."
 msgstr "Nessuno. Questo è il punto di partenza."
 
@@ -10792,6 +10819,9 @@ msgstr "Nessun aggiornamento"
 
 msgid "Notes"
 msgstr "Note"
+
+msgid "Nothing changed here. Fix the cause and teleport again."
+msgstr "Qui non è cambiato nulla. Risolvi la causa e teletrasporta di nuovo."
 
 msgid "Nothing here yet."
 msgstr "Ancora niente qui."
@@ -11319,12 +11349,10 @@ msgstr "Apri il menu"
 msgid "Open navigation"
 msgstr "Apri la navigazione"
 
+#. placeholder {0}: destination.name
 #. placeholder {0}: host.name
 msgid "Open on {0}"
 msgstr "Apri su {0}"
-
-msgid "Open on {hostName}"
-msgstr "Apri su {hostName}"
 
 msgid "Open on GitHub"
 msgstr "Apri su GitHub"
@@ -12684,6 +12712,10 @@ msgstr "Leggi la guida agli agenti di programmazione in parallelo"
 msgid "Read the setup guide"
 msgstr "Leggi la guida alla configurazione"
 
+msgctxt "teleport step"
+msgid "Reading the agents' transcripts"
+msgstr "Lettura delle trascrizioni degli agenti"
+
 msgid "Reading usage…"
 msgstr "Lettura dell'utilizzo…"
 
@@ -13421,6 +13453,10 @@ msgstr "Riprendi l'automazione"
 #. placeholder {0}: candidate.agentLabel
 msgid "Resuming {0}…"
 msgstr "Ripresa di {0}…"
+
+msgctxt "teleport step"
+msgid "Resuming agents"
+msgstr "Ripresa degli agenti"
 
 msgid "Resuming the conversation…"
 msgstr "Ripresa della conversazione…"
@@ -14479,9 +14515,6 @@ msgstr "Setup"
 msgid "Setup script"
 msgstr "Script di setup"
 
-msgid "Setup scripts run on arrival. This workspace stays here, stopped, until you delete it."
-msgstr "Gli script di setup vengono eseguiti all'arrivo. Questo spazio di lavoro resta qui, fermo, finché non lo elimini."
-
 msgid "Sexual content"
 msgstr "Contenuti sessuali"
 
@@ -15263,12 +15296,12 @@ msgstr "Avvio"
 msgid "Starting {agentLabel}"
 msgstr "Avvio di {agentLabel}"
 
+msgctxt "teleport step"
+msgid "Starting a sandbox"
+msgstr "Avvio di un sandbox"
+
 msgid "Starting cloud workspace"
 msgstr "Avvio del workspace cloud"
-
-msgctxt "teleport step"
-msgid "Starting programs"
-msgstr "Avvio dei programmi"
 
 msgid "Starting the agent…"
 msgstr "Avvio dell'agente…"
@@ -16379,6 +16412,10 @@ msgstr "Il titolo compare ovunque questa pagina sia elencata e nell'anteprima de
 msgid "The web agents UI is a read-only preview for now."
 msgstr "L'interfaccia web degli agenti è per ora un'anteprima in sola lettura."
 
+#. placeholder {0}: destination.name
+msgid "The work reached {0}; check both sides before continuing."
+msgstr "Il lavoro ha raggiunto {0}; controlla entrambi i lati prima di continuare."
+
 msgid "The workspace is not ready yet. Try again."
 msgstr "Il workspace non è ancora pronto. Riprova."
 
@@ -16764,6 +16801,9 @@ msgstr "Questo workspace potrebbe essere stato rimosso oppure non hai più acces
 
 msgid "This workspace record still exists, but its worktree folder is no longer on this host. Terminals and file actions are unavailable."
 msgstr "Il record di questo workspace esiste ancora, ma la sua cartella worktree non è più su questo host. I terminali e le azioni sui file non sono disponibili."
+
+msgid "This workspace's host cannot be reached"
+msgstr "L'host di questo workspace non è raggiungibile"
 
 msgid "This workspace's host is offline"
 msgstr "L'host di questo workspace è offline"
@@ -18347,6 +18387,9 @@ msgstr "Stai visualizzando la versione {version}, in sola lettura"
 
 msgid "You can attach up to {MAX_ATTACHMENTS} files"
 msgstr "Puoi allegare fino a {MAX_ATTACHMENTS} file"
+
+msgid "You can keep working while it moves; whatever changes late is sent again at the end. This workspace stays here, stopped, until you delete it."
+msgstr "Puoi continuare a lavorare mentre si sposta; ciò che cambia tardi viene inviato di nuovo alla fine. Questo workspace resta qui, fermo, finché non lo elimini."
 
 msgid "You can restore it from Settings → Projects for 30 days. The repository folder is never deleted."
 msgstr "Puoi ripristinarlo da Impostazioni → Progetti per 30 giorni. La cartella del repository non viene mai eliminata."

@@ -43,6 +43,16 @@ describe("teleportRunsStore", () => {
 		expect(record?.watched).toBe(false);
 	});
 
+	it("marks a run failed from outside the steps, keeping the first error", () => {
+		const store = useTeleportRunsStore.getState();
+		store.begin("ws-1", cloud);
+		store.fail("ws-1", "no destination");
+		store.fail("ws-1", "later");
+		const record = useTeleportRunsStore.getState().runs["ws-1"];
+		expect(record && deriveRunOutcome(record.run)).toBe("failed");
+		expect(record?.run.error).toBe("no destination");
+	});
+
 	it("clears only the named run", () => {
 		const store = useTeleportRunsStore.getState();
 		store.begin("ws-1", cloud);

@@ -45,11 +45,16 @@ export const teleportRouter = router({
 			const workspace = ctx.db.query.workspaces
 				.findFirst({ where: eq(workspaces.id, input.workspaceId) })
 				.sync();
-			const workingTree = await summarizeWorkingTree(worktreePath);
+			const git = createGitRunner(worktreePath);
+			const [workingTree, remoteUrl] = await Promise.all([
+				summarizeWorkingTree(worktreePath),
+				git.run(["remote", "get-url", "origin"]).catch(() => null),
+			]);
 			return {
 				branch: workspace?.branch ?? null,
 				worktreePath,
 				workingTree,
+				remoteUrl: remoteUrl?.trim() || null,
 			};
 		}),
 
@@ -145,12 +150,15 @@ export const teleportRouter = router({
 			workspaceInput.extend({
 				remote: z.string().default("origin"),
 				/**
-				 * A working tree id from an earlier publish. When the checkout
-				 * still has that exact content, nothing is pushed and the
-				 * answer says so: the second pass of a move, after the box is
-				 * up, costs a capture and no transfer.
+				 * The head and working tree id from an earlier publish. When
+				 * the checkout still has exactly that content on exactly that
+				 * commit, nothing is pushed and the answer says so: the second
+				 * pass of a move, after the box is up, costs a capture and no
+				 * transfer.
 				 */
-				unlessWorkingTree: z.string().optional(),
+				unless: z
+					.object({ head: z.string(), workingTree: z.string() })
+					.optional(),
 			}),
 		)
 		.mutation(async ({ ctx, input }) => {
@@ -162,8 +170,9 @@ export const teleportRouter = router({
 				preciousPathspecs: [],
 			});
 			if (
-				input.unlessWorkingTree !== undefined &&
-				capture.workingTree === input.unlessWorkingTree
+				input.unless !== undefined &&
+				capture.head === input.unless.head &&
+				capture.workingTree === input.unless.workingTree
 			) {
 				return {
 					ref,
@@ -238,18 +247,29 @@ export const teleportRouter = router({
 			return { restored: true as const };
 		}),
 
-	/** Drop a capture's ref after a successful transfer, or after a cancel. */
+	/**
+	 * Drop a capture's ref after a successful transfer, or after a cancel;
+	 * with `remote`, also the copy a `publish` left there.
+	 */
 	discard: protectedProcedure
-		.input(workspaceInput)
+		.meta({ timeoutMs: 60_000 })
+		.input(workspaceInput.extend({ remote: z.string().optional() }))
 		.mutation(async ({ ctx, input }) => {
 			const worktreePath = resolveWorktreePath(ctx, input.workspaceId);
-			await discardCapture(worktreePath, handoffRef(input.workspaceId));
+			const ref = handoffRef(input.workspaceId);
+			await discardCapture(worktreePath, ref);
 			// The bundle is a transfer artefact; leaving it behind would show
-			// up as an untracked file in the user's next `git status`.
-			await rm(join(worktreePath, BUNDLE_DIR), {
-				recursive: true,
+			// up as an untracked file in the user's next `git status`. Only
+			// the bundle goes: `.superset/teleport` is shared with whatever
+			// else the user keeps under `.superset`.
+			await rm(join(worktreePath, BUNDLE_DIR, `${input.workspaceId}.bundle`), {
 				force: true,
 			});
+			if (input.remote) {
+				await createGitRunner(worktreePath)
+					.run(["push", "-q", input.remote, `:${ref}`])
+					.catch(() => undefined);
+			}
 			return { discarded: true as const };
 		}),
 });

@@ -589,6 +589,10 @@ msgstr "{0} menang berdasarkan kerusakan setelah {1} giliran"
 msgid "{0}, {outcome}{1}"
 msgstr "{0}, {outcome}{1}"
 
+#. placeholder {0}: refusal.reason
+msgid "{0}. Nothing moved: teleporting blind could bury work there."
+msgstr "{0}. Tidak ada yang dipindahkan: teleportasi tanpa pemeriksaan bisa menimbun pekerjaan di sana."
+
 #. placeholder {0}: String(met)
 #. placeholder {1}: String(gaps.length)
 msgid "{0}/{1}"
@@ -892,9 +896,16 @@ msgstr "{hidden, plural, other {Lihat # balasan lagi}}"
 msgid "{hiddenCount, plural, one {Show # more frame} other {Show # more frames}}"
 msgstr "{hiddenCount, plural, one {Tampilkan # frame lagi} other {Tampilkan # frame lagi}}"
 
+msgid "{hostName} couldn't be checked."
+msgstr "{hostName} tidak dapat diperiksa."
+
+#. placeholder {0}: refusal.repository
+msgid "{hostName} doesn't have {0} yet."
+msgstr "{hostName} belum memiliki {0}."
+
 #. placeholder {0}: refusal.branch
-msgid "{hostName} has commits on {0} that this device doesn't."
-msgstr "{hostName} memiliki commit di {0} yang tidak ada di perangkat ini."
+msgid "{hostName} has commits on {0} that this side doesn't."
+msgstr "{hostName} memiliki commit di {0} yang tidak ada di sisi ini."
 
 msgid "{hostName} is offline"
 msgstr "{hostName} sedang offline"
@@ -1032,8 +1043,8 @@ msgstr "{plugin} belum memiliki klien OAuth yang dikonfigurasi di deployment ini
 msgid "{plugin} is no longer installed."
 msgstr "{plugin} sudah tidak terpasang."
 
-msgid "{preciousFiles, plural, one {# env file} other {# env files}}"
-msgstr "{preciousFiles, plural, other {# berkas env}}"
+msgid "{preciousFiles, plural, one {# env file stays here — ignored files don't travel} other {# env files stay here — ignored files don't travel}}"
+msgstr "{preciousFiles, plural, other {# file env tetap di sini — file yang diabaikan tidak ikut}}"
 
 msgid "{presetLabel} reset to defaults"
 msgstr "{presetLabel} direset ke setelan bawaan"
@@ -1659,6 +1670,9 @@ msgstr "menambah agen"
 msgid "Add an environment in Settings before creating a cloud workspace"
 msgstr "Tambahkan environment di Pengaturan sebelum membuat workspace cloud"
 
+msgid "Add an environment with this repository in Settings, then try again."
+msgstr "Tambahkan environment dengan repositori ini di Pengaturan, lalu coba lagi."
+
 msgid "Add another account, or disconnect one you no longer use."
 msgstr "Hubungkan akun lain, atau putuskan yang tidak lagi kamu pakai."
 
@@ -1746,6 +1760,9 @@ msgstr "Tambahkan tes untuk kode paling berisiko yang belum diuji…"
 
 msgid "Add tests where they're missing"
 msgstr "Tambahkan tes yang belum ada"
+
+msgid "Add the repository as a project on {hostName}, then try again."
+msgstr "Tambahkan repositori sebagai proyek di {hostName}, lalu coba lagi."
 
 msgid "Add this label"
 msgstr "Tambahkan label ini"
@@ -2470,10 +2487,6 @@ msgstr "Minta perubahan"
 
 msgid "Ask to make changes, @mention files, run /commands"
 msgstr "Minta perubahan, @mention file, jalankan /command"
-
-msgctxt "teleport step"
-msgid "Asking agents for handoff notes"
-msgstr "Meminta catatan serah terima dari agen"
 
 msgid "Aspect Ratio"
 msgstr "Aspect Ratio"
@@ -3421,8 +3434,8 @@ msgstr "Periksa kotak masuk Anda"
 msgid "Checkbox · Radio · Switch"
 msgstr "Checkbox · Radio · Switch"
 
-msgid "Checking {hostName} and the running programs…"
-msgstr "Memeriksa {hostName} dan program yang berjalan…"
+msgid "Checking {hostName} and the running agents…"
+msgstr "Memeriksa {hostName} dan agen yang berjalan…"
 
 msgid "Checking + savings + Treasury over time; fundraise tranches are the steps"
 msgstr "Giro + tabungan + Treasury dari waktu ke waktu; tranche penggalangan dana adalah lonjakannya"
@@ -4136,6 +4149,9 @@ msgstr "Hubungkan {name}"
 msgid "Connect a device"
 msgstr "Hubungkan perangkat"
 
+msgid "Connect a device to teleport this workspace to it."
+msgstr "Hubungkan perangkat untuk meneleportasi workspace ini ke sana."
+
 msgid "Connect a Google account. Its mailbox is read-only, and triggers run for the person who connected it."
 msgstr "Hubungkan akun Google. Kotak suratnya hanya-baca, dan pemicu berjalan untuk orang yang menghubungkannya."
 
@@ -4148,8 +4164,8 @@ msgstr "Hubungkan akun"
 msgid "Connect another account"
 msgstr "Hubungkan akun lain"
 
-msgid "Connect another device to teleport this workspace to it."
-msgstr "Hubungkan perangkat lain untuk meneleportasi ruang kerja ini ke sana."
+msgid "Connect another device, or enable cloud workspaces, to teleport this workspace somewhere."
+msgstr "Hubungkan perangkat lain, atau aktifkan workspace cloud, untuk meneleportasi workspace ini ke suatu tempat."
 
 msgid "Connect any AI agent to Superset."
 msgstr "Hubungkan agen AI mana pun ke Superset."
@@ -5990,6 +6006,10 @@ msgstr "Selesai — gaya chip bergaris yang dipakai presets bar kini menjadi baw
 
 msgid "Done (isShimmering=false)"
 msgstr "Selesai (isShimmering=false)"
+
+#. placeholder {0}: destination.name
+msgid "Done. This workspace is stopped here; the work continues on {0}."
+msgstr "Selesai. Workspace ini dihentikan di sini; pekerjaan berlanjut di {0}."
 
 msgid "Downgrade to Free"
 msgstr "Turunkan ke Gratis"
@@ -10278,6 +10298,10 @@ msgstr "Belum ada unduhan"
 msgid "No emoji found"
 msgstr "Emoji tidak ditemukan"
 
+#. placeholder {0}: refusal.repository
+msgid "No environment carries {0}."
+msgstr "Tidak ada environment yang memuat {0}."
+
 msgid "No environments available"
 msgstr "Tidak ada environment yang tersedia"
 
@@ -10705,6 +10729,9 @@ msgstr "Tidak ada"
 msgid "none (session)"
 msgstr "tidak ada (sesi)"
 
+msgid "None running · a terminal opens empty"
+msgstr "Tidak ada yang berjalan · terminal terbuka kosong"
+
 msgid "None. This is the floor."
 msgstr "Tidak ada. Ini adalah lantai dasarnya."
 
@@ -10792,6 +10819,9 @@ msgstr "Tidak diperbarui"
 
 msgid "Notes"
 msgstr "Catatan"
+
+msgid "Nothing changed here. Fix the cause and teleport again."
+msgstr "Tidak ada yang berubah di sini. Perbaiki penyebabnya dan teleportasi lagi."
 
 msgid "Nothing here yet."
 msgstr "Belum ada apa-apa di sini."
@@ -11319,12 +11349,10 @@ msgstr "Buka menu"
 msgid "Open navigation"
 msgstr "Buka navigasi"
 
+#. placeholder {0}: destination.name
 #. placeholder {0}: host.name
 msgid "Open on {0}"
 msgstr "Buka di {0}"
-
-msgid "Open on {hostName}"
-msgstr "Buka di {hostName}"
 
 msgid "Open on GitHub"
 msgstr "Buka di GitHub"
@@ -12684,6 +12712,10 @@ msgstr "Baca panduan agen coding paralel"
 msgid "Read the setup guide"
 msgstr "Baca panduan penyiapan"
 
+msgctxt "teleport step"
+msgid "Reading the agents' transcripts"
+msgstr "Membaca transkrip agen"
+
 msgid "Reading usage…"
 msgstr "Membaca penggunaan…"
 
@@ -13421,6 +13453,10 @@ msgstr "Lanjutkan otomatisasi"
 #. placeholder {0}: candidate.agentLabel
 msgid "Resuming {0}…"
 msgstr "Melanjutkan {0}…"
+
+msgctxt "teleport step"
+msgid "Resuming agents"
+msgstr "Melanjutkan agen"
 
 msgid "Resuming the conversation…"
 msgstr "Melanjutkan percakapan…"
@@ -14479,9 +14515,6 @@ msgstr "Setup"
 msgid "Setup script"
 msgstr "Skrip setup"
 
-msgid "Setup scripts run on arrival. This workspace stays here, stopped, until you delete it."
-msgstr "Skrip penyiapan berjalan setelah tiba. Ruang kerja ini tetap di sini, berhenti, sampai Anda menghapusnya."
-
 msgid "Sexual content"
 msgstr "Konten seksual"
 
@@ -15263,12 +15296,12 @@ msgstr "Memulai"
 msgid "Starting {agentLabel}"
 msgstr "Memulai {agentLabel}"
 
+msgctxt "teleport step"
+msgid "Starting a sandbox"
+msgstr "Memulai sandbox"
+
 msgid "Starting cloud workspace"
 msgstr "Memulai workspace cloud"
-
-msgctxt "teleport step"
-msgid "Starting programs"
-msgstr "Memulai program"
 
 msgid "Starting the agent…"
 msgstr "Memulai agen…"
@@ -16379,6 +16412,10 @@ msgstr "Judul muncul di semua tempat halaman ini terdaftar dan di pratinjau taut
 msgid "The web agents UI is a read-only preview for now."
 msgstr "UI agen di web masih pratinjau baca-saja untuk saat ini."
 
+#. placeholder {0}: destination.name
+msgid "The work reached {0}; check both sides before continuing."
+msgstr "Pekerjaan telah sampai di {0}; periksa kedua sisi sebelum melanjutkan."
+
 msgid "The workspace is not ready yet. Try again."
 msgstr "Workspace belum siap. Coba lagi."
 
@@ -16764,6 +16801,9 @@ msgstr "Workspace ini mungkin sudah dihapus, atau Anda sudah tidak punya akses k
 
 msgid "This workspace record still exists, but its worktree folder is no longer on this host. Terminals and file actions are unavailable."
 msgstr "Catatan workspace ini masih ada, tapi folder worktree-nya sudah tidak ada di host ini. Terminal dan aksi file tidak tersedia."
+
+msgid "This workspace's host cannot be reached"
+msgstr "Host workspace ini tidak dapat dijangkau"
 
 msgid "This workspace's host is offline"
 msgstr "Host workspace ini sedang offline"
@@ -18347,6 +18387,9 @@ msgstr "Anda melihat versi {version}, hanya-baca"
 
 msgid "You can attach up to {MAX_ATTACHMENTS} files"
 msgstr "Anda dapat melampirkan hingga {MAX_ATTACHMENTS} file"
+
+msgid "You can keep working while it moves; whatever changes late is sent again at the end. This workspace stays here, stopped, until you delete it."
+msgstr "Anda dapat terus bekerja selama pemindahan; perubahan yang terjadi belakangan dikirim lagi di akhir. Workspace ini tetap di sini, dihentikan, sampai Anda menghapusnya."
 
 msgid "You can restore it from Settings → Projects for 30 days. The repository folder is never deleted."
 msgstr "Anda dapat memulihkannya dari Pengaturan → Proyek selama 30 hari. Folder repositori tidak pernah dihapus."

@@ -9,6 +9,7 @@ import type { HostServiceClient } from "renderer/lib/host-service-client";
 import { isMissingProcedureError } from "renderer/lib/isMissingProcedureError";
 import { runMarkedCommand } from "../marked-command";
 import type {
+	CaptureIdentity,
 	DestinationState,
 	HandoffEntry,
 	PublishedCapture,
@@ -17,6 +18,8 @@ import type {
 } from "./types";
 
 const COMMAND_TIMEOUT_MS = 5 * 60_000;
+/** Where a published capture goes; `buildDepartureCommand` pushes there too. */
+const REMOTE = "origin";
 
 /**
  * Any host-service as a source. A current one answers the `teleport.*`
@@ -51,10 +54,12 @@ export function createSourceEndpoint(
 						branch: state.branch ?? "",
 						worktreePath: state.worktreePath,
 						workingTree: state.workingTree,
+						remoteUrl: state.remoteUrl,
 					};
 				},
 				async (): Promise<SourceState> => {
-					const [workspace] = await client.workspace.list.query();
+					const workspaces = await client.workspace.list.query();
+					const workspace = workspaces.find((row) => row.id === workspaceId);
 					const match = await runMarkedCommand(
 						client,
 						workspaceId,
@@ -74,6 +79,7 @@ export function createSourceEndpoint(
 							preciousFiles: 0,
 							unpushedCommits: 0,
 						},
+						remoteUrl: match[4] && match[4] !== "-" ? match[4] : null,
 					};
 				},
 			),
@@ -114,15 +120,16 @@ export function createSourceEndpoint(
 			return entries.filter((entry) => entry.prompt.length > 0);
 		},
 
-		publish: (unlessWorkingTree) =>
+		publish: (unless) =>
 			orLegacy(
 				async (): Promise<PublishedCapture> => {
 					const published = await client.teleport.publish.mutate({
 						workspaceId,
-						unlessWorkingTree,
+						unless,
 					});
 					return {
 						ref: published.ref,
+						head: published.head,
 						workingTree: published.workingTree,
 						unchanged: published.unchanged,
 					};
@@ -138,32 +145,51 @@ export function createSourceEndpoint(
 						COMMAND_TIMEOUT_MS,
 						"The source never reported the capture pushed",
 					);
-					const workingTree = match[3] ?? "";
+					const identity: CaptureIdentity = {
+						head: match[1] ?? "",
+						workingTree: match[3] ?? "",
+					};
 					return {
 						ref,
-						workingTree,
-						unchanged:
-							unlessWorkingTree !== undefined &&
-							workingTree === unlessWorkingTree,
+						...identity,
+						unchanged: unless !== undefined && sameCapture(identity, unless),
 					};
 				},
 			),
 
+		stopAgents: async () => {
+			const bindings = await liveBindings();
+			await Promise.all(
+				bindings.map((binding) =>
+					client.terminal.killSession
+						.mutate({ workspaceId, terminalId: binding.terminalId })
+						.catch(() => undefined),
+				),
+			);
+		},
+
 		discard: () =>
 			orLegacy(
 				async () => {
-					await client.teleport.discard.mutate({ workspaceId });
+					await client.teleport.discard.mutate({
+						workspaceId,
+						remote: REMOTE,
+					});
 				},
 				async () => {
 					await client.terminal.launchSession
 						.mutate({
 							workspaceId,
-							initialCommand: `git update-ref -d '${ref}'`,
+							initialCommand: `git update-ref -d '${ref}'; git push -q ${REMOTE} ':${ref}'`,
 						})
 						.catch(() => undefined);
 				},
 			),
 	};
+}
+
+function sameCapture(a: CaptureIdentity, b: CaptureIdentity): boolean {
+	return a.head === b.head && a.workingTree === b.workingTree;
 }
 
 async function orLegacy<T>(

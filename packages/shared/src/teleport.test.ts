@@ -8,6 +8,8 @@ import {
 	DEPARTURE_MARKER,
 	derivePaneDisposition,
 	handoffRef,
+	repositoryIdentity,
+	repositoryIdentityFromFullName,
 	STATE_MARKER,
 	type TabPlan,
 } from "./teleport";
@@ -234,13 +236,40 @@ describe("buildDepartureCommand", () => {
 describe("buildStateProbeCommand", () => {
 	test("prints modified and untracked counts and the branch", () => {
 		expect(buildStateProbeCommand()).toContain("TELEPORT_STATE");
-		const m = "TELEPORT_STATE 86 9 feature/login".match(STATE_MARKER);
+		const m =
+			"TELEPORT_STATE 86 9 feature/login git@github.com:superset-sh/superset.git".match(
+				STATE_MARKER,
+			);
 		expect(m?.[1]).toBe("86");
 		expect(m?.[2]).toBe("9");
 		expect(m?.[3]).toBe("feature/login");
+		expect(m?.[4]).toBe("git@github.com:superset-sh/superset.git");
 	});
 });
 
 test("handoffRef names the capture by workspace", () => {
 	expect(handoffRef("w1")).toBe("refs/superset/teleport/w1");
+});
+
+describe("repositoryIdentity", () => {
+	test("names the same repository the same however it is addressed", () => {
+		const forms = [
+			"https://github.com/Superset-sh/superset.git",
+			"git@github.com:superset-sh/superset.git",
+			"ssh://git@github.com/superset-sh/superset",
+			"https://user:token@github.com/superset-sh/superset/",
+		];
+		for (const form of forms) {
+			expect(repositoryIdentity(form)).toBe("github.com/superset-sh/superset");
+		}
+		expect(repositoryIdentityFromFullName("superset-sh/superset")).toBe(
+			"github.com/superset-sh/superset",
+		);
+	});
+
+	test("is null for nothing, or for a path with no owner", () => {
+		expect(repositoryIdentity(null)).toBeNull();
+		expect(repositoryIdentity("-")).toBeNull();
+		expect(repositoryIdentity("/srv/git/repo.git")).toBeNull();
+	});
 });

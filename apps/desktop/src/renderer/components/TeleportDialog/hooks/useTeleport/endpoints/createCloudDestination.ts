@@ -1,4 +1,4 @@
-import { startableCloudEnvironments } from "@superset/shared/cloud-environments";
+import { repositoryIdentityFromFullName } from "@superset/shared/teleport";
 import { apiTrpcClient } from "renderer/lib/api-trpc-client";
 import { setHostServiceSecret } from "renderer/lib/host-service-auth";
 import {
@@ -19,6 +19,30 @@ export interface CreateCloudDestinationInput {
 	organizationId: string;
 	/** The source's name; the sandbox is named after it. */
 	workspaceName: string;
+	/** The source repository's identity; the sandbox must start from an environment that has it. */
+	repository: string | null;
+}
+
+interface EnvironmentWithRepositories {
+	id: string;
+	repositories?: ReadonlyArray<{ fullName: string }> | null;
+}
+
+/**
+ * The environment a teleport starts its sandbox from: one that carries the
+ * source's repository. A box built from any other environment would clone
+ * a different repository and the arrival would have nothing to fetch into.
+ */
+export function environmentForRepository<T extends EnvironmentWithRepositories>(
+	environments: T[],
+	repository: string | null,
+): T | undefined {
+	if (!repository) return undefined;
+	return environments.find((environment) =>
+		(environment.repositories ?? []).some(
+			(entry) => repositoryIdentityFromFullName(entry.fullName) === repository,
+		),
+	);
 }
 
 /**
@@ -34,16 +58,17 @@ export interface CreateCloudDestinationInput {
 export function createCloudDestination({
 	organizationId,
 	workspaceName,
+	repository,
 }: CreateCloudDestinationInput): TeleportDestinationEndpoint {
 	return {
 		prepare: async () => {
 			const environments = await apiTrpcClient.environment.list.query({
 				organizationId,
 			});
-			const environment = startableCloudEnvironments(environments)[0];
+			const environment = environmentForRepository(environments, repository);
 			if (!environment) {
 				throw new Error(
-					"Add an environment in Settings before teleporting to the cloud",
+					`No environment carries ${repository ?? "this repository"}`,
 				);
 			}
 			const created = await apiTrpcClient.cloudWorkspace.create.mutate({

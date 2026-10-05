@@ -589,6 +589,10 @@ msgstr "{0} vítězí na poškození po {1} kolech"
 msgid "{0}, {outcome}{1}"
 msgstr "{0}, {outcome}{1}"
 
+#. placeholder {0}: refusal.reason
+msgid "{0}. Nothing moved: teleporting blind could bury work there."
+msgstr "{0}. Nic se nepřesunulo: teleportace naslepo by tam mohla pohřbít práci."
+
 #. placeholder {0}: String(met)
 #. placeholder {1}: String(gaps.length)
 msgid "{0}/{1}"
@@ -892,9 +896,16 @@ msgstr "{hidden, plural, one {Zobrazit # další odpověď} few {Zobrazit # dal�
 msgid "{hiddenCount, plural, one {Show # more frame} other {Show # more frames}}"
 msgstr "{hiddenCount, plural, one {Zobrazit ještě # rámec} few {Zobrazit ještě # rámce} many {Zobrazit ještě # rámce} other {Zobrazit ještě # rámců}}"
 
+msgid "{hostName} couldn't be checked."
+msgstr "{hostName} se nepodařilo ověřit."
+
+#. placeholder {0}: refusal.repository
+msgid "{hostName} doesn't have {0} yet."
+msgstr "{hostName} ještě nemá {0}."
+
 #. placeholder {0}: refusal.branch
-msgid "{hostName} has commits on {0} that this device doesn't."
-msgstr "{hostName} má na {0} commity, které toto zařízení nemá."
+msgid "{hostName} has commits on {0} that this side doesn't."
+msgstr "{hostName} má na {0} commity, které tato strana nemá."
 
 msgid "{hostName} is offline"
 msgstr "{hostName} je offline"
@@ -1032,8 +1043,8 @@ msgstr "{plugin} zatím nemá v tomto nasazení nakonfigurovaného klienta OAuth
 msgid "{plugin} is no longer installed."
 msgstr "{plugin} už není nainstalován."
 
-msgid "{preciousFiles, plural, one {# env file} other {# env files}}"
-msgstr "{preciousFiles, plural, one {# soubor env} few {# soubory env} other {# souborů env}}"
+msgid "{preciousFiles, plural, one {# env file stays here — ignored files don't travel} other {# env files stay here — ignored files don't travel}}"
+msgstr "{preciousFiles, plural, one {# env soubor zůstává zde — ignorované soubory se nepřenášejí} few {# env soubory zůstávají zde — ignorované soubory se nepřenášejí} other {# env souborů zůstává zde — ignorované soubory se nepřenášejí}}"
 
 msgid "{presetLabel} reset to defaults"
 msgstr "{presetLabel} obnoveno na výchozí"
@@ -1659,6 +1670,9 @@ msgstr "přidat agenta"
 msgid "Add an environment in Settings before creating a cloud workspace"
 msgstr "Před vytvořením cloudového pracovního prostoru přidejte prostředí v Nastavení"
 
+msgid "Add an environment with this repository in Settings, then try again."
+msgstr "Přidejte v Nastavení prostředí s tímto repozitářem a zkuste to znovu."
+
 msgid "Add another account, or disconnect one you no longer use."
 msgstr "Připoj další účet nebo odpoj ten, který už nepoužíváš."
 
@@ -1746,6 +1760,9 @@ msgstr "Doplň testy pro nejrizikovější netestovaný kód…"
 
 msgid "Add tests where they're missing"
 msgstr "Doplnit testy tam, kde chybí"
+
+msgid "Add the repository as a project on {hostName}, then try again."
+msgstr "Přidejte repozitář jako projekt na {hostName} a zkuste to znovu."
 
 msgid "Add this label"
 msgstr "Přidat tento štítek"
@@ -2470,10 +2487,6 @@ msgstr "Napište, co změnit"
 
 msgid "Ask to make changes, @mention files, run /commands"
 msgstr "Požádejte o změny, zmiňte soubory přes @, spouštějte /commands"
-
-msgctxt "teleport step"
-msgid "Asking agents for handoff notes"
-msgstr "Žádám agenty o předávací poznámky"
 
 msgid "Aspect Ratio"
 msgstr "Poměr stran"
@@ -3421,8 +3434,8 @@ msgstr "Zkontrolujte schránku"
 msgid "Checkbox · Radio · Switch"
 msgstr "Zaškrtávátko · Přepínač · Vypínač"
 
-msgid "Checking {hostName} and the running programs…"
-msgstr "Kontroluji {hostName} a běžící programy…"
+msgid "Checking {hostName} and the running agents…"
+msgstr "Kontrola {hostName} a běžících agentů…"
 
 msgid "Checking + savings + Treasury over time; fundraise tranches are the steps"
 msgstr "Běžný účet + spoření + Treasury v čase; schodky jsou tranše z investic"
@@ -4136,6 +4149,9 @@ msgstr "Připojit {name}"
 msgid "Connect a device"
 msgstr "Připojit zařízení"
 
+msgid "Connect a device to teleport this workspace to it."
+msgstr "Připojte zařízení, na které chcete tento pracovní prostor teleportovat."
+
 msgid "Connect a Google account. Its mailbox is read-only, and triggers run for the person who connected it."
 msgstr "Připojte účet Google. Jeho schránka je pouze pro čtení a spouštěče se spouštějí za osobu, která ho připojila."
 
@@ -4148,8 +4164,8 @@ msgstr "Připojit účet"
 msgid "Connect another account"
 msgstr "Připojit další účet"
 
-msgid "Connect another device to teleport this workspace to it."
-msgstr "Připojte další zařízení, na které lze tento pracovní prostor teleportovat."
+msgid "Connect another device, or enable cloud workspaces, to teleport this workspace somewhere."
+msgstr "Připojte další zařízení nebo povolte cloudové pracovní prostory, abyste mohli tento pracovní prostor někam teleportovat."
 
 msgid "Connect any AI agent to Superset."
 msgstr "Připojte k Superset libovolného AI agenta."
@@ -5990,6 +6006,10 @@ msgstr "Hotovo — orámovaný styl čipu z lišty přednastavení je teď vých
 
 msgid "Done (isShimmering=false)"
 msgstr "Hotovo (isShimmering=false)"
+
+#. placeholder {0}: destination.name
+msgid "Done. This workspace is stopped here; the work continues on {0}."
+msgstr "Hotovo. Tento pracovní prostor je zde zastaven; práce pokračuje na {0}."
 
 msgid "Downgrade to Free"
 msgstr "Přejít na Free"
@@ -10278,6 +10298,10 @@ msgstr "Zatím žádná stahování"
 msgid "No emoji found"
 msgstr "Žádné emoji nenalezeno"
 
+#. placeholder {0}: refusal.repository
+msgid "No environment carries {0}."
+msgstr "Žádné prostředí neobsahuje {0}."
+
 msgid "No environments available"
 msgstr "Žádná dostupná prostředí"
 
@@ -10705,6 +10729,9 @@ msgstr "Žádný"
 msgid "none (session)"
 msgstr "žádný (relace)"
 
+msgid "None running · a terminal opens empty"
+msgstr "Žádný neběží · terminál se otevře prázdný"
+
 msgid "None. This is the floor."
 msgstr "Žádná. Tohle je základ."
 
@@ -10792,6 +10819,9 @@ msgstr "Bez aktualizací"
 
 msgid "Notes"
 msgstr "Poznámky"
+
+msgid "Nothing changed here. Fix the cause and teleport again."
+msgstr "Zde se nic nezměnilo. Odstraňte příčinu a teleportujte znovu."
 
 msgid "Nothing here yet."
 msgstr "Zatím tu nic není."
@@ -11319,12 +11349,10 @@ msgstr "Otevřít nabídku"
 msgid "Open navigation"
 msgstr "Otevřít navigaci"
 
+#. placeholder {0}: destination.name
 #. placeholder {0}: host.name
 msgid "Open on {0}"
 msgstr "Otevřít na {0}"
-
-msgid "Open on {hostName}"
-msgstr "Otevřít na {hostName}"
 
 msgid "Open on GitHub"
 msgstr "Otevřít na GitHubu"
@@ -12684,6 +12712,10 @@ msgstr "Přečíst průvodce paralelními kódovacími agenty"
 msgid "Read the setup guide"
 msgstr "Přečíst průvodce nastavením"
 
+msgctxt "teleport step"
+msgid "Reading the agents' transcripts"
+msgstr "Načítání přepisů agentů"
+
 msgid "Reading usage…"
 msgstr "Načítání využití…"
 
@@ -13421,6 +13453,10 @@ msgstr "Pokračovat v automatizaci"
 #. placeholder {0}: candidate.agentLabel
 msgid "Resuming {0}…"
 msgstr "Obnovuji {0}…"
+
+msgctxt "teleport step"
+msgid "Resuming agents"
+msgstr "Obnovování agentů"
 
 msgid "Resuming the conversation…"
 msgstr "Obnovuji konverzaci…"
@@ -14479,9 +14515,6 @@ msgstr "Setup"
 msgid "Setup script"
 msgstr "Setup skript"
 
-msgid "Setup scripts run on arrival. This workspace stays here, stopped, until you delete it."
-msgstr "Po příchodu se spustí instalační skripty. Tento pracovní prostor zde zůstane zastavený, dokud jej nesmažete."
-
 msgid "Sexual content"
 msgstr "Sexuální obsah"
 
@@ -15263,12 +15296,12 @@ msgstr "Spouštím"
 msgid "Starting {agentLabel}"
 msgstr "Spouštím {agentLabel}"
 
+msgctxt "teleport step"
+msgid "Starting a sandbox"
+msgstr "Spouštění sandboxu"
+
 msgid "Starting cloud workspace"
 msgstr "Spouštím cloudový pracovní prostor"
-
-msgctxt "teleport step"
-msgid "Starting programs"
-msgstr "Spouštím programy"
 
 msgid "Starting the agent…"
 msgstr "Spouštění agenta…"
@@ -16379,6 +16412,10 @@ msgstr "Název se zobrazuje všude, kde je tato stránka uvedena, a v náhledu o
 msgid "The web agents UI is a read-only preview for now."
 msgstr "Webové rozhraní agentů je zatím náhled jen pro čtení."
 
+#. placeholder {0}: destination.name
+msgid "The work reached {0}; check both sides before continuing."
+msgstr "Práce dorazila na {0}; před pokračováním zkontrolujte obě strany."
+
 msgid "The workspace is not ready yet. Try again."
 msgstr "Pracovní prostor ještě není připravený. Zkuste to znovu."
 
@@ -16764,6 +16801,9 @@ msgstr "Tento pracovní prostor mohl být odstraněn, nebo k němu už nemáte p
 
 msgid "This workspace record still exists, but its worktree folder is no longer on this host. Terminals and file actions are unavailable."
 msgstr "Záznam tohoto pracovního prostoru pořád existuje, ale jeho složka worktree už na tomto hostu není. Terminály a operace se soubory nejsou k dispozici."
+
+msgid "This workspace's host cannot be reached"
+msgstr "Hostitel tohoto pracovního prostoru není dostupný"
 
 msgid "This workspace's host is offline"
 msgstr "Host tohoto pracovního prostoru je offline"
@@ -18347,6 +18387,9 @@ msgstr "Prohlížíte si verzi {version}, jen pro čtení"
 
 msgid "You can attach up to {MAX_ATTACHMENTS} files"
 msgstr "Můžete přiložit nejvýše {MAX_ATTACHMENTS} souborů"
+
+msgid "You can keep working while it moves; whatever changes late is sent again at the end. This workspace stays here, stopped, until you delete it."
+msgstr "Během přesunu můžete dál pracovat; co se změní později, se na konci odešle znovu. Tento pracovní prostor zde zůstane zastavený, dokud ho nesmažete."
 
 msgid "You can restore it from Settings → Projects for 30 days. The repository folder is never deleted."
 msgstr "Můžete ho obnovit v Nastavení → Projekty po dobu 30 dnů. Složka repozitáře se nikdy nemaže."

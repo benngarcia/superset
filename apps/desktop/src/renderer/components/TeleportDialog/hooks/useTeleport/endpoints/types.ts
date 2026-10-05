@@ -16,6 +16,8 @@ export interface SourceState {
 	branch: string;
 	worktreePath: string;
 	workingTree: WorkingTreeSummary;
+	/** Origin's url, the identity a destination's checkout is matched on. */
+	remoteUrl: string | null;
 }
 
 /** What a destination says about a branch before anything moves. */
@@ -33,10 +35,14 @@ export interface HandoffEntry {
 	prompt: string;
 }
 
-export interface PublishedCapture {
-	ref: string;
-	/** Equal across captures of identical content; the late-change check. */
+/** What a capture is of: the commit it sits on and the content over it. */
+export interface CaptureIdentity {
+	head: string;
 	workingTree: string;
+}
+
+export interface PublishedCapture extends CaptureIdentity {
+	ref: string;
 	/** True when the tree matched the one asked about and nothing was pushed. */
 	unchanged: boolean;
 }
@@ -50,8 +56,11 @@ export interface TeleportSourceEndpoint {
 	): Promise<TeleportRefusal | null>;
 	/** Every live agent pane with its transcript, as it stands now. */
 	handoff(): Promise<HandoffEntry[]>;
-	/** Capture and put the ref on origin; skip the push when the tree is `unlessWorkingTree`. */
-	publish(unlessWorkingTree?: string): Promise<PublishedCapture>;
+	/** Capture and put the ref on origin; skip the push when nothing changed since `unless`. */
+	publish(unless?: CaptureIdentity): Promise<PublishedCapture>;
+	/** End every live agent session; the work has left. */
+	stopAgents(): Promise<void>;
+	/** Drop the capture here and on origin. */
 	discard(): Promise<void>;
 }
 

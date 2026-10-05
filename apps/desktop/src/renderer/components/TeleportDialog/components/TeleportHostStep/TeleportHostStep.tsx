@@ -45,18 +45,24 @@ export function TeleportHostStep({
 						id: localHostId,
 						name: currentDeviceName,
 						isOnline: localHostIsOnline ?? true,
+						isThisDevice: true,
 					},
-					...otherHosts,
+					...otherHosts.map((host) => ({ ...host, isThisDevice: false })),
 				]
-			: otherHosts;
+			: otherHosts.map((host) => ({ ...host, isThisDevice: false }));
 
 	if (hosts.length === 0 && !cloudEnabled) {
 		return (
 			<>
 				<p className="px-1 py-6 text-center text-muted-foreground text-sm">
-					<Trans>
-						Connect another device to teleport this workspace to it.
-					</Trans>
+					{allowCloud ? (
+						<Trans>
+							Connect another device, or enable cloud workspaces, to teleport
+							this workspace somewhere.
+						</Trans>
+					) : (
+						<Trans>Connect a device to teleport this workspace to it.</Trans>
+					)}
 				</p>
 				<div className="flex justify-end">
 					<Button variant="ghost" onClick={onCancel}>
@@ -93,7 +99,9 @@ export function TeleportHostStep({
 								{host.name}
 							</span>
 							<span className="block text-muted-foreground text-xs">
-								{host.isOnline ? (
+								{host.isThisDevice ? (
+									<Trans>This device</Trans>
+								) : host.isOnline ? (
 									<Trans>Connected</Trans>
 								) : (
 									<Trans>Offline · will be reached when it wakes</Trans>

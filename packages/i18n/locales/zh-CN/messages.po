@@ -589,6 +589,10 @@ msgstr "{1} 回合结束，{0} 以伤害判定获胜"
 msgid "{0}, {outcome}{1}"
 msgstr "{0}，{outcome}{1}"
 
+#. placeholder {0}: refusal.reason
+msgid "{0}. Nothing moved: teleporting blind could bury work there."
+msgstr "{0}。未移动任何内容：盲目传送可能会覆盖那里的工作。"
+
 #. placeholder {0}: String(met)
 #. placeholder {1}: String(gaps.length)
 msgid "{0}/{1}"
@@ -892,9 +896,16 @@ msgstr "{hidden, plural, other {查看另外 # 条回复}}"
 msgid "{hiddenCount, plural, one {Show # more frame} other {Show # more frames}}"
 msgstr "{hiddenCount, plural, one {再显示#个栈帧} other {再显示#个栈帧}}"
 
+msgid "{hostName} couldn't be checked."
+msgstr "无法检查 {hostName}。"
+
+#. placeholder {0}: refusal.repository
+msgid "{hostName} doesn't have {0} yet."
+msgstr "{hostName} 上还没有 {0}。"
+
 #. placeholder {0}: refusal.branch
-msgid "{hostName} has commits on {0} that this device doesn't."
-msgstr "{hostName} 上有本设备没有的 {0} 提交。"
+msgid "{hostName} has commits on {0} that this side doesn't."
+msgstr "{hostName} 在 {0} 上有此端没有的提交。"
 
 msgid "{hostName} is offline"
 msgstr "{hostName}已离线"
@@ -1032,8 +1043,8 @@ msgstr "此部署尚未为 {plugin} 配置 OAuth 客户端。"
 msgid "{plugin} is no longer installed."
 msgstr "{plugin} 已不再安装。"
 
-msgid "{preciousFiles, plural, one {# env file} other {# env files}}"
-msgstr "{preciousFiles, plural, other {# 个 env 文件}}"
+msgid "{preciousFiles, plural, one {# env file stays here — ignored files don't travel} other {# env files stay here — ignored files don't travel}}"
+msgstr "{preciousFiles, plural, other {# 个 env 文件留在此处 — 被忽略的文件不会传送}}"
 
 msgid "{presetLabel} reset to defaults"
 msgstr "{presetLabel}已重置为默认值"
@@ -1659,6 +1670,9 @@ msgstr "添加智能体"
 msgid "Add an environment in Settings before creating a cloud workspace"
 msgstr "创建云端工作区前，请先在设置中添加一个环境"
 
+msgid "Add an environment with this repository in Settings, then try again."
+msgstr "在设置中添加包含此仓库的环境，然后重试。"
+
 msgid "Add another account, or disconnect one you no longer use."
 msgstr "连接其他账号，或断开不再使用的账号。"
 
@@ -1746,6 +1760,9 @@ msgstr "给风险最高又没测试的代码补上测试…"
 
 msgid "Add tests where they're missing"
 msgstr "给缺测试的地方补测试"
+
+msgid "Add the repository as a project on {hostName}, then try again."
+msgstr "在 {hostName} 上将该仓库添加为项目，然后重试。"
 
 msgid "Add this label"
 msgstr "添加此标签"
@@ -2470,10 +2487,6 @@ msgstr "请求进行修改"
 
 msgid "Ask to make changes, @mention files, run /commands"
 msgstr "说明要做的修改，用@提及文件，用/运行命令"
-
-msgctxt "teleport step"
-msgid "Asking agents for handoff notes"
-msgstr "正在请智能体撰写交接说明"
 
 msgid "Aspect Ratio"
 msgstr "宽高比"
@@ -3421,8 +3434,8 @@ msgstr "查收你的邮箱"
 msgid "Checkbox · Radio · Switch"
 msgstr "复选框 · 单选框 · 开关"
 
-msgid "Checking {hostName} and the running programs…"
-msgstr "正在检查 {hostName} 和正在运行的程序…"
+msgid "Checking {hostName} and the running agents…"
+msgstr "正在检查 {hostName} 和正在运行的智能体…"
 
 msgid "Checking + savings + Treasury over time; fundraise tranches are the steps"
 msgstr "活期+储蓄+国库账户随时间变化；台阶处为融资到账"
@@ -4136,6 +4149,9 @@ msgstr "连接 {name}"
 msgid "Connect a device"
 msgstr "连接设备"
 
+msgid "Connect a device to teleport this workspace to it."
+msgstr "连接一台设备以将此工作区传送到该设备。"
+
 msgid "Connect a Google account. Its mailbox is read-only, and triggers run for the person who connected it."
 msgstr "连接一个 Google 账号。其邮箱为只读，触发器以连接者的身份运行。"
 
@@ -4148,8 +4164,8 @@ msgstr "连接账号"
 msgid "Connect another account"
 msgstr "连接其他账号"
 
-msgid "Connect another device to teleport this workspace to it."
-msgstr "连接另一台设备，即可将此工作区传送过去。"
+msgid "Connect another device, or enable cloud workspaces, to teleport this workspace somewhere."
+msgstr "连接另一台设备或启用云端工作区，以便将此工作区传送到其他地方。"
 
 msgid "Connect any AI agent to Superset."
 msgstr "把任意AI智能体接入Superset。"
@@ -5990,6 +6006,10 @@ msgstr "完成——预设栏使用的带边框chip样式现在是所有tooltip�
 
 msgid "Done (isShimmering=false)"
 msgstr "完成（isShimmering=false）"
+
+#. placeholder {0}: destination.name
+msgid "Done. This workspace is stopped here; the work continues on {0}."
+msgstr "完成。此工作区已在此处停止，工作在 {0} 上继续。"
 
 msgid "Downgrade to Free"
 msgstr "降级为免费版"
@@ -10278,6 +10298,10 @@ msgstr "暂无下载"
 msgid "No emoji found"
 msgstr "未找到表情"
 
+#. placeholder {0}: refusal.repository
+msgid "No environment carries {0}."
+msgstr "没有环境包含 {0}。"
+
 msgid "No environments available"
 msgstr "没有可用的环境"
 
@@ -10705,6 +10729,9 @@ msgstr "无"
 msgid "none (session)"
 msgstr "无（会话）"
 
+msgid "None running · a terminal opens empty"
+msgstr "无运行中的智能体 · 将打开一个空终端"
+
 msgid "None. This is the floor."
 msgstr "没有。这是起点。"
 
@@ -10792,6 +10819,9 @@ msgstr "未更新"
 
 msgid "Notes"
 msgstr "笔记"
+
+msgid "Nothing changed here. Fix the cause and teleport again."
+msgstr "此处没有任何更改。修复原因后再次传送。"
 
 msgid "Nothing here yet."
 msgstr "这里还没有内容。"
@@ -11319,12 +11349,10 @@ msgstr "打开菜单"
 msgid "Open navigation"
 msgstr "打开导航"
 
+#. placeholder {0}: destination.name
 #. placeholder {0}: host.name
 msgid "Open on {0}"
 msgstr "在 {0} 上打开"
-
-msgid "Open on {hostName}"
-msgstr "在 {hostName} 上打开"
 
 msgid "Open on GitHub"
 msgstr "在GitHub上打开"
@@ -12684,6 +12712,10 @@ msgstr "阅读并行编码智能体指南"
 msgid "Read the setup guide"
 msgstr "阅读设置指南"
 
+msgctxt "teleport step"
+msgid "Reading the agents' transcripts"
+msgstr "正在读取智能体的记录"
+
 msgid "Reading usage…"
 msgstr "正在读取用量…"
 
@@ -13421,6 +13453,10 @@ msgstr "恢复自动化"
 #. placeholder {0}: candidate.agentLabel
 msgid "Resuming {0}…"
 msgstr "正在恢复{0}…"
+
+msgctxt "teleport step"
+msgid "Resuming agents"
+msgstr "正在恢复智能体"
 
 msgid "Resuming the conversation…"
 msgstr "正在继续对话…"
@@ -14479,9 +14515,6 @@ msgstr "初始化"
 msgid "Setup script"
 msgstr "设置脚本"
 
-msgid "Setup scripts run on arrival. This workspace stays here, stopped, until you delete it."
-msgstr "到达后会运行安装脚本。此工作区将保留在这里并停止运行，直到你删除它。"
-
 msgid "Sexual content"
 msgstr "色情内容"
 
@@ -15263,12 +15296,12 @@ msgstr "启动中"
 msgid "Starting {agentLabel}"
 msgstr "正在启动{agentLabel}"
 
+msgctxt "teleport step"
+msgid "Starting a sandbox"
+msgstr "正在启动沙箱"
+
 msgid "Starting cloud workspace"
 msgstr "正在启动云端工作区"
-
-msgctxt "teleport step"
-msgid "Starting programs"
-msgstr "正在启动程序"
 
 msgid "Starting the agent…"
 msgstr "正在启动智能体…"
@@ -16379,6 +16412,10 @@ msgstr "标题会显示在此页面列出的所有位置以及链接预览中。
 msgid "The web agents UI is a read-only preview for now."
 msgstr "网页版智能体界面目前是只读预览。"
 
+#. placeholder {0}: destination.name
+msgid "The work reached {0}; check both sides before continuing."
+msgstr "工作已到达 {0}，继续之前请检查两端。"
+
 msgid "The workspace is not ready yet. Try again."
 msgstr "工作区尚未就绪。请重试。"
 
@@ -16764,6 +16801,9 @@ msgstr "此工作区可能已被移除，或者你不再拥有它的访问权限
 
 msgid "This workspace record still exists, but its worktree folder is no longer on this host. Terminals and file actions are unavailable."
 msgstr "此工作区记录仍然存在，但它的worktree文件夹已不在此主机上。终端和文件操作不可用。"
+
+msgid "This workspace's host cannot be reached"
+msgstr "无法连接到此工作区的主机"
 
 msgid "This workspace's host is offline"
 msgstr "此工作区的主机已离线"
@@ -18347,6 +18387,9 @@ msgstr "您正在查看版本 {version}，只读"
 
 msgid "You can attach up to {MAX_ATTACHMENTS} files"
 msgstr "最多可附加{MAX_ATTACHMENTS}个文件"
+
+msgid "You can keep working while it moves; whatever changes late is sent again at the end. This workspace stays here, stopped, until you delete it."
+msgstr "移动期间你可以继续工作，之后的更改会在结束时再次发送。此工作区会在此处保持停止状态，直到你删除它。"
 
 msgid "You can restore it from Settings → Projects for 30 days. The repository folder is never deleted."
 msgstr "你可以在 30 天内从“设置 → 项目”恢复它。仓库文件夹永远不会被删除。"

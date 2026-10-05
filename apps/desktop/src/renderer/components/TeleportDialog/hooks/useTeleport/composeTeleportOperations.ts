@@ -21,8 +21,9 @@ export interface ComposeTeleportOperationsInput {
  * The destination is the slow part, so it is started first and comes up
  * while the source is asked for its handoff and captured. The capture is a
  * pre-copy: the source stays usable, and the last step captures again and
- * sends only what changed since, which is nothing when nothing did. Agents
- * are handed their transcripts as they stand at the end.
+ * sends only what changed since, which is nothing when nothing did. The
+ * agents' transcripts are read one last time right before their sessions
+ * end, and that is what the destination's agents are handed.
  */
 export function composeTeleportOperations({
 	source,
@@ -83,26 +84,33 @@ export function composeTeleportOperations({
 
 		stopSource: async () => {
 			const ready = await prepare();
-			const latest = await source.publish(captured().workingTree);
+			const [latest, handoff] = await Promise.all([
+				source.publish(captured()),
+				source.handoff(),
+			]);
 			if (!latest.unchanged) await ready.arrive(latest.ref, branch);
+			carried = mergeHandoffs(carried, handoff);
+			await source.stopAgents();
 			await source.discard();
 		},
 
 		startPrograms: async () => {
+			if (carried.length === 0) return;
 			const ready = await prepare();
-			const byTerminal = new Map(
-				carried.map((entry) => [entry.terminalId, entry]),
-			);
-			for (const entry of await source.handoff()) {
-				byTerminal.set(entry.terminalId, entry);
-			}
-			if (byTerminal.size === 0) return;
 			await agentsSeeded;
 			await Promise.all(
-				[...byTerminal.values()].map((entry) =>
-					ready.launchAgent(entry.agent, entry.prompt),
-				),
+				carried.map((entry) => ready.launchAgent(entry.agent, entry.prompt)),
 			);
 		},
 	};
+}
+
+/** The later reading of each pane wins; a pane seen only earlier still travels. */
+function mergeHandoffs(
+	earlier: HandoffEntry[],
+	later: HandoffEntry[],
+): HandoffEntry[] {
+	const byTerminal = new Map(earlier.map((entry) => [entry.terminalId, entry]));
+	for (const entry of later) byTerminal.set(entry.terminalId, entry);
+	return [...byTerminal.values()];
 }

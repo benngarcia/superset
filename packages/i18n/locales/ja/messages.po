@@ -589,6 +589,10 @@ msgstr "{1}ターン終了、{0}がダメージ判定で勝利"
 msgid "{0}, {outcome}{1}"
 msgstr "{0}、{outcome}{1}"
 
+#. placeholder {0}: refusal.reason
+msgid "{0}. Nothing moved: teleporting blind could bury work there."
+msgstr "{0}。何も移動していません。確認なしにテレポートすると、そこにある作業が失われる可能性があります。"
+
 #. placeholder {0}: String(met)
 #. placeholder {1}: String(gaps.length)
 msgid "{0}/{1}"
@@ -892,9 +896,16 @@ msgstr "{hidden, plural, other {他 # 件の返信を表示}}"
 msgid "{hiddenCount, plural, one {Show # more frame} other {Show # more frames}}"
 msgstr "{hiddenCount, plural, one {さらに#件のフレームを表示} other {さらに#件のフレームを表示}}"
 
+msgid "{hostName} couldn't be checked."
+msgstr "{hostName} を確認できませんでした。"
+
+#. placeholder {0}: refusal.repository
+msgid "{hostName} doesn't have {0} yet."
+msgstr "{hostName} にはまだ {0} がありません。"
+
 #. placeholder {0}: refusal.branch
-msgid "{hostName} has commits on {0} that this device doesn't."
-msgstr "{hostName} には、このデバイスにない {0} のコミットがあります。"
+msgid "{hostName} has commits on {0} that this side doesn't."
+msgstr "{hostName} には、こちら側にはない {0} のコミットがあります。"
 
 msgid "{hostName} is offline"
 msgstr "{hostName}はオフラインです"
@@ -1032,8 +1043,8 @@ msgstr "{plugin} の OAuth クライアントはこのデプロイにまだ設�
 msgid "{plugin} is no longer installed."
 msgstr "{plugin} はインストールされていません。"
 
-msgid "{preciousFiles, plural, one {# env file} other {# env files}}"
-msgstr "{preciousFiles, plural, other {env ファイル # 件}}"
+msgid "{preciousFiles, plural, one {# env file stays here — ignored files don't travel} other {# env files stay here — ignored files don't travel}}"
+msgstr "{preciousFiles, plural, other {# 件の env ファイルはここに残ります — 無視対象のファイルは移動しません}}"
 
 msgid "{presetLabel} reset to defaults"
 msgstr "{presetLabel}をデフォルトに戻しました"
@@ -1659,6 +1670,9 @@ msgstr "エージェントを追加する"
 msgid "Add an environment in Settings before creating a cloud workspace"
 msgstr "クラウドワークスペースを作成する前に、設定で環境を追加してください"
 
+msgid "Add an environment with this repository in Settings, then try again."
+msgstr "設定でこのリポジトリを含む環境を追加してから、もう一度お試しください。"
+
 msgid "Add another account, or disconnect one you no longer use."
 msgstr "別のアカウントを接続するか、使わなくなったものを解除します。"
 
@@ -1746,6 +1760,9 @@ msgstr "テストのない危険なコードにテストを追加…"
 
 msgid "Add tests where they're missing"
 msgstr "テストが不足している箇所に追加"
+
+msgid "Add the repository as a project on {hostName}, then try again."
+msgstr "{hostName} でリポジトリをプロジェクトとして追加してから、もう一度お試しください。"
 
 msgid "Add this label"
 msgstr "このラベルを追加"
@@ -2470,10 +2487,6 @@ msgstr "変更を依頼"
 
 msgid "Ask to make changes, @mention files, run /commands"
 msgstr "変更を依頼、@でファイルをメンション、/でコマンドを実行"
-
-msgctxt "teleport step"
-msgid "Asking agents for handoff notes"
-msgstr "エージェントに引き継ぎメモを依頼中"
 
 msgid "Aspect Ratio"
 msgstr "Aspect Ratio"
@@ -3421,8 +3434,8 @@ msgstr "受信トレイを確認してください"
 msgid "Checkbox · Radio · Switch"
 msgstr "Checkbox · Radio · Switch"
 
-msgid "Checking {hostName} and the running programs…"
-msgstr "{hostName} と実行中のプログラムを確認しています…"
+msgid "Checking {hostName} and the running agents…"
+msgstr "{hostName} と実行中のエージェントを確認しています…"
 
 msgid "Checking + savings + Treasury over time; fundraise tranches are the steps"
 msgstr "当座+普通+Treasuryの推移。段差は資金調達のトランシェ"
@@ -4136,6 +4149,9 @@ msgstr "{name} を接続"
 msgid "Connect a device"
 msgstr "デバイスを接続"
 
+msgid "Connect a device to teleport this workspace to it."
+msgstr "このワークスペースをテレポートするデバイスを接続してください。"
+
 msgid "Connect a Google account. Its mailbox is read-only, and triggers run for the person who connected it."
 msgstr "Google アカウントを接続します。メールボックスは読み取り専用で、トリガーは接続した本人に対して実行されます。"
 
@@ -4148,8 +4164,8 @@ msgstr "アカウントを接続"
 msgid "Connect another account"
 msgstr "別のアカウントを接続"
 
-msgid "Connect another device to teleport this workspace to it."
-msgstr "このワークスペースをテレポートするには、別のデバイスを接続してください。"
+msgid "Connect another device, or enable cloud workspaces, to teleport this workspace somewhere."
+msgstr "このワークスペースをテレポートするには、別のデバイスを接続するか、クラウドワークスペースを有効にしてください。"
 
 msgid "Connect any AI agent to Superset."
 msgstr "どのAIエージェントでもSupersetに接続。"
@@ -5990,6 +6006,10 @@ msgstr "完了 — プリセットバーで使っていた枠線付きチップ�
 
 msgid "Done (isShimmering=false)"
 msgstr "完了(isShimmering=false)"
+
+#. placeholder {0}: destination.name
+msgid "Done. This workspace is stopped here; the work continues on {0}."
+msgstr "完了。このワークスペースはここで停止しました。作業は {0} で続きます。"
 
 msgid "Downgrade to Free"
 msgstr "Freeにダウングレード"
@@ -10278,6 +10298,10 @@ msgstr "ダウンロードはまだありません"
 msgid "No emoji found"
 msgstr "絵文字が見つかりません"
 
+#. placeholder {0}: refusal.repository
+msgid "No environment carries {0}."
+msgstr "{0} を含む環境がありません。"
+
 msgid "No environments available"
 msgstr "利用可能な環境はありません"
 
@@ -10705,6 +10729,9 @@ msgstr "なし"
 msgid "none (session)"
 msgstr "なし (セッション)"
 
+msgid "None running · a terminal opens empty"
+msgstr "実行中なし · ターミナルが空で開きます"
+
 msgid "None. This is the floor."
 msgstr "なし。ここが出発点です。"
 
@@ -10792,6 +10819,9 @@ msgstr "更新なし"
 
 msgid "Notes"
 msgstr "ノート"
+
+msgid "Nothing changed here. Fix the cause and teleport again."
+msgstr "ここでは何も変わっていません。原因を修正して、もう一度テレポートしてください。"
 
 msgid "Nothing here yet."
 msgstr "まだ何もありません。"
@@ -11319,12 +11349,10 @@ msgstr "メニューを開く"
 msgid "Open navigation"
 msgstr "ナビゲーションを開く"
 
+#. placeholder {0}: destination.name
 #. placeholder {0}: host.name
 msgid "Open on {0}"
 msgstr "{0} で開く"
-
-msgid "Open on {hostName}"
-msgstr "{hostName} で開く"
 
 msgid "Open on GitHub"
 msgstr "GitHubで開く"
@@ -12684,6 +12712,10 @@ msgstr "並列コーディングエージェントのガイドを読む"
 msgid "Read the setup guide"
 msgstr "セットアップガイドを読む"
 
+msgctxt "teleport step"
+msgid "Reading the agents' transcripts"
+msgstr "エージェントのトランスクリプトを読み取り中"
+
 msgid "Reading usage…"
 msgstr "使用量を取得中…"
 
@@ -13421,6 +13453,10 @@ msgstr "オートメーションを再開"
 #. placeholder {0}: candidate.agentLabel
 msgid "Resuming {0}…"
 msgstr "{0}を再開中…"
+
+msgctxt "teleport step"
+msgid "Resuming agents"
+msgstr "エージェントを再開中"
 
 msgid "Resuming the conversation…"
 msgstr "会話を再開しています…"
@@ -14479,9 +14515,6 @@ msgstr "セットアップ"
 msgid "Setup script"
 msgstr "セットアップスクリプト"
 
-msgid "Setup scripts run on arrival. This workspace stays here, stopped, until you delete it."
-msgstr "到着後にセットアップスクリプトが実行されます。このワークスペースは削除するまで停止した状態でここに残ります。"
-
 msgid "Sexual content"
 msgstr "性的なコンテンツ"
 
@@ -15263,12 +15296,12 @@ msgstr "起動中"
 msgid "Starting {agentLabel}"
 msgstr "{agentLabel}を起動中"
 
+msgctxt "teleport step"
+msgid "Starting a sandbox"
+msgstr "サンドボックスを起動中"
+
 msgid "Starting cloud workspace"
 msgstr "クラウドワークスペースを開始中"
-
-msgctxt "teleport step"
-msgid "Starting programs"
-msgstr "プログラムを起動中"
 
 msgid "Starting the agent…"
 msgstr "エージェントを起動しています…"
@@ -16379,6 +16412,10 @@ msgstr "タイトルはこのページが一覧表示される場所すべてと
 msgid "The web agents UI is a read-only preview for now."
 msgstr "Web版のエージェントUIは現時点では読み取り専用のプレビューです。"
 
+#. placeholder {0}: destination.name
+msgid "The work reached {0}; check both sides before continuing."
+msgstr "作業は {0} に到達しました。続行する前に両側を確認してください。"
+
 msgid "The workspace is not ready yet. Try again."
 msgstr "ワークスペースの準備がまだできていません。もう一度お試しください。"
 
@@ -16764,6 +16801,9 @@ msgstr "このワークスペースは削除されたか、アクセス権がな
 
 msgid "This workspace record still exists, but its worktree folder is no longer on this host. Terminals and file actions are unavailable."
 msgstr "このワークスペースの記録は残っていますが、ワークツリーフォルダはこのホスト上にありません。ターミナルとファイル操作は利用できません。"
+
+msgid "This workspace's host cannot be reached"
+msgstr "このワークスペースのホストに到達できません"
 
 msgid "This workspace's host is offline"
 msgstr "このワークスペースのホストはオフラインです"
@@ -18347,6 +18387,9 @@ msgstr "バージョン {version} を閲覧中です（読み取り専用）"
 
 msgid "You can attach up to {MAX_ATTACHMENTS} files"
 msgstr "添付できるファイルは最大{MAX_ATTACHMENTS}件です"
+
+msgid "You can keep working while it moves; whatever changes late is sent again at the end. This workspace stays here, stopped, until you delete it."
+msgstr "移動中も作業を続けられます。遅れて変更された内容は最後に再送されます。このワークスペースは削除するまでここに停止したまま残ります。"
 
 msgid "You can restore it from Settings → Projects for 30 days. The repository folder is never deleted."
 msgstr "30 日間は「設定 → プロジェクト」から復元できます。リポジトリのフォルダーが削除されることはありません。"

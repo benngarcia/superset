@@ -44,7 +44,11 @@ export interface WorkingTreeSummary {
  */
 export type TeleportRefusal =
 	| { kind: "branch-checked-out"; branch: string; path: string }
-	| { kind: "branch-diverged"; branch: string; destinationTip: string };
+	| { kind: "branch-diverged"; branch: string; destinationTip: string }
+	/** The destination has no checkout of this repository to arrive in. */
+	| { kind: "repository-missing"; branch: string; repository: string }
+	/** The destination could not be checked; moving blind could bury work. */
+	| { kind: "unverified"; branch: string; reason: string };
 
 export interface TeleportPlan {
 	branch: string;
@@ -222,12 +226,46 @@ export const DEPARTURE_MARKER =
 export function buildStateProbeCommand(): string {
 	return [
 		"STATUS=$(git status --porcelain=v1 --untracked-files=all)",
-		`echo "TELEPORT_STATE $(printf '%s\n' "$STATUS" | grep -c '^[^?]' ; true) $(printf '%s\n' "$STATUS" | grep -c '^??' ; true) $(git branch --show-current)"`,
+		`echo "TELEPORT_STATE $(printf '%s\n' "$STATUS" | grep -c '^[^?]' ; true) $(printf '%s\n' "$STATUS" | grep -c '^??' ; true) $(git branch --show-current) $(git remote get-url origin 2>/dev/null || echo -)"`,
 	].join(" && ");
 }
 
 /** modified count, untracked count, branch. */
-export const STATE_MARKER = /TELEPORT_STATE (\d+) (\d+) (\S+)/;
+export const STATE_MARKER = /TELEPORT_STATE (\d+) (\d+) (\S+) (\S+)/;
+
+/**
+ * One name for a repository however it is addressed: `host/owner/name`,
+ * lower-cased, without the scheme, credentials, or `.git`. Two checkouts
+ * belong together when this matches, which is what picks the destination's
+ * project and the sandbox's environment.
+ */
+export function repositoryIdentity(
+	url: string | null | undefined,
+): string | null {
+	if (!url) return null;
+	let rest = url.trim();
+	if (rest === "" || rest.startsWith("/") || rest.startsWith(".")) return null;
+	if (/^file:/i.test(rest)) return null;
+	const scp = rest.match(/^[\w.-]+@([^:/]+):(.+)$/);
+	if (scp) rest = `${scp[1]}/${scp[2]}`;
+	else {
+		rest = rest.replace(/^[a-z+]+:\/\//i, "");
+		rest = rest.replace(/^[^@/]+@/, "");
+	}
+	rest = rest.replace(/:\d+\//, "/");
+	rest = rest.replace(/\.git\/?$/, "").replace(/\/+$/, "");
+	const parts = rest.split("/").filter(Boolean);
+	if (parts.length < 3) return null;
+	return parts.slice(0, 3).join("/").toLowerCase();
+}
+
+/** The identity of a forge repository named `owner/name`, GitHub unless said otherwise. */
+export function repositoryIdentityFromFullName(
+	fullName: string,
+	host = "github.com",
+): string | null {
+	return repositoryIdentity(`https://${host}/${fullName}`);
+}
 
 /** The marker a successful arrival prints; `n` is the dirty-file count. */
 export const ARRIVAL_MARKER =

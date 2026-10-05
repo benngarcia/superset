@@ -1,18 +1,30 @@
 import { Trans } from "@lingui/react/macro";
-import { TELEPORT_STEPS } from "@superset/shared/teleport";
+import { TELEPORT_STEPS, type TeleportStepId } from "@superset/shared/teleport";
 import { Button } from "@superset/ui/button";
 import { cn } from "@superset/ui/lib/utils";
 import { Check, CircleDashed, LoaderCircle, X } from "lucide-react";
-import type { TeleportRunState, TeleportStepState } from "../../types";
+import type {
+	TeleportDestination,
+	TeleportRunState,
+	TeleportStepState,
+} from "../../types";
 import { useTeleportStepLabels } from "./hooks/useTeleportStepLabels";
 
 interface TeleportProgressStepProps {
 	run: TeleportRunState;
-	hostName: string;
+	destination: TeleportDestination;
 	isDone: boolean;
 	onClose: () => void;
 	onOpenThere: () => void;
 }
+
+/**
+ * Setup runs inside the destination's own creation and panes come back as
+ * agents start, so these two steps finish the instant they begin. Listing
+ * them would show two ticks that mean nothing.
+ */
+const INSTANT_STEPS: ReadonlySet<TeleportStepId> = new Set(["setup", "tabs"]);
+const SHOWN_STEPS = TELEPORT_STEPS.filter((step) => !INSTANT_STEPS.has(step));
 
 /**
  * Named steps, not a spinner.
@@ -23,17 +35,21 @@ interface TeleportProgressStepProps {
  */
 export function TeleportProgressStep({
 	run,
-	hostName,
+	destination,
 	isDone,
 	onClose,
 	onOpenThere,
 }: TeleportProgressStepProps) {
-	const labels = useTeleportStepLabels();
+	const labels = useTeleportStepLabels(destination.kind);
+	const failed = run.error !== null;
+	// The driver stops the source last; a failure before that step left it
+	// exactly as it was.
+	const sourceUntouched = run.steps.stopSource === undefined;
 
 	return (
 		<>
-			<ul className="space-y-1 px-1">
-				{TELEPORT_STEPS.map((step) => {
+			<ul className="space-y-1.5 px-1">
+				{SHOWN_STEPS.map((step) => {
 					const state = run.steps[step] ?? "pending";
 					return (
 						<li
@@ -52,17 +68,46 @@ export function TeleportProgressStep({
 				})}
 			</ul>
 
-			{run.error && (
-				<p className="px-1 text-destructive text-xs">{run.error}</p>
+			{failed && (
+				<div className="rounded-md border border-destructive/30 bg-destructive/5 p-3 text-sm">
+					<p className="font-medium text-destructive">{run.error}</p>
+					<p className="mt-1 text-muted-foreground text-xs">
+						{sourceUntouched ? (
+							<Trans>
+								Nothing changed here. Fix the cause and teleport again.
+							</Trans>
+						) : (
+							<Trans>
+								The work reached {destination.name}; check both sides before
+								continuing.
+							</Trans>
+						)}
+					</p>
+				</div>
+			)}
+
+			{isDone && (
+				<p className="px-1 text-muted-foreground text-xs">
+					<Trans>
+						Done. This workspace is stopped here; the work continues on{" "}
+						{destination.name}.
+					</Trans>
+				</p>
 			)}
 
 			<div className="flex justify-end gap-2">
-				<Button variant="ghost" onClick={onClose}>
-					{isDone ? <Trans>Close</Trans> : <Trans>Run in background</Trans>}
+				<Button variant={failed ? "default" : "ghost"} onClick={onClose}>
+					{isDone || failed ? (
+						<Trans>Close</Trans>
+					) : (
+						<Trans>Run in background</Trans>
+					)}
 				</Button>
-				<Button disabled={!isDone} onClick={onOpenThere}>
-					<Trans>Open on {hostName}</Trans>
-				</Button>
+				{!failed && (
+					<Button disabled={!isDone} onClick={onOpenThere}>
+						<Trans>Open on {destination.name}</Trans>
+					</Button>
+				)}
 			</div>
 		</>
 	);

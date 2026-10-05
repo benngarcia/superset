@@ -589,6 +589,10 @@ msgstr "{0} thắng nhờ sát thương sau {1} lượt"
 msgid "{0}, {outcome}{1}"
 msgstr "{0}, {outcome}{1}"
 
+#. placeholder {0}: refusal.reason
+msgid "{0}. Nothing moved: teleporting blind could bury work there."
+msgstr "{0}. Không có gì được di chuyển: dịch chuyển mù có thể chôn vùi công việc ở đó."
+
 #. placeholder {0}: String(met)
 #. placeholder {1}: String(gaps.length)
 msgid "{0}/{1}"
@@ -892,9 +896,16 @@ msgstr "{hidden, plural, other {Xem thêm # phản hồi}}"
 msgid "{hiddenCount, plural, one {Show # more frame} other {Show # more frames}}"
 msgstr "{hiddenCount, plural, one {Hiện thêm # frame} other {Hiện thêm # frame}}"
 
+msgid "{hostName} couldn't be checked."
+msgstr "Không thể kiểm tra {hostName}."
+
+#. placeholder {0}: refusal.repository
+msgid "{hostName} doesn't have {0} yet."
+msgstr "{hostName} chưa có {0}."
+
 #. placeholder {0}: refusal.branch
-msgid "{hostName} has commits on {0} that this device doesn't."
-msgstr "{hostName} có các commit trên {0} mà thiết bị này không có."
+msgid "{hostName} has commits on {0} that this side doesn't."
+msgstr "{hostName} có các commit trên {0} mà phía này không có."
 
 msgid "{hostName} is offline"
 msgstr "{hostName} đang ngoại tuyến"
@@ -1032,8 +1043,8 @@ msgstr "{plugin} chưa được cấu hình ứng dụng khách OAuth trên bả
 msgid "{plugin} is no longer installed."
 msgstr "{plugin} không còn được cài đặt."
 
-msgid "{preciousFiles, plural, one {# env file} other {# env files}}"
-msgstr "{preciousFiles, plural, other {# tệp env}}"
+msgid "{preciousFiles, plural, one {# env file stays here — ignored files don't travel} other {# env files stay here — ignored files don't travel}}"
+msgstr "{preciousFiles, plural, other {# tệp env ở lại đây — các tệp bị bỏ qua không được chuyển}}"
 
 msgid "{presetLabel} reset to defaults"
 msgstr "Đã đặt lại {presetLabel} về mặc định"
@@ -1659,6 +1670,9 @@ msgstr "thêm một agent"
 msgid "Add an environment in Settings before creating a cloud workspace"
 msgstr "Thêm một environment trong Settings trước khi tạo workspace cloud"
 
+msgid "Add an environment with this repository in Settings, then try again."
+msgstr "Thêm một môi trường có kho lưu trữ này trong Cài đặt, rồi thử lại."
+
 msgid "Add another account, or disconnect one you no longer use."
 msgstr "Kết nối tài khoản khác, hoặc ngắt tài khoản bạn không còn dùng."
 
@@ -1746,6 +1760,9 @@ msgstr "Thêm test cho phần code rủi ro nhất chưa được test…"
 
 msgid "Add tests where they're missing"
 msgstr "Thêm test ở những chỗ còn thiếu"
+
+msgid "Add the repository as a project on {hostName}, then try again."
+msgstr "Thêm kho lưu trữ làm dự án trên {hostName}, rồi thử lại."
 
 msgid "Add this label"
 msgstr "Thêm nhãn này"
@@ -2470,10 +2487,6 @@ msgstr "Yêu cầu thay đổi"
 
 msgid "Ask to make changes, @mention files, run /commands"
 msgstr "Yêu cầu thay đổi, @nhắc đến tệp, chạy /commands"
-
-msgctxt "teleport step"
-msgid "Asking agents for handoff notes"
-msgstr "Đang yêu cầu tác nhân ghi chú bàn giao"
 
 msgid "Aspect Ratio"
 msgstr "Aspect Ratio"
@@ -3421,8 +3434,8 @@ msgstr "Kiểm tra hộp thư"
 msgid "Checkbox · Radio · Switch"
 msgstr "Checkbox · Radio · Switch"
 
-msgid "Checking {hostName} and the running programs…"
-msgstr "Đang kiểm tra {hostName} và các chương trình đang chạy…"
+msgid "Checking {hostName} and the running agents…"
+msgstr "Đang kiểm tra {hostName} và các agent đang chạy…"
 
 msgid "Checking + savings + Treasury over time; fundraise tranches are the steps"
 msgstr "Tài khoản thanh toán + tiết kiệm + Treasury theo thời gian; các bậc là những đợt gọi vốn"
@@ -4136,6 +4149,9 @@ msgstr "Kết nối {name}"
 msgid "Connect a device"
 msgstr "Kết nối một thiết bị"
 
+msgid "Connect a device to teleport this workspace to it."
+msgstr "Kết nối một thiết bị để dịch chuyển không gian làm việc này tới đó."
+
 msgid "Connect a Google account. Its mailbox is read-only, and triggers run for the person who connected it."
 msgstr "Kết nối tài khoản Google. Hộp thư chỉ ở chế độ đọc và các trình kích hoạt chạy cho người đã kết nối."
 
@@ -4148,8 +4164,8 @@ msgstr "Kết nối tài khoản"
 msgid "Connect another account"
 msgstr "Kết nối tài khoản khác"
 
-msgid "Connect another device to teleport this workspace to it."
-msgstr "Kết nối một thiết bị khác để dịch chuyển không gian làm việc này tới đó."
+msgid "Connect another device, or enable cloud workspaces, to teleport this workspace somewhere."
+msgstr "Kết nối một thiết bị khác, hoặc bật không gian làm việc đám mây, để dịch chuyển không gian làm việc này đến nơi nào đó."
 
 msgid "Connect any AI agent to Superset."
 msgstr "Kết nối mọi agent AI với Superset."
@@ -5990,6 +6006,10 @@ msgstr "Xong — kiểu chip có viền mà thanh preset dùng giờ là mặc �
 
 msgid "Done (isShimmering=false)"
 msgstr "Xong (isShimmering=false)"
+
+#. placeholder {0}: destination.name
+msgid "Done. This workspace is stopped here; the work continues on {0}."
+msgstr "Xong. Không gian làm việc này đã dừng ở đây; công việc tiếp tục trên {0}."
 
 msgid "Downgrade to Free"
 msgstr "Chuyển xuống Free"
@@ -10278,6 +10298,10 @@ msgstr "Chưa có lượt tải xuống nào"
 msgid "No emoji found"
 msgstr "Không tìm thấy emoji"
 
+#. placeholder {0}: refusal.repository
+msgid "No environment carries {0}."
+msgstr "Không có môi trường nào chứa {0}."
+
 msgid "No environments available"
 msgstr "Không có environment nào"
 
@@ -10705,6 +10729,9 @@ msgstr "Không có"
 msgid "none (session)"
 msgstr "không có (phiên)"
 
+msgid "None running · a terminal opens empty"
+msgstr "Không có agent nào chạy · một terminal mở trống"
+
 msgid "None. This is the floor."
 msgstr "Không có. Đây là mức sàn."
 
@@ -10792,6 +10819,9 @@ msgstr "Không cập nhật"
 
 msgid "Notes"
 msgstr "Ghi chú"
+
+msgid "Nothing changed here. Fix the cause and teleport again."
+msgstr "Không có gì thay đổi ở đây. Khắc phục nguyên nhân và dịch chuyển lại."
 
 msgid "Nothing here yet."
 msgstr "Chưa có gì ở đây."
@@ -11319,12 +11349,10 @@ msgstr "Mở menu"
 msgid "Open navigation"
 msgstr "Mở điều hướng"
 
+#. placeholder {0}: destination.name
 #. placeholder {0}: host.name
 msgid "Open on {0}"
 msgstr "Mở trên {0}"
-
-msgid "Open on {hostName}"
-msgstr "Mở trên {hostName}"
 
 msgid "Open on GitHub"
 msgstr "Mở trên GitHub"
@@ -12684,6 +12712,10 @@ msgstr "Đọc hướng dẫn về coding agent chạy song song"
 msgid "Read the setup guide"
 msgstr "Đọc hướng dẫn thiết lập"
 
+msgctxt "teleport step"
+msgid "Reading the agents' transcripts"
+msgstr "Đang đọc bản ghi của các agent"
+
 msgid "Reading usage…"
 msgstr "Đang đọc mức sử dụng…"
 
@@ -13421,6 +13453,10 @@ msgstr "Tiếp tục tự động hóa"
 #. placeholder {0}: candidate.agentLabel
 msgid "Resuming {0}…"
 msgstr "Đang resume {0}…"
+
+msgctxt "teleport step"
+msgid "Resuming agents"
+msgstr "Đang tiếp tục các agent"
 
 msgid "Resuming the conversation…"
 msgstr "Đang tiếp tục cuộc trò chuyện…"
@@ -14479,9 +14515,6 @@ msgstr "Thiết lập"
 msgid "Setup script"
 msgstr "Script thiết lập"
 
-msgid "Setup scripts run on arrival. This workspace stays here, stopped, until you delete it."
-msgstr "Các tập lệnh thiết lập sẽ chạy khi đến nơi. Không gian làm việc này vẫn ở đây, đã dừng, cho đến khi bạn xóa nó."
-
 msgid "Sexual content"
 msgstr "Nội dung tình dục"
 
@@ -15263,12 +15296,12 @@ msgstr "Đang khởi động"
 msgid "Starting {agentLabel}"
 msgstr "Đang khởi động {agentLabel}"
 
+msgctxt "teleport step"
+msgid "Starting a sandbox"
+msgstr "Đang khởi động sandbox"
+
 msgid "Starting cloud workspace"
 msgstr "Đang khởi động workspace trên cloud"
-
-msgctxt "teleport step"
-msgid "Starting programs"
-msgstr "Đang khởi động chương trình"
 
 msgid "Starting the agent…"
 msgstr "Đang khởi động tác nhân…"
@@ -16379,6 +16412,10 @@ msgstr "Tiêu đề hiển thị ở mọi nơi trang này được liệt kê v
 msgid "The web agents UI is a read-only preview for now."
 msgstr "Giao diện agent trên web hiện chỉ là bản xem trước chỉ đọc."
 
+#. placeholder {0}: destination.name
+msgid "The work reached {0}; check both sides before continuing."
+msgstr "Công việc đã tới {0}; kiểm tra cả hai phía trước khi tiếp tục."
+
 msgid "The workspace is not ready yet. Try again."
 msgstr "Workspace chưa sẵn sàng. Hãy thử lại."
 
@@ -16764,6 +16801,9 @@ msgstr "Workspace này có thể đã bị gỡ, hoặc bạn không còn quyề
 
 msgid "This workspace record still exists, but its worktree folder is no longer on this host. Terminals and file actions are unavailable."
 msgstr "Bản ghi workspace này vẫn còn, nhưng thư mục worktree của nó không còn trên host này. Terminal và các thao tác với tệp không dùng được."
+
+msgid "This workspace's host cannot be reached"
+msgstr "Không thể kết nối tới máy chủ của không gian làm việc này"
 
 msgid "This workspace's host is offline"
 msgstr "Host của workspace này đang ngoại tuyến"
@@ -18347,6 +18387,9 @@ msgstr "Bạn đang xem phiên bản {version}, chỉ đọc"
 
 msgid "You can attach up to {MAX_ATTACHMENTS} files"
 msgstr "Bạn có thể đính kèm tối đa {MAX_ATTACHMENTS} tệp"
+
+msgid "You can keep working while it moves; whatever changes late is sent again at the end. This workspace stays here, stopped, until you delete it."
+msgstr "Bạn có thể tiếp tục làm việc trong khi di chuyển; những thay đổi muộn sẽ được gửi lại ở cuối. Không gian làm việc này ở lại đây, đã dừng, cho đến khi bạn xóa nó."
 
 msgid "You can restore it from Settings → Projects for 30 days. The repository folder is never deleted."
 msgstr "Bạn có thể khôi phục trong Cài đặt → Dự án trong 30 ngày. Thư mục repository không bao giờ bị xóa."

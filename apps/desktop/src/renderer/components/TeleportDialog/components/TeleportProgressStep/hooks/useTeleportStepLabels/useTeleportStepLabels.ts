@@ -1,6 +1,7 @@
 import { useLingui } from "@lingui/react/macro";
 import type { TeleportStepId } from "@superset/shared/teleport";
 import { useMemo } from "react";
+import type { TeleportDestination } from "../../../../types";
 
 /**
  * One human label per step, in the user's language.
@@ -11,23 +12,31 @@ import { useMemo } from "react";
  * knows what was at stake if it stopped there; "git write-tree" tells them
  * nothing.
  */
-export function useTeleportStepLabels(): Record<TeleportStepId, string> {
+export function useTeleportStepLabels(
+	destination: TeleportDestination["kind"],
+): Record<TeleportStepId, string> {
 	const { t } = useLingui();
 
 	return useMemo(
 		() => ({
 			handoff: t({
-				message: "Asking agents for handoff notes",
+				message: "Reading the agents' transcripts",
 				context: "teleport step",
 			}),
 			capture: t({
 				message: "Capturing commits and changes",
 				context: "teleport step",
 			}),
-			createWorktree: t({
-				message: "Creating the worktree there",
-				context: "teleport step",
-			}),
+			createWorktree:
+				destination === "cloud"
+					? t({
+							message: "Starting a sandbox",
+							context: "teleport step",
+						})
+					: t({
+							message: "Creating the worktree there",
+							context: "teleport step",
+						}),
 			restore: t({
 				message: "Restoring changes",
 				context: "teleport step",
@@ -45,10 +54,10 @@ export function useTeleportStepLabels(): Record<TeleportStepId, string> {
 				context: "teleport step",
 			}),
 			launch: t({
-				message: "Starting programs",
+				message: "Resuming agents",
 				context: "teleport step",
 			}),
 		}),
-		[t],
+		[t, destination],
 	);
 }

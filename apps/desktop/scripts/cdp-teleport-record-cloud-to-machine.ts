@@ -273,7 +273,7 @@ if (openThere) {
 	let line: string | null = null;
 	while (Date.now() < proofDeadline && !line) {
 		line = await evaluate(
-			"(() => { const m = document.body.innerText.match(/TELEPORT_VERIFY \\\\d+ files on \\\\S+ in \\\\S+/); return m ? m[0] : null; })()",
+			"(() => { const m = document.body.innerText.match(/TELEPORT_VERIFY \\d+ files on \\S+ in \\S+/); return m ? m[0] : null; })()",
 		);
 		if (!line) await wait(500);
 	}

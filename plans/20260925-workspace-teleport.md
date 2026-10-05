@@ -463,10 +463,11 @@ the dialog. "Run in background" closes the dialog and the move continues; reopen
 progress; and a move nobody is watching ends as a toast with "Open on Cloud". Nothing is added to
 the sidebar: the menu item is the only surface. The source stays usable throughout: the first capture is a
 pre-copy, and "Syncing late changes, stopping the source" captures again once the box is up and
-restored. That second `teleport.publish` passes the first capture's working-tree id and pushes
-nothing when the content is unchanged, so an idle source costs one `write-tree`; a source that kept
+restored. That second `teleport.publish` passes the first capture's head and working-tree id and pushes
+nothing when both are unchanged, so an idle source costs one `write-tree`; a source that kept
 changing sends only its delta and the arrival command runs once more. Agents are handed their
-transcripts as they are at the end, not as they were at the start. Measured on 2026-10-05 from the
+transcripts as they are at the end, not as they were at the start; the source's agent sessions are
+ended right after that last reading, so "stopped" in the plan is true. Measured on 2026-10-05 from the
 dev app: capture pushed 2.7 s after Teleport, dialog sent to the background, a line appended in the
 source's shell at 7 s, toast at 25.7 s, and the destination's arrival terminal showing that line
 when asked live; the box recorded two arrivals, the second carrying only the delta.
@@ -575,3 +576,12 @@ in a caption. Agents are relaunched from the carried context with `agents.run`, 
    opportunistically in the background well before anyone clicks.
 7. Do we copy the review dialog's per-pane plan wholesale? It is the best idea in the
    reference implementation and we have no equivalent surface today.
+
+**Matched by repository, refused when unsure.** A destination's project, and a sandbox's environment,
+are picked by `repositoryIdentity(originUrl)` — `host/owner/name`, however the remote is spelled — never
+by a folder name, which two worktrees share and two unrelated clones can share too. Anything the plan
+cannot verify is a refusal that disables Teleport: `repository-missing` (the host has no project for
+the repository, or no environment carries it) and `unverified` (the destination cannot be reached, the
+source has no origin, or a check errored). Moving blind is how work gets buried, so the dialog never
+starts a run it could not check. Ignored files (`.env` and friends) never travel over origin; the plan
+says so next to their count instead of silently dropping them.

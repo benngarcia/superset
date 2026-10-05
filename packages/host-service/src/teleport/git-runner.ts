@@ -51,7 +51,11 @@ export function createGitRunner(worktreePath: string): GitRunner {
 				args,
 				{
 					cwd: worktreePath,
-					env: options.env ? { ...process.env, ...options.env } : process.env,
+					env: {
+						...process.env,
+						GIT_TERMINAL_PROMPT: "0",
+						...options.env,
+					},
 					maxBuffer: MAX_OUTPUT_BYTES,
 					// Git never prompts during a teleport: a hang behind an
 					// invisible credential prompt is indistinguishable from a
