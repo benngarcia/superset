@@ -69,6 +69,8 @@ const SAFETY_NET_INTERVAL_MS = 5 * 60_000;
 // branch/HEAD/upstream changes. The 60s repo-PR cache deduplicates across
 // concurrent triggers.
 const PROJECT_REFRESH_INTERVAL_MS = 5 * 60_000;
+// Sweeps outlive this cache on purpose: they revalidate through ConditionalGh,
+// and a 304 costs no rate limit. Raising it past the sweep only makes PRs staler.
 const REPO_PULL_REQUEST_CACHE_TTL_MS = 60_000;
 // A fetch that keeps failing (payload over maxBuffer, revoked auth, …) must
 // not respawn `gh` at full cadence forever: each consecutive failure doubles
