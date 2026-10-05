@@ -12,11 +12,7 @@ export const getDiffByRepo = protectedProcedure
 	)
 	.query(async ({ input }) => {
 		try {
-			const patch = await fetchPullRequestDiff(
-				input.repoFullName,
-				input.prNumber,
-			);
-			return { patch };
+			return await fetchPullRequestDiff(input.repoFullName, input.prNumber);
 		} catch (cause) {
 			throw new TRPCError({
 				code: "INTERNAL_SERVER_ERROR",

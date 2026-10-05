@@ -47,13 +47,19 @@ test("project and repository endpoints share a case-insensitive in-flight cache"
 test("expires cached diffs after 30 seconds", async () => {
 	const now = spyOn(Date, "now").mockReturnValue(100_000);
 	const exec = spyOn(gh, "execGh").mockResolvedValue("first");
-	expect(await fetchPullRequestDiff("owner/expiry", 1)).toBe("first");
+	expect(await fetchPullRequestDiff("owner/expiry", 1)).toEqual({
+		patch: "first",
+	});
 	now.mockReturnValue(129_999);
-	expect(await fetchPullRequestDiff("owner/expiry", 1)).toBe("first");
+	expect(await fetchPullRequestDiff("owner/expiry", 1)).toEqual({
+		patch: "first",
+	});
 	expect(exec).toHaveBeenCalledTimes(1);
 	now.mockReturnValue(130_000);
 	exec.mockResolvedValue("updated");
-	expect(await fetchPullRequestDiff("owner/expiry", 1)).toBe("updated");
+	expect(await fetchPullRequestDiff("owner/expiry", 1)).toEqual({
+		patch: "updated",
+	});
 	expect(exec).toHaveBeenCalledTimes(2);
 });
 
@@ -63,7 +69,9 @@ test("evicts failures so the next request retries", async () => {
 		"offline",
 	);
 	exec.mockResolvedValue("recovered");
-	expect(await fetchPullRequestDiff("owner/retry", 1)).toBe("recovered");
+	expect(await fetchPullRequestDiff("owner/retry", 1)).toEqual({
+		patch: "recovered",
+	});
 	expect(exec).toHaveBeenCalledTimes(2);
 });
 
@@ -84,7 +92,9 @@ test("preserves the legacy patch without invoking the Git fallback", async () =>
 	const fallback = spyOn(gitDiff, "fetchPullRequestGitDiff").mockResolvedValue(
 		"fallback",
 	);
-	expect(await fetchPullRequestDiff("owner/legacy-patch", 1)).toBe(patch);
+	expect(await fetchPullRequestDiff("owner/legacy-patch", 1)).toEqual({
+		patch: patch,
+	});
 	expect(fallback).not.toHaveBeenCalled();
 });
 
@@ -93,7 +103,9 @@ test("preserves a successful empty legacy diff", async () => {
 	const fallback = spyOn(gitDiff, "fetchPullRequestGitDiff").mockResolvedValue(
 		"fallback",
 	);
-	expect(await fetchPullRequestDiff("owner/legacy-empty", 1)).toBe("");
+	expect(await fetchPullRequestDiff("owner/legacy-empty", 1)).toEqual({
+		patch: "",
+	});
 	expect(fallback).not.toHaveBeenCalled();
 });
 
@@ -106,13 +118,13 @@ test.each([
 		"complete patch",
 	);
 	const prNumber = message.startsWith("GraphQL") ? 1 : 2;
-	expect(await fetchPullRequestDiff("owner/large-diff", prNumber)).toBe(
-		"complete patch",
-	);
+	expect(await fetchPullRequestDiff("owner/large-diff", prNumber)).toEqual({
+		patch: "complete patch",
+	});
 	expect(fallback).toHaveBeenCalledWith("owner/large-diff", prNumber);
-	expect(await fetchPullRequestDiff("OWNER/LARGE-DIFF", prNumber)).toBe(
-		"complete patch",
-	);
+	expect(await fetchPullRequestDiff("OWNER/LARGE-DIFF", prNumber)).toEqual({
+		patch: "complete patch",
+	});
 	expect(fallback).toHaveBeenCalledTimes(1);
 });
 
@@ -144,9 +156,9 @@ test("evicts a failed Git fallback so a retry can recover", async () => {
 		"fetch failed",
 	);
 	fallback.mockResolvedValue("recovered patch");
-	expect(await fetchPullRequestDiff("owner/git-retry", 1)).toBe(
-		"recovered patch",
-	);
+	expect(await fetchPullRequestDiff("owner/git-retry", 1)).toEqual({
+		patch: "recovered patch",
+	});
 	expect(fallback).toHaveBeenCalledTimes(2);
 });
 
@@ -165,15 +177,19 @@ test("shares slow in-flight requests and starts their TTL when they finish", asy
 	expect(exec).toHaveBeenCalledTimes(1);
 	resolve("slow patch");
 	expect(await Promise.all([first, second])).toEqual([
-		"slow patch",
-		"slow patch",
+		{ patch: "slow patch" },
+		{ patch: "slow patch" },
 	]);
 	now.mockReturnValue(289_999);
-	expect(await fetchPullRequestDiff("owner/slow-fetch", 1)).toBe("slow patch");
+	expect(await fetchPullRequestDiff("owner/slow-fetch", 1)).toEqual({
+		patch: "slow patch",
+	});
 	expect(exec).toHaveBeenCalledTimes(1);
 	now.mockReturnValue(290_000);
 	exec.mockResolvedValue("fresh patch");
-	expect(await fetchPullRequestDiff("owner/slow-fetch", 1)).toBe("fresh patch");
+	expect(await fetchPullRequestDiff("owner/slow-fetch", 1)).toEqual({
+		patch: "fresh patch",
+	});
 	expect(exec).toHaveBeenCalledTimes(2);
 });
 
@@ -189,5 +205,71 @@ test("keeps in-flight requests shared when the cache reaches its limit", async (
 	pending.push(fetchPullRequestDiff("owner/cache-pressure", 1));
 	expect(exec).toHaveBeenCalledTimes(21);
 	for (const resolve of resolvers) resolve("patch");
-	expect(await Promise.all(pending)).toEqual(Array(22).fill("patch"));
+	expect(await Promise.all(pending)).toEqual(
+		Array(22).fill({ patch: "patch" }),
+	);
+});
+
+test("uses complete API file patches before fetching Git objects", async () => {
+	const metadata = {
+		base: { sha: "a".repeat(40) },
+		head: { sha: "b".repeat(40) },
+		changed_files: 1,
+		additions: 1,
+		deletions: 1,
+	};
+	const exec = spyOn(gh, "execGh")
+		.mockRejectedValueOnce(new Error("PullRequest.diff too_large"))
+		.mockResolvedValueOnce(metadata)
+		.mockResolvedValueOnce([
+			{
+				filename: "a.txt",
+				status: "modified",
+				additions: 1,
+				deletions: 1,
+				patch: "@@ -1 +1 @@\n-old\n+new",
+			},
+		])
+		.mockResolvedValueOnce(metadata);
+	const git = spyOn(gitDiff, "fetchPullRequestGitDiff").mockRejectedValue(
+		new Error("must not fetch Git"),
+	);
+	const result = await fetchPullRequestDiff("owner/files-api", 1);
+	expect(result.files).toEqual([{ filename: "a.txt", status: "modified" }]);
+	expect(result.patch).toContain("-old\n+new");
+	expect(exec.mock.calls.map((call) => call[0])).toEqual([
+		["pr", "diff", "1", "--repo", "owner/files-api"],
+		["api", "repos/owner/files-api/pulls/1"],
+		["api", "repos/owner/files-api/pulls/1/files?per_page=100&page=1"],
+		["api", "repos/owner/files-api/pulls/1"],
+	]);
+	expect(git).not.toHaveBeenCalled();
+});
+
+test("falls through to Git when the API omits file content", async () => {
+	const metadata = {
+		base: { sha: "a".repeat(40) },
+		head: { sha: "b".repeat(40) },
+		changed_files: 1,
+		additions: 0,
+		deletions: 0,
+	};
+	spyOn(gh, "execGh")
+		.mockRejectedValueOnce(new Error("PullRequest.diff too_large"))
+		.mockResolvedValueOnce(metadata)
+		.mockResolvedValueOnce([
+			{
+				filename: "binary.png",
+				status: "modified",
+				additions: 0,
+				deletions: 0,
+			},
+		]);
+	const git = spyOn(gitDiff, "fetchPullRequestGitDiff").mockResolvedValue(
+		"complete binary diff",
+	);
+	expect(await fetchPullRequestDiff("owner/binary-api", 1)).toEqual({
+		patch: "complete binary diff",
+	});
+	expect(git).toHaveBeenCalledTimes(1);
 });

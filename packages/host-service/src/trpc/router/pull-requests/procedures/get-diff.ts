@@ -11,11 +11,10 @@ export const getDiff = protectedProcedure
 	.query(async ({ ctx, input }) => {
 		try {
 			const repo = await resolveGithubRepo(ctx, input.projectId);
-			const patch = await fetchPullRequestDiff(
+			return await fetchPullRequestDiff(
 				`${repo.owner}/${repo.name}`,
 				input.prNumber,
 			);
-			return { patch };
 		} catch (err) {
 			throw new TRPCError({
 				code: "INTERNAL_SERVER_ERROR",

@@ -5,11 +5,11 @@ import type {
 	DiffLineAnnotation,
 	SelectedLineRange,
 } from "@pierre/diffs";
-import { parsePatchFiles } from "@pierre/diffs";
 import { CodeView, type CodeViewHandle } from "@pierre/diffs/react";
 import { FileTree as PierreFileTree, useFileTree } from "@pierre/trees/react";
 import { errorMessage } from "@superset/i18n/errors";
 import { sanitizePromptForPty } from "@superset/shared/agent-prompt-launch";
+import type { PullRequestDiff } from "@superset/shared/pull-request-diff";
 import { toast } from "@superset/ui/sonner";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -38,6 +38,7 @@ import { pullRequestReadErrorMessage } from "../../utils/combinePullRequestReadE
 import { PullRequestCommentComposer } from "./components/PullRequestCommentComposer";
 import { PullRequestCommentThread } from "./components/PullRequestCommentThread";
 import { fetchPullRequestDiff } from "./utils/fetchPullRequestDiff";
+import { parsePullRequestPatch } from "./utils/parsePullRequestPatch";
 
 interface PullRequestCodeTabProps {
 	projectId: string | null;
@@ -145,25 +146,22 @@ interface ParsedFileDiff {
 // Left to throw on a malformed patch instead of swallowing the error —
 // callers need to tell "the PR genuinely has no changes" apart from "the
 // patch failed to parse", which look identical if this just returns [].
-function parseFileDiffs(patch: string): ParsedFileDiff[] {
-	if (!patch.trim()) return [];
-	return parsePatchFiles(patch, undefined, false).flatMap((parsedPatch) =>
-		parsedPatch.files.map((fileDiff, index) => {
-			let additions = 0;
-			let deletions = 0;
-			for (const hunk of fileDiff.hunks) {
-				additions += hunk.additionLines;
-				deletions += hunk.deletionLines;
-			}
-			return {
-				item: { id: `${fileDiff.name}-${index}`, type: "diff", fileDiff },
-				path: fileDiff.name,
-				status: CHANGE_TYPE_TO_PIERRE_STATUS[fileDiff.type] ?? "modified",
-				additions,
-				deletions,
-			};
-		}),
-	);
+function parseFileDiffs(diff: PullRequestDiff): ParsedFileDiff[] {
+	return parsePullRequestPatch(diff).map((fileDiff, index) => {
+		let additions = 0;
+		let deletions = 0;
+		for (const hunk of fileDiff.hunks) {
+			additions += hunk.additionLines;
+			deletions += hunk.deletionLines;
+		}
+		return {
+			item: { id: `${fileDiff.name}-${index}`, type: "diff", fileDiff },
+			path: fileDiff.name,
+			status: CHANGE_TYPE_TO_PIERRE_STATUS[fileDiff.type] ?? "modified",
+			additions,
+			deletions,
+		};
+	});
 }
 
 // Matches DiffPane's useDiffCommentComposer: a range spanning both an
@@ -585,14 +583,14 @@ export function PullRequestCodeTab({
 
 	const parsedPatch = useMemo(() => {
 		try {
-			return { files: parseFileDiffs(data?.patch ?? ""), error: null };
+			return { files: parseFileDiffs(data ?? { patch: "" }), error: null };
 		} catch (err) {
 			return {
 				files: [] as ParsedFileDiff[],
 				error: errorMessage(err, "Failed to parse diff"),
 			};
 		}
-	}, [data?.patch]);
+	}, [data]);
 	const files = parsedPatch.files;
 	const patchParseError = parsedPatch.error;
 	const areAllFilesCollapsed =

@@ -1,3 +1,4 @@
+import type { PullRequestDiff } from "@superset/shared/pull-request-diff";
 import { cloudTrpcClient } from "renderer/lib/cloud-trpc";
 import { getHostServiceClientByUrl } from "renderer/lib/host-service-client";
 import { combinePullRequestReadErrors } from "../../../../utils/combinePullRequestReadErrors";
@@ -16,7 +17,7 @@ export async function fetchPullRequestDiff({
 	repoFullName,
 	prNumber,
 	organizationId,
-}: PullRequestDiffInput): Promise<{ patch: string }> {
+}: PullRequestDiffInput): Promise<PullRequestDiff> {
 	let repositoryError: unknown;
 	if (hostUrl) {
 		if (projectId) {
