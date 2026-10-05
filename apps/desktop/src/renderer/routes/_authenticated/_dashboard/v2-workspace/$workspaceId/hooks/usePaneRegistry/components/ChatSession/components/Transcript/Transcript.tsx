@@ -160,6 +160,7 @@ export function Transcript({
 		>
 			<TurnGroupSection
 				canForkToWorktree={canForkToWorktree}
+				endsGroup={rows[index + 1]?.groupStart ?? true}
 				isEntryCollapsed={isEntryCollapsed}
 				onDiscardPrompt={onDiscardPrompt}
 				onFork={onFork}
