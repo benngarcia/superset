@@ -13,10 +13,6 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#. js-lingui-explicit-id
-msgid "greeting"
-msgstr ""
-
 msgid " and "
 msgstr " i "
 
