@@ -5,183 +5,135 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..600&family=IBM+Plex+Mono:wght@400;500&display=block" rel="stylesheet">
 <style>
-  :root{--bg:#0b0b0b;--win:#151515;--pane:#121212;--line:#242424;--line2:#1d1d1d;--fg:#e6e4e2;--fg2:#a3a09d;--fg3:#6b6865;--fg4:#4a4846;--green:#5fbf7f;--red:#e0705f;--blue:#6b8ee8;--amber:#d9a441;--orange:#e8804a}
+  :root{--bg:#08090a;--win:#101112;--pane:#0d0e0f;--line:#232426;--line2:#1b1c1e;--fg:#e6e4e2;--fg2:#a3a09d;--fg3:#6b6865;--fg4:#47454a;--green:#5fbf7f;--red:#e0705f;--blue:#6b8ee8;--amber:#d9a441}
   html,body{margin:0;background:var(--bg)}
-  body{width:1200px;height:630px;overflow:hidden;position:relative;font-family:Inter,ui-sans-serif,system-ui,sans-serif;font-feature-settings:"cv01","ss03";color:var(--fg);-webkit-font-smoothing:antialiased;background:radial-gradient(ellipse 70% 60% at 30% 0%,#171717,var(--bg) 70%)}
+  body{width:1200px;height:630px;overflow:hidden;position:relative;font-family:Inter,ui-sans-serif,system-ui,sans-serif;font-feature-settings:"cv01","ss03";color:var(--fg);-webkit-font-smoothing:antialiased}
   .mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
-  .head{position:absolute;left:56px;top:40px;display:flex;align-items:center;gap:18px}
-  .head .wm{height:27px;width:174px;display:block}
-  .head p{margin:0;font-size:23px;color:#9a9794;letter-spacing:-0.01em}
-  .win{position:absolute;width:390px;height:416px;border-radius:10px;background:var(--win);border:1px solid var(--line);box-shadow:0 0 0 1px rgba(0,0,0,.6),0 24px 60px rgba(0,0,0,.6);overflow:hidden;display:flex;flex-direction:column;font-size:10.5px}
-  .w1{left:56px;top:104px;z-index:3}
-  .w2{left:408px;top:140px;z-index:2}
-  .w3{left:760px;top:176px;z-index:1;width:384px}
-  .bar{height:30px;flex:none;display:flex;align-items:center;justify-content:center;position:relative;border-bottom:1px solid var(--line);color:var(--fg2);font-size:10.5px;gap:6px}
-  .bar .s{width:6px;height:10px;display:block}
-  .dots{position:absolute;left:11px;top:11px;display:flex;gap:6px}
-  .dots i{width:8px;height:8px;border-radius:50%;background:#2e2e2e}
-  .ico{width:9px;height:9px;border-radius:50%;flex:none;box-sizing:border-box}
+  .wm{position:absolute;left:64px;top:46px;height:32px;width:206px;display:block}
+  .win{position:absolute;left:64px;top:118px;width:1150px;height:560px;border-radius:12px 0 0 0;background:var(--win);border:1px solid var(--line);box-shadow:0 0 0 1px rgba(0,0,0,.7),0 30px 80px rgba(0,0,0,.7);overflow:hidden;display:flex;flex-direction:column;font-size:13px}
+  .fade{position:absolute;left:0;right:0;bottom:0;height:150px;background:linear-gradient(180deg,rgba(8,9,10,0),rgba(8,9,10,.85) 75%,var(--bg))}
+  .bar{height:38px;flex:none;display:flex;align-items:center;justify-content:center;position:relative;border-bottom:1px solid var(--line);color:var(--fg2);font-size:13px;gap:8px}
+  .bar .s{width:8px;height:13px;display:block}
+  .dots{position:absolute;left:15px;top:14px;display:flex;gap:8px}
+  .dots i{width:10px;height:10px;border-radius:50%;background:#2c2d2f}
+  .body{flex:1;display:flex;min-height:0}
+  .ico{width:11px;height:11px;border-radius:50%;flex:none;box-sizing:border-box}
   .ok{background:var(--green);position:relative}
-  .ok::after{content:"";position:absolute;left:2.6px;top:1.6px;width:2.2px;height:4px;border:solid #151515;border-width:0 1.3px 1.3px 0;transform:rotate(45deg)}
-  .run{border:1.4px solid #2c3a5c;border-top-color:var(--blue);border-right-color:var(--blue)}
-  .rev{border:1.4px solid var(--amber);position:relative}
-  .rev::after{content:"";position:absolute;inset:1.6px;border-radius:50%;background:var(--amber)}
-  .idle{border:1.2px solid var(--fg4)}
+  .ok::after{content:"";position:absolute;left:3.4px;top:2px;width:2.6px;height:5px;border:solid var(--win);border-width:0 1.5px 1.5px 0;transform:rotate(45deg)}
+  .run{border:1.6px solid #2c3a5c;border-top-color:var(--blue);border-right-color:var(--blue)}
+  .rev{border:1.6px solid var(--amber);position:relative}
+  .rev::after{content:"";position:absolute;inset:2px;border-radius:50%;background:var(--amber)}
+  .idle{border:1.4px solid var(--fg4)}
   .add{color:var(--green)} .del{color:var(--red)}
-  .w1 .body{flex:1;display:flex;min-height:0}
-  .rail{width:30px;border-right:1px solid var(--line2);display:flex;flex-direction:column;align-items:center;padding-top:10px;gap:12px}
-  .rail b{width:11px;height:11px;border-radius:50%;border:1.3px solid var(--fg4);box-sizing:border-box}
-  .rail b:first-child{border-color:var(--fg2);background:#1f1f1f;outline:4px solid #1f1f1f}
-  .side{width:122px;border-right:1px solid var(--line2);padding:10px 6px;display:flex;flex-direction:column;gap:2px;background:var(--pane)}
-  .lbl{font-size:8.5px;letter-spacing:.08em;color:var(--fg3);text-transform:uppercase;padding:0 6px 6px}
-  .ws{display:flex;gap:7px;padding:5px 6px;border-radius:5px;align-items:flex-start}
-  .ws .ico{margin-top:2px}
-  .ws.sel{background:#1f1f1f}
-  .ws div{display:flex;flex-direction:column;gap:2px;min-width:0}
-  .ws span{white-space:nowrap;color:var(--fg)}
-  .ws small{font-size:8.5px;color:var(--fg3)}
-  .newws{color:var(--fg3);padding:6px 6px 0;font-size:10px}
-  .hosts{margin-top:auto;font-size:9px;color:var(--fg3);padding:0 6px;display:flex;align-items:center;gap:5px}
-  .hosts i{width:5px;height:5px;border-radius:50%;background:var(--green)}
-  .main{flex:1;display:flex;flex-direction:column;min-width:0}
-  .tabs{display:flex;gap:14px;padding:0 12px;border-bottom:1px solid var(--line2);height:28px;align-items:stretch;font-size:10px;color:var(--fg3)}
-  .tabs span{display:flex;align-items:center}
-  .tabs .on{color:var(--fg);box-shadow:inset 0 -1.5px 0 var(--fg2)}
-  .log{flex:1;padding:10px 12px;display:flex;flex-direction:column;gap:5.5px;font-size:9.6px;color:var(--fg2);line-height:1.3}
-  .log div{display:flex;gap:6px;white-space:nowrap}
-  .log .p{color:var(--fg);font-weight:500}
-  .log i{font-style:normal;width:7px;flex:none;color:var(--fg3)}
-  .log .g{color:var(--green)} .log .d{color:var(--fg3);padding-left:13px}
-  .comp{white-space:nowrap;margin:0 10px 10px;border:1px solid var(--line);border-radius:7px;padding:9px 10px;color:var(--fg3);font-size:10px;display:flex;justify-content:space-between}
-  .comp kbd{font:inherit;font-size:8.5px;border:1px solid var(--line);border-radius:3px;padding:0 4px}
-  .w2 .top{display:flex;align-items:baseline;gap:7px;padding:16px 16px 8px 46px;color:var(--fg3);font-size:10.5px}
-  .w2 .top b{font-size:17px;color:var(--fg2);font-weight:500}
-  .seg{margin-left:auto;display:flex;background:#1c1c1c;border-radius:5px;padding:2px;font-size:9px;align-self:center}
-  .seg span{padding:3px 8px;border-radius:4px;color:var(--fg3)} .seg .on{background:#2a2a2a;color:var(--fg)}
-  .tl{position:relative;height:104px;margin:6px 16px 0 46px}
-  .tl i{position:absolute;height:6px;border-radius:3px;background:#8a4d30}
-  .tl i.w{background:#cfcdca;height:6px}
-  .tl i.w::after{content:"";position:absolute;right:-1px;top:-1px;width:8px;height:8px;border-radius:50%;background:#e6e4e2;box-shadow:0 0 6px rgba(255,255,255,.35)}
-  .axis{display:flex;justify-content:space-between;margin:0 16px 0 46px;font-size:8.5px;color:var(--fg4);padding-bottom:12px;border-bottom:1px solid var(--line2)}
-  table{border-collapse:collapse;width:100%;font-size:10px}
-  th{font-weight:400;color:var(--fg4);text-align:left;font-size:9px;padding:9px 0 7px}
-  td{padding:0;height:27px;border-top:1px solid var(--line2);white-space:nowrap}
-  th:first-child,td:first-child{padding-left:50px}
-  th:last-child,td:last-child{padding-right:14px;text-align:right}
-  .nm{display:flex;align-items:center;gap:7px}
-  .ag{display:flex;align-items:center;gap:6px;color:var(--fg2)}
-  .ag i{width:6px;height:6px;border-radius:1.5px;background:var(--fg3)}
-  .pill{font-size:8.5px;padding:2px 6px;border-radius:4px;border:1px solid}
+  .side{width:212px;flex:none;border-right:1px solid var(--line2);padding:14px 10px;display:flex;flex-direction:column;gap:2px;background:var(--pane)}
+  .nav{display:flex;align-items:center;gap:10px;padding:6px 8px;border-radius:6px;color:var(--fg2)}
+  .nav b{width:13px;height:13px;border-radius:3px;border:1.4px solid var(--fg3);box-sizing:border-box}
+  .nav.on{background:#1b1c1e;color:var(--fg)}
+  .lbl{font-size:11px;letter-spacing:.06em;color:var(--fg3);text-transform:uppercase;padding:18px 8px 8px}
+  .ws{display:flex;gap:10px;padding:6px 8px;align-items:center;color:var(--fg2);white-space:nowrap}
+  .hosts{margin-top:auto;font-size:12px;color:var(--fg3);padding:0 8px;display:flex;align-items:center;gap:7px}
+  .hosts i{width:6px;height:6px;border-radius:50%;background:var(--green)}
+  .main{width:500px;flex:none;border-right:1px solid var(--line2);display:flex;flex-direction:column}
+  .top{display:flex;align-items:center;gap:10px;padding:0 20px;height:50px;border-bottom:1px solid var(--line2)}
+  .top h2{margin:0;font-size:14px;font-weight:500}
+  .top span{color:var(--fg3)}
+  .seg{margin-left:auto;display:flex;background:#1a1b1d;border-radius:6px;padding:2px;font-size:12px}
+  .seg span{padding:4px 10px;border-radius:5px;color:var(--fg3)} .seg .on{background:#2a2b2d;color:var(--fg)}
+  .tl{position:relative;height:96px;margin:16px 20px 0}
+  .tl i{position:absolute;height:7px;border-radius:4px;background:#8a4d30}
+  .tl i.w{background:#cfcdca}
+  .tl i.w::after{content:"";position:absolute;right:-1px;top:-1.5px;width:10px;height:10px;border-radius:50%;background:#eceae8;box-shadow:0 0 8px rgba(255,255,255,.4)}
+  .axis{display:flex;justify-content:space-between;margin:4px 20px 0;font-size:11px;color:var(--fg4);padding-bottom:12px}
+  .row{display:flex;align-items:center;height:42px;padding:0 20px;border-top:1px solid var(--line2);white-space:nowrap;gap:10px}
+  .row.sel{background:#17181a}
+  .row .n{width:160px}
+  .ag{width:88px;display:flex;align-items:center;gap:8px;color:var(--fg2)}
+  .ag i{width:7px;height:7px;border-radius:2px}
+  .st{width:112px}
+  .pill{font-size:11px;padding:3px 8px;border-radius:5px;border:1px solid}
   .pill.pr{color:var(--green);border-color:rgba(95,191,127,.35);background:rgba(95,191,127,.08)}
   .pill.ru{color:var(--blue);border-color:rgba(107,142,232,.35);background:rgba(107,142,232,.08)}
   .pill.nr{color:var(--amber);border-color:rgba(217,164,65,.35);background:rgba(217,164,65,.08)}
-  .w3 .ch{display:flex;align-items:center;gap:8px;padding:14px 14px 10px 50px;font-size:11.5px;color:var(--fg2)}
-  .chip{font-size:8.5px;color:var(--fg3);background:#1d1d1d;border-radius:3px;padding:2px 5px}
-  .tot{margin-left:auto;font-size:9.5px}
-  .files{border-bottom:1px solid var(--line2);padding-bottom:6px}
-  .f{display:flex;align-items:center;gap:8px;padding:4.5px 14px 4.5px 50px;font-size:9.5px;color:var(--fg2)}
-  .f.sel{background:#1c1c1c;color:var(--fg)}
-  .f .n{flex:1;white-space:nowrap}
-  .f .a{width:22px;text-align:right}.f .r{width:16px;text-align:right}
-  .blocks{display:flex;gap:1.5px}.blocks i{width:5px;height:5px;background:var(--green);border-radius:1px}.blocks i.x{background:var(--red)}
-  .diff{flex:1;padding:8px 0;font-size:9.3px;line-height:1.75}
-  .diff div{display:flex;white-space:pre;color:var(--fg2);padding-right:14px}
-  .diff u{text-decoration:none;width:28px;text-align:right;color:var(--fg4);padding-right:8px;margin-left:30px}
-  .diff s{text-decoration:none;width:12px;color:var(--fg4)}
-  .diff .h{color:var(--fg4);padding-left:70px}
+  .row .c{margin-left:auto;font-size:12px}
+  .det{flex:1;display:flex;flex-direction:column;min-width:0}
+  .det .top h2{font-weight:500}
+  .chip{font-size:11px;color:var(--fg3);background:#1b1c1e;border-radius:4px;padding:2px 7px}
+  .f{display:flex;align-items:center;gap:12px;padding:7px 20px;font-size:12px;color:var(--fg2);white-space:nowrap}
+  .f.sel{background:#17181a;color:var(--fg)}
+  .f .a{margin-left:auto}
+  .files{padding:8px 0;border-bottom:1px solid var(--line2)}
+  .diff{padding:10px 0;font-size:12px;line-height:1.8}
+  .diff div{display:flex;white-space:pre;color:var(--fg2)}
+  .diff u{text-decoration:none;width:26px;text-align:right;color:var(--fg4);padding-right:10px;margin-left:12px}
+  .diff s{text-decoration:none;width:14px;color:var(--fg4)}
+  .diff .h{color:var(--fg4);padding-left:20px}
   .diff .m{background:rgba(224,112,95,.13);color:#e9b0a6}.diff .m s{color:var(--red)}
   .diff .p{background:rgba(95,191,127,.10);color:#b8e0c4}.diff .p s{color:var(--green)}
-  .foot{border-top:1px solid var(--line2);display:flex;align-items:center;gap:12px;padding:10px 14px 10px 50px;font-size:9.5px;color:var(--fg2)}
-  .foot span{display:flex;align-items:center;gap:5px}
-  .btn{margin-left:auto;background:#2f7a4c;color:#eafff0;font-weight:500;font-size:10px;padding:6px 10px;border-radius:5px}
+  .checks{display:flex;align-items:center;gap:16px;padding:14px 20px;font-size:12px;color:var(--fg2);border-top:1px solid var(--line2)}
+  .checks span{display:flex;align-items:center;gap:6px}
+  .btn{margin-left:auto;background:#2f7a4c;color:#eafff0;font-weight:500;padding:7px 12px;border-radius:6px}
 </style></head><body>
 <svg width="0" height="0" style="position:absolute"><defs><path id="wm" fill="#EAE8E6" d="M174.599 75H187.4V87.7999H174.599V75ZM161.8 75H174.599V87.7999H161.8V75ZM149 87.7999H161.8V100.6H149V87.7999ZM149 100.6H161.8V113.4H149V100.6ZM161.8 100.6H174.599V113.4H161.8V100.6ZM174.599 100.6H187.4V113.4H174.599V100.6ZM174.599 113.4H187.4V126.2H174.599V113.4ZM174.599 126.2H187.4V139H174.599V126.2ZM161.8 126.2H174.599V139H161.8V126.2ZM149 126.2H161.8V139H149V126.2ZM149 75H161.8V87.7999H149V75ZM200.15 75H212.95V87.7999H200.15V75ZM200.15 87.7999H212.95V100.6H200.15V87.7999ZM200.15 100.6H212.95V113.4H200.15V100.6ZM200.15 113.4H212.95V126.2H200.15V113.4ZM200.15 126.2H212.95V139H200.15V126.2ZM212.95 126.2H225.749V139H212.95V126.2ZM225.749 126.2H238.55V139H225.749V126.2ZM225.749 113.4H238.55V126.2H225.749V113.4ZM225.749 100.6H238.55V113.4H225.749V100.6ZM225.749 87.7999H238.55V100.6H225.749V87.7999ZM225.749 75H238.55V87.7999H225.749V75ZM251.3 75H264.099V87.7999H251.3V75ZM251.3 87.7999H264.099V100.6H251.3V87.7999ZM251.3 100.6H264.099V113.4H251.3V100.6ZM251.3 113.4H264.099V126.2H251.3V113.4ZM251.3 126.2H264.099V139H251.3V126.2ZM264.099 75H276.9V87.7999H264.099V75ZM276.9 75H289.7V87.7999H276.9V75ZM276.9 87.7999H289.7V100.6H276.9V87.7999ZM276.9 100.6H289.7V113.4H276.9V100.6ZM264.099 100.6H276.9V113.4H264.099V100.6ZM302.45 75H315.249V87.7999H302.45V75ZM302.45 87.7999H315.249V100.6H302.45V87.7999ZM302.45 100.6H315.249V113.4H302.45V100.6ZM302.45 113.4H315.249V126.2H302.45V113.4ZM302.45 126.2H315.249V139H302.45V126.2ZM315.249 75H328.05V87.7999H315.249V75ZM315.249 126.2H328.05V139H315.249V126.2ZM315.249 100.6H328.05V113.4H315.249V100.6ZM328.05 75H340.85V87.7999H328.05V75ZM328.05 126.2H340.85V139H328.05V126.2ZM353.6 126.2H366.399V139H353.6V126.2ZM353.6 113.4H366.399V126.2H353.6V113.4ZM353.6 100.6H366.399V113.4H353.6V100.6ZM353.6 87.7999H366.399V100.6H353.6V87.7999ZM353.6 75H366.399V87.7999H353.6V75ZM366.399 75H379.2V87.7999H366.399V75ZM379.2 75H392V87.7999H379.2V75ZM379.2 87.7999H392V100.6H379.2V87.7999ZM366.399 100.6H379.2V113.4H366.399V100.6ZM379.2 113.4H392V126.2H379.2V113.4ZM379.2 126.2H392V139H379.2V126.2ZM430.35 75H443.15V87.7999H430.35V75ZM417.549 75H430.35V87.7999H417.549V75ZM404.75 87.7999H417.549V100.6H404.75V87.7999ZM404.75 100.6H417.549V113.4H404.75V100.6ZM417.549 100.6H430.35V113.4H417.549V100.6ZM430.35 100.6H443.15V113.4H430.35V100.6ZM430.35 113.4H443.15V126.2H430.35V113.4ZM430.35 126.2H443.15V139H430.35V126.2ZM417.549 126.2H430.35V139H417.549V126.2ZM404.75 126.2H417.549V139H404.75V126.2ZM404.75 75H417.549V87.7999H404.75V75ZM455.9 75H468.7V87.7999H455.9V75ZM455.9 87.7999H468.7V100.6H455.9V87.7999ZM455.9 100.6H468.7V113.4H455.9V100.6ZM455.9 113.4H468.7V126.2H455.9V113.4ZM455.9 126.2H468.7V139H455.9V126.2ZM468.7 75H481.5V87.7999H468.7V75ZM468.7 126.2H481.5V139H468.7V126.2ZM468.7 100.6H481.5V113.4H468.7V100.6ZM481.5 75H494.299V87.7999H481.5V75ZM481.5 126.2H494.299V139H481.5V126.2ZM507.049 75H519.85V87.7999H507.049V75ZM519.85 75H532.65V87.7999H519.85V75ZM532.65 75H545.449V87.7999H532.65V75ZM519.85 87.7999H532.65V100.6H519.85V87.7999ZM519.85 100.6H532.65V113.4H519.85V100.6ZM519.85 113.4H532.65V126.2H519.85V113.4ZM519.85 126.2H532.65V139H519.85V126.2Z"/></defs></svg>
+<svg class="wm" viewBox="149 75 412 64" aria-label="Superset"><use href="#wm"/></svg>
 
-<div class="head">
-  <svg class="wm" viewBox="149 75 412 64" aria-label="Superset"><use href="#wm"/></svg>
-  <p>Bring any agent. Orchestrate them all.</p>
-</div>
-
-<div class="win w1">
-  <div class="bar"><div class="dots"><i></i><i></i><i></i></div><svg class="s" viewBox="149 75 38.4 64"><use href="#wm"/></svg>superset — fix-checkout-race</div>
+<div class="win">
+  <div class="bar"><div class="dots"><i></i><i></i><i></i></div><svg class="s" viewBox="149 75 38.4 64"><use href="#wm"/></svg>superset</div>
   <div class="body">
-    <div class="rail"><b></b><b></b><b></b><b></b></div>
     <div class="side">
+      <div class="nav"><b></b>Inbox</div>
+      <div class="nav on"><b></b>Agents</div>
+      <div class="nav"><b></b>Pull requests</div>
+      <div class="nav"><b></b>Automations</div>
       <div class="lbl">Workspaces</div>
-      <div class="ws sel"><i class="ico ok"></i><div><span>fix-checkout-race</span><small><span class="add">+142</span> <span class="del">-37</span></small></div></div>
-      <div class="ws"><i class="ico run"></i><div><span>auth-token-refresh</span><small>+58 -12</small></div></div>
-      <div class="ws"><i class="ico rev"></i><div><span>mobile-onboarding</span><small>+311 -90</small></div></div>
-      <div class="ws"><i class="ico ok"></i><div><span>docs-cli-reference</span><small>+76 -8</small></div></div>
-      <div class="ws"><i class="ico run"></i><div><span>perf-sidebar-virtual</span><small>+24 -51</small></div></div>
-      <div class="ws"><i class="ico rev"></i><div><span>billing-usage-export</span><small>+903</small></div></div>
-      <div class="ws"><i class="ico idle"></i><div><span>flaky-e2e-retries</span></div></div>
-      <div class="newws">+ New workspace</div>
+      <div class="ws"><i class="ico ok"></i>fix-checkout-race</div>
+      <div class="ws"><i class="ico run"></i>auth-token-refresh</div>
+      <div class="ws"><i class="ico rev"></i>mobile-onboarding</div>
+      <div class="ws"><i class="ico ok"></i>docs-cli-reference</div>
+      <div class="ws"><i class="ico run"></i>perf-sidebar-virtual</div>
+      <div class="ws"><i class="ico rev"></i>billing-usage-export</div>
+      <div class="ws"><i class="ico idle"></i>flaky-e2e-retries</div>
       <div class="hosts"><i></i>3 hosts online</div>
     </div>
     <div class="main">
-      <div class="tabs"><span class="on">claude</span><span>codex</span><span>dev server</span><span>browser</span></div>
-      <div class="log mono">
-        <div class="p"><i>&gt;</i>fix the flaky checkout tests</div>
-        <div><i>•</i>Read tests/checkout.spec.ts</div>
-        <div><i>•</i>Search waitForPayment</div>
-        <div class="d">Race: payment poll resolves</div>
-        <div class="d">before the order row commits.</div>
-        <div><i>•</i>Update src/checkout/pay.ts</div>
-        <div class="d"><span class="add">+12</span>&nbsp;<span class="del">-4</span>&nbsp; await order.committed</div>
-        <div><i>•</i>Bash bun test checkout</div>
-        <div class="g d">✓ 48 passed · 0 failed · 3.2s</div>
-        <div><i>•</i>Ran 20× --repeat: 0 flakes</div>
-        <div class="g"><i class="g">•</i>Opened PR #2841</div>
+      <div class="top"><h2>Agents</h2><span>6 running in parallel · 3 hosts</span><div class="seg"><span class="on">Today</span><span>Week</span></div></div>
+      <div class="tl">
+        <i style="left:2%;width:50%;top:2px"></i>
+        <i class="w" style="left:12%;width:86%;top:18px"></i>
+        <i style="left:22%;width:52%;top:34px"></i>
+        <i style="left:6%;width:30%;top:50px"></i>
+        <i class="w" style="left:50%;width:48%;top:66px"></i>
+        <i style="left:62%;width:28%;top:82px"></i>
       </div>
-      <div class="comp"><span>Ask claude or @mention…</span><kbd>⌘K</kbd></div>
+      <div class="axis"><span>9:00</span><span>9:30</span><span>10:00</span><span>10:30</span><span>11:00</span></div>
+      <div class="row sel"><i class="ico ok"></i><span class="n">fix-checkout-race</span><span class="ag"><i style="background:#d9774b"></i>claude</span><span class="st"><span class="pill pr">PR opened</span></span><span class="c mono"><span class="add">+142</span> <span class="del">-37</span></span></div>
+      <div class="row"><i class="ico run"></i><span class="n">auth-token-refresh</span><span class="ag"><i style="background:#cfcdca"></i>codex</span><span class="st"><span class="pill ru">Running</span></span><span class="c mono"><span class="add">+58</span> <span class="del">-12</span></span></div>
+      <div class="row"><i class="ico rev"></i><span class="n">mobile-onboarding</span><span class="ag"><i style="background:#8b8f98"></i>opencode</span><span class="st"><span class="pill nr">Needs review</span></span><span class="c mono"><span class="add">+311</span> <span class="del">-90</span></span></div>
+      <div class="row"><i class="ico ok"></i><span class="n">docs-cli-reference</span><span class="ag"><i style="background:#6f8fd8"></i>gemini</span><span class="st"><span class="pill pr">PR opened</span></span><span class="c mono"><span class="add">+76</span> <span class="del">-8</span></span></div>
+      <div class="row"><i class="ico run"></i><span class="n">perf-sidebar-virtual</span><span class="ag"><i style="background:#a7a4a1"></i>cursor</span><span class="st"><span class="pill ru">Running</span></span><span class="c mono"><span class="add">+24</span> <span class="del">-51</span></span></div>
+      <div class="row"><i class="ico rev"></i><span class="n">billing-usage-export</span><span class="ag"><i style="background:#c9a25a"></i>amp</span><span class="st"><span class="pill nr">Needs review</span></span><span class="c mono"><span class="add">+903</span></span></div>
+    </div>
+    <div class="det">
+      <div class="top"><h2>Review</h2><span class="chip mono">fix-checkout-race</span></div>
+      <div class="files mono">
+        <div class="f sel">apps/web/src/checkout/pay.ts<span class="a"><span class="add">+12</span> <span class="del">-4</span></span></div>
+        <div class="f">apps/web/src/checkout/order.ts<span class="a"><span class="add">+31</span> <span class="del">-9</span></span></div>
+        <div class="f">apps/web/tests/checkout.spec.ts<span class="a"><span class="add">+88</span> <span class="del">-22</span></span></div>
+      </div>
+      <div class="checks"><span><i class="ico ok"></i>typecheck</span><span><i class="ico ok"></i>lint</span><span><i class="ico ok"></i>test</span><span class="btn">PR #2841 opened</span></div>
+      <div class="diff mono">
+        <div class="h">@@ -41,6 +41,10 @@ pay.ts</div>
+        <div><u>41</u><s> </s>export async function pay(order) {</div>
+        <div><u>42</u><s> </s>  const intent = await createIntent(order);</div>
+        <div class="m"><u>43</u><s>-</s>  return waitForPayment(intent.id);</div>
+        <div class="p"><u>43</u><s>+</s>  await order.committed;</div>
+        <div class="p"><u>44</u><s>+</s>  return waitForPayment(intent.id, {</div>
+        <div class="p"><u>45</u><s>+</s>    orderId: order.id,</div>
+        <div class="p"><u>46</u><s>+</s>    timeoutMs: 15_000,</div>
+        <div class="p"><u>47</u><s>+</s>  });</div>
+        <div><u>48</u><s> </s>}</div>
+      </div>
     </div>
   </div>
 </div>
-
-<div class="win w2">
-  <div class="bar"><svg class="s" viewBox="149 75 38.4 64"><use href="#wm"/></svg>Agents</div>
-  <div class="top"><b>6</b>agents in parallel · 3 hosts<div class="seg"><span class="on">Today</span><span>Week</span></div></div>
-  <div class="tl">
-    <i style="left:4%;width:52%;top:4px"></i>
-    <i class="w" style="left:14%;width:84%;top:21px"></i>
-    <i style="left:24%;width:53%;top:38px"></i>
-    <i style="left:8%;width:30%;top:55px"></i>
-    <i class="w" style="left:52%;width:46%;top:72px"></i>
-    <i style="left:64%;width:28%;top:89px"></i>
-  </div>
-  <div class="axis"><span>9:00</span><span>9:30</span><span>10:00</span><span>10:30</span><span>11:00</span></div>
-  <table>
-    <tr><th>Workspace</th><th>Agent</th><th>Status</th><th>Changes</th></tr>
-    <tr><td><div class="nm"><i class="ico ok"></i>fix-checkout-race</div></td><td><div class="ag"><i style="background:#d9774b"></i>claude</div></td><td><span class="pill pr">PR opened</span></td><td><span class="add">+142</span> <span class="del">-37</span></td></tr>
-    <tr><td><div class="nm"><i class="ico run"></i>auth-token-refresh</div></td><td><div class="ag"><i style="background:#cfcdca"></i>codex</div></td><td><span class="pill ru">Running</span></td><td><span class="add">+58</span> <span class="del">-12</span></td></tr>
-    <tr><td><div class="nm"><i class="ico rev"></i>mobile-onboarding</div></td><td><div class="ag"><i style="background:#8b8f98"></i>opencode</div></td><td><span class="pill nr">Needs review</span></td><td><span class="add">+311</span> <span class="del">-90</span></td></tr>
-    <tr><td><div class="nm"><i class="ico ok"></i>docs-cli-reference</div></td><td><div class="ag"><i style="background:#6f8fd8"></i>gemini</div></td><td><span class="pill pr">PR opened</span></td><td><span class="add">+76</span> <span class="del">-8</span></td></tr>
-    <tr><td><div class="nm"><i class="ico run"></i>perf-sidebar-virtual</div></td><td><div class="ag"><i style="background:#a7a4a1"></i>cursor</div></td><td><span class="pill ru">Running</span></td><td><span class="add">+24</span> <span class="del">-51</span></td></tr>
-    <tr><td><div class="nm"><i class="ico rev"></i>billing-usage-export</div></td><td><div class="ag"><i style="background:#c9a25a"></i>amp</div></td><td><span class="pill nr">Needs review</span></td><td><span class="add">+903</span></td></tr>
-  </table>
-</div>
-
-<div class="win w3">
-  <div class="bar"><svg class="s" viewBox="149 75 38.4 64"><use href="#wm"/></svg>Review — fix-checkout-race</div>
-  <div class="ch">Changes <span class="chip mono">fix-checkout-race</span><span class="tot mono"><span class="add">+142</span> <span class="del">-37</span></span></div>
-  <div class="files mono">
-    <div class="f sel"><span class="n">apps/web/src/checkout/pay.ts</span><span class="a add">+12</span><span class="r del">-4</span><span class="blocks"><i></i><i></i><i></i><i></i><i class="x"></i></span></div>
-    <div class="f"><span class="n">apps/web/src/checkout/order.ts</span><span class="a add">+31</span><span class="r del">-9</span><span class="blocks"><i></i><i></i><i></i><i></i><i class="x"></i></span></div>
-    <div class="f"><span class="n">apps/web/tests/checkout.spec.ts</span><span class="a add">+88</span><span class="r del">-22</span><span class="blocks"><i></i><i></i><i></i><i></i><i class="x"></i></span></div>
-    <div class="f"><span class="n">packages/db/src/orders.ts</span><span class="a add">+11</span><span class="r del">-2</span><span class="blocks"><i></i><i></i><i></i><i></i><i></i></span></div>
-  </div>
-  <div class="diff mono">
-    <div class="h">@@ -41,6 +41,10 @@ pay.ts</div>
-    <div><u>41</u><s> </s>export async function pay(order) {</div>
-    <div><u>42</u><s> </s>  const intent = await createIntent(order);</div>
-    <div class="m"><u>43</u><s>-</s>  return waitForPayment(intent.id);</div>
-    <div class="p"><u>43</u><s>+</s>  await order.committed;</div>
-    <div class="p"><u>44</u><s>+</s>  return waitForPayment(intent.id, {</div>
-    <div class="p"><u>45</u><s>+</s>    orderId: order.id,</div>
-    <div class="p"><u>46</u><s>+</s>    timeoutMs: 15_000,</div>
-    <div class="p"><u>47</u><s>+</s>  });</div>
-    <div><u>48</u><s> </s>}</div>
-  </div>
-  <div class="foot"><span><i class="ico ok"></i>typecheck</span><span><i class="ico ok"></i>lint</span><span><i class="ico ok"></i>test</span><span class="btn">PR #2841 opened</span></div>
-</div>
+<div class="fade"></div>
 </body></html>
