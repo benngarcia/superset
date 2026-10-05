@@ -1,5 +1,5 @@
 export {
+	claimWorkspaceRestore,
 	destroyWorkspace,
-	isDestroyInFlight,
 	workspaceCleanupRouter,
 } from "./workspace-cleanup";

@@ -181,10 +181,12 @@ export function V2WorkspaceContextMenu({
 			</ContextMenuTrigger>
 			<ContextMenuContent onCloseAutoFocus={(event) => event.preventDefault()}>
 				{isArchived ? (
-					<ContextMenuItem onSelect={restore} disabled={!canReachHost}>
-						<LuArchiveRestore className="size-4" />
-						<Trans>Restore</Trans>
-					</ContextMenuItem>
+					workspace.type === "session" ? null : (
+						<ContextMenuItem onSelect={restore} disabled={!canReachHost}>
+							<LuArchiveRestore className="size-4" />
+							<Trans>Restore</Trans>
+						</ContextMenuItem>
+					)
 				) : (
 					<ContextMenuItem onSelect={open}>
 						<LuArrowUpRight className="size-4" />
