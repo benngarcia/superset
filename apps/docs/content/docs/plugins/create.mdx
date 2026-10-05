@@ -73,7 +73,7 @@ This creates `plugins/my-plugin/` at version `0.1.0` and adds the plugin to `.ag
 				"category": "Productivity",
 				"icon": "my-plugin"
 			},
-			"connector": { "slug": "my_connector" },
+			"connector": { "slug": "linear_mcp" },
 			"bind": {
 				"headers": { "Authorization": "Bearer ${config.access_token}" }
 			},
@@ -89,7 +89,7 @@ This creates `plugins/my-plugin/` at version `0.1.0` and adds the plugin to `.ag
 | Field | What it is |
 |:------|:-----------|
 | `interface` | How the plugin looks in the app: `displayName`, `category`, and `icon` |
-| `connector` | The account connection the tools need, by the slug of a Superset connector. Leave it out if the tools need no account |
+| `connector` | The account connection the tools need. It must name an existing Superset connector: `github`, `google`, `slack`, `linear_mcp`, `notion_mcp`, `sentry_mcp`, `granola_mcp`, `circleback_mcp`, `superhuman_mcp`, `stripe`, or `ynab`. Leave it out if the tools need no account |
 | `bind` | How the connection's credential goes on each call. Superset fills in `${config.access_token}` when it proxies the call |
 | `mcp` | The service's MCP server. A plugin gets its tools from one server only |
 
@@ -122,17 +122,21 @@ superset plugins marketplace add ./path/to/your/repo
 superset plugins install my-plugin
 ```
 
-A marketplace added from a local path installs the working tree, so edits show up after `superset plugins sync`.
+Install copies the plugin from your working tree. After you edit it, run `superset plugins install my-plugin --update` to refresh the installed copy.
 
 ## 5. Publish
 
-A release is a git tag. Bump the version, commit, and push the tag:
+A release is a git tag. Bump the version, commit, then push the branch and the tag:
 
 ```bash
 superset plugins publish my-plugin --bump patch
-git commit -am "publish my-plugin@0.1.1"
-git tag my-plugin@0.1.1 && git push --tags
+git add .agent-marketplace.json plugins/my-plugin/
+git commit -m "publish my-plugin@0.1.1"
+git tag my-plugin@0.1.1
+git push && git push --tags
 ```
+
+Push the branch too. Install reads the version from your default branch, then fetches that version's tag.
 
 Users install the plugin from your repository:
 
