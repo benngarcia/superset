@@ -246,10 +246,6 @@ msgstr "{0, plural, one {# terminal en ejecución} other {# terminales en ejecuc
 msgid "{0, plural, one {# workspace} other {# workspaces}}"
 msgstr "{0, plural, one {# espacio de trabajo} other {# espacios de trabajo}}"
 
-#. placeholder {0}: tail.hidden
-msgid "{0, plural, one {+# more line} other {+# more lines}}"
-msgstr "{0, plural, one {+# línea más} other {+# líneas más}}"
-
 #. placeholder {0}: shown?.count ?? 0
 msgid "{0, plural, one {A running agent still uses the previous account — the switch only reaches new launches.} other {# running agents still use the previous account — the switch only reaches new launches.}}"
 msgstr "{0, plural, one {Un agente en marcha sigue usando la cuenta anterior; el cambio solo se aplica a los nuevos lanzamientos.} other {# agentes en marcha siguen usando la cuenta anterior; el cambio solo se aplica a los nuevos lanzamientos.}}"
@@ -7862,9 +7858,6 @@ msgstr "Ocultar"
 msgid "Hide checks"
 msgstr "Ocultar comprobaciones"
 
-msgid "Hide detail"
-msgstr "Ocultar detalle"
-
 msgid "Hide details"
 msgstr "Ocultar detalles"
 
@@ -14544,9 +14537,6 @@ msgstr "Mostrar cerrados"
 msgid "Show CPU and memory usage in the top bar"
 msgstr "Mostrar el uso de CPU y memoria en la barra superior"
 
-msgid "Show detail"
-msgstr "Mostrar detalle"
-
 msgid "Show details"
 msgstr "Mostrar detalles"
 
@@ -18059,9 +18049,6 @@ msgstr "Trabajando desde hace {0} min {1} s"
 
 msgid "Working for {seconds}s"
 msgstr "Trabajando desde hace {seconds} s"
-
-msgid "Working…"
-msgstr "Trabajando…"
 
 msgid "Works when environments are clean. Environments are rarely clean."
 msgstr "Funciona cuando los entornos están limpios. Los entornos rara vez lo están."

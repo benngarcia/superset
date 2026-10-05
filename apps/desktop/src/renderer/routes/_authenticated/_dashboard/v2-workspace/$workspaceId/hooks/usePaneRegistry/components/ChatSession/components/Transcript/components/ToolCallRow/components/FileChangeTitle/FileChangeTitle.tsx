@@ -40,13 +40,15 @@ export function FileChangeTitle({
 		<>
 			<span className="shrink-0">
 				{running ? (
-					<ShimmerLabel className="font-normal">{verb}</ShimmerLabel>
+					<ShimmerLabel className="font-normal" duration={1.6}>
+						{verb}
+					</ShimmerLabel>
 				) : (
 					verb
 				)}
 			</span>
 			<span
-				className="min-w-0 truncate font-medium text-foreground/90"
+				className="min-w-0 truncate rounded bg-foreground/[0.06] px-1 py-0.5 font-mono text-[13px] text-foreground/70"
 				title={change.path}
 			>
 				{change.name}

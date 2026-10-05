@@ -246,10 +246,6 @@ msgstr "{0, plural, other {ターミナル # 個が実行中}}"
 msgid "{0, plural, one {# workspace} other {# workspaces}}"
 msgstr "{0, plural, one {#件のワークスペース} other {#件のワークスペース}}"
 
-#. placeholder {0}: tail.hidden
-msgid "{0, plural, one {+# more line} other {+# more lines}}"
-msgstr "{0, plural, other {他 #行}}"
-
 #. placeholder {0}: shown?.count ?? 0
 msgid "{0, plural, one {A running agent still uses the previous account — the switch only reaches new launches.} other {# running agents still use the previous account — the switch only reaches new launches.}}"
 msgstr "{0, plural, one {実行中の#件のエージェントはまだ以前のアカウントを使用しています。切り替えが適用されるのは新規起動のみです。} other {実行中の#件のエージェントはまだ以前のアカウントを使用しています。切り替えが適用されるのは新規起動のみです。}}"
@@ -7862,9 +7858,6 @@ msgstr "隠す"
 msgid "Hide checks"
 msgstr "チェックを隠す"
 
-msgid "Hide detail"
-msgstr "詳細を隠す"
-
 msgid "Hide details"
 msgstr "詳細を隠す"
 
@@ -14544,9 +14537,6 @@ msgstr "クローズ済みも表示"
 msgid "Show CPU and memory usage in the top bar"
 msgstr "トップバーにCPUとメモリ使用量を表示"
 
-msgid "Show detail"
-msgstr "詳細を表示"
-
 msgid "Show details"
 msgstr "詳細を表示"
 
@@ -18059,9 +18049,6 @@ msgstr "作業時間 {0}分{1}秒"
 
 msgid "Working for {seconds}s"
 msgstr "作業時間 {seconds}秒"
-
-msgid "Working…"
-msgstr "処理中…"
 
 msgid "Works when environments are clean. Environments are rarely clean."
 msgstr "環境がきれいなら動きます。環境がきれいなことは滅多にありません。"

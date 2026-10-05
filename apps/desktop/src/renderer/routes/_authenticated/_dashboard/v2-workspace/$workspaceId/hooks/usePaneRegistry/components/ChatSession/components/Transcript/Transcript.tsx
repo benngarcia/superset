@@ -14,6 +14,7 @@ import { ScrollToBottomButton } from "@superset/chat-ui/ScrollToBottomButton";
 import { Button } from "@superset/ui/button";
 import { cn } from "@superset/ui/utils";
 import {
+	type CSSProperties,
 	type KeyboardEvent,
 	type PointerEvent,
 	useCallback,
@@ -22,11 +23,15 @@ import {
 	useRef,
 	useState,
 } from "react";
+import {
+	CHAT_COLUMN_CLASSNAME,
+	CHAT_SCROLLER_GUTTER_CLASSNAME,
+} from "../../constants";
 import type { ChatForkTarget } from "../../types";
 import { TurnGroupSection } from "./components/TurnGroupSection";
-import { WorkingIndicator } from "./components/WorkingIndicator";
 import { useScrollAnchorKey } from "./hooks/useScrollAnchorKey";
-import { showsWorkingIndicator } from "./utils/showsWorkingIndicator";
+import { useScrollbarGutter } from "./hooks/useScrollbarGutter";
+import { lastReplyKeys } from "./utils/lastReplyKeys";
 import { type TranscriptRow, transcriptRows } from "./utils/transcriptRows";
 
 const REMEMBER_SIZE_CLASSNAME = "[contain-intrinsic-size:auto_240px]";
@@ -56,6 +61,23 @@ export type TranscriptProps = {
 	onDiscardPrompt: (clientId: string) => void;
 };
 
+function isWork(row: TranscriptRow | undefined): boolean {
+	if (!row) return false;
+	if (row.kind === "working" || row.kind === "tool_run") return true;
+	return (
+		row.kind === "item" &&
+		(row.item.kind === "tool_call" || row.item.kind === "reasoning")
+	);
+}
+
+function proseTopPadding(
+	row: TranscriptRow,
+	previous: TranscriptRow | undefined,
+): string | false {
+	if (row.kind !== "item" || row.item.kind !== "agent_message") return false;
+	return isWork(previous) ? "pt-1" : "pt-3";
+}
+
 function rowMessageId(row: TranscriptRow): string {
 	if (row.kind === "item") return row.item.id;
 	if (row.kind === "tool_run") return row.items[0]?.id ?? row.key;
@@ -76,6 +98,7 @@ export function Transcript({
 	snapshot,
 }: TranscriptProps) {
 	const { t } = useLingui();
+	const [viewportRef, scrollbarGutter] = useScrollbarGutter<HTMLDivElement>();
 	const scroller = useMessageScroller();
 	const scrollerRef = useRef(scroller);
 	scrollerRef.current = scroller;
@@ -133,6 +156,8 @@ export function Transcript({
 		[groups, outbox, pendingApprovalTargets],
 	);
 
+	const lastReplies = useMemo(() => lastReplyKeys(rows), [rows]);
+
 	const anchorRowKey = useScrollAnchorKey(rows, outbox, {
 		turnRunning: groups.at(-1)?.turn?.status === "running",
 		readerScrolledAway,
@@ -152,7 +177,8 @@ export function Transcript({
 				REMEMBER_SIZE_CLASSNAME,
 				index < rows.length - RECENT_ROWS_RENDERED_IN_FULL &&
 					OFFSCREEN_CLASSNAME,
-				row.groupStart && index > 0 && "mt-2",
+				"px-4 pb-1",
+				proseTopPadding(row, rows[index - 1]),
 			)}
 			key={row.key}
 			messageId={rowMessageId(row)}
@@ -160,6 +186,7 @@ export function Transcript({
 		>
 			<TurnGroupSection
 				canForkToWorktree={canForkToWorktree}
+				lastReply={lastReplies.has(row.key)}
 				isEntryCollapsed={isEntryCollapsed}
 				onDiscardPrompt={onDiscardPrompt}
 				onFork={onFork}
@@ -171,33 +198,42 @@ export function Transcript({
 			/>
 		</MessageScroller.Item>
 	));
-	if (showsWorkingIndicator(groups)) {
-		const firstOutboxIndex = rows.findIndex((row) => row.kind === "outbox");
-		contentChildren.splice(
-			firstOutboxIndex === -1 ? rows.length : firstOutboxIndex,
-			0,
-			<WorkingIndicator key="working-indicator" />,
-		);
-	}
 
 	return (
 		<MessageScroller.Root className="relative flex min-h-0 min-w-0 flex-1 flex-col">
 			<MessageScroller.Viewport
 				aria-label={t({ message: "Messages" })}
-				className="min-h-0 flex-1 overflow-y-auto px-6 [scrollbar-gutter:stable_both-edges]"
+				className={cn(
+					"min-h-0 flex-1 overflow-y-auto [scrollbar-gutter:stable_both-edges]",
+					CHAT_SCROLLER_GUTTER_CLASSNAME,
+				)}
 				onKeyDown={onViewportKeyDown}
 				onPointerDown={onViewportPointerDown}
 				onTouchMove={markReaderScroll}
 				onWheel={markReaderScroll}
+				ref={viewportRef}
+				style={
+					{ "--scrollbar-gutter": `${scrollbarGutter}px` } as CSSProperties
+				}
 			>
 				{hasOlder && (
-					<div className="mx-auto flex w-full max-w-3xl items-center gap-2 px-6 pt-6">
+					<div
+						className={cn(
+							CHAT_COLUMN_CLASSNAME,
+							"flex items-center gap-2 px-4 pt-4",
+						)}
+					>
 						<Button onClick={onLoadOlder} size="sm" variant="ghost">
 							<Trans>Load earlier messages</Trans>
 						</Button>
 					</div>
 				)}
-				<MessageScroller.Content className="mx-auto flex w-full max-w-3xl select-text flex-col gap-4 px-6 py-6">
+				<MessageScroller.Content
+					className={cn(
+						CHAT_COLUMN_CLASSNAME,
+						"flex select-text flex-col pt-4 pb-8",
+					)}
+				>
 					{contentChildren}
 				</MessageScroller.Content>
 			</MessageScroller.Viewport>

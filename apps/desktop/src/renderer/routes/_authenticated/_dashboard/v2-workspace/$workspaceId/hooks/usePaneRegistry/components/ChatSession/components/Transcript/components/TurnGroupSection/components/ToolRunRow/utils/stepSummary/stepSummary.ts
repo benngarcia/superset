@@ -37,14 +37,10 @@ const STEP_CONCEPT_ORDER = [
  * "ran 6 commands, edited 3 files, read 2 files": what the run did, in the
  * order it is most often done, instead of how many calls it took.
  */
-export function StepSummary({ items }: { items: readonly ToolCall[] }) {
+export function stepSummary(items: readonly ToolCall[]): string {
 	const counts = stepCounts(items);
 	const phrases = STEP_CONCEPT_ORDER.filter(
 		(concept) => counts[concept] > 0,
 	).map((concept) => stepPhrase(concept, counts[concept]));
-	return (
-		<span className="min-w-0 truncate first-letter:uppercase">
-			{formatList(phrases, { type: "unit", style: "short" })}
-		</span>
-	);
+	return formatList(phrases, { type: "unit", style: "short" });
 }

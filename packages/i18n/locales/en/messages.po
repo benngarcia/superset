@@ -246,10 +246,6 @@ msgstr "{0, plural, one {# terminal running} other {# terminals running}}"
 msgid "{0, plural, one {# workspace} other {# workspaces}}"
 msgstr "{0, plural, one {# workspace} other {# workspaces}}"
 
-#. placeholder {0}: tail.hidden
-msgid "{0, plural, one {+# more line} other {+# more lines}}"
-msgstr "{0, plural, one {+# more line} other {+# more lines}}"
-
 #. placeholder {0}: shown?.count ?? 0
 msgid "{0, plural, one {A running agent still uses the previous account — the switch only reaches new launches.} other {# running agents still use the previous account — the switch only reaches new launches.}}"
 msgstr "{0, plural, one {A running agent still uses the previous account — the switch only reaches new launches.} other {# running agents still use the previous account — the switch only reaches new launches.}}"
@@ -7862,9 +7858,6 @@ msgstr "Hide"
 msgid "Hide checks"
 msgstr "Hide checks"
 
-msgid "Hide detail"
-msgstr "Hide detail"
-
 msgid "Hide details"
 msgstr "Hide details"
 
@@ -14544,9 +14537,6 @@ msgstr "Show closed"
 msgid "Show CPU and memory usage in the top bar"
 msgstr "Show CPU and memory usage in the top bar"
 
-msgid "Show detail"
-msgstr "Show detail"
-
 msgid "Show details"
 msgstr "Show details"
 
@@ -18059,9 +18049,6 @@ msgstr "Working for {0}m {1}s"
 
 msgid "Working for {seconds}s"
 msgstr "Working for {seconds}s"
-
-msgid "Working…"
-msgstr "Working…"
 
 msgid "Works when environments are clean. Environments are rarely clean."
 msgstr "Works when environments are clean. Environments are rarely clean."

@@ -246,10 +246,6 @@ msgstr "{0, plural, one {# běžící terminál} few {# běžící terminály} m
 msgid "{0, plural, one {# workspace} other {# workspaces}}"
 msgstr "{0, plural, one {# pracovní prostor} few {# pracovní prostory} many {# pracovního prostoru} other {# pracovních prostorů}}"
 
-#. placeholder {0}: tail.hidden
-msgid "{0, plural, one {+# more line} other {+# more lines}}"
-msgstr "{0, plural, one {+# další řádek} few {+# další řádky} other {+# dalších řádků}}"
-
 #. placeholder {0}: shown?.count ?? 0
 msgid "{0, plural, one {A running agent still uses the previous account — the switch only reaches new launches.} other {# running agents still use the previous account — the switch only reaches new launches.}}"
 msgstr "{0, plural, one {# běžící agent stále používá předchozí účet — přepnutí platí jen pro nová spuštění.} few {# běžící agenti stále používají předchozí účet — přepnutí platí jen pro nová spuštění.} many {# běžícího agenta stále používá předchozí účet — přepnutí platí jen pro nová spuštění.} other {# běžících agentů stále používá předchozí účet — přepnutí platí jen pro nová spuštění.}}"
@@ -7862,9 +7858,6 @@ msgstr "Skrýt"
 msgid "Hide checks"
 msgstr "Skrýt kontroly"
 
-msgid "Hide detail"
-msgstr "Skrýt detail"
-
 msgid "Hide details"
 msgstr "Skrýt podrobnosti"
 
@@ -14544,9 +14537,6 @@ msgstr "Zobrazit uzavřené"
 msgid "Show CPU and memory usage in the top bar"
 msgstr "Zobrazovat využití CPU a paměti v horní liště"
 
-msgid "Show detail"
-msgstr "Zobrazit detail"
-
 msgid "Show details"
 msgstr "Zobrazit podrobnosti"
 
@@ -18059,9 +18049,6 @@ msgstr "Pracuje se {0} m {1} s"
 
 msgid "Working for {seconds}s"
 msgstr "Pracuje se {seconds} s"
-
-msgid "Working…"
-msgstr "Pracuji…"
 
 msgid "Works when environments are clean. Environments are rarely clean."
 msgstr "Funguje, když jsou prostředí čistá. Prostředí bývají čistá zřídka."
