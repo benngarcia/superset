@@ -11,8 +11,9 @@ import {
 } from "@superset/ui/collapsible";
 import { cn } from "@superset/ui/utils";
 import { ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { userMessageText } from "../../../../utils/userMessageText";
+import { useFitsOneLine } from "./hooks/useFitsOneLine";
 
 /**
  * A harness bookkeeping turn: one muted line with the raw block behind a
@@ -59,6 +60,8 @@ export function UserMessageRow({
 }) {
 	const text = userMessageText(item);
 	const note = readBookkeeping(harness, text);
+	const textRef = useRef<HTMLDivElement>(null);
+	const oneLine = useFitsOneLine(textRef);
 	if (note && !pending)
 		return <BookkeepingRow label={note.label} text={text} />;
 
@@ -66,14 +69,19 @@ export function UserMessageRow({
 		(content) => content.type === "attachment",
 	);
 	return (
-		<Message from="user">
+		<Message className="pt-1.5 pb-5 pl-10" from="user">
 			<MessageContent
 				className={cn(
-					"max-w-[85%] rounded-2xl transition-opacity",
+					"max-w-[min(100%,36rem)] font-sans transition-opacity group-[.is-user]:bg-foreground/10 group-[.is-user]:px-3 group-[.is-user]:py-2",
+					oneLine
+						? "group-[.is-user]:rounded-full"
+						: "group-[.is-user]:rounded-xl",
 					pending && !pending.failed && "opacity-60",
 				)}
 			>
-				<div className="whitespace-pre-wrap break-words text-sm">{text}</div>
+				<div className="whitespace-pre-wrap break-words text-sm" ref={textRef}>
+					{text}
+				</div>
 				{attachments.length > 0 && (
 					<div className="mt-1 flex flex-wrap gap-1">
 						{attachments.map((attachment) => (

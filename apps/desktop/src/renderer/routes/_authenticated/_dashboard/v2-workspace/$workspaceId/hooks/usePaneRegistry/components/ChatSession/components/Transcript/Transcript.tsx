@@ -24,9 +24,7 @@ import {
 } from "react";
 import type { ChatForkTarget } from "../../types";
 import { TurnGroupSection } from "./components/TurnGroupSection";
-import { WorkingIndicator } from "./components/WorkingIndicator";
 import { useScrollAnchorKey } from "./hooks/useScrollAnchorKey";
-import { showsWorkingIndicator } from "./utils/showsWorkingIndicator";
 import { type TranscriptRow, transcriptRows } from "./utils/transcriptRows";
 
 const REMEMBER_SIZE_CLASSNAME = "[contain-intrinsic-size:auto_240px]";
@@ -55,6 +53,24 @@ export type TranscriptProps = {
 	onRetryPrompt: (clientId: string) => void;
 	onDiscardPrompt: (clientId: string) => void;
 };
+
+function isWork(row: TranscriptRow | undefined): boolean {
+	if (!row) return false;
+	if (row.kind === "working" || row.kind === "tool_run") return true;
+	return (
+		row.kind === "item" &&
+		(row.item.kind === "tool_call" || row.item.kind === "reasoning")
+	);
+}
+
+/** Prose sits close under the work it follows and further from anything else. */
+function proseTopPadding(
+	row: TranscriptRow,
+	previous: TranscriptRow | undefined,
+): string | false {
+	if (row.kind !== "item" || row.item.kind !== "agent_message") return false;
+	return isWork(previous) ? "pt-1" : "pt-3";
+}
 
 function rowMessageId(row: TranscriptRow): string {
 	if (row.kind === "item") return row.item.id;
@@ -152,7 +168,8 @@ export function Transcript({
 				REMEMBER_SIZE_CLASSNAME,
 				index < rows.length - RECENT_ROWS_RENDERED_IN_FULL &&
 					OFFSCREEN_CLASSNAME,
-				row.groupStart && index > 0 && "mt-2",
+				"px-4 pb-1",
+				proseTopPadding(row, rows[index - 1]),
 			)}
 			key={row.key}
 			messageId={rowMessageId(row)}
@@ -172,33 +189,25 @@ export function Transcript({
 			/>
 		</MessageScroller.Item>
 	));
-	if (showsWorkingIndicator(groups)) {
-		const firstOutboxIndex = rows.findIndex((row) => row.kind === "outbox");
-		contentChildren.splice(
-			firstOutboxIndex === -1 ? rows.length : firstOutboxIndex,
-			0,
-			<WorkingIndicator key="working-indicator" />,
-		);
-	}
 
 	return (
 		<MessageScroller.Root className="relative flex min-h-0 min-w-0 flex-1 flex-col">
 			<MessageScroller.Viewport
 				aria-label={t({ message: "Messages" })}
-				className="min-h-0 flex-1 overflow-y-auto px-6 [scrollbar-gutter:stable_both-edges]"
+				className="min-h-0 flex-1 overflow-y-auto [scrollbar-gutter:stable_both-edges]"
 				onKeyDown={onViewportKeyDown}
 				onPointerDown={onViewportPointerDown}
 				onTouchMove={markReaderScroll}
 				onWheel={markReaderScroll}
 			>
 				{hasOlder && (
-					<div className="mx-auto flex w-full max-w-3xl items-center gap-2 px-6 pt-6">
+					<div className="mx-auto flex w-full max-w-4xl items-center gap-2 px-4 pt-4">
 						<Button onClick={onLoadOlder} size="sm" variant="ghost">
 							<Trans>Load earlier messages</Trans>
 						</Button>
 					</div>
 				)}
-				<MessageScroller.Content className="mx-auto flex w-full max-w-3xl select-text flex-col gap-4 px-6 py-6">
+				<MessageScroller.Content className="mx-auto flex w-full max-w-4xl select-text flex-col pt-4 pb-8">
 					{contentChildren}
 				</MessageScroller.Content>
 			</MessageScroller.Viewport>

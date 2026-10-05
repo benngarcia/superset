@@ -47,7 +47,10 @@ export function transcriptRows(
 			groupStart = false;
 		};
 		const turn = group.turn;
-		if (turn) {
+		let clockPlaced = turn === null;
+		const placeClock = () => {
+			if (clockPlaced || !turn) return;
+			clockPlaced = true;
 			push({
 				kind: "working",
 				key: `working:${group.turnId}`,
@@ -55,9 +58,12 @@ export function transcriptRows(
 				startedAtMs: turn.startedAtMs,
 				completedAtMs: turn.completedAtMs,
 			});
-		}
+		};
 		const turnSettled = turn !== null && turn.status !== "running";
 		group.entries.forEach((entry, index) => {
+			if (entry.kind !== "item" || entry.item.kind !== "user_message") {
+				placeClock();
+			}
 			if (entry.kind === "item") {
 				const clientId =
 					entry.item.kind === "user_message"
@@ -82,6 +88,7 @@ export function transcriptRows(
 					!entry.items.some((tool) => pendingApprovalTargets.has(tool.id)),
 			});
 		});
+		placeClock();
 		if (turn?.status === "failed" || turn?.status === "interrupted") {
 			push({
 				kind: "turn_status",

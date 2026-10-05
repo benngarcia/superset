@@ -44,4 +44,21 @@ describe("transcriptRows", () => {
 			attributed.filter((row) => row.kind === "item").map((row) => row.key),
 		).toEqual(["client-1"]);
 	});
+
+	test("the turn clock sits under the prompt, above the agent's work", () => {
+		const turn: TurnGroup = {
+			turnId: "t1",
+			turn: { id: "t1", status: "running", startedAtMs: 2 },
+			entries: [
+				{ kind: "item", item: prompt },
+				{
+					kind: "item",
+					item: { id: "a1", kind: "agent_message", text: "ok", startedAtMs: 3 },
+				},
+			],
+		};
+		const rows = transcriptRows([turn], [], new Set());
+		expect(rows.map((row) => row.kind)).toEqual(["item", "working", "item"]);
+		expect(rows[0]?.groupStart).toBe(true);
+	});
 });
