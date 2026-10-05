@@ -64,6 +64,8 @@ export class ConditionalGh {
 	}
 
 	exec: ExecGh = async (args, options) => {
+		// Expects one header block and a single JSON body. A GET with --paginate,
+		// or a --jq filter that prints non-JSON, cannot be parsed here: pass it through.
 		if (args[0] !== "api" || args[args.indexOf("--method") + 1] !== "GET") {
 			return this.run(args, options);
 		}
