@@ -282,6 +282,14 @@ tarball (and the CLI bundle, same gap) ships `chat-migrations/` next to
 `host-service.js`, which looks there when the env is unset. Reaches a box only
 through a host-service runtime release.
 
+**Packages host-service resolves at runtime have to be installed in the
+tarball.** The ACP harnesses find their adapter (`@agentclientprotocol/*-acp`,
+`pi-acp`) with `require.resolve`, so the bundle cannot inline it, and the
+tarball installed only the natives. The harness registry came up empty and ACP
+chat on a box failed with `unknown harness claude-acp`. Fixed: the runtime bake
+installs each adapter at host-service's pinned version and fails if one is
+missing. The CLI bundle has the same gap.
+
 ## Lifecycle
 
 **Delete was not wired.** The generic delete routed to the owning host, which
