@@ -272,7 +272,7 @@ async function wallpapers(): Promise<void> {
 // --- host-service runtime -------------------------------------------------
 /**
  * The runtime tarball: host-service's bundle, its and chat.db's migrations, the agent
- * templates, pty-daemon, the native modules installed for linux/amd64 against
+ * templates, pty-daemon, the ACP adapters, the native modules installed for linux/amd64 against
  * the image's Node, and a pre-migrated host.db template so first boot copies
  * a file instead of running migrations. Built in the image's own Node so the
  * natives match.
@@ -284,11 +284,17 @@ function hostService(): void {
 			"utf8",
 		),
 	) as { version: string; dependencies: Record<string, string> };
-	const natives = ["better-sqlite3", "node-pty"].map((dep) => {
+	const pinned = (dep: string) => {
 		const version = pkg.dependencies[dep];
 		if (!version) throw new Error(`${dep} is not a host-service dependency`);
 		return `${dep}@${version}`;
-	});
+	};
+	const natives = ["better-sqlite3", "node-pty"].map(pinned);
+	const acpAdapters = [
+		"@agentclientprotocol/claude-agent-acp",
+		"@agentclientprotocol/codex-acp",
+		"pi-acp",
+	];
 	for (const [dir, script] of [
 		["packages/host-service", "build:host"],
 		["packages/pty-daemon", "build:daemon"],
@@ -326,8 +332,12 @@ function hostService(): void {
 			// host-service resolves the daemon side by side with itself, the way the desktop ships it.
 			"cp /out/stage/pty-daemon/pty-daemon.js /rt/pty-daemon.js",
 			"cd /rt && npm init -y >/dev/null && npm pkg set type=module >/dev/null",
-			`npm install ${natives.join(" ")} @parcel/watcher @xterm/headless --no-audit --no-fund >/dev/null`,
+			`npm install ${[...natives, ...acpAdapters.map(pinned)].join(" ")} @parcel/watcher @xterm/headless --no-audit --no-fund >/dev/null`,
 			"test -d node_modules/node-pty/prebuilds/linux-x64 || (echo 'node-pty prebuild missing' && exit 1)",
+			...acpAdapters.map(
+				(adapter) =>
+					`test -f node_modules/${adapter}/dist/index.js || (echo '${adapter} missing' && exit 1)`,
+			),
 			// chat.db migrates on the first /chat-v3 request, after release: apply every journaled migration here.
 			'cd /rt && node -e \'const fs=require("node:fs");const D=require("better-sqlite3");const d=new D(":memory:");for(const e of JSON.parse(fs.readFileSync("/rt/chat-migrations/meta/_journal.json","utf8")).entries)d.exec(fs.readFileSync("/rt/chat-migrations/"+e.tag+".sql","utf8").replaceAll("--> statement-breakpoint",""));d.close()\'',
 			// The schema, baked: run host-service once against a throwaway path so the template carries every migration.
