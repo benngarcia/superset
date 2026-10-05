@@ -8,6 +8,7 @@ import {
 } from "@superset/ui/collapsible";
 import { cn } from "@superset/ui/utils";
 import {
+	CircleDashed,
 	FileText,
 	FileX,
 	Globe,
@@ -23,7 +24,6 @@ import { useMemo, useState } from "react";
 import { fileChangeOf } from "../../utils/fileChange";
 import { ToolContentList } from "../ToolContentList";
 import { FileChangeTitle } from "./components/FileChangeTitle";
-import { RunningRing } from "./components/RunningRing";
 import { StatusWord } from "./components/StatusWord";
 import { durationLabel } from "./utils/durationLabel";
 import { outputTail } from "./utils/outputTail";
@@ -87,7 +87,10 @@ export function ToolCallRow({ item }: { item: ToolCall }) {
 		>
 			<div className="flex items-center gap-2 py-0.5 text-muted-foreground text-sm">
 				{running ? (
-					<RunningRing className="size-3.5 shrink-0" />
+					<CircleDashed
+						className="size-3.5 shrink-0 animate-spin-slow text-foreground/40 motion-reduce:animate-none"
+						strokeWidth={1.75}
+					/>
 				) : (
 					<Icon className="size-3.5 shrink-0" />
 				)}
