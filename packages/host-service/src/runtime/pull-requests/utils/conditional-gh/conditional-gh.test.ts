@@ -246,3 +246,142 @@ describe("conditional GitHub REST requests", () => {
 		expect(calls[1]?.args).not.toContain("--header");
 	});
 });
+
+function ghOutput(status: string, headers: Record<string, string>, body = "") {
+	const lines = Object.entries(headers).map(
+		([name, value]) => `${name}: ${value}\r\n`,
+	);
+	return `${status}\n${lines.join("")}\r\n${body}`;
+}
+
+const EXPOSE = "ETag, Link, Location, Retry-After, X-RateLimit-Used";
+
+function ghNotModified(etag: string, proto = "HTTP/2.0") {
+	return Object.assign(new Error("Command failed: gh api"), {
+		code: 1,
+		stdout: ghOutput(`${proto} 304 Not Modified`, {
+			"Access-Control-Expose-Headers": EXPOSE,
+			Etag: etag,
+		}),
+		stderr: "unexpected end of JSON input\n",
+	});
+}
+
+describe("gh api --include output shapes", () => {
+	test("reads gh's LF status line, CRLF headers and an ETag named in another header", async () => {
+		const { run, calls } = createRunner([
+			ghOutput(
+				"HTTP/2.0 200 OK",
+				{ "Access-Control-Expose-Headers": EXPOSE, Etag: 'W/"abc"' },
+				'[{"number":1}]',
+			),
+			ghNotModified('"abc"'),
+		]);
+		const gh = new ConditionalGh(run);
+		expect(await gh.exec(GET)).toEqual([{ number: 1 }]);
+		expect(await gh.exec(GET)).toEqual([{ number: 1 }]);
+		expect(calls[1]?.args).toContain('If-None-Match: W/"abc"');
+	});
+
+	test("reads HTTP/1.1 responses with a lowercase etag header", async () => {
+		const { run, calls } = createRunner([
+			ghOutput("HTTP/1.1 200 OK", { etag: '"ghe"' }, "[]"),
+			ghNotModified('"ghe"', "HTTP/1.1"),
+		]);
+		const gh = new ConditionalGh(run);
+		await gh.exec(GET);
+		expect(await gh.exec(GET)).toEqual([]);
+		expect(calls[1]?.args).toContain('If-None-Match: "ghe"');
+	});
+
+	test("keeps the stored weak validator when a 304 echoes its strong form", async () => {
+		const { run, calls } = createRunner([
+			ghOutput("HTTP/2.0 200 OK", { Etag: 'W/"abc"' }, "[]"),
+			ghNotModified('"abc"'),
+			ghNotModified('"abc"'),
+		]);
+		const gh = new ConditionalGh(run);
+		await gh.exec(GET);
+		await gh.exec(GET);
+		await gh.exec(GET);
+		expect(calls[2]?.args).toContain('If-None-Match: W/"abc"');
+	});
+
+	test("accepts a 304 from a gh that exits 0", async () => {
+		const { run } = createRunner([
+			ghOutput("HTTP/2.0 200 OK", { Etag: '"abc"' }, '{"a":1}'),
+			ghOutput("HTTP/2.0 304 Not Modified", { Etag: '"abc"' }),
+		]);
+		const gh = new ConditionalGh(run);
+		await gh.exec(GET);
+		expect(await gh.exec(GET)).toEqual({ a: 1 });
+	});
+
+	test("sends back the joined value when gh merges several etag headers", async () => {
+		const { run, calls } = createRunner([
+			ghOutput("HTTP/2.0 200 OK", { Etag: 'W/"a", W/"b"' }, "[]"),
+			ghNotModified('"a"'),
+		]);
+		const gh = new ConditionalGh(run);
+		await gh.exec(GET);
+		expect(await gh.exec(GET)).toEqual([]);
+		expect(calls[1]?.args).toContain('If-None-Match: W/"a", W/"b"');
+	});
+
+	test("round-trips a null body through a 304", async () => {
+		const { run } = createRunner([
+			ghOutput("HTTP/2.0 200 OK", { Etag: '"n"' }, "null"),
+			ghNotModified('"n"'),
+		]);
+		const gh = new ConditionalGh(run);
+		expect(await gh.exec(GET)).toBeNull();
+		expect(await gh.exec(GET)).toBeNull();
+	});
+
+	test("serves a 304 whose entry was evicted while the request was in flight", async () => {
+		const pending = Promise.withResolvers<unknown>();
+		const { run } = createRunner([
+			ghOutput("HTTP/2.0 200 OK", { Etag: '"a"' }, "[1]"),
+			pending.promise,
+			ghOutput("HTTP/2.0 200 OK", { Etag: '"b"' }, "[2]"),
+		]);
+		const gh = new ConditionalGh(run, { maxEntries: 1, maxBytes: 4096 });
+		await gh.exec(GET);
+		const revalidation = gh.exec(GET);
+		await gh.exec([...GET, "-f", "head=owner:other"]);
+		pending.reject(ghNotModified('"a"'));
+		expect(await revalidation).toEqual([1]);
+	});
+
+	test("serves concurrent identical revalidations from one entry", async () => {
+		const { run, calls } = createRunner([
+			ghOutput("HTTP/2.0 200 OK", { Etag: '"a"' }, "[1]"),
+			ghNotModified('"a"'),
+			ghNotModified('"a"'),
+		]);
+		const gh = new ConditionalGh(run);
+		await gh.exec(GET);
+		expect(await Promise.all([gh.exec(GET), gh.exec(GET)])).toEqual([[1], [1]]);
+		expect(
+			calls.slice(1).every(({ args }) => args.includes('If-None-Match: "a"')),
+		).toBe(true);
+	});
+
+	test("does not serve a cached body when revalidation hits a server error", async () => {
+		const failure = Object.assign(new Error("Command failed: gh api"), {
+			code: 1,
+			stdout: ghOutput(
+				"HTTP/2.0 502 Bad Gateway",
+				{ "Content-Type": "application/json" },
+				'{"message":"Server Error"}',
+			),
+		});
+		const { run } = createRunner([
+			ghOutput("HTTP/2.0 200 OK", { Etag: '"a"' }, "[1]"),
+			failure,
+		]);
+		const gh = new ConditionalGh(run);
+		await gh.exec(GET);
+		await expect(gh.exec(GET)).rejects.toBe(failure);
+	});
+});
