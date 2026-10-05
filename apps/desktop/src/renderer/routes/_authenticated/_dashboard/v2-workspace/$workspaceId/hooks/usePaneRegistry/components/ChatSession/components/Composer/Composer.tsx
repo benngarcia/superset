@@ -21,6 +21,7 @@ import {
 	useMemo,
 	useRef,
 } from "react";
+import { useHotkey } from "renderer/hotkeys";
 import { AgentComposer } from "renderer/routes/_authenticated/components/AgentComposer";
 import { CHAT_COLUMN_CLASSNAME, CHAT_GUTTER_CLASSNAME } from "../../constants";
 import { ModelPicker } from "./components/ModelPicker";
@@ -107,11 +108,20 @@ export const Composer = memo(function Composer({
 		runningTurnId,
 		onSteer: queueActions.onSteer,
 	});
+	useHotkey("FOCUS_CHAT_INPUT", () => promptInputRef.current?.focus(), {
+		enabled: Boolean(isActive),
+	});
+	useHotkey(
+		"CHAT_ADD_ATTACHMENT",
+		() => promptInputRef.current?.openFileDialog(),
+		{ enabled: Boolean(isActive) },
+	);
 	useEffect(() => {
 		if (!isActive) return;
 		const onKeyDown = (event: KeyboardEvent) => {
 			if (event.key !== "/" || event.defaultPrevented) return;
 			if (event.metaKey || event.ctrlKey || event.altKey) return;
+			if (event.isComposing || event.getModifierState("AltGraph")) return;
 			const target = event.target;
 			if (
 				target instanceof HTMLElement &&
