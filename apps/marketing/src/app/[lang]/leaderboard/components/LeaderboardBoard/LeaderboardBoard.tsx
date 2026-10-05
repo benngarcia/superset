@@ -55,6 +55,7 @@ export function LeaderboardBoard({
 	const [loadMoreError, setLoadMoreError] = useState(false);
 	const [error, setError] = useState(!initialStandings);
 	const [searchError, setSearchError] = useState(false);
+	const [searchAttempt, setSearchAttempt] = useState(0);
 	const [search, setSearch] = useState("");
 	const [viewerHandle, setViewerHandle] = useState<string | null>(null);
 	const [pinned, setPinned] = useState<StandingRow | null>(null);
@@ -75,6 +76,7 @@ export function LeaderboardBoard({
 	const [searching, setSearching] = useState(false);
 	const queryGeneration = useRef(0);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: Retry the same query when searchAttempt changes.
 	useEffect(() => {
 		const term = search.trim();
 		if (term.length === 0) {
@@ -108,7 +110,7 @@ export function LeaderboardBoard({
 			clearTimeout(timer);
 			controller.abort();
 		};
-	}, [search, selection, metric]);
+	}, [search, selection, metric, searchAttempt]);
 
 	useEffect(() => {
 		let live = true;
@@ -254,6 +256,10 @@ export function LeaderboardBoard({
 					<button
 						type="button"
 						onClick={() => {
+							if (searchingByName) {
+								setSearchAttempt((attempt) => attempt + 1);
+								return;
+							}
 							setTouched(true);
 							setSelection((value) => ({ ...value }));
 						}}
