@@ -45,6 +45,39 @@ describe("EventBus agent binding events", () => {
 	});
 });
 
+describe("EventBus chat session events", () => {
+	it("broadcasts chat session changes to every client", () => {
+		const eventBus = createEventBus();
+		const sentMessages: string[] = [];
+		eventBus.handleOpen({
+			readyState: 1,
+			send(data: string) {
+				sentMessages.push(data);
+			},
+			close() {},
+		});
+
+		eventBus.broadcastChatSessionChanged({
+			sessionId: "session-1",
+			workspaceId: "workspace-1",
+			status: "idle",
+			removed: false,
+			occurredAt: 1_700_000_000_000,
+		});
+
+		expect(sentMessages.map((data) => JSON.parse(data))).toEqual([
+			{
+				type: "chat:session-changed",
+				sessionId: "session-1",
+				workspaceId: "workspace-1",
+				status: "idle",
+				removed: false,
+				occurredAt: 1_700_000_000_000,
+			},
+		]);
+	});
+});
+
 describe("EventBus port events", () => {
 	it("broadcasts port changes from the shared port manager and removes listeners on close", () => {
 		const eventBus = createEventBus();

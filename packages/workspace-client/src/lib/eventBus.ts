@@ -399,10 +399,14 @@ function handleMessage(state: ConnectionState, data: unknown): void {
 				occurredAt: message.occurredAt,
 			});
 		} else if (message.type === "chat:session-changed") {
-			const { type: _type, workspaceId, ...payload } = message;
 			(entry.callback as EventListener<"chat:session-changed">)(
-				workspaceId,
-				payload,
+				message.workspaceId,
+				{
+					sessionId: message.sessionId,
+					status: message.status,
+					removed: message.removed,
+					occurredAt: message.occurredAt,
+				},
 			);
 		} else if (message.type === "tag-folders:changed") {
 			(entry.callback as EventListener<"tag-folders:changed">)(message.scope, {

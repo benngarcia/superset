@@ -213,7 +213,6 @@ export function createApp(options: CreateAppOptions): CreateAppResult {
 
 	const eventBus = new EventBus({ db, filesystem, gitWatcher });
 	eventBus.start();
-
 	// Post-construction wiring (pullRequestRuntime is built before the
 	// EventBus): newly created workspaces get their first branch/upstream sync
 	// + PR link immediately instead of waiting for the 5-min safety net.
@@ -227,11 +226,12 @@ export function createApp(options: CreateAppOptions): CreateAppResult {
 	const chatV3 = createChatV3Mount({
 		db,
 		dbPath: config.dbPath,
-		onSessionChanged: ({ sessionId, scopeId, status }) =>
+		onSessionChanged: ({ sessionId, scopeId, status, removed }) =>
 			eventBus.broadcastChatSessionChanged({
 				sessionId,
 				workspaceId: scopeId,
 				status,
+				removed,
 				occurredAt: Date.now(),
 			}),
 	});

@@ -137,12 +137,36 @@ describe("ChatJournal", () => {
 		watched.journal.discard(SESSION);
 
 		expect(changes).toEqual(
-			(["starting", "running", "idle", "dead"] as const).map((status) => ({
+			(
+				[
+					["starting", false],
+					["running", false],
+					["idle", false],
+					["idle", true],
+				] as const
+			).map(([status, removed]) => ({
 				sessionId: SESSION,
 				scopeId: "workspace-1",
 				status,
+				removed,
 			})),
 		);
+	});
+
+	test("a throwing session listener does not fail the append", () => {
+		const watched = createTestRuntime({
+			onSessionChanged: () => {
+				throw new Error("listener failed");
+			},
+		});
+		watched.journal.open(init());
+		const cursor = watched.journal.append(SESSION, {
+			type: "session",
+			session: sessionState({ status: "running" }),
+		});
+
+		expect(cursor.seq).toBe(1);
+		expect(watched.sessions.get(SESSION)?.status).toBe("running");
 	});
 
 	test("projects queued_count from queued user messages", () => {

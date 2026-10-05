@@ -4,10 +4,7 @@ import type {
 	DurableEvent,
 	SessionStatus,
 } from "@superset/chat/protocol";
-import {
-	durableEventSchema,
-	sessionStatusSchema,
-} from "@superset/chat/protocol";
+import { durableEventSchema } from "@superset/chat/protocol";
 import { eq } from "drizzle-orm";
 import type { ChatDb } from "../../db";
 import { chatJournal } from "../../db";
@@ -31,6 +28,7 @@ export type ChatSessionChange = {
 	sessionId: string;
 	scopeId: string;
 	status: SessionStatus;
+	removed: boolean;
 };
 
 export type ChatJournalOptions = {
@@ -42,12 +40,12 @@ type SessionCache = {
 	epoch: string;
 	lastSeq: number;
 	queuedItemIds: Set<string>;
-	status: string;
+	status: SessionStatus;
 	title: string | null;
 };
 
 type NextProjection = {
-	status: string;
+	status: SessionStatus;
 	title: string | null;
 	queuedItemIds: Set<string>;
 };
@@ -66,7 +64,12 @@ export class ChatJournal {
 		this.sessions.delete(init.sessionId);
 		const cache = this.cacheFor(init.sessionId, epoch);
 		if (cache.status !== previousStatus) {
-			this.notify(init.sessionId, cache.scopeId, cache.status);
+			this.notify({
+				sessionId: init.sessionId,
+				scopeId: cache.scopeId,
+				status: cache.status,
+				removed: false,
+			});
 		}
 		return {
 			sessionId: init.sessionId,
@@ -111,7 +114,14 @@ export class ChatJournal {
 		cache.status = next.status;
 		cache.title = next.title;
 		cache.queuedItemIds = next.queuedItemIds;
-		if (statusChanged) this.notify(sessionId, cache.scopeId, next.status);
+		if (statusChanged) {
+			this.notify({
+				sessionId,
+				scopeId: cache.scopeId,
+				status: next.status,
+				removed: false,
+			});
+		}
 
 		return {
 			v: 1,
@@ -141,17 +151,22 @@ export class ChatJournal {
 				.run();
 			removeSessionRow(this.db, sessionId);
 		});
-		if (row) this.notify(sessionId, row.scopeId, "dead");
+		if (row) {
+			this.notify({
+				sessionId,
+				scopeId: row.scopeId,
+				status: row.status,
+				removed: true,
+			});
+		}
 	}
 
-	private notify(sessionId: string, scopeId: string, status: string): void {
-		const parsed = sessionStatusSchema.safeParse(status);
-		if (!parsed.success) return;
-		this.options.onSessionChanged?.({
-			sessionId,
-			scopeId,
-			status: parsed.data,
-		});
+	private notify(change: ChatSessionChange): void {
+		try {
+			this.options.onSessionChanged?.(change);
+		} catch (error) {
+			console.error("[chat-journal] onSessionChanged listener failed", error);
+		}
 	}
 
 	private projectionFor(

@@ -245,6 +245,7 @@ export interface ChatSessionChangedMessage {
 	sessionId: string;
 	workspaceId: string;
 	status: SessionStatus;
+	removed: boolean;
 	occurredAt: number;
 }
 

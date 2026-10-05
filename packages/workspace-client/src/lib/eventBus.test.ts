@@ -96,6 +96,7 @@ describe("eventBus", () => {
 			sessionId: "s-2",
 			workspaceId: "ws-2",
 			status: "idle",
+			removed: false,
 			occurredAt: 1,
 		});
 		host.push({
@@ -103,11 +104,15 @@ describe("eventBus", () => {
 			sessionId: "s-1",
 			workspaceId: "ws-1",
 			status: "running",
+			removed: false,
 			occurredAt: 2,
 		});
 		await waitFor(() => received.length === 1);
 		expect(received).toEqual([
-			["ws-1", { sessionId: "s-1", status: "running", occurredAt: 2 }],
+			[
+				"ws-1",
+				{ sessionId: "s-1", status: "running", removed: false, occurredAt: 2 },
+			],
 		]);
 	});
 
