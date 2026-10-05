@@ -8,6 +8,7 @@ A plugin ships no code. It is a folder with a manifest and, if you want, some sk
 ```text
 plugins/my-plugin/
 ├── plugin.json          # name, version, and where the tools come from
+├── package.json
 └── skills/
     └── my-plugin-workflow/
         └── SKILL.md     # when and how the agent uses the tools
@@ -21,7 +22,17 @@ Plugins in your own marketplace deliver their **skills** to agents. MCP tools re
 
 ## 1. Scaffold the plugin
 
-Run this from the root of a marketplace repository: a repo with `.agent-marketplace.json` at its root.
+Run this from the root of a marketplace repository. A marketplace repository has `.agent-marketplace.json` at its root. If yours does not have one yet, create it:
+
+```json
+{
+	"$schema": "https://superset.sh/schemas/marketplace/1.0.0.json",
+	"name": "my-marketplace",
+	"description": "Plugins from my team.",
+	"owner": { "name": "My Team" },
+	"plugins": []
+}
+```
 
 ```bash
 # Tools from a remote MCP server
@@ -31,7 +42,7 @@ superset plugins create my-plugin --kind url --url https://mcp.example.com/mcp -
 superset plugins create my-plugin --kind none --skills
 ```
 
-This creates `plugins/my-plugin/` and adds the plugin to `.agent-marketplace.json`.
+This creates `plugins/my-plugin/` at version `0.1.0` and adds the plugin to `.agent-marketplace.json`. With `--skills`, the starter skill is `skills/my-plugin-workflow/`. Rename its folder to describe what it does, because the installed name is `<plugin>-<skill>`.
 
 | Option | Use |
 |:-------|:----|
@@ -41,7 +52,7 @@ This creates `plugins/my-plugin/` and adds the plugin to `.agent-marketplace.jso
 | `--connector` | The connection the tools need, for example `linear_mcp` |
 | `--display-name` | The name shown in the app |
 | `--description` | One line shown in the app |
-| `--category` | The category shown in the app |
+| `--category` | One of `Productivity`, `Communication`, `Developer tools`, `Design`, or `Data & APIs` |
 
 ## 2. Edit the manifest
 
@@ -51,7 +62,7 @@ This creates `plugins/my-plugin/` and adds the plugin to `.agent-marketplace.jso
 {
 	"$schema": "https://superset.sh/schemas/plugin/1.0.0.json",
 	"name": "my-plugin",
-	"version": "1.0.0",
+	"version": "0.1.0",
 	"description": "One line about what the agent can do with it.",
 	"author": { "name": "Your Name" },
 	"license": "MIT",
@@ -63,6 +74,9 @@ This creates `plugins/my-plugin/` and adds the plugin to `.agent-marketplace.jso
 				"icon": "my-plugin"
 			},
 			"connector": { "slug": "my_connector" },
+			"bind": {
+				"headers": { "Authorization": "Bearer ${config.access_token}" }
+			},
 			"mcp": {
 				"type": "streamable-http",
 				"url": "https://mcp.example.com/mcp"
@@ -75,10 +89,11 @@ This creates `plugins/my-plugin/` and adds the plugin to `.agent-marketplace.jso
 | Field | What it is |
 |:------|:-----------|
 | `interface` | How the plugin looks in the app: `displayName`, `category`, and `icon` |
-| `connector` | The account connection the tools need. Leave it out if the tools need no account |
+| `connector` | The account connection the tools need, by the slug of a Superset connector. Leave it out if the tools need no account |
+| `bind` | How the connection's credential goes on each call. Superset fills in `${config.access_token}` when it proxies the call |
 | `mcp` | The service's MCP server. A plugin gets its tools from one server only |
 
-The manifest holds no OAuth settings. Superset finds the sign-in endpoints from the MCP server when the user connects.
+The manifest holds no OAuth settings. The connector you name owns sign-in, token refresh, and disconnect.
 
 ## 3. Write skills
 
@@ -102,7 +117,7 @@ The `description` decides when the agent loads the skill, so say what the skill 
 Validate the manifest, then add your working tree as a marketplace and install from it:
 
 ```bash
-superset plugins validate my-plugin
+superset plugins validate plugins/my-plugin
 superset plugins marketplace add ./path/to/your/repo
 superset plugins install my-plugin
 ```
@@ -115,8 +130,8 @@ A release is a git tag. Bump the version, commit, and push the tag:
 
 ```bash
 superset plugins publish my-plugin --bump patch
-git commit -am "publish my-plugin@1.0.1"
-git tag my-plugin@1.0.1 && git push --tags
+git commit -am "publish my-plugin@0.1.1"
+git tag my-plugin@0.1.1 && git push --tags
 ```
 
 Users install the plugin from your repository:
