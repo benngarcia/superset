@@ -220,6 +220,7 @@ export class AcpAdapter implements HarnessAdapter {
 	private agentCapabilities: Record<string, unknown> = {};
 	/** The v2 config option that stands in for v1's session mode, once seen. */
 	private modeConfigId: string | null = null;
+	private modeId: string | undefined;
 	private readonly selectionsInFlight = new Set<Promise<void>>();
 	private configOptions: SessionConfigOption[] = [];
 	private replaying = false;
@@ -269,6 +270,7 @@ export class AcpAdapter implements HarnessAdapter {
 	}
 
 	setMode(modeId: string): void {
+		const previous = this.modeId;
 		this.emitSession({ modeId });
 		if (!this.client || !this.sessionId) return;
 		// v2 dropped session/set_mode outright: a mode is a config option there,
@@ -286,9 +288,12 @@ export class AcpAdapter implements HarnessAdapter {
 						modeId,
 					});
 		this.trackSelection(pending);
-		void pending.catch((error: Error) =>
-			this.emitNotice("error", error.message),
-		);
+		void pending.catch((error: Error) => {
+			if (previous && this.modeId === modeId) {
+				this.emitSession({ modeId: previous });
+			}
+			this.emitNotice("error", error.message);
+		});
 	}
 
 	private trackSelection(request: Promise<unknown>): void {
@@ -304,16 +309,22 @@ export class AcpAdapter implements HarnessAdapter {
 	private async selectionsApplied(): Promise<void> {
 		if (this.selectionsInFlight.size === 0) return;
 		let timer: ReturnType<typeof setTimeout> | undefined;
-		await Promise.race([
-			Promise.all(this.selectionsInFlight),
-			new Promise<void>((resolve) => {
+		const confirmed = await Promise.race([
+			Promise.all(this.selectionsInFlight).then(() => true),
+			new Promise<boolean>((resolve) => {
 				timer = setTimeout(
-					resolve,
+					() => resolve(false),
 					this.options.selectionWaitMs ?? SELECTION_WAIT_MS,
 				);
 			}),
 		]);
 		clearTimeout(timer);
+		if (!confirmed) {
+			this.emitNotice(
+				"error",
+				"The agent did not confirm a mode or model change. This turn can run with the previous setting.",
+			);
+		}
 	}
 
 	setConfigOption(configId: string, value: string): void {
@@ -321,6 +332,8 @@ export class AcpAdapter implements HarnessAdapter {
 		const sessionId = this.sessionId;
 		if (!client || !sessionId) return;
 		const previous = this.configOptions;
+		const previousModeId =
+			configId === this.modeConfigId ? this.modeId : undefined;
 		this.configOptions = previous.map((option) =>
 			option.id === configId ? { ...option, currentValue: value } : option,
 		);
@@ -339,7 +352,10 @@ export class AcpAdapter implements HarnessAdapter {
 			.then((response) => this.handleConfigOptions(response))
 			.catch((error: Error) => {
 				this.configOptions = previous;
-				this.emitSession({ configOptions: previous });
+				this.emitSession({
+					configOptions: previous,
+					...(previousModeId ? { modeId: previousModeId } : {}),
+				});
 				this.emitNotice("error", error.message);
 			});
 	}
@@ -1244,6 +1260,7 @@ export class AcpAdapter implements HarnessAdapter {
 	}
 
 	private emitSession(session: Partial<SessionState>): void {
+		if (session.modeId) this.modeId = session.modeId;
 		this.emit({ kind: "session", session });
 	}
 

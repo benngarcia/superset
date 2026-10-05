@@ -29,6 +29,7 @@ class FakeAcpAgent {
 	loadConfigOptions: Array<Record<string, unknown>> | null = null;
 	/** Hold mode and option answers until `releaseSelections`. */
 	holdSelections = false;
+	rejectSelections = false;
 	private heldSelections: number[] = [];
 	private handlers!: AcpTransportHandlers;
 
@@ -115,8 +116,17 @@ class FakeAcpAgent {
 				frame.method === "session/set_config_option" ||
 				frame.method === "session/set_mode"
 			) {
-				if (this.holdSelections) this.heldSelections.push(frame.id as number);
-				else this.respond(frame.id as number, null);
+				if (this.rejectSelections) {
+					this.deliver({
+						jsonrpc: "2.0",
+						id: frame.id,
+						error: { code: -32602, message: "mode not allowed" },
+					});
+				} else if (this.holdSelections) {
+					this.heldSelections.push(frame.id as number);
+				} else {
+					this.respond(frame.id as number, null);
+				}
 			} else if (frame.method === "session/fork") {
 				this.respond(frame.id as number, { sessionId: "sess-forked" });
 			} else if (frame.method === "session/load" && this.loadFails) {
@@ -1017,6 +1027,77 @@ describe("AcpAdapter on protocol v2", () => {
 		expect(methods().indexOf("session/prompt")).toBeGreaterThan(
 			methods().indexOf("session/set_config_option"),
 		);
+
+		await adapter.dispose();
+	});
+
+	it("puts the mode back when the agent rejects a change", async () => {
+		const agent = new FakeAcpAgent();
+		agent.newSessionConfigOptions = [
+			{
+				configId: "mode",
+				name: "Mode",
+				type: "select",
+				category: "mode",
+				currentValue: "bypassPermissions",
+				options: [
+					{ value: "default", name: "Ask for approval" },
+					{ value: "bypassPermissions", name: "Full access" },
+				],
+			},
+		];
+		const { adapter, events } = startAdapter(agent);
+		await flush();
+
+		agent.rejectSelections = true;
+		adapter.setMode("default");
+		await flush();
+
+		expect(sessionsOf(events).pop()?.modeId).toBe("bypassPermissions");
+		expect(
+			itemsOf(events).some(
+				(item) => item.kind === "notice" && item.noticeKind === "error",
+			),
+		).toBe(true);
+
+		await adapter.dispose();
+	});
+
+	it("says so when a prompt goes out before a change is confirmed", async () => {
+		const agent = new FakeAcpAgent();
+		agent.holdSelections = true;
+		agent.newSessionConfigOptions = [
+			{
+				configId: "mode",
+				name: "Mode",
+				type: "select",
+				category: "mode",
+				currentValue: "default",
+				options: [
+					{ value: "default", name: "Ask for approval" },
+					{ value: "bypassPermissions", name: "Full access" },
+				],
+			},
+		];
+		const { adapter, events } = startAdapter(
+			agent,
+			undefined,
+			{},
+			{ defaultModeId: "bypassPermissions", selectionWaitMs: 5 },
+		);
+		adapter.prompt([{ type: "text", text: "go" }]);
+		await Bun.sleep(20);
+		await flush();
+
+		expect(agent.sent.map((f) => f.method)).toContain("session/prompt");
+		expect(
+			itemsOf(events).some(
+				(item) =>
+					item.kind === "notice" &&
+					typeof item.text === "string" &&
+					item.text.includes("did not confirm a mode or model change"),
+			),
+		).toBe(true);
 
 		await adapter.dispose();
 	});
