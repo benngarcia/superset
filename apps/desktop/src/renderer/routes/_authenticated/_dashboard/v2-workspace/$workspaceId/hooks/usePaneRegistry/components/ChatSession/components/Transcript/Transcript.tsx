@@ -14,6 +14,7 @@ import { ScrollToBottomButton } from "@superset/chat-ui/ScrollToBottomButton";
 import { Button } from "@superset/ui/button";
 import { cn } from "@superset/ui/utils";
 import {
+	type KeyboardEvent,
 	type PointerEvent,
 	useCallback,
 	useEffect,
@@ -31,6 +32,15 @@ import { type TranscriptRow, transcriptRows } from "./utils/transcriptRows";
 const REMEMBER_SIZE_CLASSNAME = "[contain-intrinsic-size:auto_240px]";
 const OFFSCREEN_CLASSNAME = "[content-visibility:auto]";
 const RECENT_ROWS_RENDERED_IN_FULL = 30;
+const SCROLL_KEYS = new Set([
+	"ArrowDown",
+	"ArrowUp",
+	"End",
+	"Home",
+	"PageDown",
+	"PageUp",
+	" ",
+]);
 
 export type TranscriptProps = {
 	groups: TurnGroup[];
@@ -79,6 +89,12 @@ export function Transcript({
 	const markReaderScroll = useCallback(() => {
 		readerScrolledAway.current = true;
 	}, []);
+	const onViewportKeyDown = useCallback(
+		(event: KeyboardEvent<HTMLDivElement>) => {
+			if (SCROLL_KEYS.has(event.key)) readerScrolledAway.current = true;
+		},
+		[],
+	);
 	const onViewportPointerDown = useCallback(
 		(event: PointerEvent<HTMLDivElement>) => {
 			if (event.target !== event.currentTarget) return;
@@ -169,6 +185,7 @@ export function Transcript({
 			<MessageScroller.Viewport
 				aria-label={t({ message: "Messages" })}
 				className="min-h-0 flex-1 overflow-y-auto px-6 [scrollbar-gutter:stable_both-edges]"
+				onKeyDown={onViewportKeyDown}
 				onPointerDown={onViewportPointerDown}
 				onTouchMove={markReaderScroll}
 				onWheel={markReaderScroll}
