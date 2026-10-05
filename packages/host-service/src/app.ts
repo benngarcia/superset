@@ -188,13 +188,6 @@ export function createApp(options: CreateAppOptions): CreateAppResult {
 	});
 	pullRequestRuntime.start();
 
-	// Chat v3 runtime (plans/chat-v3-pane-mount.md). Registered unconditionally:
-	// the routes sit behind the same auth as every other host route, and the
-	// runtime is built on first request, so chat.db is never created on a host
-	// nobody chats with. Exposure is a client concern — the renderer gates the
-	// pane on the `chat-v3` PostHog flag.
-	const chatV3 = createChatV3Mount({ db, dbPath: config.dbPath });
-
 	const app = new Hono();
 	const { injectWebSocket, upgradeWebSocket } = createNodeWebSocket({ app });
 
@@ -218,6 +211,17 @@ export function createApp(options: CreateAppOptions): CreateAppResult {
 	// EventBus): newly created workspaces get their first branch/upstream sync
 	// + PR link immediately instead of waiting for the 5-min safety net.
 	pullRequestRuntime.subscribeToWorkspaceEvents(eventBus);
+
+	// Chat v3 runtime (plans/chat-v3-pane-mount.md). Registered unconditionally:
+	// the routes sit behind the same auth as every other host route, and the
+	// runtime is built on first request, so chat.db is never created on a host
+	// nobody chats with. Exposure is a client concern — the renderer gates the
+	// pane on the `chat-v3` PostHog flag.
+	const chatV3 = createChatV3Mount({
+		db,
+		dbPath: config.dbPath,
+		onSessionChanged: (change) => eventBus.broadcastChatSessionChanged(change),
+	});
 
 	const terminalAgentPersistence = new SqliteTerminalAgentBindingPersistence(
 		db,

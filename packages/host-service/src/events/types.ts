@@ -1,3 +1,4 @@
+import type { SessionStatus } from "@superset/chat/protocol";
 import type { DetectedPort } from "@superset/port-scanner";
 import type { AgentIdentity } from "@superset/shared/agent-identity";
 import type { WorkspaceTagAssignment } from "@superset/shared/workspace-tags";
@@ -45,6 +46,20 @@ export interface AgentLifecycleMessage {
 export interface AgentBindingsChangedMessage {
 	type: "agent:bindings-changed";
 	workspaceId: string;
+	occurredAt: number;
+}
+
+/**
+ * A chat-v3 session was created, changed status, or was closed. `status` is
+ * the value `listSessions` returns; `live` is false once the session is
+ * closed, as in `getSession`.
+ */
+export interface ChatSessionChangedMessage {
+	type: "chat:session-changed";
+	sessionId: string;
+	workspaceId: string;
+	status: SessionStatus;
+	live: boolean;
 	occurredAt: number;
 }
 
@@ -244,6 +259,7 @@ export type ServerMessage =
 	| GitChangedMessage
 	| AgentLifecycleMessage
 	| AgentBindingsChangedMessage
+	| ChatSessionChangedMessage
 	| TerminalLifecycleMessage
 	| PortChangedMessage
 	| WorkspaceChangedMessage

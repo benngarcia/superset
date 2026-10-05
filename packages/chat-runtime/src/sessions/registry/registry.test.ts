@@ -2,8 +2,10 @@ import { describe, expect, test } from "bun:test";
 import { randomUUID } from "node:crypto";
 import type { AdapterEvent, HarnessAdapter } from "../../harness";
 import { FakeHarness } from "../../harness/fake";
+import { agentMessage, turn } from "../../testing/fixtures";
 import { createTestRuntime } from "../../testing/testRuntime";
-import type { HarnessRegistry } from "./registry";
+import { journalEnvelopes, waitFor } from "../../testing/testUtils";
+import type { HarnessRegistry, SessionChange } from "./registry";
 
 const HARNESS = "registry-fake";
 
@@ -102,5 +104,70 @@ describe("LiveSessionRegistry", () => {
 		await expect(runtime.dispose()).rejects.toThrow("adapter teardown failed");
 		expect(secondDisposed).toBe(true);
 		expect(() => runtime.sessions.list()).toThrow();
+	});
+});
+
+describe("LiveSessionRegistry onSessionChanged", () => {
+	function oneTurnAdapter(): HarnessAdapter {
+		return new FakeHarness({
+			turns: [
+				[
+					{ kind: "session", session: { status: "running" } },
+					{ kind: "turn", turn: turn("t1") },
+					{ kind: "item", item: agentMessage("a1", "done"), turnId: "t1" },
+					{
+						kind: "turn",
+						turn: turn("t1", { status: "completed", completedAtMs: 2 }),
+					},
+					{ kind: "session", session: { status: "idle" } },
+					{ kind: "session", session: { status: "idle", title: "Done" } },
+				],
+			],
+		});
+	}
+
+	async function runOneTurn(): Promise<{
+		changes: SessionChange[];
+		sessionEvents: number;
+	}> {
+		const changes: SessionChange[] = [];
+		const runtime = createTestRuntime({
+			harnesses: registryOf(oneTurnAdapter),
+			onSessionChanged: (change) => changes.push(change),
+		});
+		const sessionId = createSession(runtime);
+		runtime.commands.prompt({
+			commandId: randomUUID(),
+			sessionId,
+			clientId: "client-1",
+			content: [{ type: "text", text: "hi" }],
+		});
+		await waitFor(() => runtime.sessions.get(sessionId)?.status === "idle");
+		const sessionEvents = journalEnvelopes(runtime, sessionId).filter(
+			(envelope) => envelope.event.type === "session",
+		).length;
+		await runtime.commands.closeSession({ sessionId });
+		await runtime.dispose();
+		return { changes, sessionEvents };
+	}
+
+	test("reports creation, each status change, and close", async () => {
+		const { changes } = await runOneTurn();
+
+		expect(
+			changes.map(({ status, live, scopeId }) => ({ status, live, scopeId })),
+		).toEqual([
+			{ status: "starting", live: true, scopeId: "workspace-1" },
+			{ status: "running", live: true, scopeId: "workspace-1" },
+			{ status: "idle", live: true, scopeId: "workspace-1" },
+			{ status: "idle", live: false, scopeId: "workspace-1" },
+		]);
+	});
+
+	test("skips session events that keep the same status", async () => {
+		const { changes, sessionEvents } = await runOneTurn();
+
+		const liveChanges = changes.filter((change) => change.live).length;
+		expect(sessionEvents).toBeGreaterThan(liveChanges);
 	});
 });

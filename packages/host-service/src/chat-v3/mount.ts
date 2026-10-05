@@ -9,6 +9,7 @@ import type {
 	ChatRuntime,
 	HarnessFactory,
 	HarnessRegistry,
+	SessionChange,
 	WsSinkSocket,
 } from "@superset/chat-runtime";
 import {
@@ -106,6 +107,7 @@ export type ChatV3Mount = {
 export function createChatV3Mount(options: {
 	db: HostDb;
 	dbPath: string;
+	onSessionChanged?: (change: SessionChange) => void;
 }): ChatV3Mount {
 	let built: ChatRuntime | null = null;
 
@@ -115,6 +117,7 @@ export function createChatV3Mount(options: {
 			dataDir: dirname(options.dbPath),
 			migrationsFolder: migrationsFolder(),
 			harnesses: harnessRegistry(options.db),
+			onSessionChanged: options.onSessionChanged,
 		});
 		return built;
 	};

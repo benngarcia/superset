@@ -1,4 +1,5 @@
-import type { Envelope } from "@superset/chat/protocol";
+import type { Envelope, SessionStatus } from "@superset/chat/protocol";
+import { isDurableEnvelope } from "@superset/chat/protocol";
 import type { HarnessAdapter } from "../../harness";
 import type { ChatJournal } from "../../journal";
 import { LiveSession } from "../liveSession";
@@ -17,16 +18,25 @@ export type HarnessFactory = (options: HarnessFactoryOptions) => HarnessAdapter;
 
 export type HarnessRegistry = Map<string, HarnessFactory>;
 
+export type SessionChange = {
+	sessionId: string;
+	scopeId: string;
+	status: SessionStatus;
+	live: boolean;
+};
+
 export type LiveSessionRegistryOptions = {
 	journal: ChatJournal;
 	publish: (envelope: Envelope) => void;
 	harnesses: HarnessRegistry;
+	onSessionChanged?: (change: SessionChange) => void;
 	mintId?: () => string;
 	now?: () => number;
 };
 
 export class LiveSessionRegistry {
 	private readonly live = new Map<string, LiveSession>();
+	private readonly reported = new Map<string, SessionChange>();
 
 	constructor(private readonly options: LiveSessionRegistryOptions) {}
 
@@ -46,7 +56,22 @@ export class LiveSessionRegistry {
 			scopeId: options.scopeId,
 			harness: options.harness,
 			journal: this.options.journal,
-			publish: this.options.publish,
+			publish: (envelope) => {
+				this.options.publish(envelope);
+				if (
+					!this.live.has(options.sessionId) ||
+					!isDurableEnvelope(envelope) ||
+					envelope.event.type !== "session"
+				) {
+					return;
+				}
+				this.report({
+					sessionId: options.sessionId,
+					scopeId: options.scopeId,
+					status: envelope.event.session.status,
+					live: true,
+				});
+			},
 			adapter: factory(options),
 			mintId: this.options.mintId,
 			now: this.options.now,
@@ -61,6 +86,7 @@ export class LiveSessionRegistry {
 			});
 		} catch (error) {
 			this.live.delete(options.sessionId);
+			this.reported.delete(options.sessionId);
 			void session.dispose().catch(() => undefined);
 			throw error;
 		}
@@ -81,16 +107,29 @@ export class LiveSessionRegistry {
 		const session = this.live.get(sessionId);
 		if (!session) return;
 		this.live.delete(sessionId);
-		await session.dispose();
+		try {
+			await session.dispose();
+		} finally {
+			const last = this.reported.get(sessionId);
+			this.reported.delete(sessionId);
+			if (last) this.options.onSessionChanged?.({ ...last, live: false });
+		}
 	}
 
 	async disposeAll(): Promise<void> {
 		const sessions = [...this.live.values()];
 		this.live.clear();
+		this.reported.clear();
 		const results = await Promise.allSettled(
 			sessions.map((session) => session.dispose()),
 		);
 		const failure = results.find((result) => result.status === "rejected");
 		if (failure?.status === "rejected") throw failure.reason;
+	}
+
+	private report(change: SessionChange): void {
+		if (this.reported.get(change.sessionId)?.status === change.status) return;
+		this.reported.set(change.sessionId, change);
+		this.options.onSessionChanged?.(change);
 	}
 }

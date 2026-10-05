@@ -1,4 +1,10 @@
 import { describe, expect, it } from "bun:test";
+import { randomUUID } from "node:crypto";
+import {
+	createTestRuntime,
+	FAKE_HARNESS,
+	fakeHarnessRegistry,
+} from "@superset/chat-runtime/testing";
 import type { DetectedPort } from "@superset/port-scanner";
 import type { HostDb } from "../db";
 import { portManager } from "../ports/port-manager";
@@ -42,6 +48,44 @@ describe("EventBus agent binding events", () => {
 			workspaceId: "workspace-1",
 			occurredAt: 1_700_000_000_000,
 		});
+	});
+});
+
+describe("EventBus chat session events", () => {
+	it("broadcasts a created chat session with its workspace and status", async () => {
+		const eventBus = createEventBus();
+		const sentMessages: string[] = [];
+		eventBus.handleOpen({
+			readyState: 1,
+			send(data: string) {
+				sentMessages.push(data);
+			},
+			close() {},
+		});
+		const runtime = createTestRuntime({
+			harnesses: fakeHarnessRegistry({ turns: [] }).harnesses,
+			onSessionChanged: (change) =>
+				eventBus.broadcastChatSessionChanged(change),
+		});
+
+		const { sessionId } = runtime.commands.createSession({
+			commandId: randomUUID(),
+			scopeId: "workspace-1",
+			harness: FAKE_HARNESS,
+			cwd: "/tmp/workspace",
+		});
+		await runtime.dispose();
+
+		expect(sentMessages.map((data) => JSON.parse(data))).toEqual([
+			{
+				type: "chat:session-changed",
+				sessionId,
+				workspaceId: "workspace-1",
+				status: "starting",
+				live: true,
+				occurredAt: expect.any(Number),
+			},
+		]);
 	});
 });
 

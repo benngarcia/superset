@@ -1,5 +1,6 @@
 import path from "node:path";
 import type { NodeWebSocket } from "@hono/node-ws";
+import type { SessionChange } from "@superset/chat-runtime";
 import type { DetectedPort } from "@superset/port-scanner";
 import {
 	type FsWatchEvent,
@@ -272,6 +273,15 @@ export class EventBus {
 	onTerminalLifecycle(listener: TerminalLifecycleListener): () => void {
 		this.terminalLifecycleListeners.add(listener);
 		return () => this.terminalLifecycleListeners.delete(listener);
+	}
+
+	broadcastChatSessionChanged({ scopeId, ...change }: SessionChange): void {
+		this.broadcast({
+			type: "chat:session-changed",
+			...change,
+			workspaceId: scopeId,
+			occurredAt: Date.now(),
+		});
 	}
 
 	broadcastPageWatchChanged(

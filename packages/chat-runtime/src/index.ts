@@ -4,7 +4,7 @@ import type { ChatDb, OpenChatDb } from "./db";
 import { createChatDb } from "./db";
 import { ChatJournal } from "./journal";
 import { ChatSessionStore } from "./projection";
-import type { HarnessRegistry } from "./sessions";
+import type { HarnessRegistry, SessionChange } from "./sessions";
 import { LiveSessionRegistry } from "./sessions";
 import type { Schedule, Sink, SubscribeOptions, Subscription } from "./stream";
 import { SubscriptionHub } from "./stream";
@@ -27,6 +27,7 @@ export type ChatRuntimeOptions = {
 	schedule?: Schedule;
 	bootstrapLimit?: number;
 	dedupeCapacity?: number;
+	onSessionChanged?: (change: SessionChange) => void;
 };
 
 export type ChatRuntime = {
@@ -59,6 +60,7 @@ export function createChatRuntime(options: ChatRuntimeOptions): ChatRuntime {
 		journal,
 		publish: (envelope) => subscriptions.publish(envelope),
 		harnesses: options.harnesses ?? new Map(),
+		onSessionChanged: options.onSessionChanged,
 	});
 	const commands = createCommands({
 		journal,
