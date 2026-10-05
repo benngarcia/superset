@@ -28,3 +28,14 @@ export function assertPageWritable(page: SelectPage, userId: string): void {
 		});
 	}
 }
+
+export function assertPageAuthor(page: SelectPage, userId: string): void {
+	assertPageReadable(page, userId);
+	if (page.createdByUserId !== userId) {
+		throw userError({
+			code: "FORBIDDEN",
+			message: "Only the person who created this page can read its storage",
+			i18nKey: "serverError.page.onlyTheAuthorCanReadStorage",
+		});
+	}
+}

@@ -1356,6 +1356,27 @@ Delete a page and every version. Interactive terminals ask for confirmation
 unless `--yes` is passed; non-interactive input does not prompt.
 </Command>
 
+<Command
+	name="superset pages storage <page>"
+	args={[
+		{ name: "page", required: true, description: "Page ID or slug." },
+	]}
+	options={[
+		{ flag: "--key <key>", description: "Show each person's value for this key." },
+	]}
+	output="{ pageId, keys: Array<{ key, records, updatedAt }> } | { pageId, key, records: Array<{ userId, name, image, value, updatedAt }> }"
+	humanColumns={["KEY", "RECORDS", "UPDATED"]}
+>
+Read what viewers stored with `window.superset.storage` on a page you created.
+Without `--key`, lists each key with its record count. Only the page's creator
+can read its storage; anyone else gets an error.
+
+```bash
+superset pages storage weekly-report
+superset pages storage weekly-report --key votes --json
+```
+</Command>
+
 ---
 
 ### tasks (alias: `t`)

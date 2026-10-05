@@ -1,10 +1,22 @@
+import type { PageStorageRecord } from "./page-storage";
+
+export interface PageStorageKeySummary {
+	key: string;
+	records: number;
+	updatedAt: string;
+}
+
 export type PageStorageHubRequest =
 	| { op: "clear"; key?: string }
-	| { op: "clearUser"; userId: string };
+	| { op: "clearUser"; userId: string }
+	| { op: "keys" }
+	| { op: "records"; key: string };
 
 export type PageStorageHubResponse =
 	| { ok: true; op: "clear"; cleared: number }
 	| { ok: true; op: "clearUser"; cleared: number }
+	| { ok: true; op: "keys"; keys: PageStorageKeySummary[] }
+	| { ok: true; op: "records"; key: string; records: PageStorageRecord[] }
 	| { ok: false; code: "invalid"; message: string };
 
 export type PageStorageHubSuccess = Extract<

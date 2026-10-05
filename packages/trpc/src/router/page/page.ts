@@ -36,11 +36,15 @@ import {
 } from "drizzle-orm";
 import { z } from "zod";
 import { env } from "../../env";
-import { deletePageStorage } from "../../lib/page-store";
+import { callPageStore, deletePageStorage } from "../../lib/page-store";
 import { deleteObjects, objectExists, presignedGetUrl } from "../../lib/r2";
 import { protectedProcedure, publicProcedure, userError } from "../../trpc";
 import { requireActiveOrgMembership } from "../utils/active-org";
-import { assertPageReadable, assertPageWritable } from "./access";
+import {
+	assertPageAuthor,
+	assertPageReadable,
+	assertPageWritable,
+} from "./access";
 import { pageAssetRouter } from "./assets";
 import { decodePageCursor, encodePageCursor } from "./cursor";
 import { pageUrl } from "./page-url";
@@ -60,6 +64,7 @@ import {
 	pageCountsSchema,
 	pageFields,
 	pageRefSchema,
+	pageStorageRecordsSchema,
 	publicPageSchema,
 	publishPageSchema,
 	pullPageSchema,
@@ -911,6 +916,41 @@ export const pageRouter = {
 			});
 
 			return { owner: await loadOwner(page.createdByUserId) };
+		}),
+
+	storageKeys: protectedProcedure
+		.input(pageRefSchema)
+		.query(async ({ ctx, input }) => {
+			const organizationId = await requireActiveOrgMembership(ctx);
+			const userId = ctx.session.user.id;
+			const page = await loadPage({
+				id: input.id,
+				slug: input.slug,
+				organizationId,
+				userId,
+			});
+			assertPageAuthor(page, userId);
+			const { keys } = await callPageStore(page.id, { op: "keys" });
+			return { pageId: page.id, keys };
+		}),
+
+	storageRecords: protectedProcedure
+		.input(pageStorageRecordsSchema)
+		.query(async ({ ctx, input }) => {
+			const organizationId = await requireActiveOrgMembership(ctx);
+			const userId = ctx.session.user.id;
+			const page = await loadPage({
+				id: input.id,
+				slug: input.slug,
+				organizationId,
+				userId,
+			});
+			assertPageAuthor(page, userId);
+			const { key, records } = await callPageStore(page.id, {
+				op: "records",
+				key: input.key,
+			});
+			return { pageId: page.id, key, records };
 		}),
 
 	setSharedVersion: protectedProcedure
