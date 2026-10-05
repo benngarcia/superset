@@ -54,6 +54,36 @@ import {
 	AgentCreateResult,
 	Agents,
 } from "./resources/agents";
+import {
+	Chat,
+	type ChatCancelTurnParams,
+	type ChatCreateSessionParams,
+	type ChatCreateSessionResult,
+	type ChatCursor,
+	type ChatDecision,
+	type ChatDeltaChannel,
+	type ChatEnvelope,
+	type ChatItemsPage,
+	type ChatListItemsParams,
+	type ChatListSessionsParams,
+	type ChatPromptParams,
+	type ChatPromptResult,
+	type ChatRespondToApprovalParams,
+	type ChatRetrieveSessionResult,
+	type ChatSession,
+	type ChatSessionParams,
+	type ChatSessionStatus,
+	type ChatSetConfigOptionParams,
+	type ChatSetModeParams,
+	type ChatSubscribeParams,
+	type ChatUserContent,
+} from "./resources/chat";
+import {
+	type ChatSessionChangedEvent,
+	Events,
+	type EventsSubscribeParams,
+	type HostEvent,
+} from "./resources/events";
 import * as API from "./resources/index";
 import {
 	Member,
@@ -105,6 +135,7 @@ import {
 	type TelemetryTarget,
 	type TRPCCall,
 } from "./lib/telemetry";
+import type { WebSocketConstructor, WebSocketLike } from "./lib/socket";
 import { VERSION } from "./version";
 
 export interface ClientOptions {
@@ -122,6 +153,19 @@ export interface ClientOptions {
 	 * which is most resources (tasks, workspaces, organization, …).
 	 */
 	organizationId?: string | undefined;
+
+	/**
+	 * Machine id of the host that `chat` and `events` calls go to, through the
+	 * relay, when a call names no `hostId` of its own. Without a host, those
+	 * calls go to the sandbox of the cloud workspace the call names.
+	 */
+	hostId?: string | undefined;
+
+	/**
+	 * WebSocket implementation for `chat.subscribe` and `events.subscribe`.
+	 * Defaults to the global `WebSocket` (Node 22+, Bun, Deno, browsers).
+	 */
+	WebSocket?: WebSocketConstructor | undefined;
 
 	/**
 	 * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
@@ -201,6 +245,47 @@ type TRPCEnvelope<T> = {
 	result: { data: { json: T; meta?: unknown } };
 };
 
+/** The host-service a `chat` or `events` call reaches: a host through the relay, or a cloud workspace's sandbox. */
+export interface HostTarget {
+	/** Machine id of a host. Defaults to the client's `hostId`. */
+	hostId?: string | undefined;
+	/** Cloud workspace whose sandbox to reach when no host is named. */
+	workspaceId?: string | undefined;
+}
+
+interface ResolvedHost {
+	baseURL: string;
+	token: string;
+	forget(): void;
+}
+
+/** A user JWT for the relay; re-minted at `staleAt` (epoch ms). */
+interface HostToken {
+	token: string;
+	staleAt: number;
+}
+
+const DEFAULT_RELAY_URL = "https://relay.superset.sh";
+/** Used when a minted JWT carries no readable `exp`. */
+const HOST_TOKEN_FALLBACK_TTL_MS = 10 * 60_000;
+
+function isApiKey(key: string): boolean {
+	return key.startsWith("sk_live_") || key.startsWith("sk_test_");
+}
+
+function jwtExpiresAt(token: string): number | null {
+	const payload = token.split(".")[1];
+	if (!payload) return null;
+	try {
+		const { exp } = JSON.parse(
+			atob(payload.replace(/-/g, "+").replace(/_/g, "/")),
+		);
+		return typeof exp === "number" ? exp * 1000 : null;
+	} catch {
+		return null;
+	}
+}
+
 /** A ticket for one cloud workspace's sandbox gate; re-minted at `staleAt` (epoch ms). */
 interface WorkspaceAccess {
 	url: string;
@@ -223,6 +308,7 @@ const ACCESS_REFRESH_MS = 10 * 60_000;
 export class Superset {
 	apiKey: string;
 	organizationId: string | null;
+	hostId: string | null;
 
 	baseURL: string;
 	maxRetries: number;
@@ -242,6 +328,9 @@ export class Superset {
 		Promise<WorkspaceAccess>
 	>();
 	private _telemetryEnabled = isTelemetryEnabled();
+	private _hostToken: HostToken | undefined;
+	private _hostTokenInflight: Promise<string> | undefined;
+	private _relayURL: Promise<string> | undefined;
 
 	/**
 	 * API Client for interfacing with the Superset API.
@@ -311,6 +400,7 @@ export class Superset {
 
 		this.apiKey = apiKey;
 		this.organizationId = organizationId ?? null;
+		this.hostId = options.hostId ?? null;
 	}
 
 	/**
@@ -332,6 +422,7 @@ export class Superset {
 			fetchOptions: this.fetchOptions,
 			apiKey: this.apiKey,
 			organizationId: this.organizationId ?? undefined,
+			hostId: this.hostId ?? undefined,
 			...options,
 		});
 		return client;
@@ -355,9 +446,8 @@ export class Superset {
 	protected async authHeaders(
 		_opts: FinalRequestOptions,
 	): Promise<NullableHeaders | undefined> {
-		const auth: Record<string, string> =
-			this.apiKey.startsWith("sk_live_") || this.apiKey.startsWith("sk_test_")
-				? { "x-api-key": this.apiKey }
+		const auth: Record<string, string> = isApiKey(this.apiKey)
+			? { "x-api-key": this.apiKey }
 				: { Authorization: `Bearer ${this.apiKey}` };
 		if (this.organizationId) {
 			auth["x-superset-organization-id"] = this.organizationId;
@@ -528,7 +618,7 @@ export class Superset {
 				method: "post" as const,
 				path: `${access.url}/trpc/${call.procedure}`,
 				body: { json: input ?? null },
-				headers: this._gateHeaders(access, options),
+				headers: this._gateHeaders(access.token, options),
 			}),
 		);
 		return this._forgetAccessOnFailure(
@@ -557,13 +647,168 @@ export class Superset {
 				method: "get" as const,
 				path: `${access.url}/trpc/${call.procedure}`,
 				query: queryParams,
-				headers: this._gateHeaders(access, options),
+				headers: this._gateHeaders(access.token, options),
 			}),
 		);
 		return this._forgetAccessOnFailure(
 			workspaceId,
 			this._trackedRequest<Rsp>(call, "host", optsPromise),
 		);
+	}
+
+	/**
+	 * Invoke a chat-v3 mutation on a host-service: on a host through the relay,
+	 * or in a cloud workspace's sandbox (see `HostTarget`).
+	 */
+	chatMutation<Rsp>(
+		target: HostTarget,
+		call: TRPCCall,
+		input: unknown,
+		options?: RequestOptions,
+	): APIPromise<Rsp> {
+		return this._chatRequest<Rsp>(target, call, "post", input, options);
+	}
+
+	/** Chat-v3 query counterpart to `chatMutation`. */
+	chatQuery<Rsp>(
+		target: HostTarget,
+		call: TRPCCall,
+		input: unknown,
+		options?: RequestOptions,
+	): APIPromise<Rsp> {
+		return this._chatRequest<Rsp>(target, call, "get", input, options);
+	}
+
+	/** The authenticated `ws(s)://` URL of a host-service WebSocket route. */
+	async hostSocketURL(
+		target: HostTarget,
+		path: string,
+		query: Record<string, string | undefined> = {},
+	): Promise<string> {
+		const host = await this._resolveHost(target);
+		const url = new URL(`${host.baseURL}${path}`);
+		for (const [name, value] of Object.entries(query)) {
+			if (value !== undefined) url.searchParams.set(name, value);
+		}
+		url.searchParams.set("token", host.token);
+		url.protocol = url.protocol === "http:" ? "ws:" : "wss:";
+		return url.toString();
+	}
+
+	openSocket(url: string): WebSocketLike {
+		const WebSocketImpl =
+			this._options.WebSocket ??
+			(globalThis as { WebSocket?: WebSocketConstructor }).WebSocket;
+		if (!WebSocketImpl) {
+			throw new Errors.SupersetError(
+				"No global WebSocket in this runtime; pass one with the `WebSocket` client option, e.g. from the `ws` package.",
+			);
+		}
+		return new WebSocketImpl(url);
+	}
+
+	private _chatRequest<Rsp>(
+		target: HostTarget,
+		call: TRPCCall,
+		method: "get" | "post",
+		input: unknown,
+		options?: RequestOptions,
+	): APIPromise<Rsp> {
+		const resolved = this._resolveHost(target);
+		const optsPromise = resolved.then((host) => ({
+			...options,
+			method,
+			path: `${host.baseURL}/chat-v3/trpc/${call.procedure}`,
+			...(method === "get"
+				? { query: { input: JSON.stringify(input) } }
+				: { body: input }),
+			headers: this._gateHeaders(host.token, options),
+		}));
+		const promise = this._trackedRequest<Rsp>(call, "host", optsPromise, "json");
+		promise.then(undefined, () =>
+			resolved.then(
+				(host) => host.forget(),
+				() => undefined,
+			),
+		);
+		return promise;
+	}
+
+	private async _resolveHost(target: HostTarget): Promise<ResolvedHost> {
+		const hostId = target.hostId ?? this.hostId;
+		if (hostId) {
+			if (!this.organizationId) {
+				throw new Errors.SupersetError(
+					"Reaching a host needs `organizationId`; set it on the client or in SUPERSET_ORGANIZATION_ID.",
+				);
+			}
+			const [relayURL, token] = await Promise.all([
+				this._getRelayURL(),
+				this._getHostToken(),
+			]);
+			return {
+				baseURL: `${relayURL}/hosts/${this.organizationId}:${hostId}`,
+				token,
+				forget: () => {
+					this._hostToken = undefined;
+				},
+			};
+		}
+		const { workspaceId } = target;
+		if (workspaceId) {
+			const access = await this._getWorkspaceAccess(workspaceId);
+			return {
+				baseURL: access.url,
+				token: access.token,
+				forget: () => {
+					this._workspaceAccess.delete(workspaceId);
+					this._wakeNext.add(workspaceId);
+				},
+			};
+		}
+		throw new Errors.SupersetError(
+			"Name a host with `hostId` (or set it on the client), or a cloud workspace with `workspaceId`.",
+		);
+	}
+
+	/**
+	 * The relay accepts only a user JWT. An API key is traded for one at
+	 * `/api/auth/token`; any other credential already is a bearer token.
+	 */
+	private async _getHostToken(): Promise<string> {
+		if (!isApiKey(this.apiKey)) return this.apiKey;
+		const cached = this._hostToken;
+		if (cached && cached.staleAt > Date.now()) return cached.token;
+		this._hostTokenInflight ??= this._mintHostToken().finally(() => {
+			this._hostTokenInflight = undefined;
+		});
+		return this._hostTokenInflight;
+	}
+
+	private async _mintHostToken(): Promise<string> {
+		const mintedAt = Date.now();
+		const { token } = await this.get<{ token: string }>("/api/auth/token");
+		const expiresAt =
+			jwtExpiresAt(token) ?? mintedAt + HOST_TOKEN_FALLBACK_TTL_MS;
+		this._hostToken = {
+			token,
+			staleAt: expiresAt - ACCESS_EXPIRY_MARGIN_MS,
+		};
+		return token;
+	}
+
+	private _getRelayURL(): Promise<string> {
+		this._relayURL ??= this.get<TRPCEnvelope<{ url: string } | null>>(
+			"/api/trpc/host.relayEndpoint",
+		).then(
+			(envelope) =>
+				(envelope.result.data.json?.url ?? DEFAULT_RELAY_URL).replace(/\/+$/, ""),
+			() => {
+				this._relayURL = undefined;
+				return DEFAULT_RELAY_URL;
+			},
+		);
+		return this._relayURL;
 	}
 
 	/** A failed gate call may mean a stopped or moved sandbox: the next call wakes it. */
@@ -578,13 +823,13 @@ export class Superset {
 		return promise;
 	}
 
-	private _gateHeaders(access: WorkspaceAccess, options?: RequestOptions) {
+	private _gateHeaders(token: string, options?: RequestOptions) {
 		return buildHeaders([
 			options?.headers,
 			{
 				"x-api-key": null,
 				"x-superset-organization-id": null,
-				Authorization: `Bearer ${access.token}`,
+				Authorization: `Bearer ${token}`,
 			},
 		]);
 	}
@@ -603,6 +848,7 @@ export class Superset {
 		call: TRPCCall,
 		target: TelemetryTarget,
 		options: PromiseOrValue<FinalRequestOptions>,
+		encoding: "superjson" | "json" = "superjson",
 	): APIPromise<Rsp> {
 		const startedAt = Date.now();
 		const responsePromise = this.makeRequest(options, null, undefined);
@@ -615,11 +861,16 @@ export class Superset {
 		responsePromise.then(undefined, () => report(false));
 		return new APIPromise(this, responsePromise, async (client, props) => {
 			try {
-				const envelope = await defaultParseResponse<TRPCEnvelope<Rsp>>(
-					client,
-					props,
-				);
-				const data = envelope.result.data.json;
+				const data =
+					encoding === "json"
+						? (
+								await defaultParseResponse<{ result: { data: Rsp } }>(
+									client,
+									props,
+								)
+							).result.data
+						: (await defaultParseResponse<TRPCEnvelope<Rsp>>(client, props))
+								.result.data.json;
 				report(true);
 				return data;
 			} catch (error) {
@@ -1214,6 +1465,10 @@ export class Superset {
 	terminals: API.Terminals = new API.Terminals(this);
 	/** Active-organization config: nested `organization.members.list`. */
 	organization: API.Organization = new API.Organization(this);
+	/** Agent chat sessions on a host or cloud workspace: create, prompt, approve, stream. */
+	chat: API.Chat = new API.Chat(this);
+	/** A host's live event feed, such as chat session status changes. */
+	events: API.Events = new API.Events(this);
 }
 
 Superset.Tasks = Tasks;
@@ -1221,6 +1476,8 @@ Superset.Workspaces = Workspaces;
 Superset.Agents = Agents;
 Superset.Terminals = Terminals;
 Superset.Organization = Organization;
+Superset.Chat = Chat;
+Superset.Events = Events;
 
 export declare namespace Superset {
 	export type RequestOptions = Opts.RequestOptions;
@@ -1259,6 +1516,33 @@ export declare namespace Superset {
 	};
 
 	export { Agents, AgentCreateParams, AgentCreateResult };
+
+	export {
+		Chat,
+		ChatSession,
+		ChatSessionStatus,
+		ChatCursor,
+		ChatUserContent,
+		ChatDecision,
+		ChatDeltaChannel,
+		ChatEnvelope,
+		ChatCreateSessionParams,
+		ChatCreateSessionResult,
+		ChatListSessionsParams,
+		ChatSessionParams,
+		ChatRetrieveSessionResult,
+		ChatListItemsParams,
+		ChatItemsPage,
+		ChatPromptParams,
+		ChatPromptResult,
+		ChatCancelTurnParams,
+		ChatRespondToApprovalParams,
+		ChatSetModeParams,
+		ChatSetConfigOptionParams,
+		ChatSubscribeParams,
+	};
+
+	export { Events, HostEvent, ChatSessionChangedEvent, EventsSubscribeParams };
 
 	export {
 		Terminals,

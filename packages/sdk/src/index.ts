@@ -1,6 +1,11 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export { type ClientOptions, Superset as default, Superset } from "./client";
+export {
+	type ClientOptions,
+	type HostTarget,
+	Superset as default,
+	Superset,
+} from "./client";
 export { APIPromise } from "./core/api-promise";
 export {
 	APIConnectionError,
@@ -26,6 +31,32 @@ export {
 	type AgentCreateParams,
 	type AgentCreateResult,
 	Agents,
+	Chat,
+	type ChatCancelTurnParams,
+	type ChatCreateSessionParams,
+	type ChatCreateSessionResult,
+	type ChatCursor,
+	type ChatDecision,
+	type ChatDeltaChannel,
+	type ChatEnvelope,
+	type ChatItemsPage,
+	type ChatListItemsParams,
+	type ChatListSessionsParams,
+	type ChatPromptParams,
+	type ChatPromptResult,
+	type ChatRespondToApprovalParams,
+	type ChatRetrieveSessionResult,
+	type ChatSession,
+	type ChatSessionChangedEvent,
+	type ChatSessionParams,
+	type ChatSessionStatus,
+	type ChatSetConfigOptionParams,
+	type ChatSetModeParams,
+	type ChatSubscribeParams,
+	type ChatUserContent,
+	Events,
+	type EventsSubscribeParams,
+	type HostEvent,
 	type CloudWorkspace,
 	type CloudWorkspaceStatus,
 	type Task,
@@ -54,3 +85,9 @@ export {
 	Workspaces,
 	type WorkspaceUpdateParams,
 } from "./resources/index";
+export type {
+	SocketClose,
+	Subscription,
+	WebSocketConstructor,
+	WebSocketLike,
+} from "./lib/socket";

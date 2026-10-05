@@ -83,6 +83,60 @@ Methods:
 - <code title="workspace get /trpc/terminal.snapshot">client.terminals.<a href="./src/resources/terminals.ts">read</a>({ workspaceId, terminalId, maxLines? }) -> TerminalReadResult</code>
 - <code title="workspace post /trpc/terminal.killSession">client.terminals.<a href="./src/resources/terminals.ts">close</a>({ workspaceId, terminalId }) -> TerminalCloseResult</code>
 
+# Chat
+
+Every method also takes `hostId` and `workspaceId`. A call goes to a host through the relay when it names a `hostId` or the client has one; otherwise it goes to the sandbox of the cloud workspace named by `workspaceId`. With an API key, the SDK trades the key for a short-lived user JWT at `/api/auth/token` for relay calls.
+
+Types:
+
+- <code><a href="./src/resources/chat.ts">ChatSession</a></code>
+- <code><a href="./src/resources/chat.ts">ChatSessionStatus</a></code>
+- <code><a href="./src/resources/chat.ts">ChatCursor</a></code>
+- <code><a href="./src/resources/chat.ts">ChatUserContent</a></code>
+- <code><a href="./src/resources/chat.ts">ChatDecision</a></code>
+- <code><a href="./src/resources/chat.ts">ChatDeltaChannel</a></code>
+- <code><a href="./src/resources/chat.ts">ChatEnvelope</a></code>
+- <code><a href="./src/resources/chat.ts">ChatCreateSessionParams</a></code>
+- <code><a href="./src/resources/chat.ts">ChatCreateSessionResult</a></code>
+- <code><a href="./src/resources/chat.ts">ChatListSessionsParams</a></code>
+- <code><a href="./src/resources/chat.ts">ChatSessionParams</a></code>
+- <code><a href="./src/resources/chat.ts">ChatRetrieveSessionResult</a></code>
+- <code><a href="./src/resources/chat.ts">ChatListItemsParams</a></code>
+- <code><a href="./src/resources/chat.ts">ChatItemsPage</a></code>
+- <code><a href="./src/resources/chat.ts">ChatPromptParams</a></code>
+- <code><a href="./src/resources/chat.ts">ChatPromptResult</a></code>
+- <code><a href="./src/resources/chat.ts">ChatCancelTurnParams</a></code>
+- <code><a href="./src/resources/chat.ts">ChatRespondToApprovalParams</a></code>
+- <code><a href="./src/resources/chat.ts">ChatSetModeParams</a></code>
+- <code><a href="./src/resources/chat.ts">ChatSetConfigOptionParams</a></code>
+- <code><a href="./src/resources/chat.ts">ChatSubscribeParams</a></code>
+
+Methods:
+
+- <code title="host post /chat-v3/trpc/createSession">client.chat.<a href="./src/resources/chat.ts">createSession</a>({ workspaceId, harness, modeId?, modelId?, resumeHarnessSessionId? }) -> ChatCreateSessionResult</code>
+- <code title="host get /chat-v3/trpc/listSessions">client.chat.<a href="./src/resources/chat.ts">listSessions</a>({ workspaceId?, limit? }) -> ChatSession[]</code>
+- <code title="host get /chat-v3/trpc/getSession">client.chat.<a href="./src/resources/chat.ts">retrieveSession</a>({ sessionId }) -> ChatRetrieveSessionResult</code>
+- <code title="host get /chat-v3/trpc/getItems">client.chat.<a href="./src/resources/chat.ts">listItems</a>({ sessionId, before?, limit? }) -> ChatItemsPage</code>
+- <code title="host post /chat-v3/trpc/prompt">client.chat.<a href="./src/resources/chat.ts">prompt</a>({ sessionId, content, clientId? }) -> ChatPromptResult</code>
+- <code title="host post /chat-v3/trpc/cancelTurn">client.chat.<a href="./src/resources/chat.ts">cancelTurn</a>({ sessionId, turnId, pauseQueue? }) -> void</code>
+- <code title="host post /chat-v3/trpc/respondToApproval">client.chat.<a href="./src/resources/chat.ts">respondToApproval</a>({ sessionId, approvalId, decision }) -> void</code>
+- <code title="host post /chat-v3/trpc/setMode">client.chat.<a href="./src/resources/chat.ts">setMode</a>({ sessionId, modeId }) -> void</code>
+- <code title="host post /chat-v3/trpc/setConfigOption">client.chat.<a href="./src/resources/chat.ts">setConfigOption</a>({ sessionId, configId, value }) -> void</code>
+- <code title="host post /chat-v3/trpc/closeSession">client.chat.<a href="./src/resources/chat.ts">closeSession</a>({ sessionId }) -> void</code>
+- <code title="host ws /chat-v3/sessions/:sessionId/stream">client.chat.<a href="./src/resources/chat.ts">subscribe</a>({ sessionId, since?, deltas?, onEnvelope, onError?, onClose? }) -> Subscription</code>
+
+# Events
+
+Types:
+
+- <code><a href="./src/resources/events.ts">HostEvent</a></code>
+- <code><a href="./src/resources/events.ts">ChatSessionChangedEvent</a></code>
+- <code><a href="./src/resources/events.ts">EventsSubscribeParams</a></code>
+
+Methods:
+
+- <code title="host ws /events">client.events.<a href="./src/resources/events.ts">subscribe</a>({ hostId?, workspaceId?, onChatSessionChanged?, onEvent?, onError?, onClose? }) -> Subscription</code>
+
 # Organization
 
 Types:

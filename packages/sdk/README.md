@@ -83,11 +83,38 @@ try {
 }
 ```
 
-## Two transport paths
+## Transport paths
 
 Most methods hit `api.superset.sh` directly. `terminals.*` and `agents.create` run inside a workspace's sandbox: the SDK asks the API for a short-lived ticket for that workspace (waking its sandbox if it had stopped), caches it, and calls the sandbox through Superset's gate with it. Your API key is only ever sent to the API.
 
 The workspace must be `ready`; otherwise the ticket request fails with a `412`.
+
+`chat.*` and `events.subscribe` can also reach a host: a machine running Superset, named by its machine id in `hostId` (per call, or once on the client). Those calls go through Superset's relay, which accepts only a user JWT. With an API key, the SDK trades the key for a short-lived JWT at `/api/auth/token`, caches it until shortly before it expires, and sends only the JWT to the relay. Without a `hostId`, the calls go to the cloud workspace named by `workspaceId`, as above.
+
+## Chat sessions
+
+```ts
+const client = new Superset({ hostId: 'machine-id' }); // omit hostId for cloud workspaces
+
+const { sessionId } = await client.chat.createSession({ workspaceId, harness: 'claude-code' });
+await client.chat.prompt({ sessionId, content: 'Fix the flaky login test' });
+
+// Status of every session on the host, pushed as it changes
+const feed = await client.events.subscribe({
+  onChatSessionChanged: ({ sessionId, status, removed }) => console.log(sessionId, status, removed),
+});
+
+// The session's transcript and live activity
+const stream = await client.chat.subscribe({ sessionId, onEnvelope: (envelope) => console.log(envelope) });
+
+// Answer an approval when the status is `awaiting_input`
+await client.chat.respondToApproval({ sessionId, approvalId, decision: { type: 'accept' } });
+
+stream.close();
+feed.close();
+```
+
+`subscribe` uses the global `WebSocket` (Node 22+, Bun, Deno, browsers). On older runtimes, pass one with the `WebSocket` client option, for example from the `ws` package.
 
 ## License
 
