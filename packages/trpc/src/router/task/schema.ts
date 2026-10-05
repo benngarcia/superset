@@ -7,6 +7,7 @@ import { z } from "zod";
 
 const taskTeamSchema = z
 	.string()
+	.trim()
 	.min(1)
 	.nullish()
 	.describe("Team id, key (e.g. ENG), name or slug");

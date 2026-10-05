@@ -147,15 +147,25 @@ async function getTaskTeamId(
 		.where(eq(teams.organizationId, organizationId))
 		.orderBy(asc(teams.createdAt));
 	const needle = value.trim().toLowerCase();
-	const team =
-		orgTeams.find((t) => t.id === needle || t.key?.toLowerCase() === needle) ??
-		orgTeams.find(
-			(t) => t.name.toLowerCase() === needle || t.slug.toLowerCase() === needle,
-		);
+	const label = (t: (typeof orgTeams)[number]) => t.key ?? t.slug;
+	const exact =
+		orgTeams.find((t) => t.id === needle) ??
+		orgTeams.find((t) => t.key?.toLowerCase() === needle) ??
+		orgTeams.find((t) => t.slug.toLowerCase() === needle);
+	if (exact) return exact.id;
+
+	const named = orgTeams.filter((t) => t.name.toLowerCase() === needle);
+	if (named.length > 1) {
+		throw new TRPCError({
+			code: "BAD_REQUEST",
+			message: `Several teams are named ${value}. Use one of: ${named.map(label).join(", ")}`,
+		});
+	}
+	const [team] = named;
 	if (!team) {
 		throw new TRPCError({
 			code: "BAD_REQUEST",
-			message: `Team not found: ${value}. Teams: ${orgTeams.map((t) => t.key ?? t.name).join(", ")}`,
+			message: `Team not found: ${value}. Teams: ${orgTeams.map(label).join(", ")}`,
 		});
 	}
 	return team.id;
