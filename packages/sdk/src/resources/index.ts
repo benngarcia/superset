@@ -34,6 +34,28 @@ export {
 	Agents,
 } from "./agents";
 export {
+	type Host,
+	type HostListResponse,
+	type HostProject,
+	type HostProjectListResponse,
+	HostProjects,
+	type HostTargetParams,
+	type HostWorkspace,
+	type HostWorkspaceAgentLaunch,
+	type HostWorkspaceCreateAgentResult,
+	type HostWorkspaceCreateParams,
+	type HostWorkspaceCreateResult,
+	type HostWorkspaceCreateSessionParams,
+	type HostWorkspaceCreateSessionResult,
+	type HostWorkspaceDeleteParams,
+	type HostWorkspaceDeleteResult,
+	type HostWorkspaceListParams,
+	type HostWorkspaceListResponse,
+	type HostWorkspaceUpdateParams,
+	HostWorkspaces,
+	Hosts,
+} from "./hosts";
+export {
 	type Member,
 	type MemberListParams,
 	type MemberListResponse,

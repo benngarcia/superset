@@ -84,6 +84,28 @@ import {
 	type EventsSubscribeParams,
 	type HostEvent,
 } from "./resources/events";
+import {
+	type Host,
+	type HostListResponse,
+	type HostProject,
+	type HostProjectListResponse,
+	HostProjects,
+	type HostTargetParams,
+	type HostWorkspace,
+	type HostWorkspaceAgentLaunch,
+	type HostWorkspaceCreateAgentResult,
+	type HostWorkspaceCreateParams,
+	type HostWorkspaceCreateResult,
+	type HostWorkspaceCreateSessionParams,
+	type HostWorkspaceCreateSessionResult,
+	type HostWorkspaceDeleteParams,
+	type HostWorkspaceDeleteResult,
+	type HostWorkspaceListParams,
+	type HostWorkspaceListResponse,
+	type HostWorkspaceUpdateParams,
+	HostWorkspaces,
+	Hosts,
+} from "./resources/hosts";
 import * as API from "./resources/index";
 import {
 	Member,
@@ -679,6 +701,70 @@ export class Superset {
 		return this._chatRequest<Rsp>(target, call, "get", input, options);
 	}
 
+	/**
+	 * Invoke a host-service tRPC mutation on a host, through the relay. The host
+	 * is `hostId`, or the client's `hostId`.
+	 */
+	hostMutation<Rsp>(
+		hostId: string | undefined,
+		call: TRPCCall,
+		input: unknown,
+		options?: RequestOptions,
+	): APIPromise<Rsp> {
+		return this._hostRequest<Rsp>(
+			{ hostId: hostId ?? this._requireHostId() },
+			call,
+			"post",
+			"/trpc",
+			"superjson",
+			input,
+			options,
+		);
+	}
+
+	/** Host-service tRPC query on a host (counterpart to `hostMutation`). */
+	hostQuery<Rsp>(
+		hostId: string | undefined,
+		call: TRPCCall,
+		input: unknown,
+		options?: RequestOptions,
+	): APIPromise<Rsp> {
+		return this._hostRequest<Rsp>(
+			{ hostId: hostId ?? this._requireHostId() },
+			call,
+			"get",
+			"/trpc",
+			"superjson",
+			input,
+			options,
+		);
+	}
+
+	/**
+	 * An API tRPC query sent with the user JWT instead of the API key, for
+	 * procedures that forward the caller's bearer token to the relay.
+	 */
+	userQuery<Rsp>(
+		call: TRPCCall,
+		input: unknown,
+		options?: RequestOptions,
+	): APIPromise<Rsp> {
+		return this._trackedRequest<Rsp>(
+			call,
+			"cloud",
+			this._getHostToken().then((token) => ({
+				...options,
+				method: "get" as const,
+				path: `/api/trpc/${call.procedure}`,
+				query: { input: JSON.stringify({ json: input }) },
+				headers: buildHeaders([
+					options?.headers,
+					{ "x-api-key": null, Authorization: `Bearer ${token}` },
+				]),
+			})),
+		);
+	}
+
 	/** The authenticated `ws(s)://` URL of a host-service WebSocket route. */
 	async hostSocketURL(
 		target: HostTarget,
@@ -714,17 +800,52 @@ export class Superset {
 		input: unknown,
 		options?: RequestOptions,
 	): APIPromise<Rsp> {
+		return this._hostRequest<Rsp>(
+			target,
+			call,
+			method,
+			"/chat-v3/trpc",
+			"json",
+			input,
+			options,
+		);
+	}
+
+	private _requireHostId(): string {
+		if (!this.hostId) {
+			throw new Errors.SupersetError(
+				"Name a host with `hostId`, on the call or on the client (see `hosts.list()`).",
+			);
+		}
+		return this.hostId;
+	}
+
+	private _hostRequest<Rsp>(
+		target: HostTarget,
+		call: TRPCCall,
+		method: "get" | "post",
+		router: "/trpc" | "/chat-v3/trpc",
+		encoding: "superjson" | "json",
+		input: unknown,
+		options?: RequestOptions,
+	): APIPromise<Rsp> {
+		const wire = encoding === "superjson" ? { json: input ?? null } : input;
 		const resolved = this._resolveHost(target);
 		const optsPromise = resolved.then((host) => ({
 			...options,
 			method,
-			path: `${host.baseURL}/chat-v3/trpc/${call.procedure}`,
+			path: `${host.baseURL}${router}/${call.procedure}`,
 			...(method === "get"
-				? { query: { input: JSON.stringify(input) } }
-				: { body: input }),
+				? { query: { input: JSON.stringify(wire) } }
+				: { body: wire }),
 			headers: this._gateHeaders(host.token, options),
 		}));
-		const promise = this._trackedRequest<Rsp>(call, "host", optsPromise, "json");
+		const promise = this._trackedRequest<Rsp>(
+			call,
+			"host",
+			optsPromise,
+			encoding,
+		);
 		promise.then(undefined, () =>
 			resolved.then(
 				(host) => host.forget(),
@@ -1469,6 +1590,8 @@ export class Superset {
 	chat: API.Chat = new API.Chat(this);
 	/** A host's live event feed, such as chat session status changes. */
 	events: API.Events = new API.Events(this);
+	/** Machines running Superset: list, and their projects and workspaces through the relay. */
+	hosts: API.Hosts = new API.Hosts(this);
 }
 
 Superset.Tasks = Tasks;
@@ -1478,6 +1601,7 @@ Superset.Terminals = Terminals;
 Superset.Organization = Organization;
 Superset.Chat = Chat;
 Superset.Events = Events;
+Superset.Hosts = Hosts;
 
 export declare namespace Superset {
 	export type RequestOptions = Opts.RequestOptions;
@@ -1543,6 +1667,29 @@ export declare namespace Superset {
 	};
 
 	export { Events, HostEvent, ChatSessionChangedEvent, EventsSubscribeParams };
+
+	export {
+		Host,
+		HostListResponse,
+		HostProject,
+		HostProjectListResponse,
+		HostProjects,
+		HostTargetParams,
+		HostWorkspace,
+		HostWorkspaceAgentLaunch,
+		HostWorkspaceCreateAgentResult,
+		HostWorkspaceCreateParams,
+		HostWorkspaceCreateResult,
+		HostWorkspaceCreateSessionParams,
+		HostWorkspaceCreateSessionResult,
+		HostWorkspaceDeleteParams,
+		HostWorkspaceDeleteResult,
+		HostWorkspaceListParams,
+		HostWorkspaceListResponse,
+		HostWorkspaceUpdateParams,
+		HostWorkspaces,
+		Hosts,
+	};
 
 	export {
 		Terminals,

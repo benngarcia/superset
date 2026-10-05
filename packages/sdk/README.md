@@ -91,10 +91,14 @@ The workspace must be `ready`; otherwise the ticket request fails with a `412`.
 
 `chat.*` and `events.subscribe` can also reach a host: a machine running Superset, named by its machine id in `hostId` (per call, or once on the client). Those calls go through Superset's relay, which accepts only a user JWT. With an API key, the SDK trades the key for a short-lived JWT at `/api/auth/token`, caches it until shortly before it expires, and sends only the JWT to the relay. Without a `hostId`, the calls go to the cloud workspace named by `workspaceId`, as above.
 
-## Chat sessions
+## Hosts and chat sessions
 
 ```ts
 const client = new Superset({ hostId: 'machine-id' }); // omit hostId for cloud workspaces
+
+// A worktree on the host for one of its projects (see client.hosts.list / client.hosts.projects.list)
+const { workspace } = await client.hosts.workspaces.create({ projectId, branch: 'feat/login-fix', tags: ['roster'] });
+const workspaceId = workspace.id;
 
 const { sessionId } = await client.chat.createSession({ workspaceId, harness: 'claude-code' });
 await client.chat.prompt({ sessionId, content: 'Fix the flaky login test' });

@@ -83,6 +83,42 @@ Methods:
 - <code title="workspace get /trpc/terminal.snapshot">client.terminals.<a href="./src/resources/terminals.ts">read</a>({ workspaceId, terminalId, maxLines? }) -> TerminalReadResult</code>
 - <code title="workspace post /trpc/terminal.killSession">client.terminals.<a href="./src/resources/terminals.ts">close</a>({ workspaceId, terminalId }) -> TerminalCloseResult</code>
 
+# Hosts
+
+A host is a machine running Superset. Its projects and workspaces live on the machine, so these calls go to it through the relay and need it online. `hostId` defaults to the client's.
+
+Types:
+
+- <code><a href="./src/resources/hosts.ts">Host</a></code>
+- <code><a href="./src/resources/hosts.ts">HostListResponse</a></code>
+- <code><a href="./src/resources/hosts.ts">HostProject</a></code>
+- <code><a href="./src/resources/hosts.ts">HostProjectListResponse</a></code>
+- <code><a href="./src/resources/hosts.ts">HostWorkspace</a></code>
+- <code><a href="./src/resources/hosts.ts">HostWorkspaceListParams</a></code>
+- <code><a href="./src/resources/hosts.ts">HostWorkspaceCreateParams</a></code>
+- <code><a href="./src/resources/hosts.ts">HostWorkspaceCreateResult</a></code>
+- <code><a href="./src/resources/hosts.ts">HostWorkspaceCreateSessionParams</a></code>
+- <code><a href="./src/resources/hosts.ts">HostWorkspaceCreateSessionResult</a></code>
+- <code><a href="./src/resources/hosts.ts">HostWorkspaceUpdateParams</a></code>
+- <code><a href="./src/resources/hosts.ts">HostWorkspaceDeleteParams</a></code>
+- <code><a href="./src/resources/hosts.ts">HostWorkspaceDeleteResult</a></code>
+
+Methods:
+
+- <code title="get /api/trpc/host.list">client.hosts.<a href="./src/resources/hosts.ts">list</a>() -> HostListResponse</code>
+
+## Projects
+
+- <code title="host get /trpc/project.list">client.hosts.projects.<a href="./src/resources/hosts.ts">list</a>({ hostId? }) -> HostProjectListResponse</code>
+
+## Workspaces
+
+- <code title="host get /trpc/workspace.list">client.hosts.workspaces.<a href="./src/resources/hosts.ts">list</a>({ hostId?, projectId?, search? }) -> HostWorkspace[]</code>
+- <code title="host post /trpc/workspaces.create">client.hosts.workspaces.<a href="./src/resources/hosts.ts">create</a>({ hostId?, projectId, id?, name?, checkout?, branch?, pr?, baseBranch?, taskId?, tags?, agents?, command? }) -> HostWorkspaceCreateResult</code>
+- <code title="host post /trpc/workspaces.createSession">client.hosts.workspaces.<a href="./src/resources/hosts.ts">createSession</a>({ hostId?, id?, name?, tags?, agents?, command? }) -> HostWorkspaceCreateSessionResult</code>
+- <code title="host post /trpc/workspace.update">client.hosts.workspaces.<a href="./src/resources/hosts.ts">update</a>({ hostId?, id, name?, taskId?, tags? }) -> HostWorkspace</code>
+- <code title="host post /trpc/workspace.delete">client.hosts.workspaces.<a href="./src/resources/hosts.ts">delete</a>({ hostId?, id }) -> HostWorkspaceDeleteResult</code>
+
 # Chat
 
 Every method also takes `hostId` and `workspaceId`. A call goes to a host through the relay when it names a `hostId` or the client has one; otherwise it goes to the sandbox of the cloud workspace named by `workspaceId`. With an API key, the SDK trades the key for a short-lived user JWT at `/api/auth/token` for relay calls.
