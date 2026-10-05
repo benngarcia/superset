@@ -17,7 +17,7 @@ export function ProfileIdentity({
 	const tier = profile.factory?.tier ?? 0;
 	const tint = tier >= 1 ? tierRgb(tier) : undefined;
 	return (
-		<header className="min-w-0 lg:sticky lg:top-24">
+		<header className="min-w-0">
 			<div className="flex items-center gap-4 lg:flex-col lg:items-start lg:gap-5">
 				<Image
 					src={avatarUrl(profile.handle)}

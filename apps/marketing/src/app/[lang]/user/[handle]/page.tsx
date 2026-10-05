@@ -120,13 +120,13 @@ export default async function UserProfilePage({ params }: PageProps) {
 				<ViewToggle handle={profileHandle} />
 			</div>
 
-			<div className="grid items-start gap-8 lg:grid-cols-[240px_minmax(0,1fr)]">
+			<div className="grid items-start gap-8 lg:grid-cols-[280px_minmax(0,1fr)] lg:grid-rows-[auto_1fr]">
 				<ProfileIdentity
 					profile={profile}
 					shareUrl={shareUrl}
 					shareText={shareText}
 				/>
-				<div className="min-w-0 space-y-6">
+				<div className="min-w-0 space-y-6 lg:col-start-2 lg:row-span-2 lg:row-start-1">
 					<StatStrip
 						stats={[
 							{
@@ -202,6 +202,8 @@ export default async function UserProfilePage({ params }: PageProps) {
 					<LeaderboardPanel title={<Trans>Token breakdown</Trans>}>
 						<TokenSplitBar split={profile.tokenSplit} />
 					</LeaderboardPanel>
+				</div>
+				<aside className="min-w-0 space-y-6 lg:col-start-1 lg:row-start-2">
 					<TierTube
 						subject="you"
 						position={
@@ -219,7 +221,7 @@ export default async function UserProfilePage({ params }: PageProps) {
 						<Trans>How tiers work →</Trans>
 					</Link>
 					<AchievementShelf awards={profile.awards} />
-				</div>
+				</aside>
 			</div>
 		</LeaderboardLayout>
 	);
