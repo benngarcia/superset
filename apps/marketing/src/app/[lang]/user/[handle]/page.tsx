@@ -127,6 +127,22 @@ export default async function UserProfilePage({ params }: PageProps) {
 					shareText={shareText}
 				/>
 				<div className="min-w-0 space-y-6 lg:col-start-2 lg:row-span-2 lg:row-start-1">
+					<TierTube
+						subject="you"
+						position={
+							profile.factory
+								? profile.factory.tier + Math.min(0.9, profile.factory.progress)
+								: 0
+						}
+						footer={<TierObjectives tier={tier} axes={profile.axes} />}
+					/>
+
+					<Link
+						href="/the-production-run"
+						className="inline-flex min-h-11 items-center text-sm text-muted-foreground transition-colors hover:text-brand"
+					>
+						<Trans>How tiers work →</Trans>
+					</Link>
 					<StatStrip
 						stats={[
 							{
@@ -173,6 +189,14 @@ export default async function UserProfilePage({ params }: PageProps) {
 						]}
 					/>
 
+					<LeaderboardPanel title={<Trans>Contributions</Trans>}>
+						<ContributionGraph
+							daily={profile.daily}
+							endDay={new Date().toISOString().slice(0, 10)}
+							rgb="210,86,17"
+						/>
+					</LeaderboardPanel>
+
 					<LeaderboardPanel
 						title={<Trans>Models</Trans>}
 						meta={t({ message: "All time" })}
@@ -191,33 +215,9 @@ export default async function UserProfilePage({ params }: PageProps) {
 						/>
 					</LeaderboardPanel>
 
-					<LeaderboardPanel title={<Trans>Contributions</Trans>}>
-						<ContributionGraph
-							daily={profile.daily}
-							endDay={new Date().toISOString().slice(0, 10)}
-							rgb="210,86,17"
-						/>
-					</LeaderboardPanel>
-
 					<LeaderboardPanel title={<Trans>Token breakdown</Trans>}>
 						<TokenSplitBar split={profile.tokenSplit} />
 					</LeaderboardPanel>
-					<TierTube
-						subject="you"
-						position={
-							profile.factory
-								? profile.factory.tier + Math.min(0.9, profile.factory.progress)
-								: 0
-						}
-						footer={<TierObjectives tier={tier} axes={profile.axes} />}
-					/>
-
-					<Link
-						href="/the-production-run"
-						className="inline-flex min-h-11 items-center text-sm text-muted-foreground transition-colors hover:text-brand"
-					>
-						<Trans>How tiers work →</Trans>
-					</Link>
 				</div>
 				<aside className="min-w-0 space-y-6 lg:col-start-1 lg:row-start-2">
 					<AchievementShelf awards={profile.awards} />
