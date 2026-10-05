@@ -34,6 +34,7 @@ import { Text } from "@/components/ui/text";
 import { useArchivedCloudWorkspaces } from "@/hooks/useArchivedCloudWorkspaces";
 import { getHostWorkspacesQueryKey } from "@/hooks/useHostWorkspaces";
 import { useWorkspaceHost } from "@/hooks/useWorkspaceHost";
+import { getChatTransport } from "@/lib/chat";
 import { errorCopy } from "@/lib/errors";
 import {
 	getHostServiceClientByUrl,
@@ -60,6 +61,10 @@ import { usePinnedWorkspacesStore } from "@/screens/(authenticated)/stores/pinne
 import { useTerminalSeenStore } from "@/screens/(authenticated)/stores/terminalSeenStore";
 import { useTerminalTabOrderStore } from "@/screens/(authenticated)/stores/terminalTabOrderStore";
 import { useUnreadWorkspacesStore } from "@/screens/(authenticated)/stores/unreadWorkspacesStore";
+import {
+	ChatSessionView,
+	type ChatSessionViewHandle,
+} from "../components/ChatSessionView";
 import { CloudWorkspaceProvisioningState } from "../components/CloudWorkspaceProvisioningState";
 import { ScrollToBottomButton } from "../components/ScrollToBottomButton";
 import {
@@ -467,6 +472,7 @@ export function WorkspaceScreen() {
 		(state) => state.markTerminalSeen,
 	);
 	const activeRow = rows.find((row) => row.terminalId === activeTerminalId);
+	const activeIsChat = activeRow?.kind === "chat";
 	const slashCommands = useSlashCommands({
 		machineId: host?.machineId ?? null,
 		hostUrl,
@@ -530,8 +536,15 @@ export function WorkspaceScreen() {
 	const killTerminal = useCallback(
 		(terminalId: string) => {
 			if (!hostUrl || !id) return;
-			void getHostServiceClientByUrl(hostUrl)
-				.terminal.killSession.mutate({ terminalId, workspaceId: id })
+			const row = rows.find((candidate) => candidate.terminalId === terminalId);
+			const closing =
+				row?.kind === "chat"
+					? getChatTransport(hostUrl).closeSession({ sessionId: terminalId })
+					: getHostServiceClientByUrl(hostUrl).terminal.killSession.mutate({
+							terminalId,
+							workspaceId: id,
+						});
+			void closing
 				// A kill that fails leaves the tab exactly where it was, which reads
 				// as the tap having missed. Cheap to ignore while closing was a
 				// long-press only; the strip now offers it on every selected tab and
@@ -546,7 +559,7 @@ export function WorkspaceScreen() {
 				)
 				.finally(invalidateTerminals);
 		},
-		[id, hostUrl, invalidateTerminals, t],
+		[id, hostUrl, rows, invalidateTerminals, t],
 	);
 
 	// The composer reports the intent and stops there: it has no idea that
@@ -578,6 +591,7 @@ export function WorkspaceScreen() {
 
 	// --- active terminal connection (one live stream; tabs switch it) ---
 	const terminalRef = useRef<TerminalWebViewHandle>(null);
+	const chatRef = useRef<ChatSessionViewHandle>(null);
 	const [connectionState, setConnectionState] =
 		useState<TerminalConnectionState>("connecting");
 	// Reported by the composer itself: it draws in an overlay and takes no
@@ -640,6 +654,10 @@ export function WorkspaceScreen() {
 	const promptRenameTerminal = useCallback(
 		(terminalId: string) => {
 			const row = rows.find((candidate) => candidate.terminalId === terminalId);
+			if (row?.kind === "chat") {
+				Alert.alert(t({ message: "A chat takes its name from the agent." }));
+				return;
+			}
 			Alert.prompt(
 				t({
 					message: "Rename session",
@@ -723,13 +741,18 @@ export function WorkspaceScreen() {
 			if (!hostUrl || !activeTerminalId || !id) {
 				throw new Error("Terminal is not connected");
 			}
+			if (activeIsChat) {
+				if (!chatRef.current) throw new Error("Chat is not connected");
+				await chatRef.current.send(text);
+				return;
+			}
 			await getHostServiceClientByUrl(hostUrl).terminal.send.mutate({
 				terminalId: activeTerminalId,
 				workspaceId: id,
 				text,
 			});
 		},
-		[hostUrl, activeTerminalId, id],
+		[hostUrl, activeTerminalId, id, activeIsChat],
 	);
 
 	const handleQuickKey = useCallback(
@@ -980,14 +1003,14 @@ export function WorkspaceScreen() {
 				</Stack.Toolbar>
 			) : null}
 
-			{banner && activeTerminalId ? (
+			{banner && activeTerminalId && !activeIsChat ? (
 				<View className="bg-muted px-3 py-1.5">
 					<Text className="text-muted-foreground text-center text-xs">
 						{banner}
 					</Text>
 				</View>
 			) : null}
-			{connectionState === "error" && activeTerminalId ? (
+			{connectionState === "error" && activeTerminalId && !activeIsChat ? (
 				<View className="bg-muted flex-row items-center justify-center gap-3 px-3 py-1.5">
 					<Text className="text-muted-foreground text-xs">
 						<Trans>Connection failed.</Trans>
@@ -1021,6 +1044,14 @@ export function WorkspaceScreen() {
 						title={t({
 							message: "This host needs an update",
 						})}
+					/>
+				) : activeIsChat && activeTerminalId && host && hostUrl ? (
+					<ChatSessionView
+						host={host}
+						hostUrl={hostUrl}
+						key={activeTerminalId}
+						ref={chatRef}
+						sessionId={activeTerminalId}
 					/>
 				) : activeTerminalId && host && id ? (
 					<>
@@ -1163,6 +1194,7 @@ export function WorkspaceScreen() {
 					ref={composerRef}
 					selectActive={select.active}
 					selectHasSelection={select.hasSelection}
+					hideQuickKeys={activeIsChat}
 				/>
 			) : null}
 			<ToolbarAnchor ref={shareAnchorRef} />

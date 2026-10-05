@@ -750,6 +750,9 @@ msgstr "{count, plural, one {# plik} few {# pliki} many {# plików} other {# pli
 msgid "{count, plural, one {# search} other {# searches}}"
 msgstr "{count, plural, one {# wyszukiwanie} few {# wyszukiwania} many {# wyszukiwań} other {# wyszukiwania}}"
 
+msgid "{count, plural, one {# step} other {# steps}}"
+msgstr "{count, plural, one {# krok} few {# kroki} many {# kroków} other {# kroku}}"
+
 msgid "{count, plural, one {# worktree in this repository has no workspace. It will be imported as a workspace.} other {# worktrees in this repository have no workspace. They will be imported as workspaces.}}"
 msgstr "{count, plural, one {# worktree w tym repozytorium nie ma obszaru roboczego. Zostanie zaimportowany jako obszar roboczy.} few {# worktree w tym repozytorium nie mają obszaru roboczego. Zostaną zaimportowane jako obszary robocze.} many {# worktree w tym repozytorium nie ma obszaru roboczego. Zostaną zaimportowane jako obszary robocze.} other {# worktree w tym repozytorium nie ma obszaru roboczego. Zostaną zaimportowane jako obszary robocze.}}"
 
@@ -1376,6 +1379,9 @@ msgstr "Lepsza przeglądarka w aplikacji: podejrzyj swoje zmiany i kliknij dowol
 
 msgid "A better Superset is ready"
 msgstr "Lepsza wersja Superset jest gotowa"
+
+msgid "A chat takes its name from the agent."
+msgstr "Czat bierze nazwę od agenta."
 
 msgid "A cloud automation needs an environment or a cloud workspace"
 msgstr "Automatyzacja w chmurze wymaga środowiska lub obszaru roboczego w chmurze"
@@ -4614,8 +4620,14 @@ msgstr "Twój koszt: $0"
 msgid "Could not add agent"
 msgstr "Nie udało się dodać agenta"
 
+msgid "Could not answer the agent"
+msgstr "Nie udało się odpowiedzieć agentowi"
+
 msgid "Could not attach files"
 msgstr "Nie udało się załączyć plików"
+
+msgid "Could not change the mode"
+msgstr "Nie udało się zmienić trybu"
 
 msgid "Could not change the shared version"
 msgstr "Nie udało się zmienić udostępnionej wersji"
@@ -4652,6 +4664,9 @@ msgstr "Nie udało się utworzyć projektu"
 
 msgid "Could not create project. Please try a different name or check the logs."
 msgstr "Nie udało się utworzyć projektu. Spróbuj innej nazwy lub sprawdź logi."
+
+msgid "Could not delete"
+msgstr "Nie udało się usunąć"
 
 msgid "Could not delete account"
 msgstr "Nie udało się usunąć konta"
@@ -4777,6 +4792,9 @@ msgstr "Nie udało się rozwiązać tego komentarza"
 msgid "Could not restart the host service"
 msgstr "Nie udało się ponownie uruchomić usługi hosta"
 
+msgid "Could not resume"
+msgstr "Nie udało się wznowić"
+
 msgid "Could not send"
 msgstr "Nie udało się wysłać"
 
@@ -4798,8 +4816,14 @@ msgstr "Nie udało się rozpocząć provisioningu obszaru roboczego w chmurze"
 msgid "Could not start session"
 msgstr "Nie udało się uruchomić sesji"
 
+msgid "Could not steer"
+msgstr "Nie udało się przekierować"
+
 msgid "Could not stop it"
 msgstr "Nie udało się zatrzymać"
+
+msgid "Could not stop the agent"
+msgstr "Nie udało się zatrzymać agenta"
 
 msgid "Could not stop watching"
 msgstr "Nie udało się przestać obserwować"
@@ -9169,6 +9193,9 @@ msgstr "wczytać ustawień agenta"
 msgid "Load diff"
 msgstr "Wczytaj różnice"
 
+msgid "Load earlier messages"
+msgstr "Wczytaj wcześniejsze wiadomości"
+
 msgid "Load more"
 msgstr "Wczytaj więcej"
 
@@ -10855,6 +10882,9 @@ msgstr "Brak zdarzeń: Microsoft Graph odrzucił subskrypcje powiadomień. Spraw
 
 msgid "Not reviewed by you"
 msgstr "Nieprzejrzane przez Ciebie"
+
+msgid "Not sent"
+msgstr "Nie wysłano"
 
 msgid "not set up"
 msgstr "nieskonfigurowany"
@@ -15426,6 +15456,9 @@ msgstr "Zatrzymaj polecenie uruchamiania obszaru roboczego"
 msgid "stopped"
 msgstr "zatrzymana"
 
+msgid "Stopped"
+msgstr "Zatrzymano"
+
 msgid "Stopping the agent in {what}"
 msgstr "Zatrzymywanie agenta w {what}"
 
@@ -16425,6 +16458,9 @@ msgstr "Zaproszenie do zespołu wygasło lub nie istnieje. Poproś właściciela
 msgid "The title shows everywhere this page is listed and in its link preview."
 msgstr "Tytuł pojawia się wszędzie tam, gdzie ta strona jest wymieniona, oraz w podglądzie linku."
 
+msgid "The turn failed"
+msgstr "Tura nie powiodła się"
+
 msgid "The workspace is not ready yet. Try again."
 msgstr "Obszar roboczy nie jest jeszcze gotowy. Spróbuj ponownie."
 
@@ -16518,6 +16554,9 @@ msgstr "Ta automatyzacja znajduje się w innej organizacji"
 
 msgid "This cannot be undone."
 msgstr "Tej operacji nie można cofnąć."
+
+msgid "This chat has ended."
+msgstr "Ten czat się zakończył."
 
 msgid "This chat stopped because the conversation continued in a terminal."
 msgstr "Ten czat został zatrzymany, ponieważ rozmowa była kontynuowana w terminalu."
@@ -18185,6 +18224,9 @@ msgstr "Pracuje od {0} min {1} s"
 
 msgid "Working for {seconds}s"
 msgstr "Pracuje od {seconds} s"
+
+msgid "Working…"
+msgstr "Pracuje…"
 
 msgid "Works when environments are clean. Environments are rarely clean."
 msgstr "Działa, gdy środowiska są czyste. Środowiska rzadko są czyste."
