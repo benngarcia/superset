@@ -20,12 +20,12 @@ export type ItemRowProps = {
 	onRespond: (approvalId: string, decision: Decision) => void;
 	onFork?: ((target: ChatForkTarget) => void) | undefined;
 	canForkToWorktree?: boolean;
-	endsTurn?: boolean;
+	lastReply?: boolean;
 };
 
 export const ItemRow = memo(function ItemRow({
 	canForkToWorktree,
-	endsTurn = false,
+	lastReply = false,
 	harness,
 	item,
 	onFork,
@@ -43,7 +43,7 @@ export const ItemRow = memo(function ItemRow({
 			return (
 				<AgentMessageRow
 					canForkToWorktree={canForkToWorktree}
-					endsTurn={endsTurn}
+					lastReply={lastReply}
 					item={item}
 					onFork={onFork}
 					text={text}

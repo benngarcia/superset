@@ -20,7 +20,7 @@ function outboxMessage(entry: OutboxEntry): UserMessage {
 
 export type TurnGroupSectionProps = {
 	row: TranscriptRow;
-	endsGroup: boolean;
+	lastReply: boolean;
 	snapshot: SessionSnapshot;
 	isEntryCollapsed: (entryKey: string, defaultCollapsed: boolean) => boolean;
 	onToggleEntry: (entryKey: string, collapsed: boolean) => void;
@@ -39,7 +39,7 @@ export type TurnGroupSectionProps = {
  */
 export function TurnGroupSection({
 	canForkToWorktree,
-	endsGroup,
+	lastReply,
 	isEntryCollapsed,
 	onDiscardPrompt,
 	onFork,
@@ -62,7 +62,7 @@ export function TurnGroupSection({
 			return (
 				<ItemRow
 					canForkToWorktree={canForkToWorktree}
-					endsTurn={endsGroup}
+					lastReply={lastReply}
 					harness={harness}
 					item={row.item}
 					onFork={onFork}

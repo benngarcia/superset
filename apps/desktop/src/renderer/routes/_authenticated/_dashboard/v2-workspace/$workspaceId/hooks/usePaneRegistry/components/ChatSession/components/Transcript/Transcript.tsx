@@ -25,6 +25,7 @@ import {
 import type { ChatForkTarget } from "../../types";
 import { TurnGroupSection } from "./components/TurnGroupSection";
 import { useScrollAnchorKey } from "./hooks/useScrollAnchorKey";
+import { lastReplyKeys } from "./utils/lastReplyKeys";
 import { type TranscriptRow, transcriptRows } from "./utils/transcriptRows";
 
 const REMEMBER_SIZE_CLASSNAME = "[contain-intrinsic-size:auto_240px]";
@@ -148,6 +149,8 @@ export function Transcript({
 		[groups, outbox, pendingApprovalTargets],
 	);
 
+	const lastReplies = useMemo(() => lastReplyKeys(rows), [rows]);
+
 	const anchorRowKey = useScrollAnchorKey(rows, outbox, {
 		turnRunning: groups.at(-1)?.turn?.status === "running",
 		readerScrolledAway,
@@ -176,7 +179,7 @@ export function Transcript({
 		>
 			<TurnGroupSection
 				canForkToWorktree={canForkToWorktree}
-				endsGroup={rows[index + 1]?.groupStart ?? true}
+				lastReply={lastReplies.has(row.key)}
 				isEntryCollapsed={isEntryCollapsed}
 				onDiscardPrompt={onDiscardPrompt}
 				onFork={onFork}

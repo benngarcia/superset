@@ -27,7 +27,7 @@ function clockLabel(item: AgentMessage): string {
 
 export function AgentMessageRow({
 	canForkToWorktree = true,
-	endsTurn,
+	lastReply,
 	item,
 	onFork,
 	text,
@@ -38,7 +38,7 @@ export function AgentMessageRow({
 	onFork?: ((target: ChatForkTarget) => void) | undefined;
 	/** False when there is no project to cut a worktree from. */
 	canForkToWorktree?: boolean;
-	endsTurn: boolean;
+	lastReply: boolean;
 }) {
 	const { t } = useLingui();
 	const { copied, copyToClipboard } = useCopyToClipboard(COPIED_MS);
@@ -61,7 +61,7 @@ export function AgentMessageRow({
 				fading={fading}
 				text={paced.text}
 			/>
-			{endsTurn && !streaming && (
+			{lastReply && !streaming && (
 				<div className="flex items-center gap-2 text-muted-foreground/60 opacity-0 transition-opacity focus-within:opacity-100 group-hover/message:opacity-100">
 					<button
 						aria-label={t({ message: "Copy message" })}
