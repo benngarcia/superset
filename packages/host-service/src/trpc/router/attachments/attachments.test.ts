@@ -173,6 +173,28 @@ describe("attachmentsRouter.upload", () => {
 	});
 });
 
+describe("attachmentsRouter.read", () => {
+	it("returns an image's bytes and refuses other media types", async () => {
+		const caller = createCaller();
+		const image = await caller.upload({
+			data: { kind: "base64", data: PNG_BASE64 },
+			mediaType: "image/png",
+		});
+		const text = await caller.upload({
+			data: { kind: "base64", data: Buffer.from("notes").toString("base64") },
+			mediaType: "text/plain",
+		});
+
+		expect(await caller.read({ attachmentId: image.attachmentId })).toEqual({
+			mediaType: "image/png",
+			data: PNG_BASE64,
+		});
+		await expect(
+			caller.read({ attachmentId: text.attachmentId }),
+		).rejects.toMatchObject({ code: "NOT_FOUND" });
+	});
+});
+
 describe("attachmentsRouter.delete", () => {
 	it("removes the attachment directory", async () => {
 		const caller = createCaller();
