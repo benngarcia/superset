@@ -25,20 +25,26 @@ const HTTP_STATUS: Record<TrpcErrorCode, ContentfulStatusCode> = {
 	BAD_GATEWAY: 502,
 };
 
+const CHAT_TRPC_PREFIX = "/chat-v3/trpc";
+
 export function isTrpcPath(pathAfterHost: string): boolean {
-	return pathAfterHost.startsWith("/trpc");
+	return (
+		pathAfterHost.startsWith("/trpc") ||
+		pathAfterHost.startsWith(CHAT_TRPC_PREFIX)
+	);
 }
 
+/** The host's main router uses superjson; its chat router has no transformer. */
 export function trpcErrorResponse(
 	c: Context,
+	pathAfterHost: string,
 	code: TrpcErrorCode,
 	message: string,
 ) {
 	const httpStatus = HTTP_STATUS[code];
-	const error = superjson.serialize({
-		message,
-		code: RPC_CODE[code],
-		data: { code, httpStatus },
-	});
+	const shape = { message, code: RPC_CODE[code], data: { code, httpStatus } };
+	const error = pathAfterHost.startsWith(CHAT_TRPC_PREFIX)
+		? shape
+		: superjson.serialize(shape);
 	return c.json({ error }, httpStatus);
 }

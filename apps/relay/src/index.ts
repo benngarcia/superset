@@ -242,9 +242,11 @@ const authMiddleware: MiddlewareHandler<AppContext> = async (c, next) => {
 	if (!hostId) return c.json({ error: "Missing hostId" }, 400);
 	const result = await authenticate(c, hostId, "reach");
 	if (isDenial(result)) {
-		if (isTrpcPath(pathAfterHost(c))) {
+		const path = pathAfterHost(c);
+		if (isTrpcPath(path)) {
 			return trpcErrorResponse(
 				c,
+				path,
 				result.status === 403 ? "FORBIDDEN" : "UNAUTHORIZED",
 				result.message,
 			);
@@ -263,13 +265,21 @@ const proxyHostHttp = async (c: Context<AppContext>) => {
 	const hostId = c.get("hostId");
 	const url = new URL(c.req.url);
 	const path = pathAfterHost(c) || "/";
+	if (!path.startsWith("/") || path.startsWith("//")) {
+		return c.json({ error: "Invalid path" }, 400);
+	}
 	const query = url.search.slice(1);
 
 	const headers = buildUpstreamHeaders(c.req.raw.headers, c.get("auth").sub);
 
 	const stub = await tunnelStub(c, hostId);
 	if (!stub) {
-		return trpcErrorResponse(c, "SERVICE_UNAVAILABLE", "Host is not online");
+		return trpcErrorResponse(
+			c,
+			path,
+			"SERVICE_UNAVAILABLE",
+			"Host is not online",
+		);
 	}
 	const caller = c.get("caller");
 	const result = await stub.proxyHttp(caller, {
@@ -285,6 +295,7 @@ const proxyHostHttp = async (c: Context<AppContext>) => {
 			);
 			return trpcErrorResponse(
 				c,
+				path,
 				refused.status === 403 ? "FORBIDDEN" : "INTERNAL_SERVER_ERROR",
 				refused.message,
 			);
@@ -292,14 +303,15 @@ const proxyHostHttp = async (c: Context<AppContext>) => {
 		if (result.reason === "dial-failed") {
 			return trpcErrorResponse(
 				c,
+				path,
 				"BAD_GATEWAY",
 				"Host could not reach the relay",
 			);
 		}
 		const connected = await stub.isConnected(caller);
 		return connected.access === "allowed" && connected.connected
-			? trpcErrorResponse(c, "BAD_GATEWAY", "Request timed out")
-			: trpcErrorResponse(c, "SERVICE_UNAVAILABLE", "Host is not online");
+			? trpcErrorResponse(c, path, "BAD_GATEWAY", "Request timed out")
+			: trpcErrorResponse(c, path, "SERVICE_UNAVAILABLE", "Host is not online");
 	}
 	return new Response(result.body.byteLength > 0 ? result.body : null, {
 		status: result.status,
