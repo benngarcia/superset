@@ -7,6 +7,7 @@ import type { DeltaChannel } from "@superset/chat/protocol";
 import { parseCursor } from "@superset/chat/protocol";
 import type {
 	ChatRuntime,
+	ChatSessionChange,
 	HarnessFactory,
 	HarnessRegistry,
 	WsSinkSocket,
@@ -113,6 +114,7 @@ export function createChatV3Mount(options: {
 	db: HostDb;
 	dbPath: string;
 	agents?: ChatAgentBridge;
+	onSessionChanged?: (change: ChatSessionChange) => void;
 }): ChatV3Mount {
 	let built: ChatRuntime | null = null;
 
@@ -123,6 +125,7 @@ export function createChatV3Mount(options: {
 			migrationsFolder: migrationsFolder(),
 			harnesses: harnessRegistry(options.db, options.agents),
 			observer: options.agents,
+			onSessionChanged: options.onSessionChanged,
 		});
 		return built;
 	};

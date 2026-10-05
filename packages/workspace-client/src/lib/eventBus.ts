@@ -25,7 +25,8 @@ type EventType =
 	| "workspace:naming-failed"
 	| "project:changed"
 	| "tag-folders:changed"
-	| "page-watch:changed";
+	| "page-watch:changed"
+	| "chat:session-changed";
 
 interface FsEventsPayload {
 	events: FsWatchEvent[];
@@ -117,6 +118,11 @@ export interface PageWatchChangedPayload {
 	occurredAt: number;
 }
 
+export type ChatSessionChangedPayload = Omit<
+	Extract<ServerMessage, { type: "chat:session-changed" }>,
+	"type" | "workspaceId"
+>;
+
 type TagFoldersChangedMessage = Extract<
 	ServerMessage,
 	{ type: "tag-folders:changed" }
@@ -167,7 +173,12 @@ type EventListener<T extends EventType> = T extends "fs:events"
 														workspaceId: string,
 														payload: PageWatchChangedPayload,
 													) => void
-												: never;
+												: T extends "chat:session-changed"
+													? (
+															workspaceId: string,
+															payload: ChatSessionChangedPayload,
+														) => void
+													: never;
 
 interface ListenerEntry {
 	type: EventType;
@@ -307,7 +318,8 @@ function handleMessage(state: ConnectionState, data: unknown): void {
 			message.type === "workspace:changed" ||
 			message.type === "workspace:create-settled" ||
 			message.type === "workspace:naming-failed" ||
-			message.type === "page-watch:changed"
+			message.type === "page-watch:changed" ||
+			message.type === "chat:session-changed"
 				? message.workspaceId
 				: message.type === "project:changed"
 					? message.projectId
@@ -386,6 +398,12 @@ function handleMessage(state: ConnectionState, data: unknown): void {
 				project: message.project,
 				occurredAt: message.occurredAt,
 			});
+		} else if (message.type === "chat:session-changed") {
+			const { type: _type, workspaceId, ...payload } = message;
+			(entry.callback as EventListener<"chat:session-changed">)(
+				workspaceId,
+				payload,
+			);
 		} else if (message.type === "tag-folders:changed") {
 			(entry.callback as EventListener<"tag-folders:changed">)(message.scope, {
 				settings: message.settings,

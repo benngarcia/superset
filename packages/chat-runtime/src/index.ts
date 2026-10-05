@@ -2,6 +2,7 @@ import type { ChatCommands } from "./commands";
 import { CommandDedupe, createCommands } from "./commands";
 import type { ChatDb, OpenChatDb } from "./db";
 import { createChatDb } from "./db";
+import type { ChatJournalOptions } from "./journal";
 import { ChatJournal } from "./journal";
 import { ChatSessionStore } from "./projection";
 import type { HarnessRegistry, LiveSessionObserver } from "./sessions";
@@ -28,6 +29,7 @@ export type ChatRuntimeOptions = {
 	schedule?: Schedule;
 	bootstrapLimit?: number;
 	dedupeCapacity?: number;
+	onSessionChanged?: ChatJournalOptions["onSessionChanged"];
 };
 
 export type ChatRuntime = {
@@ -50,7 +52,9 @@ export function createChatRuntime(options: ChatRuntimeOptions): ChatRuntime {
 		dataDir: options.dataDir,
 		migrationsFolder: options.migrationsFolder,
 	});
-	const journal = new ChatJournal(db);
+	const journal = new ChatJournal(db, {
+		onSessionChanged: options.onSessionChanged,
+	});
 	const sessions = new ChatSessionStore(db);
 	const subscriptions = new SubscriptionHub(db, {
 		schedule: options.schedule,

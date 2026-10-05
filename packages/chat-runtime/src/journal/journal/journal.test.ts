@@ -12,6 +12,7 @@ import {
 	userMessage,
 } from "../../testing/fixtures";
 import { createBunChatDb, createTestRuntime } from "../../testing/testRuntime";
+import type { ChatSessionChange } from "./journal";
 
 const SESSION = "session-1";
 
@@ -104,6 +105,44 @@ describe("ChatJournal", () => {
 			status: "idle",
 			title: "Fix the build",
 		});
+	});
+
+	test("reports session status changes, not every append", () => {
+		const changes: ChatSessionChange[] = [];
+		const watched = createTestRuntime({
+			onSessionChanged: (change) => changes.push(change),
+		});
+		watched.journal.open(init());
+		watched.journal.append(SESSION, {
+			type: "session",
+			session: sessionState({ status: "starting" }),
+		});
+		watched.journal.append(SESSION, {
+			type: "session",
+			session: sessionState({ status: "running" }),
+		});
+		watched.journal.append(SESSION, {
+			type: "item",
+			item: agentMessage("a", "a"),
+			turnId: "turn-1",
+		});
+		watched.journal.append(SESSION, {
+			type: "session",
+			session: sessionState({ status: "running", title: "Renamed" }),
+		});
+		watched.journal.append(SESSION, {
+			type: "session",
+			session: sessionState({ status: "idle" }),
+		});
+		watched.journal.discard(SESSION);
+
+		expect(changes).toEqual(
+			(["starting", "running", "idle", "dead"] as const).map((status) => ({
+				sessionId: SESSION,
+				scopeId: "workspace-1",
+				status,
+			})),
+		);
 	});
 
 	test("projects queued_count from queued user messages", () => {

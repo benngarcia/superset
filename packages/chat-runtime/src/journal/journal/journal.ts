@@ -2,8 +2,12 @@ import type {
 	Cursor,
 	DurableEnvelope,
 	DurableEvent,
+	SessionStatus,
 } from "@superset/chat/protocol";
-import { durableEventSchema } from "@superset/chat/protocol";
+import {
+	durableEventSchema,
+	sessionStatusSchema,
+} from "@superset/chat/protocol";
 import { eq } from "drizzle-orm";
 import type { ChatDb } from "../../db";
 import { chatJournal } from "../../db";
@@ -23,7 +27,18 @@ export type OpenedSession = {
 	queuedCount: number;
 };
 
+export type ChatSessionChange = {
+	sessionId: string;
+	scopeId: string;
+	status: SessionStatus;
+};
+
+export type ChatJournalOptions = {
+	onSessionChanged?: (change: ChatSessionChange) => void;
+};
+
 type SessionCache = {
+	scopeId: string;
 	epoch: string;
 	lastSeq: number;
 	queuedItemIds: Set<string>;
@@ -40,12 +55,19 @@ type NextProjection = {
 export class ChatJournal {
 	private readonly sessions = new Map<string, SessionCache>();
 
-	constructor(private readonly db: ChatDb) {}
+	constructor(
+		private readonly db: ChatDb,
+		private readonly options: ChatJournalOptions = {},
+	) {}
 
 	open(init: ChatSessionInit): OpenedSession {
+		const previousStatus = readSessionRow(this.db, init.sessionId)?.status;
 		const { epoch } = openEpoch(this.db, init);
 		this.sessions.delete(init.sessionId);
 		const cache = this.cacheFor(init.sessionId, epoch);
+		if (cache.status !== previousStatus) {
+			this.notify(init.sessionId, cache.scopeId, cache.status);
+		}
 		return {
 			sessionId: init.sessionId,
 			epoch: cache.epoch,
@@ -64,6 +86,7 @@ export class ChatJournal {
 		const seq = cache.lastSeq + 1;
 		const ts = Date.now();
 		const next = this.projectionFor(cache, parsed);
+		const statusChanged = next.status !== cache.status;
 
 		this.db.transaction(() => {
 			this.db
@@ -88,6 +111,7 @@ export class ChatJournal {
 		cache.status = next.status;
 		cache.title = next.title;
 		cache.queuedItemIds = next.queuedItemIds;
+		if (statusChanged) this.notify(sessionId, cache.scopeId, next.status);
 
 		return {
 			v: 1,
@@ -108,6 +132,7 @@ export class ChatJournal {
 	}
 
 	discard(sessionId: string): void {
+		const row = readSessionRow(this.db, sessionId);
 		this.sessions.delete(sessionId);
 		this.db.transaction(() => {
 			this.db
@@ -115,6 +140,17 @@ export class ChatJournal {
 				.where(eq(chatJournal.sessionId, sessionId))
 				.run();
 			removeSessionRow(this.db, sessionId);
+		});
+		if (row) this.notify(sessionId, row.scopeId, "dead");
+	}
+
+	private notify(sessionId: string, scopeId: string, status: string): void {
+		const parsed = sessionStatusSchema.safeParse(status);
+		if (!parsed.success) return;
+		this.options.onSessionChanged?.({
+			sessionId,
+			scopeId,
+			status: parsed.data,
 		});
 	}
 
@@ -183,6 +219,7 @@ export class ChatJournal {
 		}
 
 		const cache: SessionCache = {
+			scopeId: row.scopeId,
 			epoch,
 			lastSeq,
 			queuedItemIds,

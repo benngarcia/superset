@@ -1,3 +1,4 @@
+import type { SessionStatus } from "@superset/chat/protocol";
 import type { DetectedPort } from "@superset/port-scanner";
 import type { AgentIdentity } from "@superset/shared/agent-identity";
 import type { WorkspaceTagAssignment } from "@superset/shared/workspace-tags";
@@ -239,6 +240,14 @@ export interface PageWatchChangedMessage {
 	occurredAt: number;
 }
 
+export interface ChatSessionChangedMessage {
+	type: "chat:session-changed";
+	sessionId: string;
+	workspaceId: string;
+	status: SessionStatus;
+	occurredAt: number;
+}
+
 export type ServerMessage =
 	| FsEventsMessage
 	| GitChangedMessage
@@ -252,6 +261,7 @@ export type ServerMessage =
 	| ProjectChangedMessage
 	| TagFoldersChangedMessage
 	| PageWatchChangedMessage
+	| ChatSessionChangedMessage
 	| EventBusErrorMessage;
 
 /**
