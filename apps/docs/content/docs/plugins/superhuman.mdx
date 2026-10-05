@@ -3,7 +3,9 @@ title: Superhuman
 description: Find and read threads, triage your inbox, draft replies, and schedule meetings
 ---
 
-Find and read threads, triage your inbox, draft replies, and schedule meetings. Tools come from Superhuman's MCP server.
+Find and read threads, triage your inbox, draft replies, and schedule meetings.
+
+## Skills
 
 | Skill | What it does |
 |:------|:-------------|
@@ -13,3 +15,15 @@ Find and read threads, triage your inbox, draft replies, and schedule meetings. 
 | `schedule-with-superhuman` | Checks calendars and availability, proposes times, and books the meeting |
 
 Skills are named `superhuman-<skill>`. In Claude Code they appear as `superset:superhuman-<skill>`.
+
+## MCP Server
+
+Tools come from Superhuman's own MCP server at `https://mcp.mail.superhuman.com/mcp`. Superset proxies each call and adds your credentials. Superhuman decides which tools the server offers, so see Superhuman's documentation for the current list.
+
+## Authentication
+
+| Method | Details |
+|:-------|:--------|
+| OAuth 2.0 | You sign in to Superhuman in your browser. Superset registers itself with Superhuman when you connect, so there is no app to set up first. |
+
+Connect from the plugin's page in **Plugins**. Superset keeps the credentials. The agent and your machine never see them.
