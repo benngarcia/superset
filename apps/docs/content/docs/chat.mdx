@@ -11,6 +11,13 @@ The Chat UI shows an agent session as a chat instead of a terminal. You see the 
 
 It is not a separate agent. Superset runs the agent CLI you already installed, over the [Agent Client Protocol](https://agentclientprotocol.com), so a chat uses the same login, settings, and MCP servers as that CLI in a terminal. A session can move between the chat and the terminal without starting over.
 
+## Open a Chat
+
+- **New workspace:** pick a supported agent when you create a workspace, and its session opens as a chat.
+- **Existing agent terminal:** use the **CLI** / **Chat** toggle in the agent pane's header. Switching resumes the same session, so the agent keeps its context. Switch back to **CLI** at any time.
+
+The toggle shows only for agents the Chat UI supports.
+
 ## Supported Agents
 
 | Agent | Chat UI | Minimum CLI version | Upgrade |

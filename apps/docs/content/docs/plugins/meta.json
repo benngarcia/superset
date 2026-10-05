@@ -3,18 +3,6 @@
 	"icon": "Puzzle",
 	"pages": [
 		"overview",
-		"create",
-		"available",
-		"github",
-		"sentry",
-		"stripe",
-		"linear",
-		"notion",
-		"granola",
-		"circleback",
-		"ynab",
-		"slack",
-		"gmail",
-		"superhuman"
+		"available"
 	]
 }
