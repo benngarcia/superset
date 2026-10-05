@@ -8,9 +8,10 @@ import { fetchPullRequestGitDiff } from "./fetch-pull-request-git-diff";
 
 const CACHE_TTL_MS = 30_000;
 const MAX_CACHE_ENTRIES = 20;
+const MAX_CACHE_BYTES = 32 * 1024 * 1024;
 const entries = new Map<
 	string,
-	{ promise: Promise<PullRequestDiff>; fetchedAt: number | null }
+	{ promise: Promise<PullRequestDiff>; fetchedAt: number | null; bytes: number }
 >();
 
 export function fetchPullRequestDiff(
@@ -26,7 +27,7 @@ export function fetchPullRequestDiff(
 	}
 	const cached = entries.get(key);
 	if (cached) return cached.promise;
-	const promise = execGh(
+	const promise: Promise<PullRequestDiff> = execGh(
 		["pr", "diff", String(prNumber), "--repo", repoFullName],
 		{ timeout: 30_000, maxBuffer: 200 * 1024 * 1024 },
 	)
@@ -57,12 +58,36 @@ export function fetchPullRequestDiff(
 		}
 	}
 	if (entries.size < MAX_CACHE_ENTRIES) {
-		entries.set(key, { promise, fetchedAt: null });
+		entries.set(key, { promise, fetchedAt: null, bytes: 0 });
 	}
 	void promise.then(
-		() => {
+		(result) => {
 			const entry = entries.get(key);
-			if (entry?.promise === promise) entry.fetchedAt = Date.now();
+			if (entry?.promise !== promise) return;
+			const bytes =
+				result.patch.length * 2 +
+				(result.files ?? []).reduce(
+					(total, file) =>
+						total +
+						128 +
+						2 * (file.filename.length + (file.previousFilename?.length ?? 0)),
+					0,
+				);
+			if (bytes > MAX_CACHE_BYTES) {
+				entries.delete(key);
+				return;
+			}
+			let retainedBytes = bytes;
+			for (const cached of entries.values()) retainedBytes += cached.bytes;
+			for (const [otherKey, cached] of entries) {
+				if (retainedBytes <= MAX_CACHE_BYTES) break;
+				if (otherKey !== key && cached.fetchedAt !== null) {
+					entries.delete(otherKey);
+					retainedBytes -= cached.bytes;
+				}
+			}
+			entry.bytes = bytes;
+			entry.fetchedAt = Date.now();
 		},
 		() => {
 			if (entries.get(key)?.promise === promise) entries.delete(key);

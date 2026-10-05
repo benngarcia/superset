@@ -273,3 +273,40 @@ test("falls through to Git when the API omits file content", async () => {
 	});
 	expect(git).toHaveBeenCalledTimes(1);
 });
+
+test("shares an oversized pending diff but does not retain it after completion", async () => {
+	spyOn(Date, "now").mockReturnValue(1_000_000);
+	let resolve!: (patch: string) => void;
+	const exec = spyOn(gh, "execGh").mockImplementation(
+		() =>
+			new Promise<string>((done) => {
+				resolve = done;
+			}),
+	);
+	const first = fetchPullRequestDiff("owner/oversized-cache", 1);
+	expect(fetchPullRequestDiff("owner/oversized-cache", 1)).toBe(first);
+	const patch = "x".repeat(16 * 1024 * 1024 + 1);
+	resolve(patch);
+	expect((await first).patch).toBe(patch);
+	exec.mockResolvedValue("retry");
+	expect(await fetchPullRequestDiff("owner/oversized-cache", 1)).toEqual({
+		patch: "retry",
+	});
+	expect(exec).toHaveBeenCalledTimes(2);
+});
+
+test("evicts completed diffs to stay within the total 32 MiB cache budget", async () => {
+	spyOn(Date, "now").mockReturnValue(2_000_000);
+	const patch = "x".repeat(8 * 1024 * 1024);
+	const exec = spyOn(gh, "execGh").mockResolvedValue(patch);
+	await fetchPullRequestDiff("owner/byte-budget", 1);
+	await fetchPullRequestDiff("owner/byte-budget", 2);
+	await fetchPullRequestDiff("owner/byte-budget", 1);
+	expect(exec).toHaveBeenCalledTimes(2);
+	await fetchPullRequestDiff("owner/byte-budget", 3);
+	await fetchPullRequestDiff("owner/byte-budget", 2);
+	await fetchPullRequestDiff("owner/byte-budget", 3);
+	expect(exec).toHaveBeenCalledTimes(3);
+	await fetchPullRequestDiff("owner/byte-budget", 1);
+	expect(exec).toHaveBeenCalledTimes(4);
+});
