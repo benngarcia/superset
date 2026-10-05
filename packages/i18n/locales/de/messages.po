@@ -361,11 +361,6 @@ msgstr "{0} → {1} ausstehend"
 msgid "{0} actions"
 msgstr "Aktionen für {0}"
 
-#. placeholder {0}: left.name
-#. placeholder {1}: right.name
-msgid "{0} and {1} settle it as terminal dinosaurs. Stats decide the winner."
-msgstr "{0} und {1} tragen es als Terminal-Dinosaurier aus. Die Statistiken entscheiden."
-
 #. placeholder {0}: formatTokens(belowGap > 0n ? belowGap : 0n)
 msgid "{0} behind you"
 msgstr "{0} hinter dir"
@@ -3448,6 +3443,9 @@ msgstr "Prüfungen bestanden"
 
 msgid "Checks Skipped"
 msgstr "Prüfungen übersprungen"
+
+msgid "Choose a fighter"
+msgstr "Kämpfer auswählen"
 
 msgid "Choose a folder"
 msgstr "Ordner auswählen"
@@ -11951,9 +11949,6 @@ msgstr "Wähle den Worktree-Ordner des Projekts auf {hostName}."
 
 msgid "Pick the worktree folder on {hostName}."
 msgstr "Wähle den Worktree-Ordner auf {hostName}."
-
-msgid "Pick two developers, watch their agent usage stats fight it out as terminal dinosaurs. Same two handles always produce the same fight."
-msgstr "Wähle zwei Entwickler und sieh zu, wie ihre Agenten-Nutzungsstatistiken als Terminal-Dinosaurier gegeneinander antreten. Dieselben zwei Handles ergeben immer denselben Kampf."
 
 msgid "Pick your agent for a one-line install, or copy the config by hand. Every client, including OAuth and API key setup, is covered in the <0>full MCP server docs</0>."
 msgstr "Wähle deinen Agenten für eine Installation in einer Zeile oder kopiere die Konfiguration von Hand. Jeder Client, inklusive OAuth- und API-Schlüssel-Setup, ist in der <0>vollständigen MCP-Server-Doku</0> beschrieben."

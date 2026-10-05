@@ -460,6 +460,8 @@
         "@lingui/core": "6.8.0",
         "@lingui/react": "6.8.0",
         "@paper-design/shaders-react": "0.0.77",
+        "@pixabots/core": "0.5.0",
+        "@pixabots/react": "0.4.0",
         "@react-three/drei": "10.7.7",
         "@react-three/fiber": "9.5.0",
         "@sentry/nextjs": "10.68.0",
@@ -2587,6 +2589,10 @@
     "@pierre/theming": ["@pierre/theming@1.0.1", "", { "peerDependencies": { "@pierre/theme": "^1.1.0 || ^2.0.0", "@shikijs/themes": "^3.0.0 || ^4.0.0", "react": "^18.3.1 || ^19.0.0", "react-dom": "^18.3.1 || ^19.0.0", "shiki": "^3.0.0 || ^4.0.0" }, "optionalPeers": ["@pierre/theme", "@shikijs/themes", "react", "react-dom", "shiki"] }, "sha512-WCI5Qd7iprDpISL9fBYOLe8RV53+b7mFNA3bPzl60/2CKCSrsKN8zEcep6Y3BAzvARlmca50zGjDodqPGiTUKA=="],
 
     "@pierre/trees": ["@pierre/trees@1.0.0-beta.5", "", { "dependencies": { "@pierre/theming": "0.0.2", "preact": "11.0.0-beta.0", "preact-render-to-string": "6.6.5" }, "peerDependencies": { "react": "^18.3.1 || ^19.0.0", "react-dom": "^18.3.1 || ^19.0.0" } }, "sha512-IzxkB9qv6GLbeEXObhlAD205LfYHiLeRwJdnaIdX0f5keTZF4X9EfiuEQ3QiyxOxouVVmUX3rX7m6a8zNMo/wA=="],
+
+    "@pixabots/core": ["@pixabots/core@0.5.0", "", {}, "sha512-cFcn9+GMcWUH6nwZq1p5mTlq6Omc5W4PJSEqYePXxtd7tqkDSAKWGpFVZmEVxpdV5hJtlyPJbKzrEFmTk4rdQQ=="],
+
+    "@pixabots/react": ["@pixabots/react@0.4.0", "", { "dependencies": { "@pixabots/core": "0.5.0" }, "peerDependencies": { "react": ">=18" } }, "sha512-Q1wsWWyyYZuxdR/nW2NG/VNJ6JILJWwdzrwHW7WYgP9kTtiLpO+d3Fc8xFr3ZK5EXrph9hrqVr72cdu63hfuqQ=="],
 
     "@pkgjs/parseargs": ["@pkgjs/parseargs@0.11.0", "", {}, "sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg=="],
 

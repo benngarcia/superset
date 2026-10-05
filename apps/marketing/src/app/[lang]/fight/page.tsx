@@ -66,19 +66,7 @@ export async function generateMetadata({
 					}),
 				)
 			: i18n._(msg({ message: "Super Fights" }));
-	const description =
-		left && right
-			? i18n._(
-					msg({
-						message: `${left.name} and ${right.name} settle it as terminal dinosaurs. Stats decide the winner.`,
-					}),
-				)
-			: i18n._(
-					msg({
-						message:
-							"Pick two developers, watch their agent usage stats fight it out as terminal dinosaurs. Same two handles always produce the same fight.",
-					}),
-				);
+	const description = i18n._(msg({ message: "Your stats, settled in combat" }));
 
 	return {
 		title,

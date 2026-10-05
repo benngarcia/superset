@@ -361,11 +361,6 @@ msgstr "{0} → {1} 대기 중"
 msgid "{0} actions"
 msgstr "{0} 작업"
 
-#. placeholder {0}: left.name
-#. placeholder {1}: right.name
-msgid "{0} and {1} settle it as terminal dinosaurs. Stats decide the winner."
-msgstr "{0}와 {1}이(가) 터미널 공룡이 되어 결판을 냅니다. 승부는 기록이 결정합니다."
-
 #. placeholder {0}: formatTokens(belowGap > 0n ? belowGap : 0n)
 msgid "{0} behind you"
 msgstr "{0} 차이로 뒤"
@@ -3448,6 +3443,9 @@ msgstr "검사 통과"
 
 msgid "Checks Skipped"
 msgstr "검사 건너뜀"
+
+msgid "Choose a fighter"
+msgstr "파이터 선택"
 
 msgid "Choose a folder"
 msgstr "폴더 선택"
@@ -11951,9 +11949,6 @@ msgstr "{hostName}에서 프로젝트 worktree 폴더를 선택하세요."
 
 msgid "Pick the worktree folder on {hostName}."
 msgstr "{hostName}에서 worktree 폴더를 선택하세요."
-
-msgid "Pick two developers, watch their agent usage stats fight it out as terminal dinosaurs. Same two handles always produce the same fight."
-msgstr "개발자 두 명을 고르면 에이전트 사용 기록이 터미널 공룡이 되어 겨룹니다. 같은 핸들 조합은 언제나 같은 대전을 만듭니다."
 
 msgid "Pick your agent for a one-line install, or copy the config by hand. Every client, including OAuth and API key setup, is covered in the <0>full MCP server docs</0>."
 msgstr "한 줄 설치를 위해 에이전트를 고르거나 설정을 직접 복사하세요. OAuth와 API 키 설정을 포함한 모든 클라이언트는 <0>전체 MCP 서버 문서</0>에서 다룹니다."

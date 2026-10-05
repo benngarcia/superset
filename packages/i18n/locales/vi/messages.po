@@ -361,11 +361,6 @@ msgstr "{0} → {1} đang chờ"
 msgid "{0} actions"
 msgstr "Hành động {0}"
 
-#. placeholder {0}: left.name
-#. placeholder {1}: right.name
-msgid "{0} and {1} settle it as terminal dinosaurs. Stats decide the winner."
-msgstr "{0} và {1} phân định thắng thua trong hình hài khủng long terminal. Thống kê quyết định người thắng."
-
 #. placeholder {0}: formatTokens(belowGap > 0n ? belowGap : 0n)
 msgid "{0} behind you"
 msgstr "{0} phía sau bạn"
@@ -3448,6 +3443,9 @@ msgstr "Check đã qua"
 
 msgid "Checks Skipped"
 msgstr "Check đã bỏ qua"
+
+msgid "Choose a fighter"
+msgstr "Chọn một đấu sĩ"
 
 msgid "Choose a folder"
 msgstr "Chọn thư mục"
@@ -11951,9 +11949,6 @@ msgstr "Chọn thư mục worktree của dự án trên {hostName}."
 
 msgid "Pick the worktree folder on {hostName}."
 msgstr "Chọn thư mục worktree trên {hostName}."
-
-msgid "Pick two developers, watch their agent usage stats fight it out as terminal dinosaurs. Same two handles always produce the same fight."
-msgstr "Chọn hai nhà phát triển và xem thống kê sử dụng tác nhân của họ so tài trong hình hài khủng long terminal. Cùng một cặp tên luôn tạo ra cùng một trận đấu."
 
 msgid "Pick your agent for a one-line install, or copy the config by hand. Every client, including OAuth and API key setup, is covered in the <0>full MCP server docs</0>."
 msgstr "Chọn agent của bạn để cài bằng một dòng lệnh, hoặc tự sao chép cấu hình. Mọi client, kể cả thiết lập OAuth và khóa API, đều có trong <0>tài liệu đầy đủ về server MCP</0>."

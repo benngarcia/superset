@@ -150,5 +150,5 @@ export function robotSvg(handle: string): string {
 			voxel(cx - 4, hy - 11, 8, 8, 5, body),
 			rect(cx - 2, hy - 9, 4, 4, glow),
 		);
-	return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" shape-rendering="crispEdges">${parts.join("")}</svg>`;
+	return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="14 8 104 104" shape-rendering="crispEdges">${parts.join("")}</svg>`;
 }
