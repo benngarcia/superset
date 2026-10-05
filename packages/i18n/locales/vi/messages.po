@@ -4920,6 +4920,9 @@ msgstr "Không thể khởi động lại workspace: {0}"
 msgid "Couldn't restore \"{projectName}\""
 msgstr "Không thể khôi phục \"{projectName}\""
 
+msgid "Couldn't restore \"{workspaceName}\""
+msgstr "Không thể khôi phục \"{workspaceName}\""
+
 msgid "Couldn't save"
 msgstr "Không lưu được"
 
@@ -13342,6 +13345,12 @@ msgstr "Đã khôi phục \"{name}\""
 
 msgid "Restored \"{projectName}\""
 msgstr "Đã khôi phục \"{projectName}\""
+
+msgid "Restored \"{workspaceName}\""
+msgstr "Đã khôi phục \"{workspaceName}\""
+
+msgid "Restoring \"{workspaceName}\"…"
+msgstr "Đang khôi phục \"{workspaceName}\"…"
 
 msgid "Restoring your session"
 msgstr "Đang khôi phục phiên của bạn"

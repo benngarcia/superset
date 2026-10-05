@@ -4920,6 +4920,9 @@ msgstr "Impossible de redémarrer l'espace de travail : {0}"
 msgid "Couldn't restore \"{projectName}\""
 msgstr "Impossible de restaurer « {projectName} »"
 
+msgid "Couldn't restore \"{workspaceName}\""
+msgstr "Impossible de restaurer « {workspaceName} »"
+
 msgid "Couldn't save"
 msgstr "Échec de l'enregistrement"
 
@@ -13342,6 +13345,12 @@ msgstr "« {name} » restauré"
 
 msgid "Restored \"{projectName}\""
 msgstr "« {projectName} » restauré"
+
+msgid "Restored \"{workspaceName}\""
+msgstr "« {workspaceName} » restauré"
+
+msgid "Restoring \"{workspaceName}\"…"
+msgstr "Restauration de « {workspaceName} »…"
 
 msgid "Restoring your session"
 msgstr "Restauration de votre session"

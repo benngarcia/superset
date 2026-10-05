@@ -4920,6 +4920,9 @@ msgstr "워크스페이스를 다시 시작할 수 없습니다: {0}"
 msgid "Couldn't restore \"{projectName}\""
 msgstr "\"{projectName}\"을(를) 복원하지 못했습니다"
 
+msgid "Couldn't restore \"{workspaceName}\""
+msgstr "\"{workspaceName}\"을(를) 복원하지 못했습니다"
+
 msgid "Couldn't save"
 msgstr "저장하지 못했습니다"
 
@@ -13342,6 +13345,12 @@ msgstr "\"{name}\"을(를) 복원했습니다"
 
 msgid "Restored \"{projectName}\""
 msgstr "\"{projectName}\"을(를) 복원했습니다"
+
+msgid "Restored \"{workspaceName}\""
+msgstr "\"{workspaceName}\"을(를) 복원했습니다"
+
+msgid "Restoring \"{workspaceName}\"…"
+msgstr "\"{workspaceName}\"을(를) 복원하는 중…"
 
 msgid "Restoring your session"
 msgstr "세션을 복원하는 중"

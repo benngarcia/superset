@@ -4920,6 +4920,9 @@ msgstr "Pracovní prostor se nepodařilo restartovat: {0}"
 msgid "Couldn't restore \"{projectName}\""
 msgstr "„{projectName}“ se nepodařilo obnovit"
 
+msgid "Couldn't restore \"{workspaceName}\""
+msgstr "„{workspaceName}“ se nepodařilo obnovit"
+
 msgid "Couldn't save"
 msgstr "Nepodařilo se uložit"
 
@@ -13342,6 +13345,12 @@ msgstr "„{name}“ obnoveno"
 
 msgid "Restored \"{projectName}\""
 msgstr "„{projectName}“ obnoven"
+
+msgid "Restored \"{workspaceName}\""
+msgstr "„{workspaceName}“ obnoven"
+
+msgid "Restoring \"{workspaceName}\"…"
+msgstr "Obnovuji „{workspaceName}“…"
 
 msgid "Restoring your session"
 msgstr "Obnovuji vaši relaci"

@@ -4920,6 +4920,9 @@ msgstr "Tidak dapat memulai ulang workspace: {0}"
 msgid "Couldn't restore \"{projectName}\""
 msgstr "Tidak dapat memulihkan \"{projectName}\""
 
+msgid "Couldn't restore \"{workspaceName}\""
+msgstr "Tidak dapat memulihkan \"{workspaceName}\""
+
 msgid "Couldn't save"
 msgstr "Tidak bisa menyimpan"
 
@@ -13342,6 +13345,12 @@ msgstr "\"{name}\" dipulihkan"
 
 msgid "Restored \"{projectName}\""
 msgstr "\"{projectName}\" dipulihkan"
+
+msgid "Restored \"{workspaceName}\""
+msgstr "\"{workspaceName}\" dipulihkan"
+
+msgid "Restoring \"{workspaceName}\"…"
+msgstr "Memulihkan \"{workspaceName}\"…"
 
 msgid "Restoring your session"
 msgstr "Memulihkan sesi Anda"

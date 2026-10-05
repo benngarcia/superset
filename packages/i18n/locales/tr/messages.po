@@ -4920,6 +4920,9 @@ msgstr "Çalışma alanı yeniden başlatılamadı: {0}"
 msgid "Couldn't restore \"{projectName}\""
 msgstr "\"{projectName}\" geri yüklenemedi"
 
+msgid "Couldn't restore \"{workspaceName}\""
+msgstr "\"{workspaceName}\" geri yüklenemedi"
+
 msgid "Couldn't save"
 msgstr "Kaydedilemedi"
 
@@ -13342,6 +13345,12 @@ msgstr "\"{name}\" geri yüklendi"
 
 msgid "Restored \"{projectName}\""
 msgstr "\"{projectName}\" geri yüklendi"
+
+msgid "Restored \"{workspaceName}\""
+msgstr "\"{workspaceName}\" geri yüklendi"
+
+msgid "Restoring \"{workspaceName}\"…"
+msgstr "\"{workspaceName}\" geri yükleniyor…"
 
 msgid "Restoring your session"
 msgstr "Oturumunuz geri yükleniyor"

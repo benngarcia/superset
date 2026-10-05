@@ -4920,6 +4920,9 @@ msgstr "Arbeitsbereich konnte nicht neu gestartet werden: {0}"
 msgid "Couldn't restore \"{projectName}\""
 msgstr "„{projectName}“ konnte nicht wiederhergestellt werden"
 
+msgid "Couldn't restore \"{workspaceName}\""
+msgstr "„{workspaceName}“ konnte nicht wiederhergestellt werden"
+
 msgid "Couldn't save"
 msgstr "Konnte nicht gespeichert werden"
 
@@ -13342,6 +13345,12 @@ msgstr "„{name}“ wiederhergestellt"
 
 msgid "Restored \"{projectName}\""
 msgstr "„{projectName}“ wiederhergestellt"
+
+msgid "Restored \"{workspaceName}\""
+msgstr "„{workspaceName}“ wiederhergestellt"
+
+msgid "Restoring \"{workspaceName}\"…"
+msgstr "„{workspaceName}“ wird wiederhergestellt…"
 
 msgid "Restoring your session"
 msgstr "Sitzung wird wiederhergestellt"

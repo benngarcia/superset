@@ -4920,6 +4920,9 @@ msgstr "ワークスペースを再起動できませんでした: {0}"
 msgid "Couldn't restore \"{projectName}\""
 msgstr "「{projectName}」を復元できませんでした"
 
+msgid "Couldn't restore \"{workspaceName}\""
+msgstr "「{workspaceName}」を復元できませんでした"
+
 msgid "Couldn't save"
 msgstr "保存できませんでした"
 
@@ -13342,6 +13345,12 @@ msgstr "「{name}」を復元しました"
 
 msgid "Restored \"{projectName}\""
 msgstr "「{projectName}」を復元しました"
+
+msgid "Restored \"{workspaceName}\""
+msgstr "「{workspaceName}」を復元しました"
+
+msgid "Restoring \"{workspaceName}\"…"
+msgstr "「{workspaceName}」を復元中…"
 
 msgid "Restoring your session"
 msgstr "セッションを復元中"

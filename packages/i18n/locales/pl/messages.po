@@ -4920,6 +4920,9 @@ msgstr "Nie udało się ponownie uruchomić obszaru roboczego: {0}"
 msgid "Couldn't restore \"{projectName}\""
 msgstr "Nie udało się przywrócić „{projectName}”"
 
+msgid "Couldn't restore \"{workspaceName}\""
+msgstr "Nie udało się przywrócić „{workspaceName}”"
+
 msgid "Couldn't save"
 msgstr "Nie udało się zapisać"
 
@@ -13342,6 +13345,12 @@ msgstr "Przywrócono „{name}”"
 
 msgid "Restored \"{projectName}\""
 msgstr "Przywrócono „{projectName}”"
+
+msgid "Restored \"{workspaceName}\""
+msgstr "Przywrócono „{workspaceName}”"
+
+msgid "Restoring \"{workspaceName}\"…"
+msgstr "Przywracanie „{workspaceName}”…"
 
 msgid "Restoring your session"
 msgstr "Przywracanie sesji"

@@ -4920,6 +4920,9 @@ msgstr "Kan de werkruimte niet herstarten: {0}"
 msgid "Couldn't restore \"{projectName}\""
 msgstr "Kan \"{projectName}\" niet herstellen"
 
+msgid "Couldn't restore \"{workspaceName}\""
+msgstr "Kan \"{workspaceName}\" niet herstellen"
+
 msgid "Couldn't save"
 msgstr "Kan niet opslaan"
 
@@ -13342,6 +13345,12 @@ msgstr "\"{name}\" hersteld"
 
 msgid "Restored \"{projectName}\""
 msgstr "\"{projectName}\" hersteld"
+
+msgid "Restored \"{workspaceName}\""
+msgstr "\"{workspaceName}\" hersteld"
+
+msgid "Restoring \"{workspaceName}\"…"
+msgstr "\"{workspaceName}\" wordt hersteld…"
 
 msgid "Restoring your session"
 msgstr "Je sessie wordt hersteld"

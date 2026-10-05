@@ -4920,6 +4920,9 @@ msgstr "Impossibile riavviare il workspace: {0}"
 msgid "Couldn't restore \"{projectName}\""
 msgstr "Impossibile ripristinare \"{projectName}\""
 
+msgid "Couldn't restore \"{workspaceName}\""
+msgstr "Impossibile ripristinare \"{workspaceName}\""
+
 msgid "Couldn't save"
 msgstr "Impossibile salvare"
 
@@ -13342,6 +13345,12 @@ msgstr "\"{name}\" ripristinato"
 
 msgid "Restored \"{projectName}\""
 msgstr "\"{projectName}\" ripristinato"
+
+msgid "Restored \"{workspaceName}\""
+msgstr "\"{workspaceName}\" ripristinato"
+
+msgid "Restoring \"{workspaceName}\"…"
+msgstr "Ripristino di \"{workspaceName}\"…"
 
 msgid "Restoring your session"
 msgstr "Ripristino della sessione"
