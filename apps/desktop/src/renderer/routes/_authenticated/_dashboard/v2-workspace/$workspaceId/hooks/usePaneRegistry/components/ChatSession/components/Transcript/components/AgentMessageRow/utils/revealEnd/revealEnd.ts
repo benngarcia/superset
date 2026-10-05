@@ -2,11 +2,7 @@ function isSpace(char: string | undefined): boolean {
 	return char !== undefined && /\s/.test(char);
 }
 
-/**
- * Where to cut a streamed reply so only whole words show: the end of the word
- * that `at` falls in. While the reply is still arriving, a partial word at the
- * end is held back.
- */
+/** Cuts at the end of the word `at` falls in; a partial last word waits while streaming. */
 export function revealEnd(
 	text: string,
 	at: number,

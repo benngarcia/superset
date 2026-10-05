@@ -6,12 +6,7 @@ const CATCH_UP_SECONDS = 0.22;
 const MAX_FRAME_SECONDS = 0.05;
 const HOLD_PARTIAL_WORD_MS = 150;
 
-/**
- * Lets a streamed reply out a whole word at a time at a steady pace, so text
- * that arrives in bursts does not jump onto the screen. The pace never drops
- * below a reading speed and closes on a backlog in about a quarter second.
- * Text already present when the row mounts shows at once.
- */
+/** Whole words at a steady pace; text already present at mount shows at once. */
 export function usePacedText(
 	text: string,
 	streaming: boolean,

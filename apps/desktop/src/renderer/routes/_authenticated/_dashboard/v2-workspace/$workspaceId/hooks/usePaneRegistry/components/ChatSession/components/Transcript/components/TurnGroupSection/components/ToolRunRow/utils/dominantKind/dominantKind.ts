@@ -12,7 +12,7 @@ const TIE_ORDER: readonly ToolKind[] = [
 	"other",
 ];
 
-/** The kind of work a run did most of; ties go to the kind that changes more. */
+/** Ties go to the kind that changes more. */
 export function dominantKind(items: readonly ToolCall[]): ToolKind {
 	const counts = new Map<ToolKind, number>();
 	for (const item of items) {

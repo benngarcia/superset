@@ -38,7 +38,6 @@ export function AgentMessageRow({
 	onFork?: ((target: ChatForkTarget) => void) | undefined;
 	/** False when there is no project to cut a worktree from. */
 	canForkToWorktree?: boolean;
-	/** The turn's last row: the message actions sit under it once, not under every reply. */
 	endsTurn: boolean;
 }) {
 	const { t } = useLingui();

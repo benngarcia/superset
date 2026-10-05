@@ -1,4 +1,3 @@
-/** The first paragraph of a thought as one plain line, for a row that shows only that. */
 export function thoughtSummary(text: string): string {
 	const paragraph = text
 		.split(/\n\s*\n/)

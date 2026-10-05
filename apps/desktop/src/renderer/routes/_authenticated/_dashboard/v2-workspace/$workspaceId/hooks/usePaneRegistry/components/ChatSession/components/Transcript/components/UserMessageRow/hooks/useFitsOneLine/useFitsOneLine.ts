@@ -1,6 +1,5 @@
 import { type RefObject, useLayoutEffect, useState } from "react";
 
-/** Whether the element's text currently wraps to no more than one line. */
 export function useFitsOneLine(ref: RefObject<HTMLElement | null>): boolean {
 	const [fits, setFits] = useState(true);
 	useLayoutEffect(() => {

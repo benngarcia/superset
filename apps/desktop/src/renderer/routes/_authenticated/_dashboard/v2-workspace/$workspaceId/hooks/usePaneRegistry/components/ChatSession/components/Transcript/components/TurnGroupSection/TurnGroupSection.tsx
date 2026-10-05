@@ -20,7 +20,6 @@ function outboxMessage(entry: OutboxEntry): UserMessage {
 
 export type TurnGroupSectionProps = {
 	row: TranscriptRow;
-	/** No later row belongs to this turn. */
 	endsGroup: boolean;
 	snapshot: SessionSnapshot;
 	isEntryCollapsed: (entryKey: string, defaultCollapsed: boolean) => boolean;

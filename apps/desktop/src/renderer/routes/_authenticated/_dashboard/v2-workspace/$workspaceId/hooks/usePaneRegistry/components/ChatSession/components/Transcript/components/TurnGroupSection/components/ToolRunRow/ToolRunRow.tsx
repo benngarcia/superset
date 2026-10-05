@@ -37,10 +37,6 @@ function sameTools(previous: ToolRunRowProps, next: ToolRunRowProps): boolean {
 	);
 }
 
-/**
- * A run of steps under one line that says what it amounted to. The steps hang
- * off a rail while the run is open; the line sweeps while any step runs.
- */
 export const ToolRunRow = memo(function ToolRunRow({
 	collapsed,
 	items,

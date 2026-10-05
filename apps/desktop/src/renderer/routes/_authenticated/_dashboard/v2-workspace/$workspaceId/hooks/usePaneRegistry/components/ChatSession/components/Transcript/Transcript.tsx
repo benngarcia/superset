@@ -63,7 +63,6 @@ function isWork(row: TranscriptRow | undefined): boolean {
 	);
 }
 
-/** Prose sits close under the work it follows and further from anything else. */
 function proseTopPadding(
 	row: TranscriptRow,
 	previous: TranscriptRow | undefined,
