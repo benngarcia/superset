@@ -123,10 +123,7 @@ export type ReasoningTriggerProps = ComponentProps<
 const defaultGetThinkingMessage = (isStreaming: boolean, duration?: number) => {
 	if (isStreaming || duration === 0) {
 		return (
-			<ShimmerLabel
-				className="font-normal text-muted-foreground"
-				duration={1.2}
-			>
+			<ShimmerLabel className="text-xs text-muted-foreground">
 				{i18n._(msg({ message: "Thinking..." }))}
 			</ShimmerLabel>
 		);

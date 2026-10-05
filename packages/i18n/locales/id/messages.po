@@ -246,10 +246,6 @@ msgstr "{0, plural, other {# terminal berjalan}}"
 msgid "{0, plural, one {# workspace} other {# workspaces}}"
 msgstr "{0, plural, one {# workspace} other {# workspace}}"
 
-#. placeholder {0}: tail.hidden
-msgid "{0, plural, one {+# more line} other {+# more lines}}"
-msgstr "{0, plural, other {+# baris lagi}}"
-
 #. placeholder {0}: shown?.count ?? 0
 msgid "{0, plural, one {A running agent still uses the previous account — the switch only reaches new launches.} other {# running agents still use the previous account — the switch only reaches new launches.}}"
 msgstr "{0, plural, one {# agen yang sedang berjalan masih memakai akun sebelumnya — pergantian hanya berlaku untuk peluncuran baru.} other {# agen yang sedang berjalan masih memakai akun sebelumnya — pergantian hanya berlaku untuk peluncuran baru.}}"
@@ -7853,9 +7849,6 @@ msgstr "Sembunyikan"
 msgid "Hide checks"
 msgstr "Sembunyikan check"
 
-msgid "Hide detail"
-msgstr "Sembunyikan detail"
-
 msgid "Hide details"
 msgstr "Sembunyikan detail"
 
@@ -14526,9 +14519,6 @@ msgstr "Tampilkan yang ditutup"
 msgid "Show CPU and memory usage in the top bar"
 msgstr "Tampilkan penggunaan CPU dan memori di bilah atas"
 
-msgid "Show detail"
-msgstr "Tampilkan detail"
-
 msgid "Show details"
 msgstr "Tampilkan detail"
 
@@ -18041,9 +18031,6 @@ msgstr "Bekerja selama {0} mnt {1} dtk"
 
 msgid "Working for {seconds}s"
 msgstr "Bekerja selama {seconds} dtk"
-
-msgid "Working…"
-msgstr "Sedang bekerja…"
 
 msgid "Works when environments are clean. Environments are rarely clean."
 msgstr "Berhasil kalau environment-nya bersih. Environment jarang bersih."

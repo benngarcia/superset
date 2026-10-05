@@ -246,10 +246,6 @@ msgstr "{0, plural, other {# 个终端正在运行}}"
 msgid "{0, plural, one {# workspace} other {# workspaces}}"
 msgstr "{0, plural, one {#个工作区} other {#个工作区}}"
 
-#. placeholder {0}: tail.hidden
-msgid "{0, plural, one {+# more line} other {+# more lines}}"
-msgstr "{0, plural, other {另有 # 行}}"
-
 #. placeholder {0}: shown?.count ?? 0
 msgid "{0, plural, one {A running agent still uses the previous account — the switch only reaches new launches.} other {# running agents still use the previous account — the switch only reaches new launches.}}"
 msgstr "{0, plural, one {#个运行中的智能体仍在使用之前的账户。切换只对新启动生效。} other {#个运行中的智能体仍在使用之前的账户。切换只对新启动生效。}}"
@@ -7853,9 +7849,6 @@ msgstr "隐藏"
 msgid "Hide checks"
 msgstr "隐藏检查"
 
-msgid "Hide detail"
-msgstr "隐藏详情"
-
 msgid "Hide details"
 msgstr "隐藏详情"
 
@@ -14526,9 +14519,6 @@ msgstr "显示已关闭"
 msgid "Show CPU and memory usage in the top bar"
 msgstr "在顶栏显示CPU和内存用量"
 
-msgid "Show detail"
-msgstr "显示详情"
-
 msgid "Show details"
 msgstr "显示详情"
 
@@ -18041,9 +18031,6 @@ msgstr "已运行 {0} 分 {1} 秒"
 
 msgid "Working for {seconds}s"
 msgstr "已运行 {seconds} 秒"
-
-msgid "Working…"
-msgstr "处理中…"
 
 msgid "Works when environments are clean. Environments are rarely clean."
 msgstr "环境干净时可行。而环境很少干净。"

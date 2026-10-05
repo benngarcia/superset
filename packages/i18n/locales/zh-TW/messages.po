@@ -246,10 +246,6 @@ msgstr "{0, plural, other {# 個終端機正在執行}}"
 msgid "{0, plural, one {# workspace} other {# workspaces}}"
 msgstr "{0, plural, one {#個工作區} other {#個工作區}}"
 
-#. placeholder {0}: tail.hidden
-msgid "{0, plural, one {+# more line} other {+# more lines}}"
-msgstr "{0, plural, other {另有 # 行}}"
-
 #. placeholder {0}: shown?.count ?? 0
 msgid "{0, plural, one {A running agent still uses the previous account — the switch only reaches new launches.} other {# running agents still use the previous account — the switch only reaches new launches.}}"
 msgstr "{0, plural, one {#個執行中的代理程式仍在使用先前的帳戶。切換只對新啟動生效。} other {#個執行中的代理程式仍在使用先前的帳戶。切換只對新啟動生效。}}"
@@ -7853,9 +7849,6 @@ msgstr "隱藏"
 msgid "Hide checks"
 msgstr "隱藏檢查"
 
-msgid "Hide detail"
-msgstr "隱藏詳情"
-
 msgid "Hide details"
 msgstr "隱藏詳情"
 
@@ -14526,9 +14519,6 @@ msgstr "顯示已關閉"
 msgid "Show CPU and memory usage in the top bar"
 msgstr "在頂欄顯示CPU和記憶體用量"
 
-msgid "Show detail"
-msgstr "顯示詳情"
-
 msgid "Show details"
 msgstr "顯示詳情"
 
@@ -18041,9 +18031,6 @@ msgstr "已執行 {0} 分 {1} 秒"
 
 msgid "Working for {seconds}s"
 msgstr "已執行 {seconds} 秒"
-
-msgid "Working…"
-msgstr "處理中…"
 
 msgid "Works when environments are clean. Environments are rarely clean."
 msgstr "環境乾淨時可行。而環境很少乾淨。"

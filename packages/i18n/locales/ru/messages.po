@@ -246,10 +246,6 @@ msgstr "{0, plural, one {# терминал запущен} few {# термин�
 msgid "{0, plural, one {# workspace} other {# workspaces}}"
 msgstr "{0, plural, one {# рабочая область} few {# рабочие области} many {# рабочих областей} other {# рабочей области}}"
 
-#. placeholder {0}: tail.hidden
-msgid "{0, plural, one {+# more line} other {+# more lines}}"
-msgstr "{0, plural, one {+# строка} few {+# строки} other {+# строк}}"
-
 #. placeholder {0}: shown?.count ?? 0
 msgid "{0, plural, one {A running agent still uses the previous account — the switch only reaches new launches.} other {# running agents still use the previous account — the switch only reaches new launches.}}"
 msgstr "{0, plural, one {# работающий агент всё ещё использует прежний аккаунт — переключение действует только для новых запусков.} few {# работающих агента всё ещё используют прежний аккаунт — переключение действует только для новых запусков.} many {# работающих агентов всё ещё используют прежний аккаунт — переключение действует только для новых запусков.} other {# работающего агента всё ещё использует прежний аккаунт — переключение действует только для новых запусков.}}"
@@ -7853,9 +7849,6 @@ msgstr "Скрыть"
 msgid "Hide checks"
 msgstr "Скрыть проверки"
 
-msgid "Hide detail"
-msgstr "Скрыть детали"
-
 msgid "Hide details"
 msgstr "Скрыть детали"
 
@@ -14526,9 +14519,6 @@ msgstr "Показать закрытые"
 msgid "Show CPU and memory usage in the top bar"
 msgstr "Показывать загрузку CPU и памяти в верхней панели"
 
-msgid "Show detail"
-msgstr "Показать детали"
-
 msgid "Show details"
 msgstr "Показать детали"
 
@@ -18041,9 +18031,6 @@ msgstr "В работе {0} мин {1} с"
 
 msgid "Working for {seconds}s"
 msgstr "В работе {seconds} с"
-
-msgid "Working…"
-msgstr "Работаю…"
 
 msgid "Works when environments are clean. Environments are rarely clean."
 msgstr "Работает, когда окружения чистые. Чистые они редко."
