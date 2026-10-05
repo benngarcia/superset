@@ -23,6 +23,7 @@ import { useMemo, useState } from "react";
 import { fileChangeOf } from "../../utils/fileChange";
 import { ToolContentList } from "../ToolContentList";
 import { FileChangeTitle } from "./components/FileChangeTitle";
+import { RunningRing } from "./components/RunningRing";
 import { StatusWord } from "./components/StatusWord";
 import { durationLabel } from "./utils/durationLabel";
 import { outputTail } from "./utils/outputTail";
@@ -67,7 +68,9 @@ export function ToolCallRow({ item }: { item: ToolCall }) {
 				: item.title;
 		title = (
 			<span className="min-w-0 truncate">
-				<ShimmerLabel className="font-normal">{label}</ShimmerLabel>
+				<ShimmerLabel className="font-normal" duration={1.2}>
+					{label}
+				</ShimmerLabel>
 			</span>
 		);
 	} else {
@@ -83,7 +86,11 @@ export function ToolCallRow({ item }: { item: ToolCall }) {
 			open={open}
 		>
 			<div className="flex items-center gap-2 py-0.5 text-muted-foreground text-sm">
-				<Icon className="size-3.5 shrink-0" />
+				{running ? (
+					<RunningRing className="size-3.5 shrink-0" />
+				) : (
+					<Icon className="size-3.5 shrink-0" />
+				)}
 				<span className="flex min-w-0 flex-1 items-center gap-1.5">
 					{title}
 				</span>
