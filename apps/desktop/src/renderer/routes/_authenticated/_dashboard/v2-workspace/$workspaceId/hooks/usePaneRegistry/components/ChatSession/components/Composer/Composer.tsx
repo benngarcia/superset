@@ -46,6 +46,7 @@ export type ComposerProps = {
 	placeholder?: string;
 	disabled?: boolean;
 	onCancelTurn?: (() => void) | null;
+	runningTurnId?: string | null;
 	promptQueue?: {
 		prompts: UserMessage[];
 		paused: boolean;
@@ -89,6 +90,7 @@ export const Composer = memo(function Composer({
 	isActive,
 	onCancelTurn,
 	onSend,
+	runningTurnId = null,
 	placeholder,
 	promptQueue,
 	workspaceId,
@@ -102,7 +104,7 @@ export const Composer = memo(function Composer({
 	const steerOnArrival = useSteerOnArrival({
 		prompts: promptQueue?.prompts ?? NO_PROMPTS,
 		actionable: promptQueue?.actionable ?? false,
-		streaming: onCancelTurn != null,
+		runningTurnId,
 		onSteer: queueActions.onSteer,
 	});
 	useEffect(() => {

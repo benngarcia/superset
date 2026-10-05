@@ -15,7 +15,7 @@ function userItem(id: string, text: string) {
 }
 
 describe("promptHistory", () => {
-	it("lists sent prompts oldest first, without blanks or repeats", () => {
+	it("lists sent prompts oldest first, without blanks, repeats or bookkeeping", () => {
 		const groups = [
 			{
 				turnId: "t1",
@@ -29,10 +29,29 @@ describe("promptHistory", () => {
 				],
 			},
 			{ turnId: "t2", turn: null, entries: [userItem("u2", "  ")] },
-			{ turnId: "t3", turn: null, entries: [userItem("u3", "run it")] },
+			{
+				turnId: "t3",
+				turn: null,
+				entries: [
+					userItem(
+						"n1",
+						[
+							"<task-notification>",
+							"<task-id>ac372f0741ed3e1df</task-id>",
+							"<status>completed</status>",
+							'<summary>Agent "Summarize docs folder" finished</summary>',
+							"</task-notification>",
+						].join("\n"),
+					),
+					userItem("u3", "run it"),
+				],
+			},
 			{ turnId: "t4", turn: null, entries: [userItem("u4", "run it")] },
 		] as unknown as TurnGroup[];
 
-		expect(promptHistory(groups)).toEqual(["add a test", "run it"]);
+		expect(promptHistory(groups, "claude-acp")).toEqual([
+			"add a test",
+			"run it",
+		]);
 	});
 });

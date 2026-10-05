@@ -4,32 +4,36 @@ import { useCallback, useEffect, useRef } from "react";
 export function useSteerOnArrival({
 	prompts,
 	actionable,
-	streaming,
+	runningTurnId,
 	onSteer,
 }: {
 	prompts: UserMessage[];
 	actionable: boolean;
-	streaming: boolean;
+	runningTurnId: string | null;
 	onSteer: (id: string) => void;
 }) {
-	const pendingRef = useRef<string | null>(null);
-	const canSteerRef = useRef(false);
-	canSteerRef.current = actionable && streaming;
+	const pendingRef = useRef<{ clientId: string; turnId: string } | null>(null);
+	const stateRef = useRef({ actionable, runningTurnId });
+	stateRef.current = { actionable, runningTurnId };
 
 	useEffect(() => {
-		const clientId = pendingRef.current;
-		if (!clientId) return;
-		if (!streaming) {
+		const pending = pendingRef.current;
+		if (!pending) return;
+		if (runningTurnId !== pending.turnId) {
 			pendingRef.current = null;
 			return;
 		}
-		const prompt = prompts.find((candidate) => candidate.clientId === clientId);
+		const prompt = prompts.find(
+			(candidate) => candidate.clientId === pending.clientId,
+		);
 		if (!prompt) return;
 		pendingRef.current = null;
 		onSteer(prompt.id);
-	}, [prompts, streaming, onSteer]);
+	}, [prompts, runningTurnId, onSteer]);
 
 	return useCallback((clientId: string) => {
-		if (canSteerRef.current) pendingRef.current = clientId;
+		const { actionable, runningTurnId } = stateRef.current;
+		if (actionable && runningTurnId)
+			pendingRef.current = { clientId, turnId: runningTurnId };
 	}, []);
 }

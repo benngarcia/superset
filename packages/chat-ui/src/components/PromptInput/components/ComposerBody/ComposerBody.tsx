@@ -25,6 +25,7 @@ import {
 	COMMAND_PRIORITY_HIGH,
 	COMMAND_PRIORITY_LOW,
 	DROP_COMMAND,
+	type EditorState,
 	KEY_ARROW_DOWN_COMMAND,
 	KEY_ARROW_UP_COMMAND,
 	KEY_BACKSPACE_COMMAND,
@@ -133,10 +134,8 @@ function $insertChipAtSelection(chip: ComposerChip) {
 }
 
 function $isCaretAt(edge: "start" | "end", selection: RangeSelection) {
-	const root = $getRoot();
-	const node =
-		edge === "start" ? root.getFirstDescendant() : root.getLastDescendant();
-	if (!node) return true;
+	const { anchor } = selection;
+	let node: LexicalNode | null = anchor.getNode();
 	const edgeOffset =
 		edge === "start"
 			? 0
@@ -145,10 +144,14 @@ function $isCaretAt(edge: "start" | "end", selection: RangeSelection) {
 				: $isElementNode(node)
 					? node.getChildrenSize()
 					: 1;
-	return (
-		selection.anchor.key === node.getKey() &&
-		selection.anchor.offset === edgeOffset
-	);
+	if (anchor.offset !== edgeOffset) return false;
+	while (node && node.getParent() !== null) {
+		const sibling =
+			edge === "start" ? node.getPreviousSibling() : node.getNextSibling();
+		if (sibling) return false;
+		node = node.getParent();
+	}
+	return true;
 }
 
 function $replaceText(text: string) {
@@ -269,9 +272,9 @@ export function ComposerBody({
 	};
 	const historyNavRef = useRef<{
 		index: number | null;
-		draft: string;
+		draft: EditorState | null;
 		recalled: string;
-	}>({ index: null, draft: "", recalled: "" });
+	}>({ index: null, draft: null, recalled: "" });
 
 	// A draft the host had stored. Read once: after mount the editor is the
 	// only writer, and re-applying would fight what is being typed.
@@ -446,6 +449,7 @@ export function ComposerBody({
 		}
 		stateRef.current.onSubmit?.({ text, files, mentions, steer });
 		historyNavRef.current.index = null;
+		historyNavRef.current.draft = null;
 		if (!stateRef.current.clearOnSubmit) return;
 		editor.update(() => $getRoot().clear());
 		setAttachments((previous) => {
@@ -512,7 +516,7 @@ export function ComposerBody({
 					return false;
 				next =
 					nav.index === null ? history.length - 1 : Math.max(0, nav.index - 1);
-				if (nav.index === null) nav.draft = text;
+				if (nav.index === null) nav.draft = editor.getEditorState();
 			} else {
 				if (nav.index === null) return false;
 				if (!unedited && !$isCaretAt("end", selection)) return false;
@@ -520,8 +524,19 @@ export function ComposerBody({
 			}
 			event?.preventDefault();
 			nav.index = next;
-			nav.recalled = next === null ? "" : (history[next] ?? "");
-			$replaceText(next === null ? nav.draft : nav.recalled);
+			if (next !== null) {
+				nav.recalled = history[next] ?? "";
+				$replaceText(nav.recalled);
+				return true;
+			}
+			nav.recalled = "";
+			const draft = nav.draft;
+			nav.draft = null;
+			queueMicrotask(() => {
+				if (draft) editor.setEditorState(draft);
+				else editor.update(() => $getRoot().clear());
+				editor.update(() => $getRoot().selectEnd());
+			});
 			return true;
 		};
 		const unregisterArrowUp = editor.registerCommand<KeyboardEvent | null>(

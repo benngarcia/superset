@@ -54,6 +54,7 @@ export function ChatV3Pane({
 			<NewSessionView
 				harness={harness}
 				headerLeft={picker}
+				isActive={isActive}
 				onHarnessChange={setHarness}
 				onSend={(content) => void createSession(content)}
 				workspaceId={workspaceId}

@@ -76,7 +76,11 @@ export function SessionView({
 			previous.preview === next.preview,
 	);
 	const approvals = useApprovals(session.snapshot);
-	const history = useMemo(() => promptHistory(timeline), [timeline]);
+	const harness = session.snapshot.session?.harness;
+	const history = useMemo(
+		() => promptHistory(timeline, harness),
+		[timeline, harness],
+	);
 
 	const firstPromptSentRef = useRef(false);
 	useEffect(() => {
@@ -249,6 +253,7 @@ export function SessionView({
 					onCancelTurn={onCancelTurn}
 					onSend={onSend}
 					promptQueue={promptQueue}
+					runningTurnId={runningTurnId}
 					workspaceId={workspaceId}
 				/>
 			</div>
