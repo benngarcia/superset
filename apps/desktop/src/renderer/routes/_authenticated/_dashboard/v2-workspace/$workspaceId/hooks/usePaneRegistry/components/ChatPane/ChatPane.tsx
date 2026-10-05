@@ -7,6 +7,7 @@ import type {
 	PaneViewerData,
 } from "renderer/routes/_authenticated/_dashboard/v2-workspace/$workspaceId/types";
 import { AcpChatPane } from "./components/AcpChatPane";
+import { useOpenChatPage } from "./hooks/useOpenChatPage";
 import { saveChatMode } from "./utils/savedChatMode";
 
 export function ChatPane({
@@ -19,6 +20,7 @@ export function ChatPane({
 	onOpenFile: OpenFile;
 }) {
 	const data = ctx.pane.data as ChatPaneData;
+	const openPage = useOpenChatPage(ctx.store);
 	const latest = useRef(data);
 	latest.current = data;
 	const firstPrompt: UserContent[] =
@@ -95,6 +97,7 @@ export function ChatPane({
 				ctx.actions.updateData({ ...latest.current, sessionId })
 			}
 			onOpenFile={onOpenFile}
+			onOpenPage={openPage}
 			sessionId={data.sessionId}
 			terminalId={data.terminalId}
 			workspaceId={workspaceId}

@@ -23,7 +23,10 @@ import { ChatHistorySidebarScroller } from "@superset/ui/chat-history-sidebar";
 import type { ReactNode } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { OpenFile } from "../../../../../../types";
-import { ChatPaneActionsProvider } from "../../providers/ChatPaneActionsProvider";
+import {
+	ChatPaneActionsProvider,
+	type OpenPage,
+} from "../../providers/ChatPaneActionsProvider";
 import type { ChatForkTarget } from "../../types";
 import { buildChatHandoffTranscript } from "../../utils/chatHandoffTranscript";
 import { heldPromptQueue } from "../../utils/heldPromptQueue";
@@ -56,6 +59,7 @@ export function SessionView({
 	onFork,
 	onSessionState,
 	openFile,
+	openPage,
 	sessionId,
 	workspaceId,
 }: {
@@ -97,6 +101,7 @@ export function SessionView({
 		) => void;
 	};
 	openFile?: OpenFile;
+	openPage?: OpenPage;
 }) {
 	const session = useChatSession({ client });
 	const timeline = useTimeline(session.snapshot);
@@ -284,7 +289,11 @@ export function SessionView({
 	// w-full because the pane lays its children out in a row: without it this
 	// sizes to its content and leaves the right of the pane empty.
 	return (
-		<ChatPaneActionsProvider openFile={openFile} workspaceId={workspaceId}>
+		<ChatPaneActionsProvider
+			openFile={openFile}
+			openPage={openPage}
+			workspaceId={workspaceId}
+		>
 			<ComposerDropZone className="flex h-full min-h-0 w-full min-w-0 flex-col">
 				{/* Only worth a row when it carries a control: the pane header above
 				    already names the agent, and harness/status/connection repeated

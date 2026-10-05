@@ -15,6 +15,7 @@ import { useV2AgentConfigs } from "renderer/hooks/useV2AgentConfigs";
 import type { OpenFile } from "../../../../../../types";
 import { SessionView } from "../../../ChatSession/components/SessionView";
 import { useSessionClient } from "../../../ChatSession/hooks/useSessionClient";
+import type { OpenPage } from "../../../ChatSession/providers/ChatPaneActionsProvider";
 import type { ChatForkTarget } from "../../../ChatSession/types";
 import { isUnrestrictedMode } from "../../../ChatSession/utils/isUnrestrictedMode";
 import { useForkChat } from "../../hooks/useForkChat";
@@ -42,6 +43,7 @@ export function AcpChatPane({
 	onPendingPromptsSent,
 	onQueuePrompt,
 	onOpenFile,
+	onOpenPage,
 	onModeChange,
 	onSessionCreated,
 	onSwitchAgent,
@@ -66,6 +68,7 @@ export function AcpChatPane({
 	onModeChange?: (modeId: string) => void;
 	onSessionInfo: (info: { harnessSessionId?: string; title?: string }) => void;
 	onOpenFile?: OpenFile;
+	onOpenPage?: OpenPage;
 	onSwitchAgent?: (target: {
 		presetId: string;
 		label: string;
@@ -481,6 +484,7 @@ export function AcpChatPane({
 			isActive={isActive}
 			onFork={fork}
 			openFile={onOpenFile}
+			openPage={onOpenPage}
 			onSessionState={(state) => {
 				// A resume that found no transcript lands on a different agent
 				// session. Keep the pane pointed at the live one, or the trip back
