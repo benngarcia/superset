@@ -3,9 +3,16 @@ import {
 	chatMarkdownFirstBlock,
 } from "@superset/chat-ui/ChatMarkdown";
 import { cn } from "@superset/ui/utils";
-import { memo, useMemo } from "react";
+import { memo, type ReactNode, useMemo } from "react";
+import { env } from "renderer/env.renderer";
+import { pageLinkFinder } from "../../utils/pageLinks";
 import { CHAT_CODE_COMPONENTS } from "../ChatCodeBlock";
+import { PageLinkCard } from "../PageLinkCard";
+import { pageLinksByBlock } from "./utils/pageLinksByBlock";
 import { planMarkdown } from "./utils/planMarkdown";
+
+const NO_PAGES: readonly string[] = [];
+const findPageLinks = pageLinkFinder(env.NEXT_PUBLIC_WEB_URL);
 
 const MarkdownBlock = memo(function MarkdownBlock({
 	block,
@@ -27,17 +34,49 @@ const MarkdownBlock = memo(function MarkdownBlock({
 export function MarkdownView({
 	className,
 	fading = false,
+	final = false,
+	pageCards = false,
+	pagesShownEarlier = NO_PAGES,
 	text,
 }: {
 	text: string;
 	className?: string;
 	fading?: boolean;
+	/** A page link also shows as a card, under the first settled block that has it. */
+	pageCards?: boolean;
+	/** The text has stopped growing, so its last block is settled too. */
+	final?: boolean;
+	/** Slugs of the pages the turn already shows a card for. */
+	pagesShownEarlier?: readonly string[];
 }) {
 	const plan = useMemo(() => planMarkdown(text), [text]);
 	const tailKey = `${plan.stable.reduce((sum, entry) => sum + entry.block.length, 0)}`;
-	const blocks = plan.stable.map((entry, index) => (
-		<MarkdownBlock block={entry.block} first={index === 0} key={entry.key} />
-	));
+	const cards = useMemo(() => {
+		if (!pageCards) return [];
+		const settled = plan.stable.map((entry) => entry.block);
+		if (final && plan.tail !== null) settled.push(plan.tail);
+		return pageLinksByBlock(settled, pagesShownEarlier, findPageLinks);
+	}, [pageCards, final, plan, pagesShownEarlier]);
+
+	const blocks: ReactNode[] = [];
+	const pushCards = (blockIndex: number) => {
+		for (const link of cards[blockIndex] ?? []) {
+			blocks.push(
+				<PageLinkCard
+					className="-mt-2"
+					key={`page:${link.slug}`}
+					slug={link.slug}
+					url={link.url}
+				/>,
+			);
+		}
+	};
+	plan.stable.forEach((entry, index) => {
+		blocks.push(
+			<MarkdownBlock block={entry.block} first={index === 0} key={entry.key} />,
+		);
+		pushCards(index);
+	});
 	if (plan.tail !== null) {
 		blocks.push(
 			plan.tailFenceOpen ? (
@@ -56,6 +95,7 @@ export function MarkdownView({
 				/>
 			),
 		);
+		pushCards(plan.stable.length);
 	}
 	return (
 		<div
