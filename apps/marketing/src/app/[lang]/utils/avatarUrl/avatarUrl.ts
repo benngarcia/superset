@@ -1,3 +1,9 @@
+import { seededId } from "@pixabots/core";
+
+export function avatarId(handle: string): string {
+	return seededId(handle.toLowerCase());
+}
+
 export function avatarUrl(handle: string): string {
-	return `/api/leaderboard-avatar/${encodeURIComponent(handle.toLowerCase())}?v=2`;
+	return `https://pixabots.com/api/pixabot/${avatarId(handle)}?size=256`;
 }

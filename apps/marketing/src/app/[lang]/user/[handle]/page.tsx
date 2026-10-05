@@ -133,7 +133,7 @@ export default async function UserProfilePage({ params }: PageProps) {
 						width={72}
 						height={72}
 						unoptimized
-						className="size-18 rounded-[2px] bg-foreground/[0.04]"
+						className="size-18 rounded-[2px] bg-foreground/[0.04] [image-rendering:pixelated]"
 						style={
 							tint
 								? {

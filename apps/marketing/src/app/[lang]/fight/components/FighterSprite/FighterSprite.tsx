@@ -1,5 +1,5 @@
-import { seededId } from "@pixabots/core";
 import { Pixabot } from "@pixabots/react";
+import { avatarId } from "@/app/[lang]/utils/avatarUrl";
 import type { FrameName } from "./frames";
 
 interface FighterSpriteProps {
@@ -27,7 +27,7 @@ export function FighterSprite({
 	const running = frame === "run1" || frame === "run3";
 	return (
 		<Pixabot
-			id={seededId(identity.toLowerCase())}
+			id={avatarId(identity)}
 			size={256}
 			animated={false}
 			alt={title}
