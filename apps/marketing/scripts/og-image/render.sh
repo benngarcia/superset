@@ -1,6 +1,7 @@
 #!/bin/bash
 # Renders og-image.html to public/og-image.png (2400x1260) with headless Chrome.
 # screenshot.png is a 1120x720 @2x capture of the desktop app (sidebar + workspace + changes panel).
+# Needs network access once for the Inter web font.
 set -euo pipefail
 cd "$(dirname "$0")"
 
