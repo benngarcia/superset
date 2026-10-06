@@ -2009,6 +2009,9 @@ msgstr "Semua data Anda akan dihapus permanen setelah {ACCOUNT_DELETION_GRACE_DA
 msgid "All open terminal sessions will be killed and any running host-services will be stopped. Use “Close Superset” instead if you want services to keep running for the next launch."
 msgstr "Semua sesi terminal yang terbuka akan dimatikan dan host-service yang berjalan akan dihentikan. Pakai “Close Superset” kalau Anda ingin layanannya tetap berjalan untuk peluncuran berikutnya."
 
+msgid "All pages"
+msgstr "Semua halaman"
+
 msgid "All plans"
 msgstr "Semua paket"
 
@@ -10386,6 +10389,9 @@ msgstr "Tidak ada model yang cocok"
 msgid "No matching org members."
 msgstr "Tidak ada anggota organisasi yang cocok."
 
+msgid "No matching pages"
+msgstr "Tidak ada halaman yang cocok"
+
 msgid "No members yet"
 msgstr "Belum ada anggota"
 
@@ -16692,6 +16698,9 @@ msgstr "Ini akan mengeluarkan semua perubahan dari staging dan membatalkannya. F
 
 msgid "This will unstage and revert all staged changes. Staged new files will be deleted. This cannot be undone."
 msgstr "Ini akan meng-unstage dan mengembalikan semua perubahan yang di-stage. File baru yang di-stage akan dihapus. Ini tidak bisa dibatalkan."
+
+msgid "This workspace"
+msgstr "Workspace ini"
 
 msgid "This workspace has no project to branch from"
 msgstr "Ruang kerja ini tidak memiliki proyek untuk dicabangkan"

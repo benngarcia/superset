@@ -11,7 +11,7 @@ import {
 	useAgentSessionTarget,
 } from "renderer/routes/_authenticated/_dashboard/components/AgentSessionPicker";
 import { buildPageAgentPrompt } from "renderer/routes/_authenticated/_dashboard/utils/pageAgentPrompt";
-import type { CreateNewAgentSession } from "../../../../hooks/useAgentSessionLauncher";
+import type { CreateNewAgentSession } from "../../hooks/useAgentSessionLauncher";
 
 interface NewPageComposerProps {
 	workspaceId: string;

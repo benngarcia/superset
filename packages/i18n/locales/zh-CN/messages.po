@@ -2009,6 +2009,9 @@ msgstr "你的所有数据将在{ACCOUNT_DELETION_GRACE_DAYS}天后被永久删�
 msgid "All open terminal sessions will be killed and any running host-services will be stopped. Use “Close Superset” instead if you want services to keep running for the next launch."
 msgstr "所有打开的终端会话都会被结束，正在运行的主机服务也会停止。如果希望服务继续运行以便下次启动，请改用“关闭Superset”。"
 
+msgid "All pages"
+msgstr "所有页面"
+
 msgid "All plans"
 msgstr "全部方案"
 
@@ -10386,6 +10389,9 @@ msgstr "没有匹配的模型"
 msgid "No matching org members."
 msgstr "没有匹配的组织成员。"
 
+msgid "No matching pages"
+msgstr "没有匹配的页面"
+
 msgid "No members yet"
 msgstr "暂无成员"
 
@@ -16692,6 +16698,9 @@ msgstr "这将取消暂存并还原所有已暂存的更改。已暂存的新文
 
 msgid "This will unstage and revert all staged changes. Staged new files will be deleted. This cannot be undone."
 msgstr "这将取消暂存并还原所有已暂存的更改。已暂存的新文件将被删除。此操作无法撤销。"
+
+msgid "This workspace"
+msgstr "此工作区"
 
 msgid "This workspace has no project to branch from"
 msgstr "此工作区没有可供分叉的项目"

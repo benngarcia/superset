@@ -2009,6 +2009,9 @@ msgstr "All of your data will be permanently deleted after {ACCOUNT_DELETION_GRA
 msgid "All open terminal sessions will be killed and any running host-services will be stopped. Use “Close Superset” instead if you want services to keep running for the next launch."
 msgstr "All open terminal sessions will be killed and any running host-services will be stopped. Use “Close Superset” instead if you want services to keep running for the next launch."
 
+msgid "All pages"
+msgstr "All pages"
+
 msgid "All plans"
 msgstr "All plans"
 
@@ -10386,6 +10389,9 @@ msgstr "No matching models"
 msgid "No matching org members."
 msgstr "No matching org members."
 
+msgid "No matching pages"
+msgstr "No matching pages"
+
 msgid "No members yet"
 msgstr "No members yet"
 
@@ -16692,6 +16698,9 @@ msgstr "This will unstage and revert all staged changes. Staged new files will b
 
 msgid "This will unstage and revert all staged changes. Staged new files will be deleted. This cannot be undone."
 msgstr "This will unstage and revert all staged changes. Staged new files will be deleted. This cannot be undone."
+
+msgid "This workspace"
+msgstr "This workspace"
 
 msgid "This workspace has no project to branch from"
 msgstr "This workspace has no project to branch from"

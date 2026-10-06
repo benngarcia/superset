@@ -132,6 +132,10 @@ export interface ReviewPaneData {
 	kind: "review";
 }
 
+export interface PagesListPaneData {
+	kind: "pages-list";
+}
+
 /**
  * Pointer to one subagent's transcript. The transcript itself is fetched
  * from the host on every read; only this pointer is persisted.
@@ -179,4 +183,5 @@ export type PaneViewerData =
 	| FilesPaneData
 	| ChangesListPaneData
 	| ReviewPaneData
+	| PagesListPaneData
 	| SubagentPaneData;

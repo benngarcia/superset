@@ -2009,6 +2009,9 @@ msgstr "Todos os seus dados serão excluídos permanentemente depois de {ACCOUNT
 msgid "All open terminal sessions will be killed and any running host-services will be stopped. Use “Close Superset” instead if you want services to keep running for the next launch."
 msgstr "Todas as sessões de terminal abertas serão encerradas e os serviços de host em execução serão parados. Use “Fechar o Superset” se quiser que os serviços continuem rodando para a próxima abertura."
 
+msgid "All pages"
+msgstr "Todas as páginas"
+
 msgid "All plans"
 msgstr "Todos os planos"
 
@@ -10386,6 +10389,9 @@ msgstr "Nenhum modelo correspondente"
 msgid "No matching org members."
 msgstr "Nenhum membro da organização corresponde."
 
+msgid "No matching pages"
+msgstr "Nenhuma página correspondente"
+
 msgid "No members yet"
 msgstr "Nenhum membro ainda"
 
@@ -16692,6 +16698,9 @@ msgstr "Isso removerá da preparação e reverterá todas as alterações prepar
 
 msgid "This will unstage and revert all staged changes. Staged new files will be deleted. This cannot be undone."
 msgstr "Isso remove do stage e reverte todas as alterações no stage. Arquivos novos no stage serão excluídos. Não dá para desfazer."
+
+msgid "This workspace"
+msgstr "Esta área de trabalho"
 
 msgid "This workspace has no project to branch from"
 msgstr "Este workspace não tem projeto do qual ramificar"

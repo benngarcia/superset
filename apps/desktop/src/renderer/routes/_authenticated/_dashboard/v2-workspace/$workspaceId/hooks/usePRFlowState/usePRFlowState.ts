@@ -1,6 +1,7 @@
 import { workspaceTrpc } from "@superset/workspace-client";
 import { useMemo } from "react";
 import {
+	type BranchSyncStatus,
 	type PullRequest as FlowPullRequest,
 	getPRFlowState,
 	type PRFlowState,
@@ -8,14 +9,18 @@ import {
 
 interface UsePRFlowStateResult {
 	flowState: PRFlowState;
+	sync: BranchSyncStatus | null;
 	onRetry: () => void;
 }
 
-export function usePRFlowState(workspaceId: string): UsePRFlowStateResult {
+export function usePRFlowState(
+	workspaceId: string,
+	{ enabled = true }: { enabled?: boolean } = {},
+): UsePRFlowStateResult {
 	const prQuery = workspaceTrpc.git.getPullRequest.useQuery(
 		{ workspaceId },
 		{
-			enabled: !!workspaceId,
+			enabled: enabled && !!workspaceId,
 			refetchInterval: 10_000,
 			refetchOnWindowFocus: true,
 			staleTime: 10_000,
@@ -25,7 +30,7 @@ export function usePRFlowState(workspaceId: string): UsePRFlowStateResult {
 	const syncQuery = workspaceTrpc.git.getBranchSyncStatus.useQuery(
 		{ workspaceId },
 		{
-			enabled: !!workspaceId,
+			enabled: enabled && !!workspaceId,
 			refetchInterval: 10_000,
 			refetchOnWindowFocus: true,
 			staleTime: 5_000,
@@ -56,6 +61,7 @@ export function usePRFlowState(workspaceId: string): UsePRFlowStateResult {
 
 	return {
 		flowState,
+		sync: syncQuery.data ?? null,
 		onRetry: () => {
 			void prQuery.refetch();
 			void syncQuery.refetch();

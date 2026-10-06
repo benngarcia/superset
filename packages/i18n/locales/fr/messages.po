@@ -2009,6 +2009,9 @@ msgstr "Toutes vos données seront définitivement supprimées après {ACCOUNT_D
 msgid "All open terminal sessions will be killed and any running host-services will be stopped. Use “Close Superset” instead if you want services to keep running for the next launch."
 msgstr "Toutes les sessions de terminal ouvertes seront interrompues et les services hôtes en cours seront arrêtés. Utilisez plutôt « Fermer Superset » si vous voulez que les services continuent de tourner pour le prochain lancement."
 
+msgid "All pages"
+msgstr "Toutes les pages"
+
 msgid "All plans"
 msgstr "Tous les forfaits"
 
@@ -10386,6 +10389,9 @@ msgstr "Aucun modèle correspondant"
 msgid "No matching org members."
 msgstr "Aucun membre de l'organisation ne correspond."
 
+msgid "No matching pages"
+msgstr "Aucune page correspondante"
+
 msgid "No members yet"
 msgstr "Aucun membre pour l'instant"
 
@@ -16692,6 +16698,9 @@ msgstr "Toutes les modifications indexées seront désindexées et annulées. Le
 
 msgid "This will unstage and revert all staged changes. Staged new files will be deleted. This cannot be undone."
 msgstr "Cette action désindexera et annulera toutes les modifications indexées. Les nouveaux fichiers indexés seront supprimés. Cette action est irréversible."
+
+msgid "This workspace"
+msgstr "Cet espace de travail"
 
 msgid "This workspace has no project to branch from"
 msgstr "Cet espace de travail n'a aucun projet depuis lequel dupliquer"

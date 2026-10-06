@@ -4,7 +4,12 @@ import { useCollections } from "renderer/routes/_authenticated/providers/Collect
 import type { StoreApi } from "zustand/vanilla";
 import type { PaneViewerData } from "../../types";
 
-const SIDEBAR_PANE_KINDS = new Set(["files", "changes-list", "review"]);
+const SIDEBAR_PANE_KINDS = new Set([
+	"files",
+	"changes-list",
+	"review",
+	"pages-list",
+]);
 
 export function useRightPaneAreaLifecycle({
 	workspaceId,

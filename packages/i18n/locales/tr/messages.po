@@ -2009,6 +2009,9 @@ msgstr "Tüm verileriniz {ACCOUNT_DELETION_GRACE_DAYS} gün sonra kalıcı olara
 msgid "All open terminal sessions will be killed and any running host-services will be stopped. Use “Close Superset” instead if you want services to keep running for the next launch."
 msgstr "Açık tüm terminal oturumları sonlandırılacak ve çalışan host hizmetleri durdurulacak. Hizmetlerin sonraki açılış için çalışmaya devam etmesini istiyorsanız “Superset'i kapat” seçeneğini kullanın."
 
+msgid "All pages"
+msgstr "Tüm sayfalar"
+
 msgid "All plans"
 msgstr "Tüm planlar"
 
@@ -10386,6 +10389,9 @@ msgstr "Eşleşen model yok"
 msgid "No matching org members."
 msgstr "Eşleşen kuruluş üyesi yok."
 
+msgid "No matching pages"
+msgstr "Eşleşen sayfa yok"
+
 msgid "No members yet"
 msgstr "Henüz üye yok"
 
@@ -16692,6 +16698,9 @@ msgstr "Bu işlem, hazırlanmış tüm değişiklikleri hazırlıktan çıkarır
 
 msgid "This will unstage and revert all staged changes. Staged new files will be deleted. This cannot be undone."
 msgstr "Bu işlem, hazırlanmış tüm değişiklikleri hazırlıktan çıkarır ve geri alır. Hazırlanmış yeni dosyalar silinir. Bu geri alınamaz."
+
+msgid "This workspace"
+msgstr "Bu çalışma alanı"
 
 msgid "This workspace has no project to branch from"
 msgstr "Bu çalışma alanının çatallanacak bir projesi yok"

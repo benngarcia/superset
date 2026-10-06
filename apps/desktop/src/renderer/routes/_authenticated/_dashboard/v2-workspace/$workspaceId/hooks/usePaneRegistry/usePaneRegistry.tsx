@@ -99,6 +99,7 @@ import { MobilePane } from "./components/MobilePane";
 import { PagePane } from "./components/PagePane";
 import { PagePaneHeaderExtras } from "./components/PagePaneHeaderExtras";
 import { PagePaneTitle } from "./components/PagePaneTitle";
+import { PagesListPane } from "./components/PagesListPane";
 import { PullRequestPane } from "./components/PullRequestPane";
 import { PullRequestPaneHeaderExtras } from "./components/PullRequestPane/components/PullRequestPaneHeaderExtras";
 import { ReviewPane } from "./components/ReviewPane";
@@ -774,6 +775,18 @@ export function usePaneRegistry({
 				getTitle: () => t({ message: "Review" }),
 				renderPane: (ctx: RendererContext<PaneViewerData>) => (
 					<ReviewPane context={ctx} workspaceId={workspaceId} />
+				),
+			},
+			"pages-list": {
+				getIcon: () => <FileText className="size-3.5" />,
+				getTitle: () => t({ message: "Pages" }),
+				renderPane: (ctx: RendererContext<PaneViewerData>) => (
+					<PagesListPane
+						context={ctx}
+						workspaceId={workspaceId}
+						onCreateNewAgentSession={createNewAgentSession}
+						onFocusAgentTerminal={focusAgentTerminal}
+					/>
 				),
 			},
 			mobile: {

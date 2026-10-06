@@ -2009,6 +2009,9 @@ msgstr "Tutti i tuoi dati verranno eliminati definitivamente dopo {ACCOUNT_DELET
 msgid "All open terminal sessions will be killed and any running host-services will be stopped. Use “Close Superset” instead if you want services to keep running for the next launch."
 msgstr "Tutte le sessioni del terminale aperte verranno terminate e i servizi host in esecuzione verranno arrestati. Usa invece “Chiudi Superset” se vuoi che i servizi restino attivi per il prossimo avvio."
 
+msgid "All pages"
+msgstr "Tutte le pagine"
+
 msgid "All plans"
 msgstr "Tutti i piani"
 
@@ -10386,6 +10389,9 @@ msgstr "Nessun modello corrispondente"
 msgid "No matching org members."
 msgstr "Nessun membro dell'organizzazione corrispondente."
 
+msgid "No matching pages"
+msgstr "Nessuna pagina corrispondente"
+
 msgid "No members yet"
 msgstr "Ancora nessun membro"
 
@@ -16692,6 +16698,9 @@ msgstr "Tutte le modifiche in staging verranno rimosse dallo staging e annullate
 
 msgid "This will unstage and revert all staged changes. Staged new files will be deleted. This cannot be undone."
 msgstr "Questo toglierà dallo stage e annullerà tutte le modifiche in stage. I nuovi file in stage verranno eliminati. L'operazione non può essere annullata."
+
+msgid "This workspace"
+msgstr "Questo workspace"
 
 msgid "This workspace has no project to branch from"
 msgstr "Questo workspace non ha un progetto da cui diramare"

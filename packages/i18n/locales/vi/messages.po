@@ -2009,6 +2009,9 @@ msgstr "Toàn bộ dữ liệu của bạn sẽ bị xóa vĩnh viễn sau {ACCO
 msgid "All open terminal sessions will be killed and any running host-services will be stopped. Use “Close Superset” instead if you want services to keep running for the next launch."
 msgstr "Mọi phiên terminal đang mở sẽ bị kết thúc và các host-service đang chạy sẽ bị dừng. Hãy dùng “Đóng Superset” nếu bạn muốn các dịch vụ tiếp tục chạy cho lần khởi động sau."
 
+msgid "All pages"
+msgstr "Tất cả các trang"
+
 msgid "All plans"
 msgstr "Tất cả các gói"
 
@@ -10386,6 +10389,9 @@ msgstr "Không có mô hình phù hợp"
 msgid "No matching org members."
 msgstr "Không có thành viên tổ chức nào khớp."
 
+msgid "No matching pages"
+msgstr "Không có trang phù hợp"
+
 msgid "No members yet"
 msgstr "Chưa có thành viên nào"
 
@@ -16692,6 +16698,9 @@ msgstr "Thao tác này sẽ bỏ staging và hoàn tác mọi thay đổi đã �
 
 msgid "This will unstage and revert all staged changes. Staged new files will be deleted. This cannot be undone."
 msgstr "Thao tác này sẽ bỏ stage và hoàn nguyên toàn bộ thay đổi đã stage. Các tệp mới đã stage sẽ bị xóa. Không thể hoàn tác."
+
+msgid "This workspace"
+msgstr "Workspace này"
 
 msgid "This workspace has no project to branch from"
 msgstr "Workspace này không có dự án để tạo nhánh"

@@ -6,6 +6,7 @@ import {
 import { BsTerminalPlus } from "react-icons/bs";
 import {
 	LuFileDiff,
+	LuFileText,
 	LuFolderTree,
 	LuGitPullRequestArrow,
 } from "react-icons/lu";
@@ -39,6 +40,12 @@ export function RightPaneAddMenu({
 				<LuGitPullRequestArrow className="size-4" />
 				<span>
 					<Trans>Review</Trans>
+				</span>
+			</DropdownMenuItem>
+			<DropdownMenuItem className="gap-2" onClick={() => onAdd("pages-list")}>
+				<LuFileText className="size-4" />
+				<span>
+					<Trans>Pages</Trans>
 				</span>
 			</DropdownMenuItem>
 			<DropdownMenuSeparator />

@@ -2009,6 +2009,9 @@ msgstr "Todos tus datos se eliminarán de forma permanente después de {ACCOUNT_
 msgid "All open terminal sessions will be killed and any running host-services will be stopped. Use “Close Superset” instead if you want services to keep running for the next launch."
 msgstr "Se cerrarán todas las sesiones de terminal abiertas y se detendrán los host-services en ejecución. Usa “Cerrar Superset” si prefieres que los servicios sigan activos para el próximo inicio."
 
+msgid "All pages"
+msgstr "Todas las páginas"
+
 msgid "All plans"
 msgstr "Todos los planes"
 
@@ -10386,6 +10389,9 @@ msgstr "No hay modelos coincidentes"
 msgid "No matching org members."
 msgstr "Ningún miembro de la organización coincide."
 
+msgid "No matching pages"
+msgstr "No hay páginas que coincidan"
+
 msgid "No members yet"
 msgstr "Aún no hay miembros"
 
@@ -16692,6 +16698,9 @@ msgstr "Esto quitará de preparación y revertirá todos los cambios preparados.
 
 msgid "This will unstage and revert all staged changes. Staged new files will be deleted. This cannot be undone."
 msgstr "Esto quitará de preparados y revertirá todos los cambios preparados. Los archivos nuevos preparados se eliminarán. Esto no se puede deshacer."
+
+msgid "This workspace"
+msgstr "Este espacio de trabajo"
 
 msgid "This workspace has no project to branch from"
 msgstr "Este espacio de trabajo no tiene un proyecto desde el que bifurcar"

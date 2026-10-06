@@ -2009,6 +2009,9 @@ msgstr "Všechna vaše data budou po {ACCOUNT_DELETION_GRACE_DAYS} dnech trvale 
 msgid "All open terminal sessions will be killed and any running host-services will be stopped. Use “Close Superset” instead if you want services to keep running for the next launch."
 msgstr "Všechny otevřené relace terminálu budou ukončeny a všechny běžící host-services zastaveny. Pokud chcete, aby služby běžely dál do příštího spuštění, použijte místo toho „Zavřít Superset“."
 
+msgid "All pages"
+msgstr "Všechny stránky"
+
 msgid "All plans"
 msgstr "Všechny tarify"
 
@@ -10386,6 +10389,9 @@ msgstr "Žádné odpovídající modely"
 msgid "No matching org members."
 msgstr "Žádní odpovídající členové organizace."
 
+msgid "No matching pages"
+msgstr "Žádné odpovídající stránky"
+
 msgid "No members yet"
 msgstr "Zatím žádní členové"
 
@@ -16692,6 +16698,9 @@ msgstr "Tím se všechny připravené změny odeberou z indexu a vrátí zpět. 
 
 msgid "This will unstage and revert all staged changes. Staged new files will be deleted. This cannot be undone."
 msgstr "Tímto zrušíte přípravu a vrátíte všechny připravené změny. Připravené nové soubory budou smazány. Tuto akci nelze vrátit zpět."
+
+msgid "This workspace"
+msgstr "Tento pracovní prostor"
 
 msgid "This workspace has no project to branch from"
 msgstr "Tento pracovní prostor nemá projekt, ze kterého by šlo větvit"

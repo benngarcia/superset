@@ -2009,6 +2009,9 @@ msgstr "Wszystkie Twoje dane zostaną trwale usunięte po {ACCOUNT_DELETION_GRAC
 msgid "All open terminal sessions will be killed and any running host-services will be stopped. Use “Close Superset” instead if you want services to keep running for the next launch."
 msgstr "Wszystkie otwarte sesje terminala zostaną zabite, a działające usługi hosta zatrzymane. Użyj „Zamknij Superset”, jeśli usługi mają działać dalej do następnego uruchomienia."
 
+msgid "All pages"
+msgstr "Wszystkie strony"
+
 msgid "All plans"
 msgstr "Wszystkie plany"
 
@@ -10386,6 +10389,9 @@ msgstr "Brak pasujących modeli"
 msgid "No matching org members."
 msgstr "Brak pasujących członków organizacji."
 
+msgid "No matching pages"
+msgstr "Brak pasujących stron"
+
 msgid "No members yet"
 msgstr "Brak członków"
 
@@ -16692,6 +16698,9 @@ msgstr "Spowoduje to usunięcie wszystkich przygotowanych zmian z indeksu i ich 
 
 msgid "This will unstage and revert all staged changes. Staged new files will be deleted. This cannot be undone."
 msgstr "Usunie to z indeksu i cofnie wszystkie zaindeksowane zmiany. Zaindeksowane nowe pliki zostaną usunięte. Tej operacji nie można cofnąć."
+
+msgid "This workspace"
+msgstr "Ten obszar roboczy"
 
 msgid "This workspace has no project to branch from"
 msgstr "Ten obszar roboczy nie ma projektu, z którego można się rozgałęzić"
