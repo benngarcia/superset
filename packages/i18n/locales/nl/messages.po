@@ -90,9 +90,6 @@ msgstr "(Binnenkort)"
 msgid "(edited)"
 msgstr "(bewerkt)"
 
-msgid "(external)"
-msgstr "(extern)"
-
 msgid "(no output)"
 msgstr "(geen uitvoer)"
 
@@ -6687,9 +6684,6 @@ msgstr "Uitgebreid nadenken: {activeLabel}"
 msgid "external"
 msgstr "extern"
 
-msgid "External"
-msgstr "Extern"
-
 msgid "External Application"
 msgstr "Externe applicatie"
 
@@ -8575,9 +8569,6 @@ msgstr "Wil je Superset naar je organisatie brengen? Neem contact op, dan zoeken
 
 msgid "Interface"
 msgstr "Interface"
-
-msgid "Internal"
-msgstr "Intern"
 
 msgid "Internet Disconnected"
 msgstr "Geen internetverbinding"
@@ -11582,9 +11573,6 @@ msgstr "Systeeminstellingen openen"
 
 msgid "Open task {title}"
 msgstr "Taak {title} openen"
-
-msgid "Open task externally"
-msgstr "Taak extern openen"
 
 msgid "Open Terminal"
 msgstr "Terminal openen"

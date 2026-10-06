@@ -90,9 +90,6 @@ msgstr "（即將推出）"
 msgid "(edited)"
 msgstr "（已編輯）"
 
-msgid "(external)"
-msgstr "（外部）"
-
 msgid "(no output)"
 msgstr "（無輸出）"
 
@@ -6687,9 +6684,6 @@ msgstr "擴充套件思考：{activeLabel}"
 msgid "external"
 msgstr "外部"
 
-msgid "External"
-msgstr "外部"
-
 msgid "External Application"
 msgstr "外部應用"
 
@@ -8575,9 +8569,6 @@ msgstr "想把Superset引入你的組織？聯絡我們，一起為你的團隊�
 
 msgid "Interface"
 msgstr "介面"
-
-msgid "Internal"
-msgstr "內部"
 
 msgid "Internet Disconnected"
 msgstr "網路已斷開"
@@ -11582,9 +11573,6 @@ msgstr "開啟系統設定"
 
 msgid "Open task {title}"
 msgstr "開啟任務{title}"
-
-msgid "Open task externally"
-msgstr "在外部開啟任務"
 
 msgid "Open Terminal"
 msgstr "開啟終端"

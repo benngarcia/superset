@@ -90,9 +90,6 @@ msgstr "(近日公開)"
 msgid "(edited)"
 msgstr "（編集済み）"
 
-msgid "(external)"
-msgstr "(外部)"
-
 msgid "(no output)"
 msgstr "（出力なし）"
 
@@ -6687,9 +6684,6 @@ msgstr "拡張思考: {activeLabel}"
 msgid "external"
 msgstr "外部"
 
-msgid "External"
-msgstr "外部"
-
 msgid "External Application"
 msgstr "外部アプリケーション"
 
@@ -8575,9 +8569,6 @@ msgstr "Supersetを組織に導入することをご検討中ですか?ご連絡
 
 msgid "Interface"
 msgstr "インターフェース"
-
-msgid "Internal"
-msgstr "内部"
 
 msgid "Internet Disconnected"
 msgstr "インターネットが切断されています"
@@ -11582,9 +11573,6 @@ msgstr "システム設定を開く"
 
 msgid "Open task {title}"
 msgstr "タスク{title}を開く"
-
-msgid "Open task externally"
-msgstr "タスクを外部で開く"
 
 msgid "Open Terminal"
 msgstr "ターミナルを開く"

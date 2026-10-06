@@ -90,9 +90,6 @@ msgstr "(Скоро)"
 msgid "(edited)"
 msgstr "(изменено)"
 
-msgid "(external)"
-msgstr "(внешний)"
-
 msgid "(no output)"
 msgstr "(нет вывода)"
 
@@ -6687,9 +6684,6 @@ msgstr "Расширенное мышление: {activeLabel}"
 msgid "external"
 msgstr "внешняя"
 
-msgid "External"
-msgstr "Внешний"
-
 msgid "External Application"
 msgstr "Внешнее приложение"
 
@@ -8575,9 +8569,6 @@ msgstr "Хотите привести Superset в свою организаци�
 
 msgid "Interface"
 msgstr "Интерфейс"
-
-msgid "Internal"
-msgstr "Внутренние"
 
 msgid "Internet Disconnected"
 msgstr "Нет подключения к интернету"
@@ -11582,9 +11573,6 @@ msgstr "Открыть Системные настройки"
 
 msgid "Open task {title}"
 msgstr "Открыть задачу {title}"
-
-msgid "Open task externally"
-msgstr "Открыть задачу во внешнем приложении"
 
 msgid "Open Terminal"
 msgstr "Открыть терминал"

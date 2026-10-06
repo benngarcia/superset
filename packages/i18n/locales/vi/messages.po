@@ -90,9 +90,6 @@ msgstr "(Sắp có)"
 msgid "(edited)"
 msgstr "(đã sửa)"
 
-msgid "(external)"
-msgstr "(bên ngoài)"
-
 msgid "(no output)"
 msgstr "(không có đầu ra)"
 
@@ -6687,9 +6684,6 @@ msgstr "Suy nghĩ mở rộng: {activeLabel}"
 msgid "external"
 msgstr "bên ngoài"
 
-msgid "External"
-msgstr "Bên ngoài"
-
 msgid "External Application"
 msgstr "Ứng dụng bên ngoài"
 
@@ -8575,9 +8569,6 @@ msgstr "Muốn đưa Superset vào tổ chức của bạn? Hãy liên hệ và 
 
 msgid "Interface"
 msgstr "Giao diện"
-
-msgid "Internal"
-msgstr "Nội bộ"
 
 msgid "Internet Disconnected"
 msgstr "Mất kết nối Internet"
@@ -11582,9 +11573,6 @@ msgstr "Mở System Settings"
 
 msgid "Open task {title}"
 msgstr "Mở tác vụ {title}"
-
-msgid "Open task externally"
-msgstr "Mở tác vụ ở ứng dụng ngoài"
 
 msgid "Open Terminal"
 msgstr "Mở terminal"

@@ -90,9 +90,6 @@ msgstr "(Yakında)"
 msgid "(edited)"
 msgstr "(düzenlendi)"
 
-msgid "(external)"
-msgstr "(harici)"
-
 msgid "(no output)"
 msgstr "(çıktı yok)"
 
@@ -6687,9 +6684,6 @@ msgstr "Genişletilmiş düşünme: {activeLabel}"
 msgid "external"
 msgstr "dış"
 
-msgid "External"
-msgstr "Harici"
-
 msgid "External Application"
 msgstr "Harici uygulama"
 
@@ -8575,9 +8569,6 @@ msgstr "Superset'i kuruluşunuza getirmekle ilgileniyor musunuz? Bize ulaşın, 
 
 msgid "Interface"
 msgstr "Arayüz"
-
-msgid "Internal"
-msgstr "Dahili"
 
 msgid "Internet Disconnected"
 msgstr "İnternet bağlantısı kesildi"
@@ -11582,9 +11573,6 @@ msgstr "Sistem Ayarları'nı aç"
 
 msgid "Open task {title}"
 msgstr "Görevi aç: {title}"
-
-msgid "Open task externally"
-msgstr "Görevi harici olarak aç"
 
 msgid "Open Terminal"
 msgstr "Terminali aç"

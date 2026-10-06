@@ -90,9 +90,6 @@ msgstr "(출시 예정)"
 msgid "(edited)"
 msgstr "(수정됨)"
 
-msgid "(external)"
-msgstr "(외부)"
-
 msgid "(no output)"
 msgstr "(출력 없음)"
 
@@ -6687,9 +6684,6 @@ msgstr "확장 사고: {activeLabel}"
 msgid "external"
 msgstr "외부"
 
-msgid "External"
-msgstr "외부"
-
 msgid "External Application"
 msgstr "외부 애플리케이션"
 
@@ -8575,9 +8569,6 @@ msgstr "조직에 Superset을 도입하고 싶으신가요? 문의해 주시면 
 
 msgid "Interface"
 msgstr "인터페이스"
-
-msgid "Internal"
-msgstr "내부"
 
 msgid "Internet Disconnected"
 msgstr "인터넷 연결 끊김"
@@ -11582,9 +11573,6 @@ msgstr "시스템 설정 열기"
 
 msgid "Open task {title}"
 msgstr "{title} 작업 열기"
-
-msgid "Open task externally"
-msgstr "외부에서 작업 열기"
 
 msgid "Open Terminal"
 msgstr "터미널 열기"

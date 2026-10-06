@@ -688,7 +688,6 @@ export const taskRouter = {
 						statusType: taskStatuses.type,
 						statusProvider: taskStatuses.externalProvider,
 						assigneeId: tasks.assigneeId,
-						assigneeExternalId: tasks.assigneeExternalId,
 					})
 					.from(tasks)
 					.innerJoin(taskStatuses, eq(tasks.statusId, taskStatuses.id))
@@ -725,8 +724,7 @@ export const taskRouter = {
 					return { task: null, txid: null };
 				}
 
-				const unassigned =
-					current.assigneeId === null && current.assigneeExternalId === null;
+				const unassigned = current.assigneeId === null;
 
 				// Compare-and-set on the observed status so a concurrent move to
 				// completed/canceled between the read and this write is never
@@ -815,9 +813,6 @@ export const taskRouter = {
 						data.assigneeId ?? null,
 						"Assignee must belong to the task organization",
 					);
-					updateData.assigneeExternalId = null;
-					updateData.assigneeDisplayName = null;
-					updateData.assigneeAvatarUrl = null;
 				}
 
 				const [updated] = await tx

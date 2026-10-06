@@ -90,9 +90,6 @@ msgstr "(Bientôt disponible)"
 msgid "(edited)"
 msgstr "(modifié)"
 
-msgid "(external)"
-msgstr "(externe)"
-
 msgid "(no output)"
 msgstr "(aucune sortie)"
 
@@ -6687,9 +6684,6 @@ msgstr "Réflexion étendue : {activeLabel}"
 msgid "external"
 msgstr "externe"
 
-msgid "External"
-msgstr "Externe"
-
 msgid "External Application"
 msgstr "Application externe"
 
@@ -8575,9 +8569,6 @@ msgstr "Vous souhaitez déployer Superset dans votre organisation ? Contactez-no
 
 msgid "Interface"
 msgstr "Interface"
-
-msgid "Internal"
-msgstr "Interne"
 
 msgid "Internet Disconnected"
 msgstr "Pas de connexion Internet"
@@ -11582,9 +11573,6 @@ msgstr "Ouvrir les Réglages Système"
 
 msgid "Open task {title}"
 msgstr "Ouvrir la tâche {title}"
-
-msgid "Open task externally"
-msgstr "Ouvrir la tâche à l'extérieur"
 
 msgid "Open Terminal"
 msgstr "Ouvrir le terminal"

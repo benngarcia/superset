@@ -90,9 +90,6 @@ msgstr "(Již brzy)"
 msgid "(edited)"
 msgstr "(upraveno)"
 
-msgid "(external)"
-msgstr "(externí)"
-
 msgid "(no output)"
 msgstr "(žádný výstup)"
 
@@ -6687,9 +6684,6 @@ msgstr "Rozšířené přemýšlení: {activeLabel}"
 msgid "external"
 msgstr "externí"
 
-msgid "External"
-msgstr "Externí"
-
 msgid "External Application"
 msgstr "Externí aplikace"
 
@@ -8575,9 +8569,6 @@ msgstr "Chcete Superset přinést do své organizace? Ozvěte se a společně na
 
 msgid "Interface"
 msgstr "Rozhraní"
-
-msgid "Internal"
-msgstr "Interní"
 
 msgid "Internet Disconnected"
 msgstr "Internet odpojen"
@@ -11582,9 +11573,6 @@ msgstr "Otevřít Nastavení systému"
 
 msgid "Open task {title}"
 msgstr "Otevřít úkol {title}"
-
-msgid "Open task externally"
-msgstr "Otevřít úkol externě"
 
 msgid "Open Terminal"
 msgstr "Otevřít terminál"

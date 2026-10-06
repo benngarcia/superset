@@ -90,9 +90,6 @@ msgstr "(Segera Hadir)"
 msgid "(edited)"
 msgstr "(diedit)"
 
-msgid "(external)"
-msgstr "(eksternal)"
-
 msgid "(no output)"
 msgstr "(tidak ada keluaran)"
 
@@ -6687,9 +6684,6 @@ msgstr "Extended thinking: {activeLabel}"
 msgid "external"
 msgstr "eksternal"
 
-msgid "External"
-msgstr "Eksternal"
-
 msgid "External Application"
 msgstr "Aplikasi Eksternal"
 
@@ -8575,9 +8569,6 @@ msgstr "Tertarik membawa Superset ke organisasi Anda? Hubungi kami dan kami akan
 
 msgid "Interface"
 msgstr "Antarmuka"
-
-msgid "Internal"
-msgstr "Internal"
 
 msgid "Internet Disconnected"
 msgstr "Internet Terputus"
@@ -11582,9 +11573,6 @@ msgstr "Buka System Settings"
 
 msgid "Open task {title}"
 msgstr "Buka tugas {title}"
-
-msgid "Open task externally"
-msgstr "Buka tugas di aplikasi luar"
 
 msgid "Open Terminal"
 msgstr "Buka Terminal"
