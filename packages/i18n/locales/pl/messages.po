@@ -11010,9 +11010,6 @@ msgstr "Tylko osoba, która utworzyła tę stronę, może ją zmienić"
 msgid "Only the person who created this page can change these."
 msgstr "Tylko osoba, która utworzyła tę stronę, może to zmienić."
 
-msgid "Only the person who created this page can read its storage"
-msgstr "Tylko osoba, która utworzyła tę stronę, może odczytać jej pamięć"
-
 msgid "Only the thread's author or the page's owner can delete it"
 msgstr "Tylko autor wątku lub właściciel strony może go usunąć"
 

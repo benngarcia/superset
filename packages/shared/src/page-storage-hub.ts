@@ -1,22 +1,10 @@
-import type { PageStorageRecord } from "./page-storage";
-
-export interface PageStorageKeySummary {
-	key: string;
-	records: number;
-	updatedAt: string;
-}
-
 export type PageStorageHubRequest =
 	| { op: "clear"; key?: string }
-	| { op: "clearUser"; userId: string }
-	| { op: "keys" }
-	| { op: "records"; key: string };
+	| { op: "clearUser"; userId: string };
 
 export type PageStorageHubResponse =
 	| { ok: true; op: "clear"; cleared: number }
 	| { ok: true; op: "clearUser"; cleared: number }
-	| { ok: true; op: "keys"; keys: PageStorageKeySummary[] }
-	| { ok: true; op: "records"; key: string; records: PageStorageRecord[] }
 	| { ok: false; code: "invalid"; message: string };
 
 export type PageStorageHubSuccess = Extract<
@@ -33,6 +21,11 @@ export function pageStorageAdminPath(pageId: string): string {
 
 export function pageStorageNudgePath(pageId: string): string {
 	return `/v2/page/${encodeURIComponent(pageId)}/storage/manifest-changed`;
+}
+
+export function pageStorageRecordsPath(pageId: string, key?: string): string {
+	const path = `/v2/page/${encodeURIComponent(pageId)}/storage/records`;
+	return key === undefined ? path : `${path}?key=${encodeURIComponent(key)}`;
 }
 
 export function pageStorageTicketPath(pageId: string): string {

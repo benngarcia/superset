@@ -434,6 +434,101 @@ async function main() {
 		push,
 	);
 
+	console.log("\nreadback route");
+	const readback = async (pageId: string, jwt: string | null, key?: string) => {
+		const query = key === undefined ? "" : `?key=${encodeURIComponent(key)}`;
+		const response = await fetch(
+			`${base}/v2/page/${pageId}/storage/records${query}`,
+			{ headers: jwt ? { authorization: `Bearer ${jwt}` } : {} },
+		);
+		return {
+			status: response.status,
+			body: (await response.json().catch(() => null)) as Record<
+				string,
+				unknown
+			> | null,
+		};
+	};
+
+	const readbackNoAuth = await readback(ORG_PAGE, null);
+	check(
+		"readback refuses a request with no JWT",
+		readbackNoAuth.status === 401,
+		readbackNoAuth,
+	);
+
+	const readbackMember = await readback(ORG_PAGE, memberJwt, "vote");
+	check(
+		"readback refuses a member who did not create the page",
+		readbackMember.status === 403,
+		readbackMember,
+	);
+
+	const readbackPrivate = await readback(PRIVATE_PAGE, memberJwt);
+	check(
+		"readback refuses a just_me page to a non-author",
+		readbackPrivate.status === 403,
+		readbackPrivate,
+	);
+
+	const readbackMissing = await readback(
+		"dddddddd-4444-4444-8444-dddddddddddd",
+		authorJwt,
+	);
+	check(
+		"readback 404s a page with no manifest",
+		readbackMissing.status === 404,
+		readbackMissing,
+	);
+
+	const readbackEmptyKey = await readback(ORG_PAGE, authorJwt, "");
+	check(
+		"readback refuses an empty key",
+		readbackEmptyKey.status === 400,
+		readbackEmptyKey,
+	);
+
+	const keyList = await readback(ORG_PAGE, authorJwt);
+	const keys = (keyList.body?.keys ?? []) as Record<string, unknown>[];
+	check(
+		"readback lists each key with its record count for the author",
+		keyList.status === 200 &&
+			keys.length === 1 &&
+			keys[0]?.key === "vote" &&
+			keys[0]?.records === 2,
+		keyList,
+	);
+
+	const keyRecords = await readback(ORG_PAGE, authorJwt, "vote");
+	const slots = (keyRecords.body?.records ?? []) as Record<string, unknown>[];
+	check(
+		"readback returns every person's slot for one key",
+		keyRecords.status === 200 &&
+			slots.map((slot) => `${slot.name}=${slot.value}`).join(",") ===
+				"Ada=Ramen,Grace=Tacos",
+		keyRecords,
+	);
+
+	const oauthJwt = await new SignJWT({
+		organizationId: ORG,
+		organizationIds: [ORG],
+		azp: "superset-cli",
+		scope: "openid profile email offline_access",
+	})
+		.setProtectedHeader({ alg: "RS256", kid: "test-key" })
+		.setIssuer(issuer)
+		.setAudience(issuer)
+		.setSubject(AUTHOR)
+		.setIssuedAt()
+		.setExpirationTime("10m")
+		.sign(privateKey as KeyLike);
+	const readbackOAuth = await readback(ORG_PAGE, oauthJwt);
+	check(
+		"readback accepts a token shaped like the CLI's OAuth access token",
+		readbackOAuth.status === 200,
+		readbackOAuth,
+	);
+
 	console.log("\nrevocation");
 	const nudge = await fetch(
 		`${base}/v2/page/${ORG_PAGE}/storage/manifest-changed`,

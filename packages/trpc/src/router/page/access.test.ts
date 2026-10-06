@@ -1,11 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import type { SelectPage } from "@superset/db/schema";
 import { TRPCError } from "@trpc/server";
-import {
-	assertPageAuthor,
-	assertPageReadable,
-	assertPageWritable,
-} from "./access";
+import { assertPageReadable, assertPageWritable } from "./access";
 
 const OWNER = "user-owner";
 const OTHER = "user-other";
@@ -70,15 +66,5 @@ describe("assertPageWritable", () => {
 	test("a page that was never taken down is unaffected", () => {
 		const row = page({ takenDownAt: null });
 		expect(codeOf(() => assertPageWritable(row, OWNER))).toBeUndefined();
-	});
-});
-
-describe("assertPageAuthor", () => {
-	test("the creator can read the page's storage", () => {
-		expect(codeOf(() => assertPageAuthor(page(), OWNER))).toBeUndefined();
-	});
-
-	test("another member cannot read an org page's storage", () => {
-		expect(codeOf(() => assertPageAuthor(page(), OTHER))).toBe("FORBIDDEN");
 	});
 });

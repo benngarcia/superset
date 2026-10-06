@@ -2,7 +2,6 @@ import {
 	pageReportReasonValues,
 	pageReportStatusValues,
 } from "@superset/db/schema";
-import { MAX_PAGE_STORAGE_KEY_LENGTH } from "@superset/shared/page-storage";
 import { z } from "zod";
 
 export const OFFERED_VISIBILITIES = ["just_me", "org", "everyone"] as const;
@@ -185,10 +184,6 @@ export const pageRefSchema = pageRefFieldsSchema.refine(
 	hasPageRef,
 	PAGE_REF_MESSAGE,
 );
-
-export const pageStorageRecordsSchema = pageRefFieldsSchema
-	.extend({ key: z.string().min(1).max(MAX_PAGE_STORAGE_KEY_LENGTH) })
-	.refine(hasPageRef, PAGE_REF_MESSAGE);
 
 export const setPageVisibilitySchema = z.object({
 	id: pageFields.id,

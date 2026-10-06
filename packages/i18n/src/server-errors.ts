@@ -633,12 +633,6 @@ export const serverErrorMessages: Record<
 				message: "Only the person who created this page can change it",
 			}),
 		),
-	"serverError.page.onlyTheAuthorCanReadStorage": () =>
-		i18n._(
-			msg({
-				message: "Only the person who created this page can read its storage",
-			}),
-		),
 	"serverError.page.pageContentIsNotAvailable": () =>
 		i18n._(
 			msg({

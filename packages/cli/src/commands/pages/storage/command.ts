@@ -1,26 +1,82 @@
-import { positional, string, table } from "@superset/cli-framework";
-import { MAX_PAGE_STORAGE_KEY_LENGTH } from "@superset/shared/page-storage";
+import { CLIError, positional, string, table } from "@superset/cli-framework";
+import {
+	MAX_PAGE_STORAGE_KEY_LENGTH,
+	type PageStorageReadback,
+} from "@superset/shared/page-storage";
+import { pageStorageRecordsPath } from "@superset/shared/page-storage-hub";
 import { command } from "../../../lib/command";
-import { pageRefFromArg } from "../pageRef";
+import { getApiUrl } from "../../../lib/config";
+import { env } from "../../../lib/env";
+import { resolvePageId } from "../pageId";
 
-interface KeySummary {
-	key: string;
-	records: number;
-	updatedAt: string;
+export async function userJwt(
+	bearer: string,
+	fetchImpl: typeof fetch = fetch,
+): Promise<string> {
+	if (bearer.split(".").length === 3) return bearer;
+	if (!bearer.startsWith("sk_live_")) {
+		throw new CLIError(
+			"Reading page storage needs a signed-in user",
+			"Run: superset auth login, or pass --api-key",
+		);
+	}
+	const response = await fetchImpl(`${getApiUrl()}/api/auth/token`, {
+		headers: { "x-api-key": bearer },
+	});
+	if (!response.ok) {
+		throw new CLIError(
+			`Could not get a token for this API key (${response.status})`,
+			"Check the key with: superset auth whoami",
+		);
+	}
+	return ((await response.json()) as { token: string }).token;
 }
 
-interface StorageRecord {
-	userId: string;
-	name: string;
-	value: unknown;
-	updatedAt: string;
+export async function readStorage({
+	realtimeUrl,
+	jwt,
+	pageId,
+	key,
+	fetchImpl = fetch,
+}: {
+	realtimeUrl: string;
+	jwt: string;
+	pageId: string;
+	key?: string;
+	fetchImpl?: typeof fetch;
+}): Promise<PageStorageReadback> {
+	const response = await fetchImpl(
+		`${realtimeUrl}${pageStorageRecordsPath(pageId, key)}`,
+		{ headers: { authorization: `Bearer ${jwt}` } },
+	);
+	if (response.ok) return (await response.json()) as PageStorageReadback;
+	const error = (
+		(await response.json().catch(() => null)) as { error?: string } | null
+	)?.error;
+	switch (response.status) {
+		case 401:
+			throw new CLIError(
+				"Page storage did not accept your credentials",
+				"Run: superset auth login",
+			);
+		case 403:
+			throw new CLIError(
+				error ?? "Only the person who created this page can read its storage",
+				"Ask the page's creator to run this command",
+			);
+		case 404:
+			throw new CLIError(
+				"This page has no published version",
+				"Publish it first: superset pages publish",
+			);
+		default:
+			throw new CLIError(
+				error ?? `Page storage refused the request (${response.status})`,
+			);
+	}
 }
 
-export type StorageView =
-	| { pageId: string; keys: KeySummary[] }
-	| { pageId: string; key: string; records: StorageRecord[] };
-
-export function displayStorage(data: StorageView): string {
+export function displayStorage(data: PageStorageReadback): string {
 	if ("keys" in data) {
 		if (data.keys.length === 0) return "This page has no stored records.";
 		return table(
@@ -54,13 +110,13 @@ export default command({
 	options: {
 		key: string().desc("Show every person's slot for this key"),
 	},
-	run: async ({ ctx, args, options }) => {
-		const ref = pageRefFromArg(args.page as string);
-		const data =
-			options.key !== undefined
-				? await ctx.api.page.storageRecords.query({ ...ref, key: options.key })
-				: await ctx.api.page.storageKeys.query(ref);
-		return { data };
-	},
-	display: (data) => displayStorage(data as StorageView),
+	run: async ({ ctx, args, options }) => ({
+		data: await readStorage({
+			realtimeUrl: env.REALTIME_URL,
+			jwt: await userJwt(ctx.bearer),
+			pageId: await resolvePageId(ctx, args.page as string),
+			key: options.key,
+		}),
+	}),
+	display: (data) => displayStorage(data as PageStorageReadback),
 });
