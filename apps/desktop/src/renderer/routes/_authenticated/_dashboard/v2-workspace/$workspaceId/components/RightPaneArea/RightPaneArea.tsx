@@ -35,7 +35,6 @@ interface RightPaneAreaProps {
 	onToggleExpanded: () => void;
 	onMergeIntoCenter: () => void;
 	onAdd: (kind: RightPaneKind) => void;
-	isChatEnabled: boolean;
 	showWindowControls: boolean;
 }
 
@@ -51,7 +50,6 @@ export function RightPaneArea({
 	onToggleExpanded,
 	onMergeIntoCenter,
 	onAdd,
-	isChatEnabled,
 	showWindowControls,
 }: RightPaneAreaProps) {
 	const { t } = useLingui();
@@ -68,9 +66,7 @@ export function RightPaneArea({
 					sources={getV2NotificationSourcesForTab(tab)}
 				/>
 			)}
-			renderAddTabMenu={() => (
-				<RightPaneAddMenu onAdd={onAdd} isChatEnabled={isChatEnabled} />
-			)}
+			renderAddTabMenu={() => <RightPaneAddMenu onAdd={onAdd} />}
 			renderTabBarTrailing={() => (
 				<div className="flex items-center gap-1 pr-1">
 					<RightPaneHeaderButton

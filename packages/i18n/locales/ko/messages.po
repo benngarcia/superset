@@ -3376,9 +3376,6 @@ msgstr "채팅 세션을 찾을 수 없습니다"
 msgid "Chat surfaces: messages, reasoning, suggestions"
 msgstr "채팅 화면: 메시지, 추론, 제안"
 
-msgid "Chat v3"
-msgstr "Chat v3"
-
 msgid "Check again"
 msgstr "다시 확인"
 
@@ -10018,9 +10015,6 @@ msgstr "새 브라우저"
 msgid "new challengers"
 msgstr "새 도전자"
 
-msgid "New chat"
-msgstr "새 채팅"
-
 msgid "New cloud workspace"
 msgstr "새 클라우드 워크스페이스"
 
@@ -11185,9 +11179,6 @@ msgstr "변경 열기"
 msgid "Open Changes"
 msgstr "변경 열기"
 
-msgid "Open Chat v3"
-msgstr "Chat v3 열기"
-
 msgid "Open Command Palette"
 msgstr "명령 팔레트 열기"
 
@@ -11544,9 +11535,6 @@ msgstr "폴더 열기"
 
 msgid "Opening pages"
 msgstr "페이지 열기"
-
-msgid "Opening the chat…"
-msgstr "채팅을 여는 중…"
 
 msgid "Opening the conversation…"
 msgstr "대화를 여는 중…"
@@ -14331,9 +14319,6 @@ msgstr "터미널에서 텍스트를 선택하면 끝의 공백이 제거된 상
 msgid "Send"
 msgstr "보내기"
 
-msgid "Send a message to start a {harness} session"
-msgstr "메시지를 보내 {harness} 세션을 시작하세요"
-
 msgid "Send an invitation to join {organizationName}. Expires in 48 hours."
 msgstr "{organizationName}에 참여하도록 초대를 보냅니다. 48시간 후 만료됩니다."
 
@@ -15231,9 +15216,6 @@ msgstr "한 주에 늘어난 스타"
 msgctxt "project date"
 msgid "Start"
 msgstr "시작일"
-
-msgid "Start a {harness} session"
-msgstr "{harness} 세션 시작"
 
 msgid "Start a conversation to see messages here"
 msgstr "대화를 시작하면 메시지가 여기에 표시됩니다"
@@ -16518,6 +16500,12 @@ msgstr "이 자동화는 다른 조직에 있습니다"
 
 msgid "This cannot be undone."
 msgstr "되돌릴 수 없습니다."
+
+msgid "This chat stopped because the conversation continued in a terminal."
+msgstr "대화가 터미널에서 계속되어 이 채팅이 중지되었습니다."
+
+msgid "This chat was stopped."
+msgstr "이 채팅이 중지되었습니다."
 
 msgid "This chat's agent has stopped and can't be resumed."
 msgstr "이 채팅의 에이전트가 중지되어 이어갈 수 없습니다."

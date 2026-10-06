@@ -3376,9 +3376,6 @@ msgstr "Sesi chat tidak ditemukan"
 msgid "Chat surfaces: messages, reasoning, suggestions"
 msgstr "Permukaan chat: pesan, penalaran, saran"
 
-msgid "Chat v3"
-msgstr "Chat v3"
-
 msgid "Check again"
 msgstr "Periksa lagi"
 
@@ -10018,9 +10015,6 @@ msgstr "Browser Baru"
 msgid "new challengers"
 msgstr "penantang baru"
 
-msgid "New chat"
-msgstr "Chat baru"
-
 msgid "New cloud workspace"
 msgstr "Workspace cloud baru"
 
@@ -11185,9 +11179,6 @@ msgstr "Buka perubahan"
 msgid "Open Changes"
 msgstr "Buka Perubahan"
 
-msgid "Open Chat v3"
-msgstr "Buka Chat v3"
-
 msgid "Open Command Palette"
 msgstr "Buka Command Palette"
 
@@ -11544,9 +11535,6 @@ msgstr "Membuka folder"
 
 msgid "Opening pages"
 msgstr "Membuka halaman"
-
-msgid "Opening the chat…"
-msgstr "Membuka obrolan…"
 
 msgid "Opening the conversation…"
 msgstr "Membuka percakapan…"
@@ -14331,9 +14319,6 @@ msgstr "Memilih teks di terminal langsung menyalinnya ke clipboard, tanpa spasi 
 msgid "Send"
 msgstr "Kirim"
 
-msgid "Send a message to start a {harness} session"
-msgstr "Kirim pesan untuk memulai sesi {harness}"
-
 msgid "Send an invitation to join {organizationName}. Expires in 48 hours."
 msgstr "Kirim undangan untuk bergabung ke {organizationName}. Kedaluwarsa dalam 48 jam."
 
@@ -15231,9 +15216,6 @@ msgstr "Star yang didapat per minggu"
 msgctxt "project date"
 msgid "Start"
 msgstr "Mulai"
-
-msgid "Start a {harness} session"
-msgstr "Mulai sesi {harness}"
 
 msgid "Start a conversation to see messages here"
 msgstr "Mulai percakapan untuk melihat pesan di sini"
@@ -16518,6 +16500,12 @@ msgstr "Otomatisasi ini berada di organisasi lain"
 
 msgid "This cannot be undone."
 msgstr "Ini tidak bisa dibatalkan."
+
+msgid "This chat stopped because the conversation continued in a terminal."
+msgstr "Chat ini berhenti karena percakapan dilanjutkan di terminal."
+
+msgid "This chat was stopped."
+msgstr "Chat ini telah dihentikan."
 
 msgid "This chat's agent has stopped and can't be resumed."
 msgstr "Agen chat ini sudah berhenti dan tidak dapat dilanjutkan."

@@ -3376,9 +3376,6 @@ msgstr "Session de chat introuvable"
 msgid "Chat surfaces: messages, reasoning, suggestions"
 msgstr "Surfaces de chat : messages, raisonnement, suggestions"
 
-msgid "Chat v3"
-msgstr "Chat v3"
-
 msgid "Check again"
 msgstr "Vérifier à nouveau"
 
@@ -10018,9 +10015,6 @@ msgstr "Nouveau navigateur"
 msgid "new challengers"
 msgstr "nouveaux adversaires"
 
-msgid "New chat"
-msgstr "Nouvelle discussion"
-
 msgid "New cloud workspace"
 msgstr "Nouvel espace de travail cloud"
 
@@ -11185,9 +11179,6 @@ msgstr "Ouvrir les modifications"
 msgid "Open Changes"
 msgstr "Ouvrir les modifications"
 
-msgid "Open Chat v3"
-msgstr "Ouvrir le chat v3"
-
 msgid "Open Command Palette"
 msgstr "Ouvrir la palette de commandes"
 
@@ -11544,9 +11535,6 @@ msgstr "Ouverture des dossiers"
 
 msgid "Opening pages"
 msgstr "Ouverture des pages"
-
-msgid "Opening the chat…"
-msgstr "Ouverture de la discussion…"
 
 msgid "Opening the conversation…"
 msgstr "Ouverture de la conversation…"
@@ -14331,9 +14319,6 @@ msgstr "Sélectionner du texte dans un terminal le copie immédiatement dans le 
 msgid "Send"
 msgstr "Envoyer"
 
-msgid "Send a message to start a {harness} session"
-msgstr "Envoyez un message pour démarrer une session {harness}"
-
 msgid "Send an invitation to join {organizationName}. Expires in 48 hours."
 msgstr "Envoyez une invitation à rejoindre {organizationName}. Elle expire dans 48 heures."
 
@@ -15231,9 +15216,6 @@ msgstr "Étoiles gagnées par semaine"
 msgctxt "project date"
 msgid "Start"
 msgstr "Début"
-
-msgid "Start a {harness} session"
-msgstr "Démarrer une session {harness}"
 
 msgid "Start a conversation to see messages here"
 msgstr "Démarrez une conversation pour voir les messages ici"
@@ -16518,6 +16500,12 @@ msgstr "Cette automatisation se trouve dans une autre organisation"
 
 msgid "This cannot be undone."
 msgstr "Cette action est irréversible."
+
+msgid "This chat stopped because the conversation continued in a terminal."
+msgstr "Ce chat s'est arrêté car la conversation s'est poursuivie dans un terminal."
+
+msgid "This chat was stopped."
+msgstr "Ce chat a été arrêté."
 
 msgid "This chat's agent has stopped and can't be resumed."
 msgstr "L'agent de cette discussion s'est arrêté et ne peut pas être repris."

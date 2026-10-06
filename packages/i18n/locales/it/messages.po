@@ -3376,9 +3376,6 @@ msgstr "Sessione di chat non trovata"
 msgid "Chat surfaces: messages, reasoning, suggestions"
 msgstr "Superfici della chat: messaggi, ragionamento, suggerimenti"
 
-msgid "Chat v3"
-msgstr "Chat v3"
-
 msgid "Check again"
 msgstr "Controlla di nuovo"
 
@@ -10018,9 +10015,6 @@ msgstr "Nuovo browser"
 msgid "new challengers"
 msgstr "nuovi sfidanti"
 
-msgid "New chat"
-msgstr "Nuova chat"
-
 msgid "New cloud workspace"
 msgstr "Nuovo workspace cloud"
 
@@ -11185,9 +11179,6 @@ msgstr "Apri le modifiche"
 msgid "Open Changes"
 msgstr "Apri le modifiche"
 
-msgid "Open Chat v3"
-msgstr "Apri Chat v3"
-
 msgid "Open Command Palette"
 msgstr "Apri la palette dei comandi"
 
@@ -11544,9 +11535,6 @@ msgstr "Apertura delle cartelle"
 
 msgid "Opening pages"
 msgstr "Apertura delle pagine"
-
-msgid "Opening the chat…"
-msgstr "Apertura della chat…"
 
 msgid "Opening the conversation…"
 msgstr "Apertura della conversazione…"
@@ -14331,9 +14319,6 @@ msgstr "Selezionare del testo in un terminale lo copia subito negli appunti, sen
 msgid "Send"
 msgstr "Invia"
 
-msgid "Send a message to start a {harness} session"
-msgstr "Invia un messaggio per avviare una sessione {harness}"
-
 msgid "Send an invitation to join {organizationName}. Expires in 48 hours."
 msgstr "Invia un invito a entrare in {organizationName}. Scade tra 48 ore."
 
@@ -15231,9 +15216,6 @@ msgstr "Star guadagnate a settimana"
 msgctxt "project date"
 msgid "Start"
 msgstr "Inizio"
-
-msgid "Start a {harness} session"
-msgstr "Avvia una sessione {harness}"
 
 msgid "Start a conversation to see messages here"
 msgstr "Avvia una conversazione per vedere i messaggi qui"
@@ -16518,6 +16500,12 @@ msgstr "Questa automazione si trova in un'altra organizzazione"
 
 msgid "This cannot be undone."
 msgstr "L'operazione non può essere annullata."
+
+msgid "This chat stopped because the conversation continued in a terminal."
+msgstr "Questa chat si è interrotta perché la conversazione è proseguita in un terminale."
+
+msgid "This chat was stopped."
+msgstr "Questa chat è stata interrotta."
 
 msgid "This chat's agent has stopped and can't be resumed."
 msgstr "L'agente di questa chat si è fermato e non può essere ripreso."

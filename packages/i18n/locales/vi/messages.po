@@ -3376,9 +3376,6 @@ msgstr "Không tìm thấy phiên chat"
 msgid "Chat surfaces: messages, reasoning, suggestions"
 msgstr "Các bề mặt chat: tin nhắn, suy luận, gợi ý"
 
-msgid "Chat v3"
-msgstr "Chat v3"
-
 msgid "Check again"
 msgstr "Kiểm tra lại"
 
@@ -10018,9 +10015,6 @@ msgstr "Trình duyệt mới"
 msgid "new challengers"
 msgstr "đối thủ mới"
 
-msgid "New chat"
-msgstr "Chat mới"
-
 msgid "New cloud workspace"
 msgstr "Workspace cloud mới"
 
@@ -11185,9 +11179,6 @@ msgstr "Mở thay đổi"
 msgid "Open Changes"
 msgstr "Mở thay đổi"
 
-msgid "Open Chat v3"
-msgstr "Mở Chat v3"
-
 msgid "Open Command Palette"
 msgstr "Mở bảng lệnh"
 
@@ -11544,9 +11535,6 @@ msgstr "Mở thư mục"
 
 msgid "Opening pages"
 msgstr "Mở trang"
-
-msgid "Opening the chat…"
-msgstr "Đang mở trò chuyện…"
 
 msgid "Opening the conversation…"
 msgstr "Đang mở cuộc trò chuyện…"
@@ -14331,9 +14319,6 @@ msgstr "Chọn văn bản trong terminal sẽ sao chép ngay vào clipboard, đ�
 msgid "Send"
 msgstr "Gửi"
 
-msgid "Send a message to start a {harness} session"
-msgstr "Gửi một tin nhắn để bắt đầu phiên {harness}"
-
 msgid "Send an invitation to join {organizationName}. Expires in 48 hours."
 msgstr "Gửi lời mời tham gia {organizationName}. Hết hạn sau 48 giờ."
 
@@ -15231,9 +15216,6 @@ msgstr "Số star tăng mỗi tuần"
 msgctxt "project date"
 msgid "Start"
 msgstr "Bắt đầu"
-
-msgid "Start a {harness} session"
-msgstr "Bắt đầu một phiên {harness}"
 
 msgid "Start a conversation to see messages here"
 msgstr "Bắt đầu một cuộc trò chuyện để thấy tin nhắn ở đây"
@@ -16518,6 +16500,12 @@ msgstr "Tự động hóa này nằm trong một tổ chức khác"
 
 msgid "This cannot be undone."
 msgstr "Không thể hoàn tác."
+
+msgid "This chat stopped because the conversation continued in a terminal."
+msgstr "Cuộc trò chuyện này đã dừng vì nó được tiếp tục trong một terminal."
+
+msgid "This chat was stopped."
+msgstr "Cuộc trò chuyện này đã bị dừng."
 
 msgid "This chat's agent has stopped and can't be resumed."
 msgstr "Tác nhân của cuộc trò chuyện này đã dừng và không thể tiếp tục."

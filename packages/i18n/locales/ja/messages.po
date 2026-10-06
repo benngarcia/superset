@@ -3376,9 +3376,6 @@ msgstr "チャットセッションが見つかりません"
 msgid "Chat surfaces: messages, reasoning, suggestions"
 msgstr "チャットの構成要素: メッセージ、推論、提案"
 
-msgid "Chat v3"
-msgstr "チャットv3"
-
 msgid "Check again"
 msgstr "再確認"
 
@@ -10018,9 +10015,6 @@ msgstr "新規ブラウザ"
 msgid "new challengers"
 msgstr "別の対戦相手"
 
-msgid "New chat"
-msgstr "新しいチャット"
-
 msgid "New cloud workspace"
 msgstr "新規クラウドワークスペース"
 
@@ -11185,9 +11179,6 @@ msgstr "変更を開く"
 msgid "Open Changes"
 msgstr "変更を開く"
 
-msgid "Open Chat v3"
-msgstr "チャットv3を開く"
-
 msgid "Open Command Palette"
 msgstr "コマンドパレットを開く"
 
@@ -11544,9 +11535,6 @@ msgstr "フォルダーを開く"
 
 msgid "Opening pages"
 msgstr "ページを開く"
-
-msgid "Opening the chat…"
-msgstr "チャットを開いています…"
 
 msgid "Opening the conversation…"
 msgstr "会話を開いています…"
@@ -14331,9 +14319,6 @@ msgstr "ターミナルでテキストを選択すると、行末の空白を取
 msgid "Send"
 msgstr "送信"
 
-msgid "Send a message to start a {harness} session"
-msgstr "メッセージを送って{harness}セッションを開始"
-
 msgid "Send an invitation to join {organizationName}. Expires in 48 hours."
 msgstr "{organizationName}への招待を送ります。48時間で失効します。"
 
@@ -15231,9 +15216,6 @@ msgstr "1週間あたりの獲得スター"
 msgctxt "project date"
 msgid "Start"
 msgstr "開始日"
-
-msgid "Start a {harness} session"
-msgstr "{harness}セッションを開始"
 
 msgid "Start a conversation to see messages here"
 msgstr "会話を始めるとここにメッセージが表示されます"
@@ -16518,6 +16500,12 @@ msgstr "このオートメーションは別の組織にあります"
 
 msgid "This cannot be undone."
 msgstr "この操作は元に戻せません。"
+
+msgid "This chat stopped because the conversation continued in a terminal."
+msgstr "会話がターミナルで続行されたため、このチャットは停止しました。"
+
+msgid "This chat was stopped."
+msgstr "このチャットは停止されました。"
 
 msgid "This chat's agent has stopped and can't be resumed."
 msgstr "このチャットのエージェントは停止しており、再開できません。"

@@ -1,4 +1,5 @@
 import type { Octokit } from "@octokit/rest";
+import type { ChatRuntime } from "@superset/chat-runtime";
 import type { AppRouter } from "@superset/trpc";
 import type { TRPCClient } from "@trpc/client";
 import type { HostDb } from "./db";
@@ -16,6 +17,7 @@ export interface HostServiceRuntime {
 	filesystem: WorkspaceFilesystemManager;
 	pullRequests: PullRequestRuntimeManager;
 	pageWatch: PageWatchManager;
+	chat?: () => ChatRuntime;
 }
 
 export interface HostServiceContext {

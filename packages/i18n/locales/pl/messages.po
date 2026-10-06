@@ -3376,9 +3376,6 @@ msgstr "Nie znaleziono sesji czatu"
 msgid "Chat surfaces: messages, reasoning, suggestions"
 msgstr "Powierzchnie czatu: wiadomości, rozumowanie, sugestie"
 
-msgid "Chat v3"
-msgstr "Czat v3"
-
 msgid "Check again"
 msgstr "Sprawdź ponownie"
 
@@ -10018,9 +10015,6 @@ msgstr "Nowa przeglądarka"
 msgid "new challengers"
 msgstr "nowi przeciwnicy"
 
-msgid "New chat"
-msgstr "Nowy czat"
-
 msgid "New cloud workspace"
 msgstr "Nowy obszar roboczy w chmurze"
 
@@ -11185,9 +11179,6 @@ msgstr "Otwórz zmiany"
 msgid "Open Changes"
 msgstr "Otwórz zmiany"
 
-msgid "Open Chat v3"
-msgstr "Otwórz czat v3"
-
 msgid "Open Command Palette"
 msgstr "Otwórz paletę poleceń"
 
@@ -11544,9 +11535,6 @@ msgstr "Otwieranie folderów"
 
 msgid "Opening pages"
 msgstr "Otwieranie stron"
-
-msgid "Opening the chat…"
-msgstr "Otwieranie czatu…"
 
 msgid "Opening the conversation…"
 msgstr "Otwieranie rozmowy…"
@@ -14331,9 +14319,6 @@ msgstr "Zaznaczenie tekstu w terminalu od razu kopiuje go do schowka, bez końco
 msgid "Send"
 msgstr "Wyślij"
 
-msgid "Send a message to start a {harness} session"
-msgstr "Wyślij wiadomość, aby rozpocząć sesję {harness}"
-
 msgid "Send an invitation to join {organizationName}. Expires in 48 hours."
 msgstr "Wyślij zaproszenie do {organizationName}. Wygasa po 48 godzinach."
 
@@ -15231,9 +15216,6 @@ msgstr "Gwiazdki zdobyte tygodniowo"
 msgctxt "project date"
 msgid "Start"
 msgstr "Start"
-
-msgid "Start a {harness} session"
-msgstr "Rozpocznij sesję {harness}"
 
 msgid "Start a conversation to see messages here"
 msgstr "Rozpocznij rozmowę, aby zobaczyć tu wiadomości"
@@ -16518,6 +16500,12 @@ msgstr "Ta automatyzacja znajduje się w innej organizacji"
 
 msgid "This cannot be undone."
 msgstr "Tej operacji nie można cofnąć."
+
+msgid "This chat stopped because the conversation continued in a terminal."
+msgstr "Ten czat został zatrzymany, ponieważ rozmowa była kontynuowana w terminalu."
+
+msgid "This chat was stopped."
+msgstr "Ten czat został zatrzymany."
 
 msgid "This chat's agent has stopped and can't be resumed."
 msgstr "Agent tego czatu został zatrzymany i nie można go wznowić."

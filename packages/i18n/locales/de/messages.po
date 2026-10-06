@@ -3376,9 +3376,6 @@ msgstr "Chat-Sitzung nicht gefunden"
 msgid "Chat surfaces: messages, reasoning, suggestions"
 msgstr "Chat-Oberflächen: Nachrichten, Reasoning, Vorschläge"
 
-msgid "Chat v3"
-msgstr "Chat v3"
-
 msgid "Check again"
 msgstr "Erneut prüfen"
 
@@ -10018,9 +10015,6 @@ msgstr "Neuer Browser"
 msgid "new challengers"
 msgstr "neue Herausforderer"
 
-msgid "New chat"
-msgstr "Neuer Chat"
-
 msgid "New cloud workspace"
 msgstr "Neuer Cloud-Arbeitsbereich"
 
@@ -11185,9 +11179,6 @@ msgstr "Änderungen öffnen"
 msgid "Open Changes"
 msgstr "Änderungen öffnen"
 
-msgid "Open Chat v3"
-msgstr "Chat v3 öffnen"
-
 msgid "Open Command Palette"
 msgstr "Befehlspalette öffnen"
 
@@ -11544,9 +11535,6 @@ msgstr "Ordner öffnen"
 
 msgid "Opening pages"
 msgstr "Seiten öffnen"
-
-msgid "Opening the chat…"
-msgstr "Chat wird geöffnet…"
 
 msgid "Opening the conversation…"
 msgstr "Unterhaltung wird geöffnet…"
@@ -14331,9 +14319,6 @@ msgstr "Markierter Text im Terminal wird sofort in die Zwischenablage kopiert, o
 msgid "Send"
 msgstr "Senden"
 
-msgid "Send a message to start a {harness} session"
-msgstr "Schick eine Nachricht, um eine {harness}-Sitzung zu starten"
-
 msgid "Send an invitation to join {organizationName}. Expires in 48 hours."
 msgstr "Sende eine Einladung zu {organizationName}. Läuft in 48 Stunden ab."
 
@@ -15231,9 +15216,6 @@ msgstr "Neue Stars pro Woche"
 msgctxt "project date"
 msgid "Start"
 msgstr "Start"
-
-msgid "Start a {harness} session"
-msgstr "Eine {harness}-Sitzung starten"
 
 msgid "Start a conversation to see messages here"
 msgstr "Starte eine Unterhaltung, damit hier Nachrichten erscheinen"
@@ -16518,6 +16500,12 @@ msgstr "Diese Automatisierung befindet sich in einer anderen Organisation"
 
 msgid "This cannot be undone."
 msgstr "Das lässt sich nicht rückgängig machen."
+
+msgid "This chat stopped because the conversation continued in a terminal."
+msgstr "Dieser Chat wurde beendet, weil die Unterhaltung in einem Terminal fortgesetzt wurde."
+
+msgid "This chat was stopped."
+msgstr "Dieser Chat wurde beendet."
 
 msgid "This chat's agent has stopped and can't be resumed."
 msgstr "Der Agent dieses Chats wurde beendet und lässt sich nicht fortsetzen."

@@ -3376,9 +3376,6 @@ msgstr "Сессия чата не найдена"
 msgid "Chat surfaces: messages, reasoning, suggestions"
 msgstr "Поверхности чата: сообщения, рассуждения, подсказки"
 
-msgid "Chat v3"
-msgstr "Chat v3"
-
 msgid "Check again"
 msgstr "Проверить снова"
 
@@ -10018,9 +10015,6 @@ msgstr "Новый браузер"
 msgid "new challengers"
 msgstr "другие соперники"
 
-msgid "New chat"
-msgstr "Новый чат"
-
 msgid "New cloud workspace"
 msgstr "Новая облачная рабочая область"
 
@@ -11185,9 +11179,6 @@ msgstr "Открыть изменения"
 msgid "Open Changes"
 msgstr "Открыть изменения"
 
-msgid "Open Chat v3"
-msgstr "Открыть Chat v3"
-
 msgid "Open Command Palette"
 msgstr "Открыть палитру команд"
 
@@ -11544,9 +11535,6 @@ msgstr "Открытие папок"
 
 msgid "Opening pages"
 msgstr "Открытие страниц"
-
-msgid "Opening the chat…"
-msgstr "Открытие чата…"
 
 msgid "Opening the conversation…"
 msgstr "Открываем разговор…"
@@ -14331,9 +14319,6 @@ msgstr "Выделенный в терминале текст сразу коп�
 msgid "Send"
 msgstr "Отправить"
 
-msgid "Send a message to start a {harness} session"
-msgstr "Отправьте сообщение, чтобы начать сессию {harness}"
-
 msgid "Send an invitation to join {organizationName}. Expires in 48 hours."
 msgstr "Отправьте приглашение в {organizationName}. Действует 48 часов."
 
@@ -15231,9 +15216,6 @@ msgstr "Звёзд в неделю"
 msgctxt "project date"
 msgid "Start"
 msgstr "Начало"
-
-msgid "Start a {harness} session"
-msgstr "Начать сессию {harness}"
 
 msgid "Start a conversation to see messages here"
 msgstr "Начните диалог, чтобы сообщения появились здесь"
@@ -16518,6 +16500,12 @@ msgstr "Эта автоматизация находится в другой о�
 
 msgid "This cannot be undone."
 msgstr "Это нельзя отменить."
+
+msgid "This chat stopped because the conversation continued in a terminal."
+msgstr "Этот чат остановлен, потому что разговор продолжился в терминале."
+
+msgid "This chat was stopped."
+msgstr "Этот чат остановлен."
 
 msgid "This chat's agent has stopped and can't be resumed."
 msgstr "Агент этого чата остановлен, и его нельзя возобновить."

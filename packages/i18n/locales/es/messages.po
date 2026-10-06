@@ -3376,9 +3376,6 @@ msgstr "Sesión de chat no encontrada"
 msgid "Chat surfaces: messages, reasoning, suggestions"
 msgstr "Superficies de chat: mensajes, razonamiento, sugerencias"
 
-msgid "Chat v3"
-msgstr "Chat v3"
-
 msgid "Check again"
 msgstr "Volver a comprobar"
 
@@ -10018,9 +10015,6 @@ msgstr "Nuevo navegador"
 msgid "new challengers"
 msgstr "nuevos rivales"
 
-msgid "New chat"
-msgstr "Chat nuevo"
-
 msgid "New cloud workspace"
 msgstr "Nuevo espacio de trabajo en la nube"
 
@@ -11185,9 +11179,6 @@ msgstr "Abrir cambios"
 msgid "Open Changes"
 msgstr "Abrir cambios"
 
-msgid "Open Chat v3"
-msgstr "Abrir Chat v3"
-
 msgid "Open Command Palette"
 msgstr "Abrir la paleta de comandos"
 
@@ -11544,9 +11535,6 @@ msgstr "Abrir carpetas"
 
 msgid "Opening pages"
 msgstr "Abrir páginas"
-
-msgid "Opening the chat…"
-msgstr "Abriendo el chat…"
 
 msgid "Opening the conversation…"
 msgstr "Abriendo la conversación…"
@@ -14331,9 +14319,6 @@ msgstr "Seleccionar texto en un terminal lo copia de inmediato al portapapeles, 
 msgid "Send"
 msgstr "Enviar"
 
-msgid "Send a message to start a {harness} session"
-msgstr "Envía un mensaje para iniciar una sesión de {harness}"
-
 msgid "Send an invitation to join {organizationName}. Expires in 48 hours."
 msgstr "Envía una invitación para unirse a {organizationName}. Caduca en 48 horas."
 
@@ -15231,9 +15216,6 @@ msgstr "Estrellas ganadas por semana"
 msgctxt "project date"
 msgid "Start"
 msgstr "Inicio"
-
-msgid "Start a {harness} session"
-msgstr "Inicia una sesión de {harness}"
 
 msgid "Start a conversation to see messages here"
 msgstr "Inicia una conversación para ver los mensajes aquí"
@@ -16518,6 +16500,12 @@ msgstr "Esta automatización está en otra organización"
 
 msgid "This cannot be undone."
 msgstr "Esto no se puede deshacer."
+
+msgid "This chat stopped because the conversation continued in a terminal."
+msgstr "Este chat se detuvo porque la conversación continuó en una terminal."
+
+msgid "This chat was stopped."
+msgstr "Este chat se detuvo."
 
 msgid "This chat's agent has stopped and can't be resumed."
 msgstr "El agente de este chat se ha detenido y no se puede reanudar."

@@ -3376,9 +3376,6 @@ msgstr "Sohbet oturumu bulunamadı"
 msgid "Chat surfaces: messages, reasoning, suggestions"
 msgstr "Sohbet yüzeyleri: mesajlar, akıl yürütme, öneriler"
 
-msgid "Chat v3"
-msgstr "Chat v3"
-
 msgid "Check again"
 msgstr "Yeniden denetle"
 
@@ -10018,9 +10015,6 @@ msgstr "Yeni tarayıcı"
 msgid "new challengers"
 msgstr "yeni rakipler"
 
-msgid "New chat"
-msgstr "Yeni sohbet"
-
 msgid "New cloud workspace"
 msgstr "Yeni bulut çalışma alanı"
 
@@ -11185,9 +11179,6 @@ msgstr "Değişiklikleri aç"
 msgid "Open Changes"
 msgstr "Değişiklikleri aç"
 
-msgid "Open Chat v3"
-msgstr "Chat v3'ü aç"
-
 msgid "Open Command Palette"
 msgstr "Komut paletini aç"
 
@@ -11544,9 +11535,6 @@ msgstr "Klasörleri açma"
 
 msgid "Opening pages"
 msgstr "Sayfaları açma"
-
-msgid "Opening the chat…"
-msgstr "Sohbet açılıyor…"
 
 msgid "Opening the conversation…"
 msgstr "Sohbet açılıyor…"
@@ -14331,9 +14319,6 @@ msgstr "Terminalde metin seçmek, sondaki boşluklar kırpılmış olarak panoya
 msgid "Send"
 msgstr "Gönder"
 
-msgid "Send a message to start a {harness} session"
-msgstr "{harness} oturumu başlatmak için bir mesaj gönderin"
-
 msgid "Send an invitation to join {organizationName}. Expires in 48 hours."
 msgstr "{organizationName} kuruluşuna katılmak için davet gönderin. 48 saat içinde sona erer."
 
@@ -15231,9 +15216,6 @@ msgstr "Hafta başına kazanılan yıldız"
 msgctxt "project date"
 msgid "Start"
 msgstr "Başlangıç"
-
-msgid "Start a {harness} session"
-msgstr "{harness} oturumu başlatın"
 
 msgid "Start a conversation to see messages here"
 msgstr "Mesajları burada görmek için bir konuşma başlatın"
@@ -16518,6 +16500,12 @@ msgstr "Bu otomasyon başka bir kuruluşta"
 
 msgid "This cannot be undone."
 msgstr "Bu geri alınamaz."
+
+msgid "This chat stopped because the conversation continued in a terminal."
+msgstr "Konuşma bir terminalde devam ettiği için bu sohbet durdu."
+
+msgid "This chat was stopped."
+msgstr "Bu sohbet durduruldu."
 
 msgid "This chat's agent has stopped and can't be resumed."
 msgstr "Bu sohbetin aracısı durdu ve devam ettirilemiyor."

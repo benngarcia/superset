@@ -3376,9 +3376,6 @@ msgstr "未找到聊天會話"
 msgid "Chat surfaces: messages, reasoning, suggestions"
 msgstr "聊天介面：訊息、推理、建議"
 
-msgid "Chat v3"
-msgstr "聊天v3"
-
 msgid "Check again"
 msgstr "重新檢查"
 
@@ -10018,9 +10015,6 @@ msgstr "新建瀏覽器"
 msgid "new challengers"
 msgstr "換對手"
 
-msgid "New chat"
-msgstr "新建聊天"
-
 msgid "New cloud workspace"
 msgstr "新建雲端工作區"
 
@@ -11185,9 +11179,6 @@ msgstr "開啟更改"
 msgid "Open Changes"
 msgstr "開啟更改"
 
-msgid "Open Chat v3"
-msgstr "開啟Chat v3"
-
 msgid "Open Command Palette"
 msgstr "開啟命令面板"
 
@@ -11544,9 +11535,6 @@ msgstr "開啟資料夾"
 
 msgid "Opening pages"
 msgstr "開啟頁面"
-
-msgid "Opening the chat…"
-msgstr "正在開啟聊天…"
 
 msgid "Opening the conversation…"
 msgstr "正在開啟對話…"
@@ -14331,9 +14319,6 @@ msgstr "在終端中選取文字後立即複製到剪貼簿，並移除結尾空
 msgid "Send"
 msgstr "傳送"
 
-msgid "Send a message to start a {harness} session"
-msgstr "傳送訊息以開始{harness}會話"
-
 msgid "Send an invitation to join {organizationName}. Expires in 48 hours."
 msgstr "傳送加入{organizationName}的邀請。48小時後過期。"
 
@@ -15231,9 +15216,6 @@ msgstr "每週新增星標"
 msgctxt "project date"
 msgid "Start"
 msgstr "開始日期"
-
-msgid "Start a {harness} session"
-msgstr "開始一個{harness}會話"
 
 msgid "Start a conversation to see messages here"
 msgstr "開始一段對話，訊息會顯示在這裡"
@@ -16518,6 +16500,12 @@ msgstr "此自動化位於其他組織"
 
 msgid "This cannot be undone."
 msgstr "此操作無法復原。"
+
+msgid "This chat stopped because the conversation continued in a terminal."
+msgstr "由於對話已在終端機中繼續，此聊天已停止。"
+
+msgid "This chat was stopped."
+msgstr "此聊天已停止。"
 
 msgid "This chat's agent has stopped and can't be resumed."
 msgstr "此聊天的代理已停止，無法繼續。"

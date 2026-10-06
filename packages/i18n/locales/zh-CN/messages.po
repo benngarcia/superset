@@ -3376,9 +3376,6 @@ msgstr "未找到聊天会话"
 msgid "Chat surfaces: messages, reasoning, suggestions"
 msgstr "聊天界面：消息、推理、建议"
 
-msgid "Chat v3"
-msgstr "聊天v3"
-
 msgid "Check again"
 msgstr "重新检查"
 
@@ -10018,9 +10015,6 @@ msgstr "新建浏览器"
 msgid "new challengers"
 msgstr "换对手"
 
-msgid "New chat"
-msgstr "新建聊天"
-
 msgid "New cloud workspace"
 msgstr "新建云端工作区"
 
@@ -11185,9 +11179,6 @@ msgstr "打开更改"
 msgid "Open Changes"
 msgstr "打开更改"
 
-msgid "Open Chat v3"
-msgstr "打开Chat v3"
-
 msgid "Open Command Palette"
 msgstr "打开命令面板"
 
@@ -11544,9 +11535,6 @@ msgstr "打开文件夹"
 
 msgid "Opening pages"
 msgstr "打开页面"
-
-msgid "Opening the chat…"
-msgstr "正在打开聊天…"
 
 msgid "Opening the conversation…"
 msgstr "正在打开对话…"
@@ -14331,9 +14319,6 @@ msgstr "在终端中选中文本后立即复制到剪贴板，并去除行尾空
 msgid "Send"
 msgstr "发送"
 
-msgid "Send a message to start a {harness} session"
-msgstr "发送消息以开始{harness}会话"
-
 msgid "Send an invitation to join {organizationName}. Expires in 48 hours."
 msgstr "发送加入{organizationName}的邀请。48小时后过期。"
 
@@ -15231,9 +15216,6 @@ msgstr "每周新增星标"
 msgctxt "project date"
 msgid "Start"
 msgstr "开始日期"
-
-msgid "Start a {harness} session"
-msgstr "开始一个{harness}会话"
 
 msgid "Start a conversation to see messages here"
 msgstr "开始一段对话，消息会显示在这里"
@@ -16518,6 +16500,12 @@ msgstr "此自动化位于其他组织"
 
 msgid "This cannot be undone."
 msgstr "此操作无法撤销。"
+
+msgid "This chat stopped because the conversation continued in a terminal."
+msgstr "由于对话已在终端中继续，此聊天已停止。"
+
+msgid "This chat was stopped."
+msgstr "此聊天已停止。"
 
 msgid "This chat's agent has stopped and can't be resumed."
 msgstr "此聊天的智能体已停止，无法继续。"

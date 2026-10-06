@@ -3376,9 +3376,6 @@ msgstr "Chat session not found"
 msgid "Chat surfaces: messages, reasoning, suggestions"
 msgstr "Chat surfaces: messages, reasoning, suggestions"
 
-msgid "Chat v3"
-msgstr "Chat v3"
-
 msgid "Check again"
 msgstr "Check again"
 
@@ -10018,9 +10015,6 @@ msgstr "New Browser"
 msgid "new challengers"
 msgstr "new challengers"
 
-msgid "New chat"
-msgstr "New chat"
-
 msgid "New cloud workspace"
 msgstr "New cloud workspace"
 
@@ -11185,9 +11179,6 @@ msgstr "Open changes"
 msgid "Open Changes"
 msgstr "Open Changes"
 
-msgid "Open Chat v3"
-msgstr "Open Chat v3"
-
 msgid "Open Command Palette"
 msgstr "Open Command Palette"
 
@@ -11544,9 +11535,6 @@ msgstr "Opening folders"
 
 msgid "Opening pages"
 msgstr "Opening pages"
-
-msgid "Opening the chat…"
-msgstr "Opening the chat…"
 
 msgid "Opening the conversation…"
 msgstr "Opening the conversation…"
@@ -14331,9 +14319,6 @@ msgstr "Selecting text in a terminal copies it to the clipboard right away, with
 msgid "Send"
 msgstr "Send"
 
-msgid "Send a message to start a {harness} session"
-msgstr "Send a message to start a {harness} session"
-
 msgid "Send an invitation to join {organizationName}. Expires in 48 hours."
 msgstr "Send an invitation to join {organizationName}. Expires in 48 hours."
 
@@ -15231,9 +15216,6 @@ msgstr "Stars gained per week"
 msgctxt "project date"
 msgid "Start"
 msgstr "Start"
-
-msgid "Start a {harness} session"
-msgstr "Start a {harness} session"
 
 msgid "Start a conversation to see messages here"
 msgstr "Start a conversation to see messages here"
@@ -16518,6 +16500,12 @@ msgstr "This automation is in another organization"
 
 msgid "This cannot be undone."
 msgstr "This cannot be undone."
+
+msgid "This chat stopped because the conversation continued in a terminal."
+msgstr "This chat stopped because the conversation continued in a terminal."
+
+msgid "This chat was stopped."
+msgstr "This chat was stopped."
 
 msgid "This chat's agent has stopped and can't be resumed."
 msgstr "This chat's agent has stopped and can't be resumed."

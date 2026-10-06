@@ -309,6 +309,7 @@ export function createApp(options: CreateAppOptions): CreateAppResult {
 		filesystem,
 		pullRequests: pullRequestRuntime,
 		pageWatch,
+		chat: () => chatV3.runtime(),
 	};
 
 	// Chat v3 runtime (plans/chat-v3-pane-mount.md). Registered unconditionally:

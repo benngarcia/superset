@@ -78,6 +78,11 @@ export type GetSessionResult = {
 
 export type GetQueueResult = QueueState & { live: boolean };
 
+export type ChatSessionListEntry = ChatSessionRow & {
+	live: boolean;
+	terminalId: string | null;
+};
+
 export type ChatCommands = {
 	createSession(input: CreateSessionCommandInput): CreateSessionResult;
 	prompt(input: PromptInput): PromptResult;
@@ -95,7 +100,7 @@ export type ChatCommands = {
 	): Promise<CreateSessionResult | null>;
 	getSession(input: GetSessionInput): GetSessionResult;
 	getQueue(input: GetSessionInput): GetQueueResult;
-	listSessions(input: ListSessionsCommandInput): ChatSessionRow[];
+	listSessions(input: ListSessionsCommandInput): ChatSessionListEntry[];
 	getItems(input: z.input<typeof getItemsInputSchema>): PageResult;
 };
 
@@ -111,12 +116,21 @@ export type CommandsOptions = {
 export function createCommands(options: CommandsOptions): ChatCommands {
 	const mintSessionId = options.mintSessionId ?? randomUUID;
 
-	const listSessions = (input: ListSessionsCommandInput): ChatSessionRow[] => {
+	const listSessions = (
+		input: ListSessionsCommandInput,
+	): ChatSessionListEntry[] => {
 		const parsed = listSessionsCommandSchema.parse(input);
 		const rows = parsed.scopeId
 			? options.sessions.listByScope(parsed.scopeId)
 			: options.sessions.list();
-		return rows.slice(0, parsed.limit);
+		return rows.slice(0, parsed.limit).map((row) => {
+			const live = options.live.get(row.sessionId);
+			return {
+				...row,
+				live: live !== null,
+				terminalId: live?.terminalId ?? null,
+			};
+		});
 	};
 
 	return {

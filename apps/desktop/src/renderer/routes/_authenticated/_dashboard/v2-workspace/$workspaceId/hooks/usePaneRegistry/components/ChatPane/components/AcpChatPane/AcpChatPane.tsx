@@ -4,8 +4,10 @@ import { getAgentModelSupport } from "@superset/shared/agent-models";
 import { buildChatSessionHandoffPrompt } from "@superset/shared/terminal-session-handoff";
 import { toast } from "@superset/ui/sonner";
 import { useWorkspaceClient } from "@superset/workspace-client";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useTerminalAgentBindings } from "renderer/hooks/host-service/useTerminalAgentBindings";
+import { useWorkspaceEvent } from "renderer/hooks/host-service/useWorkspaceEvent";
 import { useV2AgentConfigs } from "renderer/hooks/useV2AgentConfigs";
 import { acpHarnessForPreset } from "renderer/lib/acpHarness";
 import type { OpenFile } from "../../../../../../types";
@@ -19,9 +21,8 @@ import { AcpChatPending } from "./components/AcpChatPending";
 import { AcpRecovery } from "./components/AcpRecovery";
 
 /**
- * The ACP surface of an agent terminal: a chat bridged to the agent session the
- * terminal was running, resumed by its session id. The pty is stopped while
- * this shows, so `agent` comes from the pane rather than the live binding.
+ * A chat bridged to an agent session, resumed by its session id. `agent` comes
+ * from the pane: the terminal it may have come from is stopped.
  */
 export function AcpChatPane({
 	agent,
@@ -85,6 +86,17 @@ export function AcpChatPane({
 				: Promise.resolve(null),
 		staleTime: 5_000,
 	});
+	const queryClient = useQueryClient();
+	useWorkspaceEvent(
+		"chat:sessions-changed",
+		workspaceId,
+		() => {
+			void queryClient.invalidateQueries({
+				queryKey: ["acp-chat-session", sessionId],
+			});
+		},
+		sessionId !== null,
+	);
 
 	const attaching = useRef(false);
 	// A switch to another agent remounts this pane; its pending calls must not
@@ -267,28 +279,47 @@ export function AcpChatPane({
 	// bound to can be loaded again. Dead means the agent exited or failed to
 	// start, and a later attempt may get past either. Reopening a pane should
 	// just work, so do it.
+	const bindings = useTerminalAgentBindings(workspaceId);
+	const continuedInTerminal =
+		agentSessionId !== undefined &&
+		[...bindings.values()].some(
+			(binding) =>
+				binding.agentSessionId === agentSessionId &&
+				!binding.chatSessionId &&
+				binding.endedAt === undefined,
+		);
+	const sawLive = useRef(false);
+	if (stored?.live) sawLive.current = true;
 	const canResume = Boolean(
-		(sessionStopped || sessionDead) && harness && agentSessionId,
+		(sessionStopped || sessionDead) &&
+			harness &&
+			agentSessionId &&
+			!continuedInTerminal,
 	);
+	const stoppedWhileOpen = canResume && sawLive.current;
 
 	// Once per mount: if the session we resume into is itself unusable, fall
 	// through to the panel instead of spawning adapters in a loop.
 	const autoResumed = useRef(false);
 	const resumingFrom = useRef<string | null>(null);
-	useEffect(() => {
-		if (!canResume || autoResumed.current) return;
+	const resume = useCallback(() => {
 		if (!harness || !agentSessionId || !sessionId) return;
-		autoResumed.current = true;
 		resumingFrom.current = sessionId;
 		attaching.current = false;
 		void wiring.transport
 			.closeSession({ sessionId })
 			.catch(() => undefined)
 			.then(() => start(harness, agentSessionId));
-	}, [canResume, harness, agentSessionId, sessionId, start, wiring.transport]);
+	}, [harness, agentSessionId, sessionId, start, wiring.transport]);
+	useEffect(() => {
+		if (!canResume || stoppedWhileOpen || autoResumed.current) return;
+		autoResumed.current = true;
+		resume();
+	}, [canResume, stoppedWhileOpen, resume]);
 
 	const resuming =
 		canResume &&
+		!stoppedWhileOpen &&
 		(!autoResumed.current || (resumingFrom.current === sessionId && !failure));
 	if (resuming) {
 		return (
@@ -303,7 +334,16 @@ export function AcpChatPane({
 			<AcpRecovery
 				detail={failure ?? undefined}
 				onStartNew={startFresh}
-				reason={sessionDead ? "no-transcript" : "stopped"}
+				{...(stoppedWhileOpen ? { onResume: resume } : {})}
+				reason={
+					continuedInTerminal
+						? "in-terminal"
+						: stoppedWhileOpen
+							? "stopped-while-open"
+							: sessionDead
+								? "no-transcript"
+								: "stopped"
+				}
 			/>
 		);
 	}

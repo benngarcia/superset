@@ -3376,9 +3376,6 @@ msgstr "Relace chatu nenalezena"
 msgid "Chat surfaces: messages, reasoning, suggestions"
 msgstr "Plochy chatu: zprávy, uvažování, návrhy"
 
-msgid "Chat v3"
-msgstr "Chat v3"
-
 msgid "Check again"
 msgstr "Zkontrolovat znovu"
 
@@ -10018,9 +10015,6 @@ msgstr "Nový prohlížeč"
 msgid "new challengers"
 msgstr "noví vyzyvatelé"
 
-msgid "New chat"
-msgstr "Nový chat"
-
 msgid "New cloud workspace"
 msgstr "Nový cloudový pracovní prostor"
 
@@ -11185,9 +11179,6 @@ msgstr "Otevřít změny"
 msgid "Open Changes"
 msgstr "Otevřít změny"
 
-msgid "Open Chat v3"
-msgstr "Otevřít Chat v3"
-
 msgid "Open Command Palette"
 msgstr "Otevřít paletu příkazů"
 
@@ -11544,9 +11535,6 @@ msgstr "Otevírání složek"
 
 msgid "Opening pages"
 msgstr "Otevírání stránek"
-
-msgid "Opening the chat…"
-msgstr "Otevírání chatu…"
 
 msgid "Opening the conversation…"
 msgstr "Otevírám konverzaci…"
@@ -14331,9 +14319,6 @@ msgstr "Výběr textu v terminálu ho hned zkopíruje do schránky, bez koncový
 msgid "Send"
 msgstr "Odeslat"
 
-msgid "Send a message to start a {harness} session"
-msgstr "Odešlete zprávu a spusťte relaci {harness}"
-
 msgid "Send an invitation to join {organizationName}. Expires in 48 hours."
 msgstr "Pošlete pozvánku do {organizationName}. Platnost vyprší za 48 hodin."
 
@@ -15231,9 +15216,6 @@ msgstr "Získané hvězdy za týden"
 msgctxt "project date"
 msgid "Start"
 msgstr "Začátek"
-
-msgid "Start a {harness} session"
-msgstr "Spustit relaci {harness}"
 
 msgid "Start a conversation to see messages here"
 msgstr "Začněte konverzaci a zprávy se objeví tady"
@@ -16518,6 +16500,12 @@ msgstr "Tato automatizace je v jiné organizaci"
 
 msgid "This cannot be undone."
 msgstr "Nelze vrátit zpět."
+
+msgid "This chat stopped because the conversation continued in a terminal."
+msgstr "Tento chat se zastavil, protože konverzace pokračovala v terminálu."
+
+msgid "This chat was stopped."
+msgstr "Tento chat byl zastaven."
 
 msgid "This chat's agent has stopped and can't be resumed."
 msgstr "Agent tohoto chatu byl zastaven a nelze jej obnovit."
