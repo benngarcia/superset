@@ -472,12 +472,12 @@ async function mcpIdentity(
 		const text = await response.text();
 		if (!response.ok)
 			throw new Error(
-				`Connector "${slug}" identity probe failed: ${response.status} ${text.slice(0, 200)}`,
+				`Connector "${slug}" identity probe failed at ${method}: ${response.status} ${text.slice(0, 200)}`,
 			);
 		const message = readJsonRpc(text, id);
 		if (message.error)
 			throw new Error(
-				`Connector "${slug}" identity probe failed: ${message.error.message}`,
+				`Connector "${slug}" identity probe failed at ${method}: ${message.error.message}`,
 			);
 		return message.result ?? {};
 	};
@@ -495,6 +495,22 @@ async function mcpIdentity(
 		const result = (await request("tools/call", {
 			name: probe.tool,
 			arguments: probe.arguments,
+		}).catch(async (error: unknown) => {
+			const listed = await request("tools/list", {}).then(
+				(tools) =>
+					(tools.tools as { name?: string; inputSchema?: unknown }[]).map(
+						(tool) =>
+							tool.name === probe.tool
+								? `${tool.name} ${JSON.stringify(tool.inputSchema)}`
+								: tool.name,
+					),
+				(listError: unknown) => [
+					`tools/list failed: ${listError instanceof Error ? listError.message : String(listError)}`,
+				],
+			);
+			throw new Error(
+				`${error instanceof Error ? error.message : String(error)}; server said ${JSON.stringify(init).slice(0, 1500)}; tools: ${listed.join(", ").slice(0, 1500)}`,
+			);
 		})) as {
 			structuredContent?: Record<string, unknown>;
 			content?: { type: string; text?: string }[];
