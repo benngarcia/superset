@@ -359,11 +359,20 @@ function V2WorkspaceContent() {
 	const defaultPaneActions = useDefaultPaneActions({ launcher });
 	const onBeforeCloseTab = useTabCloseGuard(store);
 	const onBeforeCloseRightTab = useTabCloseGuard(rightStore);
+	const { openAgentChat: openRightAgentChat } = useAgentSessionLauncher({
+		workspaceId,
+		store: rightStore,
+	});
+	const { executePreset: executeRightPreset } = useV2PresetExecution({
+		store: rightStore,
+		launcher,
+		openAgentChat: openRightAgentChat,
+	});
 	const rightOpeners = useWorkspacePaneOpeners({
 		store: rightStore,
 		launcher,
 		newTabPresets,
-		executePreset,
+		executePreset: executeRightPreset,
 		setRightSidebarOpen,
 	});
 	const addRightPane = useCallback(
@@ -427,11 +436,18 @@ function V2WorkspaceContent() {
 
 	const windowWidth = useWindowWidth();
 	const defaultRightPaneAreaWidth = Math.round(windowWidth * 0.4);
+	const maxRightPaneAreaWidth = Math.round(windowWidth * 0.75);
 	// Fallback for rows persisted before the rightSidebarWidth field existed —
 	// the live collection skips zod defaults, so an older row reads undefined
 	// here and would render the ResizablePanel without a width (full-bleed).
 	const sidebarWidth = isRightPaneAreaEnabled
-		? (v2UserPreferences.rightPaneAreaWidth ?? defaultRightPaneAreaWidth)
+		? Math.max(
+				240,
+				Math.min(
+					v2UserPreferences.rightPaneAreaWidth ?? defaultRightPaneAreaWidth,
+					maxRightPaneAreaWidth,
+				),
+			)
 		: (v2UserPreferences.rightSidebarWidth ?? 340);
 	const setSidebarWidth = isRightPaneAreaEnabled
 		? setRightPaneAreaWidth
@@ -615,9 +631,7 @@ function V2WorkspaceContent() {
 							isResizing={isSidebarResizing}
 							onResizingChange={handleSidebarResizingChange}
 							minWidth={240}
-							maxWidth={
-								isRightPaneAreaEnabled ? Math.round(windowWidth * 0.75) : 640
-							}
+							maxWidth={isRightPaneAreaEnabled ? maxRightPaneAreaWidth : 640}
 							handleSide="left"
 							onDoubleClickHandle={() =>
 								setSidebarWidth(
