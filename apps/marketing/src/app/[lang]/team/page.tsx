@@ -3,6 +3,7 @@ import { Trans } from "@lingui/react/macro";
 import { getI18nInstance } from "@superset/i18n/server";
 import { ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { localeUrl, localizedAlternates } from "@/app/[lang]/metadata";
 import { initServerI18n } from "@/app/i18n-server";
@@ -64,6 +65,7 @@ export default async function TeamPage() {
 
 	const people = getAllPeople();
 	const about = getAbout();
+	const storyPhoto = about.photos.find((photo) => photo.story);
 
 	return (
 		<main className="relative min-h-screen bg-background">
@@ -92,34 +94,55 @@ export default async function TeamPage() {
 				<CompanyFacts lang={lang} className="mb-24 md:mb-32" />
 
 				{/* Our Story */}
-				<section className="mb-24 md:mb-32 max-w-2xl">
-					<h2 className="text-2xl md:text-3xl font-normal text-foreground mb-6">
-						<Trans>So how did we get here?</Trans>
-					</h2>
-					<div className="space-y-4 text-muted-foreground leading-relaxed">
-						<p>
-							<Trans>
-								Superset started as a hackathon project in November 2025. It was
-								a simple desktop app for managing worktrees.
-							</Trans>
-						</p>
-						<p>
-							<Trans>
-								In just a few months,{" "}
-								<span className="text-foreground">
-									tens of thousands of engineers
-								</span>{" "}
-								run Superset as their primary IDE, at companies like Wix,
-								DoorDash, and Netflix.
-							</Trans>
-						</p>
-						<p>
-							<Trans>
-								Now, we've raised <span className="text-foreground">$11M</span>{" "}
-								from the best investors in Silicon Valley to build the platform
-								for software factories.
-							</Trans>
-						</p>
+				<section className="mb-24 md:mb-32">
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
+						<div>
+							<h2 className="text-2xl md:text-3xl font-normal text-foreground mb-6">
+								<Trans>So how did we get here?</Trans>
+							</h2>
+							<div className="space-y-4 text-muted-foreground leading-relaxed">
+								<p>
+									<Trans>
+										Superset started as a hackathon project in November 2025. It
+										was a simple desktop app for managing worktrees.
+									</Trans>
+								</p>
+								<p>
+									<Trans>
+										In just a few months,{" "}
+										<span className="text-foreground">
+											tens of thousands of engineers
+										</span>{" "}
+										run Superset as their primary IDE, at companies like Wix,
+										DoorDash, and Netflix.
+									</Trans>
+								</p>
+								<p>
+									<Trans>
+										Now, we've raised{" "}
+										<span className="text-foreground">$11M</span> from the best
+										investors in Silicon Valley to build the platform for
+										software factories.
+									</Trans>
+								</p>
+							</div>
+						</div>
+						{storyPhoto && (
+							<figure className="m-0 md:sticky md:top-24">
+								<div className="relative aspect-[8/5] rounded-lg overflow-hidden bg-muted border border-border">
+									<Image
+										src={storyPhoto.src}
+										alt={storyPhoto.alt}
+										fill
+										className="object-cover"
+										sizes="(max-width: 768px) 100vw, 480px"
+									/>
+								</div>
+								<figcaption className="mt-3 text-xs text-muted-foreground">
+									{storyPhoto.caption}
+								</figcaption>
+							</figure>
+						)}
 					</div>
 				</section>
 

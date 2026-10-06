@@ -11,6 +11,7 @@ export const aboutSchema = z.object({
 			src: z.string().min(1),
 			label: z.string().min(1),
 			focus: z.string().optional(),
+			story: z.boolean().optional(),
 			width: z.number().int().positive(),
 			height: z.number().int().positive(),
 			alt: z.string().min(1),

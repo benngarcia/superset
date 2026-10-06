@@ -1,3 +1,4 @@
+import { type MotionProps, m } from "framer-motion";
 import { Caveat } from "next/font/google";
 import Image from "next/image";
 import type { CSSProperties } from "react";
@@ -63,6 +64,7 @@ interface PhotoPrintProps {
 	sizes: string;
 	priority?: boolean;
 	captionClassName?: string;
+	photoMotion?: Pick<MotionProps, "initial" | "animate" | "transition">;
 }
 
 export function PhotoPrint({
@@ -72,6 +74,7 @@ export function PhotoPrint({
 	sizes,
 	priority,
 	captionClassName = "",
+	photoMotion,
 }: PhotoPrintProps) {
 	const look = WEARS[wear % WEARS.length] ?? WEARS[0];
 	if (!look) return null;
@@ -86,9 +89,14 @@ export function PhotoPrint({
 	return (
 		<div className="[filter:drop-shadow(0_10px_18px_rgba(0,0,0,0.4))_drop-shadow(0_1px_2px_rgba(0,0,0,0.45))]">
 			<figure className="m-0" style={paperStyle}>
-				<div
+				<m.div
+					{...photoMotion}
 					className="relative overflow-hidden bg-neutral-800"
-					style={{ aspectRatio: variant === "card" ? "4 / 5" : "3 / 2" }}
+					style={
+						photoMotion
+							? undefined
+							: { aspectRatio: variant === "card" ? "4 / 5" : "3 / 2" }
+					}
 				>
 					<Image
 						src={photo.src}
@@ -99,7 +107,7 @@ export function PhotoPrint({
 						style={{ objectPosition: photo.focus ?? "50% 50%" }}
 						sizes={sizes}
 					/>
-				</div>
+				</m.div>
 				<figcaption
 					className={`${handwriting.className} text-[#3b3226] leading-tight ${
 						variant === "card"

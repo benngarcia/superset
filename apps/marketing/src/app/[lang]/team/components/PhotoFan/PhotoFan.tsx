@@ -23,6 +23,15 @@ const FULL_MAX_WIDTH_PX = 960;
 const FULL_MAX_WIDTH_VW = 0.9;
 const FULL_PHOTO_MAX_HEIGHT_VH = 0.62;
 const FULL_PHOTO_ASPECT = 3 / 2;
+const CARD_PHOTO_ASPECT = 4 / 5;
+const FULL_BORDER_X = 0.09;
+const FULL_BORDER_TOP = 0.045;
+const FULL_CAPTION_TOP = 0.025;
+const FULL_CAPTION_HEIGHT_PX = 104;
+const FULL_CAPTION_TOP_MOBILE = 0.055;
+const FULL_CAPTION_HEIGHT_MOBILE_PX = 50;
+const OPEN_TRANSITION = { duration: 0.45, ease: [0.22, 1, 0.36, 1] } as const;
+const CLOSE_TRANSITION = { duration: 0.3, ease: [0.4, 0, 0.2, 1] } as const;
 
 // [extra tilt deg, x px, y px, scale], cycled per card. Fixed so server and
 // client render the same styles.
@@ -73,16 +82,33 @@ export function PhotoFan({ photos }: PhotoFanProps) {
 			window.innerHeight * FULL_PHOTO_MAX_HEIGHT_VH * FULL_PHOTO_ASPECT,
 		);
 
+	const fullPhotoWidth = () => fullWidth() * (1 - FULL_BORDER_X);
+
 	const frameFromCard = (index: number): FlipFrame => {
 		const card = cardRefs.current[index];
-		if (!card) return RESTING;
-		const rect = card.getBoundingClientRect();
-		const isFanned = window.matchMedia("(min-width: 768px)").matches;
+		const cardPhoto = card?.querySelector("img")?.parentElement;
+		if (!card || !cardPhoto) return RESTING;
+		const transform = getComputedStyle(card).transform;
+		const matrix = new DOMMatrixReadOnly(
+			transform === "none" ? undefined : transform,
+		);
+		const cardScale = Math.hypot(matrix.a, matrix.b);
+		const angle = Math.atan2(matrix.b, matrix.a);
+		const width = fullWidth();
+		const scale = (cardPhoto.offsetWidth * cardScale) / fullPhotoWidth();
+		const topBorder = width * FULL_BORDER_TOP;
+		const captionStrip = window.matchMedia("(min-width: 768px)").matches
+			? width * FULL_CAPTION_TOP + FULL_CAPTION_HEIGHT_PX
+			: width * FULL_CAPTION_TOP_MOBILE + FULL_CAPTION_HEIGHT_MOBILE_PX;
+		const photoOffset = (scale * (topBorder - captionStrip)) / 2;
+		const photoRect = cardPhoto.getBoundingClientRect();
+		const photoCenterX = photoRect.left + photoRect.width / 2;
+		const photoCenterY = photoRect.top + photoRect.height / 2;
 		return {
-			x: rect.left + rect.width / 2 - window.innerWidth / 2,
-			y: rect.top + rect.height / 2 - window.innerHeight / 2,
-			scale: rect.width / fullWidth(),
-			rotate: isFanned ? cardTilt(index) : 0,
+			x: photoCenterX + photoOffset * Math.sin(angle) - window.innerWidth / 2,
+			y: photoCenterY - photoOffset * Math.cos(angle) - window.innerHeight / 2,
+			scale,
+			rotate: (angle * 180) / Math.PI,
 		};
 	};
 
@@ -176,7 +202,7 @@ export function PhotoFan({ photos }: PhotoFanProps) {
 						<m.div
 							initial={reduceMotion ? false : from}
 							animate={closing ? from : RESTING}
-							transition={{ type: "spring", stiffness: 220, damping: 28 }}
+							transition={closing ? CLOSE_TRANSITION : OPEN_TRANSITION}
 							onAnimationComplete={() => {
 								if (closing) {
 									setClosing(false);
@@ -193,6 +219,17 @@ export function PhotoFan({ photos }: PhotoFanProps) {
 								wear={openIndex}
 								variant="full"
 								priority
+								photoMotion={{
+									initial: reduceMotion
+										? false
+										: { height: fullPhotoWidth() / CARD_PHOTO_ASPECT },
+									animate: {
+										height: closing
+											? fullPhotoWidth() / CARD_PHOTO_ASPECT
+											: fullPhotoWidth() / FULL_PHOTO_ASPECT,
+									},
+									transition: closing ? CLOSE_TRANSITION : OPEN_TRANSITION,
+								}}
 								sizes="(max-width: 1066px) 90vw, 960px"
 							/>
 						</m.div>
