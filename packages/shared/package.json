@@ -133,6 +133,10 @@
 			"types": "./src/sentry-throttle.ts",
 			"default": "./src/sentry-throttle.ts"
 		},
+		"./sentry-sazabi": {
+			"types": "./src/sentry-sazabi.ts",
+			"default": "./src/sentry-sazabi.ts"
+		},
 		"./sqlite-migrations": {
 			"types": "./src/sqlite-migrations/index.ts",
 			"default": "./src/sqlite-migrations/index.ts"
@@ -390,6 +394,7 @@
 	"dependencies": {
 		"@date-fns/tz": "1.4.1",
 		"@lingui/core": "6.8.0",
+		"@sentry/core": "10.68.0",
 		"@superset/i18n": "workspace:*",
 		"culori": "4.0.2",
 		"drizzle-orm": "0.45.2",
