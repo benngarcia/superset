@@ -76,6 +76,7 @@ import { openSubagentPaneInStore } from "../../utils/openSubagentPaneInStore";
 import { useAgentSessionLauncher } from "../useAgentSessionLauncher";
 import type { OpenReviewDiff } from "../useReviewCommentNavigation";
 import type { TerminalLauncher } from "../useV2TerminalLauncher";
+import { AccountUsage } from "./components/AccountUsage";
 import {
 	AgentSurfaceToggle,
 	AgentTerminalPane,
@@ -806,15 +807,25 @@ export function usePaneRegistry({
 					const { sessionId } = pane.data as ChatPaneData;
 					if (sessionId) void agentSurface.stopChat(sessionId);
 				},
-				renderHeaderExtras: (ctx: RendererContext<PaneViewerData>) => (
-					<AgentSurfaceToggle
-						pane={{ kind: "chat", data: ctx.pane.data as ChatPaneData }}
-						onChange={(surface, agent) =>
-							void agentSurface.switchSurface(ctx, surface, agent)
-						}
-						workspaceId={workspaceId}
-					/>
-				),
+				renderHeaderExtras: (ctx: RendererContext<PaneViewerData>) => {
+					const data = ctx.pane.data as ChatPaneData;
+					return (
+						<div className="flex items-center gap-1">
+							<AccountUsage
+								key={`${workspaceId}:${data.terminalId}`}
+								workspaceId={workspaceId}
+								terminalId={data.terminalId}
+							/>
+							<AgentSurfaceToggle
+								pane={{ kind: "chat", data }}
+								onChange={(surface, agent) =>
+									void agentSurface.switchSurface(ctx, surface, agent)
+								}
+								workspaceId={workspaceId}
+							/>
+						</div>
+					);
+				},
 				renderPane: (ctx: RendererContext<PaneViewerData>) => (
 					<ChatPane
 						ctx={ctx}

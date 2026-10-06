@@ -17,15 +17,12 @@ import { formatResetLabel } from "renderer/utils/usage/formatResetIn";
 import { UsageProgressRing } from "./components/UsageProgressRing";
 import { getAccountUsageState } from "./utils/getAccountUsageState";
 
-interface TerminalAccountUsageProps {
+interface AccountUsageProps {
 	workspaceId: string;
 	terminalId: string;
 }
 
-export function TerminalAccountUsage({
-	workspaceId,
-	terminalId,
-}: TerminalAccountUsageProps) {
+export function AccountUsage({ workspaceId, terminalId }: AccountUsageProps) {
 	const { t } = useLingui();
 	const [openSession, setOpenSession] = useState<string | null>(null);
 	const binding = useTerminalAgentBinding(workspaceId, terminalId);
