@@ -532,12 +532,7 @@ export const FIRST_PARTY_MANIFESTS = {
 				}
 			}
 		},
-		"skills": [
-			{
-				"name": "query-neon",
-				"description": "Answer a question from a Neon Postgres database, or change data in one, without touching the wrong branch — find the project and branch first, read the schema before writing SQL, and treat every write to a production branch as a change that needs the user's go-ahead. Use when the user asks what is in the database, asks to look up a row, a user, a count or a schema, or asks to run or fix SQL on Neon."
-			}
-		]
+		"skills": []
 	} as const,
 	"posthog": {
 		"$schema": "https://superset.sh/schemas/plugin/1.0.0.json",
@@ -579,12 +574,7 @@ export const FIRST_PARTY_MANIFESTS = {
 				}
 			}
 		},
-		"skills": [
-			{
-				"name": "answer-with-posthog",
-				"description": "Answer a product question from PostHog data — how many, how often, who, what changed — by checking that the event and property exist before querying, picking the query that fits the question, and saying what was counted. Use when the user asks about usage, signups, retention, a funnel, a feature flag's rollout, or what a person did in the product."
-			}
-		]
+		"skills": []
 	} as const,
 } as const;
 
