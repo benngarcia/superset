@@ -124,6 +124,19 @@ describe("update_event", () => {
 			{ email: "c@example.com", optional: false },
 		]);
 	});
+
+	test("null attendees fail instead of removing every guest", async () => {
+		const calls = google(() => ({ body: { id: "evt1" } }));
+
+		const result = await callTool(
+			"update_event",
+			{ eventId: "evt1", attendees: null },
+			"token",
+		);
+
+		expect(result.isError).toBe(true);
+		expect(calls.some((call) => call.method === "PATCH")).toBe(false);
+	});
 });
 
 describe("respond_to_event", () => {

@@ -127,6 +127,9 @@ function attendees(
 	args: Record<string, unknown>,
 	current: Attendee[] = [],
 ): Attendee[] | undefined {
+	if (args.attendees === null) {
+		throw new Error("attendees cannot be null; pass [] to remove every guest");
+	}
 	if (args.attendees === undefined) {
 		if (args.optionalAttendees !== undefined) {
 			throw new Error(
