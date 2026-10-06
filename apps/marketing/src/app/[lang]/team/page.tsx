@@ -1,7 +1,6 @@
 import { msg } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { getI18nInstance } from "@superset/i18n/server";
-import { formatStarCount } from "@superset/shared/github-stars";
 import { ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -9,8 +8,8 @@ import { localeUrl, localizedAlternates } from "@/app/[lang]/metadata";
 import { initServerI18n } from "@/app/i18n-server";
 import { getAbout } from "@/lib/about";
 import { getAllPeople } from "@/lib/people";
+import { CompanyFacts } from "../components/CompanyFacts";
 import { CTASection } from "../components/CTASection";
-import { getGitHubStars } from "../utils/getGitHubStars";
 import { FounderRow } from "./components/FounderRow";
 import { Investors } from "./components/Investors";
 import { PhotoFan } from "./components/PhotoFan";
@@ -65,7 +64,6 @@ export default async function TeamPage() {
 
 	const people = getAllPeople();
 	const about = getAbout();
-	const stars = await getGitHubStars();
 
 	return (
 		<main className="relative min-h-screen bg-background">
@@ -91,34 +89,7 @@ export default async function TeamPage() {
 					<PhotoFan photos={about.photos} />
 				</section>
 
-				<dl className="grid grid-cols-1 sm:grid-cols-3 border-y border-border mb-24 md:mb-32">
-					<div className="flex flex-col-reverse py-6 sm:pr-6">
-						<dt className="mt-2 font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground">
-							<Trans>Location</Trans>
-						</dt>
-						<dd className="text-3xl md:text-4xl font-normal text-foreground">
-							<Trans>San Francisco</Trans>
-						</dd>
-					</div>
-					<div className="flex flex-col-reverse py-6 sm:px-6 border-t sm:border-t-0 sm:border-l border-border">
-						<dt className="mt-2 font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground">
-							<Trans>Team</Trans>
-						</dt>
-						<dd className="text-3xl md:text-4xl font-normal text-foreground">
-							{people.length}
-						</dd>
-					</div>
-					{stars !== null && (
-						<div className="flex flex-col-reverse py-6 sm:pl-6 border-t sm:border-t-0 sm:border-l border-border">
-							<dt className="mt-2 font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground">
-								<Trans>GitHub stars</Trans>
-							</dt>
-							<dd className="text-3xl md:text-4xl font-normal text-foreground">
-								{formatStarCount(stars)}
-							</dd>
-						</div>
-					)}
-				</dl>
+				<CompanyFacts lang={lang} className="mb-24 md:mb-32" />
 
 				{/* Our Story */}
 				<section className="mb-24 md:mb-32 max-w-2xl">
