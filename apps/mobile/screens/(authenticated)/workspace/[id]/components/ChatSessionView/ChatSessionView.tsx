@@ -194,19 +194,23 @@ export const ChatSessionView = forwardRef<
 	const availableModes = session?.availableModes;
 	const modes = useMemo(() => availableModes ?? [], [availableModes]);
 	const confirmedModeId = session?.modeId;
-	const [pendingModeId, setPendingModeId] = useState<string>();
-	useEffect(() => {
-		setPendingModeId(undefined);
-	}, [confirmedModeId]);
+	const [pendingMode, setPendingMode] = useState<{
+		modeId: string;
+		from: string | undefined;
+	}>();
+	const pendingModeId =
+		pendingMode && pendingMode.from === confirmedModeId
+			? pendingMode.modeId
+			: undefined;
 	const selectMode = useCallback(
 		(modeId: string) => {
-			setPendingModeId(modeId);
+			setPendingMode({ modeId, from: confirmedModeId });
 			void chat.setMode(modeId).catch((cause: unknown) => {
-				setPendingModeId(undefined);
+				setPendingMode(undefined);
 				failAlert(t({ message: "Could not change the mode" }))(cause);
 			});
 		},
-		[chat, failAlert, t],
+		[chat, confirmedModeId, failAlert, t],
 	);
 
 	const backgroundTasks = session?.backgroundTasks;
