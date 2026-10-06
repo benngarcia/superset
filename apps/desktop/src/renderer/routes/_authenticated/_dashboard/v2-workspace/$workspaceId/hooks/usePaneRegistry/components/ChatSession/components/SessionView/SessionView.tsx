@@ -21,6 +21,7 @@ import type { OpenFile } from "../../../../../../types";
 import { ChatPaneActionsProvider } from "../../providers/ChatPaneActionsProvider";
 import type { ChatForkTarget } from "../../types";
 import { buildChatHandoffTranscript } from "../../utils/chatHandoffTranscript";
+import { heldPromptQueue } from "../../utils/heldPromptQueue";
 import { promptHistory } from "../../utils/promptHistory";
 import { railMessages } from "../../utils/railMessages";
 import { type AgentChoice, type AgentSwitcher, Composer } from "../Composer";
@@ -41,6 +42,7 @@ export function SessionView({
 	canForkToWorktree,
 	client,
 	headerLeft,
+	held,
 	isActive,
 	onModeChange,
 	pendingPrompts,
@@ -56,6 +58,11 @@ export function SessionView({
 	sessionId: string;
 	workspaceId: string;
 	headerLeft?: ReactNode;
+	held?: {
+		notice: ReactNode;
+		queued: UserContent[][];
+		onQueue: (content: UserContent[]) => void;
+	};
 	isActive?: boolean;
 	pendingPrompts: UserContent[][];
 	/** Selected by name once the agent lists its models, before the first prompt goes out. */
@@ -136,12 +143,12 @@ export function SessionView({
 
 	const pendingSentRef = useRef(false);
 	useEffect(() => {
-		if (pendingPrompts.length === 0 || pendingSentRef.current) return;
+		if (held || pendingPrompts.length === 0 || pendingSentRef.current) return;
 		if (session.status !== "ready" || !modelSettled) return;
 		pendingSentRef.current = true;
 		for (const prompt of pendingPrompts) session.sendPrompt(prompt);
 		onPendingPromptsSent();
-	}, [pendingPrompts, session, onPendingPromptsSent, modelSettled]);
+	}, [held, pendingPrompts, session, onPendingPromptsSent, modelSettled]);
 
 	const sessionState = session.snapshot.session;
 	useEffect(() => {
@@ -222,21 +229,26 @@ export function SessionView({
 		},
 		[onModeChange, setMode],
 	);
+	const holdPrompt = held?.onQueue;
 	const onSend = useCallback(
 		(content: UserContent[], { steer }: { steer: boolean }) =>
-			sendPrompt(
-				content,
-				steer && runningTurnId ? { expectedTurnId: runningTurnId } : undefined,
-			),
-		[sendPrompt, runningTurnId],
+			holdPrompt
+				? holdPrompt(content)
+				: sendPrompt(
+						content,
+						steer && runningTurnId
+							? { expectedTurnId: runningTurnId }
+							: undefined,
+					),
+		[holdPrompt, sendPrompt, runningTurnId],
 	);
 	const awaitingBackground = sessionState?.awaitingBackground === true;
 	const onCancelTurn = useMemo(
 		() =>
-			runningTurnId && !awaitingBackground
+			runningTurnId && !awaitingBackground && !held
 				? () => void cancelTurn(runningTurnId, { pauseQueue: true })
 				: null,
-		[runningTurnId, awaitingBackground, cancelTurn],
+		[runningTurnId, awaitingBackground, cancelTurn, held],
 	);
 	const promptQueue = useMemo(
 		() => ({
@@ -257,8 +269,14 @@ export function SessionView({
 		],
 	);
 
+	const heldQueued = held?.queued;
+	const heldQueue = useMemo(
+		() => (heldQueued ? heldPromptQueue(heldQueued) : undefined),
+		[heldQueued],
+	);
 	const connecting =
-		session.status === "loading" || session.connection !== "open";
+		session.unreachable ||
+		(session.status === "ready" && session.connection === "closed");
 	const booting = sessionState?.status === "starting";
 
 	// w-full because the pane lays its children out in a row: without it this
@@ -304,14 +322,18 @@ export function SessionView({
 						)}
 					</div>
 				</MessageScroller.Provider>
-				{(connecting || booting) && (
-					<ConnectionNotice>
-						{connecting ? (
-							<Trans>Connecting to the host service…</Trans>
-						) : (
-							<Trans>Starting the agent…</Trans>
-						)}
-					</ConnectionNotice>
+				{held ? (
+					<ConnectionNotice>{held.notice}</ConnectionNotice>
+				) : (
+					(connecting || booting) && (
+						<ConnectionNotice>
+							{connecting ? (
+								<Trans>Connecting to the host service…</Trans>
+							) : (
+								<Trans>Starting the agent…</Trans>
+							)}
+						</ConnectionNotice>
+					)
 				)}
 				<Composer
 					agentSwitcher={agentSwitcher}
@@ -326,7 +348,7 @@ export function SessionView({
 					isActive={isActive}
 					onCancelTurn={onCancelTurn}
 					onSend={onSend}
-					promptQueue={promptQueue}
+					promptQueue={heldQueue ?? (held ? undefined : promptQueue)}
 					workspaceId={workspaceId}
 				/>
 			</div>

@@ -1,11 +1,11 @@
-import type { UserContent, UserMessage } from "@superset/chat/protocol";
+import type { UserContent } from "@superset/chat/protocol";
 import type { ReactNode } from "react";
 import { useMemo } from "react";
 import { Composer } from "../../../../../ChatSession/components/Composer";
 import { ConnectionNotice } from "../../../../../ChatSession/components/ConnectionNotice";
+import { heldPromptQueue } from "../../../../../ChatSession/utils/heldPromptQueue";
 
 const NO_COMMANDS: never[] = [];
-const NOTHING = async () => {};
 
 export function DraftChat({
 	draftKey,
@@ -22,28 +22,7 @@ export function DraftChat({
 	queued: UserContent[][];
 	workspaceId: string;
 }) {
-	const promptQueue = useMemo(
-		() =>
-			queued.length === 0
-				? undefined
-				: {
-						prompts: queued.map(
-							(content, index): UserMessage => ({
-								id: `draft-${index}`,
-								kind: "user_message",
-								startedAtMs: 0,
-								queued: true,
-								content,
-							}),
-						),
-						paused: false,
-						actionable: false,
-						remove: NOTHING,
-						resume: NOTHING,
-						steer: NOTHING,
-					},
-		[queued],
-	);
+	const promptQueue = useMemo(() => heldPromptQueue(queued), [queued]);
 
 	return (
 		<div className="flex h-full min-h-0 w-full min-w-0 flex-col">

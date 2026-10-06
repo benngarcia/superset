@@ -16125,6 +16125,9 @@ msgstr "De agent kopieert het gesprek; de aftakking opent hier"
 msgid "The agent owns a task from ticket to diff. The human reviews the result, not the keystrokes. Attention shifts from writing code to specifying work and judging it. One engineer runs several agents at once in isolated workspaces."
 msgstr "De agent bezit een taak van ticket tot diff. De mens reviewt het resultaat, niet de toetsaanslagen. De aandacht verschuift van code schrijven naar werk specificeren en beoordelen. Eén engineer laat meerdere agents tegelijk draaien in geïsoleerde werkruimtes."
 
+msgid "The agent stopped while resuming the conversation."
+msgstr "De agent stopte tijdens het hervatten van het gesprek."
+
 msgid "The agent this automation was set to run no longer exists on its host — the host's agents may have been reset or removed. Re-select an agent in the automation's settings."
 msgstr "De agent waarmee deze automatisering zou draaien bestaat niet meer op de host — de agents van die host zijn mogelijk gereset of verwijderd. Kies opnieuw een agent in de instellingen van de automatisering."
 
@@ -16506,9 +16509,6 @@ msgstr "Deze chat is gestopt omdat het gesprek in een terminal verderging."
 
 msgid "This chat was stopped."
 msgstr "Deze chat is gestopt."
-
-msgid "This chat's agent has stopped and can't be resumed."
-msgstr "De agent van deze chat is gestopt en kan niet worden hervat."
 
 msgid "This closes every terminal session — in this workspace and any others — and can't be undone. If they're only briefly stuck, waiting usually brings them back."
 msgstr "Hiermee worden alle terminalsessies gesloten — in deze werkruimte en in alle andere — en dat kan niet ongedaan worden gemaakt. Zitten ze maar even vast, dan helpt wachten meestal."

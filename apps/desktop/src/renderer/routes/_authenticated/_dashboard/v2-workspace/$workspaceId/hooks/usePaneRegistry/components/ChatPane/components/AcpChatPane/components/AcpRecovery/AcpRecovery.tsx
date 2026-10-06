@@ -16,7 +16,7 @@ export function AcpRecovery({
 	onStartNew,
 	reason,
 }: {
-	reason: "no-transcript" | "stopped" | "in-terminal" | "stopped-while-open";
+	reason: "no-transcript" | "stopped" | "in-terminal";
 	detail?: string | undefined;
 	onResume?: () => void;
 	onStartNew: () => void;
@@ -26,9 +26,7 @@ export function AcpRecovery({
 		// sizes to its content and hugs the left edge.
 		<div className="flex h-full w-full flex-col items-center justify-center gap-3 p-8 text-center">
 			<p className="max-w-sm text-muted-foreground text-sm">
-				{reason === "stopped-while-open" ? (
-					<Trans>This chat was stopped.</Trans>
-				) : reason === "in-terminal" ? (
+				{reason === "in-terminal" ? (
 					<Trans>
 						This chat stopped because the conversation continued in a terminal.
 					</Trans>
@@ -38,7 +36,7 @@ export function AcpRecovery({
 						but never prompted.
 					</Trans>
 				) : (
-					<Trans>This chat's agent has stopped and can't be resumed.</Trans>
+					<Trans>This chat was stopped.</Trans>
 				)}
 			</p>
 			{detail && (

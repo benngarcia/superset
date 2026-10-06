@@ -16125,6 +16125,9 @@ msgstr "Tác nhân sao chép hội thoại; nhánh mở tại đây"
 msgid "The agent owns a task from ticket to diff. The human reviews the result, not the keystrokes. Attention shifts from writing code to specifying work and judging it. One engineer runs several agents at once in isolated workspaces."
 msgstr "Agent làm chủ một tác vụ từ ticket đến diff. Con người review kết quả, không phải từng thao tác gõ. Sự chú ý dịch từ viết code sang đặc tả công việc và đánh giá nó. Một kỹ sư chạy nhiều agent cùng lúc trong các workspace tách biệt."
 
+msgid "The agent stopped while resuming the conversation."
+msgstr "Tác tử đã dừng khi đang tiếp tục cuộc trò chuyện."
+
 msgid "The agent this automation was set to run no longer exists on its host — the host's agents may have been reset or removed. Re-select an agent in the automation's settings."
 msgstr "Agent mà tự động hóa này được đặt để chạy không còn tồn tại trên host của nó — agent của host có thể đã bị đặt lại hoặc gỡ bỏ. Hãy chọn lại agent trong cài đặt của tự động hóa."
 
@@ -16506,9 +16509,6 @@ msgstr "Cuộc trò chuyện này đã dừng vì nó được tiếp tục tron
 
 msgid "This chat was stopped."
 msgstr "Cuộc trò chuyện này đã bị dừng."
-
-msgid "This chat's agent has stopped and can't be resumed."
-msgstr "Tác nhân của cuộc trò chuyện này đã dừng và không thể tiếp tục."
 
 msgid "This closes every terminal session — in this workspace and any others — and can't be undone. If they're only briefly stuck, waiting usually brings them back."
 msgstr "Thao tác này đóng mọi phiên terminal — trong workspace này và mọi workspace khác — và không thể hoàn tác. Nếu chúng chỉ kẹt trong chốc lát, chờ thêm thường là đủ."

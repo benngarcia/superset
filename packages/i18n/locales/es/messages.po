@@ -16125,6 +16125,9 @@ msgstr "El agente copia la conversación; la rama se abre aquí"
 msgid "The agent owns a task from ticket to diff. The human reviews the result, not the keystrokes. Attention shifts from writing code to specifying work and judging it. One engineer runs several agents at once in isolated workspaces."
 msgstr "El agente se encarga de una tarea desde el ticket hasta el diff. La persona revisa el resultado, no las pulsaciones. La atención pasa de escribir código a especificar el trabajo y juzgarlo. Un ingeniero ejecuta varios agentes a la vez en espacios de trabajo aislados."
 
+msgid "The agent stopped while resuming the conversation."
+msgstr "El agente se detuvo al reanudar la conversación."
+
 msgid "The agent this automation was set to run no longer exists on its host — the host's agents may have been reset or removed. Re-select an agent in the automation's settings."
 msgstr "El agente con el que se configuró esta automatización ya no existe en su host: puede que los agentes del host se hayan restablecido o eliminado. Vuelve a seleccionar un agente en la configuración de la automatización."
 
@@ -16506,9 +16509,6 @@ msgstr "Este chat se detuvo porque la conversación continuó en una terminal."
 
 msgid "This chat was stopped."
 msgstr "Este chat se detuvo."
-
-msgid "This chat's agent has stopped and can't be resumed."
-msgstr "El agente de este chat se ha detenido y no se puede reanudar."
 
 msgid "This closes every terminal session — in this workspace and any others — and can't be undone. If they're only briefly stuck, waiting usually brings them back."
 msgstr "Esto cierra todas las sesiones de terminal, de este espacio de trabajo y de cualquier otro, y no se puede deshacer. Si solo están atascadas un momento, esperar suele bastar."

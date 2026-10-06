@@ -58,6 +58,7 @@ export type ChatSession = {
 	snapshot: SessionSnapshot;
 	status: ChatSessionStatus;
 	connection: StreamStatus;
+	unreachable: boolean;
 	outbox: OutboxEntry[];
 	hasOlder: boolean;
 	sendPrompt(
@@ -96,6 +97,7 @@ export function useChatSession(options: UseChatSessionOptions): ChatSession {
 	const [snapshot, setSnapshot] = useState<SessionSnapshot>(emptySnapshot);
 	const [status, setStatus] = useState<ChatSessionStatus>("loading");
 	const [connection, setConnection] = useState<StreamStatus>("connecting");
+	const [unreachable, setUnreachable] = useState(false);
 	const [outboxEntries, setOutboxEntries] = useState<OutboxEntry[]>([]);
 	const [hasOlder, setHasOlder] = useState(false);
 
@@ -186,6 +188,7 @@ export function useChatSession(options: UseChatSessionOptions): ChatSession {
 		const deltas = deltasKey ? (deltasKey.split(",") as DeltaChannel[]) : [];
 
 		setStatus("loading");
+		setUnreachable(false);
 		setConnection("connecting");
 		setSnapshot(emptySnapshot());
 		setHasOlder(false);
@@ -229,9 +232,12 @@ export function useChatSession(options: UseChatSessionOptions): ChatSession {
 				session = await timed(client.getSession());
 				page = await timed(client.getItems({ limit: pageSize }));
 			} catch {
-				if (!cancelled) retry(attempt);
+				if (cancelled) return;
+				setUnreachable(true);
+				retry(attempt);
 				return;
 			}
+			setUnreachable(false);
 			if (cancelled) return;
 			let seeded = emptySnapshot();
 			if (page.ok) {
@@ -350,6 +356,7 @@ export function useChatSession(options: UseChatSessionOptions): ChatSession {
 		snapshot,
 		status,
 		connection,
+		unreachable,
 		outbox: outboxEntries,
 		hasOlder,
 		sendPrompt,

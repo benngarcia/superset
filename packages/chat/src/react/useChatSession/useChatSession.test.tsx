@@ -156,12 +156,14 @@ describe("useChatSession", () => {
 		act(() => manual.flush());
 		await domWaitFor(() => expect(manual.pendingCount()).toBeGreaterThan(0));
 		expect(session().status).toBe("loading");
+		expect(session().unreachable).toBe(true);
 
 		up = true;
 		await domWaitFor(() => {
 			act(() => manual.flush());
 			expect(session().status).toBe("ready");
 		});
+		expect(session().unreachable).toBe(false);
 		view.unmount();
 		client.close();
 		await stack.runtime.dispose();

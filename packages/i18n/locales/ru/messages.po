@@ -16125,6 +16125,9 @@ msgstr "Агент копирует разговор; ветвь откроет�
 msgid "The agent owns a task from ticket to diff. The human reviews the result, not the keystrokes. Attention shifts from writing code to specifying work and judging it. One engineer runs several agents at once in isolated workspaces."
 msgstr "Агент ведёт задачу от тикета до diff. Человек проверяет результат, а не нажатия клавиш. Внимание смещается с написания кода на постановку задач и оценку результата. Один инженер ведёт несколько агентов одновременно в изолированных рабочих областях."
 
+msgid "The agent stopped while resuming the conversation."
+msgstr "Агент остановился при возобновлении разговора."
+
 msgid "The agent this automation was set to run no longer exists on its host — the host's agents may have been reset or removed. Re-select an agent in the automation's settings."
 msgstr "Агента, на котором должна была запускаться эта автоматизация, больше нет на его хосте — возможно, агенты хоста были сброшены или удалены. Выберите агента заново в настройках автоматизации."
 
@@ -16506,9 +16509,6 @@ msgstr "Этот чат остановлен, потому что разгово
 
 msgid "This chat was stopped."
 msgstr "Этот чат остановлен."
-
-msgid "This chat's agent has stopped and can't be resumed."
-msgstr "Агент этого чата остановлен, и его нельзя возобновить."
 
 msgid "This closes every terminal session — in this workspace and any others — and can't be undone. If they're only briefly stuck, waiting usually brings them back."
 msgstr "Это закроет все сессии терминала — в этой рабочей области и в остальных — и отменить это нельзя. Если они зависли ненадолго, обычно достаточно подождать."

@@ -16125,6 +16125,9 @@ msgstr "智能体复制该对话，分支在此打开"
 msgid "The agent owns a task from ticket to diff. The human reviews the result, not the keystrokes. Attention shifts from writing code to specifying work and judging it. One engineer runs several agents at once in isolated workspaces."
 msgstr "智能体从工单一路负责到差异。人类审查结果，而不是击键过程。注意力从写代码转向定义工作和判断成果。一名工程师在隔离工作区里同时跑好几个智能体。"
 
+msgid "The agent stopped while resuming the conversation."
+msgstr "恢复对话时代理已停止。"
+
 msgid "The agent this automation was set to run no longer exists on its host — the host's agents may have been reset or removed. Re-select an agent in the automation's settings."
 msgstr "这个自动化原本要运行的智能体在它的主机上已不存在，该主机的智能体可能被重置或删除了。请在自动化的设置中重新选择一个智能体。"
 
@@ -16506,9 +16509,6 @@ msgstr "由于对话已在终端中继续，此聊天已停止。"
 
 msgid "This chat was stopped."
 msgstr "此聊天已停止。"
-
-msgid "This chat's agent has stopped and can't be resumed."
-msgstr "此聊天的智能体已停止，无法继续。"
 
 msgid "This closes every terminal session — in this workspace and any others — and can't be undone. If they're only briefly stuck, waiting usually brings them back."
 msgstr "这会关闭所有终端会话 — 包括此工作区和其他工作区中的 — 且无法撤销。如果它们只是短暂卡住，等待通常就能恢复。"

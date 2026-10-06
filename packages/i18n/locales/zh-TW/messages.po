@@ -16125,6 +16125,9 @@ msgstr "代理複製該對話，分支在此開啟"
 msgid "The agent owns a task from ticket to diff. The human reviews the result, not the keystrokes. Attention shifts from writing code to specifying work and judging it. One engineer runs several agents at once in isolated workspaces."
 msgstr "代理程式從工單一路負責到差異。人類審查結果，而不是擊鍵過程。注意力從寫程式碼轉向定義工作和判斷成果。一名工程師在隔離工作區裡同時跑好幾個代理程式。"
 
+msgid "The agent stopped while resuming the conversation."
+msgstr "恢復對話時代理已停止。"
+
 msgid "The agent this automation was set to run no longer exists on its host — the host's agents may have been reset or removed. Re-select an agent in the automation's settings."
 msgstr "這個自動化原本要執行的代理程式在它的主機上已不存在，該主機的代理程式可能被重置或刪除了。請在自動化的設定中重新選擇一個代理程式。"
 
@@ -16506,9 +16509,6 @@ msgstr "由於對話已在終端機中繼續，此聊天已停止。"
 
 msgid "This chat was stopped."
 msgstr "此聊天已停止。"
-
-msgid "This chat's agent has stopped and can't be resumed."
-msgstr "此聊天的代理已停止，無法繼續。"
 
 msgid "This closes every terminal session — in this workspace and any others — and can't be undone. If they're only briefly stuck, waiting usually brings them back."
 msgstr "這會關閉所有終端會話 — 包括此工作區和其他工作區中的 — 且無法復原。如果它們只是短暫卡住，等待通常就能恢復。"

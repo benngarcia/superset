@@ -16125,6 +16125,9 @@ msgstr "Agen menyalin percakapan; cabang terbuka di sini"
 msgid "The agent owns a task from ticket to diff. The human reviews the result, not the keystrokes. Attention shifts from writing code to specifying work and judging it. One engineer runs several agents at once in isolated workspaces."
 msgstr "Agen memegang tugas dari tiket sampai diff. Manusia mereview hasilnya, bukan tiap ketukan tombolnya. Perhatian bergeser dari menulis kode ke menentukan pekerjaan dan menilainya. Satu engineer menjalankan beberapa agen sekaligus di workspace terisolasi."
 
+msgid "The agent stopped while resuming the conversation."
+msgstr "Agen berhenti saat melanjutkan percakapan."
+
 msgid "The agent this automation was set to run no longer exists on its host — the host's agents may have been reset or removed. Re-select an agent in the automation's settings."
 msgstr "Agen yang disetel untuk menjalankan otomatisasi ini sudah tidak ada di host-nya — agen host itu mungkin telah direset atau dihapus. Pilih ulang agen di pengaturan otomatisasi."
 
@@ -16506,9 +16509,6 @@ msgstr "Chat ini berhenti karena percakapan dilanjutkan di terminal."
 
 msgid "This chat was stopped."
 msgstr "Chat ini telah dihentikan."
-
-msgid "This chat's agent has stopped and can't be resumed."
-msgstr "Agen chat ini sudah berhenti dan tidak dapat dilanjutkan."
 
 msgid "This closes every terminal session — in this workspace and any others — and can't be undone. If they're only briefly stuck, waiting usually brings them back."
 msgstr "Ini menutup setiap sesi terminal — di workspace ini maupun yang lain — dan tidak bisa dibatalkan. Kalau hanya macet sebentar, menunggu biasanya cukup."

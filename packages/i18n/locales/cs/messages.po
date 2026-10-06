@@ -16125,6 +16125,9 @@ msgstr "Agent zkopíruje konverzaci; větev se otevře zde"
 msgid "The agent owns a task from ticket to diff. The human reviews the result, not the keystrokes. Attention shifts from writing code to specifying work and judging it. One engineer runs several agents at once in isolated workspaces."
 msgstr "Agent vlastní úkol od ticketu po diff. Člověk reviduje výsledek, ne úhozy. Pozornost se přesouvá od psaní kódu k zadávání práce a jejímu posuzování. Jeden inženýr běží několik agentů naráz v izolovaných pracovních prostorech."
 
+msgid "The agent stopped while resuming the conversation."
+msgstr "Agent se zastavil při obnovování konverzace."
+
 msgid "The agent this automation was set to run no longer exists on its host — the host's agents may have been reset or removed. Re-select an agent in the automation's settings."
 msgstr "Agent, se kterým měla tato automatizace běžet, už na svém hostu neexistuje — agenti hosta mohli být resetováni nebo odebráni. Vyberte v nastavení automatizace jiného agenta."
 
@@ -16506,9 +16509,6 @@ msgstr "Tento chat se zastavil, protože konverzace pokračovala v terminálu."
 
 msgid "This chat was stopped."
 msgstr "Tento chat byl zastaven."
-
-msgid "This chat's agent has stopped and can't be resumed."
-msgstr "Agent tohoto chatu byl zastaven a nelze jej obnovit."
 
 msgid "This closes every terminal session — in this workspace and any others — and can't be undone. If they're only briefly stuck, waiting usually brings them back."
 msgstr "Tímto se zavřou všechny relace terminálu — v tomto pracovním prostoru i ve všech ostatních — a nelze to vrátit zpět. Pokud jsou zaseknuté jen na chvíli, obvykle se samy vzpamatují."
