@@ -1,42 +1,57 @@
 import { useLingui } from "@lingui/react/macro";
 import { cn } from "@superset/ui/utils";
+import { PullRequestDiffStat } from "../PullRequestDiffStat";
 
-export type PullRequestDetailTab = "summary" | "code";
+export type PullRequestDetailTab = "summary" | "code" | "timeline";
 
 interface PullRequestDetailTabsProps {
 	activeTab: PullRequestDetailTab;
 	onTabChange: (tab: PullRequestDetailTab) => void;
+	/** Rides after the Changes label once the detail knows its size. */
+	diffStat?: { additions: number; deletions: number } | null;
 	className?: string;
 }
 
 export function PullRequestDetailTabs({
 	activeTab,
 	onTabChange,
+	diffStat,
 	className,
 }: PullRequestDetailTabsProps) {
 	const { t } = useLingui();
 	const tabs: ReadonlyArray<{ value: PullRequestDetailTab; label: string }> = [
 		{ value: "summary", label: t({ message: "Summary" }) },
-		{ value: "code", label: t({ message: "Code" }) },
+		{ value: "code", label: t({ message: "Changes" }) },
+		{ value: "timeline", label: t({ message: "Timeline" }) },
 	];
 	return (
-		<div className={cn("flex items-center gap-1", className)}>
+		<nav
+			className={cn("flex min-w-0 items-center gap-0.5", className)}
+			aria-label={t({ message: "Pull request detail tabs" })}
+		>
 			{tabs.map(({ value, label }) => (
 				<button
 					key={value}
 					type="button"
 					onClick={() => onTabChange(value)}
-					aria-current={activeTab === value ? "true" : undefined}
+					aria-pressed={activeTab === value}
 					className={cn(
-						"rounded-md px-2 py-1 text-xs font-medium transition-colors",
+						"inline-flex h-7 items-center gap-1.5 rounded-md px-2.5 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
 						activeTab === value
 							? "bg-accent text-foreground"
 							: "text-muted-foreground hover:text-foreground",
 					)}
 				>
 					{label}
+					{value === "code" && diffStat ? (
+						<PullRequestDiffStat
+							additions={diffStat.additions}
+							deletions={diffStat.deletions}
+							className="text-[11px] font-normal"
+						/>
+					) : null}
 				</button>
 			))}
-		</div>
+		</nav>
 	);
 }

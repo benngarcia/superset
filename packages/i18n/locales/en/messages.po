@@ -144,6 +144,10 @@ msgstr "{0, plural, one {# existing worktree found} other {# existing worktrees 
 msgid "{0, plural, one {# failed} other {# failed}}"
 msgstr "{0, plural, one {# failed} other {# failed}}"
 
+#. placeholder {0}: summary.failing
+msgid "{0, plural, one {# failing} other {# failing}}"
+msgstr "{0, plural, one {# failing} other {# failing}}"
+
 #. placeholder {0}: detail.pullRequest.changedFiles
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# file changed} other {# files changed}}"
@@ -176,6 +180,10 @@ msgstr "{0, plural, one {# login} other {# logins}}"
 #. placeholder {0}: summary.passed
 msgid "{0, plural, one {# passed} other {# passed}}"
 msgstr "{0, plural, one {# passed} other {# passed}}"
+
+#. placeholder {0}: summary.pending
+msgid "{0, plural, one {# pending} other {# pending}}"
+msgstr "{0, plural, one {# pending} other {# pending}}"
 
 #. placeholder {0}: chosenLeads.length
 #. placeholder {0}: chosenPeople.length
@@ -229,6 +237,10 @@ msgstr "{0, plural, one {# skipped} other {# skipped}}"
 #. placeholder {0}: subagents.length
 msgid "{0, plural, one {# subagent} other {# subagents}}"
 msgstr "{0, plural, one {# subagent} other {# subagents}}"
+
+#. placeholder {0}: summary.passing
+msgid "{0, plural, one {# successful} other {# successful}}"
+msgstr "{0, plural, one {# successful} other {# successful}}"
 
 #. placeholder {0}: TASKS.length
 msgid "{0, plural, one {# task} other {# tasks}}"
@@ -370,6 +382,10 @@ msgstr "{0} branch"
 msgid "{0} cannot be signed in this way yet."
 msgstr "{0} cannot be signed in this way yet."
 
+#. placeholder {0}: event.actor
+msgid "{0} commented"
+msgstr "{0} commented"
+
 #. placeholder {0}: formatNumber(participants)
 msgid "{0} developers are ranked by agent usage. Your last 30 days are already counted, just hidden. Token counts and model names only, no repo names, file paths or prompts."
 msgstr "{0} developers are ranked by agent usage. Your last 30 days are already counted, just hidden. Token counts and model names only, no repo names, file paths or prompts."
@@ -394,10 +410,6 @@ msgstr "{0} enabled"
 msgid "{0} ending in {1}"
 msgstr "{0} ending in {1}"
 
-#. placeholder {0}: summary.failing
-msgid "{0} failing"
-msgstr "{0} failing"
-
 #. placeholder {0}: collisions.length
 msgid "{0} files already exist in {where}. Do you want to replace them?"
 msgstr "{0} files already exist in {where}. Do you want to replace them?"
@@ -405,6 +417,11 @@ msgstr "{0} files already exist in {where}. Do you want to replace them?"
 #. placeholder {0}: displayName(variables.name)
 msgid "{0} installed"
 msgstr "{0} installed"
+
+#. placeholder {0}: data.head.ref
+#. placeholder {1}: data.base.ref
+msgid "{0} into {1}"
+msgstr "{0} into {1}"
 
 #. placeholder {0}: conflictDisplay.text
 #. placeholder {1}: i18n._( HOTKEYS[pendingConflict.conflictId].label, )
@@ -474,6 +491,10 @@ msgstr "{0} of accounts"
 msgid "{0} of visitors"
 msgstr "{0} of visitors"
 
+#. placeholder {0}: event.actor
+msgid "{0} opened this pull request"
+msgstr "{0} opened this pull request"
+
 #. placeholder {0}: plugin.interface.displayName
 msgid "{0} options"
 msgstr "{0} options"
@@ -490,10 +511,6 @@ msgstr "{0} plan"
 #. placeholder {0}: normalizedProjectIds.length
 msgid "{0} projects"
 msgstr "{0} projects"
-
-#. placeholder {0}: summary.pending
-msgid "{0} running"
-msgstr "{0} running"
 
 #. placeholder {0}: tally.running
 msgid "{0} Running"
@@ -607,6 +624,9 @@ msgstr "{actor} added the task to {to}"
 msgid "{actor} added the workspace to {project}"
 msgstr "{actor} added the workspace to {project}"
 
+msgid "{actor} approved"
+msgstr "{actor} approved"
+
 msgid "{actor} archived the workspace"
 msgstr "{actor} archived the workspace"
 
@@ -676,6 +696,12 @@ msgstr "{actor} renamed the task to {title}"
 #. placeholder {0}: entry.to
 msgid "{actor} renamed the workspace to <0>{0}</0>"
 msgstr "{actor} renamed the workspace to <0>{0}</0>"
+
+msgid "{actor} requested changes"
+msgstr "{actor} requested changes"
+
+msgid "{actor} reviewed"
+msgstr "{actor} reviewed"
 
 msgid "{actor} set the priority to {to}"
 msgstr "{actor} set the priority to {to}"
@@ -806,9 +832,6 @@ msgstr "{count} hosts run an older host service than this app"
 
 msgid "{count}/day"
 msgstr "{count}/day"
-
-msgid "{createdAtRelative} ago"
-msgstr "{createdAtRelative} ago"
 
 msgid "{currentPage} of {totalBranches}"
 msgstr "{currentPage} of {totalBranches}"
@@ -1866,6 +1889,10 @@ msgstr "Agent session started"
 msgid "agent settings"
 msgstr "agent settings"
 
+#. placeholder {0}: agent.label
+msgid "Agent: {0}"
+msgstr "Agent: {0}"
+
 msgid "Agents"
 msgstr "Agents"
 
@@ -1947,10 +1974,6 @@ msgstr "All {0} checks passed"
 #. placeholder {0}: gaps.length
 msgid "All {0} objectives are carrying their weight for {nextLabel}."
 msgstr "All {0} objectives are carrying their weight for {nextLabel}."
-
-#. placeholder {0}: summary.relevantChecks.length
-msgid "All {0} passed"
-msgstr "All {0} passed"
 
 msgid "All {versionCount} versions and their content are removed. Anyone with the link loses access."
 msgstr "All {versionCount} versions and their content are removed. Anyone with the link loses access."
@@ -2437,6 +2460,9 @@ msgstr "As last reported. The host must be online to update."
 msgid "ascending"
 msgstr "ascending"
 
+msgid "Ask about this pull request"
+msgstr "Ask about this pull request"
+
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "Ask an agent to publish one from the desktop app."
 
@@ -2445,6 +2471,9 @@ msgstr "Ask for approval"
 
 msgid "Ask for this to be removed"
 msgstr "Ask for this to be removed"
+
+msgid "Ask the agent"
+msgstr "Ask the agent"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "Ask the agent, @mention files, run /commands"
@@ -2940,9 +2969,6 @@ msgstr "Branch"
 msgid "Branch behavior for new workspaces on this device. Projects can override the prefix individually."
 msgstr "Branch behavior for new workspaces on this device. Projects can override the prefix individually."
 
-msgid "Branch copied"
-msgstr "Branch copied"
-
 msgid "Branch in a new worktree"
 msgstr "Branch in a new worktree"
 
@@ -3181,6 +3207,9 @@ msgstr "Can I switch plans or cancel anytime?"
 
 msgid "Can I use my own API keys?"
 msgstr "Can I use my own API keys?"
+
+msgid "Can merge without conflicts"
+msgstr "Can merge without conflicts"
 
 msgid "Can you standardize the tooltips across the app?"
 msgstr "Can you standardize the tooltips across the app?"
@@ -3643,9 +3672,6 @@ msgstr "Click here if not redirected"
 msgid "Click the “↑ update” pill to see the pre-update confirm"
 msgstr "Click the “↑ update” pill to see the pre-update confirm"
 
-msgid "Click to copy"
-msgstr "Click to copy"
-
 msgid "Click to copy the session ID (resume with `claude --resume <id>`)."
 msgstr "Click to copy the session ID (resume with `claude --resume <id>`)."
 
@@ -3840,9 +3866,6 @@ msgstr "Closing this tab will end the running process."
 msgid "Closing this terminal will end the running process."
 msgstr "Closing this terminal will end the running process."
 
-msgid "Closing…"
-msgstr "Closing…"
-
 msgid "Cloud"
 msgstr "Cloud"
 
@@ -4007,6 +4030,13 @@ msgstr "Comments could not be loaded"
 msgid "Commit"
 msgstr "Commit"
 
+msgid "Commit {short}"
+msgstr "Commit {short}"
+
+#. placeholder {0}: event.actor
+msgid "Commit {short} by {0}"
+msgstr "Commit {short} by {0}"
+
 #. placeholder {0}: error.message
 msgid "Commit failed: {0}"
 msgstr "Commit failed: {0}"
@@ -4119,6 +4149,10 @@ msgstr "Configure workspace run command"
 
 msgid "Confirm before quitting"
 msgstr "Confirm before quitting"
+
+#. placeholder {0}: status.baseBranch
+msgid "Conflicts with {0}"
+msgstr "Conflicts with {0}"
 
 msgid "Connect"
 msgstr "Connect"
@@ -4817,6 +4851,9 @@ msgstr "Could not update the branch"
 msgid "serverError.plugins.credentialUnverified"
 msgstr "Could not verify the credential: {reason}"
 
+msgid "Couldn't ask about this pull request"
+msgstr "Couldn't ask about this pull request"
+
 msgid "Couldn't ask the workspace for a description"
 msgstr "Couldn't ask the workspace for a description"
 
@@ -4838,11 +4875,11 @@ msgstr "Couldn't confirm star status — check that the GitHub CLI (`gh`) is ins
 msgid "Couldn't connect (error {status}). Please try again."
 msgstr "Couldn't connect (error {status}). Please try again."
 
-msgid "Couldn't copy branch name"
-msgstr "Couldn't copy branch name"
-
 msgid "Couldn't copy comment"
 msgstr "Couldn't copy comment"
+
+msgid "Couldn't copy link"
+msgstr "Couldn't copy link"
 
 msgid "Couldn't copy path"
 msgstr "Couldn't copy path"
@@ -6233,9 +6270,6 @@ msgstr "Edit"
 
 msgid "Edit comment"
 msgstr "Edit comment"
-
-msgid "Edit description"
-msgstr "Edit description"
 
 msgid "Edit environment"
 msgstr "Edit environment"
@@ -7849,6 +7883,9 @@ msgstr "happening now"
 
 msgid "Hard reload"
 msgstr "Hard reload"
+
+msgid "Has conflicts"
+msgstr "Has conflicts"
 
 msgid "Has uncommitted changes"
 msgstr "Has uncommitted changes"
@@ -9594,6 +9631,12 @@ msgstr "Merge pull request"
 msgid "Merge pull requests without leaving Superset, plus a round of chat fixes and polish."
 msgstr "Merge pull requests without leaving Superset, plus a round of chat fixes and polish."
 
+msgid "Merge status"
+msgstr "Merge status"
+
+msgid "Merge status unknown"
+msgstr "Merge status unknown"
+
 msgid "Merge when checks pass"
 msgstr "Merge when checks pass"
 
@@ -9821,6 +9864,9 @@ msgstr "More than half of merged changes are written by agents with zero human e
 #. js-lingui-explicit-id
 msgid "serverError.plugins.ambiguousConnection"
 msgstr "More than one {connector} connection matches; disconnect the one you do not want."
+
+msgid "More ways to use this pull request"
+msgstr "More ways to use this pull request"
 
 msgid "most developers"
 msgstr "most developers"
@@ -10267,9 +10313,6 @@ msgstr "No checks"
 msgid "No checks reported"
 msgstr "No checks reported"
 
-msgid "No checks reported for the latest commit."
-msgstr "No checks reported for the latest commit."
-
 msgid "No checks reported."
 msgstr "No checks reported."
 
@@ -10296,6 +10339,9 @@ msgstr "No commands found."
 
 msgid "No comment body"
 msgstr "No comment body"
+
+msgid "No comments"
+msgstr "No comments"
 
 msgid "No comments on this page yet"
 msgstr "No comments on this page yet"
@@ -11421,9 +11467,6 @@ msgstr "Open pull request #{0}"
 
 msgid "Open pull request #{number}"
 msgstr "Open pull request #{number}"
-
-msgid "Open pull request in GitHub"
-msgstr "Open pull request in GitHub"
 
 msgid "Open pull request options"
 msgstr "Open pull request options"
@@ -12567,6 +12610,21 @@ msgstr "Pull request #{0}, {1}"
 msgid "Pull request actions"
 msgstr "Pull request actions"
 
+msgid "Pull request closed"
+msgstr "Pull request closed"
+
+msgid "Pull request detail tabs"
+msgstr "Pull request detail tabs"
+
+msgid "Pull request merged"
+msgstr "Pull request merged"
+
+msgid "Pull request not found"
+msgstr "Pull request not found"
+
+msgid "Pull request opened"
+msgstr "Pull request opened"
+
 msgid "Pull request title"
 msgstr "Pull request title"
 
@@ -13229,6 +13287,9 @@ msgstr "Repository reach and desktop release downloads. Installs are dmg and App
 msgid "Repository URL or path"
 msgstr "Repository URL or path"
 
+msgid "Request"
+msgstr "Request"
+
 msgid "Request a trial"
 msgstr "Request a trial"
 
@@ -13333,6 +13394,10 @@ msgstr "Resolve conversation"
 
 msgid "Resolve Conversations to Merge"
 msgstr "Resolve Conversations to Merge"
+
+#. placeholder {0}: data.base.ref
+msgid "Resolve the conflicts with {0} first"
+msgstr "Resolve the conflicts with {0} first"
 
 msgid "resolve the workspace path"
 msgstr "resolve the workspace path"
@@ -14373,6 +14438,9 @@ msgstr "Sending"
 msgid "Sending a message to {what}"
 msgstr "Sending a message to {what}"
 
+msgid "Sending to agent"
+msgstr "Sending to agent"
+
 msgid "Sending..."
 msgstr "Sending..."
 
@@ -14390,6 +14458,9 @@ msgstr "Sent"
 
 msgid "Sent to agent"
 msgstr "Sent to agent"
+
+msgid "Sent to the pull request's workspace"
+msgstr "Sent to the pull request's workspace"
 
 msgid "Sentry rejected the token"
 msgstr "Sentry rejected the token"
@@ -14646,6 +14717,9 @@ msgstr "Show emails"
 
 msgid "Show everyone who opened this workspace"
 msgstr "Show everyone who opened this workspace"
+
+msgid "Show fewer"
+msgstr "Show fewer"
 
 msgid "Show file tree"
 msgstr "Show file tree"
@@ -15299,9 +15373,6 @@ msgstr "Start with the work."
 msgid "Start work from anywhere"
 msgstr "Start work from anywhere"
 
-msgid "Start Workspace"
-msgstr "Start Workspace"
-
 msgid "Started"
 msgstr "Started"
 
@@ -15316,6 +15387,9 @@ msgstr "Starting"
 
 msgid "Starting {agentLabel}"
 msgstr "Starting {agentLabel}"
+
+msgid "Starting a workspace on this pull request"
+msgstr "Starting a workspace on this pull request"
 
 msgid "Starting an agent in {what}"
 msgstr "Starting an agent in {what}"
@@ -16841,6 +16915,9 @@ msgstr "Time"
 msgid "Time range"
 msgstr "Time range"
 
+msgid "Timeline"
+msgstr "Timeline"
+
 msgid "Title"
 msgstr "Title"
 
@@ -17721,6 +17798,9 @@ msgstr "View in GitHub"
 
 msgid "View log"
 msgstr "View log"
+
+msgid "View more"
+msgstr "View more"
 
 msgid "View on GitHub"
 msgstr "View on GitHub"

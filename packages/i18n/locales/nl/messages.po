@@ -144,6 +144,10 @@ msgstr "{0, plural, one {# bestaande worktree gevonden} other {# bestaande workt
 msgid "{0, plural, one {# failed} other {# failed}}"
 msgstr "{0, plural, one {# mislukt} other {# mislukt}}"
 
+#. placeholder {0}: summary.failing
+msgid "{0, plural, one {# failing} other {# failing}}"
+msgstr "{0, plural, one {# mislukt} other {# mislukt}}"
+
 #. placeholder {0}: detail.pullRequest.changedFiles
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# bestand gewijzigd} other {# bestanden gewijzigd}}"
@@ -176,6 +180,10 @@ msgstr "{0, plural, one {# login} other {# logins}}"
 #. placeholder {0}: summary.passed
 msgid "{0, plural, one {# passed} other {# passed}}"
 msgstr "{0, plural, one {# geslaagd} other {# geslaagd}}"
+
+#. placeholder {0}: summary.pending
+msgid "{0, plural, one {# pending} other {# pending}}"
+msgstr "{0, plural, one {# in behandeling} other {# in behandeling}}"
 
 #. placeholder {0}: chosenLeads.length
 #. placeholder {0}: chosenPeople.length
@@ -229,6 +237,10 @@ msgstr "{0, plural, one {# overgeslagen} other {# overgeslagen}}"
 #. placeholder {0}: subagents.length
 msgid "{0, plural, one {# subagent} other {# subagents}}"
 msgstr "{0, plural, one {# subagent} other {# subagents}}"
+
+#. placeholder {0}: summary.passing
+msgid "{0, plural, one {# successful} other {# successful}}"
+msgstr "{0, plural, one {# geslaagd} other {# geslaagd}}"
 
 #. placeholder {0}: TASKS.length
 msgid "{0, plural, one {# task} other {# tasks}}"
@@ -370,6 +382,10 @@ msgstr "{0} aftakking"
 msgid "{0} cannot be signed in this way yet."
 msgstr "{0} kan nog niet op deze manier worden ingelogd."
 
+#. placeholder {0}: event.actor
+msgid "{0} commented"
+msgstr "{0} heeft gereageerd"
+
 #. placeholder {0}: formatNumber(participants)
 msgid "{0} developers are ranked by agent usage. Your last 30 days are already counted, just hidden. Token counts and model names only, no repo names, file paths or prompts."
 msgstr "{0} developers zijn gerangschikt op agentgebruik. Je laatste 30 dagen zijn al meegeteld, alleen verborgen. Alleen tokenaantallen en modelnamen, geen repo-namen, bestandspaden of prompts."
@@ -394,10 +410,6 @@ msgstr "{0} ingeschakeld"
 msgid "{0} ending in {1}"
 msgstr "{0} eindigend op {1}"
 
-#. placeholder {0}: summary.failing
-msgid "{0} failing"
-msgstr "{0} mislukt"
-
 #. placeholder {0}: collisions.length
 msgid "{0} files already exist in {where}. Do you want to replace them?"
 msgstr "{0} bestanden bestaan al in {where}. Wil je ze vervangen?"
@@ -405,6 +417,11 @@ msgstr "{0} bestanden bestaan al in {where}. Wil je ze vervangen?"
 #. placeholder {0}: displayName(variables.name)
 msgid "{0} installed"
 msgstr "{0} geïnstalleerd"
+
+#. placeholder {0}: data.head.ref
+#. placeholder {1}: data.base.ref
+msgid "{0} into {1}"
+msgstr "{0} naar {1}"
 
 #. placeholder {0}: conflictDisplay.text
 #. placeholder {1}: i18n._( HOTKEYS[pendingConflict.conflictId].label, )
@@ -474,6 +491,10 @@ msgstr "{0} van de accounts"
 msgid "{0} of visitors"
 msgstr "{0} van de bezoekers"
 
+#. placeholder {0}: event.actor
+msgid "{0} opened this pull request"
+msgstr "{0} heeft deze pull request geopend"
+
 #. placeholder {0}: plugin.interface.displayName
 msgid "{0} options"
 msgstr "Opties voor {0}"
@@ -490,10 +511,6 @@ msgstr "{0}-plan"
 #. placeholder {0}: normalizedProjectIds.length
 msgid "{0} projects"
 msgstr "{0} projecten"
-
-#. placeholder {0}: summary.pending
-msgid "{0} running"
-msgstr "{0} bezig"
 
 #. placeholder {0}: tally.running
 msgid "{0} Running"
@@ -607,6 +624,9 @@ msgstr "{actor} heeft de taak aan {to} toegevoegd"
 msgid "{actor} added the workspace to {project}"
 msgstr "{actor} heeft de workspace aan {project} toegevoegd"
 
+msgid "{actor} approved"
+msgstr "{actor} heeft goedgekeurd"
+
 msgid "{actor} archived the workspace"
 msgstr "{actor} heeft de workspace gearchiveerd"
 
@@ -676,6 +696,12 @@ msgstr "{actor} heeft de taak hernoemd naar {title}"
 #. placeholder {0}: entry.to
 msgid "{actor} renamed the workspace to <0>{0}</0>"
 msgstr "{actor} heeft de workspace hernoemd naar <0>{0}</0>"
+
+msgid "{actor} requested changes"
+msgstr "{actor} heeft wijzigingen aangevraagd"
+
+msgid "{actor} reviewed"
+msgstr "{actor} heeft gereviewd"
 
 msgid "{actor} set the priority to {to}"
 msgstr "{actor} heeft de prioriteit op {to} gezet"
@@ -806,9 +832,6 @@ msgstr "{count} hosts draaien een oudere hostservice dan deze app"
 
 msgid "{count}/day"
 msgstr "{count}/dag"
-
-msgid "{createdAtRelative} ago"
-msgstr "{createdAtRelative} geleden"
 
 msgid "{currentPage} of {totalBranches}"
 msgstr "{currentPage} van {totalBranches}"
@@ -1866,6 +1889,10 @@ msgstr "Agentsessie gestart"
 msgid "agent settings"
 msgstr "agentinstellingen"
 
+#. placeholder {0}: agent.label
+msgid "Agent: {0}"
+msgstr "Agent: {0}"
+
 msgid "Agents"
 msgstr "Agents"
 
@@ -1947,10 +1974,6 @@ msgstr "Alle {0} checks geslaagd"
 #. placeholder {0}: gaps.length
 msgid "All {0} objectives are carrying their weight for {nextLabel}."
 msgstr "Alle {0} doelen dragen hun deel bij voor {nextLabel}."
-
-#. placeholder {0}: summary.relevantChecks.length
-msgid "All {0} passed"
-msgstr "Alle {0} geslaagd"
 
 msgid "All {versionCount} versions and their content are removed. Anyone with the link loses access."
 msgstr "Alle {versionCount} versies en hun inhoud worden verwijderd. Iedereen met de link verliest toegang."
@@ -2437,6 +2460,9 @@ msgstr "Zoals laatst gemeld. De host moet online zijn om bij te werken."
 msgid "ascending"
 msgstr "oplopend"
 
+msgid "Ask about this pull request"
+msgstr "Stel een vraag over deze pull request"
+
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "Vraag een agent om er een te publiceren vanuit de desktop-app."
 
@@ -2445,6 +2471,9 @@ msgstr "Om goedkeuring vragen"
 
 msgid "Ask for this to be removed"
 msgstr "Vraag om verwijdering"
+
+msgid "Ask the agent"
+msgstr "Vraag het de agent"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "Vraag de agent, @vermeld bestanden, gebruik /commando's"
@@ -2940,9 +2969,6 @@ msgstr "Branch"
 msgid "Branch behavior for new workspaces on this device. Projects can override the prefix individually."
 msgstr "Branchgedrag voor nieuwe werkruimtes op dit apparaat. Projecten kunnen de prefix apart overschrijven."
 
-msgid "Branch copied"
-msgstr "Branch gekopieerd"
-
 msgid "Branch in a new worktree"
 msgstr "Afsplitsen in een nieuwe worktree"
 
@@ -3181,6 +3207,9 @@ msgstr "Kan ik altijd van plan wisselen of opzeggen?"
 
 msgid "Can I use my own API keys?"
 msgstr "Kan ik mijn eigen API-sleutels gebruiken?"
+
+msgid "Can merge without conflicts"
+msgstr "Kan zonder conflicten worden gemerged"
 
 msgid "Can you standardize the tooltips across the app?"
 msgstr "Kun je de tooltips in de hele app standaardiseren?"
@@ -3643,9 +3672,6 @@ msgstr "Klik hier als je niet wordt doorgestuurd"
 msgid "Click the “↑ update” pill to see the pre-update confirm"
 msgstr "Klik op ‘↑ update’ om de bevestiging vóór de update te bekijken"
 
-msgid "Click to copy"
-msgstr "Klik om te kopiëren"
-
 msgid "Click to copy the session ID (resume with `claude --resume <id>`)."
 msgstr "Klik om de sessie-ID te kopiëren (hervatten met `claude --resume <id>`)."
 
@@ -3840,9 +3866,6 @@ msgstr "Als je dit tabblad sluit, wordt het draaiende proces beëindigd."
 msgid "Closing this terminal will end the running process."
 msgstr "Als je deze terminal sluit, wordt het draaiende proces beëindigd."
 
-msgid "Closing…"
-msgstr "Bezig met sluiten…"
-
 msgid "Cloud"
 msgstr "Cloud"
 
@@ -4007,6 +4030,13 @@ msgstr "Reacties konden niet worden geladen"
 msgid "Commit"
 msgstr "Committen"
 
+msgid "Commit {short}"
+msgstr "Commit {short}"
+
+#. placeholder {0}: event.actor
+msgid "Commit {short} by {0}"
+msgstr "Commit {short} door {0}"
+
 #. placeholder {0}: error.message
 msgid "Commit failed: {0}"
 msgstr "Commit mislukt: {0}"
@@ -4119,6 +4149,10 @@ msgstr "Run-commando van werkruimte configureren"
 
 msgid "Confirm before quitting"
 msgstr "Bevestigen voor afsluiten"
+
+#. placeholder {0}: status.baseBranch
+msgid "Conflicts with {0}"
+msgstr "Conflicten met {0}"
 
 msgid "Connect"
 msgstr "Verbinden"
@@ -4817,6 +4851,9 @@ msgstr "Kan de branch niet bijwerken"
 msgid "serverError.plugins.credentialUnverified"
 msgstr "Kon de inloggegevens niet verifiëren: {reason}"
 
+msgid "Couldn't ask about this pull request"
+msgstr "Kon geen vraag stellen over deze pull request"
+
 msgid "Couldn't ask the workspace for a description"
 msgstr "Kon de workspace niet om een beschrijving vragen"
 
@@ -4838,11 +4875,11 @@ msgstr "Kan de sterstatus niet bevestigen — controleer of de GitHub-CLI (`gh`)
 msgid "Couldn't connect (error {status}). Please try again."
 msgstr "Verbinden mislukt (fout {status}). Probeer het opnieuw."
 
-msgid "Couldn't copy branch name"
-msgstr "Kan branchnaam niet kopiëren"
-
 msgid "Couldn't copy comment"
 msgstr "Kan opmerking niet kopiëren"
+
+msgid "Couldn't copy link"
+msgstr "Kon link niet kopiëren"
 
 msgid "Couldn't copy path"
 msgstr "Kan het pad niet kopiëren"
@@ -6233,9 +6270,6 @@ msgstr "Bewerken"
 
 msgid "Edit comment"
 msgstr "Opmerking bewerken"
-
-msgid "Edit description"
-msgstr "Beschrijving bewerken"
 
 msgid "Edit environment"
 msgstr "Omgeving bewerken"
@@ -7849,6 +7883,9 @@ msgstr "nu bezig"
 
 msgid "Hard reload"
 msgstr "Hard herladen"
+
+msgid "Has conflicts"
+msgstr "Heeft conflicten"
 
 msgid "Has uncommitted changes"
 msgstr "Heeft niet-gecommitte wijzigingen"
@@ -9594,6 +9631,12 @@ msgstr "Pull request mergen"
 msgid "Merge pull requests without leaving Superset, plus a round of chat fixes and polish."
 msgstr "Merge pull requests zonder Superset te verlaten, plus een ronde chatfixes en poetswerk."
 
+msgid "Merge status"
+msgstr "Mergestatus"
+
+msgid "Merge status unknown"
+msgstr "Mergestatus onbekend"
+
 msgid "Merge when checks pass"
 msgstr "Mergen wanneer de checks slagen"
 
@@ -9821,6 +9864,9 @@ msgstr "Meer dan de helft van de gemergede wijzigingen is door agents geschreven
 #. js-lingui-explicit-id
 msgid "serverError.plugins.ambiguousConnection"
 msgstr "Meerdere {connector}-verbindingen komen overeen; koppel de verbinding los die je niet wilt."
+
+msgid "More ways to use this pull request"
+msgstr "Meer manieren om deze pull request te gebruiken"
 
 msgid "most developers"
 msgstr "de meeste ontwikkelaars"
@@ -10267,9 +10313,6 @@ msgstr "Geen checks"
 msgid "No checks reported"
 msgstr "Geen checks gerapporteerd"
 
-msgid "No checks reported for the latest commit."
-msgstr "Geen checks gerapporteerd voor de laatste commit."
-
 msgid "No checks reported."
 msgstr "Geen checks gerapporteerd."
 
@@ -10296,6 +10339,9 @@ msgstr "Geen opdrachten gevonden."
 
 msgid "No comment body"
 msgstr "Geen tekst in de opmerking"
+
+msgid "No comments"
+msgstr "Geen opmerkingen"
 
 msgid "No comments on this page yet"
 msgstr "Nog geen reacties op deze pagina"
@@ -11421,9 +11467,6 @@ msgstr "Pull request #{0} openen"
 
 msgid "Open pull request #{number}"
 msgstr "Pull request #{number} openen"
-
-msgid "Open pull request in GitHub"
-msgstr "Pull request openen in GitHub"
 
 msgid "Open pull request options"
 msgstr "Pull request-opties openen"
@@ -12567,6 +12610,21 @@ msgstr "Pull request #{0}, {1}"
 msgid "Pull request actions"
 msgstr "Acties voor pull request"
 
+msgid "Pull request closed"
+msgstr "Pull request gesloten"
+
+msgid "Pull request detail tabs"
+msgstr "Tabbladen van pull request-details"
+
+msgid "Pull request merged"
+msgstr "Pull request gemerged"
+
+msgid "Pull request not found"
+msgstr "Pull request niet gevonden"
+
+msgid "Pull request opened"
+msgstr "Pull request geopend"
+
 msgid "Pull request title"
 msgstr "Titel van pull request"
 
@@ -13229,6 +13287,9 @@ msgstr "Bereik van de repository en downloads van desktopreleases. Installaties 
 msgid "Repository URL or path"
 msgstr "Repository-URL of pad"
 
+msgid "Request"
+msgstr "Aanvragen"
+
 msgid "Request a trial"
 msgstr "Proefperiode aanvragen"
 
@@ -13333,6 +13394,10 @@ msgstr "Gesprek oplossen"
 
 msgid "Resolve Conversations to Merge"
 msgstr "Los gesprekken op om te mergen"
+
+#. placeholder {0}: data.base.ref
+msgid "Resolve the conflicts with {0} first"
+msgstr "Los eerst de conflicten met {0} op"
 
 msgid "resolve the workspace path"
 msgstr "het pad van de werkruimte bepalen"
@@ -14373,6 +14438,9 @@ msgstr "Versturen"
 msgid "Sending a message to {what}"
 msgstr "Bericht wordt verzonden naar {what}"
 
+msgid "Sending to agent"
+msgstr "Verzenden naar agent"
+
 msgid "Sending..."
 msgstr "Versturen..."
 
@@ -14390,6 +14458,9 @@ msgstr "Verstuurd"
 
 msgid "Sent to agent"
 msgstr "Naar agent gestuurd"
+
+msgid "Sent to the pull request's workspace"
+msgstr "Verzonden naar de werkruimte van de pull request"
 
 msgid "Sentry rejected the token"
 msgstr "Sentry heeft het token geweigerd"
@@ -14646,6 +14717,9 @@ msgstr "E-mails tonen"
 
 msgid "Show everyone who opened this workspace"
 msgstr "Iedereen tonen die deze workspace heeft geopend"
+
+msgid "Show fewer"
+msgstr "Minder tonen"
 
 msgid "Show file tree"
 msgstr "Bestandsboom tonen"
@@ -15299,9 +15373,6 @@ msgstr "Begin bij het werk."
 msgid "Start work from anywhere"
 msgstr "Begin overal met werken"
 
-msgid "Start Workspace"
-msgstr "Werkruimte starten"
-
 msgid "Started"
 msgstr "Gestart"
 
@@ -15316,6 +15387,9 @@ msgstr "Starten"
 
 msgid "Starting {agentLabel}"
 msgstr "{agentLabel} starten"
+
+msgid "Starting a workspace on this pull request"
+msgstr "Werkruimte op deze pull request wordt gestart"
 
 msgid "Starting an agent in {what}"
 msgstr "Agent wordt gestart in {what}"
@@ -16841,6 +16915,9 @@ msgstr "Tijd"
 msgid "Time range"
 msgstr "Periode"
 
+msgid "Timeline"
+msgstr "Tijdlijn"
+
 msgid "Title"
 msgstr "Titel"
 
@@ -17721,6 +17798,9 @@ msgstr "Bekijken in GitHub"
 
 msgid "View log"
 msgstr "Log bekijken"
+
+msgid "View more"
+msgstr "Meer tonen"
 
 msgid "View on GitHub"
 msgstr "Bekijken op GitHub"

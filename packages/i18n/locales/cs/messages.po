@@ -144,6 +144,10 @@ msgstr "{0, plural, one {nalezen # existující worktree} few {nalezeny # existu
 msgid "{0, plural, one {# failed} other {# failed}}"
 msgstr "{0, plural, one {# selhalo} few {# selhalo} many {# selhalo} other {# selhalo}}"
 
+#. placeholder {0}: summary.failing
+msgid "{0, plural, one {# failing} other {# failing}}"
+msgstr "{0, plural, one {# selhává} few {# selhávají} many {# selhává} other {# selhává}}"
+
 #. placeholder {0}: detail.pullRequest.changedFiles
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# změněný soubor} few {# změněné soubory} many {# změněného souboru} other {# změněných souborů}}"
@@ -176,6 +180,10 @@ msgstr "{0, plural, one {# přihlášení} few {# přihlášení} many {# přihl
 #. placeholder {0}: summary.passed
 msgid "{0, plural, one {# passed} other {# passed}}"
 msgstr "{0, plural, one {# prošlo} few {# prošlo} many {# prošlo} other {# prošlo}}"
+
+#. placeholder {0}: summary.pending
+msgid "{0, plural, one {# pending} other {# pending}}"
+msgstr "{0, plural, one {# čeká} few {# čekají} many {# čeká} other {# čeká}}"
 
 #. placeholder {0}: chosenLeads.length
 #. placeholder {0}: chosenPeople.length
@@ -229,6 +237,10 @@ msgstr "{0, plural, one {# přeskočeno} few {# přeskočeno} many {# přeskoče
 #. placeholder {0}: subagents.length
 msgid "{0, plural, one {# subagent} other {# subagents}}"
 msgstr "{0, plural, one {# subagent} few {# subagenti} many {# subagenta} other {# subagentů}}"
+
+#. placeholder {0}: summary.passing
+msgid "{0, plural, one {# successful} other {# successful}}"
+msgstr "{0, plural, one {# úspěšná} few {# úspěšné} many {# úspěšných} other {# úspěšných}}"
 
 #. placeholder {0}: TASKS.length
 msgid "{0, plural, one {# task} other {# tasks}}"
@@ -370,6 +382,10 @@ msgstr "{0} větev"
 msgid "{0} cannot be signed in this way yet."
 msgstr "{0} se zatím nedá přihlásit tímto způsobem."
 
+#. placeholder {0}: event.actor
+msgid "{0} commented"
+msgstr "{0} okomentoval(a)"
+
 #. placeholder {0}: formatNumber(participants)
 msgid "{0} developers are ranked by agent usage. Your last 30 days are already counted, just hidden. Token counts and model names only, no repo names, file paths or prompts."
 msgstr "Počet vývojářů v žebříčku podle využití agentů: {0}. Vašich posledních 30 dní se už počítá, jen je skryto. Pouze počty tokenů a názvy modelů, žádné názvy repozitářů, cesty k souborům ani prompty."
@@ -394,10 +410,6 @@ msgstr "{0} zapnuto"
 msgid "{0} ending in {1}"
 msgstr "{0} končící na {1}"
 
-#. placeholder {0}: summary.failing
-msgid "{0} failing"
-msgstr "{0} selhává"
-
 #. placeholder {0}: collisions.length
 msgid "{0} files already exist in {where}. Do you want to replace them?"
 msgstr "V {where} už existuje {0} souborů. Chcete je nahradit?"
@@ -405,6 +417,11 @@ msgstr "V {where} už existuje {0} souborů. Chcete je nahradit?"
 #. placeholder {0}: displayName(variables.name)
 msgid "{0} installed"
 msgstr "{0} nainstalováno"
+
+#. placeholder {0}: data.head.ref
+#. placeholder {1}: data.base.ref
+msgid "{0} into {1}"
+msgstr "{0} do {1}"
 
 #. placeholder {0}: conflictDisplay.text
 #. placeholder {1}: i18n._( HOTKEYS[pendingConflict.conflictId].label, )
@@ -474,6 +491,10 @@ msgstr "{0} účtů"
 msgid "{0} of visitors"
 msgstr "{0} návštěvníků"
 
+#. placeholder {0}: event.actor
+msgid "{0} opened this pull request"
+msgstr "{0} otevřel(a) tento pull request"
+
 #. placeholder {0}: plugin.interface.displayName
 msgid "{0} options"
 msgstr "Možnosti {0}"
@@ -490,10 +511,6 @@ msgstr "Tarif {0}"
 #. placeholder {0}: normalizedProjectIds.length
 msgid "{0} projects"
 msgstr "{0} projektů"
-
-#. placeholder {0}: summary.pending
-msgid "{0} running"
-msgstr "{0} běží"
 
 #. placeholder {0}: tally.running
 msgid "{0} Running"
@@ -607,6 +624,9 @@ msgstr "{actor} přidal(a) úkol do {to}"
 msgid "{actor} added the workspace to {project}"
 msgstr "{actor} přidal(a) pracovní prostor do {project}"
 
+msgid "{actor} approved"
+msgstr "{actor} schválil(a)"
+
 msgid "{actor} archived the workspace"
 msgstr "{actor} archivoval pracovní prostor"
 
@@ -676,6 +696,12 @@ msgstr "{actor} přejmenoval(a) úkol na {title}"
 #. placeholder {0}: entry.to
 msgid "{actor} renamed the workspace to <0>{0}</0>"
 msgstr "{actor} přejmenoval(a) pracovní prostor na <0>{0}</0>"
+
+msgid "{actor} requested changes"
+msgstr "{actor} požádal(a) o změny"
+
+msgid "{actor} reviewed"
+msgstr "{actor} zrevidoval(a)"
 
 msgid "{actor} set the priority to {to}"
 msgstr "{actor} nastavil(a) prioritu na {to}"
@@ -806,9 +832,6 @@ msgstr "{count} hostitelů používá starší službu hostitele než tato aplik
 
 msgid "{count}/day"
 msgstr "{count}/den"
-
-msgid "{createdAtRelative} ago"
-msgstr "před {createdAtRelative}"
 
 msgid "{currentPage} of {totalBranches}"
 msgstr "{currentPage} z {totalBranches}"
@@ -1866,6 +1889,10 @@ msgstr "Relace agenta spuštěna"
 msgid "agent settings"
 msgstr "nastavení agenta"
 
+#. placeholder {0}: agent.label
+msgid "Agent: {0}"
+msgstr "Agent: {0}"
+
 msgid "Agents"
 msgstr "Agenti"
 
@@ -1947,10 +1974,6 @@ msgstr "Všech {0} kontrol prošlo"
 #. placeholder {0}: gaps.length
 msgid "All {0} objectives are carrying their weight for {nextLabel}."
 msgstr "Všechny cíle ({0}) táhnou na {nextLabel}."
-
-#. placeholder {0}: summary.relevantChecks.length
-msgid "All {0} passed"
-msgstr "Všech {0} prošlo"
 
 msgid "All {versionCount} versions and their content are removed. Anyone with the link loses access."
 msgstr "Odstraní se všechny verze ({versionCount}) i jejich obsah. Kdokoli s odkazem ztratí přístup."
@@ -2437,6 +2460,9 @@ msgstr "Podle posledního hlášení. Hostitel musí být online, aby se mohl ak
 msgid "ascending"
 msgstr "vzestupně"
 
+msgid "Ask about this pull request"
+msgstr "Zeptat se na tento pull request"
+
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "Požádejte agenta, aby nějakou publikoval z desktopové aplikace."
 
@@ -2445,6 +2471,9 @@ msgstr "Žádat o schválení"
 
 msgid "Ask for this to be removed"
 msgstr "Požádat o odstranění"
+
+msgid "Ask the agent"
+msgstr "Zeptat se agenta"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "Zeptejte se agenta, @zmiňte soubory, spusťte /příkazy"
@@ -2940,9 +2969,6 @@ msgstr "Větev"
 msgid "Branch behavior for new workspaces on this device. Projects can override the prefix individually."
 msgstr "Chování větví u nových pracovních prostorů na tomto zařízení. Projekty si prefix mohou nastavit samostatně."
 
-msgid "Branch copied"
-msgstr "Větev zkopírována"
-
 msgid "Branch in a new worktree"
 msgstr "Rozvětvit do nového worktree"
 
@@ -3181,6 +3207,9 @@ msgstr "Můžu kdykoli změnit tarif nebo ho zrušit?"
 
 msgid "Can I use my own API keys?"
 msgstr "Můžu použít vlastní API klíče?"
+
+msgid "Can merge without conflicts"
+msgstr "Lze sloučit bez konfliktů"
 
 msgid "Can you standardize the tooltips across the app?"
 msgstr "Můžeš sjednotit tooltipy napříč aplikací?"
@@ -3643,9 +3672,6 @@ msgstr "Pokud nedojde k přesměrování, klikněte sem"
 msgid "Click the “↑ update” pill to see the pre-update confirm"
 msgstr "Kliknutím na „↑ update“ zobrazíte potvrzení před aktualizací"
 
-msgid "Click to copy"
-msgstr "Kliknutím zkopírujete"
-
 msgid "Click to copy the session ID (resume with `claude --resume <id>`)."
 msgstr "Kliknutím zkopírujete ID relace (pokračování přes `claude --resume <id>`)."
 
@@ -3840,9 +3866,6 @@ msgstr "Zavřením této karty ukončíte běžící proces."
 msgid "Closing this terminal will end the running process."
 msgstr "Zavřením tohoto terminálu ukončíte běžící proces."
 
-msgid "Closing…"
-msgstr "Zavírání…"
-
 msgid "Cloud"
 msgstr "Cloud"
 
@@ -4007,6 +4030,13 @@ msgstr "Komentáře se nepodařilo načíst"
 msgid "Commit"
 msgstr "Commitnout"
 
+msgid "Commit {short}"
+msgstr "Commit {short}"
+
+#. placeholder {0}: event.actor
+msgid "Commit {short} by {0}"
+msgstr "Commit {short} od {0}"
+
 #. placeholder {0}: error.message
 msgid "Commit failed: {0}"
 msgstr "Commit se nezdařil: {0}"
@@ -4119,6 +4149,10 @@ msgstr "Nastavit spouštěcí příkaz pracovního prostoru"
 
 msgid "Confirm before quitting"
 msgstr "Potvrdit před ukončením"
+
+#. placeholder {0}: status.baseBranch
+msgid "Conflicts with {0}"
+msgstr "Konflikty s {0}"
 
 msgid "Connect"
 msgstr "Připojit"
@@ -4817,6 +4851,9 @@ msgstr "Nepodařilo se aktualizovat větev"
 msgid "serverError.plugins.credentialUnverified"
 msgstr "Přihlašovací údaje se nepodařilo ověřit: {reason}"
 
+msgid "Couldn't ask about this pull request"
+msgstr "Na tento pull request se nepodařilo zeptat"
+
 msgid "Couldn't ask the workspace for a description"
 msgstr "Nepodařilo se požádat pracovní prostor o popis"
 
@@ -4838,11 +4875,11 @@ msgstr "Nepodařilo se ověřit stav hvězdy — zkontrolujte, že je nainstalov
 msgid "Couldn't connect (error {status}). Please try again."
 msgstr "Připojení se nezdařilo (chyba {status}). Zkuste to znovu."
 
-msgid "Couldn't copy branch name"
-msgstr "Název větve se nepodařilo zkopírovat"
-
 msgid "Couldn't copy comment"
 msgstr "Komentář se nepodařilo zkopírovat"
+
+msgid "Couldn't copy link"
+msgstr "Odkaz se nepodařilo zkopírovat"
 
 msgid "Couldn't copy path"
 msgstr "Nepodařilo se zkopírovat cestu"
@@ -6233,9 +6270,6 @@ msgstr "Upravit"
 
 msgid "Edit comment"
 msgstr "Upravit komentář"
-
-msgid "Edit description"
-msgstr "Upravit popis"
 
 msgid "Edit environment"
 msgstr "Upravit prostředí"
@@ -7849,6 +7883,9 @@ msgstr "právě probíhá"
 
 msgid "Hard reload"
 msgstr "Vynucené načtení znovu"
+
+msgid "Has conflicts"
+msgstr "Má konflikty"
 
 msgid "Has uncommitted changes"
 msgstr "Obsahuje necommitnuté změny"
@@ -9594,6 +9631,12 @@ msgstr "Sloučit pull request"
 msgid "Merge pull requests without leaving Superset, plus a round of chat fixes and polish."
 msgstr "Slučujte pull requesty bez opuštění Superset, k tomu kolo oprav a vypilování chatu."
 
+msgid "Merge status"
+msgstr "Stav sloučení"
+
+msgid "Merge status unknown"
+msgstr "Stav sloučení neznámý"
+
 msgid "Merge when checks pass"
 msgstr "Sloučit, až projdou kontroly"
 
@@ -9821,6 +9864,9 @@ msgstr "Víc než polovinu sloučených změn napíší agenti bez jediné lidsk
 #. js-lingui-explicit-id
 msgid "serverError.plugins.ambiguousConnection"
 msgstr "Odpovídá více připojení {connector}; odpojte to, které nechcete."
+
+msgid "More ways to use this pull request"
+msgstr "Další možnosti práce s tímto pull requestem"
 
 msgid "most developers"
 msgstr "většina vývojářů"
@@ -10267,9 +10313,6 @@ msgstr "Žádné kontroly"
 msgid "No checks reported"
 msgstr "Žádné hlášené kontroly"
 
-msgid "No checks reported for the latest commit."
-msgstr "K poslednímu commitu nejsou hlášeny žádné kontroly."
-
 msgid "No checks reported."
 msgstr "Žádné hlášené kontroly."
 
@@ -10296,6 +10339,9 @@ msgstr "Nenalezeny žádné příkazy."
 
 msgid "No comment body"
 msgstr "Bez textu komentáře"
+
+msgid "No comments"
+msgstr "Žádné komentáře"
 
 msgid "No comments on this page yet"
 msgstr "Na této stránce zatím nejsou žádné komentáře"
@@ -11421,9 +11467,6 @@ msgstr "Otevřít pull request #{0}"
 
 msgid "Open pull request #{number}"
 msgstr "Otevřít pull request #{number}"
-
-msgid "Open pull request in GitHub"
-msgstr "Otevřít pull request na GitHubu"
 
 msgid "Open pull request options"
 msgstr "Otevřít možnosti pull requestu"
@@ -12567,6 +12610,21 @@ msgstr "Pull request #{0}, {1}"
 msgid "Pull request actions"
 msgstr "Akce pull requestu"
 
+msgid "Pull request closed"
+msgstr "Pull request uzavřen"
+
+msgid "Pull request detail tabs"
+msgstr "Karty detailu pull requestu"
+
+msgid "Pull request merged"
+msgstr "Pull request sloučen"
+
+msgid "Pull request not found"
+msgstr "Pull request nenalezen"
+
+msgid "Pull request opened"
+msgstr "Pull request otevřen"
+
 msgid "Pull request title"
 msgstr "Název pull requestu"
 
@@ -13229,6 +13287,9 @@ msgstr "Dosah repozitáře a stažení desktopových vydání. Instalace jsou st
 msgid "Repository URL or path"
 msgstr "URL nebo cesta repozitáře"
 
+msgid "Request"
+msgstr "Vyžádat"
+
 msgid "Request a trial"
 msgstr "Požádat o zkušební verzi"
 
@@ -13333,6 +13394,10 @@ msgstr "Vyřešit konverzaci"
 
 msgid "Resolve Conversations to Merge"
 msgstr "Pro sloučení vyřešte konverzace"
+
+#. placeholder {0}: data.base.ref
+msgid "Resolve the conflicts with {0} first"
+msgstr "Nejprve vyřešte konflikty s {0}"
 
 msgid "resolve the workspace path"
 msgstr "určit cestu k pracovnímu prostoru"
@@ -14373,6 +14438,9 @@ msgstr "Odesílám"
 msgid "Sending a message to {what}"
 msgstr "Odesílá se zpráva do {what}"
 
+msgid "Sending to agent"
+msgstr "Odesílání agentovi"
+
 msgid "Sending..."
 msgstr "Odesílám..."
 
@@ -14390,6 +14458,9 @@ msgstr "Odesláno"
 
 msgid "Sent to agent"
 msgstr "Odesláno agentovi"
+
+msgid "Sent to the pull request's workspace"
+msgstr "Odesláno do pracovního prostoru pull requestu"
 
 msgid "Sentry rejected the token"
 msgstr "Sentry token odmítl"
@@ -14646,6 +14717,9 @@ msgstr "Zobrazit e-maily"
 
 msgid "Show everyone who opened this workspace"
 msgstr "Zobrazit všechny, kdo otevřeli tento pracovní prostor"
+
+msgid "Show fewer"
+msgstr "Zobrazit méně"
 
 msgid "Show file tree"
 msgstr "Zobrazit strom souborů"
@@ -15299,9 +15373,6 @@ msgstr "Začněte prací."
 msgid "Start work from anywhere"
 msgstr "Začněte pracovat odkudkoli"
 
-msgid "Start Workspace"
-msgstr "Spustit pracovní prostor"
-
 msgid "Started"
 msgstr "Zahájeno"
 
@@ -15316,6 +15387,9 @@ msgstr "Spouštím"
 
 msgid "Starting {agentLabel}"
 msgstr "Spouštím {agentLabel}"
+
+msgid "Starting a workspace on this pull request"
+msgstr "Spouští se pracovní prostor pro tento pull request"
 
 msgid "Starting an agent in {what}"
 msgstr "Spouští se agent v {what}"
@@ -16841,6 +16915,9 @@ msgstr "Čas"
 msgid "Time range"
 msgstr "Časové období"
 
+msgid "Timeline"
+msgstr "Časová osa"
+
 msgid "Title"
 msgstr "Název"
 
@@ -17721,6 +17798,9 @@ msgstr "Zobrazit na GitHubu"
 
 msgid "View log"
 msgstr "Zobrazit log"
+
+msgid "View more"
+msgstr "Zobrazit více"
 
 msgid "View on GitHub"
 msgstr "Zobrazit na GitHubu"

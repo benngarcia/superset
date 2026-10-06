@@ -144,6 +144,10 @@ msgstr "{0, plural, one {Znaleziono # istniejący worktree} few {Znaleziono # is
 msgid "{0, plural, one {# failed} other {# failed}}"
 msgstr "{0, plural, one {# nieudany} few {# nieudane} many {# nieudanych} other {# nieudanego}}"
 
+#. placeholder {0}: summary.failing
+msgid "{0, plural, one {# failing} other {# failing}}"
+msgstr "{0, plural, one {# nieudany} few {# nieudane} many {# nieudanych} other {# nieudanego}}"
+
 #. placeholder {0}: detail.pullRequest.changedFiles
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# zmieniony plik} few {# zmienione pliki} many {# zmienionych plików} other {# zmienionego pliku}}"
@@ -176,6 +180,10 @@ msgstr "{0, plural, one {# logowanie} few {# logowania} many {# logowań} other 
 #. placeholder {0}: summary.passed
 msgid "{0, plural, one {# passed} other {# passed}}"
 msgstr "{0, plural, one {# zaliczony} few {# zaliczone} many {# zaliczonych} other {# zaliczonego}}"
+
+#. placeholder {0}: summary.pending
+msgid "{0, plural, one {# pending} other {# pending}}"
+msgstr "{0, plural, one {# oczekujący} few {# oczekujące} many {# oczekujących} other {# oczekującego}}"
 
 #. placeholder {0}: chosenLeads.length
 #. placeholder {0}: chosenPeople.length
@@ -229,6 +237,10 @@ msgstr "{0, plural, one {# pominięty} few {# pominięte} many {# pominiętych} 
 #. placeholder {0}: subagents.length
 msgid "{0, plural, one {# subagent} other {# subagents}}"
 msgstr "{0, plural, one {# subagent} few {# subagenty} many {# subagentów} other {# subagenta}}"
+
+#. placeholder {0}: summary.passing
+msgid "{0, plural, one {# successful} other {# successful}}"
+msgstr "{0, plural, one {# udany} few {# udane} many {# udanych} other {# udanego}}"
 
 #. placeholder {0}: TASKS.length
 msgid "{0, plural, one {# task} other {# tasks}}"
@@ -370,6 +382,10 @@ msgstr "gałąź {0}"
 msgid "{0} cannot be signed in this way yet."
 msgstr "{0} nie może się jeszcze zalogować w ten sposób."
 
+#. placeholder {0}: event.actor
+msgid "{0} commented"
+msgstr "{0} skomentował(a)"
+
 #. placeholder {0}: formatNumber(participants)
 msgid "{0} developers are ranked by agent usage. Your last 30 days are already counted, just hidden. Token counts and model names only, no repo names, file paths or prompts."
 msgstr "{0} deweloperów jest w rankingu według użycia agentów. Twoje ostatnie 30 dni już się liczy — tylko jest ukryte. Tylko liczby tokenów i nazwy modeli, żadnych nazw repozytoriów, ścieżek plików ani promptów."
@@ -394,10 +410,6 @@ msgstr "{0} włączona"
 msgid "{0} ending in {1}"
 msgstr "{0} kończąca się na {1}"
 
-#. placeholder {0}: summary.failing
-msgid "{0} failing"
-msgstr "{0} nieudanych"
-
 #. placeholder {0}: collisions.length
 msgid "{0} files already exist in {where}. Do you want to replace them?"
 msgstr "W {where} istnieje już {0} plików. Czy chcesz je zastąpić?"
@@ -405,6 +417,11 @@ msgstr "W {where} istnieje już {0} plików. Czy chcesz je zastąpić?"
 #. placeholder {0}: displayName(variables.name)
 msgid "{0} installed"
 msgstr "{0} zainstalowana"
+
+#. placeholder {0}: data.head.ref
+#. placeholder {1}: data.base.ref
+msgid "{0} into {1}"
+msgstr "{0} do {1}"
 
 #. placeholder {0}: conflictDisplay.text
 #. placeholder {1}: i18n._( HOTKEYS[pendingConflict.conflictId].label, )
@@ -474,6 +491,10 @@ msgstr "{0} kont"
 msgid "{0} of visitors"
 msgstr "{0} odwiedzających"
 
+#. placeholder {0}: event.actor
+msgid "{0} opened this pull request"
+msgstr "{0} otworzył(a) ten pull request"
+
 #. placeholder {0}: plugin.interface.displayName
 msgid "{0} options"
 msgstr "Opcje {0}"
@@ -490,10 +511,6 @@ msgstr "Plan {0}"
 #. placeholder {0}: normalizedProjectIds.length
 msgid "{0} projects"
 msgstr "projekty: {0}"
-
-#. placeholder {0}: summary.pending
-msgid "{0} running"
-msgstr "{0} w toku"
 
 #. placeholder {0}: tally.running
 msgid "{0} Running"
@@ -607,6 +624,9 @@ msgstr "{actor} dodał(a) zadanie do {to}"
 msgid "{actor} added the workspace to {project}"
 msgstr "{actor} dodał(a) obszar roboczy do {project}"
 
+msgid "{actor} approved"
+msgstr "{actor} zatwierdził(a)"
+
 msgid "{actor} archived the workspace"
 msgstr "{actor} zarchiwizował(a) obszar roboczy"
 
@@ -676,6 +696,12 @@ msgstr "{actor} zmienił(a) nazwę zadania na {title}"
 #. placeholder {0}: entry.to
 msgid "{actor} renamed the workspace to <0>{0}</0>"
 msgstr "{actor} zmienił(a) nazwę obszaru roboczego na <0>{0}</0>"
+
+msgid "{actor} requested changes"
+msgstr "{actor} poprosił(a) o zmiany"
+
+msgid "{actor} reviewed"
+msgstr "{actor} zrecenzował(a)"
 
 msgid "{actor} set the priority to {to}"
 msgstr "{actor} ustawił(a) priorytet na {to}"
@@ -806,9 +832,6 @@ msgstr "{count} hostów działa na starszej usłudze hosta niż ta aplikacja"
 
 msgid "{count}/day"
 msgstr "{count}/dzień"
-
-msgid "{createdAtRelative} ago"
-msgstr "{createdAtRelative} temu"
 
 msgid "{currentPage} of {totalBranches}"
 msgstr "{currentPage} z {totalBranches}"
@@ -1866,6 +1889,10 @@ msgstr "Sesja agenta uruchomiona"
 msgid "agent settings"
 msgstr "ustawienia agenta"
 
+#. placeholder {0}: agent.label
+msgid "Agent: {0}"
+msgstr "Agent: {0}"
+
 msgid "Agents"
 msgstr "Agenci"
 
@@ -1947,10 +1974,6 @@ msgstr "Wszystkie {0} kontrole przeszły"
 #. placeholder {0}: gaps.length
 msgid "All {0} objectives are carrying their weight for {nextLabel}."
 msgstr "Wszystkie cele ({0}) pracują na {nextLabel}."
-
-#. placeholder {0}: summary.relevantChecks.length
-msgid "All {0} passed"
-msgstr "Wszystkie {0} przeszły"
 
 msgid "All {versionCount} versions and their content are removed. Anyone with the link loses access."
 msgstr "Wszystkie wersje ({versionCount}) i ich treść zostaną usunięte. Każdy z linkiem straci dostęp."
@@ -2437,6 +2460,9 @@ msgstr "Według ostatniego zgłoszenia. Host musi być online, aby się zaktuali
 msgid "ascending"
 msgstr "rosnąco"
 
+msgid "Ask about this pull request"
+msgstr "Zapytaj o ten pull request"
+
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "Poproś agenta, aby opublikował jakąś z aplikacji na komputer."
 
@@ -2445,6 +2471,9 @@ msgstr "Proś o zatwierdzenie"
 
 msgid "Ask for this to be removed"
 msgstr "Poproś o usunięcie"
+
+msgid "Ask the agent"
+msgstr "Zapytaj agenta"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "Zapytaj agenta, @wspomnij pliki, użyj /poleceń"
@@ -2940,9 +2969,6 @@ msgstr "Gałąź"
 msgid "Branch behavior for new workspaces on this device. Projects can override the prefix individually."
 msgstr "Zachowanie gałęzi dla nowych obszarów roboczych na tym urządzeniu. Projekty mogą nadpisać prefiks osobno."
 
-msgid "Branch copied"
-msgstr "Skopiowano gałąź"
-
 msgid "Branch in a new worktree"
 msgstr "Rozgałęź w nowym worktree"
 
@@ -3181,6 +3207,9 @@ msgstr "Czy mogę zmienić plan lub anulować w każdej chwili?"
 
 msgid "Can I use my own API keys?"
 msgstr "Czy mogę używać własnych kluczy API?"
+
+msgid "Can merge without conflicts"
+msgstr "Można scalić bez konfliktów"
 
 msgid "Can you standardize the tooltips across the app?"
 msgstr "Czy możesz ujednolicić tooltipy w całej aplikacji?"
@@ -3643,9 +3672,6 @@ msgstr "Kliknij tutaj, jeśli przekierowanie nie nastąpi"
 msgid "Click the “↑ update” pill to see the pre-update confirm"
 msgstr "Kliknij „↑ update”, aby zobaczyć potwierdzenie przed aktualizacją"
 
-msgid "Click to copy"
-msgstr "Kliknij, aby skopiować"
-
 msgid "Click to copy the session ID (resume with `claude --resume <id>`)."
 msgstr "Kliknij, aby skopiować ID sesji (wznów przez `claude --resume <id>`)."
 
@@ -3840,9 +3866,6 @@ msgstr "Zamknięcie tej karty zakończy działający proces."
 msgid "Closing this terminal will end the running process."
 msgstr "Zamknięcie tego terminala zakończy działający proces."
 
-msgid "Closing…"
-msgstr "Zamykanie…"
-
 msgid "Cloud"
 msgstr "Chmura"
 
@@ -4007,6 +4030,13 @@ msgstr "Nie udało się wczytać komentarzy"
 msgid "Commit"
 msgstr "Commituj"
 
+msgid "Commit {short}"
+msgstr "Commit {short}"
+
+#. placeholder {0}: event.actor
+msgid "Commit {short} by {0}"
+msgstr "Commit {short} od {0}"
+
 #. placeholder {0}: error.message
 msgid "Commit failed: {0}"
 msgstr "Commit nie powiódł się: {0}"
@@ -4119,6 +4149,10 @@ msgstr "Skonfiguruj polecenie uruchamiania obszaru roboczego"
 
 msgid "Confirm before quitting"
 msgstr "Potwierdzaj przed zamknięciem"
+
+#. placeholder {0}: status.baseBranch
+msgid "Conflicts with {0}"
+msgstr "Konflikty z {0}"
 
 msgid "Connect"
 msgstr "Połącz"
@@ -4817,6 +4851,9 @@ msgstr "Nie udało się zaktualizować gałęzi"
 msgid "serverError.plugins.credentialUnverified"
 msgstr "Nie udało się zweryfikować poświadczeń: {reason}"
 
+msgid "Couldn't ask about this pull request"
+msgstr "Nie udało się zapytać o ten pull request"
+
 msgid "Couldn't ask the workspace for a description"
 msgstr "Nie udało się poprosić obszaru roboczego o opis"
 
@@ -4838,11 +4875,11 @@ msgstr "Nie udało się potwierdzić statusu gwiazdki — sprawdź, czy GitHub C
 msgid "Couldn't connect (error {status}). Please try again."
 msgstr "Nie udało się połączyć (błąd {status}). Spróbuj ponownie."
 
-msgid "Couldn't copy branch name"
-msgstr "Nie udało się skopiować nazwy gałęzi"
-
 msgid "Couldn't copy comment"
 msgstr "Nie udało się skopiować komentarza"
+
+msgid "Couldn't copy link"
+msgstr "Nie udało się skopiować linku"
 
 msgid "Couldn't copy path"
 msgstr "Nie udało się skopiować ścieżki"
@@ -6233,9 +6270,6 @@ msgstr "Edytuj"
 
 msgid "Edit comment"
 msgstr "Edytuj komentarz"
-
-msgid "Edit description"
-msgstr "Edytuj opis"
 
 msgid "Edit environment"
 msgstr "Edytuj środowisko"
@@ -7849,6 +7883,9 @@ msgstr "trwa teraz"
 
 msgid "Hard reload"
 msgstr "Twarde przeładowanie"
+
+msgid "Has conflicts"
+msgstr "Ma konflikty"
 
 msgid "Has uncommitted changes"
 msgstr "Ma niezacommitowane zmiany"
@@ -9594,6 +9631,12 @@ msgstr "Scal pull request"
 msgid "Merge pull requests without leaving Superset, plus a round of chat fixes and polish."
 msgstr "Scalaj pull requesty bez wychodzenia z Superset, plus porcja poprawek i szlifów czatu."
 
+msgid "Merge status"
+msgstr "Stan scalania"
+
+msgid "Merge status unknown"
+msgstr "Stan scalania nieznany"
+
 msgid "Merge when checks pass"
 msgstr "Scal, gdy kontrole przejdą"
 
@@ -9821,6 +9864,9 @@ msgstr "Ponad połowa scalonych zmian jest napisana przez agentów bez żadnych 
 #. js-lingui-explicit-id
 msgid "serverError.plugins.ambiguousConnection"
 msgstr "Pasuje więcej niż jedno połączenie {connector}; rozłącz to, którego nie chcesz."
+
+msgid "More ways to use this pull request"
+msgstr "Więcej sposobów użycia tego pull requesta"
 
 msgid "most developers"
 msgstr "większość programistów"
@@ -10267,9 +10313,6 @@ msgstr "Brak kontroli"
 msgid "No checks reported"
 msgstr "Brak zgłoszonych kontroli"
 
-msgid "No checks reported for the latest commit."
-msgstr "Brak kontroli dla ostatniego commita."
-
 msgid "No checks reported."
 msgstr "Brak zgłoszonych kontroli."
 
@@ -10296,6 +10339,9 @@ msgstr "Nie znaleziono poleceń."
 
 msgid "No comment body"
 msgstr "Brak treści komentarza"
+
+msgid "No comments"
+msgstr "Brak komentarzy"
 
 msgid "No comments on this page yet"
 msgstr "Brak komentarzy na tej stronie"
@@ -11421,9 +11467,6 @@ msgstr "Otwórz pull request #{0}"
 
 msgid "Open pull request #{number}"
 msgstr "Otwórz pull request #{number}"
-
-msgid "Open pull request in GitHub"
-msgstr "Otwórz pull request w GitHub"
 
 msgid "Open pull request options"
 msgstr "Otwórz opcje pull requesta"
@@ -12567,6 +12610,21 @@ msgstr "Pull request #{0}, {1}"
 msgid "Pull request actions"
 msgstr "Akcje pull requesta"
 
+msgid "Pull request closed"
+msgstr "Pull request zamknięty"
+
+msgid "Pull request detail tabs"
+msgstr "Karty szczegółów pull requesta"
+
+msgid "Pull request merged"
+msgstr "Pull request scalony"
+
+msgid "Pull request not found"
+msgstr "Nie znaleziono pull requesta"
+
+msgid "Pull request opened"
+msgstr "Pull request otwarty"
+
 msgid "Pull request title"
 msgstr "Tytuł pull requesta"
 
@@ -13229,6 +13287,9 @@ msgstr "Zasięg repozytorium i pobrania wydań desktopowych. Instalacje to pobra
 msgid "Repository URL or path"
 msgstr "URL repozytorium lub ścieżka"
 
+msgid "Request"
+msgstr "Poproś"
+
 msgid "Request a trial"
 msgstr "Poproś o wersję próbną"
 
@@ -13333,6 +13394,10 @@ msgstr "Rozwiąż konwersację"
 
 msgid "Resolve Conversations to Merge"
 msgstr "Rozwiąż konwersacje, aby scalić"
+
+#. placeholder {0}: data.base.ref
+msgid "Resolve the conflicts with {0} first"
+msgstr "Najpierw rozwiąż konflikty z {0}"
 
 msgid "resolve the workspace path"
 msgstr "ustalić ścieżki obszaru roboczego"
@@ -14373,6 +14438,9 @@ msgstr "Wysyłanie"
 msgid "Sending a message to {what}"
 msgstr "Wysyłanie wiadomości do {what}"
 
+msgid "Sending to agent"
+msgstr "Wysyłanie do agenta"
+
 msgid "Sending..."
 msgstr "Wysyłanie..."
 
@@ -14390,6 +14458,9 @@ msgstr "Wysłano"
 
 msgid "Sent to agent"
 msgstr "Wysłano do agenta"
+
+msgid "Sent to the pull request's workspace"
+msgstr "Wysłano do obszaru roboczego pull requesta"
 
 msgid "Sentry rejected the token"
 msgstr "Sentry odrzucił token"
@@ -14646,6 +14717,9 @@ msgstr "Pokaż adresy e-mail"
 
 msgid "Show everyone who opened this workspace"
 msgstr "Pokaż wszystkich, którzy otworzyli ten obszar roboczy"
+
+msgid "Show fewer"
+msgstr "Pokaż mniej"
 
 msgid "Show file tree"
 msgstr "Pokaż drzewo plików"
@@ -15299,9 +15373,6 @@ msgstr "Zacznij od pracy."
 msgid "Start work from anywhere"
 msgstr "Zacznij pracę z dowolnego miejsca"
 
-msgid "Start Workspace"
-msgstr "Uruchom obszar roboczy"
-
 msgid "Started"
 msgstr "Rozpoczęto"
 
@@ -15316,6 +15387,9 @@ msgstr "Uruchamianie"
 
 msgid "Starting {agentLabel}"
 msgstr "Uruchamianie {agentLabel}"
+
+msgid "Starting a workspace on this pull request"
+msgstr "Uruchamianie obszaru roboczego dla tego pull requesta"
 
 msgid "Starting an agent in {what}"
 msgstr "Uruchamianie agenta w {what}"
@@ -16841,6 +16915,9 @@ msgstr "Czas"
 msgid "Time range"
 msgstr "Zakres czasu"
 
+msgid "Timeline"
+msgstr "Oś czasu"
+
 msgid "Title"
 msgstr "Tytuł"
 
@@ -17721,6 +17798,9 @@ msgstr "Zobacz w GitHub"
 
 msgid "View log"
 msgstr "Zobacz log"
+
+msgid "View more"
+msgstr "Pokaż więcej"
 
 msgid "View on GitHub"
 msgstr "Zobacz na GitHub"

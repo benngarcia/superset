@@ -4,8 +4,9 @@ import {
 	isSamePullRequest,
 	pullRequestRefFromUrl,
 } from "renderer/lib/github/pullRequestRef";
+import { PullRequestActions } from "renderer/routes/_authenticated/_dashboard/pull-requests/components/PullRequestActions";
+import { PullRequestAskComposer } from "renderer/routes/_authenticated/_dashboard/pull-requests/components/PullRequestAskComposer";
 import { PullRequestDetailContent } from "renderer/routes/_authenticated/_dashboard/pull-requests/components/PullRequestDetailContent";
-import { PullRequestDetailHeader } from "renderer/routes/_authenticated/_dashboard/pull-requests/components/PullRequestDetailHeader";
 import {
 	type PullRequestDetailTab,
 	PullRequestDetailTabs,
@@ -61,24 +62,42 @@ export function PullRequestPane({
 		[isLinkedPR, threads.data, linkedPR.data?.url],
 	);
 	const onOpenInDiff = useReviewCommentNavigation(workspace.id, onOpenDiff);
+	const projectId = isLinkedPR ? workspace.projectId : null;
+	const hostId = isLinkedPR ? workspace.hostId : null;
+	const hostUrl = isLinkedPR ? workspaceHostUrl : null;
+	const diffStat =
+		detail.data?.additions !== undefined && detail.data.deletions !== undefined
+			? { additions: detail.data.additions, deletions: detail.data.deletions }
+			: null;
+	const composer =
+		detail.data && projectId && hostId && hostUrl ? (
+			<PullRequestAskComposer
+				projectId={projectId}
+				hostId={hostId}
+				hostUrl={hostUrl}
+				data={detail.data}
+			/>
+		) : null;
 
 	return (
-		<div className="@container flex h-full w-full min-h-0 min-w-0 flex-col">
-			<div className="flex shrink-0 flex-col border-b border-border pt-3">
-				<PullRequestDetailHeader
-					projectId={isLinkedPR ? workspace.projectId : null}
-					hostId={isLinkedPR ? workspace.hostId : null}
-					hostUrl={isLinkedPR ? workspaceHostUrl : null}
-					prNumber={data.number}
-					data={detail.data}
-					isLoading={detail.isLoading}
-					showStartWorkspace={false}
-				/>
+		<div className="flex h-full w-full min-h-0 min-w-0 flex-col">
+			<div className="flex min-h-11 shrink-0 flex-wrap items-center gap-x-2 gap-y-1 border-b border-border px-3 py-1.5">
 				<PullRequestDetailTabs
 					activeTab={activeTab}
 					onTabChange={setActiveTab}
-					className="px-4 pb-2"
+					diffStat={diffStat}
 				/>
+				<div className="ml-auto flex shrink-0 items-center">
+					<PullRequestActions
+						projectId={projectId}
+						hostId={hostId}
+						hostUrl={hostUrl}
+						prNumber={data.number}
+						data={detail.data}
+						isLoading={detail.isLoading}
+						showStartWorkspace={false}
+					/>
+				</div>
 			</div>
 			<PullRequestDetailContent
 				activeTab={activeTab}
@@ -88,6 +107,7 @@ export function PullRequestPane({
 				prNumber={data.number}
 				hostUrl={workspaceHostUrl}
 				hostId={workspace.hostId}
+				composer={composer}
 			>
 				{isLinkedPR ? (
 					<PullRequestComments

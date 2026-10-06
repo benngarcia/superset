@@ -4,6 +4,7 @@ import type { HostServiceContext } from "../../../../types";
 import { createCallerFactory, router } from "../../../index";
 import * as projects from "../../workspace-creation/shared/project-helpers";
 import * as gh from "../../workspace-creation/utils/exec-gh";
+import { PULL_REQUEST_CONTENT_JSON_FIELDS } from "../shared/fetch-pull-request-content";
 import { evictPullRequestContent } from "../shared/pull-request-content-cache";
 import { getContent } from "./get-content";
 import { getContentByRepo } from "./get-content-by-repo";
@@ -41,6 +42,18 @@ const expectedContent = {
 	updatedAt: undefined,
 	checks: [],
 	checksStatus: "none" as const,
+	mergedAt: null,
+	closedAt: null,
+	mergeability: "unknown" as const,
+	mergeStateStatus: null,
+	additions: 0,
+	deletions: 0,
+	changedFiles: 0,
+	reviewDecision: null,
+	reviewers: [],
+	comments: [],
+	commits: [],
+	labels: [],
 };
 
 afterEach(() => mock.restore());
@@ -62,7 +75,7 @@ test("reads repository content without a project and preserves the legacy output
 		"--repo",
 		"owner/direct",
 		"--json",
-		"number,title,body,url,state,author,headRefName,baseRefName,headRepositoryOwner,isCrossRepository,isDraft,createdAt,updatedAt,statusCheckRollup",
+		PULL_REQUEST_CONTENT_JSON_FIELDS,
 	]);
 });
 

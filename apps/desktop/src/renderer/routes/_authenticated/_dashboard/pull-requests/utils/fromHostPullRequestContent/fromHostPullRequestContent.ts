@@ -40,5 +40,19 @@ export function fromHostPullRequestContent(
 		checks: content.checks,
 		createdAt: content.createdAt ?? "",
 		updatedAt: content.updatedAt ?? "",
+		// Hosts older than the extended read answer without these; the detail
+		// view treats each absent field as unknown rather than empty.
+		...(content.mergeability !== undefined && {
+			additions: content.additions,
+			deletions: content.deletions,
+			changedFiles: content.changedFiles,
+			mergeability: content.mergeability,
+			mergedAt: content.mergedAt,
+			closedAt: content.closedAt,
+			reviewers: content.reviewers,
+			comments: content.comments,
+			commits: content.commits,
+			labels: content.labels,
+		}),
 	};
 }

@@ -144,6 +144,10 @@ msgstr "{0, plural, one {# mevcut worktree bulundu} other {# mevcut worktree bul
 msgid "{0, plural, one {# failed} other {# failed}}"
 msgstr "{0, plural, one {# başarısız} other {# başarısız}}"
 
+#. placeholder {0}: summary.failing
+msgid "{0, plural, one {# failing} other {# failing}}"
+msgstr "{0, plural, one {# başarısız} other {# başarısız}}"
+
 #. placeholder {0}: detail.pullRequest.changedFiles
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# dosya değişti} other {# dosya değişti}}"
@@ -176,6 +180,10 @@ msgstr "{0, plural, one {# oturum bilgisi} other {# oturum bilgisi}}"
 #. placeholder {0}: summary.passed
 msgid "{0, plural, one {# passed} other {# passed}}"
 msgstr "{0, plural, one {# geçti} other {# geçti}}"
+
+#. placeholder {0}: summary.pending
+msgid "{0, plural, one {# pending} other {# pending}}"
+msgstr "{0, plural, one {# beklemede} other {# beklemede}}"
 
 #. placeholder {0}: chosenLeads.length
 #. placeholder {0}: chosenPeople.length
@@ -229,6 +237,10 @@ msgstr "{0, plural, one {# atlandı} other {# atlandı}}"
 #. placeholder {0}: subagents.length
 msgid "{0, plural, one {# subagent} other {# subagents}}"
 msgstr "{0, plural, one {# alt ajan} other {# alt ajan}}"
+
+#. placeholder {0}: summary.passing
+msgid "{0, plural, one {# successful} other {# successful}}"
+msgstr "{0, plural, one {# başarılı} other {# başarılı}}"
 
 #. placeholder {0}: TASKS.length
 msgid "{0, plural, one {# task} other {# tasks}}"
@@ -370,6 +382,10 @@ msgstr "{0} dalı"
 msgid "{0} cannot be signed in this way yet."
 msgstr "{0} henüz bu şekilde oturum açamıyor."
 
+#. placeholder {0}: event.actor
+msgid "{0} commented"
+msgstr "{0} yorum yaptı"
+
 #. placeholder {0}: formatNumber(participants)
 msgid "{0} developers are ranked by agent usage. Your last 30 days are already counted, just hidden. Token counts and model names only, no repo names, file paths or prompts."
 msgstr "{0} geliştirici ajan kullanımına göre sıralanıyor. Son 30 gününüz zaten sayılıyor, yalnızca gizli. Yalnızca token sayıları ve model adları; repo adları, dosya yolları veya prompt'lar yok."
@@ -394,10 +410,6 @@ msgstr "{0} etkin"
 msgid "{0} ending in {1}"
 msgstr "{1} ile biten {0}"
 
-#. placeholder {0}: summary.failing
-msgid "{0} failing"
-msgstr "{0} başarısız"
-
 #. placeholder {0}: collisions.length
 msgid "{0} files already exist in {where}. Do you want to replace them?"
 msgstr "{where} konumunda {0} dosya zaten var. Bunları değiştirmek istiyor musunuz?"
@@ -405,6 +417,11 @@ msgstr "{where} konumunda {0} dosya zaten var. Bunları değiştirmek istiyor mu
 #. placeholder {0}: displayName(variables.name)
 msgid "{0} installed"
 msgstr "{0} kuruldu"
+
+#. placeholder {0}: data.head.ref
+#. placeholder {1}: data.base.ref
+msgid "{0} into {1}"
+msgstr "{0} → {1}"
 
 #. placeholder {0}: conflictDisplay.text
 #. placeholder {1}: i18n._( HOTKEYS[pendingConflict.conflictId].label, )
@@ -474,6 +491,10 @@ msgstr "hesapların {0}"
 msgid "{0} of visitors"
 msgstr "ziyaretçilerin {0}"
 
+#. placeholder {0}: event.actor
+msgid "{0} opened this pull request"
+msgstr "{0} bu pull request'i açtı"
+
 #. placeholder {0}: plugin.interface.displayName
 msgid "{0} options"
 msgstr "{0} seçenekleri"
@@ -490,10 +511,6 @@ msgstr "{0} planı"
 #. placeholder {0}: normalizedProjectIds.length
 msgid "{0} projects"
 msgstr "{0} proje"
-
-#. placeholder {0}: summary.pending
-msgid "{0} running"
-msgstr "{0} çalışıyor"
 
 #. placeholder {0}: tally.running
 msgid "{0} Running"
@@ -607,6 +624,9 @@ msgstr "{actor} görevi {to} projesine ekledi"
 msgid "{actor} added the workspace to {project}"
 msgstr "{actor} çalışma alanını {project} projesine ekledi"
 
+msgid "{actor} approved"
+msgstr "{actor} onayladı"
+
 msgid "{actor} archived the workspace"
 msgstr "{actor} çalışma alanını arşivledi"
 
@@ -676,6 +696,12 @@ msgstr "{actor} görevin adını {title} olarak değiştirdi"
 #. placeholder {0}: entry.to
 msgid "{actor} renamed the workspace to <0>{0}</0>"
 msgstr "{actor} çalışma alanının adını <0>{0}</0> olarak değiştirdi"
+
+msgid "{actor} requested changes"
+msgstr "{actor} değişiklik istedi"
+
+msgid "{actor} reviewed"
+msgstr "{actor} inceledi"
 
 msgid "{actor} set the priority to {to}"
 msgstr "{actor} önceliği {to} olarak ayarladı"
@@ -806,9 +832,6 @@ msgstr "{count} ana makine bu uygulamadan daha eski bir ana makine hizmeti çal�
 
 msgid "{count}/day"
 msgstr "{count}/gün"
-
-msgid "{createdAtRelative} ago"
-msgstr "{createdAtRelative} önce"
 
 msgid "{currentPage} of {totalBranches}"
 msgstr "{totalBranches} içinden {currentPage}"
@@ -1866,6 +1889,10 @@ msgstr "Ajan oturumu başladı"
 msgid "agent settings"
 msgstr "ajan ayarları"
 
+#. placeholder {0}: agent.label
+msgid "Agent: {0}"
+msgstr "Ajan: {0}"
+
 msgid "Agents"
 msgstr "Ajanlar"
 
@@ -1947,10 +1974,6 @@ msgstr "{0} kontrolün tümü geçti"
 #. placeholder {0}: gaps.length
 msgid "All {0} objectives are carrying their weight for {nextLabel}."
 msgstr "{0} hedefin tamamı {nextLabel} için üzerine düşeni yapıyor."
-
-#. placeholder {0}: summary.relevantChecks.length
-msgid "All {0} passed"
-msgstr "Tümü geçti ({0})"
 
 msgid "All {versionCount} versions and their content are removed. Anyone with the link loses access."
 msgstr "{versionCount} sürümün tamamı ve içerikleri kaldırılır. Bağlantıya sahip herkes erişimini kaybeder."
@@ -2437,6 +2460,9 @@ msgstr "Son bildirildiği gibi. Güncellemek için ana makine çevrimiçi olmal�
 msgid "ascending"
 msgstr "artan"
 
+msgid "Ask about this pull request"
+msgstr "Bu pull request hakkında soru sor"
+
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "Bir ajandan masaüstü uygulamasından bir tane yayımlamasını isteyin."
 
@@ -2445,6 +2471,9 @@ msgstr "Onay iste"
 
 msgid "Ask for this to be removed"
 msgstr "Kaldırılmasını iste"
+
+msgid "Ask the agent"
+msgstr "Ajana sor"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "Aracıya sorun, @ile dosya belirtin, /komut çalıştırın"
@@ -2940,9 +2969,6 @@ msgstr "Dal"
 msgid "Branch behavior for new workspaces on this device. Projects can override the prefix individually."
 msgstr "Bu cihazdaki yeni çalışma alanları için dal davranışı. Projeler ön eki tek tek geçersiz kılabilir."
 
-msgid "Branch copied"
-msgstr "Dal kopyalandı"
-
 msgid "Branch in a new worktree"
 msgstr "Yeni bir worktree'de çatalla"
 
@@ -3181,6 +3207,9 @@ msgstr "İstediğim zaman plan değiştirebilir veya iptal edebilir miyim?"
 
 msgid "Can I use my own API keys?"
 msgstr "Kendi API anahtarlarımı kullanabilir miyim?"
+
+msgid "Can merge without conflicts"
+msgstr "Çakışma olmadan birleştirilebilir"
 
 msgid "Can you standardize the tooltips across the app?"
 msgstr "Uygulama genelindeki tooltip'leri standartlaştırabilir misin?"
@@ -3643,9 +3672,6 @@ msgstr "Yönlendirilmediyseniz buraya tıklayın"
 msgid "Click the “↑ update” pill to see the pre-update confirm"
 msgstr "Güncelleme öncesi onayı görmek için “↑ update” düğmesine tıklayın"
 
-msgid "Click to copy"
-msgstr "Kopyalamak için tıklayın"
-
 msgid "Click to copy the session ID (resume with `claude --resume <id>`)."
 msgstr "Oturum kimliğini kopyalamak için tıklayın (`claude --resume <id>` ile sürdürün)."
 
@@ -3840,9 +3866,6 @@ msgstr "Bu sekmeyi kapatmak çalışan süreci sonlandırır."
 msgid "Closing this terminal will end the running process."
 msgstr "Bu terminali kapatmak çalışan süreci sonlandırır."
 
-msgid "Closing…"
-msgstr "Kapatılıyor…"
-
 msgid "Cloud"
 msgstr "Bulut"
 
@@ -4007,6 +4030,13 @@ msgstr "Yorumlar yüklenemedi"
 msgid "Commit"
 msgstr "Commit et"
 
+msgid "Commit {short}"
+msgstr "{short} commit'i"
+
+#. placeholder {0}: event.actor
+msgid "Commit {short} by {0}"
+msgstr "{0} tarafından {short} commit'i"
+
 #. placeholder {0}: error.message
 msgid "Commit failed: {0}"
 msgstr "Commit başarısız: {0}"
@@ -4119,6 +4149,10 @@ msgstr "Çalışma alanı çalıştırma komutunu yapılandır"
 
 msgid "Confirm before quitting"
 msgstr "Çıkmadan önce onay iste"
+
+#. placeholder {0}: status.baseBranch
+msgid "Conflicts with {0}"
+msgstr "{0} ile çakışıyor"
 
 msgid "Connect"
 msgstr "Bağla"
@@ -4817,6 +4851,9 @@ msgstr "Dal güncellenemedi"
 msgid "serverError.plugins.credentialUnverified"
 msgstr "Kimlik bilgisi doğrulanamadı: {reason}"
 
+msgid "Couldn't ask about this pull request"
+msgstr "Bu pull request hakkında soru sorulamadı"
+
 msgid "Couldn't ask the workspace for a description"
 msgstr "Çalışma alanından açıklama istenemedi"
 
@@ -4838,11 +4875,11 @@ msgstr "Yıldız durumu doğrulanamadı — GitHub CLI'nin (`gh`) kurulu ve otur
 msgid "Couldn't connect (error {status}). Please try again."
 msgstr "Bağlanılamadı (hata {status}). Lütfen tekrar deneyin."
 
-msgid "Couldn't copy branch name"
-msgstr "Dal adı kopyalanamadı"
-
 msgid "Couldn't copy comment"
 msgstr "Yorum kopyalanamadı"
+
+msgid "Couldn't copy link"
+msgstr "Bağlantı kopyalanamadı"
 
 msgid "Couldn't copy path"
 msgstr "Yol kopyalanamadı"
@@ -6233,9 +6270,6 @@ msgstr "Düzenle"
 
 msgid "Edit comment"
 msgstr "Yorumu düzenle"
-
-msgid "Edit description"
-msgstr "Açıklamayı düzenle"
 
 msgid "Edit environment"
 msgstr "Ortamı düzenle"
@@ -7849,6 +7883,9 @@ msgstr "şu anda sürüyor"
 
 msgid "Hard reload"
 msgstr "Sert yeniden yükleme"
+
+msgid "Has conflicts"
+msgstr "Çakışma var"
 
 msgid "Has uncommitted changes"
 msgstr "Commit'lenmemiş değişiklikler var"
@@ -9594,6 +9631,12 @@ msgstr "Pull request'i birleştir"
 msgid "Merge pull requests without leaving Superset, plus a round of chat fixes and polish."
 msgstr "Superset'ten çıkmadan pull request birleştirin; ayrıca bir dizi sohbet düzeltmesi ve rötuş."
 
+msgid "Merge status"
+msgstr "Birleştirme durumu"
+
+msgid "Merge status unknown"
+msgstr "Birleştirme durumu bilinmiyor"
+
 msgid "Merge when checks pass"
 msgstr "Kontroller geçince birleştir"
 
@@ -9821,6 +9864,9 @@ msgstr "Birleştirilen değişikliklerin yarısından fazlası, hiç insan düze
 #. js-lingui-explicit-id
 msgid "serverError.plugins.ambiguousConnection"
 msgstr "Birden fazla {connector} bağlantısı eşleşiyor; istemediğinizi kaldırın."
+
+msgid "More ways to use this pull request"
+msgstr "Bu pull request için diğer seçenekler"
 
 msgid "most developers"
 msgstr "çoğu geliştirici"
@@ -10267,9 +10313,6 @@ msgstr "Kontrol yok"
 msgid "No checks reported"
 msgstr "Kontrol bildirilmedi"
 
-msgid "No checks reported for the latest commit."
-msgstr "Son commit için kontrol bildirilmedi."
-
 msgid "No checks reported."
 msgstr "Kontrol bildirilmedi."
 
@@ -10296,6 +10339,9 @@ msgstr "Komut bulunamadı."
 
 msgid "No comment body"
 msgstr "Yorum gövdesi yok"
+
+msgid "No comments"
+msgstr "Yorum yok"
 
 msgid "No comments on this page yet"
 msgstr "Bu sayfada henüz yorum yok"
@@ -11421,9 +11467,6 @@ msgstr "#{0} pull request'ini aç"
 
 msgid "Open pull request #{number}"
 msgstr "#{number} pull request'ini aç"
-
-msgid "Open pull request in GitHub"
-msgstr "Pull request'i GitHub'da aç"
 
 msgid "Open pull request options"
 msgstr "Pull request seçeneklerini aç"
@@ -12567,6 +12610,21 @@ msgstr "Pull request #{0}, {1}"
 msgid "Pull request actions"
 msgstr "Pull request eylemleri"
 
+msgid "Pull request closed"
+msgstr "Pull request kapatıldı"
+
+msgid "Pull request detail tabs"
+msgstr "Pull request ayrıntı sekmeleri"
+
+msgid "Pull request merged"
+msgstr "Pull request birleştirildi"
+
+msgid "Pull request not found"
+msgstr "Pull request bulunamadı"
+
+msgid "Pull request opened"
+msgstr "Pull request açıldı"
+
 msgid "Pull request title"
 msgstr "Pull request başlığı"
 
@@ -13229,6 +13287,9 @@ msgstr "Depo erişimi ve masaüstü sürüm indirmeleri. Kurulumlar dmg ve AppIm
 msgid "Repository URL or path"
 msgstr "Depo URL'si veya yolu"
 
+msgid "Request"
+msgstr "İste"
+
 msgid "Request a trial"
 msgstr "Deneme talep et"
 
@@ -13333,6 +13394,10 @@ msgstr "Konuşmayı çöz"
 
 msgid "Resolve Conversations to Merge"
 msgstr "Birleştirmek için konuşmaları çözün"
+
+#. placeholder {0}: data.base.ref
+msgid "Resolve the conflicts with {0} first"
+msgstr "Önce {0} ile olan çakışmaları çözün"
 
 msgid "resolve the workspace path"
 msgstr "çalışma alanı yolunu çözümleme"
@@ -14373,6 +14438,9 @@ msgstr "Gönderiliyor"
 msgid "Sending a message to {what}"
 msgstr "{what} hedefine mesaj gönderiliyor"
 
+msgid "Sending to agent"
+msgstr "Ajana gönderiliyor"
+
 msgid "Sending..."
 msgstr "Gönderiliyor..."
 
@@ -14390,6 +14458,9 @@ msgstr "Gönderildi"
 
 msgid "Sent to agent"
 msgstr "Ajana gönderildi"
+
+msgid "Sent to the pull request's workspace"
+msgstr "Pull request'in çalışma alanına gönderildi"
 
 msgid "Sentry rejected the token"
 msgstr "Sentry token'ı reddetti"
@@ -14646,6 +14717,9 @@ msgstr "E-postaları göster"
 
 msgid "Show everyone who opened this workspace"
 msgstr "Bu çalışma alanını açan herkesi göster"
+
+msgid "Show fewer"
+msgstr "Daha az göster"
 
 msgid "Show file tree"
 msgstr "Dosya ağacını göster"
@@ -15299,9 +15373,6 @@ msgstr "İşle başlayın."
 msgid "Start work from anywhere"
 msgstr "Her yerden işe başlayın"
 
-msgid "Start Workspace"
-msgstr "Çalışma alanı başlat"
-
 msgid "Started"
 msgstr "Başladı"
 
@@ -15316,6 +15387,9 @@ msgstr "Başlatılıyor"
 
 msgid "Starting {agentLabel}"
 msgstr "{agentLabel} başlatılıyor"
+
+msgid "Starting a workspace on this pull request"
+msgstr "Bu pull request için çalışma alanı başlatılıyor"
 
 msgid "Starting an agent in {what}"
 msgstr "{what} içinde ajan başlatılıyor"
@@ -16841,6 +16915,9 @@ msgstr "Zaman"
 msgid "Time range"
 msgstr "Zaman aralığı"
 
+msgid "Timeline"
+msgstr "Zaman çizelgesi"
+
 msgid "Title"
 msgstr "Başlık"
 
@@ -17721,6 +17798,9 @@ msgstr "GitHub'da görüntüle"
 
 msgid "View log"
 msgstr "Günlüğü görüntüle"
+
+msgid "View more"
+msgstr "Daha fazla göster"
 
 msgid "View on GitHub"
 msgstr "GitHub'da görüntüle"
