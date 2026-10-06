@@ -496,13 +496,20 @@ async function mcpIdentity(
 			name: probe.tool,
 			arguments: probe.arguments,
 		}).catch(async (error: unknown) => {
-			const tools = await request("tools/list", {}).catch(() => null);
-			const tool = (
-				tools?.tools as { name?: string; inputSchema?: unknown }[] | undefined
-			)?.find((entry) => entry.name === probe.tool);
-			if (!tool) throw error;
+			const listed = await request("tools/list", {}).then(
+				(tools) =>
+					(tools.tools as { name?: string; inputSchema?: unknown }[]).map(
+						(tool) =>
+							tool.name === probe.tool
+								? `${tool.name} ${JSON.stringify(tool.inputSchema)}`
+								: tool.name,
+					),
+				(listError: unknown) => [
+					`tools/list failed: ${listError instanceof Error ? listError.message : String(listError)}`,
+				],
+			);
 			throw new Error(
-				`${error instanceof Error ? error.message : String(error)}; ${probe.tool} takes ${JSON.stringify(tool.inputSchema).slice(0, 600)}`,
+				`${error instanceof Error ? error.message : String(error)}; server said ${JSON.stringify(init).slice(0, 1500)}; tools: ${listed.join(", ").slice(0, 1500)}`,
 			);
 		})) as {
 			structuredContent?: Record<string, unknown>;
