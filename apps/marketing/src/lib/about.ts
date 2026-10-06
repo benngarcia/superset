@@ -9,6 +9,10 @@ export const aboutSchema = z.object({
 	photos: z.array(
 		z.object({
 			src: z.string().min(1),
+			label: z.string().min(1),
+			focus: z.string().optional(),
+			width: z.number().int().positive(),
+			height: z.number().int().positive(),
 			alt: z.string().min(1),
 			caption: z.string().min(1),
 		}),

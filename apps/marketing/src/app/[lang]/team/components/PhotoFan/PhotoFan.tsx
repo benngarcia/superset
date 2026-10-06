@@ -1,20 +1,28 @@
 "use client";
 
-import { useLingui } from "@lingui/react/macro";
 import {
 	Dialog,
 	DialogContent,
 	DialogDescription,
 	DialogTitle,
 } from "@superset/ui/dialog";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import Image from "next/image";
-import { type CSSProperties, type KeyboardEvent, useState } from "react";
+import { m, useReducedMotion } from "framer-motion";
+import {
+	type CSSProperties,
+	type KeyboardEvent,
+	useRef,
+	useState,
+} from "react";
 import type { About } from "@/lib/about";
+import { PhotoPrint } from "./components/PhotoPrint";
 
 const CARD_SPACING_PX = 92;
 const CARD_TILT_DEG = 4;
 const CARD_DROP_PX = 4;
+const FULL_MAX_WIDTH_PX = 960;
+const FULL_MAX_WIDTH_VW = 0.9;
+const FULL_PHOTO_MAX_HEIGHT_VH = 0.62;
+const FULL_PHOTO_ASPECT = 3 / 2;
 
 // [extra tilt deg, x px, y px, scale], cycled per card. Fixed so server and
 // client render the same styles.
@@ -31,15 +39,68 @@ const CARD_JITTER: ReadonlyArray<readonly [number, number, number, number]> = [
 ];
 const NO_JITTER = [0, 0, 0, 1] as const;
 
+type FlipFrame = {
+	x: number;
+	y: number;
+	scale: number;
+	rotate: number;
+};
+
+const RESTING: FlipFrame = { x: 0, y: 0, scale: 1, rotate: 0 };
+
 interface PhotoFanProps {
 	photos: About["photos"];
 }
 
 export function PhotoFan({ photos }: PhotoFanProps) {
-	const { t } = useLingui();
+	const reduceMotion = useReducedMotion();
+	const cardRefs = useRef<Array<HTMLLIElement | null>>([]);
 	const [openIndex, setOpenIndex] = useState<number | null>(null);
+	const [from, setFrom] = useState<FlipFrame>(RESTING);
+	const [closing, setClosing] = useState(false);
 	const middle = (photos.length - 1) / 2;
 	const openPhoto = openIndex === null ? null : photos[openIndex];
+
+	const cardTilt = (index: number) => {
+		const [tilt] = CARD_JITTER[index % CARD_JITTER.length] ?? NO_JITTER;
+		return (index - middle) * CARD_TILT_DEG + tilt;
+	};
+
+	const fullWidth = () =>
+		Math.min(
+			window.innerWidth * FULL_MAX_WIDTH_VW,
+			FULL_MAX_WIDTH_PX,
+			window.innerHeight * FULL_PHOTO_MAX_HEIGHT_VH * FULL_PHOTO_ASPECT,
+		);
+
+	const frameFromCard = (index: number): FlipFrame => {
+		const card = cardRefs.current[index];
+		if (!card) return RESTING;
+		const rect = card.getBoundingClientRect();
+		const isFanned = window.matchMedia("(min-width: 768px)").matches;
+		return {
+			x: rect.left + rect.width / 2 - window.innerWidth / 2,
+			y: rect.top + rect.height / 2 - window.innerHeight / 2,
+			scale: rect.width / fullWidth(),
+			rotate: isFanned ? cardTilt(index) : 0,
+		};
+	};
+
+	const open = (index: number) => {
+		setFrom(frameFromCard(index));
+		setClosing(false);
+		setOpenIndex(index);
+	};
+
+	const close = () => {
+		if (openIndex === null) return;
+		if (reduceMotion) {
+			setOpenIndex(null);
+			return;
+		}
+		setFrom(frameFromCard(openIndex));
+		setClosing(true);
+	};
 
 	const step = (delta: number) =>
 		setOpenIndex((current) =>
@@ -55,44 +116,40 @@ export function PhotoFan({ photos }: PhotoFanProps) {
 
 	return (
 		<>
-			<ul className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 -mx-6 px-6 md:mx-0 md:px-0 md:pb-0 md:block md:relative md:h-[400px] md:overflow-visible">
+			<ul className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 -mx-6 px-6 md:mx-0 md:px-0 md:pb-0 md:block md:relative md:h-[420px] md:overflow-visible">
 				{photos.map((photo, index) => {
 					const offset = index - middle;
-					const [tilt, jitterX, jitterY, scale] =
+					const [, jitterX, jitterY, scale] =
 						CARD_JITTER[index % CARD_JITTER.length] ?? NO_JITTER;
 					const fanStyle = {
 						"--fan-x": `${offset * CARD_SPACING_PX + jitterX}px`,
 						"--fan-y": `${offset * offset * CARD_DROP_PX + jitterY}px`,
-						"--fan-r": `${offset * CARD_TILT_DEG + tilt}deg`,
+						"--fan-r": `${cardTilt(index)}deg`,
 						"--fan-s": scale,
 						"--fan-z": photos.length - Math.round(Math.abs(offset)),
+						visibility: index === openIndex ? "hidden" : undefined,
 					} as CSSProperties;
 
 					return (
 						<li
 							key={photo.src}
+							ref={(element) => {
+								cardRefs.current[index] = element;
+							}}
 							style={fanStyle}
 							className="group shrink-0 w-56 snap-center md:absolute md:[z-index:var(--fan-z)] md:left-1/2 md:top-8 md:w-[200px] md:-ml-[100px] md:transition-transform md:duration-300 md:ease-out md:[transform:translateX(var(--fan-x))_translateY(var(--fan-y))_rotate(var(--fan-r))_scale(var(--fan-s))] md:hover:z-50 md:hover:[transform:translateX(var(--fan-x))_translateY(calc(var(--fan-y)-24px))_rotate(0deg)_scale(1.12)]"
 						>
 							<button
 								type="button"
-								onClick={() => setOpenIndex(index)}
+								onClick={() => open(index)}
 								className="block w-full cursor-zoom-in text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground"
 							>
-								<figure className="m-0 bg-[#f4f1ea] p-2 pb-3 shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
-									<div className="relative aspect-[4/5] overflow-hidden bg-neutral-300">
-										<Image
-											src={photo.src}
-											alt={photo.alt}
-											fill
-											className="object-cover"
-											sizes="224px"
-										/>
-									</div>
-									<figcaption className="mt-2 min-h-[2.5rem] text-[11px] leading-snug text-neutral-700 md:opacity-0 md:transition-opacity md:group-hover:opacity-100">
-										{photo.caption}
-									</figcaption>
-								</figure>
+								<PhotoPrint
+									photo={photo}
+									wear={index}
+									variant="card"
+									sizes="224px"
+								/>
 							</button>
 						</li>
 					);
@@ -102,49 +159,43 @@ export function PhotoFan({ photos }: PhotoFanProps) {
 			<Dialog
 				modal
 				open={openPhoto !== null}
-				onOpenChange={(open) => {
-					if (!open) setOpenIndex(null);
+				onOpenChange={(isOpen) => {
+					if (!isOpen) close();
 				}}
 			>
-				{openPhoto && (
+				{openPhoto && openIndex !== null && (
 					<DialogContent
+						showCloseButton={false}
 						onKeyDown={handleKeyDown}
-						className="w-auto max-w-[calc(100vw-2rem)] sm:max-w-[min(92vw,1100px)] gap-0 rounded-none border-0 bg-[#f4f1ea] p-3 pb-4 text-neutral-800 shadow-2xl [&_[data-slot=dialog-close]]:text-neutral-700"
+						className="w-auto max-w-none sm:max-w-none gap-0 rounded-none border-0 bg-transparent p-0 shadow-none duration-0"
 					>
 						<DialogTitle className="sr-only">{openPhoto.caption}</DialogTitle>
 						<DialogDescription className="sr-only">
 							{openPhoto.alt}
 						</DialogDescription>
-						<Image
-							key={openPhoto.src}
-							src={openPhoto.src}
-							alt={openPhoto.alt}
-							width={1600}
-							height={1200}
-							sizes="(max-width: 1100px) 92vw, 1100px"
-							className="h-auto max-h-[72vh] w-auto max-w-full"
-						/>
-						<div className="mt-3 flex items-center justify-between gap-4">
-							<p className="text-sm leading-snug">{openPhoto.caption}</p>
-							<div className="flex shrink-0 gap-1">
-								<button
-									type="button"
-									onClick={() => step(-1)}
-									aria-label={t`Previous`}
-									className="rounded-sm p-1.5 text-neutral-700 hover:bg-neutral-300/60"
-								>
-									<ChevronLeft className="size-4" />
-								</button>
-								<button
-									type="button"
-									onClick={() => step(1)}
-									aria-label={t`Next`}
-									className="rounded-sm p-1.5 text-neutral-700 hover:bg-neutral-300/60"
-								>
-									<ChevronRight className="size-4" />
-								</button>
-							</div>
-						</div>
+						<m.div
+							initial={reduceMotion ? false : from}
+							animate={closing ? from : RESTING}
+							transition={{ type: "spring", stiffness: 220, damping: 28 }}
+							onAnimationComplete={() => {
+								if (closing) {
+									setClosing(false);
+									setOpenIndex(null);
+								}
+							}}
+							onClick={close}
+							className="cursor-zoom-out"
+							style={{ width: fullWidth() }}
+						>
+							<PhotoPrint
+								key={openPhoto.src}
+								photo={openPhoto}
+								wear={openIndex}
+								variant="full"
+								priority
+								sizes="(max-width: 1066px) 90vw, 960px"
+							/>
+						</m.div>
 					</DialogContent>
 				)}
 			</Dialog>
