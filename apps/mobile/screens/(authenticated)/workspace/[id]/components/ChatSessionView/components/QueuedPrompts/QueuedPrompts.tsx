@@ -1,6 +1,8 @@
-import { Trans } from "@lingui/react/macro";
+import { Trans, useLingui } from "@lingui/react/macro";
 import type { UserMessage } from "@superset/chat/protocol";
+import { ArrowUp, Trash2 } from "lucide-react-native";
 import { Pressable, View } from "react-native";
+import { Icon } from "@/components/ui/icon";
 import { Text } from "@/components/ui/text";
 
 interface QueuedPromptsProps {
@@ -18,50 +20,64 @@ export function QueuedPrompts({
 	onRemove,
 	onResume,
 }: QueuedPromptsProps) {
+	const { t } = useLingui();
 	if (prompts.length === 0) return null;
 	return (
-		<View className="border-border gap-2 rounded-lg border p-3">
-			{paused ? (
-				<View className="flex-row items-center justify-between gap-3">
-					<Text className="text-muted-foreground min-w-0 flex-1 text-xs">
+		<View className="overflow-hidden rounded-2xl border border-white/10 bg-[#1C1C1C]">
+			<View className="flex-row items-center justify-between gap-3 px-3.5 pb-1 pt-2.5">
+				<Text
+					className="text-muted-foreground min-w-0 flex-1 text-xs font-medium"
+					numberOfLines={1}
+				>
+					{paused ? (
 						<Trans>Queue paused because you interrupted</Trans>
-					</Text>
-					<Pressable accessibilityRole="button" onPress={onResume}>
-						<Text className="text-foreground text-xs font-medium">
+					) : (
+						<Trans>Queued</Trans>
+					)}
+				</Text>
+				{paused ? (
+					<Pressable
+						accessibilityRole="button"
+						className="active:opacity-60"
+						hitSlop={8}
+						onPress={onResume}
+					>
+						<Text className="text-foreground text-xs font-semibold">
 							<Trans>Resume</Trans>
 						</Text>
 					</Pressable>
-				</View>
-			) : (
-				<Text className="text-muted-foreground text-xs">
-					<Trans>Queued</Trans>
-				</Text>
-			)}
+				) : null}
+			</View>
 			{prompts.map((prompt) => (
-				<View className="flex-row items-center gap-3" key={prompt.id}>
+				<View
+					className="flex-row items-center gap-1 py-1.5 pl-3.5 pr-1.5"
+					key={prompt.id}
+				>
 					<Text
-						className="text-foreground min-w-0 flex-1 text-sm"
-						numberOfLines={2}
+						className="text-foreground min-w-0 flex-1 text-[15px]"
+						numberOfLines={1}
 					>
 						{prompt.content
 							.flatMap((part) => (part.type === "text" ? [part.text] : []))
 							.join(" ")}
 					</Text>
 					<Pressable
+						accessibilityLabel={t({ message: "Steer" })}
 						accessibilityRole="button"
+						className="size-8 items-center justify-center active:opacity-60"
 						onPress={() => onSteer(prompt.id)}
 					>
-						<Text className="text-foreground text-xs font-medium">
-							<Trans>Steer</Trans>
-						</Text>
+						<View className="size-6 items-center justify-center rounded-full bg-white">
+							<Icon as={ArrowUp} className="size-3.5 text-black" />
+						</View>
 					</Pressable>
 					<Pressable
+						accessibilityLabel={t({ message: "Delete" })}
 						accessibilityRole="button"
+						className="size-8 items-center justify-center active:opacity-60"
 						onPress={() => onRemove(prompt.id)}
 					>
-						<Text className="text-muted-foreground text-xs">
-							<Trans>Delete</Trans>
-						</Text>
+						<Icon as={Trash2} className="text-muted-foreground size-4" />
 					</Pressable>
 				</View>
 			))}

@@ -2955,6 +2955,9 @@ msgstr "Branch behavior for new workspaces on this device. Projects can override
 msgid "Branch copied"
 msgstr "Branch copied"
 
+msgid "Branch from here"
+msgstr "Branch from here"
+
 msgid "Branch in a new worktree"
 msgstr "Branch in a new worktree"
 
@@ -4626,6 +4629,9 @@ msgstr "Could not answer the agent"
 msgid "Could not attach files"
 msgstr "Could not attach files"
 
+msgid "Could not branch the chat"
+msgstr "Could not branch the chat"
+
 msgid "Could not change the mode"
 msgstr "Could not change the mode"
 
@@ -4795,6 +4801,9 @@ msgstr "Could not restart the host service"
 msgid "Could not resume"
 msgstr "Could not resume"
 
+msgid "Could not resume the chat"
+msgstr "Could not resume the chat"
+
 msgid "Could not send"
 msgstr "Could not send"
 
@@ -4816,6 +4825,9 @@ msgstr "Could not start cloud workspace provisioning"
 msgid "Could not start session"
 msgstr "Could not start session"
 
+msgid "Could not start the chat"
+msgstr "Could not start the chat"
+
 msgid "Could not steer"
 msgstr "Could not steer"
 
@@ -4824,6 +4836,9 @@ msgstr "Could not stop it"
 
 msgid "Could not stop the agent"
 msgstr "Could not stop the agent"
+
+msgid "Could not stop the task"
+msgstr "Could not stop the task"
 
 msgid "Could not stop watching"
 msgstr "Could not stop watching"
@@ -13515,6 +13530,9 @@ msgstr "Results"
 msgid "Resume"
 msgstr "Resume"
 
+msgid "Resume a chat"
+msgstr "Resume a chat"
+
 msgid "Resume args"
 msgstr "Resume args"
 
@@ -13802,6 +13820,9 @@ msgstr "Running agents on this profile lose access."
 
 msgid "Running bun test…"
 msgstr "Running bun test…"
+
+msgid "Running in the background"
+msgstr "Running in the background"
 
 msgid "Running now"
 msgstr "Running now"

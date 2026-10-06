@@ -7,6 +7,7 @@ import type {
 	ComposerSessionTab,
 } from "@superset/composer";
 import { i18n } from "@superset/i18n";
+import { FEATURE_FLAGS } from "@superset/shared/constants";
 import { TitlePress } from "@superset/title-press";
 import { useQueryClient } from "@tanstack/react-query";
 import * as Clipboard from "expo-clipboard";
@@ -17,6 +18,7 @@ import {
 	SquareTerminal,
 	TriangleAlert,
 } from "lucide-react-native";
+import { useFeatureFlag } from "posthog-react-native";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
 	ActivityIndicator,
@@ -82,7 +84,9 @@ import { useHostCompatibility } from "../hooks/useHostCompatibility";
 import { usePullRequestIconUri } from "../hooks/usePullRequestIconUri";
 import { useWorkspaceHeaderActions } from "../hooks/useWorkspaceHeaderActions";
 import { useWorkspacePullRequests } from "../hooks/useWorkspacePullRequest";
+import { useActiveChat } from "../stores/activeChatStore";
 import { keyboardOverlap } from "../utils/keyboardOverlap";
+import { modeSymbol } from "../utils/modeSymbol";
 import { orderTerminalRows } from "../utils/orderTerminalRows";
 import { PULL_REQUEST_SYMBOL, pullRequestStatus } from "../utils/pullRequest";
 import { WorkspaceCreateFailedState } from "./components/WorkspaceCreateFailedState";
@@ -473,6 +477,25 @@ export function WorkspaceScreen() {
 	);
 	const activeRow = rows.find((row) => row.terminalId === activeTerminalId);
 	const activeIsChat = activeRow?.kind === "chat";
+	const acpChat = Boolean(useFeatureFlag(FEATURE_FLAGS.ACP_CHAT));
+	const {
+		modes: chatModes,
+		currentModeId: chatModeId,
+		selectMode: selectChatMode,
+		running: chatRunning,
+		stop: stopChat,
+		backgroundTasks: chatTasks,
+	} = useActiveChat(activeIsChat ? activeTerminalId : null);
+	const chatTaskCount = chatTasks.length;
+	const chatModeOptions = useMemo(
+		() =>
+			chatModes.map((mode) => ({
+				id: mode.id,
+				label: mode.label,
+				symbol: modeSymbol(mode.id),
+			})),
+		[chatModes],
+	);
 	const slashCommands = useSlashCommands({
 		machineId: host?.machineId ?? null,
 		hostUrl,
@@ -507,6 +530,14 @@ export function WorkspaceScreen() {
 			queryKey: getHostTerminalsQueryKey(host.machineId),
 		});
 	}, [host, queryClient]);
+
+	const openSession = useCallback(
+		(sessionId: string) => {
+			router.setParams({ tab: sessionId });
+			invalidateTerminals();
+		},
+		[router, invalidateTerminals],
+	);
 
 	const [refreshing, setRefreshing] = useState(false);
 	const onRefresh = useCallback(async () => {
@@ -934,6 +965,24 @@ export function WorkspaceScreen() {
 			{workspace ? <TitlePress onPress={openActions} /> : null}
 			{workspace ? (
 				<Stack.Toolbar placement="right">
+					{acpChat && activeIsChat && chatTaskCount > 0 ? (
+						<Stack.Toolbar.Button
+							accessibilityLabel={t({ message: "Running in the background" })}
+							icon="cpu"
+							onPress={() =>
+								router.push(
+									`/(authenticated)/workspace/${id}/background-tasks?session=${activeTerminalId}`,
+								)
+							}
+						/>
+					) : null}
+					{acpChat ? (
+						<Stack.Toolbar.Button
+							accessibilityLabel={t({ message: "Manage sessions" })}
+							icon="rectangle.stack"
+							onPress={openSessions}
+						/>
+					) : null}
 					<Stack.Toolbar.Menu
 						icon="ellipsis"
 						accessibilityLabel={t({ message: "Workspace actions" })}
@@ -1045,13 +1094,15 @@ export function WorkspaceScreen() {
 							message: "This host needs an update",
 						})}
 					/>
-				) : activeIsChat && activeTerminalId && host && hostUrl ? (
+				) : activeIsChat && activeTerminalId && host && hostUrl && id ? (
 					<ChatSessionView
 						host={host}
 						hostUrl={hostUrl}
 						key={activeTerminalId}
+						onOpenSession={openSession}
 						ref={chatRef}
 						sessionId={activeTerminalId}
+						workspaceId={id}
 					/>
 				) : activeTerminalId && host && id ? (
 					<>
@@ -1176,7 +1227,7 @@ export function WorkspaceScreen() {
 					// A cloud workspace exists on screen before its sandbox is
 					// even addressed; the strip would offer sessions on one that
 					// isn't reachable yet.
-					sessionTabs={cloud && !host ? [] : sessionTabs}
+					sessionTabs={cloud && !host ? [] : acpChat ? [] : sessionTabs}
 					onSessionTabPress={pickTerminal}
 					onSessionTabClose={confirmCloseTerminal}
 					onSessionTabRename={promptRenameTerminal}
@@ -1195,6 +1246,11 @@ export function WorkspaceScreen() {
 					selectActive={select.active}
 					selectHasSelection={select.hasSelection}
 					hideQuickKeys={activeIsChat}
+					modeOptions={acpChat && activeIsChat ? chatModeOptions : undefined}
+					selectedModeId={chatModeId}
+					onModeSelect={selectChatMode}
+					canStop={acpChat && activeIsChat && chatRunning}
+					onStop={stopChat}
 				/>
 			) : null}
 			<ToolbarAnchor ref={shareAnchorRef} />

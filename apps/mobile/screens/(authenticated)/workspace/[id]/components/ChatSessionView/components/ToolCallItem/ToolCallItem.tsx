@@ -14,6 +14,7 @@ import {
 import { View } from "react-native";
 import { ToolCallRow } from "@/components/ai-elements/tool-call-row";
 import { Text } from "@/components/ui/text";
+import { FailedLabel } from "../FailedLabel";
 
 const ICON_BY_KIND: Record<ToolKind, LucideIcon> = {
 	read: FileText,
@@ -62,9 +63,11 @@ export function ToolCallItem({ item }: { item: ToolCall }) {
 
 	return (
 		<ToolCallRow
+			description={item.status === "failed" ? <FailedLabel /> : undefined}
 			icon={ICON_BY_KIND[item.toolKind] ?? Wrench}
 			isError={item.status === "failed"}
 			isPending={item.status === "running"}
+			statusNode={null}
 			title={
 				<Text
 					className="min-w-0 shrink font-mono text-foreground text-xs"

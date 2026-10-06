@@ -2955,6 +2955,9 @@ msgstr "이 기기에서 새 워크스페이스를 만들 때의 브랜치 동�
 msgid "Branch copied"
 msgstr "브랜치 복사됨"
 
+msgid "Branch from here"
+msgstr "여기서 분기"
+
 msgid "Branch in a new worktree"
 msgstr "새 worktree에서 분기"
 
@@ -4626,6 +4629,9 @@ msgstr "에이전트에 응답할 수 없습니다"
 msgid "Could not attach files"
 msgstr "파일을 첨부할 수 없습니다"
 
+msgid "Could not branch the chat"
+msgstr "채팅을 분기할 수 없습니다"
+
 msgid "Could not change the mode"
 msgstr "모드를 변경할 수 없습니다"
 
@@ -4795,6 +4801,9 @@ msgstr "호스트 서비스를 다시 시작할 수 없습니다"
 msgid "Could not resume"
 msgstr "재개할 수 없습니다"
 
+msgid "Could not resume the chat"
+msgstr "채팅을 재개할 수 없습니다"
+
 msgid "Could not send"
 msgstr "보낼 수 없습니다"
 
@@ -4816,6 +4825,9 @@ msgstr "클라우드 워크스페이스 프로비저닝을 시작할 수 없습�
 msgid "Could not start session"
 msgstr "세션을 시작할 수 없습니다"
 
+msgid "Could not start the chat"
+msgstr "채팅을 시작할 수 없습니다"
+
 msgid "Could not steer"
 msgstr "방향을 바꿀 수 없습니다"
 
@@ -4824,6 +4836,9 @@ msgstr "중지할 수 없습니다"
 
 msgid "Could not stop the agent"
 msgstr "에이전트를 중지할 수 없습니다"
+
+msgid "Could not stop the task"
+msgstr "작업을 중지할 수 없습니다"
 
 msgid "Could not stop watching"
 msgstr "감시를 중지할 수 없습니다"
@@ -13515,6 +13530,9 @@ msgstr "결과"
 msgid "Resume"
 msgstr "재개"
 
+msgid "Resume a chat"
+msgstr "채팅 재개"
+
 msgid "Resume args"
 msgstr "재개 인수"
 
@@ -13802,6 +13820,9 @@ msgstr "이 프로필에서 실행 중인 에이전트는 접근 권한을 잃�
 
 msgid "Running bun test…"
 msgstr "bun test 실행 중…"
+
+msgid "Running in the background"
+msgstr "백그라운드에서 실행 중"
 
 msgid "Running now"
 msgstr "지금 실행 중"

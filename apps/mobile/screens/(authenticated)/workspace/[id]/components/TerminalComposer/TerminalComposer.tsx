@@ -2,6 +2,7 @@ import { useLingui } from "@lingui/react/macro";
 import {
 	Composer,
 	type ComposerHandle,
+	type ComposerModeOption,
 	type ComposerQuickKey,
 	type ComposerQuickKeysAction,
 	type ComposerSessionTab,
@@ -88,6 +89,11 @@ interface TerminalComposerProps {
 	onCopySelection: () => void;
 	/** A chat takes whole messages, so the terminal keys have nothing to do. */
 	hideQuickKeys?: boolean;
+	modeOptions?: ComposerModeOption[];
+	selectedModeId?: string;
+	onModeSelect?: (modeId: string) => void;
+	canStop?: boolean;
+	onStop?: () => void;
 }
 
 /**
@@ -126,6 +132,11 @@ export const TerminalComposer = forwardRef<
 		selectHasSelection,
 		onCopySelection,
 		hideQuickKeys = false,
+		modeOptions,
+		selectedModeId,
+		onModeSelect,
+		canStop,
+		onStop,
 	},
 	ref,
 ) {
@@ -242,6 +253,11 @@ export const TerminalComposer = forwardRef<
 				// More of the transcript stays visible when the composer is
 				// collapsed to its minimum, unlike the home screen's generous floor.
 				compactEditor
+				modeOptions={modeOptions}
+				selectedModeId={selectedModeId}
+				onModeSelect={onModeSelect}
+				canStop={canStop}
+				onStop={onStop}
 				showAttachments={allowAttachments}
 				quickKeys={quickKeys}
 				sessionTabs={sessionTabs}

@@ -2955,6 +2955,9 @@ msgstr "Comportement des branches pour les nouveaux espaces de travail sur cet a
 msgid "Branch copied"
 msgstr "Branche copiée"
 
+msgid "Branch from here"
+msgstr "Créer une branche à partir d'ici"
+
 msgid "Branch in a new worktree"
 msgstr "Dupliquer dans un nouveau worktree"
 
@@ -4626,6 +4629,9 @@ msgstr "Impossible de répondre à l'agent"
 msgid "Could not attach files"
 msgstr "Impossible de joindre les fichiers"
 
+msgid "Could not branch the chat"
+msgstr "Impossible de créer une branche de la discussion"
+
 msgid "Could not change the mode"
 msgstr "Impossible de changer le mode"
 
@@ -4795,6 +4801,9 @@ msgstr "Impossible de redémarrer le service d'hôte"
 msgid "Could not resume"
 msgstr "Impossible de reprendre"
 
+msgid "Could not resume the chat"
+msgstr "Impossible de reprendre la discussion"
+
 msgid "Could not send"
 msgstr "Échec de l'envoi"
 
@@ -4816,6 +4825,9 @@ msgstr "Impossible de démarrer le provisionnement de l'espace de travail cloud"
 msgid "Could not start session"
 msgstr "Impossible de démarrer la session"
 
+msgid "Could not start the chat"
+msgstr "Impossible de démarrer la discussion"
+
 msgid "Could not steer"
 msgstr "Impossible de réorienter"
 
@@ -4824,6 +4836,9 @@ msgstr "Impossible de l'arrêter"
 
 msgid "Could not stop the agent"
 msgstr "Impossible d'arrêter l'agent"
+
+msgid "Could not stop the task"
+msgstr "Impossible d'arrêter la tâche"
 
 msgid "Could not stop watching"
 msgstr "Impossible d'arrêter la surveillance"
@@ -13515,6 +13530,9 @@ msgstr "Résultats"
 msgid "Resume"
 msgstr "Reprendre"
 
+msgid "Resume a chat"
+msgstr "Reprendre une discussion"
+
 msgid "Resume args"
 msgstr "Arguments de reprise"
 
@@ -13802,6 +13820,9 @@ msgstr "Les agents en cours sur ce profil perdent l'accès."
 
 msgid "Running bun test…"
 msgstr "Exécution de bun test…"
+
+msgid "Running in the background"
+msgstr "En arrière-plan"
 
 msgid "Running now"
 msgstr "Exécution en cours"

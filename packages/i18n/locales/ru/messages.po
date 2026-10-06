@@ -2955,6 +2955,9 @@ msgstr "Поведение веток для новых рабочих обла�
 msgid "Branch copied"
 msgstr "Ветка скопирована"
 
+msgid "Branch from here"
+msgstr "Ответвить отсюда"
+
 msgid "Branch in a new worktree"
 msgstr "Ответвить в новом worktree"
 
@@ -4626,6 +4629,9 @@ msgstr "Не удалось ответить агенту"
 msgid "Could not attach files"
 msgstr "Не удалось прикрепить файлы"
 
+msgid "Could not branch the chat"
+msgstr "Не удалось ответвить чат"
+
 msgid "Could not change the mode"
 msgstr "Не удалось сменить режим"
 
@@ -4795,6 +4801,9 @@ msgstr "Не удалось перезапустить службу хоста"
 msgid "Could not resume"
 msgstr "Не удалось возобновить"
 
+msgid "Could not resume the chat"
+msgstr "Не удалось продолжить чат"
+
 msgid "Could not send"
 msgstr "Не удалось отправить"
 
@@ -4816,6 +4825,9 @@ msgstr "Не удалось начать создание облачной ра�
 msgid "Could not start session"
 msgstr "Не удалось запустить сессию"
 
+msgid "Could not start the chat"
+msgstr "Не удалось начать чат"
+
 msgid "Could not steer"
 msgstr "Не удалось перенаправить"
 
@@ -4824,6 +4836,9 @@ msgstr "Не удалось остановить"
 
 msgid "Could not stop the agent"
 msgstr "Не удалось остановить агента"
+
+msgid "Could not stop the task"
+msgstr "Не удалось остановить задачу"
 
 msgid "Could not stop watching"
 msgstr "Не удалось прекратить отслеживание"
@@ -13515,6 +13530,9 @@ msgstr "Результаты"
 msgid "Resume"
 msgstr "Возобновить"
 
+msgid "Resume a chat"
+msgstr "Продолжить чат"
+
 msgid "Resume args"
 msgstr "Аргументы возобновления"
 
@@ -13802,6 +13820,9 @@ msgstr "Работающие агенты этого профиля потеря
 
 msgid "Running bun test…"
 msgstr "Выполняется bun test…"
+
+msgid "Running in the background"
+msgstr "Выполняется в фоне"
 
 msgid "Running now"
 msgstr "Запускается"

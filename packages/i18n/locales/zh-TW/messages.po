@@ -2955,6 +2955,9 @@ msgstr "本裝置上新建工作區的分支行為。專案可以單獨覆蓋字
 msgid "Branch copied"
 msgstr "分支已複製"
 
+msgid "Branch from here"
+msgstr "從此處分支"
+
 msgid "Branch in a new worktree"
 msgstr "在新的 worktree 中分叉"
 
@@ -4626,6 +4629,9 @@ msgstr "無法回覆代理程式"
 msgid "Could not attach files"
 msgstr "無法新增附件"
 
+msgid "Could not branch the chat"
+msgstr "無法為聊天建立分支"
+
 msgid "Could not change the mode"
 msgstr "無法變更模式"
 
@@ -4795,6 +4801,9 @@ msgstr "無法重新啟動主機服務"
 msgid "Could not resume"
 msgstr "無法繼續"
 
+msgid "Could not resume the chat"
+msgstr "無法繼續聊天"
+
 msgid "Could not send"
 msgstr "無法傳送"
 
@@ -4816,6 +4825,9 @@ msgstr "無法開始配置雲端工作區"
 msgid "Could not start session"
 msgstr "無法啟動會話"
 
+msgid "Could not start the chat"
+msgstr "無法開始聊天"
+
 msgid "Could not steer"
 msgstr "無法轉向"
 
@@ -4824,6 +4836,9 @@ msgstr "無法停止"
 
 msgid "Could not stop the agent"
 msgstr "無法停止代理程式"
+
+msgid "Could not stop the task"
+msgstr "無法停止任務"
 
 msgid "Could not stop watching"
 msgstr "無法停止關注"
@@ -13515,6 +13530,9 @@ msgstr "結果"
 msgid "Resume"
 msgstr "恢復"
 
+msgid "Resume a chat"
+msgstr "繼續聊天"
+
 msgid "Resume args"
 msgstr "恢復引數"
 
@@ -13802,6 +13820,9 @@ msgstr "使用此配置檔案執行中的代理程式將失去存取權限。"
 
 msgid "Running bun test…"
 msgstr "正在執行bun test…"
+
+msgid "Running in the background"
+msgstr "正在背景執行"
 
 msgid "Running now"
 msgstr "正在執行"
