@@ -1359,6 +1359,53 @@ describe("AcpAdapter on protocol v2", () => {
 		await adapter.dispose();
 	});
 
+	it("treats a steered turn as working until the steered reply streams", async () => {
+		const agent = new FakeAcpAgent();
+		agent.steeringOutcome = "injected";
+		agent.holdPrompts = true;
+		const { adapter, events } = startAdapter(agent);
+		await flush();
+		adapter.prompt([{ type: "text", text: "spawn a helper" }]);
+		await flush();
+		const awaiting = () =>
+			sessionsOf(events)
+				.filter((session) => session.awaitingBackground !== undefined)
+				.map((session) => session.awaitingBackground);
+		const cycleEnds = () =>
+			agent.notify("sess-1", {
+				sessionUpdate: "usage_update",
+				used: 10,
+				size: 100,
+				cost: { amount: 0.01, currency: "USD" },
+			});
+		agent.notify("sess-1", {
+			sessionUpdate: "subagent_spawned",
+			subagentSessionId: "child-1",
+			name: "Helper",
+			task: "Help",
+		});
+		cycleEnds();
+		await flush();
+		expect(awaiting()).toEqual([true]);
+
+		await adapter.steer([{ type: "text", text: "and this" }]);
+		expect(awaiting()).toEqual([true, false]);
+
+		cycleEnds();
+		await flush();
+		expect(awaiting()).toEqual([true, false]);
+
+		agent.notify("sess-1", {
+			sessionUpdate: "agent_message_chunk",
+			content: { type: "text", text: "Answer." },
+		});
+		cycleEnds();
+		await flush();
+		expect(awaiting()).toEqual([true, false, true]);
+
+		await adapter.dispose();
+	});
+
 	it("does not count a background task left over from an earlier turn", async () => {
 		const agent = new FakeAcpAgent();
 		agent.steeringOutcome = "injected";

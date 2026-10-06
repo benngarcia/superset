@@ -255,6 +255,7 @@ export class AcpAdapter implements HarnessAdapter {
 	private agentCapabilities: Record<string, unknown> = {};
 	private supportsSteering = false;
 	private cycleEnded = false;
+	private steeredCyclePending = false;
 	private readonly backgroundTaskTurns = new Map<string, string | undefined>();
 	private awaitingBackground = false;
 	/** The v2 config option that stands in for v1's session mode, once seen. */
@@ -318,6 +319,11 @@ export class AcpAdapter implements HarnessAdapter {
 			_meta: { steering: { idleBehavior: "promptRequired" } },
 		});
 		const outcome = acpSteeringResponseSchema.safeParse(response).data?.outcome;
+		if (outcome === "injected") {
+			this.steeredCyclePending = true;
+			this.cycleEnded = false;
+			this.syncAwaitingBackground();
+		}
 		return outcome === "injected" || outcome === "startedNewTurn";
 	}
 
@@ -745,15 +751,22 @@ export class AcpAdapter implements HarnessAdapter {
 
 		if (variant === "usage_update") {
 			const usage = acpUsageUpdateSchema.safeParse(outer.data.update);
-			if (usage.success && usage.data.cost !== undefined) {
+			if (
+				usage.success &&
+				usage.data.cost !== undefined &&
+				!this.steeredCyclePending
+			) {
 				this.cycleEnded = true;
 				this.syncAwaitingBackground();
 			}
 			return;
 		}
-		if (MAIN_AGENT_ACTIVITY.has(variant) && this.cycleEnded) {
-			this.cycleEnded = false;
-			this.syncAwaitingBackground();
+		if (MAIN_AGENT_ACTIVITY.has(variant)) {
+			this.steeredCyclePending = false;
+			if (this.cycleEnded) {
+				this.cycleEnded = false;
+				this.syncAwaitingBackground();
+			}
 		}
 
 		const turnId = this.resolveTurnId();
@@ -1498,6 +1511,7 @@ export class AcpAdapter implements HarnessAdapter {
 	private emitTurn(turn: Turn): void {
 		if (turn.status !== "running" || turn.id !== this.currentTurn?.id) {
 			this.cycleEnded = false;
+			this.steeredCyclePending = false;
 		}
 		this.currentTurn = turn;
 		this.emit({ kind: "turn", turn });
