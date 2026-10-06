@@ -31,7 +31,10 @@ export const Route = createFileRoute("/_authenticated/_dashboard/tasks")({
 		].includes(search.tab as string)
 			? (search.tab as TasksSearch["tab"])
 			: undefined,
-		assignee: typeof search.assignee === "string" ? search.assignee : undefined,
+		assignee:
+			typeof search.assignee === "string" && !search.assignee.startsWith("ext:")
+				? search.assignee
+				: undefined,
 		search: typeof search.search === "string" ? search.search : undefined,
 		type: ["tasks", "linear", "prs", "issues"].includes(search.type as string)
 			? (search.type as TasksSearch["type"])
