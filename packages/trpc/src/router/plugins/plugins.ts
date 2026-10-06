@@ -350,6 +350,12 @@ export const pluginsRouter = createTRPCRouter({
 			installs.map((row) => `${row.marketplace}/${row.pluginName}`),
 		);
 
+		const claimed = new Set(
+			installs
+				.map((row) => installConnector(row))
+				.filter((slug): slug is string => slug !== undefined),
+		);
+
 		const available = Object.values(FIRST_PARTY_MANIFESTS)
 			.filter(
 				(manifest) => !installedKeys.has(`${FIRST_PARTY}/${manifest.name}`),
@@ -359,9 +365,10 @@ export const pluginsRouter = createTRPCRouter({
 					manifest as unknown as PluginManifest,
 					FIRST_PARTY,
 				);
-				const held_ = described.connector
-					? (held.get(described.connector) ?? [])
-					: [];
+				const held_ =
+					described.connector && !claimed.has(described.connector)
+						? (held.get(described.connector) ?? [])
+						: [];
 				return {
 					...described,
 					installed: false,

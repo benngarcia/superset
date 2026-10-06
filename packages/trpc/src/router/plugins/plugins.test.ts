@@ -225,4 +225,29 @@ describe("plugins.list", () => {
 		expect(notion).toHaveLength(1);
 		expect(notion[0]?.accounts).toEqual(["me@superset.sh"]);
 	});
+
+	test("a connection another install claims stays on that install only", async () => {
+		installs = [
+			install({
+				id: "install-notes-acme",
+				marketplace: "acme",
+				pluginName: "notes",
+				manifest: {
+					name: "notes",
+					version: "9.9.9",
+					extensions: { superset: { connector: { slug: "notion_mcp" } } },
+				},
+			}),
+		];
+		live = [connection("conn-mcp", "notion_mcp")];
+
+		const plugins = await caller.plugins.list();
+		const holders = plugins.filter((plugin) =>
+			plugin.connections.some((held) => held.id === "conn-mcp"),
+		);
+
+		expect(
+			holders.map((plugin) => `${plugin.marketplace}/${plugin.name}`),
+		).toEqual(["acme/notes"]);
+	});
 });
