@@ -7507,6 +7507,9 @@ msgstr "De"
 msgid "from {price}/user/mo"
 msgstr "desde {price}/usuario/mes"
 
+msgid "From a hackathon project to the workspace for parallel coding agents."
+msgstr "De un proyecto de hackathon al espacio de trabajo para agentes de código en paralelo."
+
 msgid "From a visit to a download to an account to a paying organization."
 msgstr "De una visita a una descarga, a una cuenta, a una organización de pago."
 
@@ -8061,6 +8064,12 @@ msgstr "Cómo funcionan los niveles →"
 
 msgid "How to install {name} in Superset"
 msgstr "Cómo instalar {name} en Superset"
+
+msgid "How we build it, in long form."
+msgstr "Cómo lo construimos, en detalle."
+
+msgid "How we work, each one written and signed by one of us."
+msgstr "Cómo trabajamos, cada principio escrito y firmado por uno de nosotros."
 
 msgid "How your agents sign in inside cloud workspaces. Other people connect their own subscriptions or API keys; on this machine each agent keeps using the login already on it."
 msgstr "Cómo inician sesión tus agentes dentro de los espacios de trabajo en la nube. Otras personas conectan sus propias suscripciones o claves de API; en esta máquina cada agente sigue usando la sesión que ya tiene."
@@ -12659,6 +12668,9 @@ msgstr "Leer la guía sobre agentes de código en paralelo"
 msgid "Read the setup guide"
 msgstr "Leer la guía de configuración"
 
+msgid "Read the source and every pull request."
+msgstr "Lee el código fuente y cada pull request."
+
 msgid "Reading usage…"
 msgstr "Leyendo el uso…"
 
@@ -14062,6 +14074,9 @@ msgstr "Descubre cómo se compara Superset con otras herramientas de código con
 
 msgid "See how Superset compares to other tools"
 msgstr "Ver cómo se compara Superset con otras herramientas"
+
+msgid "See how we work"
+msgstr "Mira cómo trabajamos"
 
 msgid "See how your agent usage compares. Explore the models behind each profile."
 msgstr "Compara tu uso de agentes con el de otros. Explora los modelos de cada perfil."
@@ -16109,9 +16124,6 @@ msgstr "El pronóstico"
 msgid "The founders"
 msgstr "Los fundadores"
 
-msgid "The founders at the hackathon where Superset started <0>|</0> YC HQ, November 2025"
-msgstr "Los fundadores en el hackathon donde nació Superset <0>|</0> sede de YC, noviembre de 2025"
-
 msgid "The full core loop (import a repo, run an agent, review the diff) now works signed out and offline."
 msgstr "El ciclo básico completo (importar un repositorio, ejecutar un agente, revisar el diff) ya funciona sin sesión iniciada y sin conexión."
 
@@ -17691,6 +17703,9 @@ msgstr "Observadores"
 msgid "Wayfinding and disclosure"
 msgstr "Orientación y despliegue de contenido"
 
+msgid "We build in public, so you can see how we work before you talk to us."
+msgstr "Construimos en público, para que veas cómo trabajamos antes de hablar con nosotros."
+
 msgid "We couldn't charge {amountDue}. Update your payment method to keep this plan."
 msgstr "No pudimos cobrar {amountDue}. Actualiza tu método de pago para conservar este plan."
 
@@ -17890,11 +17905,20 @@ msgstr "Qué está haciendo el contenido: en qué páginas empiezan las sesiones
 msgid "What these were written against is no longer on the page, so they have no pin."
 msgstr "Aquello sobre lo que se escribieron ya no está en la página, así que no tienen marcador."
 
+msgid "What we believe"
+msgstr "En qué creemos"
+
+msgid "What we ship, every week."
+msgstr "Lo que lanzamos, cada semana."
+
 msgid "What We're Building"
 msgstr "Lo que estamos construyendo"
 
 msgid "What we're building now and next."
 msgstr "Lo que estamos construyendo ahora y lo que viene."
+
+msgid "What we've shipped"
+msgstr "Lo que hemos lanzado"
 
 msgid "What would you like to build with Superset in the cloud?"
 msgstr "¿Qué te gustaría crear con Superset en la nube?"

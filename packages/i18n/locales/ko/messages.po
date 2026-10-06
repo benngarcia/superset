@@ -7507,6 +7507,9 @@ msgstr "기존 위치"
 msgid "from {price}/user/mo"
 msgstr "사용자당 월 {price}부터"
 
+msgid "From a hackathon project to the workspace for parallel coding agents."
+msgstr "해커톤 프로젝트에서 병렬 코딩 에이전트를 위한 워크스페이스로."
+
 msgid "From a visit to a download to an account to a paying organization."
 msgstr "방문에서 다운로드, 계정, 유료 조직까지."
 
@@ -8061,6 +8064,12 @@ msgstr "등급 산정 방식 →"
 
 msgid "How to install {name} in Superset"
 msgstr "Superset에 {name} 설치하는 방법"
+
+msgid "How we build it, in long form."
+msgstr "어떻게 만드는지 자세히."
+
+msgid "How we work, each one written and signed by one of us."
+msgstr "우리가 일하는 방식. 각 원칙은 우리 중 한 명이 쓰고 서명했습니다."
 
 msgid "How your agents sign in inside cloud workspaces. Other people connect their own subscriptions or API keys; on this machine each agent keeps using the login already on it."
 msgstr "클라우드 워크스페이스 안에서 에이전트가 로그인하는 방식입니다. 다른 사람은 각자의 구독이나 API 키를 연결하며, 이 컴퓨터에서는 각 에이전트가 이미 있는 로그인을 계속 사용합니다."
@@ -12659,6 +12668,9 @@ msgstr "병렬 코딩 에이전트 가이드 읽기"
 msgid "Read the setup guide"
 msgstr "설정 가이드 읽기"
 
+msgid "Read the source and every pull request."
+msgstr "소스 코드와 모든 풀 리퀘스트를 읽어 보세요."
+
 msgid "Reading usage…"
 msgstr "사용량 읽는 중…"
 
@@ -14062,6 +14074,9 @@ msgstr "AI 에디터부터 코딩 에이전트, 클라우드 기반 AI 엔지니
 
 msgid "See how Superset compares to other tools"
 msgstr "다른 도구와 Superset 비교 보기"
+
+msgid "See how we work"
+msgstr "우리가 일하는 방식 보기"
 
 msgid "See how your agent usage compares. Explore the models behind each profile."
 msgstr "다른 개발자와 에이전트 사용량을 비교하세요. 각 프로필에서 사용하는 모델을 살펴보세요."
@@ -16109,9 +16124,6 @@ msgstr "전망"
 msgid "The founders"
 msgstr "창업자"
 
-msgid "The founders at the hackathon where Superset started <0>|</0> YC HQ, November 2025"
-msgstr "Superset이 시작된 해커톤의 창업자들 <0>|</0> YC 본사, 2025년 11월"
-
 msgid "The full core loop (import a repo, run an agent, review the diff) now works signed out and offline."
 msgstr "핵심 흐름 전체(리포지토리 가져오기, 에이전트 실행, 차이 리뷰)가 이제 로그아웃 상태와 오프라인에서도 동작합니다."
 
@@ -17691,6 +17703,9 @@ msgstr "관찰자"
 msgid "Wayfinding and disclosure"
 msgstr "길 찾기와 정보 펼침"
 
+msgid "We build in public, so you can see how we work before you talk to us."
+msgstr "우리는 공개적으로 만듭니다. 대화하기 전에 우리가 일하는 방식을 확인하세요."
+
 msgid "We couldn't charge {amountDue}. Update your payment method to keep this plan."
 msgstr "{amountDue}을(를) 청구하지 못했습니다. 이 플랜을 유지하려면 결제 수단을 업데이트하세요."
 
@@ -17890,11 +17905,20 @@ msgstr "콘텐츠 현황: 세션이 어느 페이지에서 시작되는지, 얼�
 msgid "What these were written against is no longer on the page, so they have no pin."
 msgstr "작성 기준이 된 대상이 페이지에 더 이상 없어 핀이 없습니다."
 
+msgid "What we believe"
+msgstr "우리가 믿는 것"
+
+msgid "What we ship, every week."
+msgstr "매주 출시하는 것."
+
 msgid "What We're Building"
 msgstr "우리가 만들고 있는 것"
 
 msgid "What we're building now and next."
 msgstr "지금 만들고 있는 것과 다음에 만들 것."
+
+msgid "What we've shipped"
+msgstr "지금까지 출시한 것"
 
 msgid "What would you like to build with Superset in the cloud?"
 msgstr "클라우드의 Superset으로 무엇을 만들고 싶으신가요?"

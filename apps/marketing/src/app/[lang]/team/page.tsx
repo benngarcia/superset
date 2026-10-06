@@ -5,16 +5,15 @@ import { ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import {
-	RiGithubFill,
-	RiLinkedinBoxFill,
-	RiTwitterXFill,
-} from "react-icons/ri";
 import { localeUrl, localizedAlternates } from "@/app/[lang]/metadata";
 import { initServerI18n } from "@/app/i18n-server";
+import { getAbout } from "@/lib/about";
 import { getAllPeople } from "@/lib/people";
 import { CTASection } from "../components/CTASection";
-import { TeamBio } from "./components/TeamBio";
+import { FounderRow } from "./components/FounderRow";
+import { Principles } from "./components/Principles";
+import { ProofLinks } from "./components/ProofLinks";
+import { Timeline } from "./components/Timeline";
 
 export async function generateMetadata(): Promise<Metadata> {
 	const lang = await initServerI18n();
@@ -59,10 +58,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function TeamPage() {
-	await initServerI18n();
+	const lang = await initServerI18n();
 
 	const { t } = useLingui();
 	const people = getAllPeople();
+	const about = getAbout();
 
 	return (
 		<main className="relative min-h-screen bg-background">
@@ -132,19 +132,27 @@ export default async function TeamPage() {
 								/>
 							</div>
 							<figcaption className="mt-3 text-xs text-muted-foreground">
-								<Trans>
-									The founders at the hackathon where Superset started{" "}
-									<span className="text-muted-foreground/40">|</span> YC HQ,
-									November 2025
-								</Trans>
+								{about.photoCaption}
 							</figcaption>
 						</figure>
 					</div>
 				</section>
 
-				{/* Founders Grid */}
 				<section className="mb-24 md:mb-32">
-					<h2 className="text-2xl md:text-3xl font-normal text-foreground mb-10">
+					<h2 className="text-2xl md:text-3xl font-normal text-foreground mb-3">
+						<Trans>What we've shipped</Trans>
+					</h2>
+					<p className="text-muted-foreground mb-10 max-w-2xl">
+						<Trans>
+							From a hackathon project to the workspace for parallel coding
+							agents.
+						</Trans>
+					</p>
+					<Timeline entries={about.timeline} locale={lang} />
+				</section>
+
+				<section className="mb-24 md:mb-32">
+					<h2 className="text-2xl md:text-3xl font-normal text-foreground mb-6">
 						<Trans>The founders</Trans>
 					</h2>
 					{people.length === 0 ? (
@@ -152,91 +160,42 @@ export default async function TeamPage() {
 							<Trans>No team members yet.</Trans>
 						</p>
 					) : (
-						<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12 md:gap-10">
-							{people.map((person) => {
-								const initials = person.name
-									.split(" ")
-									.map((n) => n[0])
-									.join("")
-									.toUpperCase()
-									.slice(0, 2);
-
-								return (
-									<article
-										key={person.id}
-										className="flex flex-col items-center text-center"
-									>
-										<Link href={`/team/${person.id}`} className="mb-5">
-											<div className="relative size-32 md:size-36 rounded-full overflow-hidden bg-muted grayscale hover:grayscale-0 transition-all duration-300">
-												{person.avatar ? (
-													<Image
-														src={person.avatar}
-														alt={person.name}
-														fill
-														className="object-cover"
-														sizes="144px"
-													/>
-												) : (
-													<div className="absolute inset-0 flex items-center justify-center text-2xl font-medium text-foreground/30">
-														{initials}
-													</div>
-												)}
-											</div>
-										</Link>
-
-										<Link href={`/team/${person.id}`}>
-											<h3 className="text-xl font-medium text-foreground hover:text-foreground/80 transition-colors">
-												{person.name}
-											</h3>
-										</Link>
-										<p className="text-sm text-muted-foreground mt-1">
-											{person.role}
-										</p>
-										{person.bio && (
-											<TeamBio
-												bio={person.bio}
-												className="text-sm text-muted-foreground leading-relaxed mt-3 [&_a]:text-muted-foreground [&_a]:underline [&_a]:underline-offset-2 [&_a]:hover:text-foreground"
-											/>
-										)}
-
-										<div className="flex items-center gap-4 mt-4">
-											{person.github && (
-												<a
-													href={`https://github.com/${person.github}`}
-													target="_blank"
-													rel="noopener noreferrer"
-													className="text-muted-foreground hover:text-foreground transition-colors"
-												>
-													<RiGithubFill className="size-5" />
-												</a>
-											)}
-											{person.linkedin && (
-												<a
-													href={`https://linkedin.com/in/${person.linkedin}`}
-													target="_blank"
-													rel="noopener noreferrer"
-													className="text-muted-foreground hover:text-foreground transition-colors"
-												>
-													<RiLinkedinBoxFill className="size-5" />
-												</a>
-											)}
-											{person.twitter && (
-												<a
-													href={`https://twitter.com/${person.twitter}`}
-													target="_blank"
-													rel="noopener noreferrer"
-													className="text-muted-foreground hover:text-foreground transition-colors"
-												>
-													<RiTwitterXFill className="size-5" />
-												</a>
-											)}
-										</div>
-									</article>
-								);
-							})}
+						<div className="border-b border-border">
+							{people.map((person) => (
+								<FounderRow key={person.id} person={person} />
+							))}
 						</div>
 					)}
-					<div className="mt-14 text-center">
+				</section>
+
+				<section className="mb-24 md:mb-32">
+					<h2 className="text-2xl md:text-3xl font-normal text-foreground mb-3">
+						<Trans>What we believe</Trans>
+					</h2>
+					<p className="text-muted-foreground mb-10 max-w-2xl">
+						<Trans>
+							How we work, each one written and signed by one of us.
+						</Trans>
+					</p>
+					<Principles
+						principles={about.principles}
+						people={people}
+						locale={lang}
+					/>
+				</section>
+
+				<section className="mb-24 md:mb-32">
+					<h2 className="text-2xl md:text-3xl font-normal text-foreground mb-3">
+						<Trans>See how we work</Trans>
+					</h2>
+					<p className="text-muted-foreground mb-10 max-w-2xl">
+						<Trans>
+							We build in public, so you can see how we work before you talk to
+							us.
+						</Trans>
+					</p>
+					<ProofLinks />
+					<div className="mt-14">
 						<Link
 							href="/join-us"
 							className="inline-flex items-center gap-2 text-foreground hover:text-foreground/80 transition-colors group"

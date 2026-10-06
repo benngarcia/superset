@@ -7507,6 +7507,9 @@ msgstr "從"
 msgid "from {price}/user/mo"
 msgstr "{price}/使用者/月起"
 
+msgid "From a hackathon project to the workspace for parallel coding agents."
+msgstr "從一個黑客松專案，到平行程式設計代理的工作空間。"
+
 msgid "From a visit to a download to an account to a paying organization."
 msgstr "從造訪到下載、到帳號、到付費組織。"
 
@@ -8061,6 +8064,12 @@ msgstr "等級如何計算 →"
 
 msgid "How to install {name} in Superset"
 msgstr "如何在Superset中安裝{name}"
+
+msgid "How we build it, in long form."
+msgstr "我們如何打造它，深入介紹。"
+
+msgid "How we work, each one written and signed by one of us."
+msgstr "我們的工作方式，每一條都由我們其中一人撰寫並署名。"
 
 msgid "How your agents sign in inside cloud workspaces. Other people connect their own subscriptions or API keys; on this machine each agent keeps using the login already on it."
 msgstr "你的代理程式在雲端工作區中如何登入。其他人連接各自的訂閱或API金鑰；在這台機器上，每個代理程式繼續使用它上面已有的登入。"
@@ -12659,6 +12668,9 @@ msgstr "閱讀並行編碼代理程式指南"
 msgid "Read the setup guide"
 msgstr "閱讀設定指南"
 
+msgid "Read the source and every pull request."
+msgstr "閱讀原始碼和每一個拉取請求。"
+
 msgid "Reading usage…"
 msgstr "正在讀取用量…"
 
@@ -14062,6 +14074,9 @@ msgstr "看看Superset與其他AI編碼工具的對比，涵蓋AI編輯器、編
 
 msgid "See how Superset compares to other tools"
 msgstr "看看Superset與其他工具的對比"
+
+msgid "See how we work"
+msgstr "看看我們如何工作"
 
 msgid "See how your agent usage compares. Explore the models behind each profile."
 msgstr "比較你與其他開發者的代理程式用量，探索每個個人檔案使用的模型。"
@@ -16109,9 +16124,6 @@ msgstr "預測"
 msgid "The founders"
 msgstr "創始人"
 
-msgid "The founders at the hackathon where Superset started <0>|</0> YC HQ, November 2025"
-msgstr "創始人在Superset誕生的那場駭客松上 <0>|</0> YC總部，2025年11月"
-
 msgid "The full core loop (import a repo, run an agent, review the diff) now works signed out and offline."
 msgstr "完整的核心流程（匯入儲存庫、執行代理程式、審查差異）現在在未登入和離線時也能用。"
 
@@ -17691,6 +17703,9 @@ msgstr "關注者"
 msgid "Wayfinding and disclosure"
 msgstr "導航定位與內容展開"
 
+msgid "We build in public, so you can see how we work before you talk to us."
+msgstr "我們公開開發，在和我們交談之前，你就能看到我們如何工作。"
+
 msgid "We couldn't charge {amountDue}. Update your payment method to keep this plan."
 msgstr "我們無法扣取{amountDue}。請更新支付方式以保留此方案。"
 
@@ -17890,11 +17905,20 @@ msgstr "內容的表現：工作階段從哪些頁面開始，以及發佈了多
 msgid "What these were written against is no longer on the page, so they have no pin."
 msgstr "這些評論所針對的內容已不在頁面上，因此沒有標記。"
 
+msgid "What we believe"
+msgstr "我們的信念"
+
+msgid "What we ship, every week."
+msgstr "我們每週發布的內容。"
+
 msgid "What We're Building"
 msgstr "我們正在構建什麼"
 
 msgid "What we're building now and next."
 msgstr "我們正在做什麼，接下來做什麼。"
+
+msgid "What we've shipped"
+msgstr "我們發布了什麼"
 
 msgid "What would you like to build with Superset in the cloud?"
 msgstr "您想用雲端 Superset 建構什麼？"

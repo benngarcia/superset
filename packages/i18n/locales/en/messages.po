@@ -7507,6 +7507,9 @@ msgstr "From"
 msgid "from {price}/user/mo"
 msgstr "from {price}/user/mo"
 
+msgid "From a hackathon project to the workspace for parallel coding agents."
+msgstr "From a hackathon project to the workspace for parallel coding agents."
+
 msgid "From a visit to a download to an account to a paying organization."
 msgstr "From a visit to a download to an account to a paying organization."
 
@@ -8061,6 +8064,12 @@ msgstr "How tiers work →"
 
 msgid "How to install {name} in Superset"
 msgstr "How to install {name} in Superset"
+
+msgid "How we build it, in long form."
+msgstr "How we build it, in long form."
+
+msgid "How we work, each one written and signed by one of us."
+msgstr "How we work, each one written and signed by one of us."
 
 msgid "How your agents sign in inside cloud workspaces. Other people connect their own subscriptions or API keys; on this machine each agent keeps using the login already on it."
 msgstr "How your agents sign in inside cloud workspaces. Other people connect their own subscriptions or API keys; on this machine each agent keeps using the login already on it."
@@ -12659,6 +12668,9 @@ msgstr "Read the guide to parallel coding agents"
 msgid "Read the setup guide"
 msgstr "Read the setup guide"
 
+msgid "Read the source and every pull request."
+msgstr "Read the source and every pull request."
+
 msgid "Reading usage…"
 msgstr "Reading usage…"
 
@@ -14062,6 +14074,9 @@ msgstr "See how Superset compares to other AI coding tools, from AI editors to c
 
 msgid "See how Superset compares to other tools"
 msgstr "See how Superset compares to other tools"
+
+msgid "See how we work"
+msgstr "See how we work"
 
 msgid "See how your agent usage compares. Explore the models behind each profile."
 msgstr "See how your agent usage compares. Explore the models behind each profile."
@@ -16109,9 +16124,6 @@ msgstr "The forecast"
 msgid "The founders"
 msgstr "The founders"
 
-msgid "The founders at the hackathon where Superset started <0>|</0> YC HQ, November 2025"
-msgstr "The founders at the hackathon where Superset started <0>|</0> YC HQ, November 2025"
-
 msgid "The full core loop (import a repo, run an agent, review the diff) now works signed out and offline."
 msgstr "The full core loop (import a repo, run an agent, review the diff) now works signed out and offline."
 
@@ -17691,6 +17703,9 @@ msgstr "Watchers"
 msgid "Wayfinding and disclosure"
 msgstr "Wayfinding and disclosure"
 
+msgid "We build in public, so you can see how we work before you talk to us."
+msgstr "We build in public, so you can see how we work before you talk to us."
+
 msgid "We couldn't charge {amountDue}. Update your payment method to keep this plan."
 msgstr "We couldn't charge {amountDue}. Update your payment method to keep this plan."
 
@@ -17890,11 +17905,20 @@ msgstr "What the content is doing: which pages sessions start on, and how much i
 msgid "What these were written against is no longer on the page, so they have no pin."
 msgstr "What these were written against is no longer on the page, so they have no pin."
 
+msgid "What we believe"
+msgstr "What we believe"
+
+msgid "What we ship, every week."
+msgstr "What we ship, every week."
+
 msgid "What We're Building"
 msgstr "What We're Building"
 
 msgid "What we're building now and next."
 msgstr "What we're building now and next."
+
+msgid "What we've shipped"
+msgstr "What we've shipped"
 
 msgid "What would you like to build with Superset in the cloud?"
 msgstr "What would you like to build with Superset in the cloud?"

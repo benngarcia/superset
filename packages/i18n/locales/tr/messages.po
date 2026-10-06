@@ -7507,6 +7507,9 @@ msgstr "Kaynak"
 msgid "from {price}/user/mo"
 msgstr "başlangıç: {price}/kullanıcı/ay"
 
+msgid "From a hackathon project to the workspace for parallel coding agents."
+msgstr "Bir hackathon projesinden paralel kodlama ajanları için çalışma alanına."
+
 msgid "From a visit to a download to an account to a paying organization."
 msgstr "Ziyaretten indirmeye, hesaba, ödeme yapan organizasyona."
 
@@ -8061,6 +8064,12 @@ msgstr "Katmanlar nasıl işler →"
 
 msgid "How to install {name} in Superset"
 msgstr "{name} teması Superset'e nasıl kurulur"
+
+msgid "How we build it, in long form."
+msgstr "Nasıl geliştirdiğimiz, ayrıntılı olarak."
+
+msgid "How we work, each one written and signed by one of us."
+msgstr "Nasıl çalıştığımız. Her ilkeyi birimiz yazdı ve imzaladı."
 
 msgid "How your agents sign in inside cloud workspaces. Other people connect their own subscriptions or API keys; on this machine each agent keeps using the login already on it."
 msgstr "Ajanlarınızın bulut çalışma alanlarında nasıl oturum açtığı. Başkaları kendi aboneliklerini veya API anahtarlarını bağlar; bu makinede her ajan üzerinde zaten bulunan oturumu kullanmayı sürdürür."
@@ -12659,6 +12668,9 @@ msgstr "Paralel kodlama ajanları rehberini okuyun"
 msgid "Read the setup guide"
 msgstr "Kurulum rehberini okuyun"
 
+msgid "Read the source and every pull request."
+msgstr "Kaynak kodu ve her pull request'i okuyun."
+
 msgid "Reading usage…"
 msgstr "Kullanım okunuyor…"
 
@@ -14062,6 +14074,9 @@ msgstr "Superset'in AI düzenleyicilerinden kodlama ajanlarına ve bulut tabanl�
 
 msgid "See how Superset compares to other tools"
 msgstr "Superset'in diğer araçlarla karşılaştırmasına bakın"
+
+msgid "See how we work"
+msgstr "Nasıl çalıştığımızı görün"
 
 msgid "See how your agent usage compares. Explore the models behind each profile."
 msgstr "Ajan kullanımınızı diğerleriyle karşılaştırın. Her profilde kullanılan modelleri keşfedin."
@@ -16109,9 +16124,6 @@ msgstr "Öngörü"
 msgid "The founders"
 msgstr "Kurucular"
 
-msgid "The founders at the hackathon where Superset started <0>|</0> YC HQ, November 2025"
-msgstr "Superset'in başladığı hackathon'da kurucular <0>|</0> YC merkezi, Kasım 2025"
-
 msgid "The full core loop (import a repo, run an agent, review the diff) now works signed out and offline."
 msgstr "Tam çekirdek döngü (depo içe aktarma, ajan çalıştırma, farkı inceleme) artık oturum açmadan ve çevrimdışı çalışıyor."
 
@@ -17691,6 +17703,9 @@ msgstr "İzleyenler"
 msgid "Wayfinding and disclosure"
 msgstr "Yönlendirme ve açma-kapama"
 
+msgid "We build in public, so you can see how we work before you talk to us."
+msgstr "Açıkta geliştiriyoruz; bizimle konuşmadan önce nasıl çalıştığımızı görebilirsiniz."
+
 msgid "We couldn't charge {amountDue}. Update your payment method to keep this plan."
 msgstr "{amountDue} tutarını tahsil edemedik. Bu planı sürdürmek için ödeme yönteminizi güncelleyin."
 
@@ -17890,11 +17905,20 @@ msgstr "İçerik ne yapıyor: oturumlar hangi sayfalarda başlıyor ve ne kadar 
 msgid "What these were written against is no longer on the page, so they have no pin."
 msgstr "Yazıldıkları öğe artık sayfada olmadığı için işaretleri yok."
 
+msgid "What we believe"
+msgstr "Neye inanıyoruz"
+
+msgid "What we ship, every week."
+msgstr "Her hafta yayınladıklarımız."
+
 msgid "What We're Building"
 msgstr "Ne geliştiriyoruz"
 
 msgid "What we're building now and next."
 msgstr "Şimdi ve sırada ne geliştiriyoruz."
+
+msgid "What we've shipped"
+msgstr "Neler yayınladık"
 
 msgid "What would you like to build with Superset in the cloud?"
 msgstr "Bulutta Superset ile ne geliştirmek istersiniz?"
