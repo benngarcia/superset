@@ -33,7 +33,6 @@ import {
 	subscribeTerminalBackgroundMarkers,
 } from "renderer/lib/terminal/terminal-background-intents";
 import { getRelativeTime } from "renderer/screens/main/components/WorkspacesListView/utils";
-import { useStore } from "zustand";
 import type { StoreApi } from "zustand/vanilla";
 import type { PaneViewerData } from "../../types";
 import { focusOrAddTerminalPane } from "../../utils/focusTerminalPane";
@@ -49,6 +48,7 @@ import {
 interface BackgroundTerminalsButtonProps {
 	workspaceId: string;
 	store: StoreApi<WorkspaceStore<PaneViewerData>>;
+	linkedStores: readonly StoreApi<WorkspaceStore<PaneViewerData>>[];
 }
 
 /**
@@ -61,11 +61,31 @@ export const BackgroundTerminalsButton = memo(
 	function BackgroundTerminalsButton({
 		workspaceId,
 		store,
+		linkedStores,
 	}: BackgroundTerminalsButtonProps) {
 		const { t } = useLingui();
 		const [isOpen, setIsOpen] = useState(false);
-		const attachedTerminalIdsKey = useStore(store, (s) =>
-			getAttachedTerminalIdsKey(s.tabs),
+		const subscribeAttachedStores = useCallback(
+			(onChange: () => void) => {
+				const unsubscribes = [store, ...linkedStores].map((s) =>
+					s.subscribe(onChange),
+				);
+				return () => {
+					for (const unsubscribe of unsubscribes) unsubscribe();
+				};
+			},
+			[store, linkedStores],
+		);
+		const getAttachedSnapshot = useCallback(
+			() =>
+				getAttachedTerminalIdsKey(
+					[store, ...linkedStores].flatMap((s) => s.getState().tabs),
+				),
+			[store, linkedStores],
+		);
+		const attachedTerminalIdsKey = useSyncExternalStore(
+			subscribeAttachedStores,
+			getAttachedSnapshot,
 		);
 		const debouncedAttachedTerminalIdsKey = useDebouncedValue(
 			attachedTerminalIdsKey,

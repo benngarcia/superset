@@ -249,7 +249,12 @@ function V2WorkspaceContent() {
 		executePreset,
 		resolvePresetCommands,
 	});
-	useAutoAdoptBackgroundSessions({ store, workspaceId, isLayoutReady });
+	useAutoAdoptBackgroundSessions({
+		store,
+		linkedStores: linkedPaneStores,
+		workspaceId,
+		isLayoutReady: isLayoutReady && isRightLayoutReady,
+	});
 	useConsumeOpenUrlRequest({
 		store,
 		url: openUrl,
@@ -558,10 +563,11 @@ function V2WorkspaceContent() {
 										{/* Until the pane layout hydrates, tabs read as empty and
 									    every running terminal miscounts as "background", so the
 									    button would flash a bogus count on navigation. */}
-										{isLayoutReady && (
+										{isLayoutReady && isRightLayoutReady && (
 											<BackgroundTerminalsButton
 												workspaceId={workspaceId}
 												store={store}
+												linkedStores={linkedPaneStores}
 											/>
 										)}
 										{isLayoutReady && (

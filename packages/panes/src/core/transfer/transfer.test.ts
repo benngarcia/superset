@@ -6,6 +6,7 @@ import {
 	transferAllTabs,
 	transferPaneToNewTab,
 	transferPaneToSplit,
+	transferTabToIndex,
 	transferTabToSplit,
 } from "./transfer";
 
@@ -118,6 +119,19 @@ describe("transferTabToSplit", () => {
 			"c",
 		]);
 		expect(closed).toEqual([]);
+	});
+});
+
+describe("transferTabToIndex", () => {
+	it("leaves the tab in the source when the target already has its id", () => {
+		const { source, target } = makeStores();
+		source.getState().addTab({ id: "dup", panes: [tp("a")] });
+		target.getState().addTab({ id: "dup", panes: [tp("b")] });
+
+		transferTabToIndex({ source, target, tabId: "dup" });
+
+		expect(source.getState().getPane("a")?.tabId).toBe("dup");
+		expect(target.getState().getPane("a")).toBeNull();
 	});
 });
 

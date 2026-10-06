@@ -15,6 +15,7 @@ import { focusOrAddTerminalPane } from "../../utils/focusTerminalPane";
 
 interface UseAutoAdoptBackgroundSessionsArgs {
 	store: StoreApi<WorkspaceStore<PaneViewerData>>;
+	linkedStores: readonly StoreApi<WorkspaceStore<PaneViewerData>>[];
 	workspaceId: string;
 	isLayoutReady: boolean;
 }
@@ -37,6 +38,7 @@ interface UseAutoAdoptBackgroundSessionsArgs {
  */
 export function useAutoAdoptBackgroundSessions({
 	store,
+	linkedStores,
 	workspaceId,
 	isLayoutReady,
 }: UseAutoAdoptBackgroundSessionsArgs): void {
@@ -60,7 +62,12 @@ export function useAutoAdoptBackgroundSessions({
 		);
 		const toAdopt = getBackgroundTerminalSessions(
 			sessions,
-			parseAttachedTerminalIdsKey(getAttachedTerminalIdsKey(state.tabs)),
+			parseAttachedTerminalIdsKey(
+				getAttachedTerminalIdsKey([
+					...state.tabs,
+					...linkedStores.flatMap((linked) => linked.getState().tabs),
+				]),
+			),
 		).filter(
 			(session) =>
 				!marked.has(session.terminalId) &&
@@ -81,5 +88,12 @@ export function useAutoAdoptBackgroundSessions({
 			count: toAdopt.length,
 			workspaceId,
 		});
-	}, [isLayoutReady, isFetchingSessions, sessions, store, workspaceId]);
+	}, [
+		isLayoutReady,
+		isFetchingSessions,
+		sessions,
+		store,
+		linkedStores,
+		workspaceId,
+	]);
 }

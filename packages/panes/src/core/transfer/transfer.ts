@@ -98,6 +98,7 @@ export function transferTabToIndex<TData>(args: {
 	toIndex?: number;
 }): void {
 	if (args.source === args.target) return;
+	if (args.target.getState().getTab(args.tabId)) return;
 	linkStores(args.source, args.target);
 	const tab = detachTab(args.source, args.tabId);
 	if (!tab) return;
@@ -114,6 +115,7 @@ export function transferTabToSplit<TData>(args: {
 	if (args.source === args.target) return;
 	linkStores(args.source, args.target);
 	if (!args.target.getState().getPane(args.targetPaneId)) return;
+	if (args.target.getState().getTab(args.tabId)) return;
 	const tab = detachTab(args.source, args.tabId);
 	if (!tab) return;
 	args.target.getState().insertTab({ tab });
