@@ -2163,8 +2163,8 @@ msgstr "Er staat een update klaar om te installeren."
 msgid "Analytics, Ops, and more"
 msgstr "Analyses, beheer en meer"
 
-msgid "And many more."
-msgstr "En nog veel meer."
+msgid "And many more"
+msgstr "En nog veel meer"
 
 msgid "Android is on the way. Be first to know when it ships."
 msgstr "Android komt eraan. Hoor het als eerste wanneer het uitkomt."

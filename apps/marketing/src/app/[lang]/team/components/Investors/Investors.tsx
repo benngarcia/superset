@@ -70,7 +70,7 @@ export function Investors({ investors }: InvestorsProps) {
 				))}
 			</ul>
 			<p className="mt-8 text-sm text-muted-foreground">
-				<Trans>And many more.</Trans>
+				<Trans>And many more</Trans>
 			</p>
 		</div>
 	);

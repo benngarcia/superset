@@ -2163,8 +2163,8 @@ msgstr "Aktualizace je připravena k instalaci."
 msgid "Analytics, Ops, and more"
 msgstr "Analytika, provoz a další"
 
-msgid "And many more."
-msgstr "A mnoho dalších."
+msgid "And many more"
+msgstr "A mnoho dalších"
 
 msgid "Android is on the way. Be first to know when it ships."
 msgstr "Android je na cestě. Dozvíte se jako první, až vyjde."

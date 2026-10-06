@@ -2163,8 +2163,8 @@ msgstr "更新已准备好安装。"
 msgid "Analytics, Ops, and more"
 msgstr "分析、运营及更多功能"
 
-msgid "And many more."
-msgstr "以及更多。"
+msgid "And many more"
+msgstr "以及更多"
 
 msgid "Android is on the way. Be first to know when it ships."
 msgstr "Android 版即将到来。发布时第一时间通知你。"
