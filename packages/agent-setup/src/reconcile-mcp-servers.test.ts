@@ -79,7 +79,7 @@ describe("reconcileMcpServers", () => {
 		reconcileMcpServers({ linear: LINEAR }, opts());
 		const file = path.join(home, ".claude.json");
 		const root = JSON.parse(fs.readFileSync(file, "utf-8"));
-		root.mcpServers["mine"] = { type: "http", url: "https://example.invalid" };
+		root.mcpServers.mine = { type: "http", url: "https://example.invalid" };
 		fs.writeFileSync(file, JSON.stringify(root));
 
 		reconcileMcpServers({}, opts());
