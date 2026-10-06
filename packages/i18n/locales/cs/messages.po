@@ -1642,8 +1642,8 @@ msgstr "Přidejte jako hosta libovolný počítač. Pracovní prostory běží d
 msgid "Add attachment"
 msgstr "Přidat přílohu"
 
-msgid "Add Attachment"
-msgstr "Přidat přílohu"
+msgid "Add Chat Attachment"
+msgstr "Přidat přílohu do chatu"
 
 msgid "Add command"
 msgstr "Přidat příkaz"
@@ -1690,6 +1690,12 @@ msgstr "Přidat fotky nebo soubory"
 
 msgid "Add project"
 msgstr "Přidat projekt"
+
+msgid "Add Project from Folder"
+msgstr "Přidat projekt ze složky"
+
+msgid "Add Project from Folder..."
+msgstr "Přidat projekt ze složky..."
 
 msgid "Add prompt e.g. look for crashes in $sentry"
 msgstr "Přidejte prompt, např. hledej pády v $sentry"
@@ -4561,6 +4567,9 @@ msgstr "Kopírovat URL"
 
 msgid "Copy Workspace ID"
 msgstr "Kopírovat ID pracovního prostoru"
+
+msgid "Copy Workspace Path"
+msgstr "Kopírovat cestu k pracovnímu prostoru"
 
 msgid "Copy your browsing history and logins from another browser into Superset. Your original browser isn't changed."
 msgstr "Zkopírujte historii prohlížení a přihlášení z jiného prohlížeče do Superset. Původní prohlížeč se nijak nezmění."
@@ -10087,8 +10096,8 @@ msgstr "Další snímek"
 msgid "Next Tab"
 msgstr "Další karta"
 
-msgid "Next Tab (Alt)"
-msgstr "Další karta (Alt)"
+msgid "Next Tab (Second Shortcut)"
+msgstr "Další karta (druhá zkratka)"
 
 msgid "Next Workspace"
 msgstr "Další pracovní prostor"
@@ -11088,9 +11097,6 @@ msgstr "Otevřete pull request a uvidíte stav revize, kontroly a komentáře."
 msgid "Open actions menu"
 msgstr "Otevřít nabídku akcí"
 
-msgid "Open an existing project folder"
-msgstr "Otevřít existující složku projektu"
-
 msgid "Open anyway"
 msgstr "Přesto otevřít"
 
@@ -11189,9 +11195,6 @@ msgid "Open in Any IDE"
 msgstr "Otevřete v libovolném IDE"
 
 msgid "Open in app"
-msgstr "Otevřít v aplikaci"
-
-msgid "Open in App"
 msgstr "Otevřít v aplikaci"
 
 msgid "Open in browser"
@@ -11370,9 +11373,6 @@ msgstr "Otevřené pull requesty"
 msgid "Open recent"
 msgstr "Otevřít nedávné"
 
-msgid "Open Repo..."
-msgstr "Otevřít repozitář..."
-
 msgid "Open roles"
 msgstr "Otevřené pozice"
 
@@ -11454,14 +11454,17 @@ msgstr "Otevřít pracovní prostor běhu"
 msgid "open the task in a workspace"
 msgstr "otevřít úkol v pracovním prostoru"
 
+msgid "Open the workspace in the app picked in the Open In menu (VS Code, Cursor, etc.)"
+msgstr "Otevřít pracovní prostor v aplikaci vybrané v nabídce „Otevřít v“ (VS Code, Cursor atd.)"
+
 msgid "Open this run's workspace"
 msgstr "Otevřít pracovní prostor tohoto běhu"
 
 msgid "Open workspace"
 msgstr "Otevřít pracovní prostor"
 
-msgid "Open workspace in external app (Cursor, VS Code, etc.)"
-msgstr "Otevřít pracovní prostor v externí aplikaci (Cursor, VS Code atd.)"
+msgid "Open Workspace in Editor"
+msgstr "Otevřít pracovní prostor v editoru"
 
 msgid "OpenAI rejected this API key."
 msgstr "OpenAI tento API klíč odmítl."
@@ -11932,6 +11935,9 @@ msgstr "Vybrat jiný prvek"
 msgid "Pick a different element (esc)"
 msgstr "Vybrat jiný prvek (esc)"
 
+msgid "Pick a folder on disk and add it as a project"
+msgstr "Vyberte složku na disku a přidejte ji jako projekt"
+
 msgid "Pick a folder…"
 msgstr "Vyberte složku…"
 
@@ -12240,8 +12246,8 @@ msgstr "Předchozí snímek"
 msgid "Previous Tab"
 msgstr "Předchozí karta"
 
-msgid "Previous Tab (Alt)"
-msgstr "Předchozí karta (Alt)"
+msgid "Previous Tab (Second Shortcut)"
+msgstr "Předchozí karta (druhá zkratka)"
 
 msgid "Previous Workspace"
 msgstr "Předchozí pracovní prostor"
@@ -14996,6 +15002,9 @@ msgstr "Výdaje"
 msgid "Split"
 msgstr "Rozdělit"
 
+msgid "Split Along Longer Side"
+msgstr "Rozdělit podél delší strany"
+
 msgid "Split button mirrors desktop's OpenInButton; picker trigger mirrors PickerTrigger"
 msgstr "Rozdělené tlačítko kopíruje OpenInButton z desktopu; spouštěč výběru kopíruje PickerTrigger"
 
@@ -15016,9 +15025,6 @@ msgstr "Rozdělený panel"
 
 msgid "Split Pane"
 msgstr "Rozdělený panel"
-
-msgid "Split Pane Auto"
-msgstr "Rozdělit panel automaticky"
 
 msgid "Split Right"
 msgstr "Rozdělit doprava"
@@ -15055,6 +15061,9 @@ msgstr "Rozdělit s mobilním simulátorem"
 
 msgid "Split with New Browser"
 msgstr "Rozdělit s novým prohlížečem"
+
+msgid "Split with Sandbox Desktop"
+msgstr "Rozdělit s plochou sandboxu"
 
 msgid "Squash & Merge"
 msgstr "Squash a sloučit"
@@ -16777,6 +16786,9 @@ msgstr "Přepnout plán"
 msgid "Toggle right sidebar"
 msgstr "Přepnout pravý panel"
 
+msgid "Toggle Right Sidebar"
+msgstr "Přepnout pravý postranní panel"
+
 msgid "Toggle Scripts Bar"
 msgstr "Přepnout lištu skriptů"
 
@@ -17119,8 +17131,8 @@ msgstr "Probíhá"
 msgid "Undo"
 msgstr "Zpět"
 
-msgid "Undo Archive"
-msgstr "Vrátit archivaci"
+msgid "Undo Workspace Archive"
+msgstr "Vrátit archivaci pracovního prostoru"
 
 msgid "Ungroup"
 msgstr "Zrušit skupinu"

@@ -1642,8 +1642,8 @@ msgstr "Herhangi bir makineyi host olarak ekleyin. Dizüstünüz uykuya geçtiğ
 msgid "Add attachment"
 msgstr "Ek ekle"
 
-msgid "Add Attachment"
-msgstr "Ek ekle"
+msgid "Add Chat Attachment"
+msgstr "Sohbete ek ekle"
 
 msgid "Add command"
 msgstr "Komut ekle"
@@ -1690,6 +1690,12 @@ msgstr "Fotoğraf veya dosya ekle"
 
 msgid "Add project"
 msgstr "Proje ekle"
+
+msgid "Add Project from Folder"
+msgstr "Klasörden proje ekle"
+
+msgid "Add Project from Folder..."
+msgstr "Klasörden proje ekle..."
 
 msgid "Add prompt e.g. look for crashes in $sentry"
 msgstr "İstem ekleyin, örn. $sentry içinde çökmeleri ara"
@@ -4561,6 +4567,9 @@ msgstr "URL'yi kopyala"
 
 msgid "Copy Workspace ID"
 msgstr "Çalışma alanı kimliğini kopyala"
+
+msgid "Copy Workspace Path"
+msgstr "Çalışma alanı yolunu kopyala"
 
 msgid "Copy your browsing history and logins from another browser into Superset. Your original browser isn't changed."
 msgstr "Tarama geçmişinizi ve oturum bilgilerinizi başka bir tarayıcıdan Superset'e kopyalayın. Özgün tarayıcınız değişmez."
@@ -10087,8 +10096,8 @@ msgstr "Sonraki slayt"
 msgid "Next Tab"
 msgstr "Sonraki sekme"
 
-msgid "Next Tab (Alt)"
-msgstr "Sonraki sekme (Alt)"
+msgid "Next Tab (Second Shortcut)"
+msgstr "Sonraki sekme (ikinci kısayol)"
 
 msgid "Next Workspace"
 msgstr "Sonraki çalışma alanı"
@@ -11088,9 +11097,6 @@ msgstr "İnceleme durumunu, kontrolleri ve yorumları görmek için bir pull req
 msgid "Open actions menu"
 msgstr "Eylemler menüsünü aç"
 
-msgid "Open an existing project folder"
-msgstr "Mevcut bir proje klasörünü aç"
-
 msgid "Open anyway"
 msgstr "Yine de aç"
 
@@ -11189,9 +11195,6 @@ msgid "Open in Any IDE"
 msgstr "Herhangi bir IDE'de açın"
 
 msgid "Open in app"
-msgstr "Uygulamada aç"
-
-msgid "Open in App"
 msgstr "Uygulamada aç"
 
 msgid "Open in browser"
@@ -11370,9 +11373,6 @@ msgstr "Açık pull request'ler"
 msgid "Open recent"
 msgstr "Son kullanılanı aç"
 
-msgid "Open Repo..."
-msgstr "Depo aç..."
-
 msgid "Open roles"
 msgstr "Açık pozisyonlar"
 
@@ -11454,14 +11454,17 @@ msgstr "Çalıştırmanın çalışma alanını aç"
 msgid "open the task in a workspace"
 msgstr "görevi çalışma alanında açma"
 
+msgid "Open the workspace in the app picked in the Open In menu (VS Code, Cursor, etc.)"
+msgstr "Çalışma alanını \"Şununla aç\" menüsünde seçilen uygulamada aç (VS Code, Cursor vb.)"
+
 msgid "Open this run's workspace"
 msgstr "Bu çalıştırmanın çalışma alanını aç"
 
 msgid "Open workspace"
 msgstr "Çalışma alanını aç"
 
-msgid "Open workspace in external app (Cursor, VS Code, etc.)"
-msgstr "Çalışma alanını harici uygulamada aç (Cursor, VS Code vb.)"
+msgid "Open Workspace in Editor"
+msgstr "Çalışma alanını düzenleyicide aç"
 
 msgid "OpenAI rejected this API key."
 msgstr "OpenAI bu API anahtarını reddetti."
@@ -11932,6 +11935,9 @@ msgstr "Farklı bir öğe seç"
 msgid "Pick a different element (esc)"
 msgstr "Farklı bir öğe seç (esc)"
 
+msgid "Pick a folder on disk and add it as a project"
+msgstr "Diskte bir klasör seçip proje olarak ekleyin"
+
 msgid "Pick a folder…"
 msgstr "Bir klasör seçin…"
 
@@ -12240,8 +12246,8 @@ msgstr "Önceki slayt"
 msgid "Previous Tab"
 msgstr "Önceki sekme"
 
-msgid "Previous Tab (Alt)"
-msgstr "Önceki sekme (Alt)"
+msgid "Previous Tab (Second Shortcut)"
+msgstr "Önceki sekme (ikinci kısayol)"
 
 msgid "Previous Workspace"
 msgstr "Önceki çalışma alanı"
@@ -14996,6 +15002,9 @@ msgstr "Harcama"
 msgid "Split"
 msgstr "Böl"
 
+msgid "Split Along Longer Side"
+msgstr "Uzun kenar boyunca böl"
+
 msgid "Split button mirrors desktop's OpenInButton; picker trigger mirrors PickerTrigger"
 msgstr "Bölünmüş düğme masaüstündeki OpenInButton'ı yansıtır; seçici tetikleyici PickerTrigger'ı yansıtır"
 
@@ -15016,9 +15025,6 @@ msgstr "Bölünmüş bölme"
 
 msgid "Split Pane"
 msgstr "Bölünmüş Bölme"
-
-msgid "Split Pane Auto"
-msgstr "Bölmeyi otomatik böl"
 
 msgid "Split Right"
 msgstr "Sağa böl"
@@ -15055,6 +15061,9 @@ msgstr "Mobil Simülatörle böl"
 
 msgid "Split with New Browser"
 msgstr "Yeni tarayıcıyla böl"
+
+msgid "Split with Sandbox Desktop"
+msgstr "Sandbox masaüstüyle böl"
 
 msgid "Squash & Merge"
 msgstr "Squash ve birleştir"
@@ -16777,6 +16786,9 @@ msgstr "Planı aç/kapat"
 msgid "Toggle right sidebar"
 msgstr "Sağ kenar çubuğunu aç/kapat"
 
+msgid "Toggle Right Sidebar"
+msgstr "Sağ kenar çubuğunu aç/kapat"
+
 msgid "Toggle Scripts Bar"
 msgstr "Betikler çubuğunu aç/kapat"
 
@@ -17119,8 +17131,8 @@ msgstr "Sürüyor"
 msgid "Undo"
 msgstr "Geri al"
 
-msgid "Undo Archive"
-msgstr "Arşivlemeyi geri al"
+msgid "Undo Workspace Archive"
+msgstr "Çalışma alanı arşivlemesini geri al"
 
 msgid "Ungroup"
 msgstr "Gruptan çıkar"

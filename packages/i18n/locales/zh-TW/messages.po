@@ -1642,8 +1642,8 @@ msgstr "把任意機器新增為主機。筆記本休眠時工作區照常執行
 msgid "Add attachment"
 msgstr "新增附件"
 
-msgid "Add Attachment"
-msgstr "新增附件"
+msgid "Add Chat Attachment"
+msgstr "新增聊天附件"
 
 msgid "Add command"
 msgstr "新增命令"
@@ -1690,6 +1690,12 @@ msgstr "新增照片或檔案"
 
 msgid "Add project"
 msgstr "新增專案"
+
+msgid "Add Project from Folder"
+msgstr "從資料夾新增專案"
+
+msgid "Add Project from Folder..."
+msgstr "從資料夾新增專案..."
 
 msgid "Add prompt e.g. look for crashes in $sentry"
 msgstr "新增提示詞，例如：在$sentry中查詢崩潰"
@@ -4561,6 +4567,9 @@ msgstr "複製URL"
 
 msgid "Copy Workspace ID"
 msgstr "複製工作區ID"
+
+msgid "Copy Workspace Path"
+msgstr "複製工作區路徑"
 
 msgid "Copy your browsing history and logins from another browser into Superset. Your original browser isn't changed."
 msgstr "把其他瀏覽器的瀏覽歷史和登入資訊複製到Superset。原瀏覽器不會被修改。"
@@ -10087,8 +10096,8 @@ msgstr "下一張"
 msgid "Next Tab"
 msgstr "下一個分頁"
 
-msgid "Next Tab (Alt)"
-msgstr "下一個分頁（Alt）"
+msgid "Next Tab (Second Shortcut)"
+msgstr "下一個分頁（第二快捷鍵）"
 
 msgid "Next Workspace"
 msgstr "下一個工作區"
@@ -11088,9 +11097,6 @@ msgstr "建立拉取請求後即可檢視評審狀態、檢查和評論。"
 msgid "Open actions menu"
 msgstr "開啟操作選單"
 
-msgid "Open an existing project folder"
-msgstr "開啟已有的專案資料夾"
-
 msgid "Open anyway"
 msgstr "仍然開啟"
 
@@ -11190,9 +11196,6 @@ msgstr "在任意IDE中開啟"
 
 msgid "Open in app"
 msgstr "在應用程式中開啟"
-
-msgid "Open in App"
-msgstr "在應用中開啟"
 
 msgid "Open in browser"
 msgstr "在瀏覽器中開啟"
@@ -11370,9 +11373,6 @@ msgstr "開啟的拉取請求"
 msgid "Open recent"
 msgstr "開啟最近使用"
 
-msgid "Open Repo..."
-msgstr "開啟儲存庫..."
-
 msgid "Open roles"
 msgstr "空缺職位"
 
@@ -11454,14 +11454,17 @@ msgstr "開啟這次執行的工作區"
 msgid "open the task in a workspace"
 msgstr "在工作區中開啟任務"
 
+msgid "Open the workspace in the app picked in the Open In menu (VS Code, Cursor, etc.)"
+msgstr "在「開啟方式」選單中選定的應用（VS Code、Cursor等）中開啟工作區"
+
 msgid "Open this run's workspace"
 msgstr "開啟此次執行的工作區"
 
 msgid "Open workspace"
 msgstr "開啟工作區"
 
-msgid "Open workspace in external app (Cursor, VS Code, etc.)"
-msgstr "在外部應用中開啟工作區（Cursor、VS Code等）"
+msgid "Open Workspace in Editor"
+msgstr "在編輯器中開啟工作區"
 
 msgid "OpenAI rejected this API key."
 msgstr "OpenAI拒絕了此API金鑰。"
@@ -11932,6 +11935,9 @@ msgstr "選擇其他元素"
 msgid "Pick a different element (esc)"
 msgstr "選擇其他元素（esc）"
 
+msgid "Pick a folder on disk and add it as a project"
+msgstr "選擇磁碟上的資料夾並將其新增為專案"
+
 msgid "Pick a folder…"
 msgstr "選擇資料夾…"
 
@@ -12240,8 +12246,8 @@ msgstr "上一張"
 msgid "Previous Tab"
 msgstr "上一個分頁"
 
-msgid "Previous Tab (Alt)"
-msgstr "上一個分頁（Alt）"
+msgid "Previous Tab (Second Shortcut)"
+msgstr "上一個分頁（第二快捷鍵）"
 
 msgid "Previous Workspace"
 msgstr "上一個工作區"
@@ -14996,6 +15002,9 @@ msgstr "支出"
 msgid "Split"
 msgstr "分屏"
 
+msgid "Split Along Longer Side"
+msgstr "沿較長邊分割"
+
 msgid "Split button mirrors desktop's OpenInButton; picker trigger mirrors PickerTrigger"
 msgstr "分體按鈕對應桌面端的OpenInButton；選擇器觸發器對應PickerTrigger"
 
@@ -15016,9 +15025,6 @@ msgstr "拆分窗格"
 
 msgid "Split Pane"
 msgstr "分割窗格"
-
-msgid "Split Pane Auto"
-msgstr "自動拆分窗格"
 
 msgid "Split Right"
 msgstr "向右拆分"
@@ -15055,6 +15061,9 @@ msgstr "分割並開啟行動模擬器"
 
 msgid "Split with New Browser"
 msgstr "拆分並新建瀏覽器"
+
+msgid "Split with Sandbox Desktop"
+msgstr "分割並開啟沙盒桌面"
 
 msgid "Squash & Merge"
 msgstr "壓縮併合併"
@@ -16777,6 +16786,9 @@ msgstr "切換計劃"
 msgid "Toggle right sidebar"
 msgstr "切換右側邊欄"
 
+msgid "Toggle Right Sidebar"
+msgstr "切換右側邊欄"
+
 msgid "Toggle Scripts Bar"
 msgstr "切換指令碼欄"
 
@@ -17119,8 +17131,8 @@ msgstr "進行中"
 msgid "Undo"
 msgstr "撤銷"
 
-msgid "Undo Archive"
-msgstr "復原歸檔"
+msgid "Undo Workspace Archive"
+msgstr "復原工作區歸檔"
 
 msgid "Ungroup"
 msgstr "取消群組"

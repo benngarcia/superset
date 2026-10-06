@@ -35,8 +35,9 @@ import { useSettingsSearchQuery } from "renderer/stores/settings-state";
 const CATEGORY_ORDER: HotkeyCategory[] = [
 	"Navigation",
 	"Workspace",
-	"Terminal",
 	"Layout",
+	"Terminal",
+	"Chat",
 	"Window",
 	"Help",
 ];
@@ -129,6 +130,7 @@ function getHotkeysByCategory(): Record<
 		Workspace: [],
 		Layout: [],
 		Terminal: [],
+		Chat: [],
 		Window: [],
 		Help: [],
 	};
@@ -226,6 +228,7 @@ function KeyboardShortcutsPage() {
 		Terminal: t({
 			message: "Terminal",
 		}),
+		Chat: t({ message: "Chat" }),
 		Layout: t({ message: "Layout" }),
 		Window: t({ message: "Window" }),
 		Help: t({ message: "Help" }),

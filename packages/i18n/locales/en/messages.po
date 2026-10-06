@@ -1642,8 +1642,8 @@ msgstr "Add any machine as a host. Workspaces keep running when your laptop slee
 msgid "Add attachment"
 msgstr "Add attachment"
 
-msgid "Add Attachment"
-msgstr "Add Attachment"
+msgid "Add Chat Attachment"
+msgstr "Add Chat Attachment"
 
 msgid "Add command"
 msgstr "Add command"
@@ -1690,6 +1690,12 @@ msgstr "Add photos or files"
 
 msgid "Add project"
 msgstr "Add project"
+
+msgid "Add Project from Folder"
+msgstr "Add Project from Folder"
+
+msgid "Add Project from Folder..."
+msgstr "Add Project from Folder..."
 
 msgid "Add prompt e.g. look for crashes in $sentry"
 msgstr "Add prompt e.g. look for crashes in $sentry"
@@ -4561,6 +4567,9 @@ msgstr "Copy URL"
 
 msgid "Copy Workspace ID"
 msgstr "Copy Workspace ID"
+
+msgid "Copy Workspace Path"
+msgstr "Copy Workspace Path"
 
 msgid "Copy your browsing history and logins from another browser into Superset. Your original browser isn't changed."
 msgstr "Copy your browsing history and logins from another browser into Superset. Your original browser isn't changed."
@@ -10087,8 +10096,8 @@ msgstr "Next slide"
 msgid "Next Tab"
 msgstr "Next Tab"
 
-msgid "Next Tab (Alt)"
-msgstr "Next Tab (Alt)"
+msgid "Next Tab (Second Shortcut)"
+msgstr "Next Tab (Second Shortcut)"
 
 msgid "Next Workspace"
 msgstr "Next Workspace"
@@ -11088,9 +11097,6 @@ msgstr "Open a pull request to view review status, checks, and comments."
 msgid "Open actions menu"
 msgstr "Open actions menu"
 
-msgid "Open an existing project folder"
-msgstr "Open an existing project folder"
-
 msgid "Open anyway"
 msgstr "Open anyway"
 
@@ -11190,9 +11196,6 @@ msgstr "Open in Any IDE"
 
 msgid "Open in app"
 msgstr "Open in app"
-
-msgid "Open in App"
-msgstr "Open in App"
 
 msgid "Open in browser"
 msgstr "Open in browser"
@@ -11370,9 +11373,6 @@ msgstr "Open pull requests"
 msgid "Open recent"
 msgstr "Open recent"
 
-msgid "Open Repo..."
-msgstr "Open Repo..."
-
 msgid "Open roles"
 msgstr "Open roles"
 
@@ -11454,14 +11454,17 @@ msgstr "Open the run's workspace"
 msgid "open the task in a workspace"
 msgstr "open the task in a workspace"
 
+msgid "Open the workspace in the app picked in the Open In menu (VS Code, Cursor, etc.)"
+msgstr "Open the workspace in the app picked in the Open In menu (VS Code, Cursor, etc.)"
+
 msgid "Open this run's workspace"
 msgstr "Open this run's workspace"
 
 msgid "Open workspace"
 msgstr "Open workspace"
 
-msgid "Open workspace in external app (Cursor, VS Code, etc.)"
-msgstr "Open workspace in external app (Cursor, VS Code, etc.)"
+msgid "Open Workspace in Editor"
+msgstr "Open Workspace in Editor"
 
 msgid "OpenAI rejected this API key."
 msgstr "OpenAI rejected this API key."
@@ -11932,6 +11935,9 @@ msgstr "Pick a different element"
 msgid "Pick a different element (esc)"
 msgstr "Pick a different element (esc)"
 
+msgid "Pick a folder on disk and add it as a project"
+msgstr "Pick a folder on disk and add it as a project"
+
 msgid "Pick a folder…"
 msgstr "Pick a folder…"
 
@@ -12240,8 +12246,8 @@ msgstr "Previous slide"
 msgid "Previous Tab"
 msgstr "Previous Tab"
 
-msgid "Previous Tab (Alt)"
-msgstr "Previous Tab (Alt)"
+msgid "Previous Tab (Second Shortcut)"
+msgstr "Previous Tab (Second Shortcut)"
 
 msgid "Previous Workspace"
 msgstr "Previous Workspace"
@@ -14996,6 +15002,9 @@ msgstr "Spend"
 msgid "Split"
 msgstr "Split"
 
+msgid "Split Along Longer Side"
+msgstr "Split Along Longer Side"
+
 msgid "Split button mirrors desktop's OpenInButton; picker trigger mirrors PickerTrigger"
 msgstr "Split button mirrors desktop's OpenInButton; picker trigger mirrors PickerTrigger"
 
@@ -15016,9 +15025,6 @@ msgstr "Split pane"
 
 msgid "Split Pane"
 msgstr "Split Pane"
-
-msgid "Split Pane Auto"
-msgstr "Split Pane Auto"
 
 msgid "Split Right"
 msgstr "Split Right"
@@ -15055,6 +15061,9 @@ msgstr "Split with Mobile Simulator"
 
 msgid "Split with New Browser"
 msgstr "Split with New Browser"
+
+msgid "Split with Sandbox Desktop"
+msgstr "Split with Sandbox Desktop"
 
 msgid "Squash & Merge"
 msgstr "Squash & Merge"
@@ -16777,6 +16786,9 @@ msgstr "Toggle plan"
 msgid "Toggle right sidebar"
 msgstr "Toggle right sidebar"
 
+msgid "Toggle Right Sidebar"
+msgstr "Toggle Right Sidebar"
+
 msgid "Toggle Scripts Bar"
 msgstr "Toggle Scripts Bar"
 
@@ -17119,8 +17131,8 @@ msgstr "Underway"
 msgid "Undo"
 msgstr "Undo"
 
-msgid "Undo Archive"
-msgstr "Undo Archive"
+msgid "Undo Workspace Archive"
+msgstr "Undo Workspace Archive"
 
 msgid "Ungroup"
 msgstr "Ungroup"

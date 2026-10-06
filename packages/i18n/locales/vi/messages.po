@@ -1642,8 +1642,8 @@ msgstr "Thêm bất kỳ máy nào làm host. Workspace vẫn chạy khi laptop 
 msgid "Add attachment"
 msgstr "Thêm tệp đính kèm"
 
-msgid "Add Attachment"
-msgstr "Thêm tệp đính kèm"
+msgid "Add Chat Attachment"
+msgstr "Thêm tệp đính kèm vào chat"
 
 msgid "Add command"
 msgstr "Thêm lệnh"
@@ -1690,6 +1690,12 @@ msgstr "Thêm ảnh hoặc tệp"
 
 msgid "Add project"
 msgstr "Thêm dự án"
+
+msgid "Add Project from Folder"
+msgstr "Thêm dự án từ thư mục"
+
+msgid "Add Project from Folder..."
+msgstr "Thêm dự án từ thư mục..."
 
 msgid "Add prompt e.g. look for crashes in $sentry"
 msgstr "Thêm prompt, ví dụ: tìm crash trong $sentry"
@@ -4561,6 +4567,9 @@ msgstr "Sao chép URL"
 
 msgid "Copy Workspace ID"
 msgstr "Sao chép ID workspace"
+
+msgid "Copy Workspace Path"
+msgstr "Sao chép đường dẫn workspace"
 
 msgid "Copy your browsing history and logins from another browser into Superset. Your original browser isn't changed."
 msgstr "Sao chép lịch sử duyệt web và thông tin đăng nhập từ trình duyệt khác vào Superset. Trình duyệt gốc của bạn không bị thay đổi."
@@ -10087,8 +10096,8 @@ msgstr "Slide kế tiếp"
 msgid "Next Tab"
 msgstr "Tab kế tiếp"
 
-msgid "Next Tab (Alt)"
-msgstr "Tab kế tiếp (Alt)"
+msgid "Next Tab (Second Shortcut)"
+msgstr "Tab kế tiếp (phím tắt thứ hai)"
 
 msgid "Next Workspace"
 msgstr "Workspace kế tiếp"
@@ -11088,9 +11097,6 @@ msgstr "Hãy mở một pull request để xem trạng thái review, check và b
 msgid "Open actions menu"
 msgstr "Mở menu hành động"
 
-msgid "Open an existing project folder"
-msgstr "Mở một thư mục dự án có sẵn"
-
 msgid "Open anyway"
 msgstr "Vẫn mở"
 
@@ -11189,9 +11195,6 @@ msgid "Open in Any IDE"
 msgstr "Mở trong IDE bất kỳ"
 
 msgid "Open in app"
-msgstr "Mở trong ứng dụng"
-
-msgid "Open in App"
 msgstr "Mở trong ứng dụng"
 
 msgid "Open in browser"
@@ -11370,9 +11373,6 @@ msgstr "Pull request đang mở"
 msgid "Open recent"
 msgstr "Mở gần đây"
 
-msgid "Open Repo..."
-msgstr "Mở repo..."
-
 msgid "Open roles"
 msgstr "Vị trí đang tuyển"
 
@@ -11454,14 +11454,17 @@ msgstr "Mở workspace của lần chạy"
 msgid "open the task in a workspace"
 msgstr "mở tác vụ trong một workspace"
 
+msgid "Open the workspace in the app picked in the Open In menu (VS Code, Cursor, etc.)"
+msgstr "Mở workspace trong ứng dụng đã chọn ở menu \"Mở trong\" (VS Code, Cursor, v.v.)"
+
 msgid "Open this run's workspace"
 msgstr "Mở workspace của lần chạy này"
 
 msgid "Open workspace"
 msgstr "Mở workspace"
 
-msgid "Open workspace in external app (Cursor, VS Code, etc.)"
-msgstr "Mở workspace trong ứng dụng ngoài (Cursor, VS Code, v.v.)"
+msgid "Open Workspace in Editor"
+msgstr "Mở workspace trong editor"
 
 msgid "OpenAI rejected this API key."
 msgstr "OpenAI đã từ chối khóa API này."
@@ -11932,6 +11935,9 @@ msgstr "Chọn phần tử khác"
 msgid "Pick a different element (esc)"
 msgstr "Chọn phần tử khác (esc)"
 
+msgid "Pick a folder on disk and add it as a project"
+msgstr "Chọn một thư mục trên ổ đĩa và thêm nó làm dự án"
+
 msgid "Pick a folder…"
 msgstr "Chọn một thư mục…"
 
@@ -12240,8 +12246,8 @@ msgstr "Slide trước"
 msgid "Previous Tab"
 msgstr "Tab trước"
 
-msgid "Previous Tab (Alt)"
-msgstr "Tab trước (Alt)"
+msgid "Previous Tab (Second Shortcut)"
+msgstr "Tab trước (phím tắt thứ hai)"
 
 msgid "Previous Workspace"
 msgstr "Workspace trước"
@@ -14996,6 +15002,9 @@ msgstr "Chi tiêu"
 msgid "Split"
 msgstr "Chia đôi"
 
+msgid "Split Along Longer Side"
+msgstr "Chia theo cạnh dài hơn"
+
 msgid "Split button mirrors desktop's OpenInButton; picker trigger mirrors PickerTrigger"
 msgstr "Nút tách đôi phản chiếu OpenInButton của desktop; trigger của picker phản chiếu PickerTrigger"
 
@@ -15016,9 +15025,6 @@ msgstr "Chia khung"
 
 msgid "Split Pane"
 msgstr "Khung chia"
-
-msgid "Split Pane Auto"
-msgstr "Chia khung tự động"
 
 msgid "Split Right"
 msgstr "Chia sang phải"
@@ -15055,6 +15061,9 @@ msgstr "Chia với Trình giả lập di động"
 
 msgid "Split with New Browser"
 msgstr "Chia kèm trình duyệt mới"
+
+msgid "Split with Sandbox Desktop"
+msgstr "Chia với Màn hình nền sandbox"
 
 msgid "Squash & Merge"
 msgstr "Squash & merge"
@@ -16777,6 +16786,9 @@ msgstr "Ẩn/hiện kế hoạch"
 msgid "Toggle right sidebar"
 msgstr "Bật/tắt thanh bên phải"
 
+msgid "Toggle Right Sidebar"
+msgstr "Bật/tắt thanh bên phải"
+
 msgid "Toggle Scripts Bar"
 msgstr "Bật/tắt thanh script"
 
@@ -17119,8 +17131,8 @@ msgstr "Đang diễn ra"
 msgid "Undo"
 msgstr "Hoàn tác"
 
-msgid "Undo Archive"
-msgstr "Hoàn tác lưu trữ"
+msgid "Undo Workspace Archive"
+msgstr "Hoàn tác lưu trữ workspace"
 
 msgid "Ungroup"
 msgstr "Bỏ nhóm"

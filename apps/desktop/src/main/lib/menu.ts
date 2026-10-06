@@ -43,7 +43,7 @@ export function createApplicationMenu() {
 				{
 					label: i18n._(
 						msg({
-							message: "Open Repo...",
+							message: "Add Project from Folder...",
 						}),
 					),
 					click: () => {

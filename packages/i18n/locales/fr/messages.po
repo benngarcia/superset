@@ -1642,8 +1642,8 @@ msgstr "Ajoutez n'importe quelle machine comme hôte. Les espaces de travail con
 msgid "Add attachment"
 msgstr "Ajouter une pièce jointe"
 
-msgid "Add Attachment"
-msgstr "Ajouter une pièce jointe"
+msgid "Add Chat Attachment"
+msgstr "Ajouter une pièce jointe au chat"
 
 msgid "Add command"
 msgstr "Ajouter une commande"
@@ -1690,6 +1690,12 @@ msgstr "Ajouter des photos ou des fichiers"
 
 msgid "Add project"
 msgstr "Ajouter un projet"
+
+msgid "Add Project from Folder"
+msgstr "Ajouter un projet depuis un dossier"
+
+msgid "Add Project from Folder..."
+msgstr "Ajouter un projet depuis un dossier..."
 
 msgid "Add prompt e.g. look for crashes in $sentry"
 msgstr "Ajoutez un prompt, par ex. cherche les crashs dans $sentry"
@@ -4561,6 +4567,9 @@ msgstr "Copier l'URL"
 
 msgid "Copy Workspace ID"
 msgstr "Copier l'ID de l'espace de travail"
+
+msgid "Copy Workspace Path"
+msgstr "Copier le chemin de l'espace de travail"
 
 msgid "Copy your browsing history and logins from another browser into Superset. Your original browser isn't changed."
 msgstr "Copiez votre historique de navigation et vos identifiants depuis un autre navigateur vers Superset. Votre navigateur d'origine n'est pas modifié."
@@ -10087,8 +10096,8 @@ msgstr "Diapositive suivante"
 msgid "Next Tab"
 msgstr "Onglet suivant"
 
-msgid "Next Tab (Alt)"
-msgstr "Onglet suivant (alt)"
+msgid "Next Tab (Second Shortcut)"
+msgstr "Onglet suivant (second raccourci)"
 
 msgid "Next Workspace"
 msgstr "Espace de travail suivant"
@@ -11088,9 +11097,6 @@ msgstr "Ouvrez une pull request pour voir l'état de la revue, les vérification
 msgid "Open actions menu"
 msgstr "Ouvrir le menu des actions"
 
-msgid "Open an existing project folder"
-msgstr "Ouvrir un dossier de projet existant"
-
 msgid "Open anyway"
 msgstr "Ouvrir quand même"
 
@@ -11190,9 +11196,6 @@ msgstr "Ouvrir dans n'importe quel IDE"
 
 msgid "Open in app"
 msgstr "Ouvrir dans l’application"
-
-msgid "Open in App"
-msgstr "Ouvrir dans une app"
 
 msgid "Open in browser"
 msgstr "Ouvrir dans le navigateur"
@@ -11370,9 +11373,6 @@ msgstr "Pull requests ouvertes"
 msgid "Open recent"
 msgstr "Ouvrir récent"
 
-msgid "Open Repo..."
-msgstr "Ouvrir un dépôt..."
-
 msgid "Open roles"
 msgstr "Postes ouverts"
 
@@ -11454,14 +11454,17 @@ msgstr "Ouvrir l'espace de travail de l'exécution"
 msgid "open the task in a workspace"
 msgstr "ouvrir la tâche dans un espace de travail"
 
+msgid "Open the workspace in the app picked in the Open In menu (VS Code, Cursor, etc.)"
+msgstr "Ouvrir l'espace de travail dans l'app choisie dans le menu « Ouvrir dans » (VS Code, Cursor, etc.)"
+
 msgid "Open this run's workspace"
 msgstr "Ouvrir l'espace de travail de cette exécution"
 
 msgid "Open workspace"
 msgstr "Ouvrir l'espace de travail"
 
-msgid "Open workspace in external app (Cursor, VS Code, etc.)"
-msgstr "Ouvrir l'espace de travail dans une app externe (Cursor, VS Code, etc.)"
+msgid "Open Workspace in Editor"
+msgstr "Ouvrir l'espace de travail dans l'éditeur"
 
 msgid "OpenAI rejected this API key."
 msgstr "OpenAI a rejeté cette clé API."
@@ -11932,6 +11935,9 @@ msgstr "Choisir un autre élément"
 msgid "Pick a different element (esc)"
 msgstr "Choisir un autre élément (esc)"
 
+msgid "Pick a folder on disk and add it as a project"
+msgstr "Choisir un dossier sur le disque et l'ajouter comme projet"
+
 msgid "Pick a folder…"
 msgstr "Choisir un dossier…"
 
@@ -12240,8 +12246,8 @@ msgstr "Diapositive précédente"
 msgid "Previous Tab"
 msgstr "Onglet précédent"
 
-msgid "Previous Tab (Alt)"
-msgstr "Onglet précédent (alt)"
+msgid "Previous Tab (Second Shortcut)"
+msgstr "Onglet précédent (second raccourci)"
 
 msgid "Previous Workspace"
 msgstr "Espace de travail précédent"
@@ -14996,6 +15002,9 @@ msgstr "Dépense"
 msgid "Split"
 msgstr "Côte à côte"
 
+msgid "Split Along Longer Side"
+msgstr "Diviser selon le côté le plus long"
+
 msgid "Split button mirrors desktop's OpenInButton; picker trigger mirrors PickerTrigger"
 msgstr "Le bouton scindé reproduit l'OpenInButton du bureau ; le déclencheur du sélecteur reproduit PickerTrigger"
 
@@ -15016,9 +15025,6 @@ msgstr "Volet divisé"
 
 msgid "Split Pane"
 msgstr "Volet divisé"
-
-msgid "Split Pane Auto"
-msgstr "Fractionner automatiquement"
 
 msgid "Split Right"
 msgstr "Fractionner vers la droite"
@@ -15055,6 +15061,9 @@ msgstr "Diviser avec le simulateur mobile"
 
 msgid "Split with New Browser"
 msgstr "Fractionner avec un navigateur"
+
+msgid "Split with Sandbox Desktop"
+msgstr "Diviser avec le bureau du sandbox"
 
 msgid "Squash & Merge"
 msgstr "Squasher et fusionner"
@@ -16777,6 +16786,9 @@ msgstr "Afficher ou masquer le plan"
 msgid "Toggle right sidebar"
 msgstr "Afficher/masquer la barre latérale droite"
 
+msgid "Toggle Right Sidebar"
+msgstr "Afficher/masquer la barre latérale droite"
+
 msgid "Toggle Scripts Bar"
 msgstr "Afficher/masquer la barre de scripts"
 
@@ -17119,8 +17131,8 @@ msgstr "En cours"
 msgid "Undo"
 msgstr "Annuler"
 
-msgid "Undo Archive"
-msgstr "Annuler l'archivage"
+msgid "Undo Workspace Archive"
+msgstr "Annuler l'archivage de l'espace de travail"
 
 msgid "Ungroup"
 msgstr "Dégrouper"

@@ -1642,8 +1642,8 @@ msgstr "Добавьте любую машину как хост. Рабочие
 msgid "Add attachment"
 msgstr "Добавить вложение"
 
-msgid "Add Attachment"
-msgstr "Добавить вложение"
+msgid "Add Chat Attachment"
+msgstr "Добавить вложение в чат"
 
 msgid "Add command"
 msgstr "Добавить команду"
@@ -1690,6 +1690,12 @@ msgstr "Добавить фото или файлы"
 
 msgid "Add project"
 msgstr "Добавить проект"
+
+msgid "Add Project from Folder"
+msgstr "Добавить проект из папки"
+
+msgid "Add Project from Folder..."
+msgstr "Добавить проект из папки..."
 
 msgid "Add prompt e.g. look for crashes in $sentry"
 msgstr "Добавьте промпт, например: найди падения в $sentry"
@@ -4561,6 +4567,9 @@ msgstr "Скопировать URL"
 
 msgid "Copy Workspace ID"
 msgstr "Скопировать ID рабочей области"
+
+msgid "Copy Workspace Path"
+msgstr "Скопировать путь рабочей области"
 
 msgid "Copy your browsing history and logins from another browser into Superset. Your original browser isn't changed."
 msgstr "Скопируйте историю просмотров и логины из другого браузера в Superset. Исходный браузер не меняется."
@@ -10087,8 +10096,8 @@ msgstr "Следующий слайд"
 msgid "Next Tab"
 msgstr "Следующая вкладка"
 
-msgid "Next Tab (Alt)"
-msgstr "Следующая вкладка (Alt)"
+msgid "Next Tab (Second Shortcut)"
+msgstr "Следующая вкладка (второе сочетание)"
 
 msgid "Next Workspace"
 msgstr "Следующая рабочая область"
@@ -11088,9 +11097,6 @@ msgstr "Откройте пул-реквест, чтобы видеть стат
 msgid "Open actions menu"
 msgstr "Открыть меню действий"
 
-msgid "Open an existing project folder"
-msgstr "Открыть папку существующего проекта"
-
 msgid "Open anyway"
 msgstr "Всё равно открыть"
 
@@ -11189,9 +11195,6 @@ msgid "Open in Any IDE"
 msgstr "Открывайте в любой IDE"
 
 msgid "Open in app"
-msgstr "Открыть в приложении"
-
-msgid "Open in App"
 msgstr "Открыть в приложении"
 
 msgid "Open in browser"
@@ -11370,9 +11373,6 @@ msgstr "Открытые пул-реквесты"
 msgid "Open recent"
 msgstr "Открыть недавние"
 
-msgid "Open Repo..."
-msgstr "Открыть репозиторий..."
-
 msgid "Open roles"
 msgstr "Вакансии"
 
@@ -11454,14 +11454,17 @@ msgstr "Открыть рабочую область запуска"
 msgid "open the task in a workspace"
 msgstr "открыть задачу в рабочей области"
 
+msgid "Open the workspace in the app picked in the Open In menu (VS Code, Cursor, etc.)"
+msgstr "Открыть рабочую область в приложении, выбранном в меню «Открыть в» (VS Code, Cursor и др.)"
+
 msgid "Open this run's workspace"
 msgstr "Открыть рабочую область этого запуска"
 
 msgid "Open workspace"
 msgstr "Открыть рабочую область"
 
-msgid "Open workspace in external app (Cursor, VS Code, etc.)"
-msgstr "Открыть рабочую область во внешнем приложении (Cursor, VS Code и др.)"
+msgid "Open Workspace in Editor"
+msgstr "Открыть рабочую область в редакторе"
 
 msgid "OpenAI rejected this API key."
 msgstr "OpenAI отклонил этот ключ API."
@@ -11932,6 +11935,9 @@ msgstr "Выбрать другой элемент"
 msgid "Pick a different element (esc)"
 msgstr "Выбрать другой элемент (esc)"
 
+msgid "Pick a folder on disk and add it as a project"
+msgstr "Выберите папку на диске и добавьте её как проект"
+
 msgid "Pick a folder…"
 msgstr "Выберите папку…"
 
@@ -12240,8 +12246,8 @@ msgstr "Предыдущий слайд"
 msgid "Previous Tab"
 msgstr "Предыдущая вкладка"
 
-msgid "Previous Tab (Alt)"
-msgstr "Предыдущая вкладка (Alt)"
+msgid "Previous Tab (Second Shortcut)"
+msgstr "Предыдущая вкладка (второе сочетание)"
 
 msgid "Previous Workspace"
 msgstr "Предыдущая рабочая область"
@@ -14996,6 +15002,9 @@ msgstr "Расходы"
 msgid "Split"
 msgstr "Разделить"
 
+msgid "Split Along Longer Side"
+msgstr "Разделить вдоль длинной стороны"
+
 msgid "Split button mirrors desktop's OpenInButton; picker trigger mirrors PickerTrigger"
 msgstr "Разделённая кнопка повторяет OpenInButton из десктопа; триггер выбора повторяет PickerTrigger"
 
@@ -15016,9 +15025,6 @@ msgstr "Разделённая панель"
 
 msgid "Split Pane"
 msgstr "Разделённая панель"
-
-msgid "Split Pane Auto"
-msgstr "Разделить панель автоматически"
 
 msgid "Split Right"
 msgstr "Разделить вправо"
@@ -15055,6 +15061,9 @@ msgstr "Разделить с мобильным симулятором"
 
 msgid "Split with New Browser"
 msgstr "Разделить с новым браузером"
+
+msgid "Split with Sandbox Desktop"
+msgstr "Разделить с рабочим столом песочницы"
 
 msgid "Squash & Merge"
 msgstr "Сжать и объединить"
@@ -16777,6 +16786,9 @@ msgstr "Показать или скрыть план"
 msgid "Toggle right sidebar"
 msgstr "Переключить правую панель"
 
+msgid "Toggle Right Sidebar"
+msgstr "Переключить правую боковую панель"
+
 msgid "Toggle Scripts Bar"
 msgstr "Переключить панель скриптов"
 
@@ -17119,8 +17131,8 @@ msgstr "Идёт"
 msgid "Undo"
 msgstr "Отменить"
 
-msgid "Undo Archive"
-msgstr "Отменить архивацию"
+msgid "Undo Workspace Archive"
+msgstr "Отменить архивацию рабочей области"
 
 msgid "Ungroup"
 msgstr "Убрать из группы"

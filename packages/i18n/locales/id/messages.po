@@ -1642,8 +1642,8 @@ msgstr "Tambahkan mesin apa pun sebagai host. Workspace tetap berjalan saat lapt
 msgid "Add attachment"
 msgstr "Tambah lampiran"
 
-msgid "Add Attachment"
-msgstr "Tambah Lampiran"
+msgid "Add Chat Attachment"
+msgstr "Tambah Lampiran Chat"
 
 msgid "Add command"
 msgstr "Tambah perintah"
@@ -1690,6 +1690,12 @@ msgstr "Tambah foto atau file"
 
 msgid "Add project"
 msgstr "Tambah proyek"
+
+msgid "Add Project from Folder"
+msgstr "Tambah Proyek dari Folder"
+
+msgid "Add Project from Folder..."
+msgstr "Tambah Proyek dari Folder..."
 
 msgid "Add prompt e.g. look for crashes in $sentry"
 msgstr "Tambahkan prompt, mis. cari crash di $sentry"
@@ -4561,6 +4567,9 @@ msgstr "Salin URL"
 
 msgid "Copy Workspace ID"
 msgstr "Salin ID Workspace"
+
+msgid "Copy Workspace Path"
+msgstr "Salin Path Workspace"
 
 msgid "Copy your browsing history and logins from another browser into Superset. Your original browser isn't changed."
 msgstr "Salin riwayat penjelajahan dan login Anda dari browser lain ke Superset. Browser asal Anda tidak diubah."
@@ -10087,8 +10096,8 @@ msgstr "Slide berikutnya"
 msgid "Next Tab"
 msgstr "Tab Berikutnya"
 
-msgid "Next Tab (Alt)"
-msgstr "Tab Berikutnya (Alt)"
+msgid "Next Tab (Second Shortcut)"
+msgstr "Tab Berikutnya (Pintasan Kedua)"
 
 msgid "Next Workspace"
 msgstr "Workspace Berikutnya"
@@ -11088,9 +11097,6 @@ msgstr "Buka sebuah pull request untuk melihat status review, check, dan komenta
 msgid "Open actions menu"
 msgstr "Buka menu aksi"
 
-msgid "Open an existing project folder"
-msgstr "Buka folder proyek yang sudah ada"
-
 msgid "Open anyway"
 msgstr "Tetap buka"
 
@@ -11190,9 +11196,6 @@ msgstr "Buka di IDE Mana Pun"
 
 msgid "Open in app"
 msgstr "Buka di aplikasi"
-
-msgid "Open in App"
-msgstr "Buka di Aplikasi"
 
 msgid "Open in browser"
 msgstr "Buka di browser"
@@ -11370,9 +11373,6 @@ msgstr "Pull request terbuka"
 msgid "Open recent"
 msgstr "Buka yang terbaru"
 
-msgid "Open Repo..."
-msgstr "Buka Repo..."
-
 msgid "Open roles"
 msgstr "Lowongan terbuka"
 
@@ -11454,14 +11454,17 @@ msgstr "Buka workspace run ini"
 msgid "open the task in a workspace"
 msgstr "membuka tugas di workspace"
 
+msgid "Open the workspace in the app picked in the Open In menu (VS Code, Cursor, etc.)"
+msgstr "Buka workspace di aplikasi yang dipilih di menu \"Buka di\" (VS Code, Cursor, dll.)"
+
 msgid "Open this run's workspace"
 msgstr "Buka workspace run ini"
 
 msgid "Open workspace"
 msgstr "Buka workspace"
 
-msgid "Open workspace in external app (Cursor, VS Code, etc.)"
-msgstr "Buka workspace di aplikasi luar (Cursor, VS Code, dll.)"
+msgid "Open Workspace in Editor"
+msgstr "Buka Workspace di Editor"
 
 msgid "OpenAI rejected this API key."
 msgstr "OpenAI menolak kunci API ini."
@@ -11932,6 +11935,9 @@ msgstr "Pilih elemen lain"
 msgid "Pick a different element (esc)"
 msgstr "Pilih elemen lain (esc)"
 
+msgid "Pick a folder on disk and add it as a project"
+msgstr "Pilih folder di disk dan tambahkan sebagai proyek"
+
 msgid "Pick a folder…"
 msgstr "Pilih folder…"
 
@@ -12240,8 +12246,8 @@ msgstr "Slide sebelumnya"
 msgid "Previous Tab"
 msgstr "Tab Sebelumnya"
 
-msgid "Previous Tab (Alt)"
-msgstr "Tab Sebelumnya (Alt)"
+msgid "Previous Tab (Second Shortcut)"
+msgstr "Tab Sebelumnya (Pintasan Kedua)"
 
 msgid "Previous Workspace"
 msgstr "Workspace Sebelumnya"
@@ -14996,6 +15002,9 @@ msgstr "Pengeluaran"
 msgid "Split"
 msgstr "Bagi"
 
+msgid "Split Along Longer Side"
+msgstr "Bagi Sepanjang Sisi Terpanjang"
+
 msgid "Split button mirrors desktop's OpenInButton; picker trigger mirrors PickerTrigger"
 msgstr "Split button mencerminkan OpenInButton di desktop; pemicu picker mencerminkan PickerTrigger"
 
@@ -15016,9 +15025,6 @@ msgstr "Panel terbagi"
 
 msgid "Split Pane"
 msgstr "Panel Terpisah"
-
-msgid "Split Pane Auto"
-msgstr "Bagi Panel Otomatis"
 
 msgid "Split Right"
 msgstr "Bagi ke Kanan"
@@ -15055,6 +15061,9 @@ msgstr "Bagi dengan Simulator Seluler"
 
 msgid "Split with New Browser"
 msgstr "Bagi dengan Browser Baru"
+
+msgid "Split with Sandbox Desktop"
+msgstr "Bagi dengan Desktop Sandbox"
 
 msgid "Squash & Merge"
 msgstr "Squash & Merge"
@@ -16777,6 +16786,9 @@ msgstr "Alihkan rencana"
 msgid "Toggle right sidebar"
 msgstr "Alihkan sidebar kanan"
 
+msgid "Toggle Right Sidebar"
+msgstr "Alihkan Sidebar Kanan"
+
 msgid "Toggle Scripts Bar"
 msgstr "Alihkan Bilah Skrip"
 
@@ -17119,8 +17131,8 @@ msgstr "Sedang berjalan"
 msgid "Undo"
 msgstr "Undo"
 
-msgid "Undo Archive"
-msgstr "Batalkan arsip"
+msgid "Undo Workspace Archive"
+msgstr "Batalkan Arsip Workspace"
 
 msgid "Ungroup"
 msgstr "Keluarkan dari grup"

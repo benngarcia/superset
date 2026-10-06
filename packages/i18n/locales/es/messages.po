@@ -1642,8 +1642,8 @@ msgstr "Añade cualquier máquina como host. Los espacios de trabajo siguen ejec
 msgid "Add attachment"
 msgstr "Añadir adjunto"
 
-msgid "Add Attachment"
-msgstr "Añadir adjunto"
+msgid "Add Chat Attachment"
+msgstr "Añadir adjunto al chat"
 
 msgid "Add command"
 msgstr "Añadir comando"
@@ -1690,6 +1690,12 @@ msgstr "Añadir fotos o archivos"
 
 msgid "Add project"
 msgstr "Añadir proyecto"
+
+msgid "Add Project from Folder"
+msgstr "Añadir proyecto desde carpeta"
+
+msgid "Add Project from Folder..."
+msgstr "Añadir proyecto desde carpeta..."
 
 msgid "Add prompt e.g. look for crashes in $sentry"
 msgstr "Añade un prompt, p. ej. busca fallos en $sentry"
@@ -4561,6 +4567,9 @@ msgstr "Copiar URL"
 
 msgid "Copy Workspace ID"
 msgstr "Copiar el ID del espacio de trabajo"
+
+msgid "Copy Workspace Path"
+msgstr "Copiar ruta del espacio de trabajo"
 
 msgid "Copy your browsing history and logins from another browser into Superset. Your original browser isn't changed."
 msgstr "Copiar el historial de navegación y los inicios de sesión de otro navegador a Superset. El navegador original no se modifica."
@@ -10087,8 +10096,8 @@ msgstr "Diapositiva siguiente"
 msgid "Next Tab"
 msgstr "Pestaña siguiente"
 
-msgid "Next Tab (Alt)"
-msgstr "Pestaña siguiente (Alt)"
+msgid "Next Tab (Second Shortcut)"
+msgstr "Pestaña siguiente (segundo atajo)"
 
 msgid "Next Workspace"
 msgstr "Espacio de trabajo siguiente"
@@ -11088,9 +11097,6 @@ msgstr "Abre una pull request para ver el estado de la revisión, las comprobaci
 msgid "Open actions menu"
 msgstr "Abrir el menú de acciones"
 
-msgid "Open an existing project folder"
-msgstr "Abrir una carpeta de proyecto existente"
-
 msgid "Open anyway"
 msgstr "Abrir igualmente"
 
@@ -11190,9 +11196,6 @@ msgstr "Ábrelo en cualquier IDE"
 
 msgid "Open in app"
 msgstr "Abrir en la aplicación"
-
-msgid "Open in App"
-msgstr "Abrir en una app"
 
 msgid "Open in browser"
 msgstr "Abrir en el navegador"
@@ -11370,9 +11373,6 @@ msgstr "Pull requests abiertas"
 msgid "Open recent"
 msgstr "Abrir reciente"
 
-msgid "Open Repo..."
-msgstr "Abrir repositorio..."
-
 msgid "Open roles"
 msgstr "Vacantes"
 
@@ -11454,14 +11454,17 @@ msgstr "Abrir el espacio de trabajo de la ejecución"
 msgid "open the task in a workspace"
 msgstr "abrir la tarea en un espacio de trabajo"
 
+msgid "Open the workspace in the app picked in the Open In menu (VS Code, Cursor, etc.)"
+msgstr "Abrir el espacio de trabajo en la app elegida en el menú «Abrir en» (VS Code, Cursor, etc.)"
+
 msgid "Open this run's workspace"
 msgstr "Abrir el espacio de trabajo de esta ejecución"
 
 msgid "Open workspace"
 msgstr "Abrir el espacio de trabajo"
 
-msgid "Open workspace in external app (Cursor, VS Code, etc.)"
-msgstr "Abrir el espacio de trabajo en una app externa (Cursor, VS Code, etc.)"
+msgid "Open Workspace in Editor"
+msgstr "Abrir espacio de trabajo en el editor"
 
 msgid "OpenAI rejected this API key."
 msgstr "OpenAI rechazó esta clave de API."
@@ -11932,6 +11935,9 @@ msgstr "Elegir otro elemento"
 msgid "Pick a different element (esc)"
 msgstr "Elegir otro elemento (esc)"
 
+msgid "Pick a folder on disk and add it as a project"
+msgstr "Elige una carpeta del disco y añádela como proyecto"
+
 msgid "Pick a folder…"
 msgstr "Elige una carpeta…"
 
@@ -12240,8 +12246,8 @@ msgstr "Diapositiva anterior"
 msgid "Previous Tab"
 msgstr "Pestaña anterior"
 
-msgid "Previous Tab (Alt)"
-msgstr "Pestaña anterior (Alt)"
+msgid "Previous Tab (Second Shortcut)"
+msgstr "Pestaña anterior (segundo atajo)"
 
 msgid "Previous Workspace"
 msgstr "Espacio de trabajo anterior"
@@ -14996,6 +15002,9 @@ msgstr "Gasto"
 msgid "Split"
 msgstr "Dividir"
 
+msgid "Split Along Longer Side"
+msgstr "Dividir por el lado más largo"
+
 msgid "Split button mirrors desktop's OpenInButton; picker trigger mirrors PickerTrigger"
 msgstr "El botón dividido replica el OpenInButton del escritorio; el disparador del selector replica PickerTrigger"
 
@@ -15016,9 +15025,6 @@ msgstr "Dividir panel"
 
 msgid "Split Pane"
 msgstr "Panel dividido"
-
-msgid "Split Pane Auto"
-msgstr "Dividir panel automáticamente"
 
 msgid "Split Right"
 msgstr "Dividir hacia la derecha"
@@ -15055,6 +15061,9 @@ msgstr "Dividir con simulador móvil"
 
 msgid "Split with New Browser"
 msgstr "Dividir con un navegador nuevo"
+
+msgid "Split with Sandbox Desktop"
+msgstr "Dividir con escritorio del sandbox"
 
 msgid "Squash & Merge"
 msgstr "Squash y fusionar"
@@ -16777,6 +16786,9 @@ msgstr "Alternar plan"
 msgid "Toggle right sidebar"
 msgstr "Alternar barra lateral derecha"
 
+msgid "Toggle Right Sidebar"
+msgstr "Alternar barra lateral derecha"
+
 msgid "Toggle Scripts Bar"
 msgstr "Alternar la barra de scripts"
 
@@ -17119,8 +17131,8 @@ msgstr "En marcha"
 msgid "Undo"
 msgstr "Deshacer"
 
-msgid "Undo Archive"
-msgstr "Deshacer archivado"
+msgid "Undo Workspace Archive"
+msgstr "Deshacer archivado del espacio de trabajo"
 
 msgid "Ungroup"
 msgstr "Desagrupar"

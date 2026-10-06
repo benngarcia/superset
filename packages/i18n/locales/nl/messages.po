@@ -1642,8 +1642,8 @@ msgstr "Voeg elke machine toe als host. Werkruimtes blijven draaien als je lapto
 msgid "Add attachment"
 msgstr "Bijlage toevoegen"
 
-msgid "Add Attachment"
-msgstr "Bijlage toevoegen"
+msgid "Add Chat Attachment"
+msgstr "Chatbijlage toevoegen"
 
 msgid "Add command"
 msgstr "Commando toevoegen"
@@ -1690,6 +1690,12 @@ msgstr "Foto's of bestanden toevoegen"
 
 msgid "Add project"
 msgstr "Project toevoegen"
+
+msgid "Add Project from Folder"
+msgstr "Project toevoegen uit map"
+
+msgid "Add Project from Folder..."
+msgstr "Project toevoegen uit map..."
 
 msgid "Add prompt e.g. look for crashes in $sentry"
 msgstr "Voeg een prompt toe, bijv. zoek naar crashes in $sentry"
@@ -4561,6 +4567,9 @@ msgstr "URL kopiëren"
 
 msgid "Copy Workspace ID"
 msgstr "Werkruimte-ID kopiëren"
+
+msgid "Copy Workspace Path"
+msgstr "Pad van werkruimte kopiëren"
 
 msgid "Copy your browsing history and logins from another browser into Superset. Your original browser isn't changed."
 msgstr "Kopieer je browsegeschiedenis en logins uit een andere browser naar Superset. Je oorspronkelijke browser verandert niet."
@@ -10087,8 +10096,8 @@ msgstr "Volgende slide"
 msgid "Next Tab"
 msgstr "Volgend tabblad"
 
-msgid "Next Tab (Alt)"
-msgstr "Volgend tabblad (alt)"
+msgid "Next Tab (Second Shortcut)"
+msgstr "Volgend tabblad (tweede sneltoets)"
 
 msgid "Next Workspace"
 msgstr "Volgende werkruimte"
@@ -11088,9 +11097,6 @@ msgstr "Open een pull request om reviewstatus, checks en opmerkingen te zien."
 msgid "Open actions menu"
 msgstr "Actiemenu openen"
 
-msgid "Open an existing project folder"
-msgstr "Een bestaande projectmap openen"
-
 msgid "Open anyway"
 msgstr "Toch openen"
 
@@ -11190,9 +11196,6 @@ msgstr "Openen in elke IDE"
 
 msgid "Open in app"
 msgstr "Openen in de app"
-
-msgid "Open in App"
-msgstr "Openen in app"
 
 msgid "Open in browser"
 msgstr "Openen in browser"
@@ -11370,9 +11373,6 @@ msgstr "Open pull requests"
 msgid "Open recent"
 msgstr "Recent openen"
 
-msgid "Open Repo..."
-msgstr "Repo openen..."
-
 msgid "Open roles"
 msgstr "Openstaande vacatures"
 
@@ -11454,14 +11454,17 @@ msgstr "De werkruimte van de run openen"
 msgid "open the task in a workspace"
 msgstr "de taak in een werkruimte openen"
 
+msgid "Open the workspace in the app picked in the Open In menu (VS Code, Cursor, etc.)"
+msgstr "De werkruimte openen in de app die is gekozen in het menu 'Openen in' (VS Code, Cursor, enz.)"
+
 msgid "Open this run's workspace"
 msgstr "Werkruimte van deze run openen"
 
 msgid "Open workspace"
 msgstr "Werkruimte openen"
 
-msgid "Open workspace in external app (Cursor, VS Code, etc.)"
-msgstr "Werkruimte openen in een externe app (Cursor, VS Code, enz.)"
+msgid "Open Workspace in Editor"
+msgstr "Werkruimte openen in editor"
 
 msgid "OpenAI rejected this API key."
 msgstr "OpenAI heeft deze API-sleutel geweigerd."
@@ -11932,6 +11935,9 @@ msgstr "Kies een ander element"
 msgid "Pick a different element (esc)"
 msgstr "Kies een ander element (esc)"
 
+msgid "Pick a folder on disk and add it as a project"
+msgstr "Kies een map op schijf en voeg die toe als project"
+
 msgid "Pick a folder…"
 msgstr "Kies een map…"
 
@@ -12240,8 +12246,8 @@ msgstr "Vorige slide"
 msgid "Previous Tab"
 msgstr "Vorig tabblad"
 
-msgid "Previous Tab (Alt)"
-msgstr "Vorig tabblad (alt)"
+msgid "Previous Tab (Second Shortcut)"
+msgstr "Vorig tabblad (tweede sneltoets)"
 
 msgid "Previous Workspace"
 msgstr "Vorige werkruimte"
@@ -14996,6 +15002,9 @@ msgstr "Uitgaven"
 msgid "Split"
 msgstr "Gesplitst"
 
+msgid "Split Along Longer Side"
+msgstr "Splitsen langs de langste zijde"
+
 msgid "Split button mirrors desktop's OpenInButton; picker trigger mirrors PickerTrigger"
 msgstr "Split-knop spiegelt OpenInButton van desktop; picker-trigger spiegelt PickerTrigger"
 
@@ -15016,9 +15025,6 @@ msgstr "Gesplitst paneel"
 
 msgid "Split Pane"
 msgstr "Gesplitst paneel"
-
-msgid "Split Pane Auto"
-msgstr "Paneel automatisch splitsen"
 
 msgid "Split Right"
 msgstr "Naar rechts splitsen"
@@ -15055,6 +15061,9 @@ msgstr "Splitsen met mobiele simulator"
 
 msgid "Split with New Browser"
 msgstr "Splitsen met nieuwe browser"
+
+msgid "Split with Sandbox Desktop"
+msgstr "Splitsen met sandbox-bureaublad"
 
 msgid "Squash & Merge"
 msgstr "Squashen en mergen"
@@ -16777,6 +16786,9 @@ msgstr "Plan tonen/verbergen"
 msgid "Toggle right sidebar"
 msgstr "Rechterzijbalk tonen/verbergen"
 
+msgid "Toggle Right Sidebar"
+msgstr "Rechterzijbalk tonen/verbergen"
+
 msgid "Toggle Scripts Bar"
 msgstr "Scriptsbalk tonen/verbergen"
 
@@ -17119,8 +17131,8 @@ msgstr "Gaande"
 msgid "Undo"
 msgstr "Ongedaan maken"
 
-msgid "Undo Archive"
-msgstr "Archiveren ongedaan maken"
+msgid "Undo Workspace Archive"
+msgstr "Archiveren van werkruimte ongedaan maken"
 
 msgid "Ungroup"
 msgstr "Groepering opheffen"

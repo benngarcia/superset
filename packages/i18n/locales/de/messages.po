@@ -1642,8 +1642,8 @@ msgstr "Füge jeden Rechner als Host hinzu. Arbeitsbereiche laufen weiter, wenn 
 msgid "Add attachment"
 msgstr "Anhang hinzufügen"
 
-msgid "Add Attachment"
-msgstr "Anhang hinzufügen"
+msgid "Add Chat Attachment"
+msgstr "Chat-Anhang hinzufügen"
 
 msgid "Add command"
 msgstr "Befehl hinzufügen"
@@ -1690,6 +1690,12 @@ msgstr "Fotos oder Dateien hinzufügen"
 
 msgid "Add project"
 msgstr "Projekt hinzufügen"
+
+msgid "Add Project from Folder"
+msgstr "Projekt aus Ordner hinzufügen"
+
+msgid "Add Project from Folder..."
+msgstr "Projekt aus Ordner hinzufügen..."
 
 msgid "Add prompt e.g. look for crashes in $sentry"
 msgstr "Prompt hinzufügen, z. B. in $sentry nach Abstürzen suchen"
@@ -4561,6 +4567,9 @@ msgstr "URL kopieren"
 
 msgid "Copy Workspace ID"
 msgstr "Arbeitsbereich-ID kopieren"
+
+msgid "Copy Workspace Path"
+msgstr "Pfad des Arbeitsbereichs kopieren"
 
 msgid "Copy your browsing history and logins from another browser into Superset. Your original browser isn't changed."
 msgstr "Kopiere Browserverlauf und Logins aus einem anderen Browser nach Superset. Dein ursprünglicher Browser bleibt unverändert."
@@ -10087,8 +10096,8 @@ msgstr "Nächste Folie"
 msgid "Next Tab"
 msgstr "Nächster Tab"
 
-msgid "Next Tab (Alt)"
-msgstr "Nächster Tab (Alt)"
+msgid "Next Tab (Second Shortcut)"
+msgstr "Nächster Tab (zweites Tastenkürzel)"
 
 msgid "Next Workspace"
 msgstr "Nächster Arbeitsbereich"
@@ -11088,9 +11097,6 @@ msgstr "Öffne einen Pull Request, um Review-Status, Prüfungen und Kommentare z
 msgid "Open actions menu"
 msgstr "Aktionsmenü öffnen"
 
-msgid "Open an existing project folder"
-msgstr "Einen vorhandenen Projektordner öffnen"
-
 msgid "Open anyway"
 msgstr "Trotzdem öffnen"
 
@@ -11190,9 +11196,6 @@ msgstr "In jeder IDE öffnen"
 
 msgid "Open in app"
 msgstr "In der App öffnen"
-
-msgid "Open in App"
-msgstr "In App öffnen"
 
 msgid "Open in browser"
 msgstr "Im Browser öffnen"
@@ -11370,9 +11373,6 @@ msgstr "Offene Pull Requests"
 msgid "Open recent"
 msgstr "Zuletzt geöffnet"
 
-msgid "Open Repo..."
-msgstr "Repo öffnen..."
-
 msgid "Open roles"
 msgstr "Offene Stellen"
 
@@ -11454,14 +11454,17 @@ msgstr "Arbeitsbereich des Laufs öffnen"
 msgid "open the task in a workspace"
 msgstr "die Aufgabe in einem Arbeitsbereich öffnen"
 
+msgid "Open the workspace in the app picked in the Open In menu (VS Code, Cursor, etc.)"
+msgstr "Den Arbeitsbereich in der im Menü „Öffnen in“ gewählten App öffnen (VS Code, Cursor usw.)"
+
 msgid "Open this run's workspace"
 msgstr "Arbeitsbereich dieser Ausführung öffnen"
 
 msgid "Open workspace"
 msgstr "Arbeitsbereich öffnen"
 
-msgid "Open workspace in external app (Cursor, VS Code, etc.)"
-msgstr "Arbeitsbereich in einer externen App öffnen (Cursor, VS Code usw.)"
+msgid "Open Workspace in Editor"
+msgstr "Arbeitsbereich im Editor öffnen"
 
 msgid "OpenAI rejected this API key."
 msgstr "OpenAI hat diesen API-Schlüssel abgelehnt."
@@ -11932,6 +11935,9 @@ msgstr "Anderes Element wählen"
 msgid "Pick a different element (esc)"
 msgstr "Anderes Element wählen (esc)"
 
+msgid "Pick a folder on disk and add it as a project"
+msgstr "Einen Ordner auf der Festplatte wählen und als Projekt hinzufügen"
+
 msgid "Pick a folder…"
 msgstr "Ordner wählen…"
 
@@ -12240,8 +12246,8 @@ msgstr "Vorherige Folie"
 msgid "Previous Tab"
 msgstr "Vorheriger Tab"
 
-msgid "Previous Tab (Alt)"
-msgstr "Vorheriger Tab (Alt)"
+msgid "Previous Tab (Second Shortcut)"
+msgstr "Vorheriger Tab (zweites Tastenkürzel)"
 
 msgid "Previous Workspace"
 msgstr "Vorheriger Arbeitsbereich"
@@ -14996,6 +15002,9 @@ msgstr "Ausgaben"
 msgid "Split"
 msgstr "Geteilt"
 
+msgid "Split Along Longer Side"
+msgstr "Entlang der längeren Seite teilen"
+
 msgid "Split button mirrors desktop's OpenInButton; picker trigger mirrors PickerTrigger"
 msgstr "Der Split-Button spiegelt den OpenInButton des Desktops; der Picker-Trigger spiegelt PickerTrigger"
 
@@ -15016,9 +15025,6 @@ msgstr "Geteilter Bereich"
 
 msgid "Split Pane"
 msgstr "Geteilter Bereich"
-
-msgid "Split Pane Auto"
-msgstr "Bereich automatisch teilen"
 
 msgid "Split Right"
 msgstr "Nach rechts teilen"
@@ -15055,6 +15061,9 @@ msgstr "Mit mobilem Simulator teilen"
 
 msgid "Split with New Browser"
 msgstr "Mit neuem Browser teilen"
+
+msgid "Split with Sandbox Desktop"
+msgstr "Mit Sandbox-Desktop teilen"
 
 msgid "Squash & Merge"
 msgstr "Squash & zusammenführen"
@@ -16777,6 +16786,9 @@ msgstr "Plan umschalten"
 msgid "Toggle right sidebar"
 msgstr "Rechte Seitenleiste umschalten"
 
+msgid "Toggle Right Sidebar"
+msgstr "Rechte Seitenleiste umschalten"
+
 msgid "Toggle Scripts Bar"
 msgstr "Skriptleiste umschalten"
 
@@ -17119,8 +17131,8 @@ msgstr "Läuft"
 msgid "Undo"
 msgstr "Rückgängig"
 
-msgid "Undo Archive"
-msgstr "Archivierung rückgängig machen"
+msgid "Undo Workspace Archive"
+msgstr "Archivierung des Arbeitsbereichs rückgängig machen"
 
 msgid "Ungroup"
 msgstr "Gruppierung aufheben"

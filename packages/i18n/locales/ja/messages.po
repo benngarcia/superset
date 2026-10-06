@@ -1642,8 +1642,8 @@ msgstr "どんなマシンでもホストとして追加できます。ノート
 msgid "Add attachment"
 msgstr "添付ファイルを追加"
 
-msgid "Add Attachment"
-msgstr "添付ファイルを追加"
+msgid "Add Chat Attachment"
+msgstr "チャットに添付ファイルを追加"
 
 msgid "Add command"
 msgstr "コマンドを追加"
@@ -1690,6 +1690,12 @@ msgstr "写真やファイルを追加"
 
 msgid "Add project"
 msgstr "プロジェクトを追加"
+
+msgid "Add Project from Folder"
+msgstr "フォルダからプロジェクトを追加"
+
+msgid "Add Project from Folder..."
+msgstr "フォルダからプロジェクトを追加..."
 
 msgid "Add prompt e.g. look for crashes in $sentry"
 msgstr "プロンプトを追加 例: $sentryでクラッシュを探す"
@@ -4561,6 +4567,9 @@ msgstr "URLをコピー"
 
 msgid "Copy Workspace ID"
 msgstr "ワークスペースIDをコピー"
+
+msgid "Copy Workspace Path"
+msgstr "ワークスペースのパスをコピー"
 
 msgid "Copy your browsing history and logins from another browser into Superset. Your original browser isn't changed."
 msgstr "別のブラウザから閲覧履歴とログイン情報をSupersetにコピーします。元のブラウザは変更されません。"
@@ -10087,8 +10096,8 @@ msgstr "次のスライド"
 msgid "Next Tab"
 msgstr "次のタブ"
 
-msgid "Next Tab (Alt)"
-msgstr "次のタブ (Alt)"
+msgid "Next Tab (Second Shortcut)"
+msgstr "次のタブ (2つ目のショートカット)"
 
 msgid "Next Workspace"
 msgstr "次のワークスペース"
@@ -11088,9 +11097,6 @@ msgstr "プルリクエストを開くと、レビュー状態、チェック、
 msgid "Open actions menu"
 msgstr "アクションメニューを開く"
 
-msgid "Open an existing project folder"
-msgstr "既存のプロジェクトフォルダを開く"
-
 msgid "Open anyway"
 msgstr "それでも開く"
 
@@ -11189,9 +11195,6 @@ msgid "Open in Any IDE"
 msgstr "好きなIDEで開く"
 
 msgid "Open in app"
-msgstr "アプリで開く"
-
-msgid "Open in App"
 msgstr "アプリで開く"
 
 msgid "Open in browser"
@@ -11370,9 +11373,6 @@ msgstr "オープンなプルリクエスト"
 msgid "Open recent"
 msgstr "最近使った項目を開く"
 
-msgid "Open Repo..."
-msgstr "リポジトリを開く..."
-
 msgid "Open roles"
 msgstr "募集中のポジション"
 
@@ -11454,14 +11454,17 @@ msgstr "実行のワークスペースを開く"
 msgid "open the task in a workspace"
 msgstr "タスクをワークスペースで開く"
 
+msgid "Open the workspace in the app picked in the Open In menu (VS Code, Cursor, etc.)"
+msgstr "「開く」メニューで選んだアプリ (VS Code、Cursorなど) でワークスペースを開く"
+
 msgid "Open this run's workspace"
 msgstr "この実行のワークスペースを開く"
 
 msgid "Open workspace"
 msgstr "ワークスペースを開く"
 
-msgid "Open workspace in external app (Cursor, VS Code, etc.)"
-msgstr "ワークスペースを外部アプリ (Cursor、VS Codeなど) で開く"
+msgid "Open Workspace in Editor"
+msgstr "ワークスペースをエディタで開く"
 
 msgid "OpenAI rejected this API key."
 msgstr "OpenAIがこのAPIキーを拒否しました。"
@@ -11932,6 +11935,9 @@ msgstr "別の要素を選ぶ"
 msgid "Pick a different element (esc)"
 msgstr "別の要素を選ぶ (esc)"
 
+msgid "Pick a folder on disk and add it as a project"
+msgstr "ディスク上のフォルダを選んでプロジェクトとして追加する"
+
 msgid "Pick a folder…"
 msgstr "フォルダを選択…"
 
@@ -12240,8 +12246,8 @@ msgstr "前のスライド"
 msgid "Previous Tab"
 msgstr "前のタブ"
 
-msgid "Previous Tab (Alt)"
-msgstr "前のタブ (Alt)"
+msgid "Previous Tab (Second Shortcut)"
+msgstr "前のタブ (2つ目のショートカット)"
 
 msgid "Previous Workspace"
 msgstr "前のワークスペース"
@@ -14996,6 +15002,9 @@ msgstr "支出"
 msgid "Split"
 msgstr "分割"
 
+msgid "Split Along Longer Side"
+msgstr "長い辺に沿って分割"
+
 msgid "Split button mirrors desktop's OpenInButton; picker trigger mirrors PickerTrigger"
 msgstr "分割ボタンはデスクトップのOpenInButtonに対応し、ピッカーのトリガーはPickerTriggerに対応します"
 
@@ -15016,9 +15025,6 @@ msgstr "分割ペイン"
 
 msgid "Split Pane"
 msgstr "分割ペイン"
-
-msgid "Split Pane Auto"
-msgstr "ペインを自動分割"
 
 msgid "Split Right"
 msgstr "右に分割"
@@ -15055,6 +15061,9 @@ msgstr "モバイルシミュレーターで分割"
 
 msgid "Split with New Browser"
 msgstr "新規ブラウザで分割"
+
+msgid "Split with Sandbox Desktop"
+msgstr "サンドボックスのデスクトップで分割"
 
 msgid "Squash & Merge"
 msgstr "スカッシュしてマージ"
@@ -16777,6 +16786,9 @@ msgstr "プランの表示を切り替え"
 msgid "Toggle right sidebar"
 msgstr "右サイドバーを切り替え"
 
+msgid "Toggle Right Sidebar"
+msgstr "右サイドバーを切り替え"
+
 msgid "Toggle Scripts Bar"
 msgstr "スクリプトバーを切り替え"
 
@@ -17119,8 +17131,8 @@ msgstr "進行中"
 msgid "Undo"
 msgstr "取り消す"
 
-msgid "Undo Archive"
-msgstr "アーカイブを元に戻す"
+msgid "Undo Workspace Archive"
+msgstr "ワークスペースのアーカイブを元に戻す"
 
 msgid "Ungroup"
 msgstr "グループ解除"

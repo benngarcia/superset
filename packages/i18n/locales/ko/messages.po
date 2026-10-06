@@ -1642,8 +1642,8 @@ msgstr "어떤 머신이든 호스트로 추가하세요. 노트북이 잠자기
 msgid "Add attachment"
 msgstr "첨부 추가"
 
-msgid "Add Attachment"
-msgstr "첨부 파일 추가"
+msgid "Add Chat Attachment"
+msgstr "채팅 첨부 파일 추가"
 
 msgid "Add command"
 msgstr "명령 추가"
@@ -1690,6 +1690,12 @@ msgstr "사진 또는 파일 추가"
 
 msgid "Add project"
 msgstr "프로젝트 추가"
+
+msgid "Add Project from Folder"
+msgstr "폴더에서 프로젝트 추가"
+
+msgid "Add Project from Folder..."
+msgstr "폴더에서 프로젝트 추가..."
 
 msgid "Add prompt e.g. look for crashes in $sentry"
 msgstr "프롬프트를 추가하세요. 예: $sentry에서 크래시 찾기"
@@ -4561,6 +4567,9 @@ msgstr "URL 복사"
 
 msgid "Copy Workspace ID"
 msgstr "워크스페이스 ID 복사"
+
+msgid "Copy Workspace Path"
+msgstr "워크스페이스 경로 복사"
 
 msgid "Copy your browsing history and logins from another browser into Superset. Your original browser isn't changed."
 msgstr "다른 브라우저의 방문 기록과 로그인 정보를 Superset으로 복사합니다. 원래 브라우저는 변경되지 않습니다."
@@ -10087,8 +10096,8 @@ msgstr "다음 슬라이드"
 msgid "Next Tab"
 msgstr "다음 탭"
 
-msgid "Next Tab (Alt)"
-msgstr "다음 탭(Alt)"
+msgid "Next Tab (Second Shortcut)"
+msgstr "다음 탭(두 번째 단축키)"
 
 msgid "Next Workspace"
 msgstr "다음 워크스페이스"
@@ -11088,9 +11097,6 @@ msgstr "리뷰 상태, 검사, 코멘트를 보려면 풀 리퀘스트를 여세
 msgid "Open actions menu"
 msgstr "작업 메뉴 열기"
 
-msgid "Open an existing project folder"
-msgstr "기존 프로젝트 폴더를 엽니다"
-
 msgid "Open anyway"
 msgstr "그래도 열기"
 
@@ -11189,9 +11195,6 @@ msgid "Open in Any IDE"
 msgstr "어떤 IDE에서든 열기"
 
 msgid "Open in app"
-msgstr "앱에서 열기"
-
-msgid "Open in App"
 msgstr "앱에서 열기"
 
 msgid "Open in browser"
@@ -11370,9 +11373,6 @@ msgstr "열린 풀 리퀘스트"
 msgid "Open recent"
 msgstr "최근 항목 열기"
 
-msgid "Open Repo..."
-msgstr "리포지토리 열기..."
-
 msgid "Open roles"
 msgstr "채용 공고"
 
@@ -11454,14 +11454,17 @@ msgstr "실행의 워크스페이스 열기"
 msgid "open the task in a workspace"
 msgstr "워크스페이스에서 작업을 열"
 
+msgid "Open the workspace in the app picked in the Open In menu (VS Code, Cursor, etc.)"
+msgstr "'다음에서 열기' 메뉴에서 선택한 앱(VS Code, Cursor 등)에서 워크스페이스를 엽니다"
+
 msgid "Open this run's workspace"
 msgstr "이 실행의 워크스페이스 열기"
 
 msgid "Open workspace"
 msgstr "워크스페이스 열기"
 
-msgid "Open workspace in external app (Cursor, VS Code, etc.)"
-msgstr "외부 앱(Cursor, VS Code 등)에서 워크스페이스를 엽니다"
+msgid "Open Workspace in Editor"
+msgstr "에디터에서 워크스페이스 열기"
 
 msgid "OpenAI rejected this API key."
 msgstr "OpenAI가 이 API 키를 거부했습니다."
@@ -11932,6 +11935,9 @@ msgstr "다른 요소 선택"
 msgid "Pick a different element (esc)"
 msgstr "다른 요소 선택 (esc)"
 
+msgid "Pick a folder on disk and add it as a project"
+msgstr "디스크에서 폴더를 선택해 프로젝트로 추가합니다"
+
 msgid "Pick a folder…"
 msgstr "폴더 선택…"
 
@@ -12240,8 +12246,8 @@ msgstr "이전 슬라이드"
 msgid "Previous Tab"
 msgstr "이전 탭"
 
-msgid "Previous Tab (Alt)"
-msgstr "이전 탭(Alt)"
+msgid "Previous Tab (Second Shortcut)"
+msgstr "이전 탭(두 번째 단축키)"
 
 msgid "Previous Workspace"
 msgstr "이전 워크스페이스"
@@ -14996,6 +15002,9 @@ msgstr "지출"
 msgid "Split"
 msgstr "분할"
 
+msgid "Split Along Longer Side"
+msgstr "긴 쪽을 따라 분할"
+
 msgid "Split button mirrors desktop's OpenInButton; picker trigger mirrors PickerTrigger"
 msgstr "분할 버튼은 데스크톱의 OpenInButton을, 피커 트리거는 PickerTrigger를 따릅니다"
 
@@ -15016,9 +15025,6 @@ msgstr "분할 패널"
 
 msgid "Split Pane"
 msgstr "분할 패널"
-
-msgid "Split Pane Auto"
-msgstr "패널 자동 분할"
 
 msgid "Split Right"
 msgstr "오른쪽으로 분할"
@@ -15055,6 +15061,9 @@ msgstr "모바일 시뮬레이터로 분할"
 
 msgid "Split with New Browser"
 msgstr "새 브라우저로 분할"
+
+msgid "Split with Sandbox Desktop"
+msgstr "샌드박스 데스크톱으로 분할"
 
 msgid "Squash & Merge"
 msgstr "스쿼시 후 머지"
@@ -16777,6 +16786,9 @@ msgstr "플랜 전환"
 msgid "Toggle right sidebar"
 msgstr "오른쪽 사이드바 토글"
 
+msgid "Toggle Right Sidebar"
+msgstr "오른쪽 사이드바 전환"
+
 msgid "Toggle Scripts Bar"
 msgstr "스크립트 바 전환"
 
@@ -17119,8 +17131,8 @@ msgstr "진행 중"
 msgid "Undo"
 msgstr "실행 취소"
 
-msgid "Undo Archive"
-msgstr "보관 실행 취소"
+msgid "Undo Workspace Archive"
+msgstr "워크스페이스 보관 실행 취소"
 
 msgid "Ungroup"
 msgstr "그룹 해제"
