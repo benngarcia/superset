@@ -23,4 +23,17 @@ describe("attachmentTags", () => {
 			],
 		});
 	});
+
+	it("leaves tags that point outside the workspace attachments folder as plain text", () => {
+		const message = [
+			'<attachment path=".superset/attachments/../../../etc/passwd" type="image/png" />',
+			'<attachment path="/etc/hosts" type="image/png" />',
+			'<attachment path=".superset/attachments/.." type="image/png" />',
+		].join("\n");
+
+		expect(parseAttachmentTags(message)).toEqual({
+			text: message,
+			attachments: [],
+		});
+	});
 });
