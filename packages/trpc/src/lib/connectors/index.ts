@@ -527,7 +527,13 @@ async function mcpIdentity(
 		if (result.structuredContent) return result.structuredContent;
 		if (!firstText)
 			throw new Error(`Connector "${slug}" identity tool returned no content.`);
-		return JSON.parse(firstText) as Record<string, unknown>;
+		try {
+			return JSON.parse(firstText) as Record<string, unknown>;
+		} catch {
+			throw new Error(
+				`Connector "${slug}" identity tool returned text that is not JSON: ${firstText.slice(0, 400)}`,
+			);
+		}
 	} finally {
 		if (session)
 			await credentialFetch(
@@ -545,6 +551,16 @@ async function mcpIdentity(
 				`Connector "${slug}" identity`,
 			).catch(() => {});
 	}
+}
+
+/** A value's keys and types without its contents, so an error can show what came back and leak nothing. */
+function shapeOf(value: unknown): unknown {
+	if (Array.isArray(value)) return value.slice(0, 1).map(shapeOf);
+	if (value && typeof value === "object")
+		return Object.fromEntries(
+			Object.entries(value).map(([key, entry]) => [key, shapeOf(entry)]),
+		);
+	return typeof value;
 }
 
 export async function probeIdentity(
@@ -607,7 +623,7 @@ export async function probeIdentity(
 	const accountId = read(probe.account.id);
 	if (!accountId)
 		throw new Error(
-			`Connector "${slug}" identity probe returned nothing at ${probe.account.id}.`,
+			`Connector "${slug}" identity probe returned nothing at ${probe.account.id}. The result has the shape ${JSON.stringify(shapeOf(payload)).slice(0, 800)}`,
 		);
 
 	const userId = probe.user ? read(probe.user.id) : null;

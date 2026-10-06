@@ -621,15 +621,15 @@
 					"scopes": ["mcp"],
 					"identity": {
 						"mcp": "https://mcp.stripe.com",
-						"tool": "get_stripe_account_info",
+						"tool": "list_available_accounts_or_orgs",
 						"arguments": {},
 						"account": {
-							"id": "$.id",
-							"label": "$.settings.dashboard.display_name"
+							"id": "$.accounts[0].id",
+							"label": "$.accounts[0].name"
 						},
 						"user": {
-							"id": "$.id",
-							"label": "$.email"
+							"id": "$.accounts[0].id",
+							"label": "$.accounts[0].name"
 						}
 					},
 					"bind": {
