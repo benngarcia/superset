@@ -10,16 +10,15 @@ import { cn } from "@/lib/utils";
 const DETAIL_CHARS = 600;
 
 function detailText(approval: ApprovalRequest): string {
-	const text = (approval.detail ?? [])
+	return (approval.detail ?? [])
 		.map((content) =>
 			content.type === "terminal"
 				? `$ ${content.command}`
 				: content.type === "diff"
-					? content.path
+					? `${content.path}\n${content.newText}`
 					: content.text,
 		)
 		.join("\n");
-	return text.length > DETAIL_CHARS ? `${text.slice(0, DETAIL_CHARS)}…` : text;
 }
 
 function choices(
@@ -55,6 +54,7 @@ export function ApprovalCard({
 	onRespond: (approvalId: string, decision: Decision) => Promise<void>;
 }) {
 	const [sending, setSending] = useState(false);
+	const [expanded, setExpanded] = useState(false);
 
 	if (approval.status !== "pending") {
 		return (
@@ -71,6 +71,7 @@ export function ApprovalCard({
 	}
 
 	const detail = detailText(approval);
+	const long = detail.length > DETAIL_CHARS;
 	const respond = (decision: Decision) => {
 		setSending(true);
 		void onRespond(approval.id, decision).finally(() => setSending(false));
@@ -85,12 +86,23 @@ export function ApprovalCard({
 				</Text>
 			</View>
 			{detail ? (
-				<Text
-					className="text-muted-foreground rounded-lg bg-black/40 px-3 py-2 font-mono text-xs"
-					selectable
-				>
-					{detail}
-				</Text>
+				<View className="gap-1.5 rounded-lg bg-black/40 px-3 py-2">
+					<Text className="text-muted-foreground font-mono text-xs" selectable>
+						{long && !expanded ? `${detail.slice(0, DETAIL_CHARS)}…` : detail}
+					</Text>
+					{long ? (
+						<Pressable
+							accessibilityRole="button"
+							className="self-start active:opacity-60"
+							hitSlop={8}
+							onPress={() => setExpanded((open) => !open)}
+						>
+							<Text className="text-foreground text-xs font-medium">
+								{expanded ? <Trans>Show less</Trans> : <Trans>Show more</Trans>}
+							</Text>
+						</Pressable>
+					) : null}
+				</View>
 			) : null}
 			<View className="flex-row flex-wrap justify-end gap-2">
 				{choices(approval).map((choice) => (

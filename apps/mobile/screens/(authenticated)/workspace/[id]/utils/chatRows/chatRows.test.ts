@@ -4,6 +4,7 @@ import {
 	chatRows,
 	groupActivity,
 	groupPositions,
+	lastReplyKeys,
 	runningTurnId,
 } from "./chatRows";
 
@@ -135,5 +136,19 @@ describe("groupActivity", () => {
 			"activity:r3",
 			"m2",
 		]);
+	});
+});
+
+describe("lastReplyKeys", () => {
+	test("the last reply of each agent turn, even with activity after it", () => {
+		const rows = [
+			{ kind: "item", key: "u1", item: { id: "u1", kind: "user_message" } },
+			{ kind: "item", key: "a1", item: { id: "a1", kind: "agent_message" } },
+			{ kind: "item", key: "a2", item: { id: "a2", kind: "agent_message" } },
+			{ kind: "activity", key: "act", rows: [] },
+			{ kind: "item", key: "u2", item: { id: "u2", kind: "user_message" } },
+			{ kind: "item", key: "a3", item: { id: "a3", kind: "agent_message" } },
+		] as unknown as Parameters<typeof lastReplyKeys>[0];
+		expect([...lastReplyKeys(rows)]).toEqual(["a2", "a3"]);
 	});
 });

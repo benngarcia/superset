@@ -4847,7 +4847,7 @@ msgid "Could not start the chat"
 msgstr "无法开始聊天"
 
 msgid "Could not steer"
-msgstr "无法转向"
+msgstr "无法引导"
 
 msgid "Could not stop it"
 msgstr "无法停止"

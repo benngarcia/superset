@@ -39,7 +39,7 @@ export function ActivitySheet() {
 							onOpenActivity={noop}
 							onRespond={respondNoop}
 							onRetryPrompt={noop}
-							position="single"
+							isLastReply={false}
 							row={row}
 							text={row.kind === "item" ? (texts[row.item.id] ?? "") : ""}
 						/>

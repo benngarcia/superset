@@ -768,13 +768,28 @@ export function WorkspaceScreen() {
 	// separates and delays the Enter, and frames the text as a bracketed paste
 	// only when the running program actually has that mode on.
 	const handleSubmit = useCallback(
-		async (text: string) => {
+		async (text: string, attachmentFileIds: string[] = []) => {
 			if (!hostUrl || !activeTerminalId || !id) {
 				throw new Error("Terminal is not connected");
 			}
 			if (activeIsChat) {
 				if (!chatRef.current) throw new Error("Chat is not connected");
-				await chatRef.current.send(text);
+				const imported =
+					attachmentFileIds.length > 0
+						? await getHostServiceClientByUrl(
+								hostUrl,
+							).attachments.importFromCloud.mutate({
+								fileIds: attachmentFileIds,
+							})
+						: [];
+				await chatRef.current.send(
+					text,
+					imported.map((entry) => ({
+						attachmentId: entry.attachmentId,
+						name: entry.originalFilename ?? "attachment",
+						mimeType: entry.mediaType,
+					})),
+				);
 				return;
 			}
 			await getHostServiceClientByUrl(hostUrl).terminal.send.mutate({
@@ -1227,7 +1242,9 @@ export function WorkspaceScreen() {
 					// A cloud workspace exists on screen before its sandbox is
 					// even addressed; the strip would offer sessions on one that
 					// isn't reachable yet.
-					sessionTabs={cloud && !host ? [] : acpChat ? [] : sessionTabs}
+					sessionTabs={
+						cloud && !host ? [] : acpChat && activeIsChat ? [] : sessionTabs
+					}
 					onSessionTabPress={pickTerminal}
 					onSessionTabClose={confirmCloseTerminal}
 					onSessionTabRename={promptRenameTerminal}
@@ -1246,6 +1263,7 @@ export function WorkspaceScreen() {
 					selectActive={select.active}
 					selectHasSelection={select.hasSelection}
 					hideQuickKeys={activeIsChat}
+					sendsAttachments={activeIsChat}
 					modeOptions={acpChat && activeIsChat ? chatModeOptions : undefined}
 					selectedModeId={chatModeId}
 					onModeSelect={selectChatMode}

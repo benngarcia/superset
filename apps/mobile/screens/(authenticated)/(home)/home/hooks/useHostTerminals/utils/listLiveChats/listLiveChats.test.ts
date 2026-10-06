@@ -43,4 +43,19 @@ describe("listLiveChats", () => {
 		expect(asked).toEqual(["a", "c"]);
 		expect(chats.map((chat) => chat.sessionId)).toEqual(["c"]);
 	});
+
+	test("an older host's running chat behind ten closed ones still shows", async () => {
+		const closed = Array.from({ length: 12 }, (_, index) =>
+			row(`closed-${index}`, "idle"),
+		);
+		const chats = await listLiveChats({
+			listSessions: async () => [...closed, row("running", "idle")] as never,
+			getSession: async ({ sessionId }) => ({
+				live: sessionId === "running",
+				session: null,
+				cursor: null,
+			}),
+		});
+		expect(chats.map((chat) => chat.sessionId)).toEqual(["running"]);
+	});
 });

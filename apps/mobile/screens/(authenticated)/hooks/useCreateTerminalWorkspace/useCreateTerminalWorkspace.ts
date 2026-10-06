@@ -200,7 +200,13 @@ export function useCreateTerminalWorkspace() {
 							});
 							refetchCreated();
 						} catch (error) {
-							if (error instanceof WorkspaceRowTimeoutError) return;
+							if (error instanceof WorkspaceRowTimeoutError) {
+								failPending(workspaceId, {
+									outcome: "unknown",
+									message: t({ message: "The host hasn't answered." }),
+								});
+								return;
+							}
 							clearPending(workspaceId);
 							Alert.alert(
 								t({ message: "Could not start the chat" }),

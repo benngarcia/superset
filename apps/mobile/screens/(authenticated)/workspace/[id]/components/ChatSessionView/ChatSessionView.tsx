@@ -30,6 +30,7 @@ import {
 	chatRows,
 	groupActivity,
 	groupPositions,
+	lastReplyKeys,
 	runningTurnId,
 } from "../../utils/chatRows";
 import { ChatRowView } from "../ChatRowView";
@@ -39,8 +40,27 @@ import { launchConfigSelections } from "./utils/launchConfigSelections";
 
 const CONFIG_OPTIONS_GRACE_MS = 1000;
 
+function reasoningTexts(
+	activity: ChatRow[],
+	snapshot: Parameters<typeof displayText>[0],
+): Record<string, string> {
+	return Object.fromEntries(
+		activity.flatMap((row) =>
+			row.kind === "item" && row.item.kind === "reasoning"
+				? [[row.item.id, displayText(snapshot, row.item.id)]]
+				: [],
+		),
+	);
+}
+
+export interface ChatAttachment {
+	attachmentId: string;
+	name: string;
+	mimeType: string;
+}
+
 export interface ChatSessionViewHandle {
-	send: (text: string) => Promise<void>;
+	send: (text: string, attachments?: ChatAttachment[]) => Promise<void>;
 }
 
 interface ChatSessionViewProps {
@@ -83,6 +103,7 @@ export const ChatSessionView = forwardRef<
 		[groups, chat.outbox],
 	);
 	const positions = useMemo(() => groupPositions(rows), [rows]);
+	const replyEnds = useMemo(() => lastReplyKeys(rows), [rows]);
 	const [dockHeight, setDockHeight] = useState(0);
 	const queued = useMemo(
 		() => deriveQueuedPrompts(chat.snapshot),
@@ -242,44 +263,44 @@ export const ChatSessionView = forwardRef<
 	useImperativeHandle(
 		ref,
 		() => ({
-			send: async (text: string) => {
-				if (!text.trim()) return;
-				chat.sendPrompt([{ type: "text", text }]);
+			send: async (text: string, attachments: ChatAttachment[] = []) => {
+				if (!text.trim() && attachments.length === 0) return;
+				chat.sendPrompt([
+					...(text.trim() ? [{ type: "text" as const, text }] : []),
+					...attachments.map((attachment) => ({
+						type: "attachment" as const,
+						...attachment,
+					})),
+				]);
 			},
 		}),
 		[chat],
 	);
 
 	const router = useRouter();
-	const reasoningTexts = useCallback(
-		(activity: ChatRow[]) =>
-			Object.fromEntries(
-				activity.flatMap((row) =>
-					row.kind === "item" && row.item.kind === "reasoning"
-						? [[row.item.id, displayText(chat.snapshot, row.item.id)]]
-						: [],
-				),
-			),
-		[chat.snapshot],
-	);
+	const latest = useRef({ rows, snapshot: chat.snapshot });
+	latest.current = { rows, snapshot: chat.snapshot };
 	const openActivity = useCallback(
 		(key: string) => {
-			const row = rows.find((candidate) => candidate.key === key);
+			const { rows: current, snapshot } = latest.current;
+			const row = current.find((candidate) => candidate.key === key);
 			if (row?.kind !== "activity") return;
 			useChatActivityStore
 				.getState()
-				.open(key, row.rows, reasoningTexts(row.rows));
+				.open(key, row.rows, reasoningTexts(row.rows, snapshot));
 			router.push(`/(authenticated)/workspace/${workspaceId}/activity`);
 		},
-		[rows, reasoningTexts, router, workspaceId],
+		[router, workspaceId],
 	);
 	const openActivityKey = useChatActivityStore((state) => state.openKey);
 	useEffect(() => {
 		if (!openActivityKey) return;
 		const row = rows.find((candidate) => candidate.key === openActivityKey);
 		if (row?.kind !== "activity") return;
-		useChatActivityStore.getState().publish(row.rows, reasoningTexts(row.rows));
-	}, [openActivityKey, rows, reasoningTexts]);
+		useChatActivityStore
+			.getState()
+			.publish(row.rows, reasoningTexts(row.rows, chat.snapshot));
+	}, [openActivityKey, rows, chat.snapshot]);
 
 	const renderRow = useCallback(
 		({ item: row, index }: { item: ChatRow; index: number }) => {
@@ -294,7 +315,7 @@ export const ChatSessionView = forwardRef<
 						onOpenActivity={openActivity}
 						onRespond={onRespond}
 						onRetryPrompt={chat.retryPrompt}
-						position={position}
+						isLastReply={replyEnds.has(row.key)}
 						row={row}
 						text={
 							row.kind === "item" &&
@@ -307,7 +328,7 @@ export const ChatSessionView = forwardRef<
 				</View>
 			);
 		},
-		[harness, chat, onRespond, branchFrom, positions, openActivity],
+		[harness, chat, onRespond, branchFrom, positions, replyEnds, openActivity],
 	);
 
 	const banner =

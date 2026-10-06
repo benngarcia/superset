@@ -175,3 +175,20 @@ export function groupPositions(rows: readonly ChatRow[]): GroupPosition[] {
 		return "single";
 	});
 }
+
+/** The last agent reply before each of the user's turns, past any activity after it. */
+export function lastReplyKeys(rows: readonly ChatRow[]): Set<string> {
+	const keys = new Set<string>();
+	let lastReply: string | null = null;
+	for (const row of rows) {
+		if (rowSide(row) !== "agent") {
+			if (lastReply) keys.add(lastReply);
+			lastReply = null;
+			continue;
+		}
+		if (row.kind === "item" && row.item.kind === "agent_message")
+			lastReply = row.key;
+	}
+	if (lastReply) keys.add(lastReply);
+	return keys;
+}

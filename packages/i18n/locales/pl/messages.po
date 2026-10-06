@@ -4847,7 +4847,7 @@ msgid "Could not start the chat"
 msgstr "Nie udało się rozpocząć czatu"
 
 msgid "Could not steer"
-msgstr "Nie udało się przekierować"
+msgstr "Nie udało się pokierować agentem"
 
 msgid "Could not stop it"
 msgstr "Nie udało się zatrzymać"
