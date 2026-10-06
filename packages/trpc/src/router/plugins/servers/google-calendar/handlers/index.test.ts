@@ -58,6 +58,8 @@ describe("create_event", () => {
 
 		expect(calls[0]?.url.pathname).toBe("/calendar/v3/calendars/primary");
 		const create = calls[1];
+		expect(create?.method).toBe("POST");
+		expect(create?.url.pathname).toBe("/calendar/v3/calendars/primary/events");
 		expect(create?.url.searchParams.get("sendUpdates")).toBe("all");
 		expect(create?.body?.start).toEqual({
 			dateTime: "2026-10-07T15:00:00",
@@ -95,6 +97,35 @@ describe("create_event", () => {
 	});
 });
 
+describe("update_event", () => {
+	test("keeps the replies of guests who stay on the list", async () => {
+		const calls = google((call) =>
+			call.method === "GET"
+				? {
+						body: {
+							id: "evt1",
+							attendees: [
+								{ email: "a@example.com", responseStatus: "accepted" },
+								{ email: "b@example.com", responseStatus: "declined" },
+							],
+						},
+					}
+				: { body: { id: "evt1" } },
+		);
+
+		await callTool(
+			"update_event",
+			{ eventId: "evt1", attendees: ["a@example.com", "c@example.com"] },
+			"token",
+		);
+
+		expect(calls[1]?.body?.attendees).toEqual([
+			{ email: "a@example.com", responseStatus: "accepted", optional: false },
+			{ email: "c@example.com", optional: false },
+		]);
+	});
+});
+
 describe("respond_to_event", () => {
 	test("sends only the user's own reply", async () => {
 		const calls = google((call) =>
@@ -125,6 +156,46 @@ describe("respond_to_event", () => {
 });
 
 describe("find_free_time", () => {
+	test("reports the gaps everyone shares that are long enough", async () => {
+		google(() => ({
+			body: {
+				calendars: {
+					primary: {
+						busy: [
+							{ start: "2026-10-07T10:00:00Z", end: "2026-10-07T11:00:00Z" },
+						],
+					},
+					"b@example.com": {
+						busy: [
+							{ start: "2026-10-07T10:30:00Z", end: "2026-10-07T12:00:00Z" },
+							{ start: "2026-10-07T12:15:00Z", end: "2026-10-07T13:00:00Z" },
+						],
+					},
+				},
+			},
+		}));
+
+		const result = await callTool(
+			"find_free_time",
+			{
+				calendarIds: ["primary", "b@example.com"],
+				timeMin: "2026-10-07T09:00:00Z",
+				timeMax: "2026-10-07T14:00:00Z",
+				durationMinutes: 30,
+			},
+			"token",
+		);
+
+		const text = output(result);
+		expect(text).toContain(
+			"2026-10-07T09:00:00.000Z → 2026-10-07T10:00:00.000Z",
+		);
+		expect(text).toContain(
+			"2026-10-07T13:00:00.000Z → 2026-10-07T14:00:00.000Z",
+		);
+		expect(text).not.toContain("12:00:00.000Z → 2026-10-07T12:15");
+	});
+
 	test("a calendar Google cannot read is unknown, not free", async () => {
 		google(() => ({
 			body: {

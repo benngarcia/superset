@@ -24,6 +24,9 @@ export const availabilityHandlers: Record<string, Handler> = {
 		const timeMax = instant(requireString(args, "timeMax"), "timeMax");
 		const ids = stringList(args.calendarIds, "calendarIds");
 		const calendarIds = ids.length ? ids : ["primary"];
+		if (calendarIds.length > 50) {
+			throw new Error("Google checks at most 50 calendars per call");
+		}
 		const minutes = Number(args.durationMinutes ?? 30);
 		if (!Number.isFinite(minutes) || minutes <= 0) {
 			throw new Error("durationMinutes must be a positive number");

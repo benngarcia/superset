@@ -26,6 +26,9 @@ describe("event times", () => {
 			"2026-10-07T09:00:00-07:00",
 		);
 		expect(() => instant("2026-10-07", "timeMin")).toThrow(/UTC offset/);
+		expect(() => instant("2026-10-07T15:00:00junk-07:00", "timeMin")).toThrow(
+			/UTC offset/,
+		);
 	});
 });
 

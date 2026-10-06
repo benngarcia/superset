@@ -793,7 +793,7 @@
 						},
 						"user": {
 							"id": "$.sub",
-							"label": "$.name"
+							"label": "$.preferred_username"
 						}
 					},
 					"bind": {

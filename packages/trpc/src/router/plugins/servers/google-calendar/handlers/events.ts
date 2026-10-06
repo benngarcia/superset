@@ -4,6 +4,7 @@ import {
 	type EventTime,
 	eventTime,
 	instant,
+	isDateTime,
 	optionalString,
 	requireString,
 	stringList,
@@ -93,13 +94,7 @@ async function zoneFor(
 ): Promise<string | undefined> {
 	const given = optionalString(args, "timeZone");
 	if (given) return given;
-	const needsZone = [args.start, args.end].some(
-		(value) =>
-			typeof value === "string" &&
-			value.includes("T") &&
-			!/(Z|[+-]\d{2}:\d{2})$/.test(value),
-	);
-	if (!needsZone) return undefined;
+	if (![args.start, args.end].some(isDateTime)) return undefined;
 	const owner = await calendar<{ timeZone?: string }>(accessToken, [
 		"calendars",
 		cid,
@@ -128,15 +123,32 @@ function times(
 	return { start, end };
 }
 
-function attendees(args: Record<string, unknown>): Attendee[] | undefined {
-	if (args.attendees === undefined) return undefined;
-	const optional = new Set(
-		stringList(args.optionalAttendees, "optionalAttendees"),
-	);
-	return stringList(args.attendees, "attendees").map((email) => ({
-		email,
-		...(optional.has(email) ? { optional: true } : {}),
-	}));
+function attendees(
+	args: Record<string, unknown>,
+	current: Attendee[] = [],
+): Attendee[] | undefined {
+	if (args.attendees === undefined) {
+		if (args.optionalAttendees !== undefined) {
+			throw new Error(
+				"optionalAttendees marks people in attendees, so pass attendees too",
+			);
+		}
+		return undefined;
+	}
+	const optional =
+		args.optionalAttendees === undefined
+			? undefined
+			: new Set(stringList(args.optionalAttendees, "optionalAttendees"));
+	return stringList(args.attendees, "attendees").map((email) => {
+		const existing = current.find(
+			(attendee) => attendee.email?.toLowerCase() === email.toLowerCase(),
+		);
+		return {
+			...existing,
+			email,
+			optional: optional ? optional.has(email) : (existing?.optional ?? false),
+		};
+	});
 }
 
 function details(args: Record<string, unknown>) {
@@ -240,21 +252,22 @@ export const eventHandlers: Record<string, Handler> = {
 		const cid = calendarId(args);
 		const eventId = requireString(args, "eventId");
 		const { start, end } = times(args, await zoneFor(args, accessToken, cid));
-		const list = attendees(args);
-		const event = await calendar<CalendarEvent>(
-			accessToken,
-			["calendars", cid, "events", eventId],
-			{
-				method: "PATCH",
-				query: { sendUpdates: sendUpdates(args) },
-				body: {
-					...details(args),
-					...(start ? { start } : {}),
-					...(end ? { end } : {}),
-					...(list ? { attendees: list } : {}),
-				},
+		const segments = ["calendars", cid, "events", eventId];
+		const current =
+			args.attendees === undefined
+				? undefined
+				: await calendar<CalendarEvent>(accessToken, segments);
+		const list = attendees(args, current?.attendees);
+		const event = await calendar<CalendarEvent>(accessToken, segments, {
+			method: "PATCH",
+			query: { sendUpdates: sendUpdates(args) },
+			body: {
+				...details(args),
+				...(start ? { start } : {}),
+				...(end ? { end } : {}),
+				...(list ? { attendees: list } : {}),
 			},
-		);
+		});
 		return text(`✓ Updated event\n${describe(event)}`);
 	},
 

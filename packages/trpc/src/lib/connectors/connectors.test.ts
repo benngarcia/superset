@@ -463,7 +463,7 @@ describe("probeIdentity", () => {
 		const calls = respond({
 			sub: "user_abc",
 			email: "h@tegon.ai",
-			name: "Harshith",
+			preferred_username: "harshith",
 		});
 
 		const identity = await probeIdentity(
@@ -480,7 +480,7 @@ describe("probeIdentity", () => {
 			},
 		]);
 		expect(identity.account).toEqual({ id: "user_abc", label: "h@tegon.ai" });
-		expect(identity.user).toEqual({ id: "user_abc", label: "Harshith" });
+		expect(identity.user).toEqual({ id: "user_abc", label: "harshith" });
 	});
 
 	test("superhuman_mcp reads the default account wherever the server lists it", async () => {

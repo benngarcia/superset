@@ -25,7 +25,7 @@ const EVENT_ID = { type: "string", description: "Event ID." };
 const TIME_ZONE = {
 	type: "string",
 	description:
-		"IANA time zone, e.g. America/New_York. Applies to start and end that have no UTC offset; defaults to the calendar's time zone.",
+		"IANA time zone, e.g. America/New_York. Start and end without a UTC offset are read in it, and a recurring event repeats in it. Defaults to the calendar's time zone.",
 };
 const RANGE_BOUND = {
 	type: "string",
@@ -116,7 +116,7 @@ export function getTools(): ToolDefinition[] {
 		),
 		tool(
 			"find_free_time",
-			"Finds windows where every given calendar is free, from Google's free/busy data. Works for other people's calendars when they share free/busy. Windows are reported in UTC and ignore working hours",
+			"Finds windows where every given calendar is free, from Google's free/busy data. Works for other people's calendars when they share free/busy. A window is free only for the calendars Google could read; the result names any it could not. Windows are reported in UTC and ignore working hours. At most 50 calendars",
 			{
 				calendarIds: {
 					type: "array",

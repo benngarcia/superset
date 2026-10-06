@@ -54,7 +54,7 @@ export async function calendar<T = Record<string, unknown>>(
 			payload?.error?.message ?? `${response.status} ${response.statusText}`;
 		if (response.status === 403 && /insufficient/i.test(detail)) {
 			throw new Error(
-				`Google Calendar API error: ${detail}. This Google connection was made before Calendar write access was added; reconnect Google to grant it.`,
+				`Google Calendar API error: ${detail.replace(/\.$/, "")}. This Google connection was made before Calendar write access was added; reconnect Google to grant it.`,
 			);
 		}
 		throw new Error(`Google Calendar API error: ${detail}`);
@@ -105,8 +105,13 @@ export function stringList(value: unknown, field: string): string[] {
 }
 
 const DATE = /^\d{4}-\d{2}-\d{2}$/;
-const DATE_TIME = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2}(\.\d+)?)?/;
+const DATE_TIME =
+	/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|[+-]\d{2}:\d{2})?$/;
 const OFFSET = /(Z|[+-]\d{2}:\d{2})$/;
+
+export function isDateTime(value: unknown): boolean {
+	return typeof value === "string" && DATE_TIME.test(value);
+}
 
 export type EventTime =
 	| { date: string }
