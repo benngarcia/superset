@@ -15057,7 +15057,7 @@ msgid "Split with New Browser"
 msgstr "拆分並新建瀏覽器"
 
 msgid "Split with Sandbox Desktop"
-msgstr "分割並開啟沙盒桌面"
+msgstr "分割並開啟沙箱桌面"
 
 msgid "Squash & Merge"
 msgstr "壓縮併合併"

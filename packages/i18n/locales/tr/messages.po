@@ -15057,7 +15057,7 @@ msgid "Split with New Browser"
 msgstr "Yeni tarayıcıyla böl"
 
 msgid "Split with Sandbox Desktop"
-msgstr "Sandbox masaüstüyle böl"
+msgstr "Sanal alan masaüstüyle böl"
 
 msgid "Squash & Merge"
 msgstr "Squash ve birleştir"

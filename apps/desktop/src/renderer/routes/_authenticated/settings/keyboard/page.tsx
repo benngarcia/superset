@@ -192,6 +192,25 @@ function KeyboardShortcutsPage() {
 
 	const { keys: showHotkeysKeys } = useHotkeyDisplay("SHOW_HOTKEYS");
 
+	const categoryLabels = useMemo<Record<HotkeyCategory, string>>(
+		() => ({
+			Navigation: t({
+				message: "Navigation",
+			}),
+			Workspace: t({
+				message: "Workspace",
+			}),
+			Terminal: t({
+				message: "Terminal",
+			}),
+			Chat: t({ message: "Chat" }),
+			Layout: t({ message: "Layout" }),
+			Window: t({ message: "Window" }),
+			Help: t({ message: "Help" }),
+		}),
+		[t],
+	);
+
 	const filteredHotkeysByCategory = useMemo(() => {
 		if (!searchQuery) return hotkeysByCategory;
 		const lower = searchQuery.toLowerCase();
@@ -199,11 +218,15 @@ function KeyboardShortcutsPage() {
 			CATEGORY_ORDER.map((category) => [
 				category,
 				(hotkeysByCategory[category] ?? []).filter((hotkey) =>
-					t(hotkey.label).toLowerCase().includes(lower),
+					[
+						t(hotkey.label),
+						hotkey.description ? t(hotkey.description) : "",
+						categoryLabels[category],
+					].some((text) => text.toLowerCase().includes(lower)),
 				),
 			]),
 		) as typeof hotkeysByCategory;
-	}, [searchQuery, t]);
+	}, [searchQuery, t, categoryLabels]);
 
 	const handleStartRecording = (id: HotkeyId) => {
 		setRecordingId((current) => (current === id ? null : id));
@@ -217,22 +240,6 @@ function KeyboardShortcutsPage() {
 	};
 
 	const conflictDisplay = useFormatBinding(pendingConflict?.binding ?? null);
-
-	const categoryLabels: Record<HotkeyCategory, string> = {
-		Navigation: t({
-			message: "Navigation",
-		}),
-		Workspace: t({
-			message: "Workspace",
-		}),
-		Terminal: t({
-			message: "Terminal",
-		}),
-		Chat: t({ message: "Chat" }),
-		Layout: t({ message: "Layout" }),
-		Window: t({ message: "Window" }),
-		Help: t({ message: "Help" }),
-	};
 
 	return (
 		<div className="p-6 max-w-4xl w-full">

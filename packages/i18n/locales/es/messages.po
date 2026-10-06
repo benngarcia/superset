@@ -15057,7 +15057,7 @@ msgid "Split with New Browser"
 msgstr "Dividir con un navegador nuevo"
 
 msgid "Split with Sandbox Desktop"
-msgstr "Dividir con escritorio del sandbox"
+msgstr "Dividir con escritorio del entorno aislado"
 
 msgid "Squash & Merge"
 msgstr "Squash y fusionar"

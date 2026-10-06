@@ -15057,7 +15057,7 @@ msgid "Split with New Browser"
 msgstr "Fractionner avec un navigateur"
 
 msgid "Split with Sandbox Desktop"
-msgstr "Diviser avec le bureau du sandbox"
+msgstr "Diviser avec le bureau du bac à sable"
 
 msgid "Squash & Merge"
 msgstr "Squasher et fusionner"
