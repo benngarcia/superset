@@ -3,7 +3,7 @@ import { GenIcon } from "react-icons";
 export const SuperhumanIcon = GenIcon({
 	tag: "svg",
 	attr: {
-		viewBox: "34 34 130 130",
+		viewBox: "30 30 138 138",
 		fill: "none",
 		strokeWidth: "9",
 		strokeLinejoin: "round",

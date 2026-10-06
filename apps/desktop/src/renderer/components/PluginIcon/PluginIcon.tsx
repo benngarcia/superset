@@ -48,10 +48,7 @@ const IMAGE_ICONS: Record<string, string> = {
 	monday: mondayIconUrl,
 };
 
-const PLUGIN_ICONS: Record<
-	string,
-	{ icon: IconType; color?: string; scale?: string }
-> = {
+const PLUGIN_ICONS: Record<string, { icon: IconType; color?: string }> = {
 	github: { icon: FaGithub },
 	superhuman: { icon: SuperhumanIcon },
 	notion: { icon: SiNotion },
@@ -64,7 +61,7 @@ const PLUGIN_ICONS: Record<
 	"chrome-devtools": { icon: SiGooglechrome, color: "#4285F4" },
 	"google-docs": { icon: SiGoogledocs, color: "#4285F4" },
 	"google-sheets": { icon: SiGooglesheets, color: "#0F9D58" },
-	vercel: { icon: SiVercel, scale: "size-1/2" },
+	vercel: { icon: SiVercel },
 };
 
 /**
@@ -112,15 +109,19 @@ export function PluginIcon({ pluginName, className }: PluginIconProps) {
 	return (
 		<div
 			className={cn(
-				"flex shrink-0 items-center justify-center rounded-lg bg-muted/40 text-foreground",
+				"@container flex shrink-0 items-center justify-center rounded-lg bg-muted/40 text-foreground",
 				size,
 			)}
 		>
 			{imageIcon !== undefined ? (
-				<img src={imageIcon} alt="" className="size-3/5 object-contain" />
+				<img
+					src={imageIcon}
+					alt=""
+					className="size-3/5 object-contain @max-[1.5rem]:size-5/6"
+				/>
 			) : (
 				<Icon
-					className={entry?.scale ?? "size-3/5"}
+					className="size-3/5 @max-[1.5rem]:size-5/6"
 					style={entry?.color ? { color: entry.color } : undefined}
 				/>
 			)}
