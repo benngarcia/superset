@@ -43,6 +43,7 @@ import {
 } from "../../utils/backgroundTerminals";
 import { changesPillStats } from "../../utils/changesPillStats";
 import { focusOrAddTerminalPane } from "../../utils/focusTerminalPane";
+import { getShipMenuActions } from "../../utils/getShipMenuActions";
 import { openSubagentPaneInStore } from "../../utils/openSubagentPaneInStore";
 import { ChangesStats } from "../ChangesStats";
 import { CommitForm } from "../CommitForm";
@@ -117,6 +118,12 @@ export function WorkspaceActivityMenu({
 		enabled: paneAreaStyle && open,
 		onCommitted: () => setShipView(null),
 		onPrCreated: () => setShipView(null),
+	});
+	const shipMenu = getShipMenuActions({
+		flowState,
+		sync: branchSync,
+		workspaceCanCreatePr: shipActions.canCreatePr,
+		commitsLoaded: shipActions.commitsLoaded,
 	});
 
 	const pagePolicy = usePagePolicy("4-tier");
@@ -491,22 +498,9 @@ export function WorkspaceActivityMenu({
 							<section className="py-1">
 								<ActivityMenuHeader
 									title={currentWorkspace.name}
-									canCommit={
-										!!branchSync?.hasUncommitted && !branchSync.isDetached
-									}
-									canPush={
-										(flowState.kind === "no-pr" ||
-											flowState.kind === "pr-exists") &&
-										flowState.sync != null &&
-										(!flowState.sync.hasUpstream ||
-											flowState.sync.pushCount > 0)
-									}
-									canCreatePr={
-										flowState.kind === "no-pr" &&
-										!flowState.sync.hasUncommitted &&
-										shipActions.commitsLoaded &&
-										shipActions.canCreatePr
-									}
+									canCommit={shipMenu.canCommit}
+									canPush={shipMenu.canPush}
+									canCreatePr={shipMenu.canCreatePr}
 									hasCommitsAhead={shipActions.hasCommitsAhead}
 									isBusy={shipActions.isShipping || shipActions.isCommitting}
 									onOpenView={(view) => {

@@ -13,7 +13,7 @@ import { cn } from "@superset/ui/utils";
 import { workspaceTrpc } from "@superset/workspace-client";
 import {
 	Circle,
-	FileDiff,
+	Files,
 	FileText,
 	FolderTree,
 	GitCompareArrows,
@@ -764,8 +764,8 @@ export function usePaneRegistry({
 				),
 			},
 			"changes-list": {
-				getIcon: () => <FileDiff className="size-3.5" />,
-				getTitle: () => t({ message: "Changes" }),
+				getIcon: () => <Files className="size-3.5" />,
+				getTitle: () => t({ message: "Files changed" }),
 				renderPane: (ctx: RendererContext<PaneViewerData>) => (
 					<ChangesListPane context={ctx} workspaceId={workspaceId} />
 				),

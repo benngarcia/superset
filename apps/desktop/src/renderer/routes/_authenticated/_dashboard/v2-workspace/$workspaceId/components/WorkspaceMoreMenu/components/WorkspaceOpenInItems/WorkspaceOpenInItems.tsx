@@ -50,7 +50,7 @@ export function WorkspaceOpenInItems({ openIn }: WorkspaceOpenInItemsProps) {
 					<SquareArrowOutUpRight className="size-4 text-muted-foreground" />
 					<Trans>Open in</Trans>
 				</DropdownMenuSubTrigger>
-				<DropdownMenuSubContent className="w-48">
+				<DropdownMenuSubContent className="min-w-48">
 					<OpenInExternalDropdownItems
 						isDark={isDark}
 						activeApp={resolvedApp}

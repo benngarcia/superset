@@ -64,7 +64,7 @@ export function WorkspaceMoreMenu({
 				</TooltipTrigger>
 				<TooltipContent side="bottom">{label}</TooltipContent>
 			</Tooltip>
-			<DropdownMenuContent align="end" className="w-56">
+			<DropdownMenuContent align="end" className="min-w-56">
 				{openInTarget && (
 					<>
 						<WorkspaceOpenInItems openIn={openIn} />

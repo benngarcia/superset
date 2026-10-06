@@ -53,6 +53,10 @@ export function PagesListPane({
 	const otherPages = allPages.items.filter(
 		(page) => !workspacePageIds.has(page.id),
 	);
+	const allPagesInWorkspace =
+		otherPages.length === 0 &&
+		allPages.items.length > 0 &&
+		!allPages.hasNextPage;
 
 	const activePageId = useStore(store, (state) => {
 		const tab = state.getTab(tabId);
@@ -133,17 +137,18 @@ export function PagesListPane({
 		<>
 			{pages.length > 0 ? (
 				cards(pages)
-			) : query.isError ? (
+			) : query.isError && query.items.length === 0 ? (
 				<div className="flex items-center justify-between">
 					{emptyRow(<Trans>Couldn't load pages</Trans>)}
 					{retryButton(() => void query.refetch())}
 				</div>
-			) : query.isLoading ? (
+			) : query.isLoading ||
+				(query.hasNextPage && !query.isFetchNextPageError) ? (
 				emptyRow(<Trans>Loading…</Trans>)
 			) : (
 				emptyRow(emptyMessage)
 			)}
-			{pages.length > 0 &&
+			{query.items.length > 0 &&
 				query.isFetchNextPageError &&
 				retryButton(() => void query.fetchNextPage())}
 			<div ref={query.sentinelRef} />
@@ -195,12 +200,14 @@ export function PagesListPane({
 					</div>
 					{sectionBody(workspacePages, workspacePages.items)}
 				</section>
-				<section className="py-1">
-					<div className="flex h-7 items-center px-2 text-[11px] font-medium text-muted-foreground">
-						<Trans>All pages</Trans>
-					</div>
-					{sectionBody(allPages, otherPages)}
-				</section>
+				{!allPagesInWorkspace && (
+					<section className="py-1">
+						<div className="flex h-7 items-center px-2 text-[11px] font-medium text-muted-foreground">
+							<Trans>All pages</Trans>
+						</div>
+						{sectionBody(allPages, otherPages)}
+					</section>
+				)}
 			</div>
 		</div>
 	);
