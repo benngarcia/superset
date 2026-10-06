@@ -35,7 +35,10 @@ export function register(server: McpServer): void {
 			const pageId = id ?? (await createMcpCaller(ctx).page.get({ slug })).id;
 			const response = await fetch(
 				`${ctx.realtimeUrl}${pageStorageRecordsPath(pageId, key)}`,
-				{ headers: { authorization: `Bearer ${ctx.bearerToken}` } },
+				{
+					headers: { authorization: `Bearer ${ctx.bearerToken}` },
+					signal: AbortSignal.timeout(10_000),
+				},
 			);
 			if (response.ok) return (await response.json()) as PageStorageReadback;
 			if (response.status === 404) {

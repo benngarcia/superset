@@ -23,6 +23,30 @@ describe("displayStorage", () => {
 		expect(output).toContain(key);
 	});
 
+	test("escapes control characters a viewer stored", () => {
+		const keys = displayStorage({
+			pageId: "page-1",
+			keys: [{ key: "\u001b[2Jvotes", records: 1, updatedAt: UPDATED }],
+		});
+		const slots = displayStorage({
+			pageId: "page-1",
+			key: "votes",
+			records: [
+				{
+					userId: "u1",
+					name: "Ada",
+					image: null,
+					value: "\u009b2J",
+					updatedAt: UPDATED,
+				},
+			],
+		});
+		expect(keys).toContain("\\u001b[2Jvotes");
+		expect(slots).toContain("\\u009b2J");
+		expect(`${keys}${slots}`).not.toContain("\u001b");
+		expect(`${keys}${slots}`).not.toContain("\u009b");
+	});
+
 	test("shows every person's slot for one key", () => {
 		const output = displayStorage({
 			pageId: "page-1",

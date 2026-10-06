@@ -76,12 +76,19 @@ export async function readStorage({
 	}
 }
 
+function printable(text: string): string {
+	return text.replace(
+		/\p{Cc}/gu,
+		(char) => `\\u${char.charCodeAt(0).toString(16).padStart(4, "0")}`,
+	);
+}
+
 export function displayStorage(data: PageStorageReadback): string {
 	if ("keys" in data) {
 		if (data.keys.length === 0) return "This page has no stored records.";
 		return table(
 			data.keys.map((row) => ({
-				key: row.key,
+				key: printable(row.key),
 				records: row.records,
 				updated: new Date(row.updatedAt).toLocaleString(),
 			})),
@@ -93,8 +100,8 @@ export function displayStorage(data: PageStorageReadback): string {
 	if (data.records.length === 0) return `No records for key "${data.key}".`;
 	return table(
 		data.records.map((row) => ({
-			name: row.name,
-			value: JSON.stringify(row.value),
+			name: printable(row.name),
+			value: printable(JSON.stringify(row.value)),
 			updated: new Date(row.updatedAt).toLocaleString(),
 		})),
 		["name", "value", "updated"],
