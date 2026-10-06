@@ -3,7 +3,6 @@ import {
 	getPluginByName,
 	isServerSatisfiedExternally,
 	PLUGIN_CATALOG,
-	pluginProxyMcpServers,
 } from "./index";
 import { FIRST_PARTY_MANIFESTS } from "./manifests.generated";
 
@@ -30,12 +29,10 @@ describe("PLUGIN_CATALOG", () => {
 });
 
 describe("isServerSatisfiedExternally", () => {
-	const proxied = pluginProxyMcpServers("linear");
-	const linear = proxied?.linear;
+	const proxy = "https://api.superset.sh/mcp/plugins/superset/linear";
+	const linear = { type: "http", url: proxy } as const;
 
 	test("a user's Superset MCP entry does not satisfy a proxied plugin", () => {
-		expect(linear).toBeDefined();
-		if (!linear) return;
 		expect(
 			isServerSatisfiedExternally("linear", linear, [
 				{ name: "superset", url: "https://api.superset.sh/mcp" },
@@ -44,14 +41,39 @@ describe("isServerSatisfiedExternally", () => {
 	});
 
 	test("an entry for the same proxy path satisfies it", () => {
-		if (!linear) return;
 		expect(
 			isServerSatisfiedExternally("linear", linear, [
-				{
-					name: "my-linear",
-					url: "https://api.superset.sh/mcp/plugins/superset/linear/",
-				},
+				{ name: "my-linear", url: `${proxy}/` },
 			]),
+		).toBe(true);
+	});
+
+	test("an entry pinned to one account satisfies only that account", () => {
+		const external = [
+			{ name: "my-linear", url: `${proxy}?connection=conn-work` },
+		];
+		const pinned = (connection: string) =>
+			({ type: "http", url: `${proxy}?connection=${connection}` }) as const;
+		expect(
+			isServerSatisfiedExternally("linear-work", pinned("conn-work"), external),
+		).toBe(true);
+		expect(
+			isServerSatisfiedExternally("linear-side", pinned("conn-side"), external),
+		).toBe(false);
+	});
+
+	test("a legacy Superset MCP URL still satisfies the superset server", () => {
+		expect(
+			isServerSatisfiedExternally(
+				"superset",
+				{ type: "http", url: "https://api.superset.sh/mcp" },
+				[
+					{
+						name: "superset-mcp",
+						url: "https://api.superset.sh/api/v2/agent/mcp",
+					},
+				],
+			),
 		).toBe(true);
 	});
 
