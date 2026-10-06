@@ -350,53 +350,32 @@ export const pluginsRouter = createTRPCRouter({
 			installs.map((row) => `${row.marketplace}/${row.pluginName}`),
 		);
 
-		const claimed = new Set(
-			installs
-				.map((row) => installConnector(row))
-				.filter((slug): slug is string => slug !== undefined),
-		);
-
-		const orphaned = [...held.entries()]
-			.filter(([slug]) => !claimed.has(slug))
-			.map(([slug, rows]) => ({
-				name: slug,
-				version: "",
-				description: "",
-				marketplace: FIRST_PARTY,
-				displayName: slug,
-				category: "Developer tools",
-				icon: undefined,
-				connector: slug,
-				mcpUrl: null,
-				skills: [] as { name: string; description: string }[],
-				homepage: null,
-				author: null,
-				license: null,
-				installed: false,
-				enabled: false,
-				installedAt: null as Date | null,
-				latestVersion: null,
-				connections: rows,
-				accounts: rows
-					.map((connection) => connection.user ?? connection.account)
-					.filter((account): account is string => account !== null),
-			}));
-
 		const available = Object.values(FIRST_PARTY_MANIFESTS)
 			.filter(
 				(manifest) => !installedKeys.has(`${FIRST_PARTY}/${manifest.name}`),
 			)
-			.map((manifest) => ({
-				...describe(manifest as unknown as PluginManifest, FIRST_PARTY),
-				installed: false,
-				enabled: false,
-				installedAt: null as Date | null,
-				latestVersion: (manifest.version as string) ?? null,
-				connections: [] as { id: string; account: string | null }[],
-				accounts: [] as string[],
-			}));
+			.map((manifest) => {
+				const described = describe(
+					manifest as unknown as PluginManifest,
+					FIRST_PARTY,
+				);
+				const held_ = described.connector
+					? (held.get(described.connector) ?? [])
+					: [];
+				return {
+					...described,
+					installed: false,
+					enabled: false,
+					installedAt: null as Date | null,
+					latestVersion: (manifest.version as string) ?? null,
+					connections: held_,
+					accounts: held_
+						.map((connection) => connection.user ?? connection.account)
+						.filter((account): account is string => account !== null),
+				};
+			});
 
-		return [...installed, ...orphaned, ...available];
+		return [...installed, ...available];
 	}),
 
 	install: protectedProcedure
