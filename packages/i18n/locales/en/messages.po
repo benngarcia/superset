@@ -1727,6 +1727,9 @@ msgstr "Add this label"
 msgid "Add to Dictionary"
 msgstr "Add to Dictionary"
 
+msgid "Add to favorites"
+msgstr "Add to favorites"
+
 msgid "Add to project"
 msgstr "Add to project"
 
@@ -1984,6 +1987,9 @@ msgstr "All in current tab"
 
 msgid "All in current tab (split panes)"
 msgstr "All in current tab (split panes)"
+
+msgid "All models"
+msgstr "All models"
 
 msgid "All objectives cleared. Top rung, nothing left to reach for."
 msgstr "All objectives cleared. Top rung, nothing left to reach for."
@@ -2424,17 +2430,11 @@ msgstr "ascending"
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "Ask an agent to publish one from the desktop app."
 
-msgid "Ask before editing files or running commands"
-msgstr "Ask before editing files or running commands"
-
 msgid "Ask for approval"
 msgstr "Ask for approval"
 
 msgid "Ask for this to be removed"
 msgstr "Ask for this to be removed"
-
-msgid "Ask only for actions that look risky"
-msgstr "Ask only for actions that look risky"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "Ask the agent, @mention files, run /commands"
@@ -2453,6 +2453,12 @@ msgstr "Ask to make changes"
 
 msgid "Ask to make changes, @mention files, run /commands"
 msgstr "Ask to make changes, @mention files, run /commands"
+
+msgid "Asks before edits and commands"
+msgstr "Asks before edits and commands"
+
+msgid "Asks only for risky actions"
+msgstr "Asks only for risky actions"
 
 msgid "Aspect Ratio"
 msgstr "Aspect Ratio"
@@ -4920,6 +4926,9 @@ msgstr "Couldn't restart the workspace: {0}"
 msgid "Couldn't restore \"{projectName}\""
 msgstr "Couldn't restore \"{projectName}\""
 
+msgid "Couldn't restore \"{workspaceName}\""
+msgstr "Couldn't restore \"{workspaceName}\""
+
 msgid "Couldn't save"
 msgstr "Couldn't save"
 
@@ -7083,6 +7092,9 @@ msgstr "FAQ"
 
 msgid "Fatal"
 msgstr "Fatal"
+
+msgid "Favorites"
+msgstr "Favorites"
 
 msgid "Featured"
 msgstr "Featured"
@@ -9896,6 +9908,9 @@ msgstr "Network Changed"
 msgid "Never"
 msgstr "Never"
 
+msgid "Never asks before acting"
+msgstr "Never asks before acting"
+
 msgctxt "badge on a page published since the menu was last opened"
 msgid "New"
 msgstr "New"
@@ -10272,6 +10287,9 @@ msgstr "No extended thinking"
 msgid "No failed runs."
 msgstr "No failed runs."
 
+msgid "No favorite models"
+msgstr "No favorite models"
+
 msgid "No files found"
 msgstr "No files found"
 
@@ -10358,6 +10376,9 @@ msgstr "No matches"
 
 msgid "No matching files"
 msgstr "No matching files"
+
+msgid "No matching models"
+msgstr "No matching models"
 
 msgid "No matching org members."
 msgstr "No matching org members."
@@ -12626,12 +12647,6 @@ msgstr "Read"
 msgid "Read and plan without changing anything"
 msgstr "Read and plan without changing anything"
 
-msgid "Read files; ask for anything else"
-msgstr "Read files; ask for anything else"
-
-msgid "Read only"
-msgstr "Read only"
-
 msgid "Read the changelog"
 msgstr "Read the changelog"
 
@@ -12888,6 +12903,9 @@ msgstr "Remove {label}?"
 
 msgid "Remove attachment"
 msgstr "Remove attachment"
+
+msgid "Remove from favorites"
+msgstr "Remove from favorites"
 
 msgid "Remove from Queue"
 msgstr "Remove from Queue"
@@ -13342,6 +13360,12 @@ msgstr "Restored \"{name}\""
 
 msgid "Restored \"{projectName}\""
 msgstr "Restored \"{projectName}\""
+
+msgid "Restored \"{workspaceName}\""
+msgstr "Restored \"{workspaceName}\""
+
+msgid "Restoring \"{workspaceName}\"…"
+msgstr "Restoring \"{workspaceName}\"…"
 
 msgid "Restoring your session"
 msgstr "Restoring your session"
@@ -13916,6 +13940,9 @@ msgstr "Search Linear"
 msgid "Search Linear…"
 msgstr "Search Linear…"
 
+msgid "Search models"
+msgstr "Search models"
+
 msgid "Search pages"
 msgstr "Search pages"
 
@@ -14140,9 +14167,6 @@ msgstr "Select issue"
 
 msgid "Select method"
 msgstr "Select method"
-
-msgid "Select model"
-msgstr "Select model"
 
 msgid "Select new project location"
 msgstr "Select new project location"
@@ -17207,9 +17231,6 @@ msgstr "Unresolve"
 
 msgid "Unresolved"
 msgstr "Unresolved"
-
-msgid "Unrestricted access to the internet and any file on your computer"
-msgstr "Unrestricted access to the internet and any file on your computer"
 
 msgid "Unsaved changes"
 msgstr "Unsaved changes"

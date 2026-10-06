@@ -1727,6 +1727,9 @@ msgstr "このラベルを追加"
 msgid "Add to Dictionary"
 msgstr "辞書に追加"
 
+msgid "Add to favorites"
+msgstr "お気に入りに追加"
+
 msgid "Add to project"
 msgstr "プロジェクトに追加"
 
@@ -1984,6 +1987,9 @@ msgstr "すべて現在のタブで"
 
 msgid "All in current tab (split panes)"
 msgstr "すべて現在のタブで(ペイン分割)"
+
+msgid "All models"
+msgstr "すべてのモデル"
 
 msgid "All objectives cleared. Top rung, nothing left to reach for."
 msgstr "すべての目標をクリア。最上段で、これ以上目指すものはありません。"
@@ -2424,17 +2430,11 @@ msgstr "昇順"
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "デスクトップアプリからエージェントに公開してもらいましょう。"
 
-msgid "Ask before editing files or running commands"
-msgstr "ファイルの編集やコマンドの実行前に確認"
-
 msgid "Ask for approval"
 msgstr "承認を求める"
 
 msgid "Ask for this to be removed"
 msgstr "削除を依頼"
-
-msgid "Ask only for actions that look risky"
-msgstr "危険そうな操作のみ確認"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "エージェントに依頼、@でファイルを指定、/コマンドを実行"
@@ -2453,6 +2453,12 @@ msgstr "変更を依頼"
 
 msgid "Ask to make changes, @mention files, run /commands"
 msgstr "変更を依頼、@でファイルをメンション、/でコマンドを実行"
+
+msgid "Asks before edits and commands"
+msgstr "編集とコマンドの前に確認"
+
+msgid "Asks only for risky actions"
+msgstr "リスクのある操作のみ確認"
 
 msgid "Aspect Ratio"
 msgstr "Aspect Ratio"
@@ -4920,6 +4926,9 @@ msgstr "ワークスペースを再起動できませんでした: {0}"
 msgid "Couldn't restore \"{projectName}\""
 msgstr "「{projectName}」を復元できませんでした"
 
+msgid "Couldn't restore \"{workspaceName}\""
+msgstr "「{workspaceName}」を復元できませんでした"
+
 msgid "Couldn't save"
 msgstr "保存できませんでした"
 
@@ -7083,6 +7092,9 @@ msgstr "FAQ"
 
 msgid "Fatal"
 msgstr "致命的"
+
+msgid "Favorites"
+msgstr "お気に入り"
 
 msgid "Featured"
 msgstr "注目"
@@ -9896,6 +9908,9 @@ msgstr "ネットワークが変更されました"
 msgid "Never"
 msgstr "未使用"
 
+msgid "Never asks before acting"
+msgstr "確認なしで実行"
+
 msgctxt "badge on a page published since the menu was last opened"
 msgid "New"
 msgstr "新着"
@@ -10272,6 +10287,9 @@ msgstr "拡張思考なし"
 msgid "No failed runs."
 msgstr "失敗した実行はありません。"
 
+msgid "No favorite models"
+msgstr "お気に入りのモデルはありません"
+
 msgid "No files found"
 msgstr "ファイルが見つかりません"
 
@@ -10358,6 +10376,9 @@ msgstr "一致なし"
 
 msgid "No matching files"
 msgstr "一致するファイルはありません"
+
+msgid "No matching models"
+msgstr "一致するモデルがありません"
 
 msgid "No matching org members."
 msgstr "一致する組織メンバーがいません。"
@@ -12626,12 +12647,6 @@ msgstr "読み取り"
 msgid "Read and plan without changing anything"
 msgstr "何も変更せずに読み取りと計画のみ"
 
-msgid "Read files; ask for anything else"
-msgstr "ファイルを読み取り、それ以外は確認"
-
-msgid "Read only"
-msgstr "読み取り専用"
-
 msgid "Read the changelog"
 msgstr "Changelogを読む"
 
@@ -12888,6 +12903,9 @@ msgstr "{label}を削除しますか?"
 
 msgid "Remove attachment"
 msgstr "添付ファイルを削除"
+
+msgid "Remove from favorites"
+msgstr "お気に入りから削除"
 
 msgid "Remove from Queue"
 msgstr "キューから削除"
@@ -13342,6 +13360,12 @@ msgstr "「{name}」を復元しました"
 
 msgid "Restored \"{projectName}\""
 msgstr "「{projectName}」を復元しました"
+
+msgid "Restored \"{workspaceName}\""
+msgstr "「{workspaceName}」を復元しました"
+
+msgid "Restoring \"{workspaceName}\"…"
+msgstr "「{workspaceName}」を復元中…"
 
 msgid "Restoring your session"
 msgstr "セッションを復元中"
@@ -13916,6 +13940,9 @@ msgstr "Linearを検索"
 msgid "Search Linear…"
 msgstr "Linearを検索…"
 
+msgid "Search models"
+msgstr "モデルを検索"
+
 msgid "Search pages"
 msgstr "ページを検索"
 
@@ -14140,9 +14167,6 @@ msgstr "issueを選択"
 
 msgid "Select method"
 msgstr "方法を選択"
-
-msgid "Select model"
-msgstr "モデルを選択"
 
 msgid "Select new project location"
 msgstr "新しいプロジェクトの場所を選択"
@@ -17207,9 +17231,6 @@ msgstr "解決を取り消す"
 
 msgid "Unresolved"
 msgstr "未解決"
-
-msgid "Unrestricted access to the internet and any file on your computer"
-msgstr "インターネットとコンピューター上のすべてのファイルへの無制限アクセス"
 
 msgid "Unsaved changes"
 msgstr "未保存の変更"

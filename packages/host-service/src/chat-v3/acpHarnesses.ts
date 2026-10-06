@@ -46,6 +46,9 @@ export function acpHarnessFactory(
 			command: entry.binary,
 			cwd: options.cwd,
 			resolveAttachment,
+			...(entry.fullAccessModeId
+				? { defaultModeId: entry.fullAccessModeId }
+				: {}),
 			launch: async () => {
 				const cli = await resolveAgentCli({
 					binary: entry.binary,

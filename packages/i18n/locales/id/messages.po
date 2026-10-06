@@ -1727,6 +1727,9 @@ msgstr "Tambahkan label ini"
 msgid "Add to Dictionary"
 msgstr "Tambahkan ke Kamus"
 
+msgid "Add to favorites"
+msgstr "Tambahkan ke favorit"
+
 msgid "Add to project"
 msgstr "Tambahkan ke proyek"
 
@@ -1984,6 +1987,9 @@ msgstr "Semua di tab saat ini"
 
 msgid "All in current tab (split panes)"
 msgstr "Semua di tab saat ini (panel terbagi)"
+
+msgid "All models"
+msgstr "Semua model"
 
 msgid "All objectives cleared. Top rung, nothing left to reach for."
 msgstr "Semua sasaran tercapai. Anak tangga teratas, tidak ada lagi yang bisa dikejar."
@@ -2424,17 +2430,11 @@ msgstr "menaik"
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "Minta agen untuk memublikasikan satu dari aplikasi desktop."
 
-msgid "Ask before editing files or running commands"
-msgstr "Tanya sebelum mengedit file atau menjalankan perintah"
-
 msgid "Ask for approval"
 msgstr "Minta persetujuan"
 
 msgid "Ask for this to be removed"
 msgstr "Minta ini dihapus"
-
-msgid "Ask only for actions that look risky"
-msgstr "Tanya hanya untuk tindakan yang tampak berisiko"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "Tanya agen, @sebut berkas, jalankan /perintah"
@@ -2453,6 +2453,12 @@ msgstr "Minta perubahan"
 
 msgid "Ask to make changes, @mention files, run /commands"
 msgstr "Minta perubahan, @mention file, jalankan /command"
+
+msgid "Asks before edits and commands"
+msgstr "Bertanya sebelum edit dan perintah"
+
+msgid "Asks only for risky actions"
+msgstr "Hanya bertanya untuk tindakan berisiko"
 
 msgid "Aspect Ratio"
 msgstr "Aspect Ratio"
@@ -4920,6 +4926,9 @@ msgstr "Tidak dapat memulai ulang workspace: {0}"
 msgid "Couldn't restore \"{projectName}\""
 msgstr "Tidak dapat memulihkan \"{projectName}\""
 
+msgid "Couldn't restore \"{workspaceName}\""
+msgstr "Tidak dapat memulihkan \"{workspaceName}\""
+
 msgid "Couldn't save"
 msgstr "Tidak bisa menyimpan"
 
@@ -7083,6 +7092,9 @@ msgstr "FAQ"
 
 msgid "Fatal"
 msgstr "Fatal"
+
+msgid "Favorites"
+msgstr "Favorit"
 
 msgid "Featured"
 msgstr "Unggulan"
@@ -9896,6 +9908,9 @@ msgstr "Jaringan Berubah"
 msgid "Never"
 msgstr "Tidak pernah"
 
+msgid "Never asks before acting"
+msgstr "Tidak pernah bertanya dulu"
+
 msgctxt "badge on a page published since the menu was last opened"
 msgid "New"
 msgstr "Baru"
@@ -10272,6 +10287,9 @@ msgstr "Tanpa extended thinking"
 msgid "No failed runs."
 msgstr "Tidak ada eksekusi yang gagal."
 
+msgid "No favorite models"
+msgstr "Tidak ada model favorit"
+
 msgid "No files found"
 msgstr "File tidak ditemukan"
 
@@ -10358,6 +10376,9 @@ msgstr "Tidak ada yang cocok"
 
 msgid "No matching files"
 msgstr "Tidak ada berkas yang cocok"
+
+msgid "No matching models"
+msgstr "Tidak ada model yang cocok"
 
 msgid "No matching org members."
 msgstr "Tidak ada anggota organisasi yang cocok."
@@ -12626,12 +12647,6 @@ msgstr "Dibaca"
 msgid "Read and plan without changing anything"
 msgstr "Baca dan rencanakan tanpa mengubah apa pun"
 
-msgid "Read files; ask for anything else"
-msgstr "Baca file; tanya untuk hal lainnya"
-
-msgid "Read only"
-msgstr "Hanya baca"
-
 msgid "Read the changelog"
 msgstr "Baca changelog"
 
@@ -12888,6 +12903,9 @@ msgstr "Hapus {label}?"
 
 msgid "Remove attachment"
 msgstr "Hapus lampiran"
+
+msgid "Remove from favorites"
+msgstr "Hapus dari favorit"
 
 msgid "Remove from Queue"
 msgstr "Keluarkan dari Antrean"
@@ -13342,6 +13360,12 @@ msgstr "\"{name}\" dipulihkan"
 
 msgid "Restored \"{projectName}\""
 msgstr "\"{projectName}\" dipulihkan"
+
+msgid "Restored \"{workspaceName}\""
+msgstr "\"{workspaceName}\" dipulihkan"
+
+msgid "Restoring \"{workspaceName}\"…"
+msgstr "Memulihkan \"{workspaceName}\"…"
 
 msgid "Restoring your session"
 msgstr "Memulihkan sesi Anda"
@@ -13916,6 +13940,9 @@ msgstr "Cari di Linear"
 msgid "Search Linear…"
 msgstr "Cari di Linear…"
 
+msgid "Search models"
+msgstr "Cari model"
+
 msgid "Search pages"
 msgstr "Cari halaman"
 
@@ -14140,9 +14167,6 @@ msgstr "Pilih issue"
 
 msgid "Select method"
 msgstr "Pilih metode"
-
-msgid "Select model"
-msgstr "Pilih model"
 
 msgid "Select new project location"
 msgstr "Pilih lokasi proyek yang baru"
@@ -17207,9 +17231,6 @@ msgstr "Buka lagi"
 
 msgid "Unresolved"
 msgstr "Belum selesai"
-
-msgid "Unrestricted access to the internet and any file on your computer"
-msgstr "Akses tanpa batas ke internet dan semua file di komputer Anda"
 
 msgid "Unsaved changes"
 msgstr "Perubahan belum disimpan"

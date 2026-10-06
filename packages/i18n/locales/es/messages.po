@@ -1727,6 +1727,9 @@ msgstr "Añadir esta etiqueta"
 msgid "Add to Dictionary"
 msgstr "Añadir al diccionario"
 
+msgid "Add to favorites"
+msgstr "Añadir a favoritos"
+
 msgid "Add to project"
 msgstr "Añadir a un proyecto"
 
@@ -1984,6 +1987,9 @@ msgstr "Todo en la pestaña actual"
 
 msgid "All in current tab (split panes)"
 msgstr "Todo en la pestaña actual (paneles divididos)"
+
+msgid "All models"
+msgstr "Todos los modelos"
 
 msgid "All objectives cleared. Top rung, nothing left to reach for."
 msgstr "Todos los objetivos superados. Peldaño máximo, no queda nada a lo que aspirar."
@@ -2424,17 +2430,11 @@ msgstr "ascendente"
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "Pide a un agente que publique una desde la aplicación de escritorio."
 
-msgid "Ask before editing files or running commands"
-msgstr "Preguntar antes de editar archivos o ejecutar comandos"
-
 msgid "Ask for approval"
 msgstr "Pedir aprobación"
 
 msgid "Ask for this to be removed"
 msgstr "Pedir que se elimine"
-
-msgid "Ask only for actions that look risky"
-msgstr "Pedir aprobación solo para las acciones que parezcan arriesgadas"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "Pregunta al agente, @menciona archivos, usa /comandos"
@@ -2453,6 +2453,12 @@ msgstr "Pide que se hagan cambios"
 
 msgid "Ask to make changes, @mention files, run /commands"
 msgstr "Pedir cambios, mencionar archivos con @, ejecutar /comandos"
+
+msgid "Asks before edits and commands"
+msgstr "Pregunta antes de editar o ejecutar"
+
+msgid "Asks only for risky actions"
+msgstr "Pregunta solo en acciones arriesgadas"
 
 msgid "Aspect Ratio"
 msgstr "Relación de aspecto"
@@ -4920,6 +4926,9 @@ msgstr "No se pudo reiniciar el espacio de trabajo: {0}"
 msgid "Couldn't restore \"{projectName}\""
 msgstr "No se pudo restaurar \"{projectName}\""
 
+msgid "Couldn't restore \"{workspaceName}\""
+msgstr "No se pudo restaurar \"{workspaceName}\""
+
 msgid "Couldn't save"
 msgstr "No se pudo guardar"
 
@@ -7083,6 +7092,9 @@ msgstr "Preguntas frecuentes"
 
 msgid "Fatal"
 msgstr "Fatal"
+
+msgid "Favorites"
+msgstr "Favoritos"
 
 msgid "Featured"
 msgstr "Destacados"
@@ -9896,6 +9908,9 @@ msgstr "La red cambió"
 msgid "Never"
 msgstr "Nunca"
 
+msgid "Never asks before acting"
+msgstr "Nunca pregunta antes de actuar"
+
 msgctxt "badge on a page published since the menu was last opened"
 msgid "New"
 msgstr "Nueva"
@@ -10272,6 +10287,9 @@ msgstr "Sin razonamiento extendido"
 msgid "No failed runs."
 msgstr "Sin ejecuciones fallidas."
 
+msgid "No favorite models"
+msgstr "No hay modelos favoritos"
+
 msgid "No files found"
 msgstr "No se encontraron archivos"
 
@@ -10358,6 +10376,9 @@ msgstr "Sin coincidencias"
 
 msgid "No matching files"
 msgstr "No hay archivos coincidentes"
+
+msgid "No matching models"
+msgstr "No hay modelos coincidentes"
 
 msgid "No matching org members."
 msgstr "Ningún miembro de la organización coincide."
@@ -12626,12 +12647,6 @@ msgstr "Lectura"
 msgid "Read and plan without changing anything"
 msgstr "Leer y planificar sin cambiar nada"
 
-msgid "Read files; ask for anything else"
-msgstr "Leer archivos; pedir permiso para cualquier otra acción"
-
-msgid "Read only"
-msgstr "Solo lectura"
-
 msgid "Read the changelog"
 msgstr "Leer el registro de cambios"
 
@@ -12888,6 +12903,9 @@ msgstr "¿Quitar {label}?"
 
 msgid "Remove attachment"
 msgstr "Quitar adjunto"
+
+msgid "Remove from favorites"
+msgstr "Quitar de favoritos"
 
 msgid "Remove from Queue"
 msgstr "Quitar de la cola"
@@ -13342,6 +13360,12 @@ msgstr "\"{name}\" restaurado"
 
 msgid "Restored \"{projectName}\""
 msgstr "Se restauró \"{projectName}\""
+
+msgid "Restored \"{workspaceName}\""
+msgstr "Se restauró \"{workspaceName}\""
+
+msgid "Restoring \"{workspaceName}\"…"
+msgstr "Restaurando \"{workspaceName}\"…"
 
 msgid "Restoring your session"
 msgstr "Restaurando la sesión"
@@ -13916,6 +13940,9 @@ msgstr "Buscar en Linear"
 msgid "Search Linear…"
 msgstr "Buscar en Linear…"
 
+msgid "Search models"
+msgstr "Buscar modelos"
+
 msgid "Search pages"
 msgstr "Buscar páginas"
 
@@ -14140,9 +14167,6 @@ msgstr "Seleccionar issue"
 
 msgid "Select method"
 msgstr "Seleccionar método"
-
-msgid "Select model"
-msgstr "Seleccionar el modelo"
 
 msgid "Select new project location"
 msgstr "Seleccionar la nueva ubicación del proyecto"
@@ -17207,9 +17231,6 @@ msgstr "Reabrir"
 
 msgid "Unresolved"
 msgstr "Sin resolver"
-
-msgid "Unrestricted access to the internet and any file on your computer"
-msgstr "Acceso sin restricciones a internet y a cualquier archivo de tu ordenador"
 
 msgid "Unsaved changes"
 msgstr "Cambios sin guardar"
