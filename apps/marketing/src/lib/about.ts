@@ -7,6 +7,13 @@ const aboutFile = path.join(process.cwd(), "content/about.mdx");
 
 export const aboutSchema = z.object({
 	photoCaption: z.string().min(1),
+	photos: z.array(
+		z.object({
+			src: z.string().min(1),
+			alt: z.string().min(1),
+			caption: z.string().min(1),
+		}),
+	),
 	principles: z.array(
 		z.object({
 			title: z.string().min(1),

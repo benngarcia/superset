@@ -16121,9 +16121,6 @@ msgstr "Следующие папки не являются git-репозито
 msgid "The forecast"
 msgstr "Прогноз"
 
-msgid "The founders"
-msgstr "Основатели"
-
 msgid "The full core loop (import a repo, run an agent, review the diff) now works signed out and offline."
 msgstr "Полный основной цикл (импорт репозитория, запуск агента, просмотр diff) теперь работает без входа и офлайн."
 
@@ -16306,6 +16303,9 @@ msgstr "Площадки вне сайта, которые несут проду
 
 msgid "the target host"
 msgstr "целевой хост"
+
+msgid "The team"
+msgstr "Команда"
 
 msgid "The team invitation has either expired or doesn't exist. Request a new link from the team owner or check the URL to make sure it is entered correctly."
 msgstr "Приглашение в команду истекло или не существует. Запросите новую ссылку у владельца команды или проверьте правильность URL."
@@ -17896,8 +17896,8 @@ msgstr "Что должна показывать страница?"
 msgid "What should we build next?"
 msgstr "Что будем делать дальше?"
 
-msgid "What Superset is, who builds it, and who it's for. A San Francisco team of three ex-YC CTOs building the workspace for parallel coding agents."
-msgstr "Что такое Superset, кто его создаёт и для кого он. Команда из Сан-Франциско — три бывших CTO из YC, строящих рабочую среду для параллельных кодинг-агентов."
+msgid "What Superset is, who builds it, and who it's for. A San Francisco team, led by three ex-YC CTOs, building the workspace for parallel coding agents."
+msgstr "Что такое Superset, кто его создаёт и для кого он. Команда из Сан-Франциско во главе с тремя бывшими CTO из YC, строящая рабочую среду для параллельных кодинг-агентов."
 
 msgid "What the content is doing: which pages sessions start on, and how much is being published."
 msgstr "Что делает контент: с каких страниц начинаются сессии и сколько публикуется."

@@ -16121,9 +16121,6 @@ msgstr "次のフォルダはgitリポジトリではありません。初期化
 msgid "The forecast"
 msgstr "予測"
 
-msgid "The founders"
-msgstr "創業者"
-
 msgid "The full core loop (import a repo, run an agent, review the diff) now works signed out and offline."
 msgstr "中核のループ(リポジトリのインポート、エージェントの実行、差分のレビュー)がサインアウト状態やオフラインでも動くようになりました。"
 
@@ -16306,6 +16303,9 @@ msgstr "サイトの外でプロダクトを運ぶ場所: リポジトリ、リ�
 
 msgid "the target host"
 msgstr "対象ホスト"
+
+msgid "The team"
+msgstr "チーム"
 
 msgid "The team invitation has either expired or doesn't exist. Request a new link from the team owner or check the URL to make sure it is entered correctly."
 msgstr "チームの招待は期限切れか、存在しません。チームのオーナーに新しいリンクを依頼するか、URLが正しく入力されているか確認してください。"
@@ -17896,8 +17896,8 @@ msgstr "ページに何を表示しますか?"
 msgid "What should we build next?"
 msgstr "次は何を作りますか?"
 
-msgid "What Superset is, who builds it, and who it's for. A San Francisco team of three ex-YC CTOs building the workspace for parallel coding agents."
-msgstr "Supersetとは何か、誰が作っていて、誰のためのものか。並列コーディングエージェントのためのワークスペースを作る、元YCのCTO3人によるサンフランシスコのチーム。"
+msgid "What Superset is, who builds it, and who it's for. A San Francisco team, led by three ex-YC CTOs, building the workspace for parallel coding agents."
+msgstr "Supersetとは何か、誰が作っていて、誰のためのものか。並列コーディングエージェントのためのワークスペースを作る、元YCのCTO3人が率いるサンフランシスコのチーム。"
 
 msgid "What the content is doing: which pages sessions start on, and how much is being published."
 msgstr "コンテンツの状況: セッションがどのページから始まるか、どれだけ公開されているか。"

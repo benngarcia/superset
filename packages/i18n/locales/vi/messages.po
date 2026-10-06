@@ -16121,9 +16121,6 @@ msgstr "Các thư mục sau không phải là repository git. Bạn có muốn k
 msgid "The forecast"
 msgstr "Dự báo"
 
-msgid "The founders"
-msgstr "Những người sáng lập"
-
 msgid "The full core loop (import a repo, run an agent, review the diff) now works signed out and offline."
 msgstr "Toàn bộ vòng lặp cốt lõi (nhập repo, chạy agent, review diff) nay hoạt động cả khi chưa đăng nhập và ngoại tuyến."
 
@@ -16306,6 +16303,9 @@ msgstr "Các bề mặt ngoài trang web mang sản phẩm đi: kho mã, bản p
 
 msgid "the target host"
 msgstr "host đích"
+
+msgid "The team"
+msgstr "Đội ngũ"
 
 msgid "The team invitation has either expired or doesn't exist. Request a new link from the team owner or check the URL to make sure it is entered correctly."
 msgstr "Lời mời vào nhóm đã hết hạn hoặc không tồn tại. Hãy xin liên kết mới từ chủ sở hữu nhóm hoặc kiểm tra lại URL xem đã nhập đúng chưa."
@@ -17896,8 +17896,8 @@ msgstr "Trang nên hiển thị gì?"
 msgid "What should we build next?"
 msgstr "Chúng ta xây dựng gì tiếp theo?"
 
-msgid "What Superset is, who builds it, and who it's for. A San Francisco team of three ex-YC CTOs building the workspace for parallel coding agents."
-msgstr "Superset là gì, ai xây dựng nó và dành cho ai. Một đội ngũ ba cựu CTO YC tại San Francisco xây dựng workspace cho các agent lập trình song song."
+msgid "What Superset is, who builds it, and who it's for. A San Francisco team, led by three ex-YC CTOs, building the workspace for parallel coding agents."
+msgstr "Superset là gì, ai xây dựng nó và dành cho ai. Một đội ngũ tại San Francisco do ba cựu CTO YC dẫn dắt, xây dựng workspace cho các agent lập trình song song."
 
 msgid "What the content is doing: which pages sessions start on, and how much is being published."
 msgstr "Nội dung đang làm gì: phiên bắt đầu ở trang nào và có bao nhiêu được xuất bản."

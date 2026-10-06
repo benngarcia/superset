@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
 	const description = i18n._(
 		msg({
 			message:
-				"What Superset is, who builds it, and who it's for. A San Francisco team of three ex-YC CTOs building the workspace for parallel coding agents.",
+				"What Superset is, who builds it, and who it's for. A San Francisco team, led by three ex-YC CTOs, building the workspace for parallel coding agents.",
 		}),
 	);
 	const ogDescription = i18n._(
@@ -149,11 +149,29 @@ export default async function TeamPage() {
 						</Trans>
 					</p>
 					<Timeline entries={about.timeline} locale={lang} />
+					<div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-12">
+						{about.photos.map((photo) => (
+							<figure key={photo.src} className="m-0">
+								<div className="relative aspect-[3/2] rounded-lg overflow-hidden bg-muted border border-border">
+									<Image
+										src={photo.src}
+										alt={photo.alt}
+										fill
+										className="object-cover"
+										sizes="(max-width: 640px) 100vw, 480px"
+									/>
+								</div>
+								<figcaption className="mt-3 text-xs text-muted-foreground">
+									{photo.caption}
+								</figcaption>
+							</figure>
+						))}
+					</div>
 				</section>
 
 				<section className="mb-24 md:mb-32">
 					<h2 className="text-2xl md:text-3xl font-normal text-foreground mb-6">
-						<Trans>The founders</Trans>
+						<Trans>The team</Trans>
 					</h2>
 					{people.length === 0 ? (
 						<p className="text-muted-foreground">

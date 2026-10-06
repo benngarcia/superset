@@ -16121,9 +16121,6 @@ msgstr "Las siguientes carpetas no son repositorios de Git. ¿Inicializarlas?"
 msgid "The forecast"
 msgstr "El pronóstico"
 
-msgid "The founders"
-msgstr "Los fundadores"
-
 msgid "The full core loop (import a repo, run an agent, review the diff) now works signed out and offline."
 msgstr "El ciclo básico completo (importar un repositorio, ejecutar un agente, revisar el diff) ya funciona sin sesión iniciada y sin conexión."
 
@@ -16306,6 +16303,9 @@ msgstr "Las superficies fuera del sitio que llevan el producto: el repositorio, 
 
 msgid "the target host"
 msgstr "el host de destino"
+
+msgid "The team"
+msgstr "El equipo"
 
 msgid "The team invitation has either expired or doesn't exist. Request a new link from the team owner or check the URL to make sure it is entered correctly."
 msgstr "La invitación al equipo ha caducado o no existe. Pide un enlace nuevo al propietario del equipo o comprueba que la URL esté bien escrita."
@@ -17896,8 +17896,8 @@ msgstr "¿Qué debe mostrar la página?"
 msgid "What should we build next?"
 msgstr "¿Qué construimos ahora?"
 
-msgid "What Superset is, who builds it, and who it's for. A San Francisco team of three ex-YC CTOs building the workspace for parallel coding agents."
-msgstr "Qué es Superset, quién lo construye y para quién es. Un equipo de San Francisco formado por tres ex-CTO de YC que construye el espacio de trabajo para agentes de codificación en paralelo."
+msgid "What Superset is, who builds it, and who it's for. A San Francisco team, led by three ex-YC CTOs, building the workspace for parallel coding agents."
+msgstr "Qué es Superset, quién lo construye y para quién es. Un equipo de San Francisco liderado por tres ex-CTO de YC que construye el espacio de trabajo para agentes de codificación en paralelo."
 
 msgid "What the content is doing: which pages sessions start on, and how much is being published."
 msgstr "Qué está haciendo el contenido: en qué páginas empiezan las sesiones y cuánto se publica."

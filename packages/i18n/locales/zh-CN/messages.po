@@ -16121,9 +16121,6 @@ msgstr "以下文件夹不是git仓库。要初始化它们吗？"
 msgid "The forecast"
 msgstr "预测"
 
-msgid "The founders"
-msgstr "创始人"
-
 msgid "The full core loop (import a repo, run an agent, review the diff) now works signed out and offline."
 msgstr "完整的核心流程（导入仓库、运行智能体、审查差异）现在在未登录和离线时也能用。"
 
@@ -16306,6 +16303,9 @@ msgstr "站外承载产品的渠道：仓库、发布版本和 Discord。"
 
 msgid "the target host"
 msgstr "目标主机"
+
+msgid "The team"
+msgstr "团队"
 
 msgid "The team invitation has either expired or doesn't exist. Request a new link from the team owner or check the URL to make sure it is entered correctly."
 msgstr "该团队邀请已过期或不存在。请向团队所有者索取新链接，或检查URL是否输入正确。"
@@ -17896,8 +17896,8 @@ msgstr "页面应展示什么?"
 msgid "What should we build next?"
 msgstr "接下来做点什么？"
 
-msgid "What Superset is, who builds it, and who it's for. A San Francisco team of three ex-YC CTOs building the workspace for parallel coding agents."
-msgstr "Superset 是什么、由谁打造、为谁而建。一支由三位前 YC CTO 组成的旧金山团队，正在打造并行编码智能体的工作区。"
+msgid "What Superset is, who builds it, and who it's for. A San Francisco team, led by three ex-YC CTOs, building the workspace for parallel coding agents."
+msgstr "Superset 是什么、由谁打造、为谁而建。一支由三位前 YC CTO 带领的旧金山团队，正在打造并行编码智能体的工作区。"
 
 msgid "What the content is doing: which pages sessions start on, and how much is being published."
 msgstr "内容的表现：会话从哪些页面开始，以及发布了多少。"

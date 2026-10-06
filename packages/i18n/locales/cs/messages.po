@@ -16121,9 +16121,6 @@ msgstr "Následující složky nejsou git repozitáře. Chcete je inicializovat?
 msgid "The forecast"
 msgstr "Předpověď"
 
-msgid "The founders"
-msgstr "Zakladatelé"
-
 msgid "The full core loop (import a repo, run an agent, review the diff) now works signed out and offline."
 msgstr "Celá základní smyčka (import repozitáře, spuštění agenta, revize rozdílů) teď funguje odhlášeně a offline."
 
@@ -16306,6 +16303,9 @@ msgstr "Plochy mimo web, které nesou produkt: repozitář, vydání a Discord."
 
 msgid "the target host"
 msgstr "cílový host"
+
+msgid "The team"
+msgstr "Tým"
 
 msgid "The team invitation has either expired or doesn't exist. Request a new link from the team owner or check the URL to make sure it is entered correctly."
 msgstr "Pozvánka do týmu buď vypršela, nebo neexistuje. Vyžádejte si od vlastníka týmu nový odkaz nebo zkontrolujte, že je URL zadaná správně."
@@ -17896,8 +17896,8 @@ msgstr "Co má stránka zobrazovat?"
 msgid "What should we build next?"
 msgstr "Co postavíme dál?"
 
-msgid "What Superset is, who builds it, and who it's for. A San Francisco team of three ex-YC CTOs building the workspace for parallel coding agents."
-msgstr "Co je Superset, kdo ho staví a pro koho je. Sanfranciský tým tří bývalých YC CTO, který staví pracovní prostor pro paralelní kódovací agenty."
+msgid "What Superset is, who builds it, and who it's for. A San Francisco team, led by three ex-YC CTOs, building the workspace for parallel coding agents."
+msgstr "Co je Superset, kdo ho staví a pro koho je. Sanfranciský tým vedený třemi bývalými YC CTO, který staví pracovní prostor pro paralelní kódovací agenty."
 
 msgid "What the content is doing: which pages sessions start on, and how much is being published."
 msgstr "Co obsah dělá: na kterých stránkách relace začínají a kolik se publikuje."
