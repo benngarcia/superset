@@ -25,7 +25,8 @@ import { AcpRecovery } from "./components/AcpRecovery";
  */
 export function AcpChatPane({
 	agent,
-	onAgentSessionChanged,
+	isActive,
+	onSessionInfo,
 	onFirstPromptSent,
 	onOpenFile,
 	onModeChange,
@@ -33,20 +34,23 @@ export function AcpChatPane({
 	onSwitchAgent,
 	pendingFirstPrompt,
 	sessionId,
+	terminalId,
 	workspaceId,
 	modelId,
 	modelLabel,
 	modeId,
 }: {
 	workspaceId: string;
+	terminalId: string;
 	/** `sessionId` is absent until the agent has run a turn to report one. */
 	agent: { id: string; sessionId?: string } | undefined;
+	isActive: boolean;
 	sessionId: string | null;
 	pendingFirstPrompt?: UserContent[] | null;
 	onFirstPromptSent?: (() => void) | undefined;
 	onSessionCreated: (sessionId: string) => void;
 	onModeChange?: (modeId: string) => void;
-	onAgentSessionChanged: (harnessSessionId: string) => void;
+	onSessionInfo: (info: { harnessSessionId?: string; title?: string }) => void;
 	onOpenFile?: OpenFile;
 	onSwitchAgent?: (target: {
 		presetId: string;
@@ -104,6 +108,7 @@ export function AcpChatPane({
 					commandId: crypto.randomUUID(),
 					workspaceId,
 					harness: resumeHarness,
+					terminalId,
 					...(modelId ? { modelId } : {}),
 					...(startModeId ? { modeId: startModeId } : {}),
 					...(resume ? { resume: { harnessSessionId: resume } } : {}),
@@ -114,7 +119,15 @@ export function AcpChatPane({
 				setFailure(error instanceof Error ? error.message : String(error));
 			}
 		},
-		[wiring.transport, workspaceId, onSessionCreated, modelId, modeId, agent],
+		[
+			wiring.transport,
+			workspaceId,
+			terminalId,
+			onSessionCreated,
+			modelId,
+			modeId,
+			agent,
+		],
 	);
 
 	const agentSessionId = agent?.sessionId;
@@ -139,7 +152,16 @@ export function AcpChatPane({
 			})
 			.then((forked) => {
 				if (forked) {
-					if (mounted.current) onSessionCreated(forked.sessionId);
+					if (!mounted.current) return;
+					onSessionCreated(forked.sessionId);
+					void wiring.transport
+						.closeSession({ sessionId })
+						.catch((error: unknown) =>
+							console.warn(
+								"[acp-chat] could not close the branched-from chat",
+								error,
+							),
+						);
 					return;
 				}
 				// The adapter declines rather than sending a `session/fork` an
@@ -323,6 +345,7 @@ export function AcpChatPane({
 			agentSwitch={agentSwitch}
 			onModeChange={onModeChange}
 			canForkToWorktree={canForkToWorktree}
+			isActive={isActive}
 			onFork={fork}
 			openFile={onOpenFile}
 			onSessionState={(state) => {
@@ -330,9 +353,13 @@ export function AcpChatPane({
 				// session. Keep the pane pointed at the live one, or the trip back
 				// to the CLI resumes an id that no longer exists.
 				const bound = state?.harnessSessionId;
-				if (bound && bound !== agent?.sessionId && mounted.current) {
-					onAgentSessionChanged(bound);
-				}
+				if (!mounted.current) return;
+				onSessionInfo({
+					...(bound && bound !== agent?.sessionId
+						? { harnessSessionId: bound }
+						: {}),
+					...(state?.title ? { title: state.title } : {}),
+				});
 			}}
 			pendingFirstPrompt={pendingFirstPrompt ?? null}
 			preferredModelLabel={modelLabel}

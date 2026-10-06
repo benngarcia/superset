@@ -414,6 +414,10 @@ msgstr "Đã cài {0}"
 msgid "{0} is already assigned to \"{1}\"."
 msgstr "{0} đã được gán cho \"{1}\"."
 
+#. placeholder {0}: params?.key
+msgid "{0} is already used for tasks in this organization."
+msgstr "{0} đã được dùng cho nhiệm vụ trong tổ chức này."
+
 #. placeholder {0}: params?.repoFullName
 msgid "{0} is not a repository the GitHub App is installed on"
 msgstr "{0} không phải là kho lưu trữ đã cài đặt GitHub App"
@@ -699,9 +703,6 @@ msgstr "{actor} đã hủy liên kết không gian làm việc {workspace}"
 
 msgid "{actual} so far · ~{projected} projected"
 msgstr "{actual} đến hiện tại · dự kiến ~{projected}"
-
-msgid "{backgroundCount, plural, one {# background terminal session} other {# background terminal sessions}}"
-msgstr "{backgroundCount, plural, one {# phiên terminal chạy nền} other {# phiên terminal chạy nền}}"
 
 msgid "{behindCount, plural, one {Behind main by # commit, needs rebase} other {Behind main by # commits, needs rebase}}"
 msgstr "{behindCount, plural, one {Chậm hơn main # commit, cần rebase} other {Chậm hơn main # commit, cần rebase}}"
@@ -1024,6 +1025,9 @@ msgstr "{previewSize}px · chiều cao dòng {0}"
 
 msgid "{provider} logo"
 msgstr "Logo {provider}"
+
+msgid "{queued, plural, one {# message waiting in the queue} other {# messages waiting in the queue}}"
+msgstr "{queued, plural, one {# tin nhắn đang chờ trong hàng đợi} other {# tin nhắn đang chờ trong hàng đợi}}"
 
 msgid "{readPercent}% read"
 msgstr "đã đọc {readPercent}%"
@@ -1456,6 +1460,9 @@ msgstr "Một hồ sơ riêng tính phí theo token. Khóa nằm trong CLI {0}."
 msgid "A separate profile that shares your skills, plugins, MCP servers, and settings."
 msgstr "Một hồ sơ riêng dùng chung skill, plugin, server MCP và cài đặt của bạn."
 
+msgid "A task key is 1 to 5 letters or numbers and starts with a letter."
+msgstr "Khóa nhiệm vụ gồm 1 đến 5 chữ cái hoặc chữ số và bắt đầu bằng chữ cái."
+
 msgid "a teammate"
 msgstr "một đồng đội"
 
@@ -1690,6 +1697,12 @@ msgstr "Thêm ảnh hoặc tệp"
 
 msgid "Add project"
 msgstr "Thêm dự án"
+
+msgid "Add Project from Folder"
+msgstr "Thêm dự án từ thư mục"
+
+msgid "Add Project from Folder..."
+msgstr "Thêm dự án từ thư mục..."
 
 msgid "Add prompt e.g. look for crashes in $sentry"
 msgstr "Thêm prompt, ví dụ: tìm crash trong $sentry"
@@ -2008,9 +2021,6 @@ msgstr "Toàn bộ dữ liệu của bạn sẽ bị xóa vĩnh viễn sau {ACCO
 
 msgid "All open terminal sessions will be killed and any running host-services will be stopped. Use “Close Superset” instead if you want services to keep running for the next launch."
 msgstr "Mọi phiên terminal đang mở sẽ bị kết thúc và các host-service đang chạy sẽ bị dừng. Hãy dùng “Đóng Superset” nếu bạn muốn các dịch vụ tiếp tục chạy cho lần khởi động sau."
-
-msgid "All pages"
-msgstr "Tất cả trang"
 
 msgid "All plans"
 msgstr "Tất cả các gói"
@@ -2454,6 +2464,9 @@ msgstr "Yêu cầu thay đổi"
 msgid "Ask to make changes, @mention files, run /commands"
 msgstr "Yêu cầu thay đổi, @nhắc đến tệp, chạy /commands"
 
+msgid "Ask what your agents are up to, or tell one what to do next."
+msgstr "Hỏi xem các agent đang làm gì, hoặc bảo một agent làm gì tiếp theo."
+
 msgid "Asks before edits and commands"
 msgstr "Hỏi trước khi sửa và chạy lệnh"
 
@@ -2764,14 +2777,20 @@ msgstr "Được hậu thuẫn bởi"
 msgid "Background"
 msgstr "Nền"
 
+msgid "Background processes"
+msgstr "Tiến trình nền"
+
 msgid "Background processes in chat"
 msgstr "Tiến trình nền trong chat"
+
+msgid "Background task"
+msgstr "Tác vụ nền"
 
 msgid "Background terminal memory"
 msgstr "Bộ nhớ terminal chạy nền"
 
-msgid "Background terminal sessions"
-msgstr "Phiên terminal chạy nền"
+msgid "Background work and pages"
+msgstr "Tác vụ nền và trang"
 
 msgid "Backlog"
 msgstr "Backlog"
@@ -3420,6 +3439,12 @@ msgstr "Đang kiểm tra host…"
 msgid "Checking out a PR requires a project"
 msgstr "Checkout một PR cần có dự án"
 
+msgid "Checking pull requests in {what}"
+msgstr "Đang kiểm tra pull request trong {what}"
+
+msgid "Checking workspaces"
+msgstr "Đang kiểm tra workspace"
+
 msgid "Checking..."
 msgstr "Đang kiểm tra..."
 
@@ -3787,9 +3812,6 @@ msgstr "Đóng terminal"
 
 msgid "Close Terminal"
 msgstr "Đóng terminal"
-
-msgid "Close terminal session"
-msgstr "Đóng phiên terminal"
 
 msgid "Close the current pane"
 msgstr "Đóng khung hiện tại"
@@ -4860,6 +4882,9 @@ msgstr "Không thể tải tự động hóa"
 msgid "Couldn't load contributors — type a username instead."
 msgstr "Không thể tải danh sách người đóng góp — hãy nhập tên người dùng."
 
+msgid "Couldn't load earlier messages. Retry"
+msgstr "Không thể tải các tin nhắn trước đó. Thử lại"
+
 msgid "Couldn't load issues: {msg}"
 msgstr "Không thể tải issue: {msg}"
 
@@ -4977,11 +5002,17 @@ msgstr "Không thể khởi động workspace trên cloud"
 msgid "Couldn't start design mode on this page"
 msgstr "Không thể bật chế độ thiết kế trên trang này"
 
+msgid "Couldn't start voice mode"
+msgstr "Không thể bắt đầu chế độ giọng nói"
+
 msgid "Couldn't start workspace"
 msgstr "Không khởi động được workspace"
 
 msgid "Couldn't stop the agent's terminal"
 msgstr "Không thể dừng terminal của tác nhân"
+
+msgid "Couldn't stop the background task"
+msgstr "Không thể dừng tác vụ nền"
 
 msgid "Couldn't stop the chat"
 msgstr "Không thể dừng trò chuyện"
@@ -5212,6 +5243,12 @@ msgstr "Đang tạo"
 msgctxt "file change"
 msgid "Creating"
 msgstr "Đang tạo"
+
+msgid "Creating a task"
+msgstr "Đang tạo nhiệm vụ"
+
+msgid "Creating a workspace"
+msgstr "Đang tạo workspace"
 
 msgid "Creating PR..."
 msgstr "Đang tạo PR…"
@@ -6333,6 +6370,15 @@ msgstr "Bật truy cập từ xa và giữ máy tính này hoạt động với 
 msgid "Enable skill"
 msgstr "Bật skill"
 
+msgid "End voice session"
+msgstr "Kết thúc phiên giọng nói"
+
+msgid "Ended"
+msgstr "Đã kết thúc"
+
+msgid "Ending the call"
+msgstr "Đang kết thúc cuộc gọi"
+
 msgid "Engineering deep-dives and launches."
 msgstr "Bài kỹ thuật chuyên sâu và các lần ra mắt."
 
@@ -6527,6 +6573,9 @@ msgstr "Mở rộng dự án"
 msgid "Expand thread"
 msgstr "Mở rộng luồng"
 
+msgid "Expand voice"
+msgstr "Mở rộng giọng nói"
+
 msgid "Expand workspace"
 msgstr "Mở rộng workspace"
 
@@ -6578,6 +6627,9 @@ msgstr "Trình soạn thảo ngoài"
 
 msgid "extra ${used} of ${limit}"
 msgstr "dùng thêm ${used} trên ${limit}"
+
+msgid "Extra high"
+msgstr "Rất cao"
 
 msgid "Extra small"
 msgstr "Rất nhỏ"
@@ -6650,9 +6702,6 @@ msgstr "Không thể xóa lịch sử terminal"
 #. placeholder {0}: port.port
 msgid "Failed to close port {0}"
 msgstr "Không thể đóng cổng {0}"
-
-msgid "Failed to close terminal session"
-msgstr "Không thể đóng phiên terminal"
 
 msgid "Failed to connect to Google. Please try again."
 msgstr "Không thể kết nối tới Google. Vui lòng thử lại."
@@ -8444,6 +8493,9 @@ msgstr "Nội bộ"
 msgid "Internet Disconnected"
 msgstr "Mất kết nối Internet"
 
+msgid "Interrupt"
+msgstr "Ngắt lời"
+
 msgid "Interrupted"
 msgstr "Bị gián đoạn"
 
@@ -9075,6 +9127,9 @@ msgstr "Liệt kê, tạo, cập nhật và xóa workspace trên một host."
 msgid "List, get, create, update, and delete tasks; track status."
 msgstr "Liệt kê, lấy, tạo, cập nhật và xóa tác vụ; theo dõi trạng thái."
 
+msgid "Listening"
+msgstr "Đang nghe"
+
 msgid "Listening agents"
 msgstr "Tác nhân lắng nghe"
 
@@ -9083,6 +9138,9 @@ msgstr "Đang lắng nghe tin nhắn kênh và kênh mới."
 
 msgid "Listening status unavailable"
 msgstr "Không có thông tin trạng thái lắng nghe"
+
+msgid "Listing sessions in {what}"
+msgstr "Đang liệt kê các phiên trong {what}"
 
 msgid "live"
 msgstr "trực tiếp"
@@ -9110,9 +9168,6 @@ msgstr "tải cài đặt agent"
 
 msgid "Load diff"
 msgstr "Tải diff"
-
-msgid "Load earlier messages"
-msgstr "Tải tin nhắn cũ hơn"
 
 msgid "Load more"
 msgstr "Tải thêm"
@@ -9198,9 +9253,6 @@ msgstr "Đang tải repository..."
 msgid "Loading review..."
 msgstr "Đang tải review..."
 
-msgid "Loading sessions…"
-msgstr "Đang tải phiên…"
-
 msgid "Loading terminal scripts..."
 msgstr "Đang tải script terminal..."
 
@@ -9279,11 +9331,23 @@ msgstr "Độ tin cậy dài hạn vượt một ngưỡng. Việc giao lúc 6 g
 msgid "Long-hover shortcut-only tooltip; its chip style is now the TooltipContent default"
 msgstr "Tooltip chỉ hiện phím tắt khi di chuột lâu; kiểu chip của nó giờ là mặc định của TooltipContent"
 
+msgid "Looking at {what}"
+msgstr "Đang xem {what}"
+
+msgid "Looking at tasks"
+msgstr "Đang xem nhiệm vụ"
+
 msgid "Looking for a mobile simulator…"
 msgstr "Đang tìm trình giả lập di động…"
 
 msgid "Looking for installed browsers…"
 msgstr "Đang tìm các trình duyệt đã cài…"
+
+msgid "Looking for pages"
+msgstr "Đang tìm trang"
+
+msgid "Looking up a workspace"
+msgstr "Đang tìm workspace"
 
 msgid "Looks good"
 msgstr "Trông ổn"
@@ -9536,6 +9600,9 @@ msgstr "Merge commit"
 msgid "Merge failed: {0}"
 msgstr "Merge thất bại: {0}"
 
+msgid "Merge into center"
+msgstr "Gộp vào giữa"
+
 msgid "Merge pull request"
 msgstr "Merge pull request"
 
@@ -9597,6 +9664,9 @@ msgstr "Của tôi"
 msgctxt "workspaces I created"
 msgid "Mine"
 msgstr "Của tôi"
+
+msgid "Minimal"
+msgstr "Tối thiểu"
 
 msgid "Minimal reasoning effort"
 msgstr "Mức suy luận tối thiểu"
@@ -9776,8 +9846,14 @@ msgstr "Gần như suốt lịch sử phần mềm"
 msgid "Move {count} to Group"
 msgstr "Chuyển {count} vào nhóm"
 
+msgid "Move to Center"
+msgstr "Chuyển vào giữa"
+
 msgid "Move to group"
 msgstr "Chuyển vào nhóm"
+
+msgid "Move to Right Side"
+msgstr "Chuyển sang bên phải"
 
 msgid "Move to Tab"
 msgstr "Chuyển sang tab"
@@ -9802,8 +9878,14 @@ msgstr "Nhiều dự án đang dùng repository này ({0}). Chọn dự án tron
 msgid "Multiple projects use this repository ({0}). Open the project you want from settings to set it up on this device."
 msgstr "Nhiều dự án đang dùng repository này ({0}). Mở dự án bạn muốn từ cài đặt để thiết lập nó trên thiết bị này."
 
+msgid "Mute"
+msgstr "Tắt tiếng"
+
 msgid "Mute notifications"
 msgstr "Tắt thông báo"
+
+msgid "Muted"
+msgstr "Đã tắt tiếng"
 
 msgid "My Agent"
 msgstr "Agent của tôi"
@@ -10090,8 +10172,8 @@ msgstr "Slide kế tiếp"
 msgid "Next Tab"
 msgstr "Tab kế tiếp"
 
-msgid "Next Tab (Alt)"
-msgstr "Tab kế tiếp (Alt)"
+msgid "Next Tab (Second Shortcut)"
+msgstr "Tab kế tiếp (phím tắt thứ hai)"
 
 msgid "Next Workspace"
 msgstr "Workspace kế tiếp"
@@ -10178,9 +10260,6 @@ msgstr "Không tìm thấy tác giả nào."
 
 msgid "No automations match"
 msgstr "Không có tự động hóa nào khớp"
-
-msgid "No background terminal sessions"
-msgstr "Không có phiên terminal nào chạy nền"
 
 msgid "No branches found"
 msgstr "Không tìm thấy nhánh nào"
@@ -10820,6 +10899,9 @@ msgstr "Không có gì cần chạy lại"
 msgid "Nothing published in the last 30 days yet. Your rank appears once usage from this machine syncs, publishing as <0>{handle}</0>."
 msgstr "Chưa có gì được công khai trong 30 ngày qua. Thứ hạng của bạn sẽ xuất hiện khi dữ liệu sử dụng từ máy này đồng bộ, công khai dưới tên <0>{handle}</0>."
 
+msgid "Nothing running"
+msgstr "Không có gì đang chạy"
+
 msgid "Nothing was missed"
 msgstr "Không có lần chạy nào bị bỏ lỡ"
 
@@ -11082,14 +11164,14 @@ msgstr "Mở {path} trong khung tệp"
 msgid "Open a multiline prompt composer for the active terminal"
 msgstr "Mở ô soạn prompt nhiều dòng cho terminal đang mở"
 
+msgid "Open a pane, or drag one here from the center."
+msgstr "Mở một ngăn, hoặc kéo một ngăn từ giữa vào đây."
+
 msgid "Open a pull request to view review status, checks, and comments."
 msgstr "Hãy mở một pull request để xem trạng thái review, check và bình luận."
 
 msgid "Open actions menu"
 msgstr "Mở menu hành động"
-
-msgid "Open an existing project folder"
-msgstr "Mở một thư mục dự án có sẵn"
 
 msgid "Open anyway"
 msgstr "Vẫn mở"
@@ -11189,9 +11271,6 @@ msgid "Open in Any IDE"
 msgstr "Mở trong IDE bất kỳ"
 
 msgid "Open in app"
-msgstr "Mở trong ứng dụng"
-
-msgid "Open in App"
 msgstr "Mở trong ứng dụng"
 
 msgid "Open in browser"
@@ -11370,9 +11449,6 @@ msgstr "Pull request đang mở"
 msgid "Open recent"
 msgstr "Mở gần đây"
 
-msgid "Open Repo..."
-msgstr "Mở repo..."
-
 msgid "Open roles"
 msgstr "Vị trí đang tuyển"
 
@@ -11454,14 +11530,14 @@ msgstr "Mở workspace của lần chạy"
 msgid "open the task in a workspace"
 msgstr "mở tác vụ trong một workspace"
 
+msgid "Open the workspace in the app picked in the Open In menu (VS Code, Cursor, etc.)"
+msgstr "Mở workspace trong ứng dụng đã chọn ở menu \"Mở trong\" (VS Code, Cursor, v.v.)"
+
 msgid "Open this run's workspace"
 msgstr "Mở workspace của lần chạy này"
 
 msgid "Open workspace"
 msgstr "Mở workspace"
-
-msgid "Open workspace in external app (Cursor, VS Code, etc.)"
-msgstr "Mở workspace trong ứng dụng ngoài (Cursor, VS Code, v.v.)"
 
 msgid "OpenAI rejected this API key."
 msgstr "OpenAI đã từ chối khóa API này."
@@ -11471,6 +11547,9 @@ msgstr "Đã mở"
 
 msgid "opened PR #841 for review"
 msgstr "đã mở PR #841 để review"
+
+msgid "Opening {what}"
+msgstr "Đang mở {what}"
 
 msgid "Opening files"
 msgstr "Mở tệp"
@@ -11935,6 +12014,9 @@ msgstr "Chọn phần tử khác"
 msgid "Pick a different element (esc)"
 msgstr "Chọn phần tử khác (esc)"
 
+msgid "Pick a folder on disk and add it as a project"
+msgstr "Chọn một thư mục trên ổ đĩa và thêm nó làm dự án"
+
 msgid "Pick a folder…"
 msgstr "Chọn một thư mục…"
 
@@ -12174,6 +12256,9 @@ msgstr "Tùy chọn"
 msgid "Prefix"
 msgstr "Tiền tố"
 
+msgid "Prefix of this team's task IDs. Changing it renames every task in the team."
+msgstr "Tiền tố của ID nhiệm vụ trong nhóm này. Thay đổi sẽ đổi tên mọi nhiệm vụ trong nhóm."
+
 msgid "Preparing"
 msgstr "Đang chuẩn bị"
 
@@ -12243,8 +12328,8 @@ msgstr "Slide trước"
 msgid "Previous Tab"
 msgstr "Tab trước"
 
-msgid "Previous Tab (Alt)"
-msgstr "Tab trước (Alt)"
+msgid "Previous Tab (Second Shortcut)"
+msgstr "Tab trước (phím tắt thứ hai)"
 
 msgid "Previous Workspace"
 msgstr "Workspace trước"
@@ -12674,6 +12759,12 @@ msgstr "Đọc hướng dẫn thiết lập"
 msgid "Read the source and every pull request."
 msgstr "Đọc mã nguồn và mọi pull request."
 
+msgid "Reading {what}"
+msgstr "Đang đọc {what}"
+
+msgid "Reading the page"
+msgstr "Đang đọc trang"
+
 msgid "Reading usage…"
 msgstr "Đang đọc mức sử dụng…"
 
@@ -12770,6 +12861,9 @@ msgstr "Đang kết nối lại"
 
 msgid "Reconnecting…"
 msgstr "Đang kết nối lại…"
+
+msgid "Reconnecting… your conversation is kept."
+msgstr "Đang kết nối lại… cuộc trò chuyện của bạn được giữ nguyên."
 
 msgid "Red"
 msgstr "Đỏ"
@@ -13333,6 +13427,9 @@ msgstr "Đã khởi động lại 1 dịch vụ host"
 msgid "Restarting"
 msgstr "Đang khởi động lại"
 
+msgid "Restarting {what}"
+msgstr "Đang khởi động lại {what}"
+
 msgid "Restarting agents on {accountLabel}."
 msgstr "Đang khởi động lại các agent trên {accountLabel}."
 
@@ -13366,6 +13463,9 @@ msgstr "Khôi phục không gian làm việc bạn vừa lưu trữ"
 
 msgid "Restore this version?"
 msgstr "Khôi phục phiên bản này?"
+
+msgid "Restore width"
+msgstr "Khôi phục độ rộng"
 
 msgid "Restored"
 msgstr "Đã khôi phục"
@@ -14294,6 +14394,9 @@ msgstr "Gửi vào chat ({draftCount})"
 msgid "Sending"
 msgstr "Đang gửi"
 
+msgid "Sending a message to {what}"
+msgstr "Đang gửi tin nhắn tới {what}"
+
 msgid "Sending..."
 msgstr "Đang gửi..."
 
@@ -14993,14 +15096,23 @@ msgstr "Thư rác hoặc lừa đảo"
 msgid "Sparse checkout"
 msgstr "Sparse checkout"
 
+msgid "Speaking"
+msgstr "Đang nói"
+
 msgid "Specific"
 msgstr "Cụ thể"
+
+msgid "Speed"
+msgstr "Tốc độ"
 
 msgid "Spend"
 msgstr "Chi tiêu"
 
 msgid "Split"
 msgstr "Chia đôi"
+
+msgid "Split Along Longer Side"
+msgstr "Chia theo cạnh dài hơn"
 
 msgid "Split button mirrors desktop's OpenInButton; picker trigger mirrors PickerTrigger"
 msgstr "Nút tách đôi phản chiếu OpenInButton của desktop; trigger của picker phản chiếu PickerTrigger"
@@ -15022,9 +15134,6 @@ msgstr "Chia khung"
 
 msgid "Split Pane"
 msgstr "Khung chia"
-
-msgid "Split Pane Auto"
-msgstr "Chia khung tự động"
 
 msgid "Split Right"
 msgstr "Chia sang phải"
@@ -15061,6 +15170,9 @@ msgstr "Chia với Trình giả lập di động"
 
 msgid "Split with New Browser"
 msgstr "Chia kèm trình duyệt mới"
+
+msgid "Split with Sandbox Desktop"
+msgstr "Chia với Màn hình nền sandbox"
 
 msgid "Squash & Merge"
 msgstr "Squash & merge"
@@ -15202,6 +15314,9 @@ msgstr "Bắt đầu một phiên bằng dấu + trên thanh tab."
 msgid "Start or stop the workspace run command"
 msgstr "Bắt đầu hoặc dừng lệnh chạy của workspace"
 
+msgid "Start voice mode"
+msgstr "Bắt đầu chế độ giọng nói"
+
 msgid "Start with the work."
 msgstr "Bắt đầu từ công việc."
 
@@ -15225,6 +15340,9 @@ msgstr "Đang khởi động"
 
 msgid "Starting {agentLabel}"
 msgstr "Đang khởi động {agentLabel}"
+
+msgid "Starting an agent in {what}"
+msgstr "Đang khởi động tác nhân trong {what}"
 
 msgid "Starting cloud workspace"
 msgstr "Đang khởi động workspace trên cloud"
@@ -15298,6 +15416,12 @@ msgstr "Dừng"
 msgid "Stop {0}"
 msgstr "Dừng {0}"
 
+msgid "Stop {label}"
+msgstr "Dừng {label}"
+
+msgid "Stop all agent background processes"
+msgstr "Dừng tất cả tiến trình nền của tác tử"
+
 msgid "Stop dictation"
 msgstr "Dừng đọc chính tả"
 
@@ -15322,6 +15446,9 @@ msgstr "Dừng lệnh chạy của workspace"
 
 msgid "stopped"
 msgstr "đã dừng"
+
+msgid "Stopping the agent in {what}"
+msgstr "Đang dừng tác nhân trong {what}"
 
 msgid "Strikethrough"
 msgstr "Gạch ngang"
@@ -15799,6 +15926,9 @@ msgstr "Tác vụ"
 
 msgid "Task ID copied"
 msgstr "Đã sao chép ID tác vụ"
+
+msgid "Task key"
+msgstr "Khóa nhiệm vụ"
 
 msgid "Task Launch"
 msgstr "Khởi chạy tác vụ"
@@ -16687,9 +16817,6 @@ msgstr "Thao tác này sẽ bỏ staging và hoàn tác mọi thay đổi đã �
 msgid "This will unstage and revert all staged changes. Staged new files will be deleted. This cannot be undone."
 msgstr "Thao tác này sẽ bỏ stage và hoàn nguyên toàn bộ thay đổi đã stage. Các tệp mới đã stage sẽ bị xóa. Không thể hoàn tác."
 
-msgid "This workspace"
-msgstr "Workspace này"
-
 msgid "This workspace has no project to branch from"
 msgstr "Workspace này không có dự án để tạo nhánh"
 
@@ -16772,6 +16899,9 @@ msgid "Toggle plan"
 msgstr "Ẩn/hiện kế hoạch"
 
 msgid "Toggle right sidebar"
+msgstr "Bật/tắt thanh bên phải"
+
+msgid "Toggle Right Sidebar"
 msgstr "Bật/tắt thanh bên phải"
 
 msgid "Toggle Scripts Bar"
@@ -17211,6 +17341,9 @@ msgstr "Không giới hạn người dùng"
 
 msgid "Unlink task"
 msgstr "Bỏ liên kết nhiệm vụ"
+
+msgid "Unmute"
+msgstr "Bật tiếng"
 
 msgid "Unmute notifications"
 msgstr "Bật lại thông báo"
@@ -17653,6 +17786,15 @@ msgstr "Từ khách truy cập đến tải xuống đến tài khoản"
 msgid "Visitors whose session began on a link an assistant gave them. This is the number an AEO effort should move."
 msgstr "Khách truy cập có phiên bắt đầu từ liên kết do trợ lý đưa ra. Đây là con số mà nỗ lực AEO cần làm thay đổi."
 
+msgid "Voice"
+msgstr "Giọng nói"
+
+msgid "Voice ran into a problem. Try again."
+msgstr "Chế độ giọng nói gặp sự cố. Hãy thử lại."
+
+msgid "Voice settings"
+msgstr "Cài đặt giọng nói"
+
 msgid "Volume"
 msgstr "Âm lượng"
 
@@ -18074,6 +18216,9 @@ msgstr "Bộ chọn màu nhấn cho workspace"
 
 msgid "Workspace actions"
 msgstr "Hành động workspace"
+
+msgid "Workspace activity"
+msgstr "Hoạt động của không gian làm việc"
 
 msgid "Workspace agents"
 msgstr "Agent của workspace"

@@ -124,6 +124,8 @@ export const FEATURE_FLAGS = {
 	MOBILE_LAUNCH: "mobile-launch",
 	/** Gates access to Cloud features (environment variables, sandboxes). */
 	CLOUD_ACCESS: "cloud-access",
+	/** Allowlist for mobile voice mode: shows the entry and authorizes `voice.createSession`. */
+	MOBILE_VOICE_MODE: "mobile-voice-mode",
 	/** When enabled, blocks remote agent execution on the desktop (e.g., for enterprise orgs). */
 	DISABLE_REMOTE_AGENT: "disable-remote-agent",
 	/**
@@ -190,6 +192,11 @@ export const FEATURE_FLAGS = {
 	 * not what the host can do — flips take effect live, with no host restart.
 	 */
 	CHAT_V3: "chat-v3",
+	/**
+	 * Replaces the v2 workspace's right sidebar with a second pane area that
+	 * holds Files, Changes, Review, Browser and Chat panes.
+	 */
+	RIGHT_PANE_AREA: "right-pane-area",
 	/**
 	 * Who may use cloud sandboxes: shows the option in the create picker, and
 	 * gates the cloud procedures server-side (`assertCloudAccess`). The release

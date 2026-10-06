@@ -414,6 +414,10 @@ msgstr "{0}已安装"
 msgid "{0} is already assigned to \"{1}\"."
 msgstr "{0}已分配给“{1}”。"
 
+#. placeholder {0}: params?.key
+msgid "{0} is already used for tasks in this organization."
+msgstr "{0} 已在此组织的任务中使用。"
+
 #. placeholder {0}: params?.repoFullName
 msgid "{0} is not a repository the GitHub App is installed on"
 msgstr "{0} 不是已安装 GitHub App 的仓库"
@@ -699,9 +703,6 @@ msgstr "{actor} 取消关联工作区 {workspace}"
 
 msgid "{actual} so far · ~{projected} projected"
 msgstr "目前{actual} · 预计约{projected}"
-
-msgid "{backgroundCount, plural, one {# background terminal session} other {# background terminal sessions}}"
-msgstr "{backgroundCount, plural, one {#个后台终端会话} other {#个后台终端会话}}"
 
 msgid "{behindCount, plural, one {Behind main by # commit, needs rebase} other {Behind main by # commits, needs rebase}}"
 msgstr "{behindCount, plural, one {落后main #个提交，需要变基} other {落后main #个提交，需要变基}}"
@@ -1024,6 +1025,9 @@ msgstr "{previewSize}px · 行高{0}"
 
 msgid "{provider} logo"
 msgstr "{provider}标志"
+
+msgid "{queued, plural, one {# message waiting in the queue} other {# messages waiting in the queue}}"
+msgstr "{queued, plural, one {队列中有 # 条消息等待} other {队列中有 # 条消息等待}}"
 
 msgid "{readPercent}% read"
 msgstr "已读{readPercent}%"
@@ -1456,6 +1460,9 @@ msgstr "按 token 计费的独立配置文件。密钥保存在 {0} CLI 中。"
 msgid "A separate profile that shares your skills, plugins, MCP servers, and settings."
 msgstr "共享你的技能、插件、MCP服务器和设置的独立配置文件。"
 
+msgid "A task key is 1 to 5 letters or numbers and starts with a letter."
+msgstr "任务键为 1 到 5 个字母或数字，且以字母开头。"
+
 msgid "a teammate"
 msgstr "某位队友"
 
@@ -1690,6 +1697,12 @@ msgstr "添加照片或文件"
 
 msgid "Add project"
 msgstr "添加项目"
+
+msgid "Add Project from Folder"
+msgstr "从文件夹添加项目"
+
+msgid "Add Project from Folder..."
+msgstr "从文件夹添加项目..."
 
 msgid "Add prompt e.g. look for crashes in $sentry"
 msgstr "添加提示词，例如：在$sentry中查找崩溃"
@@ -2008,9 +2021,6 @@ msgstr "你的所有数据将在{ACCOUNT_DELETION_GRACE_DAYS}天后被永久删�
 
 msgid "All open terminal sessions will be killed and any running host-services will be stopped. Use “Close Superset” instead if you want services to keep running for the next launch."
 msgstr "所有打开的终端会话都会被结束，正在运行的主机服务也会停止。如果希望服务继续运行以便下次启动，请改用“关闭Superset”。"
-
-msgid "All pages"
-msgstr "所有页面"
 
 msgid "All plans"
 msgstr "全部方案"
@@ -2454,6 +2464,9 @@ msgstr "请求进行修改"
 msgid "Ask to make changes, @mention files, run /commands"
 msgstr "说明要做的修改，用@提及文件，用/运行命令"
 
+msgid "Ask what your agents are up to, or tell one what to do next."
+msgstr "问问智能体在做什么，或者告诉它下一步该做什么。"
+
 msgid "Asks before edits and commands"
 msgstr "编辑和运行命令前询问"
 
@@ -2764,14 +2777,20 @@ msgstr "投资方"
 msgid "Background"
 msgstr "背景"
 
+msgid "Background processes"
+msgstr "后台进程"
+
 msgid "Background processes in chat"
 msgstr "聊天中的后台进程"
+
+msgid "Background task"
+msgstr "后台任务"
 
 msgid "Background terminal memory"
 msgstr "后台终端内存"
 
-msgid "Background terminal sessions"
-msgstr "后台终端会话"
+msgid "Background work and pages"
+msgstr "后台工作和页面"
 
 msgid "Backlog"
 msgstr "待规划"
@@ -3420,6 +3439,12 @@ msgstr "正在检查主机…"
 msgid "Checking out a PR requires a project"
 msgstr "检出PR需要一个项目"
 
+msgid "Checking pull requests in {what}"
+msgstr "正在检查 {what} 的拉取请求"
+
+msgid "Checking workspaces"
+msgstr "正在检查工作区"
+
 msgid "Checking..."
 msgstr "正在检查..."
 
@@ -3787,9 +3812,6 @@ msgstr "关闭终端"
 
 msgid "Close Terminal"
 msgstr "关闭终端"
-
-msgid "Close terminal session"
-msgstr "关闭终端会话"
 
 msgid "Close the current pane"
 msgstr "关闭当前窗格"
@@ -4860,6 +4882,9 @@ msgstr "无法加载自动化"
 msgid "Couldn't load contributors — type a username instead."
 msgstr "无法加载贡献者，请直接输入用户名。"
 
+msgid "Couldn't load earlier messages. Retry"
+msgstr "无法加载更早的消息。重试"
+
 msgid "Couldn't load issues: {msg}"
 msgstr "无法加载议题：{msg}"
 
@@ -4977,11 +5002,17 @@ msgstr "无法启动云端工作区"
 msgid "Couldn't start design mode on this page"
 msgstr "无法在此页面启动设计模式"
 
+msgid "Couldn't start voice mode"
+msgstr "无法启动语音模式"
+
 msgid "Couldn't start workspace"
 msgstr "无法启动工作区"
 
 msgid "Couldn't stop the agent's terminal"
 msgstr "无法停止该智能体的终端"
+
+msgid "Couldn't stop the background task"
+msgstr "无法停止后台任务"
 
 msgid "Couldn't stop the chat"
 msgstr "无法停止聊天"
@@ -5212,6 +5243,12 @@ msgstr "创建中"
 msgctxt "file change"
 msgid "Creating"
 msgstr "创建中"
+
+msgid "Creating a task"
+msgstr "正在创建任务"
+
+msgid "Creating a workspace"
+msgstr "正在创建工作区"
 
 msgid "Creating PR..."
 msgstr "正在创建PR…"
@@ -6333,6 +6370,15 @@ msgstr "启用远程访问，并保持这台电脑唤醒且 Superset 持续运�
 msgid "Enable skill"
 msgstr "启用技能"
 
+msgid "End voice session"
+msgstr "结束语音会话"
+
+msgid "Ended"
+msgstr "已结束"
+
+msgid "Ending the call"
+msgstr "正在结束通话"
+
 msgid "Engineering deep-dives and launches."
 msgstr "工程深度文章与新功能发布。"
 
@@ -6527,6 +6573,9 @@ msgstr "展开项目"
 msgid "Expand thread"
 msgstr "展开讨论"
 
+msgid "Expand voice"
+msgstr "展开语音"
+
 msgid "Expand workspace"
 msgstr "展开工作区"
 
@@ -6578,6 +6627,9 @@ msgstr "外部编辑器"
 
 msgid "extra ${used} of ${limit}"
 msgstr "额外用量${used}/${limit}"
+
+msgid "Extra high"
+msgstr "极高"
 
 msgid "Extra small"
 msgstr "超小"
@@ -6650,9 +6702,6 @@ msgstr "清除终端历史失败"
 #. placeholder {0}: port.port
 msgid "Failed to close port {0}"
 msgstr "关闭端口{0}失败"
-
-msgid "Failed to close terminal session"
-msgstr "关闭终端会话失败"
 
 msgid "Failed to connect to Google. Please try again."
 msgstr "连接Google失败。请重试。"
@@ -8444,6 +8493,9 @@ msgstr "内部"
 msgid "Internet Disconnected"
 msgstr "网络已断开"
 
+msgid "Interrupt"
+msgstr "打断"
+
 msgid "Interrupted"
 msgstr "已中断"
 
@@ -9075,6 +9127,9 @@ msgstr "列出、创建、更新和删除主机上的工作区。"
 msgid "List, get, create, update, and delete tasks; track status."
 msgstr "列出、获取、创建、更新和删除任务；跟踪状态。"
 
+msgid "Listening"
+msgstr "正在聆听"
+
 msgid "Listening agents"
 msgstr "监听智能体"
 
@@ -9083,6 +9138,9 @@ msgstr "正在监听频道消息和新建的频道。"
 
 msgid "Listening status unavailable"
 msgstr "监听状态不可用"
+
+msgid "Listing sessions in {what}"
+msgstr "正在列出 {what} 的会话"
 
 msgid "live"
 msgstr "实时"
@@ -9110,9 +9168,6 @@ msgstr "加载智能体设置"
 
 msgid "Load diff"
 msgstr "加载差异"
-
-msgid "Load earlier messages"
-msgstr "加载更早的消息"
 
 msgid "Load more"
 msgstr "加载更多"
@@ -9198,9 +9253,6 @@ msgstr "正在加载仓库..."
 msgid "Loading review..."
 msgstr "正在加载评审..."
 
-msgid "Loading sessions…"
-msgstr "正在加载会话…"
-
 msgid "Loading terminal scripts..."
 msgstr "正在加载终端脚本..."
 
@@ -9279,11 +9331,23 @@ msgstr "长周期可靠性越过了一个门槛。傍晚6点派出去的活儿�
 msgid "Long-hover shortcut-only tooltip; its chip style is now the TooltipContent default"
 msgstr "长时间悬停才出现、只显示快捷键的tooltip；它的chip样式现在是TooltipContent的默认样式"
 
+msgid "Looking at {what}"
+msgstr "正在查看 {what}"
+
+msgid "Looking at tasks"
+msgstr "正在查看任务"
+
 msgid "Looking for a mobile simulator…"
 msgstr "正在查找移动模拟器…"
 
 msgid "Looking for installed browsers…"
 msgstr "正在查找已安装的浏览器…"
+
+msgid "Looking for pages"
+msgstr "正在查找页面"
+
+msgid "Looking up a workspace"
+msgstr "正在查找工作区"
 
 msgid "Looks good"
 msgstr "看起来不错"
@@ -9536,6 +9600,9 @@ msgstr "合并提交"
 msgid "Merge failed: {0}"
 msgstr "合并失败：{0}"
 
+msgid "Merge into center"
+msgstr "合并到中间"
+
 msgid "Merge pull request"
 msgstr "合并拉取请求"
 
@@ -9597,6 +9664,9 @@ msgstr "我的"
 msgctxt "workspaces I created"
 msgid "Mine"
 msgstr "我的"
+
+msgid "Minimal"
+msgstr "最低"
 
 msgid "Minimal reasoning effort"
 msgstr "最少的推理投入"
@@ -9776,8 +9846,14 @@ msgstr "软件史的大部分时间"
 msgid "Move {count} to Group"
 msgstr "将{count}个移动到分组"
 
+msgid "Move to Center"
+msgstr "移到中间"
+
 msgid "Move to group"
 msgstr "移动到分组"
+
+msgid "Move to Right Side"
+msgstr "移到右侧"
 
 msgid "Move to Tab"
 msgstr "移动到标签页"
@@ -9802,8 +9878,14 @@ msgstr "有多个项目使用此仓库（{0}）。请在设置中选择要在此
 msgid "Multiple projects use this repository ({0}). Open the project you want from settings to set it up on this device."
 msgstr "有多个项目使用此仓库（{0}）。请在设置中打开你想要的项目，以在此设备上配置它。"
 
+msgid "Mute"
+msgstr "静音"
+
 msgid "Mute notifications"
 msgstr "静音通知"
+
+msgid "Muted"
+msgstr "已静音"
 
 msgid "My Agent"
 msgstr "我的智能体"
@@ -10090,8 +10172,8 @@ msgstr "下一张"
 msgid "Next Tab"
 msgstr "下一个标签页"
 
-msgid "Next Tab (Alt)"
-msgstr "下一个标签页（Alt）"
+msgid "Next Tab (Second Shortcut)"
+msgstr "下一个标签页（第二快捷键）"
 
 msgid "Next Workspace"
 msgstr "下一个工作区"
@@ -10178,9 +10260,6 @@ msgstr "未找到作者。"
 
 msgid "No automations match"
 msgstr "没有匹配的自动化"
-
-msgid "No background terminal sessions"
-msgstr "没有后台终端会话"
 
 msgid "No branches found"
 msgstr "未找到分支"
@@ -10820,6 +10899,9 @@ msgstr "没有需要重试的运行"
 msgid "Nothing published in the last 30 days yet. Your rank appears once usage from this machine syncs, publishing as <0>{handle}</0>."
 msgstr "最近30天还没有已公开的数据。待本机用量同步后，你的排名就会显示，将以<0>{handle}</0>身份公开。"
 
+msgid "Nothing running"
+msgstr "没有正在运行的内容"
+
 msgid "Nothing was missed"
 msgstr "没有错过的运行"
 
@@ -11082,14 +11164,14 @@ msgstr "在文件面板中打开{path}"
 msgid "Open a multiline prompt composer for the active terminal"
 msgstr "为当前终端打开多行提示词编辑器"
 
+msgid "Open a pane, or drag one here from the center."
+msgstr "打开一个窗格，或从中间拖一个到这里。"
+
 msgid "Open a pull request to view review status, checks, and comments."
 msgstr "创建拉取请求后即可查看评审状态、检查和评论。"
 
 msgid "Open actions menu"
 msgstr "打开操作菜单"
-
-msgid "Open an existing project folder"
-msgstr "打开已有的项目文件夹"
 
 msgid "Open anyway"
 msgstr "仍然打开"
@@ -11189,9 +11271,6 @@ msgid "Open in Any IDE"
 msgstr "在任意IDE中打开"
 
 msgid "Open in app"
-msgstr "在应用中打开"
-
-msgid "Open in App"
 msgstr "在应用中打开"
 
 msgid "Open in browser"
@@ -11370,9 +11449,6 @@ msgstr "打开的拉取请求"
 msgid "Open recent"
 msgstr "打开最近使用"
 
-msgid "Open Repo..."
-msgstr "打开仓库..."
-
 msgid "Open roles"
 msgstr "空缺职位"
 
@@ -11454,14 +11530,14 @@ msgstr "打开这次运行的工作区"
 msgid "open the task in a workspace"
 msgstr "在工作区中打开任务"
 
+msgid "Open the workspace in the app picked in the Open In menu (VS Code, Cursor, etc.)"
+msgstr "在“打开方式”菜单中选定的应用（VS Code、Cursor等）中打开工作区"
+
 msgid "Open this run's workspace"
 msgstr "打开此次运行的工作区"
 
 msgid "Open workspace"
 msgstr "打开工作区"
-
-msgid "Open workspace in external app (Cursor, VS Code, etc.)"
-msgstr "在外部应用中打开工作区（Cursor、VS Code等）"
 
 msgid "OpenAI rejected this API key."
 msgstr "OpenAI拒绝了此API密钥。"
@@ -11471,6 +11547,9 @@ msgstr "已创建"
 
 msgid "opened PR #841 for review"
 msgstr "开了PR #841待审查"
+
+msgid "Opening {what}"
+msgstr "正在打开 {what}"
 
 msgid "Opening files"
 msgstr "打开文件"
@@ -11935,6 +12014,9 @@ msgstr "选择其他元素"
 msgid "Pick a different element (esc)"
 msgstr "选择其他元素（esc）"
 
+msgid "Pick a folder on disk and add it as a project"
+msgstr "选择磁盘上的文件夹并将其添加为项目"
+
 msgid "Pick a folder…"
 msgstr "选择文件夹…"
 
@@ -12174,6 +12256,9 @@ msgstr "偏好设置"
 msgid "Prefix"
 msgstr "前缀"
 
+msgid "Prefix of this team's task IDs. Changing it renames every task in the team."
+msgstr "此团队任务 ID 的前缀。更改后，团队中所有任务都会重新命名。"
+
 msgid "Preparing"
 msgstr "正在准备"
 
@@ -12243,8 +12328,8 @@ msgstr "上一张"
 msgid "Previous Tab"
 msgstr "上一个标签页"
 
-msgid "Previous Tab (Alt)"
-msgstr "上一个标签页（Alt）"
+msgid "Previous Tab (Second Shortcut)"
+msgstr "上一个标签页（第二快捷键）"
 
 msgid "Previous Workspace"
 msgstr "上一个工作区"
@@ -12674,6 +12759,12 @@ msgstr "阅读设置指南"
 msgid "Read the source and every pull request."
 msgstr "阅读源代码和每一个拉取请求。"
 
+msgid "Reading {what}"
+msgstr "正在读取 {what}"
+
+msgid "Reading the page"
+msgstr "正在读取页面"
+
 msgid "Reading usage…"
 msgstr "正在读取用量…"
 
@@ -12770,6 +12861,9 @@ msgstr "正在重新连接"
 
 msgid "Reconnecting…"
 msgstr "正在重新连接…"
+
+msgid "Reconnecting… your conversation is kept."
+msgstr "正在重新连接… 对话会保留。"
 
 msgid "Red"
 msgstr "红色"
@@ -13333,6 +13427,9 @@ msgstr "已重启1个主机服务"
 msgid "Restarting"
 msgstr "重启中"
 
+msgid "Restarting {what}"
+msgstr "正在重启 {what}"
+
 msgid "Restarting agents on {accountLabel}."
 msgstr "正在{accountLabel}上重新启动智能体。"
 
@@ -13366,6 +13463,9 @@ msgstr "恢复刚刚归档的工作区"
 
 msgid "Restore this version?"
 msgstr "恢复这个版本？"
+
+msgid "Restore width"
+msgstr "恢复宽度"
 
 msgid "Restored"
 msgstr "已恢复"
@@ -14294,6 +14394,9 @@ msgstr "发送到聊天（{draftCount}）"
 msgid "Sending"
 msgstr "正在发送"
 
+msgid "Sending a message to {what}"
+msgstr "正在向 {what} 发送消息"
+
 msgid "Sending..."
 msgstr "正在发送..."
 
@@ -14993,14 +15096,23 @@ msgstr "垃圾信息或诈骗"
 msgid "Sparse checkout"
 msgstr "稀疏检出"
 
+msgid "Speaking"
+msgstr "正在说话"
+
 msgid "Specific"
 msgstr "指定"
+
+msgid "Speed"
+msgstr "速度"
 
 msgid "Spend"
 msgstr "支出"
 
 msgid "Split"
 msgstr "分屏"
+
+msgid "Split Along Longer Side"
+msgstr "沿较长边拆分"
 
 msgid "Split button mirrors desktop's OpenInButton; picker trigger mirrors PickerTrigger"
 msgstr "分体按钮对应桌面端的OpenInButton；选择器触发器对应PickerTrigger"
@@ -15022,9 +15134,6 @@ msgstr "拆分窗格"
 
 msgid "Split Pane"
 msgstr "分割窗格"
-
-msgid "Split Pane Auto"
-msgstr "自动拆分窗格"
 
 msgid "Split Right"
 msgstr "向右拆分"
@@ -15061,6 +15170,9 @@ msgstr "拆分并打开移动模拟器"
 
 msgid "Split with New Browser"
 msgstr "拆分并新建浏览器"
+
+msgid "Split with Sandbox Desktop"
+msgstr "拆分并打开沙盒桌面"
 
 msgid "Squash & Merge"
 msgstr "压缩并合并"
@@ -15202,6 +15314,9 @@ msgstr "用标签栏中的+新建一个。"
 msgid "Start or stop the workspace run command"
 msgstr "启动或停止工作区运行命令"
 
+msgid "Start voice mode"
+msgstr "开始语音模式"
+
 msgid "Start with the work."
 msgstr "从工作本身开始。"
 
@@ -15225,6 +15340,9 @@ msgstr "启动中"
 
 msgid "Starting {agentLabel}"
 msgstr "正在启动{agentLabel}"
+
+msgid "Starting an agent in {what}"
+msgstr "正在 {what} 中启动代理"
 
 msgid "Starting cloud workspace"
 msgstr "正在启动云端工作区"
@@ -15298,6 +15416,12 @@ msgstr "停止"
 msgid "Stop {0}"
 msgstr "停止{0}"
 
+msgid "Stop {label}"
+msgstr "停止 {label}"
+
+msgid "Stop all agent background processes"
+msgstr "停止所有代理后台进程"
+
 msgid "Stop dictation"
 msgstr "停止语音输入"
 
@@ -15322,6 +15446,9 @@ msgstr "停止工作区运行命令"
 
 msgid "stopped"
 msgstr "已停止"
+
+msgid "Stopping the agent in {what}"
+msgstr "正在停止 {what} 中的代理"
 
 msgid "Strikethrough"
 msgstr "删除线"
@@ -15799,6 +15926,9 @@ msgstr "任务"
 
 msgid "Task ID copied"
 msgstr "已复制任务 ID"
+
+msgid "Task key"
+msgstr "任务键"
 
 msgid "Task Launch"
 msgstr "任务启动"
@@ -16687,9 +16817,6 @@ msgstr "这将取消暂存并还原所有已暂存的更改。已暂存的新文
 msgid "This will unstage and revert all staged changes. Staged new files will be deleted. This cannot be undone."
 msgstr "这将取消暂存并还原所有已暂存的更改。已暂存的新文件将被删除。此操作无法撤销。"
 
-msgid "This workspace"
-msgstr "此工作区"
-
 msgid "This workspace has no project to branch from"
 msgstr "此工作区没有可供分叉的项目"
 
@@ -16772,6 +16899,9 @@ msgid "Toggle plan"
 msgstr "切换计划"
 
 msgid "Toggle right sidebar"
+msgstr "切换右侧边栏"
+
+msgid "Toggle Right Sidebar"
 msgstr "切换右侧边栏"
 
 msgid "Toggle Scripts Bar"
@@ -17211,6 +17341,9 @@ msgstr "用户数不限"
 
 msgid "Unlink task"
 msgstr "取消关联任务"
+
+msgid "Unmute"
+msgstr "取消静音"
 
 msgid "Unmute notifications"
 msgstr "取消静音通知"
@@ -17653,6 +17786,15 @@ msgstr "从访客到下载到账号"
 msgid "Visitors whose session began on a link an assistant gave them. This is the number an AEO effort should move."
 msgstr "从助手给出的链接开始会话的访客。这是 AEO 工作应当推动的数字。"
 
+msgid "Voice"
+msgstr "语音"
+
+msgid "Voice ran into a problem. Try again."
+msgstr "语音模式出现问题，请重试。"
+
+msgid "Voice settings"
+msgstr "语音设置"
+
 msgid "Volume"
 msgstr "音量"
 
@@ -18074,6 +18216,9 @@ msgstr "工作区强调色选择器"
 
 msgid "Workspace actions"
 msgstr "工作区操作"
+
+msgid "Workspace activity"
+msgstr "工作区活动"
 
 msgid "Workspace agents"
 msgstr "工作区智能体"

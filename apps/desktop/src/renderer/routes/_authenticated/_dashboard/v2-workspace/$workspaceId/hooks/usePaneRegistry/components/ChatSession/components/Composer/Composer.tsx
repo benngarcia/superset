@@ -13,7 +13,15 @@ import type {
 } from "@superset/chat-ui/PromptInput";
 import { cn } from "@superset/ui/utils";
 import { workspaceTrpc } from "@superset/workspace-client";
-import { memo, useCallback, useMemo, useRef } from "react";
+import {
+	memo,
+	type KeyboardEvent as ReactKeyboardEvent,
+	useCallback,
+	useEffect,
+	useMemo,
+	useRef,
+} from "react";
+import { useHotkey } from "renderer/hotkeys";
 import { AgentComposer } from "renderer/routes/_authenticated/components/AgentComposer";
 import { CHAT_COLUMN_CLASSNAME, CHAT_GUTTER_CLASSNAME } from "../../constants";
 import { type AgentSwitcher, ModelPicker } from "./components/ModelPicker";
@@ -33,7 +41,9 @@ export type ComposerProps = {
 	modes?: SessionMode[];
 	currentModeId?: string;
 	onSetMode?: (modeId: string) => void;
-	onSend: (content: UserContent[]) => unknown;
+	onSend: (content: UserContent[], options: { steer: boolean }) => unknown;
+	history?: string[];
+	isActive?: boolean;
 	placeholder?: string;
 	disabled?: boolean;
 	onCancelTurn?: (() => void) | null;
@@ -75,6 +85,8 @@ export const Composer = memo(function Composer({
 	onSetMode,
 	disabled,
 	draftKey,
+	history,
+	isActive,
 	onCancelTurn,
 	onSend,
 	placeholder,
@@ -83,10 +95,37 @@ export const Composer = memo(function Composer({
 }: ComposerProps) {
 	const { t } = useLingui();
 	const trpcUtils = workspaceTrpc.useUtils();
-	const uploadAttachments = useUploadAttachments();
+	const uploadAttachments = useUploadAttachments(workspaceId);
 	const { storedDraft, onChange, clearDraft } = useComposerDraft(draftKey);
 	const promptInputRef = useRef<PromptInputHandle>(null);
 	const queueActions = useQueueActions(promptQueue, promptInputRef);
+	useHotkey("FOCUS_CHAT_INPUT", () => promptInputRef.current?.focus(), {
+		enabled: Boolean(isActive),
+	});
+	useHotkey(
+		"CHAT_ADD_ATTACHMENT",
+		() => promptInputRef.current?.openFileDialog(),
+		{ enabled: Boolean(isActive) },
+	);
+	useEffect(() => {
+		if (!isActive) return;
+		const onKeyDown = (event: KeyboardEvent) => {
+			if (event.key !== "/" || event.defaultPrevented) return;
+			if (event.metaKey || event.ctrlKey || event.altKey) return;
+			if (event.isComposing || event.getModifierState("AltGraph")) return;
+			const target = event.target;
+			if (
+				target instanceof HTMLElement &&
+				(target.isContentEditable ||
+					target.closest("input, textarea, select, [contenteditable]"))
+			)
+				return;
+			event.preventDefault();
+			promptInputRef.current?.focus();
+		};
+		window.addEventListener("keydown", onKeyDown);
+		return () => window.removeEventListener("keydown", onKeyDown);
+	}, [isActive]);
 	const searchFiles = useCallback(
 		async (query: string) => {
 			const { matches } = await trpcUtils.filesystem.searchFiles.fetch({
@@ -134,26 +173,62 @@ export const Composer = memo(function Composer({
 	);
 
 	const handleSubmit = useCallback(
-		async ({ text, files }: { text: string; files: File[] }) => {
+		async ({
+			text,
+			files,
+			steer,
+		}: {
+			text: string;
+			files: File[];
+			steer: boolean;
+		}) => {
 			if (disabled || (text.trim() === "" && files.length === 0)) return;
-			const attachments = await uploadAttachments(files);
-			if (!attachments) return;
-			onSend([
-				...(text.trim() === "" ? [] : [{ type: "text" as const, text }]),
-				...attachments,
-			]);
+			const tags = await uploadAttachments(files);
+			if (!tags) return;
+			onSend(
+				[
+					{
+						type: "text",
+						text: [text.trim(), ...tags].filter(Boolean).join("\n"),
+					},
+				],
+				{ steer },
+			);
 			clearDraft();
 		},
 		[disabled, onSend, uploadAttachments, clearDraft],
 	);
 
+	const queueListRef = useRef<HTMLUListElement>(null);
+	const focusQueue = (event: ReactKeyboardEvent<HTMLDivElement>) => {
+		if (event.key !== "Tab" || !event.shiftKey || !promptQueue?.actionable)
+			return;
+		if (
+			!(event.target instanceof HTMLElement) ||
+			!event.target.closest(".prompt-input-editor")
+		)
+			return;
+		const rows =
+			queueListRef.current?.querySelectorAll<HTMLElement>("[data-queue-row]");
+		const newest = rows?.[rows.length - 1];
+		if (!newest) return;
+		event.preventDefault();
+		event.stopPropagation();
+		newest.focus();
+	};
+
 	return (
-		<div className={cn(CHAT_GUTTER_CLASSNAME, "pt-1 pb-5")}>
+		<div
+			className={cn(CHAT_GUTTER_CLASSNAME, "pt-1 pb-5")}
+			onKeyDownCapture={focusQueue}
+		>
 			{promptQueue && (
 				<div className={CHAT_COLUMN_CLASSNAME}>
 					<QueuedPrompts
 						{...queueActions}
 						actionable={promptQueue.actionable}
+						listRef={queueListRef}
+						onExit={() => promptInputRef.current?.focus()}
 						paused={promptQueue.paused}
 						prompts={promptQueue.prompts}
 					/>
@@ -164,6 +239,7 @@ export const Composer = memo(function Composer({
 				clearOnSubmit={!disabled}
 				commands={commands}
 				defaultValue={storedDraft}
+				history={history}
 				key={draftKey}
 				mentionProviders={mentionProviders}
 				onChange={onChange}

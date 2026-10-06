@@ -62,6 +62,7 @@ import type {
 	PromptInputAttachment,
 	PromptInputProps,
 } from "../../types";
+import { registerHistoryNavigation } from "../../utils/historyNavigation";
 import { matchToken } from "../../utils/matchToken";
 import { rankCommands } from "../../utils/rankCommands";
 import {
@@ -74,6 +75,21 @@ import { ComposerPanel } from "../ComposerPanel";
 import { ContextButton } from "../ContextButton";
 import { DictationBar } from "../DictationBar";
 import { MentionMenu } from "../MentionMenu";
+
+const FOOTER_BUTTON_CLASS =
+	"flex size-[26px] shrink-0 items-center justify-center rounded-full transition-colors";
+const GHOST_FOOTER_BUTTON_CLASS = cn(
+	FOOTER_BUTTON_CLASS,
+	"cursor-pointer text-muted-foreground hover:bg-accent hover:text-foreground",
+);
+const FILLED_FOOTER_BUTTON_CLASS = cn(
+	FOOTER_BUTTON_CLASS,
+	"cursor-pointer bg-secondary text-secondary-foreground hover:bg-secondary/80",
+);
+const INACTIVE_SEND_BUTTON_CLASS = cn(
+	FOOTER_BUTTON_CLASS,
+	"cursor-not-allowed bg-secondary text-muted-foreground",
+);
 
 // Slash commands only trigger while the "/token" is the entire message.
 function matchCommandToken(text: string) {
@@ -113,6 +129,7 @@ export type ComposerBodyProps = Required<
 		| "clearOnSubmit"
 		| "hideSubmit"
 		| "autoFocus"
+		| "history"
 	>;
 
 function $insertChipAtSelection(chip: ComposerChip) {
@@ -168,6 +185,7 @@ export function ComposerBody({
 	clearOnSubmit,
 	hideSubmit,
 	autoFocus,
+	history,
 }: ComposerBodyProps) {
 	const { t } = useLingui();
 	const [editor] = useLexicalComposerContext();
@@ -222,6 +240,7 @@ export function ComposerBody({
 		submitWhileStreaming,
 		allowEmptySubmit,
 		clearOnSubmit,
+		history,
 	});
 	stateRef.current = {
 		attachments,
@@ -232,7 +251,9 @@ export function ComposerBody({
 		submitWhileStreaming,
 		allowEmptySubmit,
 		clearOnSubmit,
+		history,
 	};
+	const historyNavigationRef = useRef<{ reset: () => void } | null>(null);
 
 	// A draft the host had stored. Read once: after mount the editor is the
 	// only writer, and re-applying would fight what is being typed.
@@ -389,7 +410,7 @@ export function ComposerBody({
 		if (attachment.previewUrl) URL.revokeObjectURL(attachment.previewUrl);
 	};
 
-	const submit = () => {
+	const submit = ({ steer = false }: { steer?: boolean } = {}) => {
 		if (
 			stateRef.current.status === "streaming" &&
 			!stateRef.current.submitWhileStreaming
@@ -405,7 +426,8 @@ export function ComposerBody({
 		if (!text && files.length === 0 && !stateRef.current.allowEmptySubmit) {
 			return;
 		}
-		stateRef.current.onSubmit?.({ text, files, mentions });
+		stateRef.current.onSubmit?.({ text, files, mentions, steer });
+		historyNavigationRef.current?.reset();
 		if (!stateRef.current.clearOnSubmit) return;
 		editor.update(() => $getRoot().clear());
 		setAttachments((previous) => {
@@ -443,13 +465,21 @@ export function ComposerBody({
 		const unregisterEnter = editor.registerCommand<KeyboardEvent | null>(
 			KEY_ENTER_COMMAND,
 			(event) => {
-				if (event?.shiftKey) return false;
+				if (event?.shiftKey || event?.isComposing || event?.keyCode === 229)
+					return false;
 				event?.preventDefault();
-				submitRef.current();
+				submitRef.current({
+					steer: Boolean(event?.metaKey || event?.ctrlKey),
+				});
 				return true;
 			},
 			COMMAND_PRIORITY_LOW,
 		);
+		const historyNavigation = registerHistoryNavigation(
+			editor,
+			() => stateRef.current.history ?? [],
+		);
+		historyNavigationRef.current = historyNavigation;
 		const unregisterEscape = editor.registerCommand<KeyboardEvent | null>(
 			KEY_ESCAPE_COMMAND,
 			(event) => {
@@ -534,6 +564,7 @@ export function ComposerBody({
 		return () => {
 			unregisterText();
 			unregisterEnter();
+			historyNavigation.unregister();
 			unregisterEscape();
 			unregisterDrop();
 			unregisterPaste();
@@ -862,9 +893,9 @@ export function ComposerBody({
 								message: "Retry dictation",
 							})}
 							onClick={() => void dictationSession.retry()}
-							className="flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-lg bg-secondary text-secondary-foreground transition-colors hover:bg-secondary/80"
+							className={FILLED_FOOTER_BUTTON_CLASS}
 						>
-							<RefreshCcwIcon className="size-4" />
+							<RefreshCcwIcon className="size-3.5" />
 						</button>
 						<button
 							type="button"
@@ -872,9 +903,9 @@ export function ComposerBody({
 								message: "Discard recording",
 							})}
 							onClick={dictationSession.cancel}
-							className="flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+							className={GHOST_FOOTER_BUTTON_CLASS}
 						>
-							<XIcon className="size-4" />
+							<XIcon className="size-3.5" />
 						</button>
 						<button
 							type="button"
@@ -882,9 +913,9 @@ export function ComposerBody({
 								message: "Send message",
 							})}
 							disabled
-							className="flex size-8 shrink-0 cursor-not-allowed items-center justify-center rounded-lg bg-secondary text-muted-foreground"
+							className={INACTIVE_SEND_BUTTON_CLASS}
 						>
-							<ArrowUpIcon className="size-4.5" />
+							<ArrowUpIcon className="size-4" />
 						</button>
 					</>
 				) : dictationSession.status !== "idle" ? (
@@ -900,9 +931,12 @@ export function ComposerBody({
 							})}
 							disabled={dictationSession.status === "transcribing"}
 							onClick={() => void dictationSession.finish()}
-							className="flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-lg bg-secondary text-secondary-foreground transition-colors hover:bg-secondary/80 disabled:cursor-default disabled:opacity-50"
+							className={cn(
+								FILLED_FOOTER_BUTTON_CLASS,
+								"disabled:cursor-default disabled:opacity-50",
+							)}
 						>
-							<SquareIcon className="size-3.5 fill-current" />
+							<SquareIcon className="size-3 fill-current" />
 						</button>
 						<button
 							type="button"
@@ -910,9 +944,9 @@ export function ComposerBody({
 								message: "Send message",
 							})}
 							disabled
-							className="flex size-8 shrink-0 cursor-not-allowed items-center justify-center rounded-lg bg-secondary text-muted-foreground"
+							className={INACTIVE_SEND_BUTTON_CLASS}
 						>
-							<ArrowUpIcon className="size-4.5" />
+							<ArrowUpIcon className="size-4" />
 						</button>
 					</>
 				) : (
@@ -930,9 +964,9 @@ export function ComposerBody({
 									setBrowseOpen(false);
 									void dictationSession.start();
 								}}
-								className="flex size-8 cursor-pointer items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+								className={GHOST_FOOTER_BUTTON_CLASS}
 							>
-								<MicIcon className="size-4.5" />
+								<MicIcon className="size-4" />
 							</button>
 						)}
 						{hideSubmit ? null : status === "streaming" &&
@@ -943,9 +977,9 @@ export function ComposerBody({
 									message: "Stop response",
 								})}
 								onClick={onStop}
-								className="flex size-8 cursor-pointer items-center justify-center rounded-lg bg-secondary text-secondary-foreground transition-colors hover:bg-secondary/80"
+								className={FILLED_FOOTER_BUTTON_CLASS}
 							>
-								<SquareIcon className="size-3.5 fill-current" />
+								<SquareIcon className="size-3 fill-current" />
 							</button>
 						) : (
 							<button
@@ -954,15 +988,17 @@ export function ComposerBody({
 									message: "Send message",
 								})}
 								disabled={!canSend}
-								onClick={submit}
-								className={cn(
-									"flex size-8 items-center justify-center rounded-lg transition-colors",
+								onClick={() => submit()}
+								className={
 									canSend
-										? "cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90"
-										: "cursor-not-allowed bg-secondary text-muted-foreground",
-								)}
+										? cn(
+												FOOTER_BUTTON_CLASS,
+												"cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90",
+											)
+										: INACTIVE_SEND_BUTTON_CLASS
+								}
 							>
-								<ArrowUpIcon className="size-4.5" />
+								<ArrowUpIcon className="size-4" />
 							</button>
 						)}
 					</>

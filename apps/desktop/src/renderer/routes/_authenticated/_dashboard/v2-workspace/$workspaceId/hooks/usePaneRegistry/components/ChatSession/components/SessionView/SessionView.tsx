@@ -22,6 +22,7 @@ import type { OpenFile } from "../../../../../../types";
 import { ChatPaneActionsProvider } from "../../providers/ChatPaneActionsProvider";
 import type { ChatForkTarget } from "../../types";
 import { buildChatHandoffTranscript } from "../../utils/chatHandoffTranscript";
+import { promptHistory } from "../../utils/promptHistory";
 import { railMessages } from "../../utils/railMessages";
 import { type AgentChoice, type AgentSwitcher, Composer } from "../Composer";
 import { SessionHeader } from "../SessionHeader";
@@ -40,6 +41,7 @@ export function SessionView({
 	canForkToWorktree,
 	client,
 	headerLeft,
+	isActive,
 	onModeChange,
 	pendingFirstPrompt,
 	preferredModelLabel,
@@ -54,6 +56,7 @@ export function SessionView({
 	sessionId: string;
 	workspaceId: string;
 	headerLeft?: ReactNode;
+	isActive?: boolean;
 	pendingFirstPrompt: UserContent[] | null;
 	/** Selected by name once the agent lists its models, before the first prompt goes out. */
 	preferredModelLabel?: string;
@@ -93,6 +96,10 @@ export function SessionView({
 			previous.preview === next.preview,
 	);
 	const approvals = useApprovals(session.snapshot);
+	const harness = session.snapshot.session?.harness;
+	const history = useStableList(
+		useMemo(() => promptHistory(timeline, harness), [timeline, harness]),
+	);
 
 	const configOptions = session.snapshot.session?.configOptions;
 	const agentStatus = session.snapshot.session?.status;
@@ -204,7 +211,6 @@ export function SessionView({
 			void respondToApproval(approvalId, decision),
 		[respondToApproval],
 	);
-	const onLoadOlder = useCallback(() => void loadOlder(), [loadOlder]);
 	const onSetConfigOption = useCallback(
 		(configId: string, value: string) => void setConfigOption(configId, value),
 		[setConfigOption],
@@ -217,15 +223,20 @@ export function SessionView({
 		[onModeChange, setMode],
 	);
 	const onSend = useCallback(
-		(content: UserContent[]) => sendPrompt(content),
-		[sendPrompt],
+		(content: UserContent[], { steer }: { steer: boolean }) =>
+			sendPrompt(
+				content,
+				steer && runningTurnId ? { expectedTurnId: runningTurnId } : undefined,
+			),
+		[sendPrompt, runningTurnId],
 	);
+	const awaitingBackground = sessionState?.awaitingBackground === true;
 	const onCancelTurn = useMemo(
 		() =>
-			runningTurnId
+			runningTurnId && !awaitingBackground
 				? () => void cancelTurn(runningTurnId, { pauseQueue: true })
 				: null,
-		[runningTurnId, cancelTurn],
+		[runningTurnId, awaitingBackground, cancelTurn],
 	);
 	const promptQueue = useMemo(
 		() => ({
@@ -249,13 +260,13 @@ export function SessionView({
 	// The stream is ready well before the agent is: the harness still has to
 	// spawn and, when resuming, replay the whole transcript. Showing an empty
 	// pane through that reads as a broken chat rather than a loading one.
-	const booting = sessionState?.status === "starting" && timeline.length === 0;
+	const booting = sessionState?.status === "starting";
 	const loadingTranscript = session.status === "loading" || booting;
 
 	// w-full because the pane lays its children out in a row: without it this
 	// sizes to its content and leaves the right of the pane empty.
 	return (
-		<ChatPaneActionsProvider openFile={openFile}>
+		<ChatPaneActionsProvider openFile={openFile} workspaceId={workspaceId}>
 			<div className="flex h-full min-h-0 w-full min-w-0 flex-col">
 				{/* Only worth a row when it carries a control: the pane header above
 				    already names the agent, and harness/status/connection repeated
@@ -291,7 +302,7 @@ export function SessionView({
 								hasOlder={session.hasOlder}
 								onDiscardPrompt={session.discardPrompt}
 								onFork={onFork ? forkWithTranscript : undefined}
-								onLoadOlder={onLoadOlder}
+								onLoadOlder={loadOlder}
 								onRespond={onRespond}
 								onRetryPrompt={session.retryPrompt}
 								outbox={session.outbox}
@@ -316,6 +327,8 @@ export function SessionView({
 					onSetMode={onSetMode}
 					disabled={session.status !== "ready"}
 					draftKey={`chat-v3-draft:${sessionId}`}
+					history={history}
+					isActive={isActive}
 					onCancelTurn={onCancelTurn}
 					onSend={onSend}
 					promptQueue={promptQueue}

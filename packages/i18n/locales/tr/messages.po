@@ -414,6 +414,10 @@ msgstr "{0} kuruldu"
 msgid "{0} is already assigned to \"{1}\"."
 msgstr "{0} zaten \"{1}\" için atanmış."
 
+#. placeholder {0}: params?.key
+msgid "{0} is already used for tasks in this organization."
+msgstr "{0} bu kuruluştaki görevler için zaten kullanılıyor."
+
 #. placeholder {0}: params?.repoFullName
 msgid "{0} is not a repository the GitHub App is installed on"
 msgstr "{0}, GitHub App’in yüklü olduğu bir depo değil"
@@ -699,9 +703,6 @@ msgstr "{actor} {workspace} çalışma alanının bağlantısını kaldırdı"
 
 msgid "{actual} so far · ~{projected} projected"
 msgstr "şu ana kadar {actual} · ~{projected} öngörülüyor"
-
-msgid "{backgroundCount, plural, one {# background terminal session} other {# background terminal sessions}}"
-msgstr "{backgroundCount, plural, one {# arka plan terminal oturumu} other {# arka plan terminal oturumu}}"
 
 msgid "{behindCount, plural, one {Behind main by # commit, needs rebase} other {Behind main by # commits, needs rebase}}"
 msgstr "{behindCount, plural, one {main dalının # commit gerisinde, rebase gerekiyor} other {main dalının # commit gerisinde, rebase gerekiyor}}"
@@ -1024,6 +1025,9 @@ msgstr "{previewSize}px · {0} satır yüksekliği"
 
 msgid "{provider} logo"
 msgstr "{provider} logosu"
+
+msgid "{queued, plural, one {# message waiting in the queue} other {# messages waiting in the queue}}"
+msgstr "{queued, plural, one {Kuyrukta bekleyen # mesaj} other {Kuyrukta bekleyen # mesaj}}"
 
 msgid "{readPercent}% read"
 msgstr "%{readPercent} okundu"
@@ -1456,6 +1460,9 @@ msgstr "Token başına faturalandırılan ayrı bir profil. Anahtar {0} CLI içi
 msgid "A separate profile that shares your skills, plugins, MCP servers, and settings."
 msgstr "Becerilerinizi, eklentilerinizi, MCP sunucularınızı ve ayarlarınızı paylaşan ayrı bir profil."
 
+msgid "A task key is 1 to 5 letters or numbers and starts with a letter."
+msgstr "Görev anahtarı 1 ila 5 harf veya rakamdan oluşur ve bir harfle başlar."
+
 msgid "a teammate"
 msgstr "bir takım arkadaşı"
 
@@ -1690,6 +1697,12 @@ msgstr "Fotoğraf veya dosya ekle"
 
 msgid "Add project"
 msgstr "Proje ekle"
+
+msgid "Add Project from Folder"
+msgstr "Klasörden proje ekle"
+
+msgid "Add Project from Folder..."
+msgstr "Klasörden proje ekle..."
 
 msgid "Add prompt e.g. look for crashes in $sentry"
 msgstr "İstem ekleyin, örn. $sentry içinde çökmeleri ara"
@@ -2008,9 +2021,6 @@ msgstr "Tüm verileriniz {ACCOUNT_DELETION_GRACE_DAYS} gün sonra kalıcı olara
 
 msgid "All open terminal sessions will be killed and any running host-services will be stopped. Use “Close Superset” instead if you want services to keep running for the next launch."
 msgstr "Açık tüm terminal oturumları sonlandırılacak ve çalışan host hizmetleri durdurulacak. Hizmetlerin sonraki açılış için çalışmaya devam etmesini istiyorsanız “Superset'i kapat” seçeneğini kullanın."
-
-msgid "All pages"
-msgstr "Tüm sayfalar"
 
 msgid "All plans"
 msgstr "Tüm planlar"
@@ -2454,6 +2464,9 @@ msgstr "Değişiklik isteyin"
 msgid "Ask to make changes, @mention files, run /commands"
 msgstr "Değişiklik isteyin, dosyaları @ ile anın, /komut çalıştırın"
 
+msgid "Ask what your agents are up to, or tell one what to do next."
+msgstr "Ajanlarının ne yaptığını sor ya da birine sırada ne yapacağını söyle."
+
 msgid "Asks before edits and commands"
 msgstr "Düzenleme ve komutlardan önce sorar"
 
@@ -2764,14 +2777,20 @@ msgstr "Destekçilerimiz"
 msgid "Background"
 msgstr "Arka plan"
 
+msgid "Background processes"
+msgstr "Arka plan işlemleri"
+
 msgid "Background processes in chat"
 msgstr "Sohbette arka plan süreçleri"
+
+msgid "Background task"
+msgstr "Arka plan görevi"
 
 msgid "Background terminal memory"
 msgstr "Arka plan terminal belleği"
 
-msgid "Background terminal sessions"
-msgstr "Arka plan terminal oturumları"
+msgid "Background work and pages"
+msgstr "Arka plan işleri ve sayfalar"
 
 msgid "Backlog"
 msgstr "Bekleyen işler"
@@ -3420,6 +3439,12 @@ msgstr "Host denetleniyor…"
 msgid "Checking out a PR requires a project"
 msgstr "Bir PR'ı checkout etmek proje gerektirir"
 
+msgid "Checking pull requests in {what}"
+msgstr "{what} içindeki pull request'ler kontrol ediliyor"
+
+msgid "Checking workspaces"
+msgstr "Çalışma alanları kontrol ediliyor"
+
 msgid "Checking..."
 msgstr "Denetleniyor..."
 
@@ -3787,9 +3812,6 @@ msgstr "Terminali kapat"
 
 msgid "Close Terminal"
 msgstr "Terminali kapat"
-
-msgid "Close terminal session"
-msgstr "Terminal oturumunu kapat"
 
 msgid "Close the current pane"
 msgstr "Geçerli bölmeyi kapat"
@@ -4860,6 +4882,9 @@ msgstr "Otomasyonlar yüklenemedi"
 msgid "Couldn't load contributors — type a username instead."
 msgstr "Katkıda bulunanlar yüklenemedi — bunun yerine bir kullanıcı adı yazın."
 
+msgid "Couldn't load earlier messages. Retry"
+msgstr "Önceki mesajlar yüklenemedi. Yeniden dene"
+
 msgid "Couldn't load issues: {msg}"
 msgstr "Issue'lar yüklenemedi: {msg}"
 
@@ -4977,11 +5002,17 @@ msgstr "Bulut çalışma alanı başlatılamadı"
 msgid "Couldn't start design mode on this page"
 msgstr "Bu sayfada tasarım modu başlatılamadı"
 
+msgid "Couldn't start voice mode"
+msgstr "Sesli mod başlatılamadı"
+
 msgid "Couldn't start workspace"
 msgstr "Çalışma alanı başlatılamadı"
 
 msgid "Couldn't stop the agent's terminal"
 msgstr "Aracının terminali durdurulamadı"
+
+msgid "Couldn't stop the background task"
+msgstr "Arka plan görevi durdurulamadı"
 
 msgid "Couldn't stop the chat"
 msgstr "Sohbet durdurulamadı"
@@ -5212,6 +5243,12 @@ msgstr "Oluşturuluyor"
 msgctxt "file change"
 msgid "Creating"
 msgstr "Oluşturuluyor"
+
+msgid "Creating a task"
+msgstr "Görev oluşturuluyor"
+
+msgid "Creating a workspace"
+msgstr "Çalışma alanı oluşturuluyor"
 
 msgid "Creating PR..."
 msgstr "PR oluşturuluyor…"
@@ -6333,6 +6370,15 @@ msgstr "Uzaktan erişimi etkinleştirin ve Superset çalışırken bu bilgisayar
 msgid "Enable skill"
 msgstr "Beceriyi etkinleştir"
 
+msgid "End voice session"
+msgstr "Sesli oturumu bitir"
+
+msgid "Ended"
+msgstr "Bitti"
+
+msgid "Ending the call"
+msgstr "Arama sonlandırılıyor"
+
 msgid "Engineering deep-dives and launches."
 msgstr "Mühendislik derinlemesine yazıları ve lansmanlar."
 
@@ -6527,6 +6573,9 @@ msgstr "Projeyi genişlet"
 msgid "Expand thread"
 msgstr "Konuyu genişlet"
 
+msgid "Expand voice"
+msgstr "Sesi genişlet"
+
 msgid "Expand workspace"
 msgstr "Çalışma alanını genişlet"
 
@@ -6578,6 +6627,9 @@ msgstr "Harici düzenleyici"
 
 msgid "extra ${used} of ${limit}"
 msgstr "ek ${used}/${limit}"
+
+msgid "Extra high"
+msgstr "Çok yüksek"
 
 msgid "Extra small"
 msgstr "Çok küçük"
@@ -6650,9 +6702,6 @@ msgstr "Terminal geçmişi temizlenemedi"
 #. placeholder {0}: port.port
 msgid "Failed to close port {0}"
 msgstr "{0} portu kapatılamadı"
-
-msgid "Failed to close terminal session"
-msgstr "Terminal oturumu kapatılamadı"
 
 msgid "Failed to connect to Google. Please try again."
 msgstr "Google'a bağlanılamadı. Lütfen yeniden deneyin."
@@ -8444,6 +8493,9 @@ msgstr "Dahili"
 msgid "Internet Disconnected"
 msgstr "İnternet bağlantısı kesildi"
 
+msgid "Interrupt"
+msgstr "Kes"
+
 msgid "Interrupted"
 msgstr "Kesildi"
 
@@ -9075,6 +9127,9 @@ msgstr "Bir host'taki çalışma alanlarını listeleyin, oluşturun, güncelley
 msgid "List, get, create, update, and delete tasks; track status."
 msgstr "Görevleri listeleyin, alın, oluşturun, güncelleyin ve silin; durumu izleyin."
 
+msgid "Listening"
+msgstr "Dinliyor"
+
 msgid "Listening agents"
 msgstr "Dinleyen ajanlar"
 
@@ -9083,6 +9138,9 @@ msgstr "Kanal mesajları ve yeni kanallar dinleniyor."
 
 msgid "Listening status unavailable"
 msgstr "Dinleme durumu kullanılamıyor"
+
+msgid "Listing sessions in {what}"
+msgstr "{what} içindeki oturumlar listeleniyor"
 
 msgid "live"
 msgstr "canlı"
@@ -9110,9 +9168,6 @@ msgstr "ajan ayarlarını yükleme"
 
 msgid "Load diff"
 msgstr "Farkı yükle"
-
-msgid "Load earlier messages"
-msgstr "Daha eski mesajları yükle"
 
 msgid "Load more"
 msgstr "Daha fazla yükle"
@@ -9198,9 +9253,6 @@ msgstr "Depolar yükleniyor..."
 msgid "Loading review..."
 msgstr "İnceleme yükleniyor..."
 
-msgid "Loading sessions…"
-msgstr "Oturumlar yükleniyor…"
-
 msgid "Loading terminal scripts..."
 msgstr "Terminal betikleri yükleniyor..."
 
@@ -9279,11 +9331,23 @@ msgstr "Uzun vadeli güvenilirlik bir eşiği aşar. Akşam 18.00'de verilen iş
 msgid "Long-hover shortcut-only tooltip; its chip style is now the TooltipContent default"
 msgstr "Uzun bekletmede yalnızca kısayol gösteren tooltip; çip stili artık TooltipContent varsayılanı"
 
+msgid "Looking at {what}"
+msgstr "{what} inceleniyor"
+
+msgid "Looking at tasks"
+msgstr "Görevlere bakılıyor"
+
 msgid "Looking for a mobile simulator…"
 msgstr "Mobil simülatör aranıyor…"
 
 msgid "Looking for installed browsers…"
 msgstr "Kurulu tarayıcılar aranıyor…"
+
+msgid "Looking for pages"
+msgstr "Sayfalar aranıyor"
+
+msgid "Looking up a workspace"
+msgstr "Çalışma alanı aranıyor"
 
 msgid "Looks good"
 msgstr "İyi görünüyor"
@@ -9536,6 +9600,9 @@ msgstr "Birleştirme commit'i"
 msgid "Merge failed: {0}"
 msgstr "Birleştirme başarısız: {0}"
 
+msgid "Merge into center"
+msgstr "Ortaya birleştir"
+
 msgid "Merge pull request"
 msgstr "Pull request'i birleştir"
 
@@ -9597,6 +9664,9 @@ msgstr "Benim"
 msgctxt "workspaces I created"
 msgid "Mine"
 msgstr "Benimkiler"
+
+msgid "Minimal"
+msgstr "Minimum"
 
 msgid "Minimal reasoning effort"
 msgstr "En az akıl yürütme çabası"
@@ -9776,8 +9846,14 @@ msgstr "Yazılım tarihinin çoğu"
 msgid "Move {count} to Group"
 msgstr "{count} öğeyi gruba taşı"
 
+msgid "Move to Center"
+msgstr "Ortaya taşı"
+
 msgid "Move to group"
 msgstr "Gruba taşı"
+
+msgid "Move to Right Side"
+msgstr "Sağ tarafa taşı"
 
 msgid "Move to Tab"
 msgstr "Sekmeye taşı"
@@ -9802,8 +9878,14 @@ msgstr "Bu depoyu birden fazla proje kullanıyor ({0}). Bu cihazda kurmak için 
 msgid "Multiple projects use this repository ({0}). Open the project you want from settings to set it up on this device."
 msgstr "Bu depoyu birden fazla proje kullanıyor ({0}). Bu cihazda kurmak için istediğiniz projeyi ayarlardan açın."
 
+msgid "Mute"
+msgstr "Sessize al"
+
 msgid "Mute notifications"
 msgstr "Bildirimleri sustur"
+
+msgid "Muted"
+msgstr "Sessizde"
 
 msgid "My Agent"
 msgstr "Ajanım"
@@ -10090,8 +10172,8 @@ msgstr "Sonraki slayt"
 msgid "Next Tab"
 msgstr "Sonraki sekme"
 
-msgid "Next Tab (Alt)"
-msgstr "Sonraki sekme (Alt)"
+msgid "Next Tab (Second Shortcut)"
+msgstr "Sonraki sekme (ikinci kısayol)"
 
 msgid "Next Workspace"
 msgstr "Sonraki çalışma alanı"
@@ -10178,9 +10260,6 @@ msgstr "Yazar bulunamadı."
 
 msgid "No automations match"
 msgstr "Eşleşen otomasyon yok"
-
-msgid "No background terminal sessions"
-msgstr "Arka plan terminal oturumu yok"
 
 msgid "No branches found"
 msgstr "Dal bulunamadı"
@@ -10820,6 +10899,9 @@ msgstr "Yeniden denenecek bir şey yok"
 msgid "Nothing published in the last 30 days yet. Your rank appears once usage from this machine syncs, publishing as <0>{handle}</0>."
 msgstr "Son 30 günde henüz hiçbir şey yayınlanmadı. Bu makinedeki kullanım eşitlendiğinde sıralamanız görünür; <0>{handle}</0> olarak yayınlanıyor."
 
+msgid "Nothing running"
+msgstr "Çalışan bir şey yok"
+
 msgid "Nothing was missed"
 msgstr "Hiçbir şey kaçırılmadı"
 
@@ -11082,14 +11164,14 @@ msgstr "{path} dosyasını dosya bölmesinde aç"
 msgid "Open a multiline prompt composer for the active terminal"
 msgstr "Etkin terminal için çok satırlı istem düzenleyicisini aç"
 
+msgid "Open a pane, or drag one here from the center."
+msgstr "Bir bölme açın veya ortadan buraya sürükleyin."
+
 msgid "Open a pull request to view review status, checks, and comments."
 msgstr "İnceleme durumunu, kontrolleri ve yorumları görmek için bir pull request açın."
 
 msgid "Open actions menu"
 msgstr "Eylemler menüsünü aç"
-
-msgid "Open an existing project folder"
-msgstr "Mevcut bir proje klasörünü aç"
 
 msgid "Open anyway"
 msgstr "Yine de aç"
@@ -11189,9 +11271,6 @@ msgid "Open in Any IDE"
 msgstr "Herhangi bir IDE'de açın"
 
 msgid "Open in app"
-msgstr "Uygulamada aç"
-
-msgid "Open in App"
 msgstr "Uygulamada aç"
 
 msgid "Open in browser"
@@ -11370,9 +11449,6 @@ msgstr "Açık pull request'ler"
 msgid "Open recent"
 msgstr "Son kullanılanı aç"
 
-msgid "Open Repo..."
-msgstr "Depo aç..."
-
 msgid "Open roles"
 msgstr "Açık pozisyonlar"
 
@@ -11454,14 +11530,14 @@ msgstr "Çalıştırmanın çalışma alanını aç"
 msgid "open the task in a workspace"
 msgstr "görevi çalışma alanında açma"
 
+msgid "Open the workspace in the app picked in the Open In menu (VS Code, Cursor, etc.)"
+msgstr "Çalışma alanını \"Şununla aç\" menüsünde seçilen uygulamada aç (VS Code, Cursor vb.)"
+
 msgid "Open this run's workspace"
 msgstr "Bu çalıştırmanın çalışma alanını aç"
 
 msgid "Open workspace"
 msgstr "Çalışma alanını aç"
-
-msgid "Open workspace in external app (Cursor, VS Code, etc.)"
-msgstr "Çalışma alanını harici uygulamada aç (Cursor, VS Code vb.)"
 
 msgid "OpenAI rejected this API key."
 msgstr "OpenAI bu API anahtarını reddetti."
@@ -11471,6 +11547,9 @@ msgstr "Açıldı"
 
 msgid "opened PR #841 for review"
 msgstr "inceleme için PR #841 açtı"
+
+msgid "Opening {what}"
+msgstr "{what} açılıyor"
 
 msgid "Opening files"
 msgstr "Dosyaları açma"
@@ -11935,6 +12014,9 @@ msgstr "Farklı bir öğe seç"
 msgid "Pick a different element (esc)"
 msgstr "Farklı bir öğe seç (esc)"
 
+msgid "Pick a folder on disk and add it as a project"
+msgstr "Diskte bir klasör seçip proje olarak ekleyin"
+
 msgid "Pick a folder…"
 msgstr "Bir klasör seçin…"
 
@@ -12174,6 +12256,9 @@ msgstr "Tercihler"
 msgid "Prefix"
 msgstr "Ön ek"
 
+msgid "Prefix of this team's task IDs. Changing it renames every task in the team."
+msgstr "Bu ekibin görev kimliklerinin ön eki. Değiştirmek ekipteki tüm görevleri yeniden adlandırır."
+
 msgid "Preparing"
 msgstr "Hazırlanıyor"
 
@@ -12243,8 +12328,8 @@ msgstr "Önceki slayt"
 msgid "Previous Tab"
 msgstr "Önceki sekme"
 
-msgid "Previous Tab (Alt)"
-msgstr "Önceki sekme (Alt)"
+msgid "Previous Tab (Second Shortcut)"
+msgstr "Önceki sekme (ikinci kısayol)"
 
 msgid "Previous Workspace"
 msgstr "Önceki çalışma alanı"
@@ -12674,6 +12759,12 @@ msgstr "Kurulum rehberini okuyun"
 msgid "Read the source and every pull request."
 msgstr "Kaynak kodu ve her pull request'i okuyun."
 
+msgid "Reading {what}"
+msgstr "{what} okunuyor"
+
+msgid "Reading the page"
+msgstr "Sayfa okunuyor"
+
 msgid "Reading usage…"
 msgstr "Kullanım okunuyor…"
 
@@ -12770,6 +12861,9 @@ msgstr "Yeniden bağlanılıyor"
 
 msgid "Reconnecting…"
 msgstr "Yeniden bağlanılıyor…"
+
+msgid "Reconnecting… your conversation is kept."
+msgstr "Yeniden bağlanılıyor… konuşman korunuyor."
 
 msgid "Red"
 msgstr "Kırmızı"
@@ -13333,6 +13427,9 @@ msgstr "1 host hizmeti yeniden başlatıldı"
 msgid "Restarting"
 msgstr "Yeniden başlatılıyor"
 
+msgid "Restarting {what}"
+msgstr "{what} yeniden başlatılıyor"
+
 msgid "Restarting agents on {accountLabel}."
 msgstr "Ajanlar {accountLabel} üzerinde yeniden başlatılıyor."
 
@@ -13366,6 +13463,9 @@ msgstr "Az önce arşivlediğiniz çalışma alanını geri yükle"
 
 msgid "Restore this version?"
 msgstr "Bu sürüm geri yüklensin mi?"
+
+msgid "Restore width"
+msgstr "Genişliği geri yükle"
 
 msgid "Restored"
 msgstr "Geri yüklendi"
@@ -14294,6 +14394,9 @@ msgstr "Sohbete gönder ({draftCount})"
 msgid "Sending"
 msgstr "Gönderiliyor"
 
+msgid "Sending a message to {what}"
+msgstr "{what} hedefine mesaj gönderiliyor"
+
 msgid "Sending..."
 msgstr "Gönderiliyor..."
 
@@ -14993,14 +15096,23 @@ msgstr "Spam veya dolandırıcılık"
 msgid "Sparse checkout"
 msgstr "Seyrek checkout"
 
+msgid "Speaking"
+msgstr "Konuşuyor"
+
 msgid "Specific"
 msgstr "Belirli"
+
+msgid "Speed"
+msgstr "Hız"
 
 msgid "Spend"
 msgstr "Harcama"
 
 msgid "Split"
 msgstr "Böl"
+
+msgid "Split Along Longer Side"
+msgstr "Uzun kenar boyunca böl"
 
 msgid "Split button mirrors desktop's OpenInButton; picker trigger mirrors PickerTrigger"
 msgstr "Bölünmüş düğme masaüstündeki OpenInButton'ı yansıtır; seçici tetikleyici PickerTrigger'ı yansıtır"
@@ -15022,9 +15134,6 @@ msgstr "Bölünmüş bölme"
 
 msgid "Split Pane"
 msgstr "Bölünmüş Bölme"
-
-msgid "Split Pane Auto"
-msgstr "Bölmeyi otomatik böl"
 
 msgid "Split Right"
 msgstr "Sağa böl"
@@ -15061,6 +15170,9 @@ msgstr "Mobil Simülatörle böl"
 
 msgid "Split with New Browser"
 msgstr "Yeni tarayıcıyla böl"
+
+msgid "Split with Sandbox Desktop"
+msgstr "Sanal alan masaüstüyle böl"
 
 msgid "Squash & Merge"
 msgstr "Squash ve birleştir"
@@ -15202,6 +15314,9 @@ msgstr "Sekme şeridindeki + ile bir tane başlatın."
 msgid "Start or stop the workspace run command"
 msgstr "Çalışma alanı çalıştırma komutunu başlat veya durdur"
 
+msgid "Start voice mode"
+msgstr "Sesli modu başlat"
+
 msgid "Start with the work."
 msgstr "İşle başlayın."
 
@@ -15225,6 +15340,9 @@ msgstr "Başlatılıyor"
 
 msgid "Starting {agentLabel}"
 msgstr "{agentLabel} başlatılıyor"
+
+msgid "Starting an agent in {what}"
+msgstr "{what} içinde ajan başlatılıyor"
 
 msgid "Starting cloud workspace"
 msgstr "Bulut çalışma alanı başlatılıyor"
@@ -15298,6 +15416,12 @@ msgstr "Durdur"
 msgid "Stop {0}"
 msgstr "Durdur: {0}"
 
+msgid "Stop {label}"
+msgstr "{label} öğesini durdur"
+
+msgid "Stop all agent background processes"
+msgstr "Tüm ajan arka plan işlemlerini durdur"
+
 msgid "Stop dictation"
 msgstr "Sesle yazmayı durdur"
 
@@ -15322,6 +15446,9 @@ msgstr "Çalışma alanı çalıştırma komutunu durdur"
 
 msgid "stopped"
 msgstr "durduruldu"
+
+msgid "Stopping the agent in {what}"
+msgstr "{what} içindeki ajan durduruluyor"
 
 msgid "Strikethrough"
 msgstr "Üstü çizili"
@@ -15799,6 +15926,9 @@ msgstr "Görev"
 
 msgid "Task ID copied"
 msgstr "Görev kimliği kopyalandı"
+
+msgid "Task key"
+msgstr "Görev anahtarı"
 
 msgid "Task Launch"
 msgstr "Görev başlatma"
@@ -16687,9 +16817,6 @@ msgstr "Bu işlem, hazırlanmış tüm değişiklikleri hazırlıktan çıkarır
 msgid "This will unstage and revert all staged changes. Staged new files will be deleted. This cannot be undone."
 msgstr "Bu işlem, hazırlanmış tüm değişiklikleri hazırlıktan çıkarır ve geri alır. Hazırlanmış yeni dosyalar silinir. Bu geri alınamaz."
 
-msgid "This workspace"
-msgstr "Bu çalışma alanı"
-
 msgid "This workspace has no project to branch from"
 msgstr "Bu çalışma alanının çatallanacak bir projesi yok"
 
@@ -16772,6 +16899,9 @@ msgid "Toggle plan"
 msgstr "Planı aç/kapat"
 
 msgid "Toggle right sidebar"
+msgstr "Sağ kenar çubuğunu aç/kapat"
+
+msgid "Toggle Right Sidebar"
 msgstr "Sağ kenar çubuğunu aç/kapat"
 
 msgid "Toggle Scripts Bar"
@@ -17211,6 +17341,9 @@ msgstr "Sınırsız kullanıcı"
 
 msgid "Unlink task"
 msgstr "Görevin bağlantısını kaldır"
+
+msgid "Unmute"
+msgstr "Sesi aç"
 
 msgid "Unmute notifications"
 msgstr "Bildirimlerin sesini aç"
@@ -17653,6 +17786,15 @@ msgstr "Ziyaretçiden indirmeye, hesaba"
 msgid "Visitors whose session began on a link an assistant gave them. This is the number an AEO effort should move."
 msgstr "Oturumu bir asistanın verdiği bağlantıyla başlayan ziyaretçiler. AEO çalışmasının hareket ettirmesi gereken sayı budur."
 
+msgid "Voice"
+msgstr "Ses"
+
+msgid "Voice ran into a problem. Try again."
+msgstr "Sesli modda bir sorun oluştu. Tekrar deneyin."
+
+msgid "Voice settings"
+msgstr "Ses ayarları"
+
 msgid "Volume"
 msgstr "Ses düzeyi"
 
@@ -18074,6 +18216,9 @@ msgstr "Çalışma alanı vurgu rengi seçici"
 
 msgid "Workspace actions"
 msgstr "Çalışma alanı eylemleri"
+
+msgid "Workspace activity"
+msgstr "Çalışma alanı etkinliği"
 
 msgid "Workspace agents"
 msgstr "Çalışma alanı ajanları"
