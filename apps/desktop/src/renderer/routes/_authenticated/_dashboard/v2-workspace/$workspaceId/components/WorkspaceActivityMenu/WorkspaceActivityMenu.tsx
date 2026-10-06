@@ -491,15 +491,20 @@ export function WorkspaceActivityMenu({
 							<section className="py-1">
 								<ActivityMenuHeader
 									title={currentWorkspace.name}
-									canCommit={branchSync?.hasUncommitted ?? false}
+									canCommit={
+										!!branchSync?.hasUncommitted && !branchSync.isDetached
+									}
 									canPush={
-										!!branchSync?.hasRepo &&
-										!branchSync.isDetached &&
-										(!branchSync.hasUpstream || branchSync.pushCount > 0)
+										(flowState.kind === "no-pr" ||
+											flowState.kind === "pr-exists") &&
+										flowState.sync != null &&
+										(!flowState.sync.hasUpstream ||
+											flowState.sync.pushCount > 0)
 									}
 									canCreatePr={
 										flowState.kind === "no-pr" &&
 										!flowState.sync.hasUncommitted &&
+										shipActions.commitsLoaded &&
 										shipActions.canCreatePr
 									}
 									hasCommitsAhead={shipActions.hasCommitsAhead}

@@ -83,7 +83,6 @@ export function useWorkspaceOpenIn({
 	});
 
 	return {
-		worktreePath,
 		resolvedApp,
 		currentApp,
 		isDark: activeTheme?.type === "dark",

@@ -135,6 +135,7 @@ export function PagesListPane({
 					<NewPageComposer
 						workspaceId={workspaceId}
 						onSent={() => setComposing(false)}
+						onCancel={() => setComposing(false)}
 						onCreateNewAgentSession={onCreateNewAgentSession}
 						onFocusAgentTerminal={onFocusAgentTerminal}
 					/>

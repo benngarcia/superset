@@ -3,7 +3,7 @@ import { useFormat } from "@superset/i18n/react";
 import { cn } from "@superset/ui/utils";
 import { Lock } from "lucide-react";
 import type { MouseEvent } from "react";
-import { PageThumbnail } from "renderer/routes/_authenticated/_dashboard/pages/components/PagesGrid/components/PageCard/components/PageThumbnail";
+import { PageThumbnail } from "renderer/routes/_authenticated/_dashboard/components/PageThumbnail";
 
 export interface PagesListItem {
 	id: string;

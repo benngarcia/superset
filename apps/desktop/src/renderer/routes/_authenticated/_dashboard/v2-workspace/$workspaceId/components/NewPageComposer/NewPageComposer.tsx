@@ -18,6 +18,7 @@ interface NewPageComposerProps {
 	onSent: () => void;
 	onCreateNewAgentSession: CreateNewAgentSession;
 	onFocusAgentTerminal: (terminalId: string) => void;
+	onCancel?: () => void;
 }
 
 export function NewPageComposer({
@@ -25,6 +26,7 @@ export function NewPageComposer({
 	onSent,
 	onCreateNewAgentSession,
 	onFocusAgentTerminal,
+	onCancel,
 }: NewPageComposerProps) {
 	const { t } = useLingui();
 	const { send: sendToTerminalAgent } = useSendToTerminalAgent();
@@ -99,6 +101,11 @@ export function NewPageComposer({
 				void handleSubmit();
 			}}
 			onKeyDown={(event) => {
+				if (event.key === "Escape" && onCancel) {
+					event.preventDefault();
+					onCancel();
+					return;
+				}
 				// isComposing: Enter that commits an IME candidate must not send.
 				if (
 					event.key === "Enter" &&

@@ -3,7 +3,7 @@ import { getHostServiceClientByUrl } from "renderer/lib/host-service-client";
 import { useHostWorkspaces } from "renderer/routes/_authenticated/providers/HostWorkspacesProvider";
 import { useLocalHostService } from "renderer/routes/_authenticated/providers/LocalHostServiceProvider";
 
-export interface WorkspaceOpenInTarget {
+interface WorkspaceOpenInTarget {
 	branch: string;
 	worktreePath: string;
 	projectId: string | null;

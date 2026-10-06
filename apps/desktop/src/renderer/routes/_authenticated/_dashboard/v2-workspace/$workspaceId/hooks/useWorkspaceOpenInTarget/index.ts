@@ -1,4 +1,1 @@
-export {
-	useWorkspaceOpenInTarget,
-	type WorkspaceOpenInTarget,
-} from "./useWorkspaceOpenInTarget";
+export { useWorkspaceOpenInTarget } from "./useWorkspaceOpenInTarget";

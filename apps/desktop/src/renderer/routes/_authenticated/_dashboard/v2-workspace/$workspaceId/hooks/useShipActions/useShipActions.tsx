@@ -248,6 +248,7 @@ export function useShipActions({
 	return {
 		canCreatePr,
 		hasCommitsAhead,
+		commitsLoaded: commitsQuery.isSuccess,
 		commitMessage,
 		setCommitMessage,
 		defaultCommitMessage,

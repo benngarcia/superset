@@ -1,7 +1,7 @@
 import { cn } from "@superset/ui/utils";
 import { FileText } from "lucide-react";
 import { useState } from "react";
-import { THUMBNAIL_ASPECT_RATIO } from "../../../../constants";
+import { THUMBNAIL_ASPECT_RATIO } from "./constants";
 
 interface PageThumbnailProps {
 	src: string | null;

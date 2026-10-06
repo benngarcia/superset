@@ -15,6 +15,14 @@ import {
 
 export type ShipView = "commit" | "pr";
 
+const MENU_WIDTH = 224;
+const MENU_GAP = 8;
+
+interface MenuPlacement {
+	side: "left" | "bottom";
+	offset: number;
+}
+
 interface ActivityMenuHeaderProps {
 	title: string;
 	canCommit: boolean;
@@ -43,7 +51,10 @@ export function ActivityMenuHeader({
 	// to close, or the menu takes focus back from the form's autofocused field.
 	const pendingViewRef = useRef<ShipView | null>(null);
 	const triggerRef = useRef<HTMLButtonElement>(null);
-	const [menuOffset, setMenuOffset] = useState(8);
+	const [placement, setPlacement] = useState<MenuPlacement>({
+		side: "bottom",
+		offset: 4,
+	});
 	const hasActions = canCommit || canPush || canCreatePr;
 
 	return (
@@ -57,10 +68,17 @@ export function ActivityMenuHeader({
 						const trigger = triggerRef.current;
 						const panel = trigger?.closest("[data-slot=popover-content]");
 						if (!open || !trigger || !panel) return;
-						setMenuOffset(
-							trigger.getBoundingClientRect().left -
-								panel.getBoundingClientRect().left +
-								8,
+						const panelLeft = panel.getBoundingClientRect().left;
+						setPlacement(
+							panelLeft >= MENU_WIDTH + MENU_GAP * 2
+								? {
+										side: "left",
+										offset:
+											trigger.getBoundingClientRect().left -
+											panelLeft +
+											MENU_GAP,
+									}
+								: { side: "bottom", offset: 4 },
 						);
 					}}
 				>
@@ -75,9 +93,9 @@ export function ActivityMenuHeader({
 						</button>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent
-						side="left"
-						align="start"
-						sideOffset={menuOffset}
+						side={placement.side}
+						align={placement.side === "left" ? "start" : "end"}
+						sideOffset={placement.offset}
 						className="w-56"
 						onCloseAutoFocus={(event) => {
 							const pending = pendingViewRef.current;
