@@ -1,6 +1,4 @@
 import { describe, expect, test } from "bun:test";
-import type { VoicePendingAction } from "@superset/shared/voice";
-import { PendingActions } from "./confirmations";
 import { executeTool, type ToolContext } from "./executeTool";
 import {
 	type VoiceData,
@@ -106,33 +104,60 @@ function fakeData(overrides: Partial<VoiceData> = {}): VoiceData & {
 					}
 				: null,
 		restartWorkspace: async () => {},
+		readPage: async () => "Usage is up 12% this week.",
+		listEnvironments: async () => [
+			{ id: "env-1", name: "Superset" },
+			{ id: "env-2", name: "Docs site" },
+		],
+		createWorkspace: async () => ({ id: "ws-new", name: "Fix login" }),
+		listMachines: async () => [
+			{
+				hostId: "host-1",
+				name: "satyas-mbp",
+				projects: [
+					{ id: "proj-1", name: "superset" },
+					{ id: "proj-2", name: "docs" },
+				],
+			},
+		],
+		createMachineWorkspace: async ({ machine, projectId }) => ({
+			workspace: {
+				...workspaces[0],
+				id: "ws-scratch",
+				name: projectId ? "local" : "New session",
+				hostId: machine.hostId,
+			},
+			terminalId: "t-new",
+		}),
+		startAgent: async () => ({ terminalId: "t-new", label: "claude" }),
+		stopSession: async () => {},
+		createTask: async (input) => ({
+			key: "SUP-1",
+			title: input.title,
+			status: null,
+			priority: input.priority,
+			assignee: null,
+		}),
+		listTasks: async () => [],
 		...overrides,
 	};
 }
 
-function context(data: VoiceData) {
-	let follow = true;
-	let pendingSeen: VoicePendingAction | null = null;
-	let counter = 0;
-	const pending = new PendingActions(
-		() => `tok-${++counter}`,
-		() => NOW,
-		(action) => {
-			pendingSeen = action;
-		},
-	);
+function context(data: VoiceData, pathname = "/") {
+	let endRequests = 0;
+	const watched: string[] = [];
 	const ctx: ToolContext = {
 		data,
-		pending,
 		now: () => NOW,
-		follow: {
-			get: () => follow,
-			set: (on) => {
-				follow = on;
-			},
+		endSession: () => {
+			endRequests++;
+		},
+		getPathname: () => pathname,
+		watchSession: (_workspace, terminalId) => {
+			watched.push(terminalId);
 		},
 	};
-	return { ctx, pendingSeen: () => pendingSeen, follow: () => follow };
+	return { ctx, endRequests: () => endRequests, watched };
 }
 
 describe("executeTool", () => {
@@ -234,55 +259,146 @@ describe("executeTool", () => {
 		});
 	});
 
-	test("send_message asks first, then sends on confirm", async () => {
+	test("send_message sends at once and points at the session", async () => {
 		const data = fakeData();
-		const { ctx, pendingSeen } = context(data);
-		const first = await executeTool(
+		const { ctx } = context(data);
+		const result = await executeTool(
 			"send_message",
 			{ workspace: "auth", text: "Yes, migrate it too." },
 			ctx,
 		);
-		expect(first.output).toEqual({
-			status: "needs_confirmation",
-			token: "tok-1",
-			summary: "Yes, migrate it too.",
-			target: "auth-refactor › claude",
-		});
-		expect(pendingSeen()?.token).toBe("tok-1");
-		expect(data.sent).toEqual([]);
-
-		const wrong = await executeTool("confirm_action", { token: "nope" }, ctx);
-		expect((wrong.output as { error: { kind: string } }).error.kind).toBe(
-			"not_found",
-		);
-		expect(data.sent).toEqual([]);
-
-		const confirmed = await executeTool(
-			"confirm_action",
-			{ token: "tok-1" },
-			ctx,
-		);
-		expect(confirmed.output).toMatchObject({ sent: true, session: "claude" });
+		expect(result.output).toMatchObject({ sent: true, session: "claude" });
 		expect(data.sent).toEqual(["t-claude:Yes, migrate it too."]);
-		expect(pendingSeen()).toBeNull();
 	});
 
-	test("cancel_action drops the pending action", async () => {
-		const data = fakeData();
-		const { ctx, pendingSeen } = context(data);
-		await executeTool("send_message", { workspace: "auth", text: "go" }, ctx);
-		const cancelled = await executeTool(
-			"cancel_action",
-			{ token: "tok-1" },
+	test("create_workspace defaults to a scratch workspace on the machine and watches the agent", async () => {
+		const created: Array<string | null> = [];
+		const base = fakeData();
+		const { ctx, watched } = context({
+			...base,
+			createMachineWorkspace: async (input) => {
+				created.push(input.projectId);
+				return base.createMachineWorkspace(input);
+			},
+		});
+		const result = await executeTool(
+			"create_workspace",
+			{ prompt: "Research how Linear does cycles" },
 			ctx,
 		);
-		expect(cancelled.output).toEqual({ cancelled: true });
-		expect(pendingSeen()).toBeNull();
-		expect(data.sent).toEqual([]);
+		expect(created).toEqual([null]);
+		expect(watched).toEqual(["t-new"]);
+		expect(result.output).toMatchObject({ created: true, where: "satyas-mbp" });
+		expect(result.ui).toEqual({
+			navigate: {
+				screen: "workspace",
+				workspaceId: "ws-scratch",
+				terminalId: "t-new",
+			},
+		});
 	});
 
-	test("restart refuses a host workspace without asking", async () => {
-		const { ctx, pendingSeen } = context(fakeData());
+	test("create_workspace with a project uses that project's checkout", async () => {
+		const created: Array<string | null> = [];
+		const base = fakeData();
+		const { ctx } = context({
+			...base,
+			createMachineWorkspace: async (input) => {
+				created.push(input.projectId);
+				return base.createMachineWorkspace(input);
+			},
+		});
+		const result = await executeTool(
+			"create_workspace",
+			{ prompt: "Fix the typo", project: "docs" },
+			ctx,
+		);
+		expect(created).toEqual(["proj-2"]);
+		expect(result.output).toMatchObject({ project: "docs" });
+	});
+
+	test("create_workspace in the cloud asks which environment when several exist", async () => {
+		const { ctx } = context(fakeData());
+		const result = await executeTool(
+			"create_workspace",
+			{ prompt: "Fix the login bug", cloud: true },
+			ctx,
+		);
+		expect(result.output).toMatchObject({
+			error: { kind: "ambiguous", environments: ["Superset", "Docs site"] },
+		});
+		expect(result.ui).toBeUndefined();
+	});
+
+	test("create_workspace in the cloud resolves a spoken environment", async () => {
+		const created: string[] = [];
+		const { ctx } = context(
+			fakeData({
+				createWorkspace: async (input) => {
+					created.push(`${input.environmentId}:${input.agent}:${input.prompt}`);
+					return { id: "ws-new", name: "Fix login" };
+				},
+			}),
+		);
+		const result = await executeTool(
+			"create_workspace",
+			{ prompt: "Fix the login bug", environment: "docs", cloud: true },
+			ctx,
+		);
+		expect(created).toEqual(["env-2:claude:Fix the login bug"]);
+		expect(result.ui).toEqual({
+			navigate: { screen: "workspace", workspaceId: "ws-new" },
+		});
+	});
+
+	test("start_agent opens the new session in its workspace", async () => {
+		const { ctx } = context(fakeData());
+		const result = await executeTool(
+			"start_agent",
+			{ workspace: "auth", prompt: "Add tests" },
+			ctx,
+		);
+		expect(result.output).toMatchObject({ started: true, session: "claude" });
+		expect(result.ui).toEqual({
+			navigate: {
+				screen: "workspace",
+				workspaceId: "ws-auth",
+				terminalId: "t-new",
+			},
+		});
+	});
+
+	test("stop_agent closes the most recent session", async () => {
+		const stopped: string[] = [];
+		const { ctx } = context(
+			fakeData({
+				stopSession: async (_workspace, session) => {
+					stopped.push(session.terminalId);
+				},
+			}),
+		);
+		const result = await executeTool("stop_agent", { workspace: "auth" }, ctx);
+		expect(stopped).toEqual(["t-claude"]);
+		expect(result.output).toMatchObject({ stopped: true, session: "claude" });
+	});
+
+	test("read_page reads the page on screen when none is named", async () => {
+		const { ctx } = context(fakeData(), "/pages/usage-v2");
+		const result = await executeTool("read_page", {}, ctx);
+		expect(result.output).toMatchObject({
+			page: { title: "Usage dashboard v2" },
+			text: "Usage is up 12% this week.",
+		});
+	});
+
+	test("read_page with nothing open and nothing named asks which", async () => {
+		const { ctx } = context(fakeData());
+		const result = await executeTool("read_page", {}, ctx);
+		expect(result.output).toMatchObject({ error: { kind: "invalid" } });
+	});
+
+	test("restart refuses a host workspace", async () => {
+		const { ctx } = context(fakeData());
 		const result = await executeTool(
 			"restart_workspace",
 			{ workspace: "dashboard" },
@@ -291,7 +407,6 @@ describe("executeTool", () => {
 		expect((result.output as { error: { kind: string } }).error.kind).toBe(
 			"invalid",
 		);
-		expect(pendingSeen()).toBeNull();
 	});
 
 	test("show resolves pages and workspaces into directives", async () => {
@@ -313,10 +428,11 @@ describe("executeTool", () => {
 		});
 	});
 
-	test("set_follow flips the flag", async () => {
-		const { ctx, follow } = context(fakeData());
-		await executeTool("set_follow", { on: false }, ctx);
-		expect(follow()).toBe(false);
+	test("end_session asks the session to end", async () => {
+		const { ctx, endRequests } = context(fakeData());
+		const result = await executeTool("end_session", {}, ctx);
+		expect(result.output).toEqual({ ending: true });
+		expect(endRequests()).toBe(1);
 	});
 
 	test("bad arguments and unknown tools answer with an error", async () => {
@@ -329,5 +445,20 @@ describe("executeTool", () => {
 		expect((unknown.output as { error: { kind: string } }).error.kind).toBe(
 			"unknown_tool",
 		);
+	});
+
+	test("a call that never answers fails as a timeout, not a hang", async () => {
+		const realSetTimeout = globalThis.setTimeout;
+		globalThis.setTimeout = ((fn: () => void) =>
+			realSetTimeout(fn, 0)) as typeof setTimeout;
+		try {
+			const { ctx } = context(
+				fakeData({ listWorkspaces: () => new Promise(() => {}) }),
+			);
+			const result = await executeTool("list_workspaces", {}, ctx);
+			expect(result.output).toMatchObject({ error: { kind: "timeout" } });
+		} finally {
+			globalThis.setTimeout = realSetTimeout;
+		}
 	});
 });

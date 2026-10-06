@@ -7,6 +7,7 @@ function fakeRouter() {
 		push: (href) => calls.push(`push ${href}`),
 		dismissTo: (href) => calls.push(`dismissTo ${href}`),
 		dismiss: () => calls.push("dismiss"),
+		setParams: (params) => calls.push(`setParams ${JSON.stringify(params)}`),
 	};
 	return { router, calls };
 }
@@ -30,6 +31,18 @@ describe("applyUiDirective", () => {
 		);
 		expect(moved).toBe(false);
 		expect(calls).toEqual([]);
+	});
+
+	test("switches the session tab when already in that workspace", () => {
+		const { router, calls } = fakeRouter();
+		const moved = applyUiDirective(
+			{
+				navigate: { screen: "workspace", workspaceId: "ws1", terminalId: "t2" },
+			},
+			{ router, pathname: "/workspace/ws1" },
+		);
+		expect(moved).toBe(true);
+		expect(calls).toEqual(['setParams {"tab":"t2"}']);
 	});
 
 	test("unwinds to home instead of pushing it", () => {

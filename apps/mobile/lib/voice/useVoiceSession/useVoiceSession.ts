@@ -14,14 +14,19 @@ import { isVoiceActive, useVoiceStore } from "../voiceStore";
 /** One session at a time, shared by the layer, the pill, and whatever starts it. */
 let current: VoiceSessionController | null = null;
 let currentPathname = "/";
+// A push issued while a sheet is still animating out lands inside the sheet.
+const SHEET_DISMISS_MS = 450;
+let sheetDismissedAt = 0;
 
 export interface VoiceSessionHandle {
 	start: () => Promise<void>;
 	end: () => void;
 	toggleMute: () => void;
 	interrupt: () => void;
-	confirmPending: () => Promise<void>;
-	cancelPending: () => void;
+	applyLiveSettings: () => void;
+	restart: () => void;
+	sayText: (text: string) => void;
+	setMuted: (muted: boolean) => void;
 }
 
 export function useVoiceSession(): VoiceSessionHandle {
@@ -41,19 +46,33 @@ export function useVoiceSession(): VoiceSessionHandle {
 	const start = useCallback(async () => {
 		if (!organizationId || !userId) return;
 		if (current && isVoiceActive(useVoiceStore.getState().status)) {
-			useVoiceStore.getState().setExpanded(true);
 			return;
 		}
 		const controller = new VoiceSessionController({
 			store: useVoiceStore,
 			levels: useVoiceLevelsStore,
 			data: createVoiceData({ organizationId, userId, queryClient }),
-			mint: () => apiClient.voice.createSession.mutate(),
+			mint: () => {
+				const { voice, reasoningEffort, speed } = useVoiceStore.getState();
+				return apiClient.voice.createSession.mutate({
+					voice,
+					reasoningEffort,
+					speed,
+				});
+			},
 			createTransport: () => new WebRtcTransport(),
 			router: {
-				push: (href) => router.push(href as never),
+				push: (href) => {
+					const wait = sheetDismissedAt + SHEET_DISMISS_MS - Date.now();
+					if (wait > 0) setTimeout(() => router.push(href as never), wait);
+					else router.push(href as never);
+				},
 				dismissTo: (href) => router.dismissTo(href as never),
-				dismiss: () => router.dismiss(),
+				setParams: (params) => router.setParams(params as never),
+				dismiss: () => {
+					sheetDismissedAt = Date.now();
+					router.dismiss();
+				},
 			},
 			getPathname: () => currentPathname,
 			onRealtimeNudge,
@@ -74,11 +93,23 @@ export function useVoiceSession(): VoiceSessionHandle {
 	}, []);
 
 	const interrupt = useCallback(() => current?.interrupt(), []);
-	const confirmPending = useCallback(
-		() => current?.confirmPending() ?? Promise.resolve(),
+
+	const applyLiveSettings = useCallback(() => current?.applyLiveSettings(), []);
+	const restart = useCallback(() => void current?.restart(), []);
+	const setMuted = useCallback(
+		(muted: boolean) => current?.setMuted(muted),
 		[],
 	);
-	const cancelPending = useCallback(() => current?.cancelPending(), []);
+	const sayText = useCallback((text: string) => current?.sayText(text), []);
 
-	return { start, end, toggleMute, interrupt, confirmPending, cancelPending };
+	return {
+		start,
+		end,
+		toggleMute,
+		interrupt,
+		applyLiveSettings,
+		restart,
+		sayText,
+		setMuted,
+	};
 }

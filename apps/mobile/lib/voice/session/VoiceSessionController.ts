@@ -10,7 +10,6 @@ import {
 } from "../applyUiDirective/applyUiDirective";
 import { RealtimeClient, type ToolCallRequest } from "../client/RealtimeClient";
 import { describeScreen } from "../screenContext";
-import { PendingActions } from "../tools/confirmations";
 import { executeTool, toolSubject } from "../tools/executeTool";
 import type { VoiceData, VoiceWorkspace } from "../tools/types";
 import type { RealtimeTransport } from "../transport/RealtimeTransport";
@@ -24,6 +23,12 @@ const RECONNECT_BACKOFF_MS = [500, 1_500, 4_000];
 const SCREEN_CONTEXT_THROTTLE_MS = 1_500;
 /** Keep the model's memory of a dropped session to what still matters. */
 const HISTORY_SEED_ENTRIES = 12;
+const WATCH_INTERVAL_MS = 6_000;
+/** A launch reads as finished for a moment before the agent starts working. */
+const WATCH_SETTLE_MS = 15_000;
+const WATCH_OUTPUT_CHARS = 1_200;
+/** A goodbye that never plays must not keep the microphone open. */
+const END_REQUEST_FALLBACK_MS = 6_000;
 
 export interface VoiceSessionDeps {
 	store: VoiceStoreApi;
@@ -48,18 +53,21 @@ export interface VoiceSessionDeps {
 export class VoiceSessionController {
 	private transport: RealtimeTransport | null = null;
 	private client: RealtimeClient | null = null;
-	private readonly pending: PendingActions;
 	private readonly knownWorkspaces = new Map<string, VoiceWorkspace>();
 	private readonly cleanups: Array<() => void> = [];
 	private levelsTimer: ReturnType<typeof setInterval> | null = null;
+	private watchTimer: ReturnType<typeof setInterval> | null = null;
+	private readonly watched = new Map<
+		string,
+		{ workspace: VoiceWorkspace; since: number; sawWorking: boolean }
+	>();
 	private lastScreen: { pathname: string; at: number } | null = null;
 	private ended = false;
+	private endRequested = false;
+	private reconnecting = false;
+	private endTimer: ReturnType<typeof setTimeout> | null = null;
 
-	constructor(private readonly deps: VoiceSessionDeps) {
-		this.pending = new PendingActions(deps.newId, deps.now, (action) =>
-			deps.store.getState().setPendingAction(action),
-		);
-	}
+	constructor(private readonly deps: VoiceSessionDeps) {}
 
 	async start(): Promise<void> {
 		const store = this.deps.store.getState();
@@ -88,12 +96,14 @@ export class VoiceSessionController {
 		if (this.ended) return;
 		this.ended = true;
 		if (this.levelsTimer) clearInterval(this.levelsTimer);
+		if (this.watchTimer) clearInterval(this.watchTimer);
+		this.watched.clear();
+		if (this.endTimer) clearTimeout(this.endTimer);
 		for (const cleanup of this.cleanups.splice(0)) cleanup();
 		this.client?.stop();
 		this.transport?.close();
 		this.client = null;
 		this.transport = null;
-		this.pending.cancelCurrent();
 		this.deps.levels.getState().set({ input: 0, output: 0 });
 		this.deps.store.getState().setStatus("ended");
 	}
@@ -107,25 +117,25 @@ export class VoiceSessionController {
 		this.client?.interrupt();
 	}
 
-	/** The on-screen Approve button. The model is told, so it can say "sent". */
-	async confirmPending(): Promise<void> {
-		const result = await this.pending.confirmCurrent();
-		if (!result) return;
-		this.applyDirective(result.ui, true);
-		this.client?.addContext(
-			voiceContextMessage(
-				`The user approved the pending action on screen. Result: ${JSON.stringify(result.output)}`,
-			),
-			true,
-		);
+	sayText(text: string): void {
+		this.deps.store
+			.getState()
+			.upsertSpeech(this.deps.newId(), "user", text, true);
+		this.client?.sayText(text);
 	}
 
-	cancelPending(): void {
-		if (!this.pending.cancelCurrent()) return;
-		this.client?.addContext(
-			voiceContextMessage("The user cancelled the pending action on screen."),
-			true,
-		);
+	/** Reasoning and speed change mid-call; the next reply uses them. */
+	applyLiveSettings(): void {
+		const { reasoningEffort, speed } = this.deps.store.getState();
+		this.client?.updateSession({
+			reasoning: { effort: reasoningEffort },
+			audio: { output: { speed } },
+		});
+	}
+
+	/** A voice is fixed once it has spoken, so a new one needs a new session. */
+	restart(): Promise<void> {
+		return this.reconnect();
 	}
 
 	/** Called by the layer on every route change. */
@@ -152,7 +162,12 @@ export class VoiceSessionController {
 		const transport = this.deps.createTransport();
 		const client = new RealtimeClient(transport, {
 			onStatus: (status) => {
-				if (!this.ended) this.deps.store.getState().setStatus(status);
+				if (this.ended) return;
+				if (this.endRequested && status === "listening") {
+					this.end();
+					return;
+				}
+				this.deps.store.getState().setStatus(status);
 			},
 			onUserTranscript: (id, text, final) =>
 				this.deps.store.getState().upsertSpeech(id, "user", text, final),
@@ -178,6 +193,16 @@ export class VoiceSessionController {
 	}
 
 	private async reconnect(): Promise<void> {
+		if (this.reconnecting || this.ended) return;
+		this.reconnecting = true;
+		try {
+			await this.reconnectOnce();
+		} finally {
+			this.reconnecting = false;
+		}
+	}
+
+	private async reconnectOnce(): Promise<void> {
 		const store = this.deps.store.getState();
 		store.setStatus("reconnecting");
 		this.client?.stop();
@@ -228,30 +253,104 @@ export class VoiceSessionController {
 	private async onToolCall(call: ToolCallRequest): Promise<VoiceToolResult> {
 		const store = this.deps.store.getState();
 		const rowId = this.deps.newId();
-		store.addTool(rowId, call.name, toolSubject(call.name, call.args));
+		store.addTool(rowId, call.name, toolSubject(call.args));
 		const data = this.trackingData();
 		const result = await executeTool(call.name, call.args, {
 			data,
-			pending: this.pending,
 			now: this.deps.now,
-			follow: {
-				get: () => this.deps.store.getState().follow,
-				set: (on) => this.deps.store.getState().setFollow(on),
-			},
+			endSession: () => this.requestEnd(),
+			getPathname: this.deps.getPathname,
+			watchSession: (workspace, terminalId) =>
+				this.watchSession(workspace, terminalId),
 		});
 		const failed =
 			typeof result.output === "object" &&
 			result.output !== null &&
 			"error" in result.output;
 		store.settleTool(rowId, failed ? "failed" : "done");
-		this.applyDirective(result.ui, call.name === "show");
+		if (typeof __DEV__ !== "undefined" && __DEV__) {
+			console.log(
+				"VOICETOOL",
+				JSON.stringify({
+					name: call.name,
+					args: call.args,
+					output: result.output,
+					ui: result.ui,
+					pathname: this.deps.getPathname(),
+				}).slice(0, 1500),
+			);
+		}
+		this.applyDirective(result.ui);
 		return result;
 	}
 
-	private applyDirective(
-		directive: VoiceUiDirective | undefined,
-		always: boolean,
-	) {
+	private watchSession(workspace: VoiceWorkspace, terminalId: string): void {
+		this.knownWorkspaces.set(workspace.id, workspace);
+		this.watched.set(terminalId, {
+			workspace,
+			since: this.deps.now(),
+			sawWorking: false,
+		});
+		this.watchTimer ??= setInterval(
+			() => void this.checkWatched(),
+			WATCH_INTERVAL_MS,
+		);
+	}
+
+	/** Tells the model when an agent it started finishes, fails or needs the user. */
+	async checkWatched(): Promise<void> {
+		for (const [terminalId, entry] of [...this.watched]) {
+			const sessions = await this.deps.data
+				.listSessions(entry.workspace)
+				.catch(() => null);
+			if (this.ended) return;
+			if (!sessions) continue;
+			const session = sessions.find((row) => row.terminalId === terminalId);
+			if (!session) {
+				this.watched.delete(terminalId);
+				continue;
+			}
+			if (session.attention === "working") {
+				entry.sawWorking = true;
+				continue;
+			}
+			const settled =
+				entry.sawWorking || this.deps.now() - entry.since > WATCH_SETTLE_MS;
+			if (!session.attention || !settled) continue;
+			this.watched.delete(terminalId);
+			const words =
+				session.attention === "review"
+					? "finished"
+					: session.attention === "permission"
+						? "is waiting for permission"
+						: "failed";
+			const output = await this.deps.data
+				.readTranscript(entry.workspace, session, WATCH_OUTPUT_CHARS)
+				.catch(() => "");
+			if (this.ended) return;
+			this.client?.addContext(
+				voiceContextMessage(
+					`The agent you started (session "${session.title}") ${words}. Tell the user the result in one or two sentences.${
+						output ? ` Its output ends:\n${output}` : ""
+					}`,
+				),
+				true,
+			);
+		}
+		if (this.watched.size === 0 && this.watchTimer) {
+			clearInterval(this.watchTimer);
+			this.watchTimer = null;
+		}
+	}
+
+	/** Ends once the goodbye has played, so the model is not cut off mid-word. */
+	private requestEnd(): void {
+		if (this.endRequested) return;
+		this.endRequested = true;
+		this.endTimer = setTimeout(() => this.end(), END_REQUEST_FALLBACK_MS);
+	}
+
+	private applyDirective(directive: VoiceUiDirective | undefined) {
 		if (!directive?.navigate) return;
 		const state = this.deps.store.getState();
 		const target = directive.navigate;
@@ -262,12 +361,10 @@ export class VoiceSessionController {
 		} else if (target.screen === "home") {
 			state.setFocusLabel(null);
 		}
-		if (!always && !state.follow) return;
-		const moved = applyUiDirective(directive, {
+		applyUiDirective(directive, {
 			router: this.deps.router,
 			pathname: this.deps.getPathname(),
 		});
-		if (moved && state.expanded) state.setExpanded(false);
 	}
 
 	/** Remembers names as they stream past so screens and nudges can be worded. */

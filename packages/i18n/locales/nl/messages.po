@@ -5182,6 +5182,12 @@ msgstr "aanmaken"
 msgid "Creating"
 msgstr "Aanmaken"
 
+msgid "Creating a task"
+msgstr "Taak wordt aangemaakt"
+
+msgid "Creating a workspace"
+msgstr "Werkruimte wordt aangemaakt"
+
 msgid "Creating PR..."
 msgstr "PR wordt aangemaakt…"
 
@@ -5926,9 +5932,6 @@ msgstr "Docs"
 msgid "Documentation"
 msgstr "Documentatie"
 
-msgid "Doing it"
-msgstr "Bezig"
-
 msgid "Don't ask again"
 msgstr "Niet meer vragen"
 
@@ -6295,6 +6298,9 @@ msgstr "Spraaksessie beëindigen"
 msgid "Ended"
 msgstr "Beëindigd"
 
+msgid "Ending the call"
+msgstr "Gesprek wordt beëindigd"
+
 msgid "Engineering deep-dives and launches."
 msgstr "Technische verdiepingen en lanceringen."
 
@@ -6543,6 +6549,9 @@ msgstr "Externe editor"
 
 msgid "extra ${used} of ${limit}"
 msgstr "extra ${used} van ${limit}"
+
+msgid "Extra high"
+msgstr "Zeer hoog"
 
 msgid "Extra small"
 msgstr "Extra klein"
@@ -7331,20 +7340,11 @@ msgstr "Mapweergave"
 msgid "Folders to check out into new worktrees, one per line, relative to the repo root. Files at the root are always included. Empty checks out everything."
 msgstr "Mappen die in nieuwe worktrees worden uitgecheckt, één per regel, relatief aan de repo-root. Bestanden in de root worden altijd meegenomen. Leeg checkt alles uit."
 
-msgid "Follow"
-msgstr "Volgen"
-
-msgid "Follow mode"
-msgstr "Volgmodus"
-
 msgid "FOLLOW ON X"
 msgstr "VOLG ONS OP X"
 
 msgid "Follow terminal sessions live"
 msgstr "Volg terminalsessies live"
-
-msgid "Follow the conversation"
-msgstr "Het gesprek volgen"
 
 msgid "FOLLOW US"
 msgstr "VOLG ONS"
@@ -9253,6 +9253,9 @@ msgstr "Tooltip met alleen de sneltoets bij lang hoveren; de chipstijl is nu de 
 msgid "Looking at {what}"
 msgstr "{what} bekijken"
 
+msgid "Looking at tasks"
+msgstr "Taken worden bekeken"
+
 msgid "Looking for a mobile simulator…"
 msgstr "Zoeken naar een mobiele simulator…"
 
@@ -9578,6 +9581,9 @@ msgctxt "workspaces I created"
 msgid "Mine"
 msgstr "Mijn"
 
+msgid "Minimal"
+msgstr "Minimaal"
+
 msgid "Minimal reasoning effort"
 msgstr "Minimale redeneerinspanning"
 
@@ -9586,9 +9592,6 @@ msgstr "Minimaliseren"
 
 msgid "Minimize GitHub issues"
 msgstr "GitHub-issues minimaliseren"
-
-msgid "Minimize voice"
-msgstr "Spraak minimaliseren"
 
 msgid "Minimum contrast"
 msgstr "Minimumcontrast"
@@ -9905,9 +9908,6 @@ msgstr "Netwerk gewijzigd"
 
 msgid "Never"
 msgstr "Nooit"
-
-msgid "Never mind"
-msgstr "Laat maar"
 
 msgctxt "badge on a page published since the menu was last opened"
 msgid "New"
@@ -11506,9 +11506,6 @@ msgstr "Opties"
 msgid "Or ask your coding agent to install the Superset CLI."
 msgstr "Of vraag je coding agent om de Superset-CLI te installeren."
 
-msgid "or just say yes"
-msgstr "of zeg gewoon \"ja\""
-
 msgid "Orange"
 msgstr "Oranje"
 
@@ -12166,12 +12163,6 @@ msgstr "Prefix"
 msgid "Preparing"
 msgstr "Voorbereiden"
 
-msgid "Preparing a message for {what}"
-msgstr "Bericht voor {what} voorbereiden"
-
-msgid "Preparing to restart {what}"
-msgstr "Herstart van {what} voorbereiden"
-
 msgid "Preserve commit history"
 msgstr "Commitgeschiedenis behouden"
 
@@ -12671,6 +12662,9 @@ msgstr "Lees de installatiegids"
 
 msgid "Reading {what}"
 msgstr "{what} lezen"
+
+msgid "Reading the page"
+msgstr "Pagina wordt gelezen"
 
 msgid "Reading usage…"
 msgstr "Gebruik wordt gelezen…"
@@ -13280,9 +13274,6 @@ msgstr "Response"
 msgid "Restart"
 msgstr "Opnieuw starten"
 
-msgid "Restart {target}"
-msgstr "{target} herstarten"
-
 msgid "Restart all terminals?"
 msgstr "Alle terminals herstarten?"
 
@@ -13330,6 +13321,9 @@ msgstr "1 hostservice herstart"
 
 msgid "Restarting"
 msgstr "Opnieuw starten"
+
+msgid "Restarting {what}"
+msgstr "{what} wordt opnieuw gestart"
 
 msgid "Restarting agents on {accountLabel}."
 msgstr "Agents worden herstart op {accountLabel}."
@@ -14268,9 +14262,6 @@ msgstr "Review versturen"
 msgid "Send to"
 msgstr "Sturen naar"
 
-msgid "Send to {target}"
-msgstr "Verzenden naar {target}"
-
 msgid "Send to agent"
 msgstr "Naar agent sturen"
 
@@ -14282,6 +14273,9 @@ msgstr "Naar chat sturen ({draftCount})"
 
 msgid "Sending"
 msgstr "Versturen"
+
+msgid "Sending a message to {what}"
+msgstr "Bericht wordt verzonden naar {what}"
 
 msgid "Sending..."
 msgstr "Versturen..."
@@ -14988,6 +14982,9 @@ msgstr "Spreekt"
 msgid "Specific"
 msgstr "Specifiek"
 
+msgid "Speed"
+msgstr "Snelheid"
+
 msgid "Spend"
 msgstr "Uitgaven"
 
@@ -15221,6 +15218,9 @@ msgstr "Starten"
 msgid "Starting {agentLabel}"
 msgstr "{agentLabel} starten"
 
+msgid "Starting an agent in {what}"
+msgstr "Agent wordt gestart in {what}"
+
 msgid "Starting cloud workspace"
 msgstr "Cloudwerkruimte starten"
 
@@ -15311,6 +15311,9 @@ msgstr "Run-commando van werkruimte stoppen"
 
 msgid "stopped"
 msgstr "gestopt"
+
+msgid "Stopping the agent in {what}"
+msgstr "Agent in {what} wordt gestopt"
 
 msgid "Strikethrough"
 msgstr "Doorhalen"
@@ -17653,6 +17656,9 @@ msgstr "Bezoekers van wie de sessie begon op een link die een assistent gaf. Dit
 msgid "Voice"
 msgstr "Spraak"
 
+msgid "Voice settings"
+msgstr "Spraakinstellingen"
+
 msgid "Volume"
 msgstr "Volume"
 
@@ -17684,9 +17690,6 @@ msgstr "Wachten op het eerste bericht van de subagent…"
 
 msgid "Waiting for your input"
 msgstr "Wacht op je invoer"
-
-msgid "Waiting for your OK"
-msgstr "Wacht op je akkoord"
 
 msgid "Waitlist signups"
 msgstr "Wachtlijstaanmeldingen"

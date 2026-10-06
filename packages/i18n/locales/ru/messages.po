@@ -5182,6 +5182,12 @@ msgstr "создаётся"
 msgid "Creating"
 msgstr "Создание"
 
+msgid "Creating a task"
+msgstr "Создание задачи"
+
+msgid "Creating a workspace"
+msgstr "Создание рабочего пространства"
+
 msgid "Creating PR..."
 msgstr "Создание PR…"
 
@@ -5926,9 +5932,6 @@ msgstr "Документация"
 msgid "Documentation"
 msgstr "Документация"
 
-msgid "Doing it"
-msgstr "Выполняю"
-
 msgid "Don't ask again"
 msgstr "Больше не спрашивать"
 
@@ -6295,6 +6298,9 @@ msgstr "Завершить голосовую сессию"
 msgid "Ended"
 msgstr "Завершено"
 
+msgid "Ending the call"
+msgstr "Завершение звонка"
+
 msgid "Engineering deep-dives and launches."
 msgstr "Инженерные разборы и запуски."
 
@@ -6543,6 +6549,9 @@ msgstr "Внешний редактор"
 
 msgid "extra ${used} of ${limit}"
 msgstr "сверх лимита ${used} из ${limit}"
+
+msgid "Extra high"
+msgstr "Очень высокий"
 
 msgid "Extra small"
 msgstr "Очень маленький"
@@ -7331,20 +7340,11 @@ msgstr "Вид папок"
 msgid "Folders to check out into new worktrees, one per line, relative to the repo root. Files at the root are always included. Empty checks out everything."
 msgstr "Папки для выгрузки в новые worktree, по одной в строке, относительно корня репозитория. Файлы в корне включаются всегда. Пусто — выгружается всё."
 
-msgid "Follow"
-msgstr "Следовать"
-
-msgid "Follow mode"
-msgstr "Режим следования"
-
 msgid "FOLLOW ON X"
 msgstr "ПОДПИСАТЬСЯ В X"
 
 msgid "Follow terminal sessions live"
 msgstr "Следите за сеансами терминала в реальном времени"
-
-msgid "Follow the conversation"
-msgstr "Следовать за разговором"
 
 msgid "FOLLOW US"
 msgstr "ПОДПИСАТЬСЯ"
@@ -9253,6 +9253,9 @@ msgstr "Подсказка только с сочетанием клавиш п�
 msgid "Looking at {what}"
 msgstr "Смотрю {what}"
 
+msgid "Looking at tasks"
+msgstr "Просмотр задач"
+
 msgid "Looking for a mobile simulator…"
 msgstr "Поиск мобильного симулятора…"
 
@@ -9578,6 +9581,9 @@ msgctxt "workspaces I created"
 msgid "Mine"
 msgstr "Мои"
 
+msgid "Minimal"
+msgstr "Минимальный"
+
 msgid "Minimal reasoning effort"
 msgstr "Минимальные рассуждения"
 
@@ -9586,9 +9592,6 @@ msgstr "Свернуть"
 
 msgid "Minimize GitHub issues"
 msgstr "Свернуть задачи GitHub"
-
-msgid "Minimize voice"
-msgstr "Свернуть голос"
 
 msgid "Minimum contrast"
 msgstr "Минимальный контраст"
@@ -9905,9 +9908,6 @@ msgstr "Сеть изменилась"
 
 msgid "Never"
 msgstr "Никогда"
-
-msgid "Never mind"
-msgstr "Отменено"
 
 msgctxt "badge on a page published since the menu was last opened"
 msgid "New"
@@ -11506,9 +11506,6 @@ msgstr "Параметры"
 msgid "Or ask your coding agent to install the Superset CLI."
 msgstr "Или попросите своего кодового агента установить CLI Superset."
 
-msgid "or just say yes"
-msgstr "или просто скажите «да»"
-
 msgid "Orange"
 msgstr "Оранжевый"
 
@@ -12166,12 +12163,6 @@ msgstr "Префикс"
 msgid "Preparing"
 msgstr "Подготовка"
 
-msgid "Preparing a message for {what}"
-msgstr "Готовлю сообщение для {what}"
-
-msgid "Preparing to restart {what}"
-msgstr "Готовлю перезапуск {what}"
-
 msgid "Preserve commit history"
 msgstr "Сохранить историю коммитов"
 
@@ -12671,6 +12662,9 @@ msgstr "Читать руководство по настройке"
 
 msgid "Reading {what}"
 msgstr "Читаю {what}"
+
+msgid "Reading the page"
+msgstr "Чтение страницы"
 
 msgid "Reading usage…"
 msgstr "Чтение данных об использовании…"
@@ -13280,9 +13274,6 @@ msgstr "Ответ"
 msgid "Restart"
 msgstr "Перезапустить"
 
-msgid "Restart {target}"
-msgstr "Перезапустить {target}"
-
 msgid "Restart all terminals?"
 msgstr "Перезапустить все терминалы?"
 
@@ -13330,6 +13321,9 @@ msgstr "Перезапущена 1 служба хоста"
 
 msgid "Restarting"
 msgstr "Перезапуск"
+
+msgid "Restarting {what}"
+msgstr "Перезапуск {what}"
 
 msgid "Restarting agents on {accountLabel}."
 msgstr "Перезапускаем агентов на {accountLabel}."
@@ -14268,9 +14262,6 @@ msgstr "Отправить ревью"
 msgid "Send to"
 msgstr "Кому отправить"
 
-msgid "Send to {target}"
-msgstr "Отправить в {target}"
-
 msgid "Send to agent"
 msgstr "Отправить агенту"
 
@@ -14282,6 +14273,9 @@ msgstr "Отправить в чат ({draftCount})"
 
 msgid "Sending"
 msgstr "Отправка"
+
+msgid "Sending a message to {what}"
+msgstr "Отправка сообщения в {what}"
 
 msgid "Sending..."
 msgstr "Отправка..."
@@ -14988,6 +14982,9 @@ msgstr "Говорю"
 msgid "Specific"
 msgstr "Определённые"
 
+msgid "Speed"
+msgstr "Скорость"
+
 msgid "Spend"
 msgstr "Расходы"
 
@@ -15221,6 +15218,9 @@ msgstr "Запуск"
 msgid "Starting {agentLabel}"
 msgstr "Запуск {agentLabel}"
 
+msgid "Starting an agent in {what}"
+msgstr "Запуск агента в {what}"
+
 msgid "Starting cloud workspace"
 msgstr "Запуск облачной рабочей области"
 
@@ -15311,6 +15311,9 @@ msgstr "Остановить команду запуска рабочей обл
 
 msgid "stopped"
 msgstr "остановлена"
+
+msgid "Stopping the agent in {what}"
+msgstr "Остановка агента в {what}"
 
 msgid "Strikethrough"
 msgstr "Зачёркнутый"
@@ -17653,6 +17656,9 @@ msgstr "Посетители, чья сессия началась по ссыл
 msgid "Voice"
 msgstr "Голос"
 
+msgid "Voice settings"
+msgstr "Настройки голоса"
+
 msgid "Volume"
 msgstr "Громкость"
 
@@ -17684,9 +17690,6 @@ msgstr "Ожидание первого сообщения субагента…
 
 msgid "Waiting for your input"
 msgstr "Ждёт вашего ответа"
-
-msgid "Waiting for your OK"
-msgstr "Жду вашего подтверждения"
 
 msgid "Waitlist signups"
 msgstr "Записи в лист ожидания"

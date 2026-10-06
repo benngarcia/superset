@@ -42,6 +42,10 @@ export interface RealtimeResponseDone {
 	response: {
 		id: string;
 		status: "completed" | "cancelled" | "failed" | "incomplete" | string;
+		status_details?: {
+			type?: string;
+			error?: { code?: string; message?: string };
+		};
 		output?: Array<{ type: string; call_id?: string; name?: string }>;
 	};
 }

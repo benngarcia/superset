@@ -87,6 +87,26 @@ const data: VoiceData = {
 	listPages: async () => [],
 	findPage: async () => null,
 	restartWorkspace: async () => {},
+	readPage: async () => "",
+	listEnvironments: async () => [
+		{ id: "env-1", name: "Superset" },
+		{ id: "env-2", name: "Docs site" },
+	],
+	createWorkspace: async () => ({ id: "ws-new", name: "Fix login" }),
+	listMachines: async () => [],
+	createMachineWorkspace: async () => {
+		throw new Error("unused");
+	},
+	startAgent: async () => ({ terminalId: "t-new", label: "claude" }),
+	stopSession: async () => {},
+	createTask: async (input) => ({
+		key: "SUP-1",
+		title: input.title,
+		status: null,
+		priority: input.priority,
+		assignee: null,
+	}),
+	listTasks: async () => [],
 };
 
 function build(options: { failConnect?: boolean; pathname?: string } = {}) {
@@ -112,6 +132,7 @@ function build(options: { failConnect?: boolean; pathname?: string } = {}) {
 			},
 			dismissTo: (href) => routes.push(`dismissTo ${href}`),
 			dismiss: () => routes.push("dismiss"),
+			setParams: (params) => routes.push(`setParams ${JSON.stringify(params)}`),
 		},
 		getPathname: () => pathname,
 		onRealtimeNudge: (listener) => {
@@ -130,16 +151,14 @@ const flush = () => new Promise((resolve) => setTimeout(resolve, 0));
 
 beforeEach(() => {
 	useVoiceStore.getState().reset();
-	useVoiceStore.getState().setFollow(true);
 });
 
 describe("VoiceSessionController", () => {
-	test("start mints, connects, and lands in listening with the layer expanded", async () => {
+	test("start mints, connects, and lands in listening", async () => {
 		const { controller, transports } = build();
 		await controller.start();
 		const state = useVoiceStore.getState();
 		expect(state.status).toBe("listening");
-		expect(state.expanded).toBe(true);
 		expect(transports).toHaveLength(1);
 		// The first thing the model hears is where the user is.
 		expect(transports[0]?.sent[0]).toMatchObject({
@@ -159,7 +178,7 @@ describe("VoiceSessionController", () => {
 		expect(state.error).toBe("no network");
 	});
 
-	test("a tool call is logged, executed, and moves the app when following", async () => {
+	test("a tool call is logged, executed, and moves the app", async () => {
 		const { controller, transports, routes } = build();
 		await controller.start();
 		const transport = transports[0] as FakeTransport;
@@ -187,7 +206,6 @@ describe("VoiceSessionController", () => {
 			status: "done",
 		});
 		expect(routes).toEqual(["push /(authenticated)/workspace/ws-auth"]);
-		expect(state.expanded).toBe(false);
 		expect(state.focusLabel).toBe("auth-refactor");
 		const output = transport.sent.find(
 			(event) =>
@@ -195,37 +213,6 @@ describe("VoiceSessionController", () => {
 				event.item.type === "function_call_output",
 		);
 		expect(output).toBeDefined();
-		controller.end();
-	});
-
-	test("with follow off, only an explicit show navigates", async () => {
-		const { controller, transports, routes } = build();
-		await controller.start();
-		useVoiceStore.getState().setFollow(false);
-		const transport = transports[0] as FakeTransport;
-		const call = (name: string, args: object, id: string) => {
-			transport.emit({ type: "response.created", response: { id } });
-			transport.emit({
-				type: "response.function_call_arguments.done",
-				response_id: id,
-				item_id: `${id}-item`,
-				call_id: `${id}-call`,
-				name,
-				arguments: JSON.stringify(args),
-			});
-			transport.emit({
-				type: "response.done",
-				response: { id, status: "completed" },
-			});
-		};
-		call("get_workspace", { query: "auth" }, "r1");
-		await flush();
-		await flush();
-		expect(routes).toEqual([]);
-		call("show", { screen: "workspace", workspace: "auth" }, "r2");
-		await flush();
-		await flush();
-		expect(routes).toEqual(["push /(authenticated)/workspace/ws-auth"]);
 		controller.end();
 	});
 
@@ -262,5 +249,64 @@ describe("VoiceSessionController", () => {
 		await new Promise((resolve) => setTimeout(resolve, 600));
 		expect((transports[1] as FakeTransport).muted).toBe(true);
 		controller.end();
+	});
+
+	test("speaks up when an agent it started finishes", async () => {
+		const { controller, transports } = build();
+		await controller.start();
+		const transport = transports[0] as FakeTransport;
+		transport.emit({ type: "response.created", response: { id: "r1" } });
+		transport.emit({
+			type: "response.function_call_arguments.done",
+			response_id: "r1",
+			item_id: "i1",
+			call_id: "c1",
+			name: "start_agent",
+			arguments: JSON.stringify({ workspace: "auth", prompt: "Add tests" }),
+		});
+		transport.emit({
+			type: "response.done",
+			response: { id: "r1", status: "completed" },
+		});
+		await flush();
+		await flush();
+
+		const original = data.listSessions;
+		const session = (attention: "working" | "review") => [
+			{
+				terminalId: "t-new",
+				workspaceId: "ws-auth",
+				title: "claude",
+				agentId: "claude",
+				attention,
+				lastEventAt: 1,
+				createdAt: 1,
+			},
+		];
+		try {
+			const before = transport.sent.length;
+			data.listSessions = async () => session("working");
+			await controller.checkWatched();
+			expect(transport.sent.length).toBe(before);
+
+			data.listSessions = async () => session("review");
+			await controller.checkWatched();
+			const told = transport.sent
+				.slice(before)
+				.find(
+					(event) =>
+						event.type === "conversation.item.create" &&
+						event.item.type === "message" &&
+						event.item.content[0]?.text.includes('(session "claude") finished'),
+				);
+			expect(told).toBeDefined();
+
+			const after = transport.sent.length;
+			await controller.checkWatched();
+			expect(transport.sent.length).toBe(after);
+		} finally {
+			data.listSessions = original;
+			controller.end();
+		}
 	});
 });

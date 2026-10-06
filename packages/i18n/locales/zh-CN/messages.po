@@ -5182,6 +5182,12 @@ msgstr "创建中"
 msgid "Creating"
 msgstr "创建中"
 
+msgid "Creating a task"
+msgstr "正在创建任务"
+
+msgid "Creating a workspace"
+msgstr "正在创建工作区"
+
 msgid "Creating PR..."
 msgstr "正在创建PR…"
 
@@ -5926,9 +5932,6 @@ msgstr "文档"
 msgid "Documentation"
 msgstr "文档"
 
-msgid "Doing it"
-msgstr "正在执行"
-
 msgid "Don't ask again"
 msgstr "不再询问"
 
@@ -6295,6 +6298,9 @@ msgstr "结束语音会话"
 msgid "Ended"
 msgstr "已结束"
 
+msgid "Ending the call"
+msgstr "正在结束通话"
+
 msgid "Engineering deep-dives and launches."
 msgstr "工程深度文章与新功能发布。"
 
@@ -6543,6 +6549,9 @@ msgstr "外部编辑器"
 
 msgid "extra ${used} of ${limit}"
 msgstr "额外用量${used}/${limit}"
+
+msgid "Extra high"
+msgstr "极高"
 
 msgid "Extra small"
 msgstr "超小"
@@ -7331,20 +7340,11 @@ msgstr "文件夹视图"
 msgid "Folders to check out into new worktrees, one per line, relative to the repo root. Files at the root are always included. Empty checks out everything."
 msgstr "要检出到新worktree的文件夹，每行一个，相对于仓库根目录。根目录下的文件始终包含在内。留空则检出全部。"
 
-msgid "Follow"
-msgstr "跟随"
-
-msgid "Follow mode"
-msgstr "跟随模式"
-
 msgid "FOLLOW ON X"
 msgstr "在X上关注"
 
 msgid "Follow terminal sessions live"
 msgstr "实时跟进终端会话"
-
-msgid "Follow the conversation"
-msgstr "跟随对话"
 
 msgid "FOLLOW US"
 msgstr "关注我们"
@@ -9253,6 +9253,9 @@ msgstr "长时间悬停才出现、只显示快捷键的tooltip；它的chip样�
 msgid "Looking at {what}"
 msgstr "正在查看 {what}"
 
+msgid "Looking at tasks"
+msgstr "正在查看任务"
+
 msgid "Looking for a mobile simulator…"
 msgstr "正在查找移动模拟器…"
 
@@ -9578,6 +9581,9 @@ msgctxt "workspaces I created"
 msgid "Mine"
 msgstr "我的"
 
+msgid "Minimal"
+msgstr "最低"
+
 msgid "Minimal reasoning effort"
 msgstr "最少的推理投入"
 
@@ -9586,9 +9592,6 @@ msgstr "最小化"
 
 msgid "Minimize GitHub issues"
 msgstr "最小化GitHub议题"
-
-msgid "Minimize voice"
-msgstr "最小化语音"
 
 msgid "Minimum contrast"
 msgstr "最小对比度"
@@ -9905,9 +9908,6 @@ msgstr "网络已变更"
 
 msgid "Never"
 msgstr "从未"
-
-msgid "Never mind"
-msgstr "已取消"
 
 msgctxt "badge on a page published since the menu was last opened"
 msgid "New"
@@ -11506,9 +11506,6 @@ msgstr "选项"
 msgid "Or ask your coding agent to install the Superset CLI."
 msgstr "或者让你的编码智能体安装Superset CLI。"
 
-msgid "or just say yes"
-msgstr "或者直接说“好”"
-
 msgid "Orange"
 msgstr "橙色"
 
@@ -12166,12 +12163,6 @@ msgstr "前缀"
 msgid "Preparing"
 msgstr "正在准备"
 
-msgid "Preparing a message for {what}"
-msgstr "正在为 {what} 准备消息"
-
-msgid "Preparing to restart {what}"
-msgstr "正在准备重启 {what}"
-
 msgid "Preserve commit history"
 msgstr "保留提交历史"
 
@@ -12671,6 +12662,9 @@ msgstr "阅读设置指南"
 
 msgid "Reading {what}"
 msgstr "正在读取 {what}"
+
+msgid "Reading the page"
+msgstr "正在读取页面"
 
 msgid "Reading usage…"
 msgstr "正在读取用量…"
@@ -13280,9 +13274,6 @@ msgstr "响应"
 msgid "Restart"
 msgstr "重启"
 
-msgid "Restart {target}"
-msgstr "重启 {target}"
-
 msgid "Restart all terminals?"
 msgstr "重启所有终端？"
 
@@ -13330,6 +13321,9 @@ msgstr "已重启1个主机服务"
 
 msgid "Restarting"
 msgstr "重启中"
+
+msgid "Restarting {what}"
+msgstr "正在重启 {what}"
 
 msgid "Restarting agents on {accountLabel}."
 msgstr "正在{accountLabel}上重新启动智能体。"
@@ -14268,9 +14262,6 @@ msgstr "发送审查"
 msgid "Send to"
 msgstr "发送给"
 
-msgid "Send to {target}"
-msgstr "发送到 {target}"
-
 msgid "Send to agent"
 msgstr "发送给智能体"
 
@@ -14282,6 +14273,9 @@ msgstr "发送到聊天（{draftCount}）"
 
 msgid "Sending"
 msgstr "正在发送"
+
+msgid "Sending a message to {what}"
+msgstr "正在向 {what} 发送消息"
 
 msgid "Sending..."
 msgstr "正在发送..."
@@ -14988,6 +14982,9 @@ msgstr "正在说话"
 msgid "Specific"
 msgstr "指定"
 
+msgid "Speed"
+msgstr "速度"
+
 msgid "Spend"
 msgstr "支出"
 
@@ -15221,6 +15218,9 @@ msgstr "启动中"
 msgid "Starting {agentLabel}"
 msgstr "正在启动{agentLabel}"
 
+msgid "Starting an agent in {what}"
+msgstr "正在 {what} 中启动代理"
+
 msgid "Starting cloud workspace"
 msgstr "正在启动云端工作区"
 
@@ -15311,6 +15311,9 @@ msgstr "停止工作区运行命令"
 
 msgid "stopped"
 msgstr "已停止"
+
+msgid "Stopping the agent in {what}"
+msgstr "正在停止 {what} 中的代理"
 
 msgid "Strikethrough"
 msgstr "删除线"
@@ -17653,6 +17656,9 @@ msgstr "从助手给出的链接开始会话的访客。这是 AEO 工作应当�
 msgid "Voice"
 msgstr "语音"
 
+msgid "Voice settings"
+msgstr "语音设置"
+
 msgid "Volume"
 msgstr "音量"
 
@@ -17684,9 +17690,6 @@ msgstr "正在等待子智能体的第一条消息…"
 
 msgid "Waiting for your input"
 msgstr "等待你的输入"
-
-msgid "Waiting for your OK"
-msgstr "等待你确认"
 
 msgid "Waitlist signups"
 msgstr "候补名单注册"

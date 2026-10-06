@@ -66,12 +66,32 @@ export default function AuthenticatedLayout() {
 					options={{ title: t({ message: "Home" }) }}
 				/>
 				<Stack.Screen
-					name="voice"
+					name="voice/index"
 					options={{
 						presentation: "transparentModal",
 						animation: "none",
 						headerShown: false,
 						contentStyle: { backgroundColor: "transparent" },
+					}}
+				/>
+				<Stack.Screen
+					name="voice/chat"
+					options={{
+						presentation: "formSheet",
+						sheetAllowedDetents: sheetDetents([0.6, 1.0]),
+						sheetGrabberVisible: true,
+						...glassHeaderOptions,
+						title: t({ message: "Voice" }),
+					}}
+				/>
+				<Stack.Screen
+					name="voice/settings"
+					options={{
+						presentation: "formSheet",
+						sheetAllowedDetents: sheetDetents([0.6]),
+						sheetGrabberVisible: true,
+						...glassHeaderOptions,
+						title: t({ message: "Voice settings" }),
 					}}
 				/>
 				<Stack.Screen

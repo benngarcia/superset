@@ -5182,6 +5182,12 @@ msgstr "membuat"
 msgid "Creating"
 msgstr "Membuat"
 
+msgid "Creating a task"
+msgstr "Membuat tugas"
+
+msgid "Creating a workspace"
+msgstr "Membuat workspace"
+
 msgid "Creating PR..."
 msgstr "Membuat PR…"
 
@@ -5926,9 +5932,6 @@ msgstr "Dokumentasi"
 msgid "Documentation"
 msgstr "Dokumentasi"
 
-msgid "Doing it"
-msgstr "Sedang dijalankan"
-
 msgid "Don't ask again"
 msgstr "Jangan tanya lagi"
 
@@ -6295,6 +6298,9 @@ msgstr "Akhiri sesi suara"
 msgid "Ended"
 msgstr "Berakhir"
 
+msgid "Ending the call"
+msgstr "Mengakhiri panggilan"
+
 msgid "Engineering deep-dives and launches."
 msgstr "Bahasan mendalam soal teknik dan peluncuran."
 
@@ -6543,6 +6549,9 @@ msgstr "Editor eksternal"
 
 msgid "extra ${used} of ${limit}"
 msgstr "tambahan ${used} dari ${limit}"
+
+msgid "Extra high"
+msgstr "Sangat tinggi"
 
 msgid "Extra small"
 msgstr "Ekstra kecil"
@@ -7331,20 +7340,11 @@ msgstr "Tampilan folder"
 msgid "Folders to check out into new worktrees, one per line, relative to the repo root. Files at the root are always included. Empty checks out everything."
 msgstr "Folder yang di-checkout ke worktree baru, satu per baris, relatif terhadap root repo. File di root selalu disertakan. Kosong berarti checkout semuanya."
 
-msgid "Follow"
-msgstr "Ikuti"
-
-msgid "Follow mode"
-msgstr "Mode ikuti"
-
 msgid "FOLLOW ON X"
 msgstr "IKUTI DI X"
 
 msgid "Follow terminal sessions live"
 msgstr "Ikuti sesi terminal secara langsung"
-
-msgid "Follow the conversation"
-msgstr "Ikuti percakapan"
 
 msgid "FOLLOW US"
 msgstr "IKUTI KAMI"
@@ -9253,6 +9253,9 @@ msgstr "Tooltip khusus pintasan saat hover lama; gaya chip-nya kini menjadi bawa
 msgid "Looking at {what}"
 msgstr "Melihat {what}"
 
+msgid "Looking at tasks"
+msgstr "Melihat tugas"
+
 msgid "Looking for a mobile simulator…"
 msgstr "Mencari simulator seluler…"
 
@@ -9578,6 +9581,9 @@ msgctxt "workspaces I created"
 msgid "Mine"
 msgstr "Milik saya"
 
+msgid "Minimal"
+msgstr "Minimal"
+
 msgid "Minimal reasoning effort"
 msgstr "Upaya penalaran minimal"
 
@@ -9586,9 +9592,6 @@ msgstr "Perkecil"
 
 msgid "Minimize GitHub issues"
 msgstr "Perkecil issue GitHub"
-
-msgid "Minimize voice"
-msgstr "Perkecil suara"
 
 msgid "Minimum contrast"
 msgstr "Kontras minimum"
@@ -9905,9 +9908,6 @@ msgstr "Jaringan Berubah"
 
 msgid "Never"
 msgstr "Tidak pernah"
-
-msgid "Never mind"
-msgstr "Dibatalkan"
 
 msgctxt "badge on a page published since the menu was last opened"
 msgid "New"
@@ -11506,9 +11506,6 @@ msgstr "Opsi"
 msgid "Or ask your coding agent to install the Superset CLI."
 msgstr "Atau minta agen coding Anda memasang CLI Superset."
 
-msgid "or just say yes"
-msgstr "atau cukup katakan \"ya\""
-
 msgid "Orange"
 msgstr "Oranye"
 
@@ -12166,12 +12163,6 @@ msgstr "Prefix"
 msgid "Preparing"
 msgstr "Menyiapkan"
 
-msgid "Preparing a message for {what}"
-msgstr "Menyiapkan pesan untuk {what}"
-
-msgid "Preparing to restart {what}"
-msgstr "Bersiap memulai ulang {what}"
-
 msgid "Preserve commit history"
 msgstr "Pertahankan riwayat commit"
 
@@ -12671,6 +12662,9 @@ msgstr "Baca panduan penyiapan"
 
 msgid "Reading {what}"
 msgstr "Membaca {what}"
+
+msgid "Reading the page"
+msgstr "Membaca halaman"
 
 msgid "Reading usage…"
 msgstr "Membaca penggunaan…"
@@ -13280,9 +13274,6 @@ msgstr "Respons"
 msgid "Restart"
 msgstr "Restart"
 
-msgid "Restart {target}"
-msgstr "Mulai ulang {target}"
-
 msgid "Restart all terminals?"
 msgstr "Mulai ulang semua terminal?"
 
@@ -13330,6 +13321,9 @@ msgstr "Memulai ulang 1 layanan host"
 
 msgid "Restarting"
 msgstr "Memulai ulang"
+
+msgid "Restarting {what}"
+msgstr "Memulai ulang {what}"
 
 msgid "Restarting agents on {accountLabel}."
 msgstr "Menjalankan ulang agen di {accountLabel}."
@@ -14268,9 +14262,6 @@ msgstr "Kirim review"
 msgid "Send to"
 msgstr "Kirim ke"
 
-msgid "Send to {target}"
-msgstr "Kirim ke {target}"
-
 msgid "Send to agent"
 msgstr "Kirim ke agen"
 
@@ -14282,6 +14273,9 @@ msgstr "Kirim ke chat ({draftCount})"
 
 msgid "Sending"
 msgstr "Mengirim"
+
+msgid "Sending a message to {what}"
+msgstr "Mengirim pesan ke {what}"
 
 msgid "Sending..."
 msgstr "Mengirim..."
@@ -14988,6 +14982,9 @@ msgstr "Berbicara"
 msgid "Specific"
 msgstr "Tertentu"
 
+msgid "Speed"
+msgstr "Kecepatan"
+
 msgid "Spend"
 msgstr "Pengeluaran"
 
@@ -15221,6 +15218,9 @@ msgstr "Memulai"
 msgid "Starting {agentLabel}"
 msgstr "Memulai {agentLabel}"
 
+msgid "Starting an agent in {what}"
+msgstr "Memulai agen di {what}"
+
 msgid "Starting cloud workspace"
 msgstr "Memulai workspace cloud"
 
@@ -15311,6 +15311,9 @@ msgstr "Hentikan perintah run workspace"
 
 msgid "stopped"
 msgstr "berhenti"
+
+msgid "Stopping the agent in {what}"
+msgstr "Menghentikan agen di {what}"
 
 msgid "Strikethrough"
 msgstr "Coret"
@@ -17653,6 +17656,9 @@ msgstr "Pengunjung yang sesinya dimulai dari tautan yang diberikan asisten. Ini 
 msgid "Voice"
 msgstr "Suara"
 
+msgid "Voice settings"
+msgstr "Pengaturan suara"
+
 msgid "Volume"
 msgstr "Volume"
 
@@ -17684,9 +17690,6 @@ msgstr "Menunggu pesan pertama dari subagen…"
 
 msgid "Waiting for your input"
 msgstr "Menunggu masukan Anda"
-
-msgid "Waiting for your OK"
-msgstr "Menunggu persetujuanmu"
 
 msgid "Waitlist signups"
 msgstr "Pendaftaran daftar tunggu"

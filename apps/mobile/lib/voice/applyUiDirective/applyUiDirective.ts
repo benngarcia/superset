@@ -4,6 +4,7 @@ export interface DirectiveRouter {
 	push(href: string): void;
 	dismissTo(href: string): void;
 	dismiss(): void;
+	setParams(params: Record<string, string>): void;
 }
 
 const BASE_PATHS = [/^\/$/, /^\/workspace\/[^/]+$/, /^\/pages\/[^/]+$/];
@@ -65,7 +66,15 @@ export function applyUiDirective(
 	const target = directiveHref(directive);
 	if (!target) return false;
 	const destination = pathnameOf(target.href);
-	if (destination === pathname) return false;
+	if (destination === pathname) {
+		const terminalId =
+			directive.navigate?.screen === "workspace"
+				? directive.navigate.terminalId
+				: undefined;
+		if (!terminalId) return false;
+		router.setParams({ tab: terminalId });
+		return true;
+	}
 	if (target.base && !isBase(pathname)) router.dismiss();
 	if (destination === "/") {
 		router.dismissTo(target.href);

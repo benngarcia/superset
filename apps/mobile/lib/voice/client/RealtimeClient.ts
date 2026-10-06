@@ -1,6 +1,12 @@
 import type { VoiceToolResult } from "@superset/shared/voice";
-import type { RealtimeFunctionCallDone, RealtimeServerEvent } from "../events";
+import type {
+	RealtimeFunctionCallDone,
+	RealtimeResponseDone,
+	RealtimeServerEvent,
+} from "../events";
 import type { RealtimeTransport } from "../transport/RealtimeTransport";
+
+const MAX_RATE_LIMIT_RETRIES = 3;
 
 export type SpeechStatus = "listening" | "thinking" | "speaking";
 
@@ -30,6 +36,10 @@ export class RealtimeClient {
 	private readonly assistantText = new Map<string, string>();
 	private unsubscribe: (() => void) | null = null;
 	private speaking = false;
+	private rateLimitRetries = 0;
+	private responseActive = false;
+	private responseWanted = false;
+	private retryTimer: ReturnType<typeof setTimeout> | null = null;
 
 	constructor(
 		private readonly transport: RealtimeTransport,
@@ -42,6 +52,7 @@ export class RealtimeClient {
 	}
 
 	stop(): void {
+		if (this.retryTimer) clearTimeout(this.retryTimer);
 		this.unsubscribe?.();
 		this.unsubscribe = null;
 	}
@@ -56,7 +67,7 @@ export class RealtimeClient {
 				content: [{ type: "input_text", text }],
 			},
 		});
-		if (respond) this.transport.send({ type: "response.create" });
+		if (respond) this.requestResponse();
 	}
 
 	/** Seeds a fresh session with what was said before the link dropped. */
@@ -75,6 +86,40 @@ export class RealtimeClient {
 		}
 	}
 
+	updateSession(session: Record<string, unknown>): void {
+		this.transport.send({
+			type: "session.update",
+			session: { type: "realtime", ...session },
+		});
+	}
+
+	/**
+	 * The API refuses a second response while one is running, and whatever
+	 * asked for it would go unanswered: hold the request until that one ends.
+	 */
+	private requestResponse(): void {
+		if (this.responseActive) {
+			this.responseWanted = true;
+			return;
+		}
+		this.responseActive = true;
+		this.responseWanted = false;
+		this.transport.send({ type: "response.create" });
+	}
+
+	/** Typed words standing in for speech; the model answers them out loud. */
+	sayText(text: string): void {
+		this.transport.send({
+			type: "conversation.item.create",
+			item: {
+				type: "message",
+				role: "user",
+				content: [{ type: "input_text", text }],
+			},
+		});
+		this.requestResponse();
+	}
+
 	interrupt(): void {
 		this.transport.send({ type: "response.cancel" });
 		this.transport.send({ type: "output_audio_buffer.clear" });
@@ -83,6 +128,9 @@ export class RealtimeClient {
 	handle(event: RealtimeServerEvent): void {
 		switch (event.type) {
 			case "error":
+				if (event.error.code !== "conversation_already_has_active_response") {
+					this.responseActive = false;
+				}
 				this.callbacks.onError(event.error.message);
 				return;
 			case "input_audio_buffer.speech_started":
@@ -100,6 +148,8 @@ export class RealtimeClient {
 				this.callbacks.onUserTranscript(event.item_id, event.transcript, true);
 				return;
 			case "response.created":
+				this.responseActive = true;
+				this.responseWanted = false;
 				this.pendingCalls.set(event.response.id, []);
 				if (!this.speaking) this.callbacks.onStatus("thinking");
 				return;
@@ -122,7 +172,10 @@ export class RealtimeClient {
 				this.runToolCall(event);
 				return;
 			case "response.done":
+				this.responseActive = false;
+				if (this.retryIfRateLimited(event)) return;
 				this.finishResponse(event.response.id);
+				if (this.responseWanted) this.requestResponse();
 				return;
 			case "output_audio_buffer.started":
 				this.speaking = true;
@@ -136,6 +189,38 @@ export class RealtimeClient {
 			default:
 				return;
 		}
+	}
+
+	/**
+	 * A response the API refused for tokens-per-minute said nothing and ran
+	 * nothing; asking again after the wait it names is the whole recovery.
+	 */
+	private retryIfRateLimited(event: RealtimeResponseDone): boolean {
+		const error = event.response.status_details?.error;
+		if (
+			event.response.status !== "failed" ||
+			error?.code !== "rate_limit_exceeded"
+		) {
+			this.rateLimitRetries = 0;
+			return false;
+		}
+		this.pendingCalls.delete(event.response.id);
+		if (this.rateLimitRetries >= MAX_RATE_LIMIT_RETRIES) {
+			this.rateLimitRetries = 0;
+			this.callbacks.onError(error.message ?? "Rate limited.");
+			this.callbacks.onStatus("listening");
+			return true;
+		}
+		this.rateLimitRetries++;
+		const seconds = Number(
+			/try again in ([\d.]+)s/.exec(error.message ?? "")?.[1] ?? 3,
+		);
+		if (this.retryTimer) clearTimeout(this.retryTimer);
+		this.retryTimer = setTimeout(
+			() => this.requestResponse(),
+			Math.min(seconds, 15) * 1000 + 250,
+		);
+		return true;
 	}
 
 	private runToolCall(event: RealtimeFunctionCallDone): void {
@@ -175,7 +260,7 @@ export class RealtimeClient {
 			return;
 		}
 		void Promise.all(calls).then(() => {
-			this.transport.send({ type: "response.create" });
+			this.requestResponse();
 		});
 	}
 }

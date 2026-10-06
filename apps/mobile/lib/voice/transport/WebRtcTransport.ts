@@ -74,6 +74,25 @@ export class WebRtcTransport implements RealtimeTransport {
 					String((message as { data?: unknown }).data ?? ""),
 				);
 				if (!event) return;
+				if (
+					typeof __DEV__ !== "undefined" &&
+					__DEV__ &&
+					!event.type.endsWith(".delta")
+				) {
+					const raw = event as unknown as Record<string, unknown>;
+					console.log(
+						"VOICEEVENT",
+						event.type,
+						JSON.stringify(
+							raw.error ??
+								raw.transcript ??
+								(raw.response as Record<string, unknown> | undefined)
+									?.status_details ??
+								raw.name ??
+								"",
+						).slice(0, 400),
+					);
+				}
 				for (const listener of this.eventListeners) listener(event);
 			};
 			channel.onopen = () => {
@@ -119,6 +138,9 @@ export class WebRtcTransport implements RealtimeTransport {
 	}
 
 	send(event: RealtimeClientEvent): void {
+		if (typeof __DEV__ !== "undefined" && __DEV__) {
+			console.log("VOICESEND", event.type);
+		}
 		if (!this.channel || this.channel.readyState !== "open") {
 			this.queued.push(event);
 			return;

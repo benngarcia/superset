@@ -2,12 +2,45 @@ import { z } from "zod";
 import type { VoiceUiDirective } from "./directives";
 
 export const VOICE_REALTIME_MODEL = "gpt-realtime-2.1";
-export const VOICE_DEFAULT_VOICE = "marin";
+export const VOICE_VOICES = [
+	"alloy",
+	"ash",
+	"ballad",
+	"coral",
+	"echo",
+	"sage",
+	"shimmer",
+	"verse",
+	"marin",
+	"cedar",
+] as const;
+export type VoiceVoice = (typeof VOICE_VOICES)[number];
+export const VOICE_DEFAULT_VOICE: VoiceVoice = "marin";
+export const VOICE_REASONING_EFFORTS = [
+	"minimal",
+	"low",
+	"medium",
+	"high",
+	"xhigh",
+] as const;
+export type VoiceReasoningEffort = (typeof VOICE_REASONING_EFFORTS)[number];
+export const VOICE_DEFAULT_REASONING_EFFORT: VoiceReasoningEffort = "medium";
+export const VOICE_SPEEDS = [0.9, 1, 1.1, 1.25, 1.5] as const;
+export const VOICE_DEFAULT_SPEED = 1;
+
+export const voiceSessionSettingsSchema = z.object({
+	voice: z.enum(VOICE_VOICES).optional(),
+	reasoningEffort: z.enum(VOICE_REASONING_EFFORTS).optional(),
+	speed: z.number().min(0.25).max(1.5).optional(),
+});
+export type VoiceSessionSettings = z.infer<typeof voiceSessionSettingsSchema>;
 export const VOICE_TRANSCRIPTION_MODEL = "gpt-4o-mini-transcribe";
 /** The Realtime API ends a session at 60 minutes whatever the client does. */
 export const VOICE_MAX_SESSION_SECONDS = 60 * 60;
 /** How long the minted secret can sit unused before connecting. */
 export const VOICE_SECRET_TTL_SECONDS = 120;
+/** Conversation kept per reply, past the instructions; older turns are dropped. */
+export const VOICE_CONTEXT_TOKEN_LIMIT = 6000;
 
 export const VOICE_SHOW_SCREENS = [
 	"home",
@@ -24,21 +57,16 @@ export type VoiceToolExecutor = "api" | "host" | "local";
 export interface VoiceToolDefinition<
 	Name extends string = string,
 	Schema extends z.ZodObject = z.ZodObject,
-	Gated extends boolean = boolean,
 > {
 	name: Name;
 	description: string;
 	parameters: Schema;
 	executor: VoiceToolExecutor;
-	/** Changes state: the first call answers `needs_confirmation`. */
-	gated: Gated;
 }
 
-function defineTool<
-	const Name extends string,
-	Schema extends z.ZodObject,
-	const Gated extends boolean,
->(tool: VoiceToolDefinition<Name, Schema, Gated>) {
+function defineTool<const Name extends string, Schema extends z.ZodObject>(
+	tool: VoiceToolDefinition<Name, Schema>,
+) {
 	return tool;
 }
 
@@ -64,7 +92,6 @@ export const VOICE_TOOLS = [
 			limit: z.number().int().min(1).max(20).default(10),
 		}),
 		executor: "api",
-		gated: false,
 	}),
 	defineTool({
 		name: "get_workspace",
@@ -72,7 +99,6 @@ export const VOICE_TOOLS = [
 			"One workspace in detail: agent status, sessions, pull request, last activity. Resolves a spoken name; ask the user if it returns several candidates.",
 		parameters: z.object({ query: workspaceQuery }),
 		executor: "api",
-		gated: false,
 	}),
 	defineTool({
 		name: "list_sessions",
@@ -80,7 +106,6 @@ export const VOICE_TOOLS = [
 			"The agent and terminal sessions running in a workspace, with what each needs from the user.",
 		parameters: z.object({ workspace: workspaceQuery }),
 		executor: "host",
-		gated: false,
 	}),
 	defineTool({
 		name: "read_session",
@@ -94,10 +119,9 @@ export const VOICE_TOOLS = [
 				.describe(
 					"Session name or agent, e.g. 'claude'. Omit for the most recently active one.",
 				),
-			maxChars: z.number().int().min(500).max(8000).default(2500),
+			maxChars: z.number().int().min(500).max(8000).default(1500),
 		}),
 		executor: "host",
-		gated: false,
 	}),
 	defineTool({
 		name: "list_pull_requests",
@@ -105,7 +129,6 @@ export const VOICE_TOOLS = [
 			"Pull requests opened from a workspace: number, title, checks, review state.",
 		parameters: z.object({ workspace: workspaceQuery }),
 		executor: "api",
-		gated: false,
 	}),
 	defineTool({
 		name: "list_pages",
@@ -116,7 +139,6 @@ export const VOICE_TOOLS = [
 			limit: z.number().int().min(1).max(20).default(10),
 		}),
 		executor: "api",
-		gated: false,
 	}),
 	defineTool({
 		name: "open_page",
@@ -124,12 +146,24 @@ export const VOICE_TOOLS = [
 			"Open a published page on the phone. Accepts a page id, slug, or title fragment.",
 		parameters: z.object({ page: z.string().min(1) }),
 		executor: "api",
-		gated: false,
+	}),
+	defineTool({
+		name: "read_page",
+		description:
+			"The text of a published page, to answer questions about what it says. Omit page to read the one on screen.",
+		parameters: z.object({
+			page: z
+				.string()
+				.optional()
+				.describe("Page id, slug, or title fragment. Omit for the open page."),
+			maxChars: z.number().int().min(500).max(8000).default(3000),
+		}),
+		executor: "api",
 	}),
 	defineTool({
 		name: "show",
 		description:
-			"Navigate the phone to a screen because the user asked to see it. Ignores follow mode.",
+			"Navigate the phone to a screen because the user asked to see it.",
 		parameters: z.object({
 			screen: z.enum(VOICE_SHOW_SCREENS),
 			workspace: workspaceQuery.optional(),
@@ -139,20 +173,106 @@ export const VOICE_TOOLS = [
 				.describe("For screen=page: id, slug, or title."),
 		}),
 		executor: "local",
-		gated: false,
 	}),
 	defineTool({
-		name: "set_follow",
+		name: "create_workspace",
 		description:
-			"Turn follow mode on or off. When on, the phone navigates to whatever the conversation is about.",
-		parameters: z.object({ on: z.boolean() }),
+			"Delegate work to a new agent in a new workspace. By default it runs on the user's machine without a git worktree: in a scratch folder when no project is named, or in the project's own checkout when one is. Set cloud for a cloud sandbox. Answers with candidates when a machine, project or environment is ambiguous.",
+		parameters: z.object({
+			prompt: z
+				.string()
+				.min(1)
+				.max(4000)
+				.describe("What the agent should do, as a clear instruction."),
+			project: z
+				.string()
+				.optional()
+				.describe(
+					"Project name, as the user said it. Omit for research or anything not tied to a repository.",
+				),
+			machine: z
+				.string()
+				.optional()
+				.describe("Machine name, only when the user has more than one online."),
+			cloud: z
+				.boolean()
+				.default(false)
+				.describe("Run in a cloud sandbox instead of on a machine."),
+			environment: z
+				.string()
+				.optional()
+				.describe("Cloud only: environment name or part of it."),
+			agent: z.string().default("claude").describe("Agent to launch."),
+		}),
+		executor: "host",
+	}),
+	defineTool({
+		name: "start_agent",
+		description:
+			"Launch a new agent session in an existing workspace with a prompt.",
+		parameters: z.object({
+			workspace: workspaceQuery,
+			prompt: z
+				.string()
+				.min(1)
+				.max(4000)
+				.describe("What the agent should do, as a clear instruction."),
+			agent: z.string().default("claude").describe("Agent to launch."),
+		}),
+		executor: "host",
+	}),
+	defineTool({
+		name: "stop_agent",
+		description:
+			"Stop an agent: close its session in a workspace. The session and whatever is running in it end.",
+		parameters: z.object({
+			workspace: workspaceQuery,
+			session: z
+				.string()
+				.optional()
+				.describe(
+					"Session name or agent. Omit for the most recently active one.",
+				),
+		}),
+		executor: "host",
+	}),
+	defineTool({
+		name: "create_task",
+		description:
+			"Record a task to track work for later. Does not start any work.",
+		parameters: z.object({
+			title: z.string().min(1).max(200),
+			description: z.string().max(4000).optional(),
+			priority: z
+				.enum(["urgent", "high", "medium", "low", "none"])
+				.default("none"),
+		}),
+		executor: "api",
+	}),
+	defineTool({
+		name: "list_tasks",
+		description: "Tasks in the organization, newest first.",
+		parameters: z.object({
+			mine: z
+				.boolean()
+				.default(true)
+				.describe("Only tasks assigned to the user."),
+			search: z.string().optional().describe("Words from the title."),
+			limit: z.number().int().min(1).max(20).default(10),
+		}),
+		executor: "api",
+	}),
+	defineTool({
+		name: "end_session",
+		description:
+			"End this voice session and turn yourself off. Call it when the user says they are done, says goodbye, or asks you to stop listening. Say a short goodbye in the same turn.",
+		parameters: z.object({}),
 		executor: "local",
-		gated: false,
 	}),
 	defineTool({
 		name: "send_message",
 		description:
-			"Send a message to an agent session, as if the user typed it into that terminal. Returns needs_confirmation first.",
+			"Send a message to an agent session, as if the user typed it into that terminal.",
 		parameters: z.object({
 			workspace: workspaceQuery,
 			session: z
@@ -164,30 +284,12 @@ export const VOICE_TOOLS = [
 			text: z.string().min(1).max(4000),
 		}),
 		executor: "host",
-		gated: true,
 	}),
 	defineTool({
 		name: "restart_workspace",
-		description:
-			"Restart a cloud workspace's sandbox. Returns needs_confirmation first.",
+		description: "Restart a cloud workspace's sandbox.",
 		parameters: z.object({ workspace: workspaceQuery }),
 		executor: "api",
-		gated: true,
-	}),
-	defineTool({
-		name: "confirm_action",
-		description:
-			"Run a pending action after the user said yes. The token came from the needs_confirmation answer.",
-		parameters: z.object({ token: z.string().min(1) }),
-		executor: "local",
-		gated: false,
-	}),
-	defineTool({
-		name: "cancel_action",
-		description: "Drop a pending action because the user said no.",
-		parameters: z.object({ token: z.string().min(1) }),
-		executor: "local",
-		gated: false,
 	}),
 ] as const;
 
@@ -243,35 +345,4 @@ export function realtimeToolDefinitions(): RealtimeFunctionTool[] {
 export interface VoiceToolResult {
 	output: unknown;
 	ui?: VoiceUiDirective;
-}
-
-export type VoiceGatedToolName = Extract<VoiceTool, { gated: true }>["name"];
-
-export interface VoicePendingAction {
-	token: string;
-	tool: VoiceGatedToolName;
-	/** One sentence, in the user's words, for the card and for the model to read back. */
-	summary: string;
-	/** Where it lands, e.g. "auth-refactor › claude". */
-	target: string;
-	args: Record<string, unknown>;
-	createdAt: number;
-}
-
-export interface VoiceNeedsConfirmation {
-	status: "needs_confirmation";
-	token: string;
-	summary: string;
-	target: string;
-}
-
-export function needsConfirmation(
-	action: VoicePendingAction,
-): VoiceNeedsConfirmation {
-	return {
-		status: "needs_confirmation",
-		token: action.token,
-		summary: action.summary,
-		target: action.target,
-	};
 }

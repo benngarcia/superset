@@ -5182,6 +5182,12 @@ msgstr "creando"
 msgid "Creating"
 msgstr "Creando"
 
+msgid "Creating a task"
+msgstr "Creando una tarea"
+
+msgid "Creating a workspace"
+msgstr "Creando un espacio de trabajo"
+
 msgid "Creating PR..."
 msgstr "Creando PR…"
 
@@ -5926,9 +5932,6 @@ msgstr "Documentación"
 msgid "Documentation"
 msgstr "Documentación"
 
-msgid "Doing it"
-msgstr "En marcha"
-
 msgid "Don't ask again"
 msgstr "No volver a preguntar"
 
@@ -6295,6 +6298,9 @@ msgstr "Terminar la sesión de voz"
 msgid "Ended"
 msgstr "Terminada"
 
+msgid "Ending the call"
+msgstr "Finalizando la llamada"
+
 msgid "Engineering deep-dives and launches."
 msgstr "Análisis técnicos a fondo y lanzamientos."
 
@@ -6543,6 +6549,9 @@ msgstr "Editor externo"
 
 msgid "extra ${used} of ${limit}"
 msgstr "extra: ${used} de ${limit}"
+
+msgid "Extra high"
+msgstr "Muy alto"
 
 msgid "Extra small"
 msgstr "Muy pequeño"
@@ -7331,20 +7340,11 @@ msgstr "Vista de carpetas"
 msgid "Folders to check out into new worktrees, one per line, relative to the repo root. Files at the root are always included. Empty checks out everything."
 msgstr "Carpetas que se extraen en los worktrees nuevos, una por línea, relativas a la raíz del repo. Los archivos de la raíz se incluyen siempre. Si se deja vacío, se extrae todo."
 
-msgid "Follow"
-msgstr "Seguir"
-
-msgid "Follow mode"
-msgstr "Modo seguir"
-
 msgid "FOLLOW ON X"
 msgstr "SEGUIR EN X"
 
 msgid "Follow terminal sessions live"
 msgstr "Sigue las sesiones de terminal en directo"
-
-msgid "Follow the conversation"
-msgstr "Seguir la conversación"
 
 msgid "FOLLOW US"
 msgstr "SÍGUENOS"
@@ -9253,6 +9253,9 @@ msgstr "Tooltip de solo atajo que aparece tras un hover largo; su estilo de chip
 msgid "Looking at {what}"
 msgstr "Consultando {what}"
 
+msgid "Looking at tasks"
+msgstr "Revisando las tareas"
+
 msgid "Looking for a mobile simulator…"
 msgstr "Buscando un simulador móvil…"
 
@@ -9578,6 +9581,9 @@ msgctxt "workspaces I created"
 msgid "Mine"
 msgstr "Míos"
 
+msgid "Minimal"
+msgstr "Mínimo"
+
 msgid "Minimal reasoning effort"
 msgstr "Esfuerzo de razonamiento mínimo"
 
@@ -9586,9 +9592,6 @@ msgstr "Minimizar"
 
 msgid "Minimize GitHub issues"
 msgstr "Minimizar los issues de GitHub"
-
-msgid "Minimize voice"
-msgstr "Minimizar voz"
 
 msgid "Minimum contrast"
 msgstr "Contraste mínimo"
@@ -9905,9 +9908,6 @@ msgstr "La red cambió"
 
 msgid "Never"
 msgstr "Nunca"
-
-msgid "Never mind"
-msgstr "Cancelado"
 
 msgctxt "badge on a page published since the menu was last opened"
 msgid "New"
@@ -11506,9 +11506,6 @@ msgstr "Opciones"
 msgid "Or ask your coding agent to install the Superset CLI."
 msgstr "O pídele a tu agente de código que instale la CLI de Superset."
 
-msgid "or just say yes"
-msgstr "o simplemente di «sí»"
-
 msgid "Orange"
 msgstr "Naranja"
 
@@ -12166,12 +12163,6 @@ msgstr "Prefijo"
 msgid "Preparing"
 msgstr "Preparando"
 
-msgid "Preparing a message for {what}"
-msgstr "Preparando un mensaje para {what}"
-
-msgid "Preparing to restart {what}"
-msgstr "Preparando el reinicio de {what}"
-
 msgid "Preserve commit history"
 msgstr "Conservar el historial de commits"
 
@@ -12671,6 +12662,9 @@ msgstr "Leer la guía de configuración"
 
 msgid "Reading {what}"
 msgstr "Leyendo {what}"
+
+msgid "Reading the page"
+msgstr "Leyendo la página"
 
 msgid "Reading usage…"
 msgstr "Leyendo el uso…"
@@ -13280,9 +13274,6 @@ msgstr "Respuesta"
 msgid "Restart"
 msgstr "Reiniciar"
 
-msgid "Restart {target}"
-msgstr "Reiniciar {target}"
-
 msgid "Restart all terminals?"
 msgstr "¿Reiniciar todas las terminales?"
 
@@ -13330,6 +13321,9 @@ msgstr "Se reinició 1 servicio de host"
 
 msgid "Restarting"
 msgstr "Reiniciando"
+
+msgid "Restarting {what}"
+msgstr "Reiniciando {what}"
 
 msgid "Restarting agents on {accountLabel}."
 msgstr "Reiniciando agentes en {accountLabel}."
@@ -14268,9 +14262,6 @@ msgstr "Enviar revisión"
 msgid "Send to"
 msgstr "Enviar a"
 
-msgid "Send to {target}"
-msgstr "Enviar a {target}"
-
 msgid "Send to agent"
 msgstr "Enviar al agente"
 
@@ -14282,6 +14273,9 @@ msgstr "Enviar al chat ({draftCount})"
 
 msgid "Sending"
 msgstr "Enviando"
+
+msgid "Sending a message to {what}"
+msgstr "Enviando un mensaje a {what}"
 
 msgid "Sending..."
 msgstr "Enviando..."
@@ -14988,6 +14982,9 @@ msgstr "Hablando"
 msgid "Specific"
 msgstr "Específicos"
 
+msgid "Speed"
+msgstr "Velocidad"
+
 msgid "Spend"
 msgstr "Gasto"
 
@@ -15221,6 +15218,9 @@ msgstr "Iniciando"
 msgid "Starting {agentLabel}"
 msgstr "Iniciando {agentLabel}"
 
+msgid "Starting an agent in {what}"
+msgstr "Iniciando un agente en {what}"
+
 msgid "Starting cloud workspace"
 msgstr "Iniciando el espacio de trabajo en la nube"
 
@@ -15311,6 +15311,9 @@ msgstr "Detener el comando de ejecución del espacio de trabajo"
 
 msgid "stopped"
 msgstr "detenido"
+
+msgid "Stopping the agent in {what}"
+msgstr "Deteniendo el agente en {what}"
 
 msgid "Strikethrough"
 msgstr "Tachado"
@@ -17653,6 +17656,9 @@ msgstr "Visitantes cuya sesión empezó en un enlace que les dio un asistente. E
 msgid "Voice"
 msgstr "Voz"
 
+msgid "Voice settings"
+msgstr "Ajustes de voz"
+
 msgid "Volume"
 msgstr "Volumen"
 
@@ -17684,9 +17690,6 @@ msgstr "Esperando el primer mensaje del subagente…"
 
 msgid "Waiting for your input"
 msgstr "Esperando tu respuesta"
-
-msgid "Waiting for your OK"
-msgstr "Esperando tu confirmación"
 
 msgid "Waitlist signups"
 msgstr "Registros en la lista de espera"

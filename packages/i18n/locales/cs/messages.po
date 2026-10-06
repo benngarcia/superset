@@ -5182,6 +5182,12 @@ msgstr "vytváří se"
 msgid "Creating"
 msgstr "Vytvářím"
 
+msgid "Creating a task"
+msgstr "Vytváří se úkol"
+
+msgid "Creating a workspace"
+msgstr "Vytváří se pracovní prostor"
+
 msgid "Creating PR..."
 msgstr "Vytváření PR…"
 
@@ -5926,9 +5932,6 @@ msgstr "Dokumentace"
 msgid "Documentation"
 msgstr "Dokumentace"
 
-msgid "Doing it"
-msgstr "Provádím"
-
 msgid "Don't ask again"
 msgstr "Příště se neptat"
 
@@ -6295,6 +6298,9 @@ msgstr "Ukončit hlasovou relaci"
 msgid "Ended"
 msgstr "Ukončeno"
 
+msgid "Ending the call"
+msgstr "Ukončuje se hovor"
+
 msgid "Engineering deep-dives and launches."
 msgstr "Technické hloubkové články a spuštění novinek."
 
@@ -6543,6 +6549,9 @@ msgstr "Externí editor"
 
 msgid "extra ${used} of ${limit}"
 msgstr "navíc {used} $ z {limit} $"
+
+msgid "Extra high"
+msgstr "Velmi vysoké"
 
 msgid "Extra small"
 msgstr "Velmi malé"
@@ -7331,20 +7340,11 @@ msgstr "Zobrazení složek"
 msgid "Folders to check out into new worktrees, one per line, relative to the repo root. Files at the root are always included. Empty checks out everything."
 msgstr "Složky, které se mají vytáhnout do nových worktree, jedna na řádek, relativně ke kořeni repozitáře. Soubory v kořeni jsou vždy zahrnuty. Prázdné vytáhne vše."
 
-msgid "Follow"
-msgstr "Sledovat"
-
-msgid "Follow mode"
-msgstr "Režim sledování"
-
 msgid "FOLLOW ON X"
 msgstr "SLEDOVAT NA X"
 
 msgid "Follow terminal sessions live"
 msgstr "Sledujte relace terminálu živě"
-
-msgid "Follow the conversation"
-msgstr "Sledovat konverzaci"
 
 msgid "FOLLOW US"
 msgstr "SLEDUJTE NÁS"
@@ -9253,6 +9253,9 @@ msgstr "Tooltip jen se zkratkou při dlouhém najetí; jeho styl čipu je nyní 
 msgid "Looking at {what}"
 msgstr "Prohlížím {what}"
 
+msgid "Looking at tasks"
+msgstr "Prochází se úkoly"
+
 msgid "Looking for a mobile simulator…"
 msgstr "Hledám mobilní simulátor…"
 
@@ -9578,6 +9581,9 @@ msgctxt "workspaces I created"
 msgid "Mine"
 msgstr "Moje"
 
+msgid "Minimal"
+msgstr "Minimální"
+
 msgid "Minimal reasoning effort"
 msgstr "Minimální uvažování"
 
@@ -9586,9 +9592,6 @@ msgstr "Minimalizovat"
 
 msgid "Minimize GitHub issues"
 msgstr "Minimalizovat GitHub issues"
-
-msgid "Minimize voice"
-msgstr "Minimalizovat hlas"
 
 msgid "Minimum contrast"
 msgstr "Minimální kontrast"
@@ -9905,9 +9908,6 @@ msgstr "Síť se změnila"
 
 msgid "Never"
 msgstr "Nikdy"
-
-msgid "Never mind"
-msgstr "Zrušeno"
 
 msgctxt "badge on a page published since the menu was last opened"
 msgid "New"
@@ -11506,9 +11506,6 @@ msgstr "Možnosti"
 msgid "Or ask your coding agent to install the Superset CLI."
 msgstr "Nebo požádejte svého kódovacího agenta, ať nainstaluje Superset CLI."
 
-msgid "or just say yes"
-msgstr "nebo prostě řekni „ano“"
-
 msgid "Orange"
 msgstr "Oranžová"
 
@@ -12166,12 +12163,6 @@ msgstr "Prefix"
 msgid "Preparing"
 msgstr "Připravuji"
 
-msgid "Preparing a message for {what}"
-msgstr "Připravuji zprávu pro {what}"
-
-msgid "Preparing to restart {what}"
-msgstr "Připravuji restart {what}"
-
 msgid "Preserve commit history"
 msgstr "Zachová historii commitů"
 
@@ -12671,6 +12662,9 @@ msgstr "Přečíst průvodce nastavením"
 
 msgid "Reading {what}"
 msgstr "Čtu {what}"
+
+msgid "Reading the page"
+msgstr "Čte se stránka"
 
 msgid "Reading usage…"
 msgstr "Načítání využití…"
@@ -13280,9 +13274,6 @@ msgstr "Odpověď"
 msgid "Restart"
 msgstr "Restartovat"
 
-msgid "Restart {target}"
-msgstr "Restartovat {target}"
-
 msgid "Restart all terminals?"
 msgstr "Restartovat všechny terminály?"
 
@@ -13330,6 +13321,9 @@ msgstr "Restartována 1 host service"
 
 msgid "Restarting"
 msgstr "Restartování"
+
+msgid "Restarting {what}"
+msgstr "Restartuje se {what}"
 
 msgid "Restarting agents on {accountLabel}."
 msgstr "Restartuji agenty na {accountLabel}."
@@ -14268,9 +14262,6 @@ msgstr "Odeslat revizi"
 msgid "Send to"
 msgstr "Odeslat komu"
 
-msgid "Send to {target}"
-msgstr "Odeslat do {target}"
-
 msgid "Send to agent"
 msgstr "Odeslat agentovi"
 
@@ -14282,6 +14273,9 @@ msgstr "Odeslat do chatu ({draftCount})"
 
 msgid "Sending"
 msgstr "Odesílám"
+
+msgid "Sending a message to {what}"
+msgstr "Odesílá se zpráva do {what}"
 
 msgid "Sending..."
 msgstr "Odesílám..."
@@ -14988,6 +14982,9 @@ msgstr "Mluvím"
 msgid "Specific"
 msgstr "Konkrétní"
 
+msgid "Speed"
+msgstr "Rychlost"
+
 msgid "Spend"
 msgstr "Výdaje"
 
@@ -15221,6 +15218,9 @@ msgstr "Spouštím"
 msgid "Starting {agentLabel}"
 msgstr "Spouštím {agentLabel}"
 
+msgid "Starting an agent in {what}"
+msgstr "Spouští se agent v {what}"
+
 msgid "Starting cloud workspace"
 msgstr "Spouštím cloudový pracovní prostor"
 
@@ -15311,6 +15311,9 @@ msgstr "Zastavit spouštěcí příkaz pracovního prostoru"
 
 msgid "stopped"
 msgstr "zastaveno"
+
+msgid "Stopping the agent in {what}"
+msgstr "Zastavuje se agent v {what}"
 
 msgid "Strikethrough"
 msgstr "Přeškrtnuté"
@@ -17653,6 +17656,9 @@ msgstr "Návštěvníci, jejichž relace začala odkazem od asistenta. To je č�
 msgid "Voice"
 msgstr "Hlas"
 
+msgid "Voice settings"
+msgstr "Nastavení hlasu"
+
 msgid "Volume"
 msgstr "Hlasitost"
 
@@ -17684,9 +17690,6 @@ msgstr "Čekání na první zprávu subagenta…"
 
 msgid "Waiting for your input"
 msgstr "Čeká na váš vstup"
-
-msgid "Waiting for your OK"
-msgstr "Čekám na tvé potvrzení"
 
 msgid "Waitlist signups"
 msgstr "Zápisy na čekací listinu"

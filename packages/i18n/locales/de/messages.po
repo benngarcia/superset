@@ -5182,6 +5182,12 @@ msgstr "wird erstellt"
 msgid "Creating"
 msgstr "Wird erstellt"
 
+msgid "Creating a task"
+msgstr "Aufgabe wird erstellt"
+
+msgid "Creating a workspace"
+msgstr "Arbeitsbereich wird erstellt"
+
 msgid "Creating PR..."
 msgstr "PR wird erstellt…"
 
@@ -5926,9 +5932,6 @@ msgstr "Doku"
 msgid "Documentation"
 msgstr "Dokumentation"
 
-msgid "Doing it"
-msgstr "Wird ausgeführt"
-
 msgid "Don't ask again"
 msgstr "Nicht mehr fragen"
 
@@ -6295,6 +6298,9 @@ msgstr "Sprachsitzung beenden"
 msgid "Ended"
 msgstr "Beendet"
 
+msgid "Ending the call"
+msgstr "Anruf wird beendet"
+
 msgid "Engineering deep-dives and launches."
 msgstr "Technische Deep-Dives und Launches."
 
@@ -6543,6 +6549,9 @@ msgstr "Externer Editor"
 
 msgid "extra ${used} of ${limit}"
 msgstr "zusätzlich {used} $ von {limit} $"
+
+msgid "Extra high"
+msgstr "Sehr hoch"
 
 msgid "Extra small"
 msgstr "Sehr klein"
@@ -7331,20 +7340,11 @@ msgstr "Ordneransicht"
 msgid "Folders to check out into new worktrees, one per line, relative to the repo root. Files at the root are always included. Empty checks out everything."
 msgstr "Ordner, die in neue Worktrees ausgecheckt werden, einer pro Zeile, relativ zur Repo-Wurzel. Dateien im Wurzelverzeichnis sind immer dabei. Leer checkt alles aus."
 
-msgid "Follow"
-msgstr "Folgen"
-
-msgid "Follow mode"
-msgstr "Folgemodus"
-
 msgid "FOLLOW ON X"
 msgstr "AUF X FOLGEN"
 
 msgid "Follow terminal sessions live"
 msgstr "Terminal-Sitzungen live verfolgen"
-
-msgid "Follow the conversation"
-msgstr "Dem Gespräch folgen"
 
 msgid "FOLLOW US"
 msgstr "FOLGEN"
@@ -9253,6 +9253,9 @@ msgstr "Tooltip nur mit Kürzel bei langem Hover; sein Chip-Stil ist jetzt der T
 msgid "Looking at {what}"
 msgstr "{what} wird angesehen"
 
+msgid "Looking at tasks"
+msgstr "Aufgaben werden geprüft"
+
 msgid "Looking for a mobile simulator…"
 msgstr "Mobiler Simulator wird gesucht…"
 
@@ -9578,6 +9581,9 @@ msgctxt "workspaces I created"
 msgid "Mine"
 msgstr "Meine"
 
+msgid "Minimal"
+msgstr "Minimal"
+
 msgid "Minimal reasoning effort"
 msgstr "Minimales Reasoning"
 
@@ -9586,9 +9592,6 @@ msgstr "Minimieren"
 
 msgid "Minimize GitHub issues"
 msgstr "GitHub-Issues minimieren"
-
-msgid "Minimize voice"
-msgstr "Sprachansicht minimieren"
 
 msgid "Minimum contrast"
 msgstr "Mindestkontrast"
@@ -9905,9 +9908,6 @@ msgstr "Netzwerk gewechselt"
 
 msgid "Never"
 msgstr "Nie"
-
-msgid "Never mind"
-msgstr "Verworfen"
 
 msgctxt "badge on a page published since the menu was last opened"
 msgid "New"
@@ -11506,9 +11506,6 @@ msgstr "Optionen"
 msgid "Or ask your coding agent to install the Superset CLI."
 msgstr "Oder bitte deinen Coding-Agenten, die Superset-CLI zu installieren."
 
-msgid "or just say yes"
-msgstr "oder sag einfach „ja“"
-
 msgid "Orange"
 msgstr "Orange"
 
@@ -12166,12 +12163,6 @@ msgstr "Präfix"
 msgid "Preparing"
 msgstr "Wird vorbereitet"
 
-msgid "Preparing a message for {what}"
-msgstr "Nachricht an {what} wird vorbereitet"
-
-msgid "Preparing to restart {what}"
-msgstr "Neustart von {what} wird vorbereitet"
-
 msgid "Preserve commit history"
 msgstr "Commit-Historie erhalten"
 
@@ -12671,6 +12662,9 @@ msgstr "Zur Einrichtungsanleitung"
 
 msgid "Reading {what}"
 msgstr "{what} wird gelesen"
+
+msgid "Reading the page"
+msgstr "Seite wird gelesen"
 
 msgid "Reading usage…"
 msgstr "Nutzung wird gelesen …"
@@ -13280,9 +13274,6 @@ msgstr "Response"
 msgid "Restart"
 msgstr "Neu starten"
 
-msgid "Restart {target}"
-msgstr "{target} neu starten"
-
 msgid "Restart all terminals?"
 msgstr "Alle Terminals neu starten?"
 
@@ -13330,6 +13321,9 @@ msgstr "1 Host-Dienst neu gestartet"
 
 msgid "Restarting"
 msgstr "Wird neu gestartet"
+
+msgid "Restarting {what}"
+msgstr "{what} wird neu gestartet"
 
 msgid "Restarting agents on {accountLabel}."
 msgstr "Agenten werden auf {accountLabel} neu gestartet."
@@ -14268,9 +14262,6 @@ msgstr "Review senden"
 msgid "Send to"
 msgstr "Senden an"
 
-msgid "Send to {target}"
-msgstr "An {target} senden"
-
 msgid "Send to agent"
 msgstr "An Agenten senden"
 
@@ -14282,6 +14273,9 @@ msgstr "An Chat senden ({draftCount})"
 
 msgid "Sending"
 msgstr "Wird gesendet"
+
+msgid "Sending a message to {what}"
+msgstr "Nachricht wird an {what} gesendet"
 
 msgid "Sending..."
 msgstr "Wird gesendet..."
@@ -14988,6 +14982,9 @@ msgstr "Spricht"
 msgid "Specific"
 msgstr "Bestimmte"
 
+msgid "Speed"
+msgstr "Geschwindigkeit"
+
 msgid "Spend"
 msgstr "Ausgaben"
 
@@ -15221,6 +15218,9 @@ msgstr "Startet"
 msgid "Starting {agentLabel}"
 msgstr "{agentLabel} wird gestartet"
 
+msgid "Starting an agent in {what}"
+msgstr "Agent wird in {what} gestartet"
+
 msgid "Starting cloud workspace"
 msgstr "Cloud-Arbeitsbereich wird gestartet"
 
@@ -15311,6 +15311,9 @@ msgstr "Run-Befehl des Arbeitsbereichs stoppen"
 
 msgid "stopped"
 msgstr "gestoppt"
+
+msgid "Stopping the agent in {what}"
+msgstr "Agent in {what} wird gestoppt"
 
 msgid "Strikethrough"
 msgstr "Durchgestrichen"
@@ -17653,6 +17656,9 @@ msgstr "Besucher, deren Sitzung auf einem Link begann, den ein Assistent gegeben
 msgid "Voice"
 msgstr "Sprache"
 
+msgid "Voice settings"
+msgstr "Spracheinstellungen"
+
 msgid "Volume"
 msgstr "Lautstärke"
 
@@ -17684,9 +17690,6 @@ msgstr "Warten auf die erste Nachricht des Subagenten …"
 
 msgid "Waiting for your input"
 msgstr "Wartet auf deine Eingabe"
-
-msgid "Waiting for your OK"
-msgstr "Wartet auf dein OK"
 
 msgid "Waitlist signups"
 msgstr "Warteliste-Anmeldungen"

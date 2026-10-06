@@ -1,5 +1,11 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import type { VoicePendingAction } from "@superset/shared/voice";
+import {
+	VOICE_DEFAULT_REASONING_EFFORT,
+	VOICE_DEFAULT_SPEED,
+	VOICE_DEFAULT_VOICE,
+	type VoiceReasoningEffort,
+	type VoiceVoice,
+} from "@superset/shared/voice";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
@@ -29,24 +35,24 @@ const MAX_TRANSCRIPT = 200;
 
 export interface VoiceState {
 	status: VoiceStatus;
-	expanded: boolean;
 	muted: boolean;
-	/** The phone navigates to whatever the conversation is about. */
-	follow: boolean;
 	/** The model may speak up when an agent's status changes. */
 	proactive: boolean;
+	voice: VoiceVoice;
+	reasoningEffort: VoiceReasoningEffort;
+	speed: number;
 	transcript: TranscriptEntry[];
-	pendingAction: VoicePendingAction | null;
 	/** What the model is looking at, for the docked pill. */
 	focusLabel: string | null;
 	error: string | null;
 	startedAt: number | null;
 
 	setStatus: (status: VoiceStatus) => void;
-	setExpanded: (expanded: boolean) => void;
 	setMuted: (muted: boolean) => void;
-	setFollow: (follow: boolean) => void;
 	setProactive: (proactive: boolean) => void;
+	setVoice: (voice: VoiceVoice) => void;
+	setReasoningEffort: (reasoningEffort: VoiceReasoningEffort) => void;
+	setSpeed: (speed: number) => void;
 	upsertSpeech: (
 		id: string,
 		role: "user" | "assistant",
@@ -58,7 +64,6 @@ export interface VoiceState {
 		id: string,
 		status: Exclude<ToolActivityStatus, "running">,
 	) => void;
-	setPendingAction: (action: VoicePendingAction | null) => void;
 	setFocusLabel: (label: string | null) => void;
 	setError: (error: string | null) => void;
 	begin: (startedAt: number) => void;
@@ -67,10 +72,8 @@ export interface VoiceState {
 
 const SESSION_DEFAULTS = {
 	status: "idle" as VoiceStatus,
-	expanded: false,
 	muted: false,
 	transcript: [] as TranscriptEntry[],
-	pendingAction: null,
 	focusLabel: null,
 	error: null,
 	startedAt: null,
@@ -80,14 +83,17 @@ export const useVoiceStore = create<VoiceState>()(
 	persist(
 		(set) => ({
 			...SESSION_DEFAULTS,
-			follow: true,
 			proactive: false,
+			voice: VOICE_DEFAULT_VOICE,
+			reasoningEffort: VOICE_DEFAULT_REASONING_EFFORT,
+			speed: VOICE_DEFAULT_SPEED,
 
 			setStatus: (status) => set({ status }),
-			setExpanded: (expanded) => set({ expanded }),
 			setMuted: (muted) => set({ muted }),
-			setFollow: (follow) => set({ follow }),
 			setProactive: (proactive) => set({ proactive }),
+			setVoice: (voice) => set({ voice }),
+			setReasoningEffort: (reasoningEffort) => set({ reasoningEffort }),
+			setSpeed: (speed) => set({ speed }),
 			upsertSpeech: (id, role, text, final) =>
 				set((state) => {
 					const index = state.transcript.findIndex((entry) => entry.id === id);
@@ -122,14 +128,12 @@ export const useVoiceStore = create<VoiceState>()(
 							: entry,
 					),
 				})),
-			setPendingAction: (pendingAction) => set({ pendingAction }),
 			setFocusLabel: (focusLabel) => set({ focusLabel }),
 			setError: (error) => set({ error }),
 			begin: (startedAt) =>
 				set({
 					...SESSION_DEFAULTS,
 					status: "connecting",
-					expanded: true,
 					startedAt,
 				}),
 			reset: () => set({ ...SESSION_DEFAULTS }),
@@ -138,8 +142,10 @@ export const useVoiceStore = create<VoiceState>()(
 			name: "voice-v1",
 			storage: createJSONStorage(() => AsyncStorage),
 			partialize: (state) => ({
-				follow: state.follow,
 				proactive: state.proactive,
+				voice: state.voice,
+				reasoningEffort: state.reasoningEffort,
+				speed: state.speed,
 			}),
 		},
 	),
@@ -149,4 +155,8 @@ export type VoiceStoreApi = typeof useVoiceStore;
 
 export function isVoiceActive(status: VoiceStatus): boolean {
 	return status !== "idle" && status !== "ended";
+}
+
+export function useVoiceActive(): boolean {
+	return useVoiceStore((state) => isVoiceActive(state.status));
 }

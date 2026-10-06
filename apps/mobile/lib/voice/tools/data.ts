@@ -1,6 +1,8 @@
 import { agentStatusFromEvent } from "@superset/shared/agent-status";
+import { startableCloudEnvironments } from "@superset/shared/cloud-environments";
 import type { QueryClient } from "@tanstack/react-query";
 import { TRPCClientError } from "@trpc/client";
+import { getCloudEnvironmentsQueryKey } from "@/hooks/useCloudEnvironments";
 import type { CloudWorkspaceRow } from "@/hooks/useCloudWorkspaces";
 import { getCloudWorkspacesQueryKey } from "@/hooks/useCloudWorkspaces";
 import {
@@ -14,12 +16,15 @@ import {
 } from "@/lib/host-service/client";
 import { ensureSandboxAccess } from "@/lib/sandbox-access";
 import { apiClient } from "@/lib/trpc/client";
+import { htmlToText } from "./htmlToText";
 import {
 	type VoiceData,
 	VoiceDataError,
+	type VoiceMachine,
 	type VoicePage,
 	type VoicePullRequest,
 	type VoiceSessionRow,
+	type VoiceTask,
 	type VoiceWorkspace,
 } from "./types";
 
@@ -96,6 +101,7 @@ export function createVoiceData({
 	const cloudList = () =>
 		queryClient
 			.fetchQuery({
+				networkMode: "always",
 				queryKey: getCloudWorkspacesQueryKey(organizationId),
 				staleTime: FRESH_MS,
 				queryFn: () => apiClient.cloudWorkspace.list.query({ organizationId }),
@@ -114,6 +120,7 @@ export function createVoiceData({
 	const cloudRepos = () =>
 		queryClient
 			.fetchQuery({
+				networkMode: "always",
 				queryKey: ["cloud", "cloudWorkspace", "repositories", organizationId],
 				staleTime: 5 * 60_000,
 				queryFn: () =>
@@ -131,6 +138,7 @@ export function createVoiceData({
 
 	const roster = (): Promise<OrgHostRow[]> =>
 		queryClient.fetchQuery({
+			networkMode: "always",
 			queryKey: ["cloud", "host", "roster", organizationId],
 			staleTime: 30_000,
 			queryFn: () => apiClient.host.roster.query({ organizationId }),
@@ -140,6 +148,7 @@ export function createVoiceData({
 		const hostUrl = hostServiceUrl(organizationId, host.machineId);
 		return withTimeout(
 			queryClient.fetchQuery({
+				networkMode: "always",
 				queryKey: getHostWorkspacesQueryKey(host.machineId, hostUrl),
 				staleTime: FRESH_MS,
 				queryFn: (): Promise<HostWorkspaceRow[]> =>
@@ -154,6 +163,7 @@ export function createVoiceData({
 		const hostUrl = hostServiceUrl(organizationId, host.machineId);
 		return withTimeout(
 			queryClient.fetchQuery({
+				networkMode: "always",
 				queryKey: ["host-terminals", "list", host.machineId],
 				staleTime: FRESH_MS,
 				queryFn: async () => {
@@ -224,9 +234,13 @@ export function createVoiceData({
 	return {
 		async listWorkspaces() {
 			const [cloud, repos, hosts] = await Promise.all([
-				cloudList(),
-				cloudRepos(),
-				roster().catch(() => [] as OrgHostRow[]),
+				withTimeout(cloudList(), HOST_TIMEOUT_MS * 2, "Cloud workspaces"),
+				withTimeout(cloudRepos(), HOST_TIMEOUT_MS, "Repositories").catch(
+					() => new Map<string, string>(),
+				),
+				withTimeout(roster(), HOST_TIMEOUT_MS, "Hosts").catch(
+					() => [] as OrgHostRow[],
+				),
 			]);
 			const fromCloud: VoiceWorkspace[] = cloud
 				.filter((row) => row.status !== "deleted")
@@ -373,13 +387,41 @@ export function createVoiceData({
 			);
 			const pages = result.items.map(toVoicePage);
 			const q = query.trim().toLowerCase();
-			return (
+			const listed =
 				pages.find((page) => page.id === query || page.slug === query) ??
 				pages.find((page) => page.title.toLowerCase() === q) ??
 				pages.find((page) => page.title.toLowerCase().includes(q)) ??
-				pages.find((page) => page.slug.toLowerCase().includes(q)) ??
-				null
+				pages.find((page) => page.slug.toLowerCase().includes(q));
+			if (listed) return listed;
+			// Older than the listed batch, or not in it: ask for it by slug.
+			if (!/^[a-z0-9-]+$/.test(q)) return null;
+			return withTimeout(
+				apiClient.page.get.query({ slug: q }),
+				HOST_TIMEOUT_MS,
+				"Pages",
+			)
+				.then((page) => toVoicePage(page))
+				.catch(() => null);
+		},
+
+		async readPage(page, maxChars) {
+			const pulled = await withTimeout(
+				apiClient.page.pull.query({ slug: page.slug }),
+				HOST_TIMEOUT_MS,
+				page.title,
 			);
+			const response = await withTimeout(
+				fetch(pulled.downloadUrl),
+				HOST_TIMEOUT_MS * 2,
+				page.title,
+			);
+			if (!response.ok) {
+				throw new VoiceDataError(
+					"unreachable",
+					`${page.title}: its content could not be loaded.`,
+				);
+			}
+			return htmlToText(await response.text()).slice(0, maxChars);
 		},
 
 		async restartWorkspace(workspace) {
@@ -387,6 +429,182 @@ export function createVoiceData({
 				apiClient.cloudWorkspace.restart.mutate({ id: workspace.id }),
 				HOST_TIMEOUT_MS * 2,
 				workspace.name,
+			);
+		},
+
+		async listEnvironments() {
+			const rows = await withTimeout(
+				queryClient.fetchQuery({
+					networkMode: "always",
+					queryKey: getCloudEnvironmentsQueryKey(organizationId),
+					staleTime: 5 * 60_000,
+					queryFn: () => apiClient.environment.list.query({ organizationId }),
+				}),
+				HOST_TIMEOUT_MS,
+				"Environments",
+			);
+			return startableCloudEnvironments(rows).map((row) => ({
+				id: row.id,
+				name: row.name,
+			}));
+		},
+
+		async createWorkspace({ environmentId, prompt, agent }) {
+			const row = await withTimeout(
+				apiClient.cloudWorkspace.create.mutate({
+					organizationId,
+					environmentId,
+					prompt,
+					agent,
+				}),
+				HOST_TIMEOUT_MS * 4,
+				"The new workspace",
+			);
+			// The workspace screen reads this cache to tell "provisioning" from
+			// "not found"; one refetch is long enough to flash the wrong one.
+			const key = getCloudWorkspacesQueryKey(organizationId);
+			queryClient.setQueryData<CloudWorkspaceRow[] | undefined>(key, (rows) =>
+				rows ? [row, ...rows] : [row],
+			);
+			void queryClient.invalidateQueries({ queryKey: key });
+			return { id: row.id, name: row.name };
+		},
+
+		async listMachines() {
+			const hosts = await withTimeout(roster(), HOST_TIMEOUT_MS, "Hosts");
+			const answered = await Promise.all(
+				hosts.map(async (host): Promise<VoiceMachine | null> => {
+					const client = getHostServiceClientByUrl(
+						hostServiceUrl(organizationId, host.machineId),
+					);
+					const projects = await withTimeout(
+						client.project.list.query(),
+						HOST_TIMEOUT_MS,
+						host.name,
+					).catch(() => null);
+					if (!projects) return null;
+					return {
+						hostId: host.machineId,
+						name: host.name,
+						projects: projects.map((row) => ({ id: row.id, name: row.name })),
+					};
+				}),
+			);
+			return answered.filter((machine) => machine !== null);
+		},
+
+		async createMachineWorkspace({ machine, projectId, prompt, agent }) {
+			const client = getHostServiceClientByUrl(
+				hostServiceUrl(organizationId, machine.hostId),
+			);
+			const agents = [{ agent, prompt }];
+			const created = projectId
+				? client.workspaces.createLocal.mutate({ projectId, agents })
+				: client.workspaces.createSession.mutate({
+						agents,
+						namingPrompt: prompt,
+					});
+			const result: {
+				workspace: { id: string; name: string; branch: string | null };
+				agents: Array<{ ok: true; sessionId: string } | { ok: false }>;
+			} = await withTimeout<Awaited<typeof created>>(
+				created,
+				HOST_TIMEOUT_MS * 4,
+				machine.name,
+			);
+			void queryClient.invalidateQueries({
+				queryKey: getHostWorkspacesQueryKey(
+					machine.hostId,
+					hostServiceUrl(organizationId, machine.hostId),
+				),
+			});
+			const launched = result.agents.find((launch) => launch.ok);
+			return {
+				workspace: {
+					id: result.workspace.id,
+					name: result.workspace.name,
+					kind: "host",
+					organizationId,
+					hostId: machine.hostId,
+					hostName: machine.name,
+					branch: result.workspace.branch,
+					project:
+						machine.projects.find((row) => row.id === projectId)?.name ?? null,
+					status: "ready",
+					attention: null,
+					attentionAt: null,
+					lastActivityAt: Date.now(),
+					createdByMe: true,
+				},
+				terminalId: launched?.ok ? launched.sessionId : null,
+			};
+		},
+
+		async startAgent(workspace, agent, prompt) {
+			const client = getHostServiceClientByUrl(await hostUrlFor(workspace));
+			const result = await withTimeout(
+				client.agents.run.mutate({ workspaceId: workspace.id, agent, prompt }),
+				HOST_TIMEOUT_MS * 3,
+				workspace.name,
+			);
+			if (result.kind !== "terminal") {
+				throw new Error(`${result.label} did not start a terminal session.`);
+			}
+			void queryClient.invalidateQueries({
+				queryKey: ["host-terminals", "list", workspace.hostId],
+			});
+			return { terminalId: result.sessionId, label: result.label };
+		},
+
+		async stopSession(workspace, session) {
+			const client = getHostServiceClientByUrl(await hostUrlFor(workspace));
+			await withTimeout(
+				client.terminal.killSession.mutate({
+					terminalId: session.terminalId,
+					workspaceId: workspace.id,
+				}),
+				HOST_TIMEOUT_MS,
+				workspace.name,
+			);
+			void queryClient.invalidateQueries({
+				queryKey: ["host-terminals", "list", workspace.hostId],
+			});
+		},
+
+		async createTask(input) {
+			const { task } = await withTimeout(
+				apiClient.task.create.mutate(input),
+				HOST_TIMEOUT_MS,
+				"Tasks",
+			);
+			return {
+				key: task.slug,
+				title: task.title,
+				status: null,
+				priority: task.priority,
+				assignee: null,
+			};
+		},
+
+		async listTasks({ mine, search, limit }) {
+			const rows = await withTimeout(
+				apiClient.task.list.query({
+					assigneeMe: mine || undefined,
+					search: search?.trim() || undefined,
+					limit,
+					offset: 0,
+				}),
+				HOST_TIMEOUT_MS,
+				"Tasks",
+			);
+			return rows.map(
+				(row): VoiceTask => ({
+					key: row.task.slug,
+					title: row.task.title,
+					status: row.statusName,
+					priority: row.task.priority,
+					assignee: row.assignee?.name ?? null,
+				}),
 			);
 		},
 	};

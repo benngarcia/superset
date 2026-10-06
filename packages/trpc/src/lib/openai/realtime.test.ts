@@ -9,6 +9,9 @@ const input = {
 	tools: [],
 	transcriptionModel: "gpt-4o-mini-transcribe",
 	ttlSeconds: 120,
+	contextTokenLimit: 6000,
+	reasoningEffort: "medium",
+	speed: 1,
 	safetyIdentifier: "user_1",
 };
 

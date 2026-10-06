@@ -5182,6 +5182,12 @@ msgstr "đang tạo"
 msgid "Creating"
 msgstr "Đang tạo"
 
+msgid "Creating a task"
+msgstr "Đang tạo nhiệm vụ"
+
+msgid "Creating a workspace"
+msgstr "Đang tạo workspace"
+
 msgid "Creating PR..."
 msgstr "Đang tạo PR…"
 
@@ -5926,9 +5932,6 @@ msgstr "Tài liệu"
 msgid "Documentation"
 msgstr "Tài liệu"
 
-msgid "Doing it"
-msgstr "Đang thực hiện"
-
 msgid "Don't ask again"
 msgstr "Đừng hỏi lại"
 
@@ -6295,6 +6298,9 @@ msgstr "Kết thúc phiên giọng nói"
 msgid "Ended"
 msgstr "Đã kết thúc"
 
+msgid "Ending the call"
+msgstr "Đang kết thúc cuộc gọi"
+
 msgid "Engineering deep-dives and launches."
 msgstr "Bài kỹ thuật chuyên sâu và các lần ra mắt."
 
@@ -6543,6 +6549,9 @@ msgstr "Trình soạn thảo ngoài"
 
 msgid "extra ${used} of ${limit}"
 msgstr "dùng thêm ${used} trên ${limit}"
+
+msgid "Extra high"
+msgstr "Rất cao"
 
 msgid "Extra small"
 msgstr "Rất nhỏ"
@@ -7331,20 +7340,11 @@ msgstr "Xem theo thư mục"
 msgid "Folders to check out into new worktrees, one per line, relative to the repo root. Files at the root are always included. Empty checks out everything."
 msgstr "Các thư mục sẽ được checkout vào worktree mới, mỗi dòng một thư mục, tính từ gốc repo. Tệp ở gốc luôn được đưa vào. Để trống sẽ checkout tất cả."
 
-msgid "Follow"
-msgstr "Theo dõi"
-
-msgid "Follow mode"
-msgstr "Chế độ theo dõi"
-
 msgid "FOLLOW ON X"
 msgstr "THEO DÕI TRÊN X"
 
 msgid "Follow terminal sessions live"
 msgstr "Theo dõi trực tiếp các phiên terminal"
-
-msgid "Follow the conversation"
-msgstr "Theo dõi cuộc trò chuyện"
 
 msgid "FOLLOW US"
 msgstr "THEO DÕI CHÚNG TÔI"
@@ -9253,6 +9253,9 @@ msgstr "Tooltip chỉ hiện phím tắt khi di chuột lâu; kiểu chip của 
 msgid "Looking at {what}"
 msgstr "Đang xem {what}"
 
+msgid "Looking at tasks"
+msgstr "Đang xem nhiệm vụ"
+
 msgid "Looking for a mobile simulator…"
 msgstr "Đang tìm trình giả lập di động…"
 
@@ -9578,6 +9581,9 @@ msgctxt "workspaces I created"
 msgid "Mine"
 msgstr "Của tôi"
 
+msgid "Minimal"
+msgstr "Tối thiểu"
+
 msgid "Minimal reasoning effort"
 msgstr "Mức suy luận tối thiểu"
 
@@ -9586,9 +9592,6 @@ msgstr "Thu nhỏ"
 
 msgid "Minimize GitHub issues"
 msgstr "Thu nhỏ issue GitHub"
-
-msgid "Minimize voice"
-msgstr "Thu nhỏ giọng nói"
 
 msgid "Minimum contrast"
 msgstr "Độ tương phản tối thiểu"
@@ -9905,9 +9908,6 @@ msgstr "Mạng đã thay đổi"
 
 msgid "Never"
 msgstr "Chưa bao giờ"
-
-msgid "Never mind"
-msgstr "Đã hủy"
 
 msgctxt "badge on a page published since the menu was last opened"
 msgid "New"
@@ -11506,9 +11506,6 @@ msgstr "Tùy chọn"
 msgid "Or ask your coding agent to install the Superset CLI."
 msgstr "Hoặc bảo coding agent của bạn cài CLI Superset."
 
-msgid "or just say yes"
-msgstr "hoặc chỉ cần nói \"có\""
-
 msgid "Orange"
 msgstr "Cam"
 
@@ -12166,12 +12163,6 @@ msgstr "Tiền tố"
 msgid "Preparing"
 msgstr "Đang chuẩn bị"
 
-msgid "Preparing a message for {what}"
-msgstr "Đang chuẩn bị tin nhắn cho {what}"
-
-msgid "Preparing to restart {what}"
-msgstr "Đang chuẩn bị khởi động lại {what}"
-
 msgid "Preserve commit history"
 msgstr "Giữ nguyên lịch sử commit"
 
@@ -12671,6 +12662,9 @@ msgstr "Đọc hướng dẫn thiết lập"
 
 msgid "Reading {what}"
 msgstr "Đang đọc {what}"
+
+msgid "Reading the page"
+msgstr "Đang đọc trang"
 
 msgid "Reading usage…"
 msgstr "Đang đọc mức sử dụng…"
@@ -13280,9 +13274,6 @@ msgstr "Phản hồi"
 msgid "Restart"
 msgstr "Khởi động lại"
 
-msgid "Restart {target}"
-msgstr "Khởi động lại {target}"
-
 msgid "Restart all terminals?"
 msgstr "Khởi động lại toàn bộ terminal?"
 
@@ -13330,6 +13321,9 @@ msgstr "Đã khởi động lại 1 dịch vụ host"
 
 msgid "Restarting"
 msgstr "Đang khởi động lại"
+
+msgid "Restarting {what}"
+msgstr "Đang khởi động lại {what}"
 
 msgid "Restarting agents on {accountLabel}."
 msgstr "Đang khởi động lại các agent trên {accountLabel}."
@@ -14268,9 +14262,6 @@ msgstr "Gửi review"
 msgid "Send to"
 msgstr "Gửi tới"
 
-msgid "Send to {target}"
-msgstr "Gửi đến {target}"
-
 msgid "Send to agent"
 msgstr "Gửi cho agent"
 
@@ -14282,6 +14273,9 @@ msgstr "Gửi vào chat ({draftCount})"
 
 msgid "Sending"
 msgstr "Đang gửi"
+
+msgid "Sending a message to {what}"
+msgstr "Đang gửi tin nhắn tới {what}"
 
 msgid "Sending..."
 msgstr "Đang gửi..."
@@ -14988,6 +14982,9 @@ msgstr "Đang nói"
 msgid "Specific"
 msgstr "Cụ thể"
 
+msgid "Speed"
+msgstr "Tốc độ"
+
 msgid "Spend"
 msgstr "Chi tiêu"
 
@@ -15221,6 +15218,9 @@ msgstr "Đang khởi động"
 msgid "Starting {agentLabel}"
 msgstr "Đang khởi động {agentLabel}"
 
+msgid "Starting an agent in {what}"
+msgstr "Đang khởi động tác nhân trong {what}"
+
 msgid "Starting cloud workspace"
 msgstr "Đang khởi động workspace trên cloud"
 
@@ -15311,6 +15311,9 @@ msgstr "Dừng lệnh chạy của workspace"
 
 msgid "stopped"
 msgstr "đã dừng"
+
+msgid "Stopping the agent in {what}"
+msgstr "Đang dừng tác nhân trong {what}"
 
 msgid "Strikethrough"
 msgstr "Gạch ngang"
@@ -17653,6 +17656,9 @@ msgstr "Khách truy cập có phiên bắt đầu từ liên kết do trợ lý 
 msgid "Voice"
 msgstr "Giọng nói"
 
+msgid "Voice settings"
+msgstr "Cài đặt giọng nói"
+
 msgid "Volume"
 msgstr "Âm lượng"
 
@@ -17684,9 +17690,6 @@ msgstr "Đang chờ tin nhắn đầu tiên của agent con…"
 
 msgid "Waiting for your input"
 msgstr "Đang chờ bạn phản hồi"
-
-msgid "Waiting for your OK"
-msgstr "Đang chờ bạn xác nhận"
 
 msgid "Waitlist signups"
 msgstr "Đăng ký danh sách chờ"

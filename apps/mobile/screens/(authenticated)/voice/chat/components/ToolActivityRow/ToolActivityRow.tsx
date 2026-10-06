@@ -28,16 +28,24 @@ function useToolLabel(name: string, subject: string | null): string {
 		case "open_page":
 		case "show":
 			return t({ message: `Opening ${what}` });
-		case "set_follow":
-			return t({ message: "Follow mode" });
 		case "send_message":
-			return t({ message: `Preparing a message for ${what}` });
+			return t({ message: `Sending a message to ${what}` });
 		case "restart_workspace":
-			return t({ message: `Preparing to restart ${what}` });
-		case "confirm_action":
-			return t({ message: "Doing it" });
-		case "cancel_action":
-			return t({ message: "Never mind" });
+			return t({ message: `Restarting ${what}` });
+		case "read_page":
+			return t({ message: "Reading the page" });
+		case "create_workspace":
+			return t({ message: "Creating a workspace" });
+		case "start_agent":
+			return t({ message: `Starting an agent in ${what}` });
+		case "stop_agent":
+			return t({ message: `Stopping the agent in ${what}` });
+		case "create_task":
+			return t({ message: "Creating a task" });
+		case "list_tasks":
+			return t({ message: "Looking at tasks" });
+		case "end_session":
+			return t({ message: "Ending the call" });
 		default:
 			return name;
 	}

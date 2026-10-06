@@ -1,5 +1,4 @@
-import { useRef } from "react";
-import { ScrollView, View } from "react-native";
+import { View } from "react-native";
 import { Text } from "@/components/ui/text";
 import { cn } from "@/lib/utils";
 import type { TranscriptEntry } from "@/lib/voice/voiceStore";
@@ -11,18 +10,8 @@ import { ToolActivityRow } from "../ToolActivityRow";
  * transcribed are dimmed until they settle.
  */
 export function VoiceTranscript({ entries }: { entries: TranscriptEntry[] }) {
-	const scrollRef = useRef<ScrollView>(null);
-
 	return (
-		<ScrollView
-			ref={scrollRef}
-			className="flex-1"
-			contentContainerClassName="gap-3 px-5 pb-4 pt-2"
-			showsVerticalScrollIndicator={false}
-			onContentSizeChange={() =>
-				scrollRef.current?.scrollToEnd({ animated: true })
-			}
-		>
+		<View className="gap-3 px-5 pb-4 pt-2">
 			{entries.map((entry) => {
 				if (entry.role === "tool") {
 					return (
@@ -59,6 +48,6 @@ export function VoiceTranscript({ entries }: { entries: TranscriptEntry[] }) {
 					</Text>
 				);
 			})}
-		</ScrollView>
+		</View>
 	);
 }

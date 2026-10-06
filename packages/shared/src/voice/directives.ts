@@ -1,7 +1,6 @@
 /**
  * What a tool result asks the phone to show. Applied by the device after the
- * tool's output is handed back to the model, and only honoured for ambient
- * navigation when follow mode is on; `show` always navigates.
+ * tool's output is handed back to the model.
  */
 export type VoiceNavigateTarget =
 	| { screen: "home" }

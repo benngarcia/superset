@@ -9,7 +9,10 @@ export interface MintRealtimeSecretInput {
 	instructions: string;
 	tools: RealtimeFunctionTool[];
 	transcriptionModel: string;
+	reasoningEffort: string;
+	speed: number;
 	ttlSeconds: number;
+	contextTokenLimit: number;
 	/** Opaque per-user id OpenAI uses for abuse monitoring; never an email. */
 	safetyIdentifier: string;
 }
@@ -50,6 +53,14 @@ export async function mintRealtimeClientSecret(
 				output_modalities: ["audio"],
 				tools: input.tools,
 				tool_choice: "auto",
+				// Below 1 so each truncation frees room for several turns; one
+				// that fires every turn defeats the prompt cache.
+				truncation: {
+					type: "retention_ratio",
+					retention_ratio: 0.8,
+					token_limits: { post_instructions: input.contextTokenLimit },
+				},
+				reasoning: { effort: input.reasoningEffort },
 				audio: {
 					input: {
 						transcription: { model: input.transcriptionModel },
@@ -61,7 +72,7 @@ export async function mintRealtimeClientSecret(
 						},
 						noise_reduction: { type: "near_field" },
 					},
-					output: { voice: input.voice },
+					output: { voice: input.voice, speed: input.speed },
 				},
 			},
 		}),

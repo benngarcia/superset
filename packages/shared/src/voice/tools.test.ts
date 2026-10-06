@@ -37,13 +37,7 @@ describe("voiceTool", () => {
 		const parsed = voiceTool("read_session").parameters.parse({
 			workspace: "auth",
 		});
-		expect(parsed).toEqual({ workspace: "auth", maxChars: 2500 });
-	});
-
-	test("only the two mutations are gated", () => {
-		expect(VOICE_TOOLS.filter((tool) => tool.gated).map((t) => t.name)).toEqual(
-			["send_message", "restart_workspace"],
-		);
+		expect(parsed).toEqual({ workspace: "auth", maxChars: 1500 });
 	});
 
 	test("names are checkable at the boundary", () => {

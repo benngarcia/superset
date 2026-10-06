@@ -47,6 +47,25 @@ export interface VoicePage {
 	updatedAt: number;
 }
 
+export interface VoiceEnvironment {
+	id: string;
+	name: string;
+}
+
+export interface VoiceMachine {
+	hostId: string;
+	name: string;
+	projects: Array<{ id: string; name: string }>;
+}
+
+export interface VoiceTask {
+	key: string;
+	title: string;
+	status: string | null;
+	priority: string;
+	assignee: string | null;
+}
+
 export class VoiceDataError extends Error {
 	constructor(
 		public readonly kind: "unreachable" | "timeout" | "not_found" | "forbidden",
@@ -74,5 +93,41 @@ export interface VoiceData {
 	listPullRequests(workspace: VoiceWorkspace): Promise<VoicePullRequest[]>;
 	listPages(workspaceId: string | null, limit: number): Promise<VoicePage[]>;
 	findPage(query: string): Promise<VoicePage | null>;
+	readPage(page: VoicePage, maxChars: number): Promise<string>;
 	restartWorkspace(workspace: VoiceWorkspace): Promise<void>;
+	/** Environments a cloud workspace can start from. */
+	listEnvironments(): Promise<VoiceEnvironment[]>;
+	createWorkspace(input: {
+		environmentId: string;
+		prompt: string;
+		agent: string;
+	}): Promise<{ id: string; name: string }>;
+	/** Machines that answer right now, each with its projects. */
+	listMachines(): Promise<VoiceMachine[]>;
+	/** No worktree: a scratch folder, or the project's own checkout. */
+	createMachineWorkspace(input: {
+		machine: VoiceMachine;
+		projectId: string | null;
+		prompt: string;
+		agent: string;
+	}): Promise<{ workspace: VoiceWorkspace; terminalId: string | null }>;
+	startAgent(
+		workspace: VoiceWorkspace,
+		agent: string,
+		prompt: string,
+	): Promise<{ terminalId: string; label: string }>;
+	stopSession(
+		workspace: VoiceWorkspace,
+		session: VoiceSessionRow,
+	): Promise<void>;
+	createTask(input: {
+		title: string;
+		description?: string;
+		priority: "urgent" | "high" | "medium" | "low" | "none";
+	}): Promise<VoiceTask>;
+	listTasks(input: {
+		mine: boolean;
+		search?: string;
+		limit: number;
+	}): Promise<VoiceTask[]>;
 }

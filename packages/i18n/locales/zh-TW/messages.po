@@ -5182,6 +5182,12 @@ msgstr "建立中"
 msgid "Creating"
 msgstr "建立中"
 
+msgid "Creating a task"
+msgstr "正在建立任務"
+
+msgid "Creating a workspace"
+msgstr "正在建立工作區"
+
 msgid "Creating PR..."
 msgstr "正在建立PR…"
 
@@ -5926,9 +5932,6 @@ msgstr "文件"
 msgid "Documentation"
 msgstr "文件"
 
-msgid "Doing it"
-msgstr "正在執行"
-
 msgid "Don't ask again"
 msgstr "不再詢問"
 
@@ -6295,6 +6298,9 @@ msgstr "結束語音會話"
 msgid "Ended"
 msgstr "已結束"
 
+msgid "Ending the call"
+msgstr "正在結束通話"
+
 msgid "Engineering deep-dives and launches."
 msgstr "工程深度文章與新功能釋出。"
 
@@ -6543,6 +6549,9 @@ msgstr "外部編輯器"
 
 msgid "extra ${used} of ${limit}"
 msgstr "額外用量${used}/${limit}"
+
+msgid "Extra high"
+msgstr "極高"
 
 msgid "Extra small"
 msgstr "超小"
@@ -7331,20 +7340,11 @@ msgstr "資料夾檢視"
 msgid "Folders to check out into new worktrees, one per line, relative to the repo root. Files at the root are always included. Empty checks out everything."
 msgstr "要檢出到新worktree的資料夾，每行一個，相對於儲存庫根目錄。根目錄下的檔案始終包含在內。留空則檢出全部。"
 
-msgid "Follow"
-msgstr "跟隨"
-
-msgid "Follow mode"
-msgstr "跟隨模式"
-
 msgid "FOLLOW ON X"
 msgstr "在X上關注"
 
 msgid "Follow terminal sessions live"
 msgstr "即時追蹤終端工作階段"
-
-msgid "Follow the conversation"
-msgstr "跟隨對話"
 
 msgid "FOLLOW US"
 msgstr "關注我們"
@@ -9253,6 +9253,9 @@ msgstr "長時間懸停才出現、只顯示快速鍵的tooltip；它的chip樣�
 msgid "Looking at {what}"
 msgstr "正在查看 {what}"
 
+msgid "Looking at tasks"
+msgstr "正在查看任務"
+
 msgid "Looking for a mobile simulator…"
 msgstr "正在尋找行動模擬器…"
 
@@ -9578,6 +9581,9 @@ msgctxt "workspaces I created"
 msgid "Mine"
 msgstr "我的"
 
+msgid "Minimal"
+msgstr "最低"
+
 msgid "Minimal reasoning effort"
 msgstr "最少的推理投入"
 
@@ -9586,9 +9592,6 @@ msgstr "最小化"
 
 msgid "Minimize GitHub issues"
 msgstr "最小化GitHub議題"
-
-msgid "Minimize voice"
-msgstr "最小化語音"
 
 msgid "Minimum contrast"
 msgstr "最小對比度"
@@ -9905,9 +9908,6 @@ msgstr "網路已變更"
 
 msgid "Never"
 msgstr "從未"
-
-msgid "Never mind"
-msgstr "已取消"
 
 msgctxt "badge on a page published since the menu was last opened"
 msgid "New"
@@ -11506,9 +11506,6 @@ msgstr "選項"
 msgid "Or ask your coding agent to install the Superset CLI."
 msgstr "或者讓你的編碼代理程式安裝Superset CLI。"
 
-msgid "or just say yes"
-msgstr "或直接說「好」"
-
 msgid "Orange"
 msgstr "橙色"
 
@@ -12166,12 +12163,6 @@ msgstr "字首"
 msgid "Preparing"
 msgstr "正在準備"
 
-msgid "Preparing a message for {what}"
-msgstr "正在為 {what} 準備訊息"
-
-msgid "Preparing to restart {what}"
-msgstr "正在準備重新啟動 {what}"
-
 msgid "Preserve commit history"
 msgstr "保留提交歷史"
 
@@ -12671,6 +12662,9 @@ msgstr "閱讀設定指南"
 
 msgid "Reading {what}"
 msgstr "正在讀取 {what}"
+
+msgid "Reading the page"
+msgstr "正在讀取頁面"
 
 msgid "Reading usage…"
 msgstr "正在讀取用量…"
@@ -13280,9 +13274,6 @@ msgstr "響應"
 msgid "Restart"
 msgstr "重啟"
 
-msgid "Restart {target}"
-msgstr "重新啟動 {target}"
-
 msgid "Restart all terminals?"
 msgstr "重啟所有終端？"
 
@@ -13330,6 +13321,9 @@ msgstr "已重啟1個主機服務"
 
 msgid "Restarting"
 msgstr "重新啟動中"
+
+msgid "Restarting {what}"
+msgstr "正在重新啟動 {what}"
 
 msgid "Restarting agents on {accountLabel}."
 msgstr "正在{accountLabel}上重新啟動代理程式。"
@@ -14268,9 +14262,6 @@ msgstr "傳送審查"
 msgid "Send to"
 msgstr "傳送給"
 
-msgid "Send to {target}"
-msgstr "傳送到 {target}"
-
 msgid "Send to agent"
 msgstr "傳送給代理程式"
 
@@ -14282,6 +14273,9 @@ msgstr "傳送到聊天（{draftCount}）"
 
 msgid "Sending"
 msgstr "正在傳送"
+
+msgid "Sending a message to {what}"
+msgstr "正在傳送訊息至 {what}"
 
 msgid "Sending..."
 msgstr "正在傳送..."
@@ -14988,6 +14982,9 @@ msgstr "正在說話"
 msgid "Specific"
 msgstr "指定"
 
+msgid "Speed"
+msgstr "速度"
+
 msgid "Spend"
 msgstr "支出"
 
@@ -15221,6 +15218,9 @@ msgstr "啟動中"
 msgid "Starting {agentLabel}"
 msgstr "正在啟動{agentLabel}"
 
+msgid "Starting an agent in {what}"
+msgstr "正在 {what} 中啟動代理程式"
+
 msgid "Starting cloud workspace"
 msgstr "正在啟動雲端工作區"
 
@@ -15311,6 +15311,9 @@ msgstr "停止工作區執行命令"
 
 msgid "stopped"
 msgstr "已停止"
+
+msgid "Stopping the agent in {what}"
+msgstr "正在停止 {what} 中的代理程式"
 
 msgid "Strikethrough"
 msgstr "刪除線"
@@ -17653,6 +17656,9 @@ msgstr "從助理提供的連結開始工作階段的訪客。這是 AEO 工作�
 msgid "Voice"
 msgstr "語音"
 
+msgid "Voice settings"
+msgstr "語音設定"
+
 msgid "Volume"
 msgstr "音量"
 
@@ -17684,9 +17690,6 @@ msgstr "正在等待子代理程式的第一則訊息…"
 
 msgid "Waiting for your input"
 msgstr "等待你的輸入"
-
-msgid "Waiting for your OK"
-msgstr "等待你確認"
 
 msgid "Waitlist signups"
 msgstr "候補名單註冊"

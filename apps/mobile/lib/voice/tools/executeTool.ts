@@ -1,6 +1,5 @@
 import {
 	isVoiceToolName,
-	needsConfirmation,
 	type VoiceToolInput,
 	type VoiceToolName,
 	type VoiceToolResult,
@@ -8,7 +7,6 @@ import {
 	voiceTool,
 } from "@superset/shared/voice";
 import { ago } from "./ago";
-import type { PendingActions } from "./confirmations";
 import { resolveSession, resolveWorkspace } from "./resolveWorkspace";
 import {
 	type VoiceData,
@@ -21,10 +19,15 @@ import {
 
 export interface ToolContext {
 	data: VoiceData;
-	pending: PendingActions;
 	now: () => number;
-	follow: { get: () => boolean; set: (on: boolean) => void };
+	endSession: () => void;
+	getPathname: () => string;
+	/** Speak up when this agent session finishes or needs the user. */
+	watchSession: (workspace: VoiceWorkspace, terminalId: string) => void;
 }
+
+/** No call may leave the model, and the user, waiting on it for longer. */
+const TOOL_TIMEOUT_MS = 20_000;
 
 /** A day without activity and a workspace is no longer "active". */
 const ACTIVE_WINDOW_MS = 24 * 60 * 60_000;
@@ -51,7 +54,6 @@ class ToolFailure extends Error {
 
 function describeWorkspace(workspace: VoiceWorkspace, now: number) {
 	return {
-		id: workspace.id,
 		name: workspace.name,
 		project: workspace.project,
 		branch: workspace.branch,
@@ -67,7 +69,6 @@ function describeWorkspace(workspace: VoiceWorkspace, now: number) {
 
 function describeSession(session: VoiceSessionRow, now: number) {
 	return {
-		id: session.terminalId,
 		name: session.title,
 		agent: session.agentId,
 		state: session.attention ? ATTENTION_WORDS[session.attention] : "idle",
@@ -86,7 +87,6 @@ function describePullRequest(pr: VoicePullRequest) {
 
 function describePage(page: VoicePage, now: number) {
 	return {
-		id: page.id,
 		slug: page.slug,
 		title: page.title,
 		description: page.description,
@@ -116,6 +116,35 @@ async function requireWorkspace(
 		case "none":
 			throw new ToolFailure("not_found", `No workspace matches "${query}".`);
 	}
+}
+
+/** One row by spoken name: the only one, an exact match, or the only partial match. */
+function pickByName<Row extends { name: string }>(
+	rows: Row[],
+	wanted: string | undefined,
+	what: string,
+	noneMessage: string,
+): Row {
+	if (rows.length === 0) throw new ToolFailure("invalid", noneMessage);
+	const query = wanted?.trim().toLowerCase();
+	const matches = query
+		? rows.filter((row) => row.name.toLowerCase().includes(query))
+		: rows;
+	const picked =
+		matches.find((row) => row.name.toLowerCase() === query) ??
+		(matches.length === 1 ? matches[0] : undefined);
+	if (picked) return picked;
+	throw new ToolFailure(
+		"ambiguous",
+		query && matches.length === 0
+			? `No ${what} matches "${wanted}".`
+			: `Several ${what}s; ask which one.`,
+		{
+			[`${what}s`]: (matches.length > 0 ? matches : rows).map(
+				(row) => row.name,
+			),
+		},
+	);
 }
 
 async function requireSession(
@@ -289,6 +318,24 @@ const handlers: Handlers = {
 		};
 	},
 
+	async read_page(args, ctx) {
+		const onScreen = /^\/pages\/([^/]+)/.exec(ctx.getPathname())?.[1];
+		const query = args.page ?? (onScreen && decodeURIComponent(onScreen));
+		if (!query) {
+			throw new ToolFailure("invalid", "No page is open; say which page.");
+		}
+		const page = await ctx.data.findPage(query);
+		if (!page)
+			throw new ToolFailure("not_found", `No page matches "${query}".`);
+		return {
+			output: {
+				page: describePage(page, ctx.now()),
+				text: await ctx.data.readPage(page, args.maxChars),
+			},
+			ui: { navigate: { screen: "page", slug: page.slug } },
+		};
+	},
+
 	async show(args, ctx) {
 		let navigate: VoiceUiDirective["navigate"];
 		switch (args.screen) {
@@ -314,45 +361,144 @@ const handlers: Handlers = {
 		return { output: { shown: args.screen }, ui: { navigate } };
 	},
 
-	async set_follow(args, ctx) {
-		ctx.follow.set(args.on);
-		return { output: { follow: args.on } };
+	async create_workspace(args, ctx) {
+		const prompt = args.prompt.trim();
+		if (args.cloud) {
+			const environment = pickByName(
+				await ctx.data.listEnvironments(),
+				args.environment,
+				"environment",
+				"No environment with a repository exists; one is set up in Settings on the desktop.",
+			);
+			const workspace = await ctx.data.createWorkspace({
+				environmentId: environment.id,
+				prompt,
+				agent: args.agent,
+			});
+			return {
+				output: {
+					created: true,
+					workspace: workspace.name,
+					where: "cloud",
+					environment: environment.name,
+				},
+				ui: { navigate: { screen: "workspace", workspaceId: workspace.id } },
+			};
+		}
+		const machine = pickByName(
+			await ctx.data.listMachines(),
+			args.machine,
+			"machine",
+			"None of the user's machines is reachable right now.",
+		);
+		const project = args.project
+			? pickByName(
+					machine.projects,
+					args.project,
+					"project",
+					`${machine.name} has no projects.`,
+				)
+			: null;
+		const { workspace, terminalId } = await ctx.data.createMachineWorkspace({
+			machine,
+			projectId: project?.id ?? null,
+			prompt,
+			agent: args.agent,
+		});
+		if (terminalId) ctx.watchSession(workspace, terminalId);
+		return {
+			output: {
+				created: true,
+				workspace: workspace.name,
+				where: machine.name,
+				...(project ? { project: project.name } : {}),
+				agentStarted: terminalId !== null,
+			},
+			ui: {
+				navigate: {
+					screen: "workspace",
+					workspaceId: workspace.id,
+					...(terminalId ? { terminalId } : {}),
+				},
+			},
+		};
+	},
+
+	async start_agent(args, ctx) {
+		const workspace = await requireWorkspace(args.workspace, ctx);
+		const started = await ctx.data.startAgent(
+			workspace,
+			args.agent,
+			args.prompt.trim(),
+		);
+		ctx.watchSession(workspace, started.terminalId);
+		return {
+			output: {
+				started: true,
+				workspace: workspace.name,
+				session: started.label,
+			},
+			ui: {
+				navigate: {
+					screen: "workspace",
+					workspaceId: workspace.id,
+					terminalId: started.terminalId,
+				},
+			},
+		};
+	},
+
+	async stop_agent(args, ctx) {
+		const workspace = await requireWorkspace(args.workspace, ctx);
+		const session = await requireSession(workspace, args.session, ctx);
+		await ctx.data.stopSession(workspace, session);
+		return {
+			output: {
+				stopped: true,
+				workspace: workspace.name,
+				session: session.title,
+			},
+			ui: { navigate: { screen: "workspace", workspaceId: workspace.id } },
+		};
+	},
+
+	async create_task(args, ctx) {
+		const task = await ctx.data.createTask({
+			title: args.title.trim(),
+			description: args.description?.trim() || undefined,
+			priority: args.priority,
+		});
+		return { output: { created: true, task } };
+	},
+
+	async list_tasks(args, ctx) {
+		const tasks = await ctx.data.listTasks(args);
+		return { output: { tasks } };
+	},
+
+	async end_session(_args, ctx) {
+		ctx.endSession();
+		return { output: { ending: true } };
 	},
 
 	async send_message(args, ctx) {
 		const workspace = await requireWorkspace(args.workspace, ctx);
 		const session = await requireSession(workspace, args.session, ctx);
-		const text = args.text.trim();
-		const action = ctx.pending.propose(
-			{
-				tool: "send_message",
-				summary: text,
-				target: `${workspace.name} › ${session.title}`,
-				args: {
+		await ctx.data.sendMessage(workspace, session, args.text.trim());
+		return {
+			output: {
+				sent: true,
+				workspace: workspace.name,
+				session: session.title,
+			},
+			ui: {
+				navigate: {
+					screen: "workspace",
 					workspaceId: workspace.id,
 					terminalId: session.terminalId,
-					text,
 				},
 			},
-			async () => {
-				await ctx.data.sendMessage(workspace, session, text);
-				return {
-					output: {
-						sent: true,
-						workspace: workspace.name,
-						session: session.title,
-					},
-					ui: {
-						navigate: {
-							screen: "workspace",
-							workspaceId: workspace.id,
-							terminalId: session.terminalId,
-						},
-					},
-				};
-			},
-		);
-		return { output: needsConfirmation(action) };
+		};
 	},
 
 	async restart_workspace(args, ctx) {
@@ -363,37 +509,11 @@ const handlers: Handlers = {
 				`${workspace.name} runs on ${workspace.hostName ?? "a machine"}; only cloud workspaces restart.`,
 			);
 		}
-		const action = ctx.pending.propose(
-			{
-				tool: "restart_workspace",
-				summary: `Restart ${workspace.name}`,
-				target: workspace.name,
-				args: { workspaceId: workspace.id },
-			},
-			async () => {
-				await ctx.data.restartWorkspace(workspace);
-				return {
-					output: { restarted: true, workspace: workspace.name },
-					ui: { navigate: { screen: "workspace", workspaceId: workspace.id } },
-				};
-			},
-		);
-		return { output: needsConfirmation(action) };
-	},
-
-	async confirm_action(args, ctx) {
-		const result = await ctx.pending.confirm(args.token);
-		if (!result) {
-			throw new ToolFailure(
-				"not_found",
-				"Nothing is pending for that token; ask again if the user still wants it.",
-			);
-		}
-		return result;
-	},
-
-	async cancel_action(args, ctx) {
-		return { output: { cancelled: ctx.pending.cancel(args.token) } };
+		await ctx.data.restartWorkspace(workspace);
+		return {
+			output: { restarted: true, workspace: workspace.name },
+			ui: { navigate: { screen: "workspace", workspaceId: workspace.id } },
+		};
 	},
 };
 
@@ -422,7 +542,15 @@ export async function executeTool(
 			args: unknown,
 			ctx: ToolContext,
 		) => Promise<VoiceToolResult>;
-		return await handler(parsed.data, ctx);
+		return await Promise.race([
+			handler(parsed.data, ctx),
+			new Promise<never>((_resolve, reject) =>
+				setTimeout(
+					() => reject(new ToolFailure("timeout", "That took too long.")),
+					TOOL_TIMEOUT_MS,
+				),
+			),
+		]);
 	} catch (error) {
 		if (error instanceof ToolFailure) {
 			return {
@@ -448,7 +576,7 @@ export async function executeTool(
 }
 
 /** The thing a tool acted on, for the transcript row; null when it has none. */
-export function toolSubject(name: string, rawArgs: unknown): string | null {
+export function toolSubject(rawArgs: unknown): string | null {
 	if (typeof rawArgs !== "object" || rawArgs === null) return null;
 	const args = rawArgs as Record<string, unknown>;
 	const value = args.workspace ?? args.query ?? args.page ?? args.screen;

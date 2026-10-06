@@ -30,6 +30,7 @@ config.resolver.nodeModulesPaths = [
 
 // Enable package exports for better-auth
 config.resolver.unstable_enablePackageExports = true;
+config.resolver.assetExts = [...config.resolver.assetExts, "riv"];
 
 // Resolve local Expo Modules (modules/ dir)
 config.resolver.extraNodeModules = {
