@@ -26,7 +26,7 @@ export function initSentry(options: { organizationId?: string }): void {
 				exitEvenIfOtherHandlersAreRegistered: false,
 			}),
 			sazabiIntegration({
-				dsn: process.env.SAZABI_SENTRY_DSN,
+				dsn: process.env.HOST_SERVICE_SAZABI_SENTRY_DSN,
 				transport: Sentry.makeNodeTransport,
 			}),
 		],
