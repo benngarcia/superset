@@ -16,7 +16,7 @@ import { workspaceTrpc } from "@superset/workspace-client";
 import { memo, useCallback, useMemo, useRef } from "react";
 import { AgentComposer } from "renderer/routes/_authenticated/components/AgentComposer";
 import { CHAT_COLUMN_CLASSNAME, CHAT_GUTTER_CLASSNAME } from "../../constants";
-import { ModelPicker } from "./components/ModelPicker";
+import { type AgentSwitcher, ModelPicker } from "./components/ModelPicker";
 import { ModePicker, type SessionMode } from "./components/ModePicker";
 import { QueuedPrompts } from "./components/QueuedPrompts";
 import { useComposerDraft } from "./hooks/useComposerDraft";
@@ -29,6 +29,7 @@ export type ComposerProps = {
 	availableCommands: AvailableCommand[];
 	configOptions?: SessionConfigOption[];
 	onSetConfigOption?: (configId: string, value: string) => unknown;
+	agentSwitcher?: AgentSwitcher;
 	modes?: SessionMode[];
 	currentModeId?: string;
 	onSetMode?: (modeId: string) => void;
@@ -65,6 +66,7 @@ function toMenuCommands(commands: AvailableCommand[]): PromptInputCommand[] {
 }
 
 export const Composer = memo(function Composer({
+	agentSwitcher,
 	availableCommands,
 	configOptions,
 	currentModeId,
@@ -175,21 +177,22 @@ export const Composer = memo(function Composer({
 				status={onCancelTurn ? "streaming" : "ready"}
 				submitWhileStreaming={promptQueue !== undefined}
 				toolbar={
-					modes && onSetMode ? (
-						<ModePicker
-							currentModeId={currentModeId}
-							modes={modes}
-							onSelect={onSetMode}
-						/>
-					) : null
-				}
-				toolbarEnd={
-					configOptions && onSetConfigOption ? (
-						<ModelPicker
-							configOptions={configOptions}
-							onSelect={onSetConfigOption}
-						/>
-					) : null
+					<div className="flex min-w-0 items-center gap-1">
+						{configOptions && onSetConfigOption ? (
+							<ModelPicker
+								agentSwitcher={agentSwitcher}
+								configOptions={configOptions}
+								onSelect={onSetConfigOption}
+							/>
+						) : null}
+						{modes && onSetMode ? (
+							<ModePicker
+								currentModeId={currentModeId}
+								modes={modes}
+								onSelect={onSetMode}
+							/>
+						) : null}
+					</div>
 				}
 			/>
 		</div>

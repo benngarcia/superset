@@ -1,6 +1,6 @@
 import {
 	mcpHeadersHelperCommand,
-	readInstalledPluginSources,
+	readEnabledPlugins,
 	readPluginConnections,
 	type SyncManagedMcpServersOptions,
 	syncManagedMcpServers,
@@ -21,7 +21,12 @@ export function syncPluginMcpServers(
 	servers: number;
 	error: string | null;
 } {
-	const desired = desiredPluginMcpServers(readInstalledPluginSources() ?? [], {
+	const enabled = readEnabledPlugins();
+	// An unreadable ledger is not an empty one; syncing an empty desired set
+	// would reap every managed server.
+	if (!enabled)
+		return { servers: 0, error: "installed_plugins.json is unreadable" };
+	const desired = desiredPluginMcpServers(enabled, {
 		connections: readPluginConnections(),
 		headersHelper: mcpHeadersHelperCommand(),
 	});

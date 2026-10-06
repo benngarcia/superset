@@ -1727,6 +1727,9 @@ msgstr "Thêm nhãn này"
 msgid "Add to Dictionary"
 msgstr "Thêm vào từ điển"
 
+msgid "Add to favorites"
+msgstr "Thêm vào mục yêu thích"
+
 msgid "Add to project"
 msgstr "Thêm vào dự án"
 
@@ -1984,6 +1987,9 @@ msgstr "Tất cả trong tab hiện tại"
 
 msgid "All in current tab (split panes)"
 msgstr "Tất cả trong tab hiện tại (chia khung)"
+
+msgid "All models"
+msgstr "Tất cả mô hình"
 
 msgid "All objectives cleared. Top rung, nothing left to reach for."
 msgstr "Đã đạt mọi mục tiêu. Nấc cao nhất, không còn gì để với tới."
@@ -2424,17 +2430,11 @@ msgstr "tăng dần"
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "Hãy nhờ một agent xuất bản một trang từ ứng dụng máy tính."
 
-msgid "Ask before editing files or running commands"
-msgstr "Hỏi trước khi sửa tệp hoặc chạy lệnh"
-
 msgid "Ask for approval"
 msgstr "Yêu cầu phê duyệt"
 
 msgid "Ask for this to be removed"
 msgstr "Yêu cầu xóa phần này"
-
-msgid "Ask only for actions that look risky"
-msgstr "Chỉ xin phép trước với thao tác có vẻ rủi ro"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "Hỏi tác nhân, @nhắc đến tệp, chạy /lệnh"
@@ -2453,6 +2453,12 @@ msgstr "Yêu cầu thay đổi"
 
 msgid "Ask to make changes, @mention files, run /commands"
 msgstr "Yêu cầu thay đổi, @nhắc đến tệp, chạy /commands"
+
+msgid "Asks before edits and commands"
+msgstr "Hỏi trước khi sửa và chạy lệnh"
+
+msgid "Asks only for risky actions"
+msgstr "Chỉ hỏi với thao tác rủi ro"
 
 msgid "Aspect Ratio"
 msgstr "Aspect Ratio"
@@ -4920,6 +4926,9 @@ msgstr "Không thể khởi động lại workspace: {0}"
 msgid "Couldn't restore \"{projectName}\""
 msgstr "Không thể khôi phục \"{projectName}\""
 
+msgid "Couldn't restore \"{workspaceName}\""
+msgstr "Không thể khôi phục \"{workspaceName}\""
+
 msgid "Couldn't save"
 msgstr "Không lưu được"
 
@@ -7083,6 +7092,9 @@ msgstr "FAQ"
 
 msgid "Fatal"
 msgstr "Nghiêm trọng"
+
+msgid "Favorites"
+msgstr "Yêu thích"
 
 msgid "Featured"
 msgstr "Nổi bật"
@@ -9896,6 +9908,9 @@ msgstr "Mạng đã thay đổi"
 msgid "Never"
 msgstr "Chưa bao giờ"
 
+msgid "Never asks before acting"
+msgstr "Không bao giờ hỏi trước"
+
 msgctxt "badge on a page published since the menu was last opened"
 msgid "New"
 msgstr "Mới"
@@ -10272,6 +10287,9 @@ msgstr "Không suy nghĩ mở rộng"
 msgid "No failed runs."
 msgstr "Không có lần chạy thất bại."
 
+msgid "No favorite models"
+msgstr "Không có mô hình yêu thích"
+
 msgid "No files found"
 msgstr "Không tìm thấy tệp nào"
 
@@ -10358,6 +10376,9 @@ msgstr "Không có kết quả khớp"
 
 msgid "No matching files"
 msgstr "Không có tệp phù hợp"
+
+msgid "No matching models"
+msgstr "Không có mô hình phù hợp"
 
 msgid "No matching org members."
 msgstr "Không có thành viên tổ chức nào khớp."
@@ -12626,12 +12647,6 @@ msgstr "Đã đọc"
 msgid "Read and plan without changing anything"
 msgstr "Đọc và lập kế hoạch mà không thay đổi gì"
 
-msgid "Read files; ask for anything else"
-msgstr "Đọc tệp; xin phép trước với mọi việc khác"
-
-msgid "Read only"
-msgstr "Chỉ đọc"
-
 msgid "Read the changelog"
 msgstr "Đọc changelog"
 
@@ -12888,6 +12903,9 @@ msgstr "Gỡ {label}?"
 
 msgid "Remove attachment"
 msgstr "Xóa tệp đính kèm"
+
+msgid "Remove from favorites"
+msgstr "Xóa khỏi mục yêu thích"
 
 msgid "Remove from Queue"
 msgstr "Bỏ khỏi hàng đợi"
@@ -13342,6 +13360,12 @@ msgstr "Đã khôi phục \"{name}\""
 
 msgid "Restored \"{projectName}\""
 msgstr "Đã khôi phục \"{projectName}\""
+
+msgid "Restored \"{workspaceName}\""
+msgstr "Đã khôi phục \"{workspaceName}\""
+
+msgid "Restoring \"{workspaceName}\"…"
+msgstr "Đang khôi phục \"{workspaceName}\"…"
 
 msgid "Restoring your session"
 msgstr "Đang khôi phục phiên của bạn"
@@ -13916,6 +13940,9 @@ msgstr "Tìm trong Linear"
 msgid "Search Linear…"
 msgstr "Tìm trong Linear…"
 
+msgid "Search models"
+msgstr "Tìm mô hình"
+
 msgid "Search pages"
 msgstr "Tìm trang"
 
@@ -14140,9 +14167,6 @@ msgstr "Chọn issue"
 
 msgid "Select method"
 msgstr "Chọn phương thức"
-
-msgid "Select model"
-msgstr "Chọn mô hình"
 
 msgid "Select new project location"
 msgstr "Chọn vị trí dự án mới"
@@ -17207,9 +17231,6 @@ msgstr "Bỏ giải quyết"
 
 msgid "Unresolved"
 msgstr "Chưa giải quyết"
-
-msgid "Unrestricted access to the internet and any file on your computer"
-msgstr "Truy cập không giới hạn vào internet và mọi tệp trên máy tính của bạn"
 
 msgid "Unsaved changes"
 msgstr "Thay đổi chưa lưu"

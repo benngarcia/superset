@@ -1727,6 +1727,9 @@ msgstr "Bu etiketi ekle"
 msgid "Add to Dictionary"
 msgstr "Sözlüğe ekle"
 
+msgid "Add to favorites"
+msgstr "Favorilere ekle"
+
 msgid "Add to project"
 msgstr "Projeye ekle"
 
@@ -1984,6 +1987,9 @@ msgstr "Tümü geçerli sekmede"
 
 msgid "All in current tab (split panes)"
 msgstr "Tümü geçerli sekmede (bölünmüş bölmeler)"
+
+msgid "All models"
+msgstr "Tüm modeller"
 
 msgid "All objectives cleared. Top rung, nothing left to reach for."
 msgstr "Tüm hedefler geçildi. En üst basamak, ulaşılacak başka bir şey yok."
@@ -2424,17 +2430,11 @@ msgstr "artan"
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "Bir ajandan masaüstü uygulamasından bir tane yayımlamasını isteyin."
 
-msgid "Ask before editing files or running commands"
-msgstr "Dosyaları düzenlemeden veya komut çalıştırmadan önce sor"
-
 msgid "Ask for approval"
 msgstr "Onay iste"
 
 msgid "Ask for this to be removed"
 msgstr "Kaldırılmasını iste"
-
-msgid "Ask only for actions that look risky"
-msgstr "Yalnızca riskli görünen işlemler için sor"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "Aracıya sorun, @ile dosya belirtin, /komut çalıştırın"
@@ -2453,6 +2453,12 @@ msgstr "Değişiklik isteyin"
 
 msgid "Ask to make changes, @mention files, run /commands"
 msgstr "Değişiklik isteyin, dosyaları @ ile anın, /komut çalıştırın"
+
+msgid "Asks before edits and commands"
+msgstr "Düzenleme ve komutlardan önce sorar"
+
+msgid "Asks only for risky actions"
+msgstr "Yalnızca riskli işlemlerde sorar"
 
 msgid "Aspect Ratio"
 msgstr "En boy oranı"
@@ -4920,6 +4926,9 @@ msgstr "Çalışma alanı yeniden başlatılamadı: {0}"
 msgid "Couldn't restore \"{projectName}\""
 msgstr "\"{projectName}\" geri yüklenemedi"
 
+msgid "Couldn't restore \"{workspaceName}\""
+msgstr "\"{workspaceName}\" geri yüklenemedi"
+
 msgid "Couldn't save"
 msgstr "Kaydedilemedi"
 
@@ -7083,6 +7092,9 @@ msgstr "SSS"
 
 msgid "Fatal"
 msgstr "Kritik"
+
+msgid "Favorites"
+msgstr "Favoriler"
 
 msgid "Featured"
 msgstr "Öne çıkanlar"
@@ -9896,6 +9908,9 @@ msgstr "Ağ değişti"
 msgid "Never"
 msgstr "Hiç"
 
+msgid "Never asks before acting"
+msgstr "Hiç sormadan çalışır"
+
 msgctxt "badge on a page published since the menu was last opened"
 msgid "New"
 msgstr "Yeni"
@@ -10272,6 +10287,9 @@ msgstr "Genişletilmiş düşünme yok"
 msgid "No failed runs."
 msgstr "Başarısız çalıştırma yok."
 
+msgid "No favorite models"
+msgstr "Favori model yok"
+
 msgid "No files found"
 msgstr "Dosya bulunamadı"
 
@@ -10358,6 +10376,9 @@ msgstr "Eşleşme yok"
 
 msgid "No matching files"
 msgstr "Eşleşen dosya yok"
+
+msgid "No matching models"
+msgstr "Eşleşen model yok"
 
 msgid "No matching org members."
 msgstr "Eşleşen kuruluş üyesi yok."
@@ -12626,12 +12647,6 @@ msgstr "Okundu"
 msgid "Read and plan without changing anything"
 msgstr "Hiçbir şeyi değiştirmeden oku ve planla"
 
-msgid "Read files; ask for anything else"
-msgstr "Dosyaları oku; geri kalan her şey için sor"
-
-msgid "Read only"
-msgstr "Salt okunur"
-
 msgid "Read the changelog"
 msgstr "Değişiklik günlüğünü oku"
 
@@ -12888,6 +12903,9 @@ msgstr "{label} kaldırılsın mı?"
 
 msgid "Remove attachment"
 msgstr "Eki kaldır"
+
+msgid "Remove from favorites"
+msgstr "Favorilerden kaldır"
 
 msgid "Remove from Queue"
 msgstr "Kuyruktan çıkar"
@@ -13342,6 +13360,12 @@ msgstr "\"{name}\" geri yüklendi"
 
 msgid "Restored \"{projectName}\""
 msgstr "\"{projectName}\" geri yüklendi"
+
+msgid "Restored \"{workspaceName}\""
+msgstr "\"{workspaceName}\" geri yüklendi"
+
+msgid "Restoring \"{workspaceName}\"…"
+msgstr "\"{workspaceName}\" geri yükleniyor…"
 
 msgid "Restoring your session"
 msgstr "Oturumunuz geri yükleniyor"
@@ -13916,6 +13940,9 @@ msgstr "Linear'da ara"
 msgid "Search Linear…"
 msgstr "Linear'da ara…"
 
+msgid "Search models"
+msgstr "Model ara"
+
 msgid "Search pages"
 msgstr "Sayfalarda ara"
 
@@ -14140,9 +14167,6 @@ msgstr "Issue seç"
 
 msgid "Select method"
 msgstr "Yöntem seçin"
-
-msgid "Select model"
-msgstr "Model seçin"
 
 msgid "Select new project location"
 msgstr "Yeni proje konumunu seçin"
@@ -17207,9 +17231,6 @@ msgstr "Çözümü geri al"
 
 msgid "Unresolved"
 msgstr "Çözülmedi"
-
-msgid "Unrestricted access to the internet and any file on your computer"
-msgstr "İnternete ve bilgisayarındaki tüm dosyalara sınırsız erişim"
 
 msgid "Unsaved changes"
 msgstr "Kaydedilmemiş değişiklikler"

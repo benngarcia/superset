@@ -1727,6 +1727,9 @@ msgstr "Добавить эту метку"
 msgid "Add to Dictionary"
 msgstr "Добавить в словарь"
 
+msgid "Add to favorites"
+msgstr "Добавить в избранное"
+
 msgid "Add to project"
 msgstr "Добавить в проект"
 
@@ -1984,6 +1987,9 @@ msgstr "Все в текущей вкладке"
 
 msgid "All in current tab (split panes)"
 msgstr "Все в текущей вкладке (разделённые панели)"
+
+msgid "All models"
+msgstr "Все модели"
 
 msgid "All objectives cleared. Top rung, nothing left to reach for."
 msgstr "Все цели выполнены. Верхняя ступень, дальше некуда."
@@ -2424,17 +2430,11 @@ msgstr "по возрастанию"
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "Попросите агента опубликовать её из десктопного приложения."
 
-msgid "Ask before editing files or running commands"
-msgstr "Спрашивать перед правкой файлов или запуском команд"
-
 msgid "Ask for approval"
 msgstr "Запрашивать одобрение"
 
 msgid "Ask for this to be removed"
 msgstr "Попросить удалить"
-
-msgid "Ask only for actions that look risky"
-msgstr "Запрашивать одобрение только для действий, которые кажутся рискованными"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "Спросите агента, @упомяните файлы, используйте /команды"
@@ -2453,6 +2453,12 @@ msgstr "Попросите внести изменения"
 
 msgid "Ask to make changes, @mention files, run /commands"
 msgstr "Попросите внести изменения, упоминайте файлы через @, запускайте /команды"
+
+msgid "Asks before edits and commands"
+msgstr "Спрашивает перед правками и командами"
+
+msgid "Asks only for risky actions"
+msgstr "Спрашивает только при риске"
 
 msgid "Aspect Ratio"
 msgstr "Соотношение сторон"
@@ -4920,6 +4926,9 @@ msgstr "Не удалось перезапустить рабочую облас
 msgid "Couldn't restore \"{projectName}\""
 msgstr "Не удалось восстановить «{projectName}»"
 
+msgid "Couldn't restore \"{workspaceName}\""
+msgstr "Не удалось восстановить «{workspaceName}»"
+
 msgid "Couldn't save"
 msgstr "Не удалось сохранить"
 
@@ -7083,6 +7092,9 @@ msgstr "FAQ"
 
 msgid "Fatal"
 msgstr "Критическая"
+
+msgid "Favorites"
+msgstr "Избранное"
 
 msgid "Featured"
 msgstr "Рекомендуемые"
@@ -9896,6 +9908,9 @@ msgstr "Сеть изменилась"
 msgid "Never"
 msgstr "Никогда"
 
+msgid "Never asks before acting"
+msgstr "Никогда не спрашивает"
+
 msgctxt "badge on a page published since the menu was last opened"
 msgid "New"
 msgstr "Новая"
@@ -10272,6 +10287,9 @@ msgstr "Без расширенного мышления"
 msgid "No failed runs."
 msgstr "Неудачных запусков нет."
 
+msgid "No favorite models"
+msgstr "Нет избранных моделей"
+
 msgid "No files found"
 msgstr "Файлы не найдены"
 
@@ -10358,6 +10376,9 @@ msgstr "Нет совпадений"
 
 msgid "No matching files"
 msgstr "Нет подходящих файлов"
+
+msgid "No matching models"
+msgstr "Нет подходящих моделей"
 
 msgid "No matching org members."
 msgstr "Нет подходящих участников организации."
@@ -12626,12 +12647,6 @@ msgstr "Прочитано"
 msgid "Read and plan without changing anything"
 msgstr "Читать и планировать, ничего не меняя"
 
-msgid "Read files; ask for anything else"
-msgstr "Читать файлы; запрашивать одобрение для остальных действий"
-
-msgid "Read only"
-msgstr "Только чтение"
-
 msgid "Read the changelog"
 msgstr "Читать changelog"
 
@@ -12888,6 +12903,9 @@ msgstr "Удалить {label}?"
 
 msgid "Remove attachment"
 msgstr "Удалить вложение"
+
+msgid "Remove from favorites"
+msgstr "Удалить из избранного"
 
 msgid "Remove from Queue"
 msgstr "Убрать из очереди"
@@ -13342,6 +13360,12 @@ msgstr "«{name}» восстановлен"
 
 msgid "Restored \"{projectName}\""
 msgstr "«{projectName}» восстановлен"
+
+msgid "Restored \"{workspaceName}\""
+msgstr "Восстановлено: «{workspaceName}»"
+
+msgid "Restoring \"{workspaceName}\"…"
+msgstr "Восстановление «{workspaceName}»…"
 
 msgid "Restoring your session"
 msgstr "Восстановление сессии"
@@ -13916,6 +13940,9 @@ msgstr "Поиск в Linear"
 msgid "Search Linear…"
 msgstr "Поиск в Linear…"
 
+msgid "Search models"
+msgstr "Поиск моделей"
+
 msgid "Search pages"
 msgstr "Поиск страниц"
 
@@ -14140,9 +14167,6 @@ msgstr "Выбрать задачу"
 
 msgid "Select method"
 msgstr "Выберите способ"
-
-msgid "Select model"
-msgstr "Выберите модель"
 
 msgid "Select new project location"
 msgstr "Выберите новое расположение проекта"
@@ -17207,9 +17231,6 @@ msgstr "Снова открыть"
 
 msgid "Unresolved"
 msgstr "Не решено"
-
-msgid "Unrestricted access to the internet and any file on your computer"
-msgstr "Неограниченный доступ к интернету и любым файлам на компьютере"
 
 msgid "Unsaved changes"
 msgstr "Несохранённые изменения"

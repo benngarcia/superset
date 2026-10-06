@@ -1727,6 +1727,9 @@ msgstr "Dodaj tę etykietę"
 msgid "Add to Dictionary"
 msgstr "Dodaj do słownika"
 
+msgid "Add to favorites"
+msgstr "Dodaj do ulubionych"
+
 msgid "Add to project"
 msgstr "Dodaj do projektu"
 
@@ -1984,6 +1987,9 @@ msgstr "Wszystkie w bieżącej karcie"
 
 msgid "All in current tab (split panes)"
 msgstr "Wszystkie w bieżącej karcie (podzielone panele)"
+
+msgid "All models"
+msgstr "Wszystkie modele"
 
 msgid "All objectives cleared. Top rung, nothing left to reach for."
 msgstr "Wszystkie cele osiągnięte. Najwyższy szczebel, nie ma po co sięgać wyżej."
@@ -2424,17 +2430,11 @@ msgstr "rosnąco"
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "Poproś agenta, aby opublikował jakąś z aplikacji na komputer."
 
-msgid "Ask before editing files or running commands"
-msgstr "Pytaj przed edycją plików lub uruchomieniem poleceń"
-
 msgid "Ask for approval"
 msgstr "Proś o zatwierdzenie"
 
 msgid "Ask for this to be removed"
 msgstr "Poproś o usunięcie"
-
-msgid "Ask only for actions that look risky"
-msgstr "Pytaj tylko o działania, które wyglądają na ryzykowne"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "Zapytaj agenta, @wspomnij pliki, użyj /poleceń"
@@ -2453,6 +2453,12 @@ msgstr "Poproś o zmiany"
 
 msgid "Ask to make changes, @mention files, run /commands"
 msgstr "Poproś o zmiany, wskaż pliki przez @, uruchom /polecenia"
+
+msgid "Asks before edits and commands"
+msgstr "Pyta przed edycją i poleceniami"
+
+msgid "Asks only for risky actions"
+msgstr "Pyta tylko przy ryzykownych akcjach"
 
 msgid "Aspect Ratio"
 msgstr "Aspect Ratio"
@@ -4920,6 +4926,9 @@ msgstr "Nie udało się ponownie uruchomić obszaru roboczego: {0}"
 msgid "Couldn't restore \"{projectName}\""
 msgstr "Nie udało się przywrócić „{projectName}”"
 
+msgid "Couldn't restore \"{workspaceName}\""
+msgstr "Nie udało się przywrócić „{workspaceName}”"
+
 msgid "Couldn't save"
 msgstr "Nie udało się zapisać"
 
@@ -7083,6 +7092,9 @@ msgstr "FAQ"
 
 msgid "Fatal"
 msgstr "Krytyczny"
+
+msgid "Favorites"
+msgstr "Ulubione"
 
 msgid "Featured"
 msgstr "Polecane"
@@ -9896,6 +9908,9 @@ msgstr "Sieć się zmieniła"
 msgid "Never"
 msgstr "Nigdy"
 
+msgid "Never asks before acting"
+msgstr "Nigdy nie pyta przed działaniem"
+
 msgctxt "badge on a page published since the menu was last opened"
 msgid "New"
 msgstr "Nowa"
@@ -10272,6 +10287,9 @@ msgstr "Bez rozszerzonego myślenia"
 msgid "No failed runs."
 msgstr "Brak nieudanych uruchomień."
 
+msgid "No favorite models"
+msgstr "Brak ulubionych modeli"
+
 msgid "No files found"
 msgstr "Nie znaleziono plików"
 
@@ -10358,6 +10376,9 @@ msgstr "Brak dopasowań"
 
 msgid "No matching files"
 msgstr "Brak pasujących plików"
+
+msgid "No matching models"
+msgstr "Brak pasujących modeli"
 
 msgid "No matching org members."
 msgstr "Brak pasujących członków organizacji."
@@ -12626,12 +12647,6 @@ msgstr "Odczytano"
 msgid "Read and plan without changing anything"
 msgstr "Czytaj i planuj bez wprowadzania zmian"
 
-msgid "Read files; ask for anything else"
-msgstr "Czytaj pliki; pytaj o wszystko inne"
-
-msgid "Read only"
-msgstr "Tylko odczyt"
-
 msgid "Read the changelog"
 msgstr "Przeczytaj changelog"
 
@@ -12888,6 +12903,9 @@ msgstr "Usunąć {label}?"
 
 msgid "Remove attachment"
 msgstr "Usuń załącznik"
+
+msgid "Remove from favorites"
+msgstr "Usuń z ulubionych"
 
 msgid "Remove from Queue"
 msgstr "Usuń z kolejki"
@@ -13342,6 +13360,12 @@ msgstr "Przywrócono „{name}”"
 
 msgid "Restored \"{projectName}\""
 msgstr "Przywrócono „{projectName}”"
+
+msgid "Restored \"{workspaceName}\""
+msgstr "Przywrócono „{workspaceName}”"
+
+msgid "Restoring \"{workspaceName}\"…"
+msgstr "Przywracanie „{workspaceName}”…"
 
 msgid "Restoring your session"
 msgstr "Przywracanie sesji"
@@ -13916,6 +13940,9 @@ msgstr "Szukaj w Linear"
 msgid "Search Linear…"
 msgstr "Szukaj w Linear…"
 
+msgid "Search models"
+msgstr "Szukaj modeli"
+
 msgid "Search pages"
 msgstr "Szukaj stron"
 
@@ -14140,9 +14167,6 @@ msgstr "Wybierz zgłoszenie"
 
 msgid "Select method"
 msgstr "Wybierz metodę"
-
-msgid "Select model"
-msgstr "Wybierz model"
 
 msgid "Select new project location"
 msgstr "Wybierz nową lokalizację projektu"
@@ -17207,9 +17231,6 @@ msgstr "Cofnij rozwiązanie"
 
 msgid "Unresolved"
 msgstr "Nierozwiązany"
-
-msgid "Unrestricted access to the internet and any file on your computer"
-msgstr "Nieograniczony dostęp do internetu i wszystkich plików na komputerze"
 
 msgid "Unsaved changes"
 msgstr "Niezapisane zmiany"

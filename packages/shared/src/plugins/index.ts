@@ -579,7 +579,11 @@ export function pluginProxyMcpServers(
  * disable reap its servers.
  */
 export function desiredPluginMcpServers(
-	installed: readonly { name: string; enabled?: boolean }[],
+	installed: readonly {
+		name: string;
+		marketplace?: string;
+		enabled?: boolean;
+	}[],
 	options: {
 		/** Live connections, so a connector with two accounts emits one entry each. */
 		connections?: readonly PluginConnectionRef[];
@@ -590,13 +594,14 @@ export function desiredPluginMcpServers(
 	const desired: Record<string, PluginMcpServerConfig> = {};
 	for (const install of installed) {
 		if (install.enabled === false) continue;
+		// This catalog is the first-party one, and the proxy URL names the
+		// marketplace it came from: another marketplace's same-named plugin
+		// would otherwise be served Superset's.
+		const marketplace = install.marketplace || DEFAULT_MARKETPLACE;
+		if (marketplace !== DEFAULT_MARKETPLACE) continue;
 		const entry = PLUGIN_CATALOG.find((p) => p.name === install.name);
 		if (!entry) continue;
-		const proxied = pluginProxyMcpServers(
-			install.name,
-			DEFAULT_MARKETPLACE,
-			options,
-		);
+		const proxied = pluginProxyMcpServers(install.name, marketplace, options);
 		Object.assign(desired, proxied ?? entry.mcpServers);
 	}
 	return desired;

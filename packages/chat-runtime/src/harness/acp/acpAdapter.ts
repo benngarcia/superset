@@ -12,6 +12,7 @@ import type {
 	Turn,
 	UserContent,
 } from "@superset/chat/protocol";
+import { AGENT_DEFAULT_MODE } from "@superset/chat/protocol";
 import { EventQueue } from "../eventQueue";
 import type {
 	AdapterEvent,
@@ -134,8 +135,14 @@ export type AcpAttachment = {
 	data: string;
 };
 
+const SELECTION_WAIT_MS = 5000;
+
 export type AcpAdapterOptions = SpawnAcpOptions & {
 	launch?: () => Promise<Pick<SpawnAcpOptions, "command" | "args" | "env">>;
+	/** Selected for a new session that asks for no mode, when the agent offers it. */
+	defaultModeId?: string;
+	/** How long a prompt waits for mode and option changes the agent has not answered. */
+	selectionWaitMs?: number;
 	resolveAttachment?: (attachmentId: string) => Promise<AcpAttachment | null>;
 	now?: () => number;
 	mintId?: () => string;
@@ -160,6 +167,10 @@ type PendingApproval = {
 	turnId: string;
 	item: ApprovalRequest;
 };
+
+type AcpSessionModes = NonNullable<
+	ReturnType<typeof acpNewSessionResponseSchema.parse>["modes"]
+>;
 
 /**
  * Bridges an Agent Client Protocol subprocess (Claude Code / Codex ACP
@@ -209,6 +220,8 @@ export class AcpAdapter implements HarnessAdapter {
 	private agentCapabilities: Record<string, unknown> = {};
 	/** The v2 config option that stands in for v1's session mode, once seen. */
 	private modeConfigId: string | null = null;
+	private modeId: string | undefined;
+	private readonly selectionsInFlight = new Set<Promise<void>>();
 	private configOptions: SessionConfigOption[] = [];
 	private replaying = false;
 	private queuedPrompts: UserContent[][] = [];
@@ -257,6 +270,7 @@ export class AcpAdapter implements HarnessAdapter {
 	}
 
 	setMode(modeId: string): void {
+		const previous = this.modeId;
 		this.emitSession({ modeId });
 		if (!this.client || !this.sessionId) return;
 		// v2 dropped session/set_mode outright: a mode is a config option there,
@@ -273,9 +287,44 @@ export class AcpAdapter implements HarnessAdapter {
 						sessionId: this.sessionId,
 						modeId,
 					});
-		void pending.catch((error: Error) =>
-			this.emitNotice("error", error.message),
+		this.trackSelection(pending);
+		void pending.catch((error: Error) => {
+			if (previous && this.modeId === modeId) {
+				this.emitSession({ modeId: previous });
+			}
+			this.emitNotice("error", error.message);
+		});
+	}
+
+	private trackSelection(request: Promise<unknown>): void {
+		const settled = request.then(
+			() => undefined,
+			() => undefined,
 		);
+		this.selectionsInFlight.add(settled);
+		void settled.then(() => this.selectionsInFlight.delete(settled));
+	}
+
+	/** An agent may run a prompt before it applies a mode or model it was just sent. */
+	private async selectionsApplied(): Promise<void> {
+		if (this.selectionsInFlight.size === 0) return;
+		let timer: ReturnType<typeof setTimeout> | undefined;
+		const confirmed = await Promise.race([
+			Promise.all(this.selectionsInFlight).then(() => true),
+			new Promise<boolean>((resolve) => {
+				timer = setTimeout(
+					() => resolve(false),
+					this.options.selectionWaitMs ?? SELECTION_WAIT_MS,
+				);
+			}),
+		]);
+		clearTimeout(timer);
+		if (!confirmed) {
+			this.emitNotice(
+				"error",
+				"The agent did not confirm a mode or model change. This turn can run with the previous setting.",
+			);
+		}
 	}
 
 	setConfigOption(configId: string, value: string): void {
@@ -283,6 +332,8 @@ export class AcpAdapter implements HarnessAdapter {
 		const sessionId = this.sessionId;
 		if (!client || !sessionId) return;
 		const previous = this.configOptions;
+		const previousModeId =
+			configId === this.modeConfigId ? this.modeId : undefined;
 		this.configOptions = previous.map((option) =>
 			option.id === configId ? { ...option, currentValue: value } : option,
 		);
@@ -290,17 +341,21 @@ export class AcpAdapter implements HarnessAdapter {
 			configOptions: this.configOptions,
 			...(configId === this.modeConfigId ? { modeId: value } : {}),
 		});
-		client
-			.request("session/set_config_option", {
-				sessionId,
-				configId,
-				value,
-				...(this.negotiatedVersion >= 2 ? { type: "id" } : {}),
-			})
+		const request = client.request("session/set_config_option", {
+			sessionId,
+			configId,
+			value,
+			...(this.negotiatedVersion >= 2 ? { type: "id" } : {}),
+		});
+		this.trackSelection(request);
+		request
 			.then((response) => this.handleConfigOptions(response))
 			.catch((error: Error) => {
 				this.configOptions = previous;
-				this.emitSession({ configOptions: previous });
+				this.emitSession({
+					configOptions: previous,
+					...(previousModeId ? { modeId: previousModeId } : {}),
+				});
 				this.emitNotice("error", error.message);
 			});
 	}
@@ -395,6 +450,7 @@ export class AcpAdapter implements HarnessAdapter {
 			}
 
 			let response: unknown;
+			let resumed = false;
 			if (startOptions.resume) {
 				this.replaying = true;
 				try {
@@ -403,6 +459,7 @@ export class AcpAdapter implements HarnessAdapter {
 						cwd: startOptions.cwd,
 						mcpServers: [],
 					});
+					resumed = true;
 				} catch (loadError) {
 					// An agent that was started but never prompted has a session id and
 					// no transcript behind it, so loading one answers "not found".
@@ -461,7 +518,11 @@ export class AcpAdapter implements HarnessAdapter {
 					: {}),
 			});
 			this.handleConfigOptions(response);
-			this.applyStartSelections(startOptions);
+			this.applyStartSelections(
+				startOptions,
+				parsed.success ? parsed.data.modes : undefined,
+				resumed,
+			);
 
 			const queued = this.queuedPrompts.splice(0, this.queuedPrompts.length);
 			for (const content of queued) await this.runTurn(content);
@@ -473,6 +534,7 @@ export class AcpAdapter implements HarnessAdapter {
 	}
 
 	private async runTurn(content: UserContent[]): Promise<void> {
+		await this.selectionsApplied();
 		const client = this.client;
 		if (!client || !this.sessionId) return;
 		const turnId = this.mintId();
@@ -953,10 +1015,24 @@ export class AcpAdapter implements HarnessAdapter {
 		});
 	}
 
-	private applyStartSelections(startOptions: HarnessStartOptions): void {
+	private startModeId(
+		startOptions: HarnessStartOptions,
+		resumed: boolean,
+	): string | undefined {
+		if (startOptions.modeId === AGENT_DEFAULT_MODE) return undefined;
+		if (startOptions.modeId) return startOptions.modeId;
+		return resumed ? undefined : this.options.defaultModeId;
+	}
+
+	private applyStartSelections(
+		startOptions: HarnessStartOptions,
+		sessionModes: AcpSessionModes | undefined,
+		resumed: boolean,
+	): void {
+		const modeId = this.startModeId(startOptions, resumed);
 		for (const [category, value] of [
 			["model", startOptions.modelId],
-			["mode", startOptions.modeId],
+			["mode", modeId],
 		] as const) {
 			const option = this.configOptions.find(
 				(entry) => entry.category === category,
@@ -969,6 +1045,14 @@ export class AcpAdapter implements HarnessAdapter {
 			) {
 				this.setConfigOption(option.id, value);
 			}
+		}
+		if (
+			modeId &&
+			!this.modeConfigId &&
+			sessionModes?.currentModeId !== modeId &&
+			sessionModes?.availableModes?.some((mode) => mode.id === modeId)
+		) {
+			this.setMode(modeId);
 		}
 	}
 
@@ -1176,6 +1260,7 @@ export class AcpAdapter implements HarnessAdapter {
 	}
 
 	private emitSession(session: Partial<SessionState>): void {
+		if (session.modeId) this.modeId = session.modeId;
 		this.emit({ kind: "session", session });
 	}
 

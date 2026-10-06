@@ -1,6 +1,11 @@
 import { auth, mintUserJwt } from "@superset/auth/server";
 import { db } from "@superset/db/client";
 import { members, users } from "@superset/db/schema";
+import { SANDBOX_API_CREDENTIAL_HEADER } from "@superset/shared/sandbox-gate";
+import {
+	resolveSandboxCaller,
+	type SandboxCaller,
+} from "@superset/trpc/lib/sandbox";
 import { verifyAccessToken } from "better-auth/oauth2";
 import { eq } from "drizzle-orm";
 
@@ -9,7 +14,7 @@ export interface McpContext {
 	email: string;
 	organizationId: string;
 	organizationIds: string[];
-	source: "api-key" | "oauth";
+	source: "api-key" | "oauth" | "sandbox";
 	clientLabel: string | null;
 	requestId: string;
 	bearerToken: string;
@@ -166,6 +171,27 @@ export interface ResolveMcpContextOptions {
 	apiUrl: string;
 	relayUrl: string;
 	realtimeUrl: string;
+	sandboxCredential?: boolean;
+}
+
+async function sandboxContext(
+	caller: SandboxCaller,
+	relayUrl: string,
+	realtimeUrl: string,
+): Promise<McpContext> {
+	const { email, organizationIds } = await loadUserAndOrgs(caller.userId);
+	return {
+		userId: caller.userId,
+		email,
+		organizationId: caller.organizationId,
+		organizationIds,
+		source: "sandbox",
+		clientLabel: `cloud-workspace:${caller.workspaceId}`,
+		requestId: crypto.randomUUID(),
+		bearerToken: "",
+		relayUrl,
+		realtimeUrl,
+	};
 }
 
 export async function resolveMcpContext(
@@ -173,6 +199,14 @@ export async function resolveMcpContext(
 	options: ResolveMcpContextOptions,
 ): Promise<McpContext> {
 	const { apiUrl, relayUrl, realtimeUrl } = options;
+
+	if (options.sandboxCredential) {
+		const caller = await resolveSandboxCaller(
+			req.headers.get(SANDBOX_API_CREDENTIAL_HEADER),
+		);
+		if (caller) return await sandboxContext(caller, relayUrl, realtimeUrl);
+	}
+
 	const token = extractBearer(req);
 	if (!token) {
 		throw new McpUnauthorizedError("Missing bearer token");
