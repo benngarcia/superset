@@ -11,7 +11,7 @@ import {
 import { decryptSecret } from "@superset/trpc/integrations/plugins";
 
 import { env } from "@/env";
-import { STATE_COOKIES } from "@/lib/integrations/oauthFlow";
+import { connectorStateCookie } from "@/lib/integrations/oauthFlow";
 import { resolveCallback } from "@/lib/integrations/resolveCallback";
 import { connectorStateSchema, verifySignedState } from "@/lib/oauth-state";
 
@@ -46,7 +46,7 @@ export async function GET(
 	const callback = await resolveCallback(request, {
 		params: callbackParams(method),
 		redirect: (error) => `${connectUrl}?error=${error}`,
-		cookie: STATE_COOKIES.connectors,
+		cookie: connectorStateCookie(slug),
 		// An app install comes back with no state of ours at all.
 		stateInCookieOnly: method.type === "app_install",
 	});
