@@ -106,7 +106,7 @@ export function VoiceSheet() {
 						<Text className="text-muted-foreground text-center text-[13px]">
 							{reconnecting
 								? t({ message: "Reconnecting… your conversation is kept." })
-								: error}
+								: t({ message: "Voice ran into a problem. Try again." })}
 						</Text>
 					</View>
 				) : null}

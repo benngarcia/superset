@@ -17777,6 +17777,9 @@ msgstr "アシスタントが示したリンクからセッションを開始し
 msgid "Voice"
 msgstr "音声"
 
+msgid "Voice ran into a problem. Try again."
+msgstr "音声モードで問題が発生しました。もう一度お試しください。"
+
 msgid "Voice settings"
 msgstr "音声設定"
 

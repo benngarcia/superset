@@ -17777,6 +17777,9 @@ msgstr "從助理提供的連結開始工作階段的訪客。這是 AEO 工作�
 msgid "Voice"
 msgstr "語音"
 
+msgid "Voice ran into a problem. Try again."
+msgstr "語音模式發生問題，請再試一次。"
+
 msgid "Voice settings"
 msgstr "語音設定"
 

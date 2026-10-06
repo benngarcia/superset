@@ -17777,6 +17777,9 @@ msgstr "Návštěvníci, jejichž relace začala odkazem od asistenta. To je č�
 msgid "Voice"
 msgstr "Hlas"
 
+msgid "Voice ran into a problem. Try again."
+msgstr "Hlasový režim narazil na problém. Zkuste to znovu."
+
 msgid "Voice settings"
 msgstr "Nastavení hlasu"
 

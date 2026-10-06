@@ -461,4 +461,25 @@ describe("executeTool", () => {
 			globalThis.setTimeout = realSetTimeout;
 		}
 	});
+
+	test("a write that never answers is outcome unknown, never a plain failure", async () => {
+		const realSetTimeout = globalThis.setTimeout;
+		globalThis.setTimeout = ((fn: () => void) =>
+			realSetTimeout(fn, 0)) as typeof setTimeout;
+		try {
+			const { ctx } = context(
+				fakeData({ sendMessage: () => new Promise(() => {}) }),
+			);
+			const result = await executeTool(
+				"send_message",
+				{ workspace: "auth", text: "go" },
+				ctx,
+			);
+			expect(result.output).toMatchObject({
+				error: { kind: "outcome_unknown" },
+			});
+		} finally {
+			globalThis.setTimeout = realSetTimeout;
+		}
+	});
 });

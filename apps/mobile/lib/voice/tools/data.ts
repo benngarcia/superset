@@ -67,6 +67,26 @@ function withTimeout<Value>(
 	});
 }
 
+/**
+ * A write that has not answered may still have landed, so a timeout is not a
+ * failure the model may retry: a second send types the message twice.
+ */
+function withWriteTimeout<Value>(
+	promise: Promise<Value>,
+	ms: number,
+	what: string,
+): Promise<Value> {
+	return withTimeout(promise, ms, what).catch((error: unknown) => {
+		if (error instanceof VoiceDataError && error.kind === "timeout") {
+			throw new VoiceDataError(
+				"outcome_unknown",
+				`${what} did not answer, so it may or may not have gone through. Do not try again; tell the user and let them check.`,
+			);
+		}
+		throw error;
+	});
+}
+
 function toDataError(error: unknown, what: string): Error {
 	if (error instanceof VoiceDataError) return error;
 	if (error instanceof TRPCClientError) {
@@ -335,7 +355,7 @@ export function createVoiceData({
 
 		async sendMessage(workspace, session, text) {
 			const client = getHostServiceClientByUrl(await hostUrlFor(workspace));
-			await withTimeout(
+			await withWriteTimeout(
 				client.terminal.send.mutate({
 					terminalId: session.terminalId,
 					workspaceId: workspace.id,
@@ -425,7 +445,7 @@ export function createVoiceData({
 		},
 
 		async restartWorkspace(workspace) {
-			await withTimeout(
+			await withWriteTimeout(
 				apiClient.cloudWorkspace.restart.mutate({ id: workspace.id }),
 				HOST_TIMEOUT_MS * 2,
 				workspace.name,
@@ -450,7 +470,7 @@ export function createVoiceData({
 		},
 
 		async createWorkspace({ environmentId, prompt, agent }) {
-			const row = await withTimeout(
+			const row = await withWriteTimeout(
 				apiClient.cloudWorkspace.create.mutate({
 					organizationId,
 					environmentId,
@@ -507,7 +527,7 @@ export function createVoiceData({
 			const result: {
 				workspace: { id: string; name: string; branch: string | null };
 				agents: Array<{ ok: true; sessionId: string } | { ok: false }>;
-			} = await withTimeout<Awaited<typeof created>>(
+			} = await withWriteTimeout<Awaited<typeof created>>(
 				created,
 				HOST_TIMEOUT_MS * 4,
 				machine.name,
@@ -542,7 +562,7 @@ export function createVoiceData({
 
 		async startAgent(workspace, agent, prompt) {
 			const client = getHostServiceClientByUrl(await hostUrlFor(workspace));
-			const result = await withTimeout(
+			const result = await withWriteTimeout(
 				client.agents.run.mutate({ workspaceId: workspace.id, agent, prompt }),
 				HOST_TIMEOUT_MS * 3,
 				workspace.name,
@@ -558,7 +578,7 @@ export function createVoiceData({
 
 		async stopSession(workspace, session) {
 			const client = getHostServiceClientByUrl(await hostUrlFor(workspace));
-			await withTimeout(
+			await withWriteTimeout(
 				client.terminal.killSession.mutate({
 					terminalId: session.terminalId,
 					workspaceId: workspace.id,
@@ -572,7 +592,7 @@ export function createVoiceData({
 		},
 
 		async createTask(input) {
-			const { task } = await withTimeout(
+			const { task } = await withWriteTimeout(
 				apiClient.task.create.mutate(input),
 				HOST_TIMEOUT_MS,
 				"Tasks",

@@ -741,7 +741,7 @@ export function HomeScreen() {
 						: undefined,
 				}}
 			/>
-			{selectedHost && hostOffline ? null : (
+			{selectedHost && hostOffline && !voiceEnabled ? null : (
 				<Stack.Toolbar placement="right">
 					{voiceEnabled ? (
 						<Stack.Toolbar.Button
@@ -761,6 +761,7 @@ export function HomeScreen() {
 						/>
 					) : null}
 					<Stack.Toolbar.Button
+						hidden={Boolean(selectedHost && hostOffline)}
 						icon="magnifyingglass"
 						accessibilityLabel={t({
 							message: "Search workspaces",

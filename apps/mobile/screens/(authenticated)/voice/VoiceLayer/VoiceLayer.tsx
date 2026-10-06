@@ -1,4 +1,5 @@
 import { usePathname, useRouter } from "expo-router";
+import { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import { useVoiceSession } from "@/lib/voice/useVoiceSession";
 import { isVoiceActive, useVoiceStore } from "@/lib/voice/voiceStore";
@@ -21,6 +22,10 @@ export function VoiceLayer() {
 	const focusLabel = useVoiceStore((state) => state.focusLabel);
 	const active = isVoiceActive(status);
 	const chatOpen = pathname === CHAT_PATH;
+
+	// The layer lives exactly as long as the signed-in app does.
+	const endSession = session.end;
+	useEffect(() => () => endSession(), [endSession]);
 
 	if (!active) return null;
 

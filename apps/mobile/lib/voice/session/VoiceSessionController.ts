@@ -65,6 +65,7 @@ export class VoiceSessionController {
 	private ended = false;
 	private endRequested = false;
 	private reconnecting = false;
+	private checkingWatched = false;
 	private endTimer: ReturnType<typeof setTimeout> | null = null;
 
 	constructor(private readonly deps: VoiceSessionDeps) {}
@@ -81,6 +82,7 @@ export class VoiceSessionController {
 			this.end();
 			throw error;
 		}
+		if (this.ended) return;
 		this.cleanups.push(
 			this.deps.onRealtimeNudge((message) => this.onNudge(message)),
 		);
@@ -159,6 +161,7 @@ export class VoiceSessionController {
 
 	private async connect(seed = false): Promise<void> {
 		const { clientSecret } = await this.deps.mint();
+		if (this.ended) return;
 		const transport = this.deps.createTransport();
 		const client = new RealtimeClient(transport, {
 			onStatus: (status) => {
@@ -167,6 +170,7 @@ export class VoiceSessionController {
 					this.end();
 					return;
 				}
+				if (status === "speaking") this.deps.store.getState().setError(null);
 				this.deps.store.getState().setStatus(status);
 			},
 			onUserTranscript: (id, text, final) =>
@@ -186,6 +190,11 @@ export class VoiceSessionController {
 		this.client = client;
 		client.start();
 		await transport.connect({ clientSecret });
+		if (this.ended) {
+			client.stop();
+			transport.close();
+			return;
+		}
 		if (this.deps.store.getState().muted) transport.setMuted(true);
 		if (seed) this.seedHistory(client);
 		this.deps.store.getState().setStatus("listening");
@@ -299,6 +308,16 @@ export class VoiceSessionController {
 
 	/** Tells the model when an agent it started finishes, fails or needs the user. */
 	async checkWatched(): Promise<void> {
+		if (this.checkingWatched) return;
+		this.checkingWatched = true;
+		try {
+			await this.checkWatchedOnce();
+		} finally {
+			this.checkingWatched = false;
+		}
+	}
+
+	private async checkWatchedOnce(): Promise<void> {
 		for (const [terminalId, entry] of [...this.watched]) {
 			const sessions = await this.deps.data
 				.listSessions(entry.workspace)

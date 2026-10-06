@@ -17777,6 +17777,9 @@ msgstr "Посетители, чья сессия началась по ссыл
 msgid "Voice"
 msgstr "Голос"
 
+msgid "Voice ran into a problem. Try again."
+msgstr "В голосовом режиме возникла проблема. Попробуйте ещё раз."
+
 msgid "Voice settings"
 msgstr "Настройки голоса"
 

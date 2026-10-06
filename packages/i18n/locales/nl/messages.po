@@ -17777,6 +17777,9 @@ msgstr "Bezoekers van wie de sessie begon op een link die een assistent gaf. Dit
 msgid "Voice"
 msgstr "Spraak"
 
+msgid "Voice ran into a problem. Try again."
+msgstr "Er ging iets mis met de spraakmodus. Probeer het opnieuw."
+
 msgid "Voice settings"
 msgstr "Spraakinstellingen"
 

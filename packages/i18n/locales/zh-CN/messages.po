@@ -17777,6 +17777,9 @@ msgstr "从助手给出的链接开始会话的访客。这是 AEO 工作应当�
 msgid "Voice"
 msgstr "语音"
 
+msgid "Voice ran into a problem. Try again."
+msgstr "语音模式出现问题，请重试。"
+
 msgid "Voice settings"
 msgstr "语音设置"
 

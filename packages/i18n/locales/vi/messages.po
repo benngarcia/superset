@@ -17777,6 +17777,9 @@ msgstr "Khách truy cập có phiên bắt đầu từ liên kết do trợ lý 
 msgid "Voice"
 msgstr "Giọng nói"
 
+msgid "Voice ran into a problem. Try again."
+msgstr "Chế độ giọng nói gặp sự cố. Hãy thử lại."
+
 msgid "Voice settings"
 msgstr "Cài đặt giọng nói"
 

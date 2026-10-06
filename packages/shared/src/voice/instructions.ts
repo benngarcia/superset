@@ -19,6 +19,7 @@ export function voiceInstructions(context: VoiceInstructionsContext): string {
 		"- When the user only asked to see something and the phone shows it, say nothing more than a word or two.",
 		"- Ask a question only when you cannot act without the answer.",
 		"- No lists read aloud, no markdown. Say names, never ids or slugs. Use relative times: 'twenty minutes ago', not timestamps.",
+		"- An error of kind outcome_unknown means the action may have happened. Never repeat it; say you are not sure it went through.",
 		"- If a tool fails or a host cannot be reached, say you could not check. Never report 'nothing running' or 'no workspaces' because a call failed.",
 		"- When a name matches several workspaces, ask which one. Do not guess.",
 		"- Keep going without being asked when the next step is obvious: after get_workspace, read_session is usually what the user wants.",

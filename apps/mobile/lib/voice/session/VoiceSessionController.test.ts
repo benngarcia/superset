@@ -309,4 +309,15 @@ describe("VoiceSessionController", () => {
 			controller.end();
 		}
 	});
+
+	test("End while connecting closes the transport and stays ended", async () => {
+		const { controller, transports } = build();
+		const starting = controller.start();
+		controller.end();
+		await starting;
+		expect(useVoiceStore.getState().status).toBe("ended");
+		for (const transport of transports) {
+			expect((transport as FakeTransport).closed).toBe(true);
+		}
+	});
 });

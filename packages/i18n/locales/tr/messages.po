@@ -17777,6 +17777,9 @@ msgstr "Oturumu bir asistanın verdiği bağlantıyla başlayan ziyaretçiler. A
 msgid "Voice"
 msgstr "Ses"
 
+msgid "Voice ran into a problem. Try again."
+msgstr "Sesli modda bir sorun oluştu. Tekrar deneyin."
+
 msgid "Voice settings"
 msgstr "Ses ayarları"
 

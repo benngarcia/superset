@@ -26,6 +26,15 @@ export interface ToolContext {
 	watchSession: (workspace: VoiceWorkspace, terminalId: string) => void;
 }
 
+const WRITE_TOOLS: ReadonlySet<string> = new Set([
+	"send_message",
+	"start_agent",
+	"stop_agent",
+	"create_workspace",
+	"restart_workspace",
+	"create_task",
+]);
+
 /** No call may leave the model, and the user, waiting on it for longer. */
 const TOOL_TIMEOUT_MS = 20_000;
 
@@ -546,7 +555,15 @@ export async function executeTool(
 			handler(parsed.data, ctx),
 			new Promise<never>((_resolve, reject) =>
 				setTimeout(
-					() => reject(new ToolFailure("timeout", "That took too long.")),
+					() =>
+						reject(
+							WRITE_TOOLS.has(name)
+								? new ToolFailure(
+										"outcome_unknown",
+										"That did not answer, so it may or may not have gone through. Do not try again; tell the user and let them check.",
+									)
+								: new ToolFailure("timeout", "That took too long."),
+						),
 					TOOL_TIMEOUT_MS,
 				),
 			),

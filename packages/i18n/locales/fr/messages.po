@@ -17777,6 +17777,9 @@ msgstr "Visiteurs dont la session a commencé sur un lien fourni par un assistan
 msgid "Voice"
 msgstr "Voix"
 
+msgid "Voice ran into a problem. Try again."
+msgstr "Le mode vocal a rencontré un problème. Réessayez."
+
 msgid "Voice settings"
 msgstr "Réglages de la voix"
 

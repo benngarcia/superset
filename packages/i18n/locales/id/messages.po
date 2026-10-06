@@ -17777,6 +17777,9 @@ msgstr "Pengunjung yang sesinya dimulai dari tautan yang diberikan asisten. Ini 
 msgid "Voice"
 msgstr "Suara"
 
+msgid "Voice ran into a problem. Try again."
+msgstr "Mode suara mengalami masalah. Coba lagi."
+
 msgid "Voice settings"
 msgstr "Pengaturan suara"
 

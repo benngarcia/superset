@@ -68,7 +68,12 @@ export interface VoiceTask {
 
 export class VoiceDataError extends Error {
 	constructor(
-		public readonly kind: "unreachable" | "timeout" | "not_found" | "forbidden",
+		public readonly kind:
+			| "unreachable"
+			| "timeout"
+			| "not_found"
+			| "forbidden"
+			| "outcome_unknown",
 		message: string,
 	) {
 		super(message);

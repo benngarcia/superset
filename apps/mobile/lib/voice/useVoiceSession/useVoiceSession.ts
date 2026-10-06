@@ -13,6 +13,8 @@ import { isVoiceActive, useVoiceStore } from "../voiceStore";
 
 /** One session at a time, shared by the layer, the pill, and whatever starts it. */
 let current: VoiceSessionController | null = null;
+/** Who the running session acts as; a different user or organization ends it. */
+let currentOwner: string | null = null;
 let currentPathname = "/";
 // A push issued while a sheet is still animating out lands inside the sheet.
 const SHEET_DISMISS_MS = 450;
@@ -80,13 +82,21 @@ export function useVoiceSession(): VoiceSessionHandle {
 			now: Date.now,
 		});
 		current = controller;
+		currentOwner = `${userId}:${organizationId}`;
 		await controller.start();
 	}, [organizationId, userId, queryClient]);
 
 	const end = useCallback(() => {
 		current?.end();
 		current = null;
+		currentOwner = null;
 	}, []);
+
+	useEffect(() => {
+		if (!current || currentOwner === `${userId}:${organizationId}`) return;
+		end();
+		useVoiceStore.getState().reset();
+	}, [userId, organizationId, end]);
 
 	const toggleMute = useCallback(() => {
 		current?.setMuted(!useVoiceStore.getState().muted);
