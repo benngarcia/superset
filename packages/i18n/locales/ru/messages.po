@@ -29,6 +29,9 @@ msgstr ". {0} пока не оформлено как подписки Stripe"
 msgid ". Each card shows the canonical import path — click it to copy. Reach for these before writing anything custom."
 msgstr ". На каждой карточке — канонический путь импорта, нажмите, чтобы скопировать. Обращайтесь к ним, прежде чем писать что-то своё."
 
+msgid "...and many more!"
+msgstr "...и многие другие!"
+
 msgid "./"
 msgstr "./"
 
@@ -2162,9 +2165,6 @@ msgstr "Обновление готово к установке."
 
 msgid "Analytics, Ops, and more"
 msgstr "Аналитика, операции и другое"
-
-msgid "And many more"
-msgstr "И многие другие"
 
 msgid "Android is on the way. Be first to know when it ships."
 msgstr "Версия для Android уже в работе. Узнайте о выходе первыми."

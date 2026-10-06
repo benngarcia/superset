@@ -29,6 +29,9 @@ msgstr ". {0} aún sin modelar como suscripciones de Stripe"
 msgid ". Each card shows the canonical import path — click it to copy. Reach for these before writing anything custom."
 msgstr ". Cada tarjeta muestra la ruta de importación canónica; haz clic para copiarla. Recurre a estos antes de escribir nada a medida."
 
+msgid "...and many more!"
+msgstr "...¡y muchos más!"
+
 msgid "./"
 msgstr "./"
 
@@ -2162,9 +2165,6 @@ msgstr "Hay una actualización lista para instalar."
 
 msgid "Analytics, Ops, and more"
 msgstr "Analítica, operaciones y más"
-
-msgid "And many more"
-msgstr "Y muchos más"
 
 msgid "Android is on the way. Be first to know when it ships."
 msgstr "Android está en camino. Sé el primero en enterarte cuando salga."

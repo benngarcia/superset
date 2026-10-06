@@ -29,6 +29,9 @@ msgstr "。{0}はまだStripeサブスクリプションとしてモデル化さ
 msgid ". Each card shows the canonical import path — click it to copy. Reach for these before writing anything custom."
 msgstr "です。各カードには正規のインポートパスが表示されます — クリックするとコピーできます。独自に何かを書く前に、まずこれらを使ってください。"
 
+msgid "...and many more!"
+msgstr "…ほか多数！"
+
 msgid "./"
 msgstr "./"
 
@@ -2162,9 +2165,6 @@ msgstr "アップデートをインストールする準備ができました。
 
 msgid "Analytics, Ops, and more"
 msgstr "分析、運用など"
-
-msgid "And many more"
-msgstr "ほか多数"
 
 msgid "Android is on the way. Be first to know when it ships."
 msgstr "Android 版を準備中です。リリース時にいち早くお知らせします。"

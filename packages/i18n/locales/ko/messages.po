@@ -29,6 +29,9 @@ msgstr ". {0}은(는) 아직 Stripe 구독으로 모델링되지 않았습니다
 msgid ". Each card shows the canonical import path — click it to copy. Reach for these before writing anything custom."
 msgstr ". 각 카드에 표준 import 경로가 표시되며, 클릭하면 복사됩니다. 직접 만들기 전에 먼저 여기를 확인하세요."
 
+msgid "...and many more!"
+msgstr "…그 외 다수!"
+
 msgid "./"
 msgstr "./"
 
@@ -2162,9 +2165,6 @@ msgstr "설치할 업데이트가 준비되었습니다."
 
 msgid "Analytics, Ops, and more"
 msgstr "분석, 운영 등"
-
-msgid "And many more"
-msgstr "그 외 다수"
 
 msgid "Android is on the way. Be first to know when it ships."
 msgstr "Android 버전이 곧 나옵니다. 출시되면 가장 먼저 알려드릴게요."

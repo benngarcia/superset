@@ -29,6 +29,9 @@ msgstr ". {0} zatím není vedeno jako předplatné ve Stripe"
 msgid ". Each card shows the canonical import path — click it to copy. Reach for these before writing anything custom."
 msgstr ". Každá karta ukazuje kanonickou cestu importu — kliknutím ji zkopírujete. Sáhněte po nich dřív, než začnete psát něco vlastního."
 
+msgid "...and many more!"
+msgstr "...a mnoho dalších!"
+
 msgid "./"
 msgstr "./"
 
@@ -2162,9 +2165,6 @@ msgstr "Aktualizace je připravena k instalaci."
 
 msgid "Analytics, Ops, and more"
 msgstr "Analytika, provoz a další"
-
-msgid "And many more"
-msgstr "A mnoho dalších"
 
 msgid "Android is on the way. Be first to know when it ships."
 msgstr "Android je na cestě. Dozvíte se jako první, až vyjde."

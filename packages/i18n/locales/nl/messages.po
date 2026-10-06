@@ -29,6 +29,9 @@ msgstr ". {0} nog niet gemodelleerd als Stripe-abonnementen"
 msgid ". Each card shows the canonical import path — click it to copy. Reach for these before writing anything custom."
 msgstr ". Elke kaart toont het canonieke importpad — klik erop om het te kopiëren. Grijp hiernaar voordat je zelf iets bouwt."
 
+msgid "...and many more!"
+msgstr "...en nog veel meer!"
+
 msgid "./"
 msgstr "./"
 
@@ -2162,9 +2165,6 @@ msgstr "Er staat een update klaar om te installeren."
 
 msgid "Analytics, Ops, and more"
 msgstr "Analyses, beheer en meer"
-
-msgid "And many more"
-msgstr "En nog veel meer"
 
 msgid "Android is on the way. Be first to know when it ships."
 msgstr "Android komt eraan. Hoor het als eerste wanneer het uitkomt."

@@ -29,6 +29,9 @@ msgstr "。{0}尚未建模为Stripe订阅"
 msgid ". Each card shows the canonical import path — click it to copy. Reach for these before writing anything custom."
 msgstr "导出的每一个组件。每张卡片都会显示规范的导入路径——点击即可复制。在自己动手写组件之前，先看看这里。"
 
+msgid "...and many more!"
+msgstr "……以及更多！"
+
 msgid "./"
 msgstr "./"
 
@@ -2162,9 +2165,6 @@ msgstr "更新已准备好安装。"
 
 msgid "Analytics, Ops, and more"
 msgstr "分析、运营及更多功能"
-
-msgid "And many more"
-msgstr "以及更多"
 
 msgid "Android is on the way. Be first to know when it ships."
 msgstr "Android 版即将到来。发布时第一时间通知你。"
