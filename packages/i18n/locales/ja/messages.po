@@ -84,9 +84,6 @@ msgstr "({aliveCount}件実行中)"
 msgid "(Coming Soon)"
 msgstr "(近日公開)"
 
-msgid "(disabled)"
-msgstr "(無効)"
-
 msgid "(edited)"
 msgstr "（編集済み）"
 
@@ -387,8 +384,8 @@ msgid "{0} Documentation"
 msgstr "{0}ドキュメント"
 
 #. placeholder {0}: displayName(variables.name)
-#. placeholder {0}: plugin.interface.displayName
 #. placeholder {0}: skill.name
+#. placeholder {0}: variables.name
 msgid "{0} enabled"
 msgstr "{0}を有効化"
 
@@ -5827,9 +5824,6 @@ msgstr "無効"
 msgid "Disabled toggle"
 msgstr "無効なトグル"
 
-msgid "Disabling keeps a plugin installed but removes its servers from your agents. Changes take effect in new agent sessions."
-msgstr "無効にするとプラグインはインストールされたまま、サーバーだけがエージェントから取り除かれます。変更は新しいエージェントセッションから有効になります。"
-
 msgid "Discard"
 msgstr "破棄"
 
@@ -8404,9 +8398,6 @@ msgstr "Superset GitHub Appをインストールしてリポジトリを接続�
 msgid "Install, authorize, and scope MCP servers across all your workspaces from one place, with centralized OAuth."
 msgstr "すべてのワークスペースにまたがるMCPサーバーのインストール、認可、スコープ設定を1か所で。OAuthも一元管理します。"
 
-msgid "Installed"
-msgstr "インストール済み"
-
 #. js-lingui-explicit-id
 msgid "serverError.plugins.marketplaceHasInstalls"
 msgstr "インストール済みのプラグインが {name} 由来です: {plugins}。先に削除してください。"
@@ -9358,9 +9349,6 @@ msgstr "プランを管理"
 
 msgid "Manage plan on the web"
 msgstr "プランはWebで管理"
-
-msgid "Manage plugins"
-msgstr "プラグインを管理"
 
 msgid "Manage sessions"
 msgstr "セッションを管理"
@@ -10804,9 +10792,6 @@ msgstr "まだ何もありません。"
 
 msgid "Nothing here."
 msgstr "何もありません。"
-
-msgid "Nothing installed yet."
-msgstr "まだ何もインストールされていません。"
 
 msgid "Nothing is running. Archive it and create a new one."
 msgstr "何も実行されていません。アーカイブして新しく作成してください。"
@@ -17136,10 +17121,6 @@ msgstr "選択したワークスペースをグループ解除"
 
 msgid "Unified view"
 msgstr "統合表示"
-
-#. placeholder {0}: plugin.interface.displayName
-msgid "Uninstall {0}"
-msgstr "{0}をアンインストール"
 
 msgid "Uninstall failed"
 msgstr "アンインストールに失敗しました"

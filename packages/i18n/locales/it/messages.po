@@ -84,9 +84,6 @@ msgstr "({aliveCount} in esecuzione)"
 msgid "(Coming Soon)"
 msgstr "(In arrivo)"
 
-msgid "(disabled)"
-msgstr "(disattivato)"
-
 msgid "(edited)"
 msgstr "(modificato)"
 
@@ -387,8 +384,8 @@ msgid "{0} Documentation"
 msgstr "Documentazione di {0}"
 
 #. placeholder {0}: displayName(variables.name)
-#. placeholder {0}: plugin.interface.displayName
 #. placeholder {0}: skill.name
+#. placeholder {0}: variables.name
 msgid "{0} enabled"
 msgstr "{0} attivo"
 
@@ -5827,9 +5824,6 @@ msgstr "Disattivato"
 msgid "Disabled toggle"
 msgstr "Interruttore disattivato"
 
-msgid "Disabling keeps a plugin installed but removes its servers from your agents. Changes take effect in new agent sessions."
-msgstr "Disattivandolo, il plugin resta installato ma i suoi server vengono rimossi dai tuoi agenti. Le modifiche hanno effetto nelle nuove sessioni degli agenti."
-
 msgid "Discard"
 msgstr "Scarta"
 
@@ -8404,9 +8398,6 @@ msgstr "Installa la GitHub App di Superset per collegare i tuoi repository."
 msgid "Install, authorize, and scope MCP servers across all your workspaces from one place, with centralized OAuth."
 msgstr "Installa, autorizza e delimita i server MCP in tutti i tuoi workspace da un unico posto, con OAuth centralizzato."
 
-msgid "Installed"
-msgstr "Installati"
-
 #. js-lingui-explicit-id
 msgid "serverError.plugins.marketplaceHasInstalls"
 msgstr "Alcuni plugin installati provengono da {name}: {plugins}. Rimuovili prima."
@@ -9358,9 +9349,6 @@ msgstr "Gestisci il piano"
 
 msgid "Manage plan on the web"
 msgstr "Gestisci il piano sul web"
-
-msgid "Manage plugins"
-msgstr "Gestisci i plugin"
 
 msgid "Manage sessions"
 msgstr "Gestisci le sessioni"
@@ -10804,9 +10792,6 @@ msgstr "Ancora niente qui."
 
 msgid "Nothing here."
 msgstr "Niente qui."
-
-msgid "Nothing installed yet."
-msgstr "Ancora nulla di installato."
 
 msgid "Nothing is running. Archive it and create a new one."
 msgstr "Non è in esecuzione nulla. Archivialo e creane uno nuovo."
@@ -17136,10 +17121,6 @@ msgstr "Rimuovi dal gruppo i workspace selezionati"
 
 msgid "Unified view"
 msgstr "Vista unificata"
-
-#. placeholder {0}: plugin.interface.displayName
-msgid "Uninstall {0}"
-msgstr "Disinstalla {0}"
 
 msgid "Uninstall failed"
 msgstr "Disinstallazione non riuscita"

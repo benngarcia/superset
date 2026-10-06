@@ -84,9 +84,6 @@ msgstr "(działa: {aliveCount})"
 msgid "(Coming Soon)"
 msgstr "(Wkrótce)"
 
-msgid "(disabled)"
-msgstr "(wyłączona)"
-
 msgid "(edited)"
 msgstr "(edytowano)"
 
@@ -387,8 +384,8 @@ msgid "{0} Documentation"
 msgstr "Dokumentacja {0}"
 
 #. placeholder {0}: displayName(variables.name)
-#. placeholder {0}: plugin.interface.displayName
 #. placeholder {0}: skill.name
+#. placeholder {0}: variables.name
 msgid "{0} enabled"
 msgstr "{0} włączona"
 
@@ -5827,9 +5824,6 @@ msgstr "Wyłączona"
 msgid "Disabled toggle"
 msgstr "Wyłączony przełącznik"
 
-msgid "Disabling keeps a plugin installed but removes its servers from your agents. Changes take effect in new agent sessions."
-msgstr "Wyłączenie zostawia wtyczkę zainstalowaną, ale usuwa jej serwery z agentów. Zmiany zadziałają w nowych sesjach agentów."
-
 msgid "Discard"
 msgstr "Odrzuć"
 
@@ -8404,9 +8398,6 @@ msgstr "Zainstaluj aplikację GitHub Superset, aby podłączyć swoje repozytori
 msgid "Install, authorize, and scope MCP servers across all your workspaces from one place, with centralized OAuth."
 msgstr "Instaluj, autoryzuj i ograniczaj zakres serwerów MCP we wszystkich obszarach roboczych z jednego miejsca, ze scentralizowanym OAuth."
 
-msgid "Installed"
-msgstr "Zainstalowane"
-
 #. js-lingui-explicit-id
 msgid "serverError.plugins.marketplaceHasInstalls"
 msgstr "Zainstalowane wtyczki pochodzą z {name}: {plugins}. Najpierw je usuń."
@@ -9358,9 +9349,6 @@ msgstr "Zarządzaj planem"
 
 msgid "Manage plan on the web"
 msgstr "Zarządzanie planem w przeglądarce"
-
-msgid "Manage plugins"
-msgstr "Zarządzaj wtyczkami"
 
 msgid "Manage sessions"
 msgstr "Zarządzaj sesjami"
@@ -10804,9 +10792,6 @@ msgstr "Jeszcze nic tu nie ma."
 
 msgid "Nothing here."
 msgstr "Nic tu nie ma."
-
-msgid "Nothing installed yet."
-msgstr "Nic jeszcze nie zainstalowano."
 
 msgid "Nothing is running. Archive it and create a new one."
 msgstr "Nic nie działa. Zarchiwizuj go i utwórz nowy."
@@ -17136,10 +17121,6 @@ msgstr "Rozgrupuj zaznaczone obszary robocze"
 
 msgid "Unified view"
 msgstr "Widok scalony"
-
-#. placeholder {0}: plugin.interface.displayName
-msgid "Uninstall {0}"
-msgstr "Odinstaluj {0}"
 
 msgid "Uninstall failed"
 msgstr "Odinstalowanie nie powiodło się"

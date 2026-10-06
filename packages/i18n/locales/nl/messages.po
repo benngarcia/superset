@@ -84,9 +84,6 @@ msgstr "({aliveCount} actief)"
 msgid "(Coming Soon)"
 msgstr "(Binnenkort)"
 
-msgid "(disabled)"
-msgstr "(uitgeschakeld)"
-
 msgid "(edited)"
 msgstr "(bewerkt)"
 
@@ -387,8 +384,8 @@ msgid "{0} Documentation"
 msgstr "Documentatie van {0}"
 
 #. placeholder {0}: displayName(variables.name)
-#. placeholder {0}: plugin.interface.displayName
 #. placeholder {0}: skill.name
+#. placeholder {0}: variables.name
 msgid "{0} enabled"
 msgstr "{0} ingeschakeld"
 
@@ -5827,9 +5824,6 @@ msgstr "Uitgeschakeld"
 msgid "Disabled toggle"
 msgstr "Uitgeschakelde toggle"
 
-msgid "Disabling keeps a plugin installed but removes its servers from your agents. Changes take effect in new agent sessions."
-msgstr "Uitschakelen houdt een plugin geïnstalleerd maar haalt zijn servers uit je agents. Wijzigingen gelden voor nieuwe agentsessies."
-
 msgid "Discard"
 msgstr "Verwerpen"
 
@@ -8404,9 +8398,6 @@ msgstr "Installeer de Superset GitHub App om je repository's te koppelen."
 msgid "Install, authorize, and scope MCP servers across all your workspaces from one place, with centralized OAuth."
 msgstr "Installeer, autoriseer en begrens MCP-servers voor al je werkruimtes vanaf één plek, met centrale OAuth."
 
-msgid "Installed"
-msgstr "Geïnstalleerd"
-
 #. js-lingui-explicit-id
 msgid "serverError.plugins.marketplaceHasInstalls"
 msgstr "Geïnstalleerde plugins komen uit {name}: {plugins}. Verwijder ze eerst."
@@ -9358,9 +9349,6 @@ msgstr "Plan beheren"
 
 msgid "Manage plan on the web"
 msgstr "Plan beheren op het web"
-
-msgid "Manage plugins"
-msgstr "Plugins beheren"
 
 msgid "Manage sessions"
 msgstr "Sessies beheren"
@@ -10804,9 +10792,6 @@ msgstr "Hier is nog niets."
 
 msgid "Nothing here."
 msgstr "Hier is niets."
-
-msgid "Nothing installed yet."
-msgstr "Nog niets geïnstalleerd."
 
 msgid "Nothing is running. Archive it and create a new one."
 msgstr "Er draait niets. Archiveer deze en maak een nieuwe aan."
@@ -17136,10 +17121,6 @@ msgstr "Groepering van geselecteerde werkruimtes opheffen"
 
 msgid "Unified view"
 msgstr "Gecombineerde weergave"
-
-#. placeholder {0}: plugin.interface.displayName
-msgid "Uninstall {0}"
-msgstr "{0} verwijderen"
 
 msgid "Uninstall failed"
 msgstr "Verwijderen mislukt"

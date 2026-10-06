@@ -84,9 +84,6 @@ msgstr "({aliveCount}개 실행 중)"
 msgid "(Coming Soon)"
 msgstr "(출시 예정)"
 
-msgid "(disabled)"
-msgstr "(비활성화됨)"
-
 msgid "(edited)"
 msgstr "(수정됨)"
 
@@ -387,8 +384,8 @@ msgid "{0} Documentation"
 msgstr "{0} 문서"
 
 #. placeholder {0}: displayName(variables.name)
-#. placeholder {0}: plugin.interface.displayName
 #. placeholder {0}: skill.name
+#. placeholder {0}: variables.name
 msgid "{0} enabled"
 msgstr "{0} 활성화됨"
 
@@ -5827,9 +5824,6 @@ msgstr "비활성화됨"
 msgid "Disabled toggle"
 msgstr "비활성화된 토글"
 
-msgid "Disabling keeps a plugin installed but removes its servers from your agents. Changes take effect in new agent sessions."
-msgstr "비활성화하면 플러그인은 설치된 채로 남지만 서버는 에이전트에서 제거됩니다. 변경 사항은 새 에이전트 세션부터 적용됩니다."
-
 msgid "Discard"
 msgstr "버리기"
 
@@ -8404,9 +8398,6 @@ msgstr "리포지토리를 연결하려면 Superset GitHub App을 설치하세�
 msgid "Install, authorize, and scope MCP servers across all your workspaces from one place, with centralized OAuth."
 msgstr "모든 워크스페이스의 MCP 서버를 한곳에서 설치하고, 인증하고, 범위를 지정하세요. OAuth도 중앙에서 관리합니다."
 
-msgid "Installed"
-msgstr "설치됨"
-
 #. js-lingui-explicit-id
 msgid "serverError.plugins.marketplaceHasInstalls"
 msgstr "설치된 플러그인이 {name}에서 왔습니다: {plugins}. 먼저 제거하세요."
@@ -9358,9 +9349,6 @@ msgstr "플랜 관리"
 
 msgid "Manage plan on the web"
 msgstr "웹에서 플랜 관리"
-
-msgid "Manage plugins"
-msgstr "플러그인 관리"
 
 msgid "Manage sessions"
 msgstr "세션 관리"
@@ -10804,9 +10792,6 @@ msgstr "아직 아무것도 없습니다."
 
 msgid "Nothing here."
 msgstr "아무것도 없습니다."
-
-msgid "Nothing installed yet."
-msgstr "아직 설치된 항목이 없습니다."
 
 msgid "Nothing is running. Archive it and create a new one."
 msgstr "실행 중인 것이 없습니다. 보관하고 새로 만드세요."
@@ -17136,10 +17121,6 @@ msgstr "선택한 워크스페이스 그룹 해제"
 
 msgid "Unified view"
 msgstr "통합 보기"
-
-#. placeholder {0}: plugin.interface.displayName
-msgid "Uninstall {0}"
-msgstr "{0} 제거"
 
 msgid "Uninstall failed"
 msgstr "제거 실패"

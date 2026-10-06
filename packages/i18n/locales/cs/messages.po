@@ -84,9 +84,6 @@ msgstr "(běží {aliveCount})"
 msgid "(Coming Soon)"
 msgstr "(Již brzy)"
 
-msgid "(disabled)"
-msgstr "(vypnuto)"
-
 msgid "(edited)"
 msgstr "(upraveno)"
 
@@ -387,8 +384,8 @@ msgid "{0} Documentation"
 msgstr "Dokumentace {0}"
 
 #. placeholder {0}: displayName(variables.name)
-#. placeholder {0}: plugin.interface.displayName
 #. placeholder {0}: skill.name
+#. placeholder {0}: variables.name
 msgid "{0} enabled"
 msgstr "{0} zapnuto"
 
@@ -5827,9 +5824,6 @@ msgstr "Vypnuto"
 msgid "Disabled toggle"
 msgstr "Vypnutý přepínač"
 
-msgid "Disabling keeps a plugin installed but removes its servers from your agents. Changes take effect in new agent sessions."
-msgstr "Vypnutím zůstane plugin nainstalovaný, ale jeho servery se odeberou z vašich agentů. Změny se projeví v nových relacích agenta."
-
 msgid "Discard"
 msgstr "Zahodit"
 
@@ -8404,9 +8398,6 @@ msgstr "Nainstalujte Superset GitHub App a připojte své repozitáře."
 msgid "Install, authorize, and scope MCP servers across all your workspaces from one place, with centralized OAuth."
 msgstr "Instalujte, autorizujte a omezujte MCP servery napříč všemi pracovními prostory z jednoho místa, s centrálním OAuth."
 
-msgid "Installed"
-msgstr "Nainstalované"
-
 #. js-lingui-explicit-id
 msgid "serverError.plugins.marketplaceHasInstalls"
 msgstr "Nainstalované pluginy pocházejí z {name}: {plugins}. Nejprve je odeberte."
@@ -9358,9 +9349,6 @@ msgstr "Spravovat tarif"
 
 msgid "Manage plan on the web"
 msgstr "Správa tarifu na webu"
-
-msgid "Manage plugins"
-msgstr "Spravovat pluginy"
 
 msgid "Manage sessions"
 msgstr "Spravovat relace"
@@ -10804,9 +10792,6 @@ msgstr "Zatím tu nic není."
 
 msgid "Nothing here."
 msgstr "Nic tu není."
-
-msgid "Nothing installed yet."
-msgstr "Zatím není nic nainstalováno."
 
 msgid "Nothing is running. Archive it and create a new one."
 msgstr "Nic neběží. Archivujte ho a vytvořte nový."
@@ -17136,10 +17121,6 @@ msgstr "Zrušit skupinu u vybraných pracovních prostorů"
 
 msgid "Unified view"
 msgstr "Sjednocené zobrazení"
-
-#. placeholder {0}: plugin.interface.displayName
-msgid "Uninstall {0}"
-msgstr "Odinstalovat {0}"
 
 msgid "Uninstall failed"
 msgstr "Odinstalace selhala"

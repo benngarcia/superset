@@ -84,9 +84,6 @@ msgstr "(đang chạy {aliveCount})"
 msgid "(Coming Soon)"
 msgstr "(Sắp có)"
 
-msgid "(disabled)"
-msgstr "(đã tắt)"
-
 msgid "(edited)"
 msgstr "(đã sửa)"
 
@@ -387,8 +384,8 @@ msgid "{0} Documentation"
 msgstr "Tài liệu {0}"
 
 #. placeholder {0}: displayName(variables.name)
-#. placeholder {0}: plugin.interface.displayName
 #. placeholder {0}: skill.name
+#. placeholder {0}: variables.name
 msgid "{0} enabled"
 msgstr "Đã bật {0}"
 
@@ -5827,9 +5824,6 @@ msgstr "Đã tắt"
 msgid "Disabled toggle"
 msgstr "Công tắc đã tắt"
 
-msgid "Disabling keeps a plugin installed but removes its servers from your agents. Changes take effect in new agent sessions."
-msgstr "Tắt sẽ giữ plugin đã cài nhưng gỡ các server của nó khỏi agent. Thay đổi có hiệu lực ở các phiên agent mới."
-
 msgid "Discard"
 msgstr "Bỏ"
 
@@ -8404,9 +8398,6 @@ msgstr "Hãy cài Superset GitHub App để kết nối các repository của b�
 msgid "Install, authorize, and scope MCP servers across all your workspaces from one place, with centralized OAuth."
 msgstr "Cài đặt, ủy quyền và giới hạn phạm vi server MCP trên mọi workspace từ một chỗ, với OAuth tập trung."
 
-msgid "Installed"
-msgstr "Đã cài"
-
 #. js-lingui-explicit-id
 msgid "serverError.plugins.marketplaceHasInstalls"
 msgstr "Các plugin đã cài đến từ {name}: {plugins}. Hãy gỡ chúng trước."
@@ -9358,9 +9349,6 @@ msgstr "Quản lý gói"
 
 msgid "Manage plan on the web"
 msgstr "Quản lý gói trên web"
-
-msgid "Manage plugins"
-msgstr "Quản lý plugin"
 
 msgid "Manage sessions"
 msgstr "Quản lý phiên"
@@ -10804,9 +10792,6 @@ msgstr "Chưa có gì ở đây."
 
 msgid "Nothing here."
 msgstr "Không có gì ở đây."
-
-msgid "Nothing installed yet."
-msgstr "Chưa cài gì cả."
 
 msgid "Nothing is running. Archive it and create a new one."
 msgstr "Không có gì đang chạy. Hãy lưu trữ nó và tạo cái mới."
@@ -17136,10 +17121,6 @@ msgstr "Bỏ nhóm các workspace đã chọn"
 
 msgid "Unified view"
 msgstr "Xem hợp nhất"
-
-#. placeholder {0}: plugin.interface.displayName
-msgid "Uninstall {0}"
-msgstr "Gỡ cài đặt {0}"
 
 msgid "Uninstall failed"
 msgstr "Gỡ cài đặt thất bại"

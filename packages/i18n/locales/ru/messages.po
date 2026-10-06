@@ -84,9 +84,6 @@ msgstr "(работает: {aliveCount})"
 msgid "(Coming Soon)"
 msgstr "(Скоро)"
 
-msgid "(disabled)"
-msgstr "(отключён)"
-
 msgid "(edited)"
 msgstr "(изменено)"
 
@@ -387,8 +384,8 @@ msgid "{0} Documentation"
 msgstr "Документация {0}"
 
 #. placeholder {0}: displayName(variables.name)
-#. placeholder {0}: plugin.interface.displayName
 #. placeholder {0}: skill.name
+#. placeholder {0}: variables.name
 msgid "{0} enabled"
 msgstr "{0} включён"
 
@@ -5827,9 +5824,6 @@ msgstr "Отключён"
 msgid "Disabled toggle"
 msgstr "Отключённый переключатель"
 
-msgid "Disabling keeps a plugin installed but removes its servers from your agents. Changes take effect in new agent sessions."
-msgstr "Отключение оставляет плагин установленным, но убирает его серверы из ваших агентов. Изменения вступают в силу в новых сессиях агентов."
-
 msgid "Discard"
 msgstr "Отменить изменения"
 
@@ -8404,9 +8398,6 @@ msgstr "Установите GitHub App Superset, чтобы подключит�
 msgid "Install, authorize, and scope MCP servers across all your workspaces from one place, with centralized OAuth."
 msgstr "Устанавливайте, авторизуйте и ограничивайте серверы MCP во всех рабочих областях из одного места, с централизованным OAuth."
 
-msgid "Installed"
-msgstr "Установленные"
-
 #. js-lingui-explicit-id
 msgid "serverError.plugins.marketplaceHasInstalls"
 msgstr "Установленные плагины получены из {name}: {plugins}. Сначала удалите их."
@@ -9358,9 +9349,6 @@ msgstr "Управление тарифом"
 
 msgid "Manage plan on the web"
 msgstr "Управление тарифом в веб-версии"
-
-msgid "Manage plugins"
-msgstr "Управление плагинами"
 
 msgid "Manage sessions"
 msgstr "Управление сессиями"
@@ -10804,9 +10792,6 @@ msgstr "Здесь пока пусто."
 
 msgid "Nothing here."
 msgstr "Здесь пусто."
-
-msgid "Nothing installed yet."
-msgstr "Пока ничего не установлено."
 
 msgid "Nothing is running. Archive it and create a new one."
 msgstr "Ничего не запущено. Архивируйте её и создайте новую."
@@ -17136,10 +17121,6 @@ msgstr "Убрать выбранные рабочие области из гр�
 
 msgid "Unified view"
 msgstr "Единый вид"
-
-#. placeholder {0}: plugin.interface.displayName
-msgid "Uninstall {0}"
-msgstr "Удалить {0}"
 
 msgid "Uninstall failed"
 msgstr "Не удалось удалить"

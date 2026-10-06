@@ -84,9 +84,6 @@ msgstr "（{aliveCount}個執行中）"
 msgid "(Coming Soon)"
 msgstr "（即將推出）"
 
-msgid "(disabled)"
-msgstr "（已停用）"
-
 msgid "(edited)"
 msgstr "（已編輯）"
 
@@ -387,8 +384,8 @@ msgid "{0} Documentation"
 msgstr "{0} 文件"
 
 #. placeholder {0}: displayName(variables.name)
-#. placeholder {0}: plugin.interface.displayName
 #. placeholder {0}: skill.name
+#. placeholder {0}: variables.name
 msgid "{0} enabled"
 msgstr "{0}已啟用"
 
@@ -5827,9 +5824,6 @@ msgstr "已停用"
 msgid "Disabled toggle"
 msgstr "停用的切換控制項"
 
-msgid "Disabling keeps a plugin installed but removes its servers from your agents. Changes take effect in new agent sessions."
-msgstr "停用會保留外掛的安裝，但會把它的伺服器從代理程式中移除。改動會在新的代理程式會話中生效。"
-
 msgid "Discard"
 msgstr "放棄"
 
@@ -8404,9 +8398,6 @@ msgstr "安裝Superset GitHub App以連線你的儲存庫。"
 msgid "Install, authorize, and scope MCP servers across all your workspaces from one place, with centralized OAuth."
 msgstr "在一處為所有工作區安裝、授權並劃定MCP伺服器的權限範圍，OAuth集中管理。"
 
-msgid "Installed"
-msgstr "已安裝"
-
 #. js-lingui-explicit-id
 msgid "serverError.plugins.marketplaceHasInstalls"
 msgstr "已安裝的外掛來自 {name}：{plugins}。請先移除它們。"
@@ -9358,9 +9349,6 @@ msgstr "管理方案"
 
 msgid "Manage plan on the web"
 msgstr "在網頁端管理方案"
-
-msgid "Manage plugins"
-msgstr "管理外掛"
 
 msgid "Manage sessions"
 msgstr "管理會話"
@@ -10804,9 +10792,6 @@ msgstr "這裡還沒有內容。"
 
 msgid "Nothing here."
 msgstr "這裡沒有內容。"
-
-msgid "Nothing installed yet."
-msgstr "還沒有安裝任何外掛。"
 
 msgid "Nothing is running. Archive it and create a new one."
 msgstr "沒有任何東西在執行。封存它，再建一個。"
@@ -17136,10 +17121,6 @@ msgstr "取消選中工作區的群組"
 
 msgid "Unified view"
 msgstr "統一檢視"
-
-#. placeholder {0}: plugin.interface.displayName
-msgid "Uninstall {0}"
-msgstr "解除安裝{0}"
 
 msgid "Uninstall failed"
 msgstr "解除安裝失敗"

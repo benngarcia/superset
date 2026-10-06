@@ -84,9 +84,6 @@ msgstr "({aliveCount} çalışıyor)"
 msgid "(Coming Soon)"
 msgstr "(Yakında)"
 
-msgid "(disabled)"
-msgstr "(devre dışı)"
-
 msgid "(edited)"
 msgstr "(düzenlendi)"
 
@@ -387,8 +384,8 @@ msgid "{0} Documentation"
 msgstr "{0} Belgeleri"
 
 #. placeholder {0}: displayName(variables.name)
-#. placeholder {0}: plugin.interface.displayName
 #. placeholder {0}: skill.name
+#. placeholder {0}: variables.name
 msgid "{0} enabled"
 msgstr "{0} etkin"
 
@@ -5827,9 +5824,6 @@ msgstr "Devre dışı"
 msgid "Disabled toggle"
 msgstr "Devre dışı anahtar"
 
-msgid "Disabling keeps a plugin installed but removes its servers from your agents. Changes take effect in new agent sessions."
-msgstr "Devre dışı bırakmak eklentiyi kurulu tutar ancak sunucularını ajanlarınızdan kaldırır. Değişiklikler yeni ajan oturumlarında geçerli olur."
-
 msgid "Discard"
 msgstr "At"
 
@@ -8404,9 +8398,6 @@ msgstr "Depolarınızı bağlamak için Superset GitHub App'i kurun."
 msgid "Install, authorize, and scope MCP servers across all your workspaces from one place, with centralized OAuth."
 msgstr "MCP sunucularını tek bir yerden, merkezi OAuth ile tüm çalışma alanlarınıza kurun, yetkilendirin ve kapsamlandırın."
 
-msgid "Installed"
-msgstr "Kurulu"
-
 #. js-lingui-explicit-id
 msgid "serverError.plugins.marketplaceHasInstalls"
 msgstr "Kurulu eklentiler {name} kaynağından geldi: {plugins}. Önce onları kaldırın."
@@ -9358,9 +9349,6 @@ msgstr "Planı yönet"
 
 msgid "Manage plan on the web"
 msgstr "Planı web'den yönet"
-
-msgid "Manage plugins"
-msgstr "Eklentileri yönet"
 
 msgid "Manage sessions"
 msgstr "Oturumları yönet"
@@ -10804,9 +10792,6 @@ msgstr "Burada henüz bir şey yok."
 
 msgid "Nothing here."
 msgstr "Burada bir şey yok."
-
-msgid "Nothing installed yet."
-msgstr "Henüz kurulu bir şey yok."
 
 msgid "Nothing is running. Archive it and create a new one."
 msgstr "Hiçbir şey çalışmıyor. Bunu arşivleyip yeni bir tane oluşturun."
@@ -17136,10 +17121,6 @@ msgstr "Seçili çalışma alanlarını gruptan çıkar"
 
 msgid "Unified view"
 msgstr "Birleşik görünüm"
-
-#. placeholder {0}: plugin.interface.displayName
-msgid "Uninstall {0}"
-msgstr "{0} eklentisini kaldır"
 
 msgid "Uninstall failed"
 msgstr "Kaldırma başarısız"

@@ -84,9 +84,6 @@ msgstr "({aliveCount} running)"
 msgid "(Coming Soon)"
 msgstr "(Coming Soon)"
 
-msgid "(disabled)"
-msgstr "(disabled)"
-
 msgid "(edited)"
 msgstr "(edited)"
 
@@ -387,8 +384,8 @@ msgid "{0} Documentation"
 msgstr "{0} Documentation"
 
 #. placeholder {0}: displayName(variables.name)
-#. placeholder {0}: plugin.interface.displayName
 #. placeholder {0}: skill.name
+#. placeholder {0}: variables.name
 msgid "{0} enabled"
 msgstr "{0} enabled"
 
@@ -5827,9 +5824,6 @@ msgstr "Disabled"
 msgid "Disabled toggle"
 msgstr "Disabled toggle"
 
-msgid "Disabling keeps a plugin installed but removes its servers from your agents. Changes take effect in new agent sessions."
-msgstr "Disabling keeps a plugin installed but removes its servers from your agents. Changes take effect in new agent sessions."
-
 msgid "Discard"
 msgstr "Discard"
 
@@ -8404,9 +8398,6 @@ msgstr "Install the Superset GitHub App to connect your repositories."
 msgid "Install, authorize, and scope MCP servers across all your workspaces from one place, with centralized OAuth."
 msgstr "Install, authorize, and scope MCP servers across all your workspaces from one place, with centralized OAuth."
 
-msgid "Installed"
-msgstr "Installed"
-
 #. js-lingui-explicit-id
 msgid "serverError.plugins.marketplaceHasInstalls"
 msgstr "Installed plugins came from {name}: {plugins}. Remove them first."
@@ -9358,9 +9349,6 @@ msgstr "Manage Plan"
 
 msgid "Manage plan on the web"
 msgstr "Manage plan on the web"
-
-msgid "Manage plugins"
-msgstr "Manage plugins"
 
 msgid "Manage sessions"
 msgstr "Manage sessions"
@@ -10804,9 +10792,6 @@ msgstr "Nothing here yet."
 
 msgid "Nothing here."
 msgstr "Nothing here."
-
-msgid "Nothing installed yet."
-msgstr "Nothing installed yet."
 
 msgid "Nothing is running. Archive it and create a new one."
 msgstr "Nothing is running. Archive it and create a new one."
@@ -17136,10 +17121,6 @@ msgstr "Ungroup selected workspaces"
 
 msgid "Unified view"
 msgstr "Unified view"
-
-#. placeholder {0}: plugin.interface.displayName
-msgid "Uninstall {0}"
-msgstr "Uninstall {0}"
 
 msgid "Uninstall failed"
 msgstr "Uninstall failed"
