@@ -2758,6 +2758,9 @@ msgstr "페이지로 돌아가기"
 msgid "Back to the leaderboard"
 msgstr "리더보드로 돌아가기"
 
+msgid "Backed by"
+msgstr "투자자"
+
 msgid "Background"
 msgstr "배경"
 
@@ -11619,6 +11622,9 @@ msgstr "다른 팀 멤버"
 
 msgid "Other ways to reach us"
 msgstr "다른 문의 방법"
+
+msgid "Our $11M seed round is led by Union Square Ventures, with Y Combinator, Paul Graham, and founders we admire."
+msgstr "1,100만 달러 규모의 시드 라운드는 Union Square Ventures가 주도했으며, Y Combinator, Paul Graham, 그리고 우리가 존경하는 창업자들이 함께했습니다."
 
 msgid "Our read as of August 2026, based on our own team and the teams we watch closely. F3 is mostly open. F4 is mostly closed. That gap is the work."
 msgstr "2026년 8월 기준, 우리 팀과 가까이 지켜보는 팀들을 바탕으로 한 판단입니다. F3은 대부분 열렸고, F4는 대부분 닫혀 있습니다. 그 간극이 곧 해야 할 일입니다."

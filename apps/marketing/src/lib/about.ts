@@ -14,6 +14,13 @@ export const aboutSchema = z.object({
 			caption: z.string().min(1),
 		}),
 	),
+	investors: z.array(
+		z.object({
+			name: z.string().min(1),
+			detail: z.string().optional(),
+			href: z.string().optional(),
+		}),
+	),
 	principles: z.array(
 		z.object({
 			title: z.string().min(1),

@@ -2758,6 +2758,9 @@ msgstr "Volver a páginas"
 msgid "Back to the leaderboard"
 msgstr "Volver a la clasificación"
 
+msgid "Backed by"
+msgstr "Con el respaldo de"
+
 msgid "Background"
 msgstr "Fondo"
 
@@ -11619,6 +11622,9 @@ msgstr "Otros miembros del equipo"
 
 msgid "Other ways to reach us"
 msgstr "Otras formas de contactarnos"
+
+msgid "Our $11M seed round is led by Union Square Ventures, with Y Combinator, Paul Graham, and founders we admire."
+msgstr "Nuestra ronda semilla de 11 M$ está liderada por Union Square Ventures, junto con Y Combinator, Paul Graham y fundadores a los que admiramos."
 
 msgid "Our read as of August 2026, based on our own team and the teams we watch closely. F3 is mostly open. F4 is mostly closed. That gap is the work."
 msgstr "Nuestra lectura a agosto de 2026, basada en nuestro propio equipo y en los equipos que seguimos de cerca. F3 está casi todo abierto. F4 está casi todo cerrado. Ese hueco es el trabajo."

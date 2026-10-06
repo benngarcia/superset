@@ -11,6 +11,7 @@ import { getAbout } from "@/lib/about";
 import { getAllPeople } from "@/lib/people";
 import { CTASection } from "../components/CTASection";
 import { FounderRow } from "./components/FounderRow";
+import { Investors } from "./components/Investors";
 import { Principles } from "./components/Principles";
 import { ProofLinks } from "./components/ProofLinks";
 import { Timeline } from "./components/Timeline";
@@ -184,6 +185,19 @@ export default async function TeamPage() {
 							))}
 						</div>
 					)}
+				</section>
+
+				<section className="mb-24 md:mb-32">
+					<h2 className="text-2xl md:text-3xl font-normal text-foreground mb-3">
+						<Trans>Backed by</Trans>
+					</h2>
+					<p className="text-muted-foreground mb-10 max-w-2xl">
+						<Trans>
+							Our $11M seed round is led by Union Square Ventures, with Y
+							Combinator, Paul Graham, and founders we admire.
+						</Trans>
+					</p>
+					<Investors investors={about.investors} />
 				</section>
 
 				<section className="mb-24 md:mb-32">
