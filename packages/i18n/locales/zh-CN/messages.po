@@ -16295,9 +16295,6 @@ msgstr "云端工作区启动的起点 — 一个基础镜像，或你已配置�
 msgid "The Superset desktop app is available for macOS and Linux."
 msgstr "Superset 桌面应用支持 macOS 和 Linux。"
 
-msgid "The Superset founders at a hackathon, YC HQ San Francisco"
-msgstr "Superset创始人在黑客松现场，YC总部，旧金山"
-
 msgid "The Superset host service for {organization} stopped unexpectedly ({cause}) and could not be restarted automatically."
 msgstr "{organization}的Superset主机服务意外停止（{cause}），且无法自动重启。"
 

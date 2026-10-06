@@ -16295,9 +16295,6 @@ msgstr "Bir bulut çalışma alanının açıldığı başlangıç noktası — 
 msgid "The Superset desktop app is available for macOS and Linux."
 msgstr "Superset masaüstü uygulaması macOS ve Linux için kullanılabilir."
 
-msgid "The Superset founders at a hackathon, YC HQ San Francisco"
-msgstr "Superset kurucuları bir hackathon'da, YC merkezi San Francisco"
-
 msgid "The Superset host service for {organization} stopped unexpectedly ({cause}) and could not be restarted automatically."
 msgstr "{organization} için Superset host hizmeti beklenmedik şekilde durdu ({cause}) ve otomatik olarak yeniden başlatılamadı."
 

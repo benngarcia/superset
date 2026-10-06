@@ -1,17 +1,19 @@
 import { msg } from "@lingui/core/macro";
-import { Trans, useLingui } from "@lingui/react/macro";
+import { Trans } from "@lingui/react/macro";
 import { getI18nInstance } from "@superset/i18n/server";
+import { formatStarCount } from "@superset/shared/github-stars";
 import { ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { localeUrl, localizedAlternates } from "@/app/[lang]/metadata";
 import { initServerI18n } from "@/app/i18n-server";
 import { getAbout } from "@/lib/about";
 import { getAllPeople } from "@/lib/people";
 import { CTASection } from "../components/CTASection";
+import { getGitHubStars } from "../utils/getGitHubStars";
 import { FounderRow } from "./components/FounderRow";
 import { Investors } from "./components/Investors";
+import { PhotoFan } from "./components/PhotoFan";
 import { Principles } from "./components/Principles";
 import { ProofLinks } from "./components/ProofLinks";
 import { Timeline } from "./components/Timeline";
@@ -61,15 +63,15 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function TeamPage() {
 	const lang = await initServerI18n();
 
-	const { t } = useLingui();
 	const people = getAllPeople();
 	const about = getAbout();
+	const stars = await getGitHubStars();
 
 	return (
 		<main className="relative min-h-screen bg-background">
 			<div className="max-w-5xl mx-auto px-6 py-24 md:py-32">
 				{/* Hero */}
-				<section className="mb-24 md:mb-32">
+				<section className="mb-12 md:mb-16">
 					<p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground mb-6">
 						<Trans>About Superset</Trans>
 					</p>
@@ -85,57 +87,68 @@ export default async function TeamPage() {
 					</p>
 				</section>
 
-				{/* Our Story */}
-				<section className="mb-24 md:mb-32">
-					<div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
-						<div>
-							<h2 className="text-2xl md:text-3xl font-normal text-foreground mb-6">
-								<Trans>So how did we get here?</Trans>
-							</h2>
-							<div className="space-y-4 text-muted-foreground leading-relaxed">
-								<p>
-									<Trans>
-										Superset started as a hackathon project in November 2025. It
-										was a simple desktop app for managing worktrees.
-									</Trans>
-								</p>
-								<p>
-									<Trans>
-										In just a few months,{" "}
-										<span className="text-foreground">
-											tens of thousands of engineers
-										</span>{" "}
-										run Superset as their primary IDE, at companies like Wix,
-										DoorDash, and Netflix.
-									</Trans>
-								</p>
-								<p>
-									<Trans>
-										Now, we've raised{" "}
-										<span className="text-foreground">$11M</span> from the best
-										investors in Silicon Valley to build the platform for
-										software factories.
-									</Trans>
-								</p>
-							</div>
+				<section className="mb-16 md:mb-20">
+					<PhotoFan photos={about.photos} />
+				</section>
+
+				<dl className="grid grid-cols-1 sm:grid-cols-3 border-y border-border mb-24 md:mb-32">
+					<div className="flex flex-col-reverse py-6 sm:pr-6">
+						<dt className="mt-2 font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground">
+							<Trans>Location</Trans>
+						</dt>
+						<dd className="text-3xl md:text-4xl font-normal text-foreground">
+							<Trans>San Francisco</Trans>
+						</dd>
+					</div>
+					<div className="flex flex-col-reverse py-6 sm:px-6 border-t sm:border-t-0 sm:border-l border-border">
+						<dt className="mt-2 font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground">
+							<Trans>Team</Trans>
+						</dt>
+						<dd className="text-3xl md:text-4xl font-normal text-foreground">
+							{people.length}
+						</dd>
+					</div>
+					{stars !== null && (
+						<div className="flex flex-col-reverse py-6 sm:pl-6 border-t sm:border-t-0 sm:border-l border-border">
+							<dt className="mt-2 font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground">
+								<Trans>GitHub stars</Trans>
+							</dt>
+							<dd className="text-3xl md:text-4xl font-normal text-foreground">
+								{formatStarCount(stars)}
+							</dd>
 						</div>
-						<figure className="m-0 md:sticky md:top-24">
-							<div className="relative aspect-[8/5] rounded-lg overflow-hidden bg-muted border border-border">
-								<Image
-									src="/join-us/founders.jpg"
-									alt={t({
-										message:
-											"The Superset founders at a hackathon, YC HQ San Francisco",
-									})}
-									fill
-									className="object-cover"
-									sizes="(max-width: 768px) 100vw, 480px"
-								/>
-							</div>
-							<figcaption className="mt-3 text-xs text-muted-foreground">
-								{about.photoCaption}
-							</figcaption>
-						</figure>
+					)}
+				</dl>
+
+				{/* Our Story */}
+				<section className="mb-24 md:mb-32 max-w-2xl">
+					<h2 className="text-2xl md:text-3xl font-normal text-foreground mb-6">
+						<Trans>So how did we get here?</Trans>
+					</h2>
+					<div className="space-y-4 text-muted-foreground leading-relaxed">
+						<p>
+							<Trans>
+								Superset started as a hackathon project in November 2025. It was
+								a simple desktop app for managing worktrees.
+							</Trans>
+						</p>
+						<p>
+							<Trans>
+								In just a few months,{" "}
+								<span className="text-foreground">
+									tens of thousands of engineers
+								</span>{" "}
+								run Superset as their primary IDE, at companies like Wix,
+								DoorDash, and Netflix.
+							</Trans>
+						</p>
+						<p>
+							<Trans>
+								Now, we've raised <span className="text-foreground">$11M</span>{" "}
+								from the best investors in Silicon Valley to build the platform
+								for software factories.
+							</Trans>
+						</p>
 					</div>
 				</section>
 
@@ -150,24 +163,6 @@ export default async function TeamPage() {
 						</Trans>
 					</p>
 					<Timeline entries={about.timeline} locale={lang} />
-					<div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-12">
-						{about.photos.map((photo) => (
-							<figure key={photo.src} className="m-0">
-								<div className="relative aspect-[3/2] rounded-lg overflow-hidden bg-muted border border-border">
-									<Image
-										src={photo.src}
-										alt={photo.alt}
-										fill
-										className="object-cover"
-										sizes="(max-width: 640px) 100vw, 480px"
-									/>
-								</div>
-								<figcaption className="mt-3 text-xs text-muted-foreground">
-									{photo.caption}
-								</figcaption>
-							</figure>
-						))}
-					</div>
 				</section>
 
 				<section className="mb-24 md:mb-32">

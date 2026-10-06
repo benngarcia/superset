@@ -16295,9 +16295,6 @@ msgstr "Le point de départ à partir duquel démarre un espace de travail cloud
 msgid "The Superset desktop app is available for macOS and Linux."
 msgstr "L'application de bureau Superset est disponible pour macOS et Linux."
 
-msgid "The Superset founders at a hackathon, YC HQ San Francisco"
-msgstr "Les fondateurs de Superset lors d'un hackathon, au siège de YC à San Francisco"
-
 msgid "The Superset host service for {organization} stopped unexpectedly ({cause}) and could not be restarted automatically."
 msgstr "Le service hôte Superset pour {organization} s'est arrêté de façon inattendue ({cause}) et n'a pas pu être redémarré automatiquement."
 

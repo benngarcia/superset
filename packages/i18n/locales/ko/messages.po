@@ -16295,9 +16295,6 @@ msgstr "클라우드 워크스페이스가 부팅되는 시작점입니다 — �
 msgid "The Superset desktop app is available for macOS and Linux."
 msgstr "Superset 데스크톱 앱은 macOS와 Linux에서 사용할 수 있습니다."
 
-msgid "The Superset founders at a hackathon, YC HQ San Francisco"
-msgstr "샌프란시스코 YC 본사 해커톤에 참여한 Superset 창업자들"
-
 msgid "The Superset host service for {organization} stopped unexpectedly ({cause}) and could not be restarted automatically."
 msgstr "{organization}의 Superset 호스트 서비스가 예기치 않게 중지되었으며({cause}) 자동으로 다시 시작하지 못했습니다."
 

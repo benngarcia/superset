@@ -16295,9 +16295,6 @@ msgstr "Het startpunt waarvandaan een cloudwerkruimte opstart — een base image
 msgid "The Superset desktop app is available for macOS and Linux."
 msgstr "De Superset-desktopapp is beschikbaar voor macOS en Linux."
 
-msgid "The Superset founders at a hackathon, YC HQ San Francisco"
-msgstr "De oprichters van Superset op een hackathon, YC HQ San Francisco"
-
 msgid "The Superset host service for {organization} stopped unexpectedly ({cause}) and could not be restarted automatically."
 msgstr "De Superset-hostservice voor {organization} is onverwacht gestopt ({cause}) en kon niet automatisch opnieuw worden gestart."
 

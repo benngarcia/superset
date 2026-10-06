@@ -16295,9 +16295,6 @@ msgstr "Výchozí bod, ze kterého se spouští cloudový pracovní prostor — 
 msgid "The Superset desktop app is available for macOS and Linux."
 msgstr "Desktopová aplikace Superset je dostupná pro macOS a Linux."
 
-msgid "The Superset founders at a hackathon, YC HQ San Francisco"
-msgstr "Zakladatelé Superset na hackathonu, YC HQ San Francisco"
-
 msgid "The Superset host service for {organization} stopped unexpectedly ({cause}) and could not be restarted automatically."
 msgstr "Host service Superset pro {organization} se nečekaně zastavila ({cause}) a nešlo ji automaticky restartovat."
 

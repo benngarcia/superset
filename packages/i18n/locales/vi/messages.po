@@ -16295,9 +16295,6 @@ msgstr "Điểm khởi đầu mà một workspace cloud boot lên — một base
 msgid "The Superset desktop app is available for macOS and Linux."
 msgstr "Ứng dụng desktop Superset có sẵn cho macOS và Linux."
 
-msgid "The Superset founders at a hackathon, YC HQ San Francisco"
-msgstr "Những người sáng lập Superset tại một hackathon, trụ sở YC San Francisco"
-
 msgid "The Superset host service for {organization} stopped unexpectedly ({cause}) and could not be restarted automatically."
 msgstr "Dịch vụ host Superset cho {organization} đã dừng bất ngờ ({cause}) và không tự khởi động lại được."
 

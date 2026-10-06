@@ -6,7 +6,6 @@ import { z } from "zod";
 const aboutFile = path.join(process.cwd(), "content/about.mdx");
 
 export const aboutSchema = z.object({
-	photoCaption: z.string().min(1),
 	photos: z.array(
 		z.object({
 			src: z.string().min(1),
@@ -19,6 +18,8 @@ export const aboutSchema = z.object({
 			name: z.string().min(1),
 			detail: z.string().optional(),
 			href: z.string().optional(),
+			logo: z.string().optional(),
+			featured: z.boolean().optional(),
 		}),
 	),
 	principles: z.array(

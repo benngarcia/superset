@@ -16295,9 +16295,6 @@ msgstr "クラウドワークスペースの起動元となる出発点 — ベ�
 msgid "The Superset desktop app is available for macOS and Linux."
 msgstr "Supersetデスクトップアプリは macOS と Linux で利用できます。"
 
-msgid "The Superset founders at a hackathon, YC HQ San Francisco"
-msgstr "ハッカソンでのSupersetの創業者たち、サンフランシスコのYC本社"
-
 msgid "The Superset host service for {organization} stopped unexpectedly ({cause}) and could not be restarted automatically."
 msgstr "{organization}のSupersetホストサービスが予期せず停止し ({cause})、自動的に再起動できませんでした。"
 
