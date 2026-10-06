@@ -32,6 +32,8 @@ import {
 } from "@/screens/(authenticated)/hooks/useAgentLaunchPreferences";
 import { useHostAgentConfigs } from "@/screens/(authenticated)/hooks/useHostAgentConfigs";
 import { usePendingChatLaunchStore } from "@/screens/(authenticated)/stores/pendingChatLaunchStore";
+import { hostStartsChats } from "@/screens/(authenticated)/utils/hostStartsChats";
+import { useHostCompatibility } from "../hooks/useHostCompatibility";
 
 /**
  * Bottom sheet for the tab strip's + — the host's agent presets plus a plain
@@ -50,6 +52,7 @@ export function NewSessionSheet() {
 	const hostUrl = host
 		? hostServiceUrl(host.organizationId, host.machineId)
 		: null;
+	const { hostVersion } = useHostCompatibility(hostUrl);
 
 	const presetsQuery = useHostAgentConfigs({
 		machineId: host?.machineId ?? null,
@@ -66,7 +69,7 @@ export function NewSessionSheet() {
 				limit: 20,
 			});
 			return rows
-				.filter((row) => !row.live && row.harnessSessionId)
+				.filter((row) => row.live === false && row.harnessSessionId)
 				.slice(0, 5);
 		},
 	});
@@ -125,6 +128,16 @@ export function NewSessionSheet() {
 					workspaceId: workspace.id,
 				});
 				terminalId = created.terminalId;
+			} else if (chatHarness && hostStartsChats(hostVersion)) {
+				const { model } = launchFor(preset);
+				const result = await client.agents.run.mutate({
+					workspaceId: workspace.id,
+					agent: preset.presetId,
+					prompt: "",
+					model: model?.id,
+					surface: "chat",
+				});
+				terminalId = result.chatSessionId ?? result.sessionId;
 			} else if (chatHarness) {
 				const { model, effort } = launchFor(preset);
 				const created = await getChatTransport(hostUrl).createSession({

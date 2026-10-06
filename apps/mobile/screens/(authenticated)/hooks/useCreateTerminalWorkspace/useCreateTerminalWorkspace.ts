@@ -24,6 +24,7 @@ import {
 	type PendingWorkspaceCreateInput,
 	usePendingWorkspaceCreatesStore,
 } from "@/screens/(authenticated)/stores/pendingWorkspaceCreatesStore";
+import { hostStartsChats } from "@/screens/(authenticated)/utils/hostStartsChats";
 
 type CreateTerminalWorkspaceArgs = PendingWorkspaceCreateInput & {
 	/** Retry from the failed state replaces instead of pushing. */
@@ -111,6 +112,7 @@ export function useCreateTerminalWorkspace() {
 			// proves the workspace was never requested — only a failure at or
 			// after the create itself leaves the outcome unknown.
 			let createRequested = false;
+			let startChatOnPhone: (() => void) | null = null;
 			try {
 				const client = getHostServiceClientByUrl(target.hostUrl);
 				const imported = await importAttachments(
@@ -119,8 +121,17 @@ export function useCreateTerminalWorkspace() {
 				);
 				const attachmentIds = imported.map((entry) => entry.attachmentId);
 				const prompt = message.text.trim();
+				const hostLaunchesChat =
+					!!chatHarness &&
+					hostStartsChats(
+						await client.host.info
+							.query()
+							.then((info) => info.version)
+							.catch(() => null),
+					);
+				const phoneLaunchesChat = !!chatHarness && !hostLaunchesChat;
 
-				const agents = chatHarness
+				const agents = phoneLaunchesChat
 					? undefined
 					: [
 							{
@@ -129,11 +140,13 @@ export function useCreateTerminalWorkspace() {
 								attachmentIds:
 									attachmentIds.length > 0 ? attachmentIds : undefined,
 								model: model ?? undefined,
-								effort: effort ?? undefined,
+								...(hostLaunchesChat
+									? { surface: "chat" as const }
+									: { effort: effort ?? undefined }),
 							},
 						];
 				const naming =
-					chatHarness && prompt
+					phoneLaunchesChat && prompt
 						? {
 								namingPrompt: prompt.slice(0, NAMING_PROMPT_MAX_CHARS),
 								namingAgent: agentId,
@@ -152,36 +165,8 @@ export function useCreateTerminalWorkspace() {
 					});
 				};
 
-				if (target.projectId === null) {
-					createRequested = true;
-					await client.workspaces.createSession.mutate({
-						id: workspaceId,
-						agents,
-						...naming,
-					});
-					refetchCreated();
-				} else {
-					const createInput = {
-						id: workspaceId,
-						projectId: target.projectId,
-						baseBranch: baseBranch ?? undefined,
-						agents,
-						...naming,
-					};
-					try {
-						createRequested = true;
-						await client.workspaces.createEnqueued.mutate(createInput);
-					} catch (error) {
-						if (!isMissingProcedureError(error)) throw error;
-						// Legacy host: the long-held synchronous create — it can still
-						// die at the relay's 30s cap, same as before this hook went
-						// optimistic. On success the row and session already exist;
-						// refetch so the screen resolves without waiting for a poll.
-						await client.workspaces.create.mutate(createInput);
-						refetchCreated();
-					}
-				}
-				if (chatHarness) {
+				startChatOnPhone = () => {
+					if (!chatHarness) return;
 					void (async () => {
 						try {
 							await waitForWorkspaceRow(client, workspaceId);
@@ -223,7 +208,38 @@ export function useCreateTerminalWorkspace() {
 							);
 						}
 					})();
+				};
+
+				if (target.projectId === null) {
+					createRequested = true;
+					await client.workspaces.createSession.mutate({
+						id: workspaceId,
+						agents,
+						...naming,
+					});
+					refetchCreated();
+				} else {
+					const createInput = {
+						id: workspaceId,
+						projectId: target.projectId,
+						baseBranch: baseBranch ?? undefined,
+						agents,
+						...naming,
+					};
+					try {
+						createRequested = true;
+						await client.workspaces.createEnqueued.mutate(createInput);
+					} catch (error) {
+						if (!isMissingProcedureError(error)) throw error;
+						// Legacy host: the long-held synchronous create — it can still
+						// die at the relay's 30s cap, same as before this hook went
+						// optimistic. On success the row and session already exist;
+						// refetch so the screen resolves without waiting for a poll.
+						await client.workspaces.create.mutate(createInput);
+						refetchCreated();
+					}
 				}
+				if (phoneLaunchesChat) startChatOnPhone();
 				// The host emits `workspace_created` itself when the row lands; this
 				// is only the client asking, and counting both would double.
 				posthog.capture("workspace_create_requested", {
@@ -244,6 +260,7 @@ export function useCreateTerminalWorkspace() {
 				// relay's 30s cap can reject a create the host went on to
 				// finish. Say so rather than asserting a failure.
 				const kind = transportFailureKind(error);
+				if (kind && createRequested) startChatOnPhone?.();
 				failPending(workspaceId, {
 					outcome: kind && createRequested ? "unknown" : "failed",
 					message: errorCopy(error),
