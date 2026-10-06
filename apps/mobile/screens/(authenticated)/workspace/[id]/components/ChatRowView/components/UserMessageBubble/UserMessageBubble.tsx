@@ -5,8 +5,8 @@ import { CircleAlert, Paperclip } from "lucide-react-native";
 import { Pressable, View } from "react-native";
 import { Icon } from "@/components/ui/icon";
 import { Text } from "@/components/ui/text";
-import { OutgoingBubble } from "../OutgoingBubble";
 import { SystemLine } from "../SystemLine";
+import { OutgoingBubble } from "./components/OutgoingBubble";
 
 interface UserMessageBubbleProps {
 	content: UserContent[];

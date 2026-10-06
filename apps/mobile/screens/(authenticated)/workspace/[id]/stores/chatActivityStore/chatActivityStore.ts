@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { ChatRow } from "../../components/ChatSessionView/utils/chatRows";
+import type { ChatRow } from "../../utils/chatRows";
 
 interface ChatActivityStore {
 	openKey: string | null;

@@ -2,7 +2,7 @@ import { useLingui } from "@lingui/react/macro";
 import { Stack, useRouter } from "expo-router";
 import { useEffect } from "react";
 import { ScrollView, View } from "react-native";
-import { ChatRowView } from "../components/ChatSessionView/components/ChatRowView";
+import { ChatRowView } from "../components/ChatRowView";
 import { useChatActivityStore } from "../stores/chatActivityStore";
 
 const noop = () => {};
