@@ -2163,6 +2163,9 @@ msgstr "설치할 업데이트가 준비되었습니다."
 msgid "Analytics, Ops, and more"
 msgstr "분석, 운영 등"
 
+msgid "And many more."
+msgstr "그 외 다수."
+
 msgid "Android is on the way. Be first to know when it ships."
 msgstr "Android 버전이 곧 나옵니다. 출시되면 가장 먼저 알려드릴게요."
 

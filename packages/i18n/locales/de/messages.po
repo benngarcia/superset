@@ -2163,6 +2163,9 @@ msgstr "Ein Update ist bereit zur Installation."
 msgid "Analytics, Ops, and more"
 msgstr "Analysen, Betrieb und mehr"
 
+msgid "And many more."
+msgstr "Und viele mehr."
+
 msgid "Android is on the way. Be first to know when it ships."
 msgstr "Android ist unterwegs. Erfahre als Erstes, wenn es erscheint."
 

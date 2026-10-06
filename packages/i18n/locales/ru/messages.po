@@ -2163,6 +2163,9 @@ msgstr "Обновление готово к установке."
 msgid "Analytics, Ops, and more"
 msgstr "Аналитика, операции и другое"
 
+msgid "And many more."
+msgstr "И многие другие."
+
 msgid "Android is on the way. Be first to know when it ships."
 msgstr "Версия для Android уже в работе. Узнайте о выходе первыми."
 

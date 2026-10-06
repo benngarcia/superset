@@ -2163,6 +2163,9 @@ msgstr "Yüklenmeye hazır bir güncelleme var."
 msgid "Analytics, Ops, and more"
 msgstr "Analiz, operasyonlar ve daha fazlası"
 
+msgid "And many more."
+msgstr "Ve daha niceleri."
+
 msgid "Android is on the way. Be first to know when it ships."
 msgstr "Android yolda. Çıktığında ilk siz haberdar olun."
 

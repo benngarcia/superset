@@ -2163,6 +2163,9 @@ msgstr "Đã có bản cập nhật sẵn sàng để cài đặt."
 msgid "Analytics, Ops, and more"
 msgstr "Phân tích, vận hành và hơn thế nữa"
 
+msgid "And many more."
+msgstr "Và nhiều người khác."
+
 msgid "Android is on the way. Be first to know when it ships."
 msgstr "Bản Android đang đến. Hãy là người đầu tiên biết khi nó ra mắt."
 

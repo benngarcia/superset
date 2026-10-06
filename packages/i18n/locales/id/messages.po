@@ -2163,6 +2163,9 @@ msgstr "Pembaruan siap dipasang."
 msgid "Analytics, Ops, and more"
 msgstr "Analitik, operasional, dan lainnya"
 
+msgid "And many more."
+msgstr "Dan masih banyak lagi."
+
 msgid "Android is on the way. Be first to know when it ships."
 msgstr "Android sedang dalam perjalanan. Jadilah yang pertama tahu saat dirilis."
 

@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/react/macro";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import type { About } from "@/lib/about";
@@ -68,6 +69,9 @@ export function Investors({ investors }: InvestorsProps) {
 					</li>
 				))}
 			</ul>
+			<p className="mt-8 text-sm text-muted-foreground">
+				<Trans>And many more.</Trans>
+			</p>
 		</div>
 	);
 }
