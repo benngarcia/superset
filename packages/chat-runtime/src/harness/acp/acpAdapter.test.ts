@@ -1316,6 +1316,7 @@ describe("AcpAdapter on protocol v2", () => {
 
 	it("reports a running turn as awaiting background work once the agent's cycle ends", async () => {
 		const agent = new FakeAcpAgent();
+		agent.steeringOutcome = "injected";
 		agent.holdPrompts = true;
 		const { adapter, events } = startAdapter(agent);
 		await flush();
@@ -1355,6 +1356,34 @@ describe("AcpAdapter on protocol v2", () => {
 		await flush();
 		expect(awaiting()).toEqual([true, false]);
 
+		await adapter.dispose();
+	});
+
+	it("never reports awaiting background work for an agent that cannot steer", async () => {
+		const agent = new FakeAcpAgent();
+		agent.holdPrompts = true;
+		const { adapter, events } = startAdapter(agent);
+		await flush();
+		adapter.prompt([{ type: "text", text: "spawn a helper" }]);
+		await flush();
+
+		agent.notify("sess-1", {
+			sessionUpdate: "subagent_spawned",
+			subagentSessionId: "child-1",
+			name: "Helper",
+			task: "Help",
+		});
+		agent.notify("sess-1", {
+			sessionUpdate: "usage_update",
+			used: 10,
+			size: 100,
+			cost: { amount: 0.01, currency: "USD" },
+		});
+		await flush();
+
+		expect(
+			sessionsOf(events).some((session) => session.awaitingBackground),
+		).toBe(false);
 		await adapter.dispose();
 	});
 

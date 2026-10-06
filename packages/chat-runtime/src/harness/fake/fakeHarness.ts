@@ -93,7 +93,11 @@ export class FakeHarness implements HarnessAdapter {
 		);
 	}
 
-	async steer(_content: UserContent[]): Promise<boolean> {
+	readonly steered: string[] = [];
+
+	async steer(content: UserContent[]): Promise<boolean> {
+		const first = content[0];
+		if (first?.type === "text") this.steered.push(first.text);
 		if (this.script.steerDelayMs !== undefined) {
 			await sleep(this.script.steerDelayMs);
 		}

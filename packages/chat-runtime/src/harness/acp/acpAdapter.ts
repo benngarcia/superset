@@ -1498,6 +1498,7 @@ export class AcpAdapter implements HarnessAdapter {
 
 	private syncAwaitingBackground(): void {
 		const awaiting =
+			this.supportsSteering &&
 			this.currentTurn?.status === "running" &&
 			this.cycleEnded &&
 			this.liveBackgroundTasks > 0;
