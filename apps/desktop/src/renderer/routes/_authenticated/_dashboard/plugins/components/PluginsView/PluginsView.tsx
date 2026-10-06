@@ -54,9 +54,6 @@ export function PluginsView() {
 		);
 	}, [query, catalog]);
 
-	const featured = visiblePlugins.filter((plugin) => plugin.featured);
-	// Featured plugins appear in their category section too — Featured is a
-	// spotlight, not a home.
 	const byCategory = PLUGIN_CATEGORIES.map((category) => ({
 		category,
 		plugins: visiblePlugins.filter(
@@ -136,17 +133,6 @@ export function PluginsView() {
 					</div>
 
 					{isCatalogLoading && skeletonCards}
-
-					{featured.length > 0 && (
-						<section className="flex flex-col gap-3">
-							<h2 className="text-sm font-semibold text-foreground">
-								<Trans>Featured</Trans>
-							</h2>
-							<div className="grid grid-cols-1 gap-2 md:grid-cols-2">
-								{featured.map(renderCard)}
-							</div>
-						</section>
-					)}
 
 					{byCategory.map(({ category, plugins }) => (
 						<section key={category} className="flex flex-col gap-3">
