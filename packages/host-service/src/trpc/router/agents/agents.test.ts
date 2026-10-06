@@ -1066,9 +1066,12 @@ describe("continuationTarget", () => {
 		seedClaude(db);
 		const launch = { workspaceId, agent: "claude", prompt: "go" };
 
-		expect(chatLaunchTarget(db, { ...launch, surface: "chat" })).toEqual({
+		expect(
+			chatLaunchTarget(db, { ...launch, surface: "chat", mode: "plan" }),
+		).toEqual({
 			harness: "claude-acp",
 			label: "Claude",
+			attachments: [],
 		});
 		expect(chatLaunchTarget(db, launch)).toBeNull();
 		expect(

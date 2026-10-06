@@ -160,6 +160,7 @@ export type AgentRunResult = {
 	kind: "terminal";
 	sessionId: string;
 	label: string;
+	chatSessionId?: string;
 };
 
 /**
@@ -614,16 +615,32 @@ function bindingRunsConfig(
 export function chatLaunchTarget(
 	db: HostDb,
 	input: AgentRunInput,
-): { harness: string; label: string } | null {
+): {
+	harness: string;
+	label: string;
+	attachments: Array<{ attachmentId: string; name: string; mimeType: string }>;
+} | null {
 	if (
 		input.surface !== "chat" ||
 		input.effort ||
-		input.mode ||
 		input.resumeSessionId ||
-		input.forkSessionId ||
-		(input.attachmentIds?.length ?? 0) > 0
+		input.forkSessionId
 	) {
 		return null;
+	}
+	const attachments: Array<{
+		attachmentId: string;
+		name: string;
+		mimeType: string;
+	}> = [];
+	for (const attachmentId of input.attachmentIds ?? []) {
+		const resolved = resolveAttachmentPath(attachmentId);
+		if (!resolved) return null;
+		attachments.push({
+			attachmentId,
+			name: resolved.metadata.originalFilename ?? attachmentId,
+			mimeType: resolved.metadata.mediaType,
+		});
 	}
 	const config = resolveHostAgentConfig(db, input.agent);
 	if (!config) return null;
@@ -634,7 +651,7 @@ export function chatLaunchTarget(
 	const harness = acpHarnessForPreset(launchPresetId);
 	if (!harness) return null;
 	validateAgentModelSelection(launchPresetId, config.label, input.model);
-	return { harness, label: config.label };
+	return { harness, label: config.label, attachments };
 }
 
 function continueChatAgent(
@@ -689,17 +706,32 @@ function launchChatAgent(
 		cwd,
 		terminalId,
 		...(input.model ? { modelId: input.model } : {}),
+		...(input.mode ? { modeId: input.mode } : {}),
 	});
-	if (input.prompt.trim() !== "") {
+	const content = [
+		...(input.prompt.trim() !== ""
+			? [{ type: "text" as const, text: input.prompt }]
+			: []),
+		...target.attachments.map((attachment) => ({
+			type: "attachment" as const,
+			...attachment,
+		})),
+	];
+	if (content.length > 0) {
 		chat.commands.prompt({
 			commandId: crypto.randomUUID(),
 			sessionId,
 			clientId: crypto.randomUUID(),
-			content: [{ type: "text", text: input.prompt }],
+			content,
 		});
 	}
 
-	return { kind: "terminal", sessionId: terminalId, label: target.label };
+	return {
+		kind: "terminal",
+		sessionId: terminalId,
+		label: target.label,
+		chatSessionId: sessionId,
+	};
 }
 
 /**
