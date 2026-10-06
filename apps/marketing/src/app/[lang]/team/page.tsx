@@ -192,7 +192,7 @@ export default async function TeamPage() {
 					<h2 className="text-2xl md:text-3xl font-normal text-foreground mb-3">
 						<Trans>What we believe</Trans>
 					</h2>
-					<p className="mt-6 max-w-2xl text-lg md:text-xl leading-relaxed text-foreground/90">
+					<p className="mt-6 text-muted-foreground leading-relaxed">
 						{about.belief}
 					</p>
 				</section>
