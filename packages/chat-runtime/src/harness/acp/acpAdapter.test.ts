@@ -1359,6 +1359,38 @@ describe("AcpAdapter on protocol v2", () => {
 		await adapter.dispose();
 	});
 
+	it("does not count a background task left over from an earlier turn", async () => {
+		const agent = new FakeAcpAgent();
+		agent.steeringOutcome = "injected";
+		const { adapter, events } = startAdapter(agent);
+		await flush();
+		adapter.prompt([{ type: "text", text: "start the dev server" }]);
+		await flush();
+		agent.notify("sess-1", {
+			sessionUpdate: "async_task_spawned",
+			asyncTaskId: "task-1",
+			name: "bun run dev",
+			canStop: true,
+		});
+		await flush();
+
+		agent.holdPrompts = true;
+		adapter.prompt([{ type: "text", text: "now something else" }]);
+		await flush();
+		agent.notify("sess-1", {
+			sessionUpdate: "usage_update",
+			used: 10,
+			size: 100,
+			cost: { amount: 0.01, currency: "USD" },
+		});
+		await flush();
+
+		expect(
+			sessionsOf(events).some((session) => session.awaitingBackground),
+		).toBe(false);
+		await adapter.dispose();
+	});
+
 	it("never reports awaiting background work for an agent that cannot steer", async () => {
 		const agent = new FakeAcpAgent();
 		agent.holdPrompts = true;

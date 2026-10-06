@@ -255,7 +255,7 @@ export class AcpAdapter implements HarnessAdapter {
 	private agentCapabilities: Record<string, unknown> = {};
 	private supportsSteering = false;
 	private cycleEnded = false;
-	private liveBackgroundTasks = 0;
+	private readonly backgroundTaskTurns = new Map<string, string | undefined>();
 	private awaitingBackground = false;
 	/** The v2 config option that stands in for v1's session mode, once seen. */
 	private modeConfigId: string | null = null;
@@ -269,7 +269,15 @@ export class AcpAdapter implements HarnessAdapter {
 	constructor(private readonly options: AcpAdapterOptions) {
 		this.backgroundTasks = new BackgroundTasks(
 			(tasks) => {
-				this.liveBackgroundTasks = tasks.length;
+				const live = new Set(tasks.map((task) => task.id));
+				for (const id of this.backgroundTaskTurns.keys()) {
+					if (!live.has(id)) this.backgroundTaskTurns.delete(id);
+				}
+				for (const id of live) {
+					if (!this.backgroundTaskTurns.has(id)) {
+						this.backgroundTaskTurns.set(id, this.currentTurn?.id);
+					}
+				}
 				this.emitSession({ backgroundTasks: tasks });
 				this.syncAwaitingBackground();
 			},
@@ -1501,7 +1509,7 @@ export class AcpAdapter implements HarnessAdapter {
 			this.supportsSteering &&
 			this.currentTurn?.status === "running" &&
 			this.cycleEnded &&
-			this.liveBackgroundTasks > 0;
+			[...this.backgroundTaskTurns.values()].includes(this.currentTurn.id);
 		if (awaiting === this.awaitingBackground) return;
 		this.awaitingBackground = awaiting;
 		this.emitSession({ awaitingBackground: awaiting });
