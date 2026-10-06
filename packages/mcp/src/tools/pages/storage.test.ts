@@ -70,14 +70,14 @@ test("an omitted or null key asks for the key list", async () => {
 	]);
 });
 
-test("passes on realtime's creator-only refusal", async () => {
+test("passes on realtime's refusal", async () => {
 	reply = {
 		status: 403,
 		body: {
-			error: "Only the person who created this page can read its storage",
+			error: "You cannot read this page's storage",
 		},
 	};
 	await expect(call({ id: PAGE_ID })).rejects.toThrow(
-		"Only the person who created this page can read its storage",
+		"You cannot read this page's storage",
 	);
 });

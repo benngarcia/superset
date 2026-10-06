@@ -1382,10 +1382,11 @@ unless `--yes` is passed; non-interactive input does not prompt.
 	]}
 	output="{ pageId, keys: Array<{ key, records, updatedAt }> } | { pageId, key, records: Array<{ userId, name, image, value, updatedAt }> }"
 >
-Read what viewers stored with `window.superset.storage` on a page you created.
+Read what viewers stored with `window.superset.storage` on a page.
 Without `--key`, lists each key with its record count (KEY, RECORDS, UPDATED).
-With `--key`, lists each person's value for that key (NAME, VALUE, UPDATED). Only the page's creator
-can read its storage; anyone else gets an error.
+With `--key`, lists each person's value for that key (NAME, VALUE, UPDATED).
+Storage follows the page's visibility: anyone who can open the page can read it.
+A page visible to everyone keeps its storage to the page's organization.
 
 ```bash
 superset pages storage weekly-report

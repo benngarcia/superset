@@ -100,9 +100,9 @@ describe("readStorage", () => {
 		expect(requests[0]?.headers.get("authorization")).toBe("Bearer jwt");
 	});
 
-	test("tells a non-creator that only the creator can read storage", async () => {
+	test("tells someone who cannot open the page that they cannot read its storage", async () => {
 		const { fetchImpl } = recordingFetch(403, {
-			error: "Only the person who created this page can read its storage",
+			error: "You cannot read this page's storage",
 		});
 		const read = readStorage({
 			realtimeUrl: "https://realtime.test",
@@ -111,9 +111,7 @@ describe("readStorage", () => {
 			fetchImpl,
 		});
 		await expect(read).rejects.toBeInstanceOf(CLIError);
-		await expect(read).rejects.toThrow(
-			"Only the person who created this page can read its storage",
-		);
+		await expect(read).rejects.toThrow("You cannot read this page's storage");
 	});
 });
 

@@ -149,11 +149,8 @@ app.get("/v2/page/:pageId/storage/records", async (c) => {
 	if (!manifest) return c.json({ error: "Not found" }, 404);
 
 	const viewer = { userId: auth.sub, organizationIds: auth.organizationIds };
-	if (!readable(manifest, viewer) || manifest.createdByUserId !== auth.sub) {
-		return c.json(
-			{ error: "Only the person who created this page can read its storage" },
-			403,
-		);
+	if (!readable(manifest, viewer)) {
+		return c.json({ error: "You cannot read this page's storage" }, 403);
 	}
 
 	const body: PageStorageReadback =

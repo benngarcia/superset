@@ -61,8 +61,8 @@ export async function readStorage({
 			);
 		case 403:
 			throw new CLIError(
-				error ?? "Only the person who created this page can read its storage",
-				"Ask the page's creator to run this command",
+				error ?? "You cannot read this page's storage",
+				"Storage follows the page's visibility: only people who can open the page can read it",
 			);
 		case 404:
 			throw new CLIError(
@@ -111,8 +111,7 @@ export function displayStorage(data: PageStorageReadback): string {
 }
 
 export default command({
-	description:
-		"Read the shared storage of a page you created: keys, or every slot of one key",
+	description: "Read a page's shared storage: keys, or every slot of one key",
 	args: [positional("page").required().desc("Page id or slug")],
 	options: {
 		key: string().desc("Show every person's slot for this key"),

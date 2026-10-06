@@ -457,11 +457,21 @@ async function main() {
 		readbackNoAuth,
 	);
 
-	const readbackMember = await readback(ORG_PAGE, memberJwt, "vote");
+	const memberKeys = await readback(ORG_PAGE, memberJwt);
+	const memberRecords = await readback(ORG_PAGE, memberJwt, "vote");
 	check(
-		"readback refuses a member who did not create the page",
-		readbackMember.status === 403,
-		readbackMember,
+		"readback lets an org member who did not create the page read it",
+		memberKeys.status === 200 &&
+			memberRecords.status === 200 &&
+			((memberRecords.body?.records ?? []) as unknown[]).length === 2,
+		{ memberKeys, memberRecords },
+	);
+
+	const readbackOutsider = await readback(ORG_PAGE, outsiderJwt);
+	check(
+		"readback refuses a viewer from another organization",
+		readbackOutsider.status === 403,
+		readbackOutsider,
 	);
 
 	const readbackPrivate = await readback(PRIVATE_PAGE, memberJwt);
