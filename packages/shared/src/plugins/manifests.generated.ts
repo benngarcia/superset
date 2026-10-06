@@ -607,12 +607,7 @@ export const FIRST_PARTY_MANIFESTS = {
 				}
 			}
 		},
-		"skills": [
-			{
-				"name": "schedule-a-meeting",
-				"description": "Find a time that works and put it on Google Calendar without double-booking anyone or landing in the wrong time zone. Use when the user asks to schedule, book, move, or cancel a meeting, asks when they or someone else is free, or asks what is on their calendar."
-			}
-		]
+		"skills": []
 	} as const,
 	"vercel": {
 		"$schema": "https://superset.sh/schemas/plugin/1.0.0.json",
@@ -649,12 +644,7 @@ export const FIRST_PARTY_MANIFESTS = {
 				}
 			}
 		},
-		"skills": [
-			{
-				"name": "debug-a-vercel-deployment",
-				"description": "Find why a Vercel deployment failed or misbehaves, from the build log or the runtime logs of the exact deployment, not from the latest one. Use when the user says a Vercel build failed, a preview or production URL errors or shows the wrong thing, or asks about deployments, logs, or project settings on Vercel."
-			}
-		]
+		"skills": []
 	} as const,
 } as const;
 
