@@ -98,13 +98,20 @@ const handler = relay as unknown as {
 
 async function call(
 	path: string,
-	init: RequestInit & { authorized?: boolean } = {},
+	init: Omit<RequestInit, "headers"> & {
+		authorized?: boolean;
+		host?: string;
+		headers?: Record<string, string>;
+	} = {},
 ) {
-	const { authorized = true, ...requestInit } = init;
+	const { authorized = true, host = hostId, ...requestInit } = init;
+	const headers = authorized
+		? { ...requestInit.headers, Authorization: `Bearer ${await token()}` }
+		: requestInit.headers;
 	return handler.fetch(
-		new Request(`https://relay.test/hosts/${hostId}${path}`, {
+		new Request(`https://relay.test/hosts/${host}${path}`, {
 			...requestInit,
-			headers: authorized ? { Authorization: `Bearer ${await token()}` } : {},
+			headers,
 		}),
 		env,
 		ctx,
@@ -159,4 +166,13 @@ test("rejects an unauthenticated chat-v3 call with a plain-JSON tRPC error", asy
 		},
 	});
 	expect(proxied).toEqual([]);
+});
+
+test("rejects a stream path that a percent-encoded host id leaks into", async () => {
+	const response = await call("/chat-v3/sessions/s1/stream", {
+		host: encodeURIComponent(hostId),
+		headers: { Upgrade: "websocket" },
+	});
+
+	expect(response.status).toBe(400);
 });

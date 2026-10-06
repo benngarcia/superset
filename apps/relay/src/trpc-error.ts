@@ -25,26 +25,38 @@ const HTTP_STATUS: Record<TrpcErrorCode, ContentfulStatusCode> = {
 	BAD_GATEWAY: 502,
 };
 
-const CHAT_TRPC_PREFIX = "/chat-v3/trpc";
+type ErrorShape = {
+	message: string;
+	code: number;
+	data: { code: TrpcErrorCode; httpStatus: ContentfulStatusCode };
+};
 
-export function isTrpcPath(pathAfterHost: string): boolean {
-	return (
-		pathAfterHost.startsWith("/trpc") ||
-		pathAfterHost.startsWith(CHAT_TRPC_PREFIX)
+export type HostTrpcRouter = {
+	prefix: string;
+	encode: (shape: ErrorShape) => unknown;
+};
+
+/** The host's main router uses superjson; its chat router has no transformer. */
+export const HOST_TRPC_ROUTERS: readonly HostTrpcRouter[] = [
+	{ prefix: "/trpc", encode: (shape) => superjson.serialize(shape) },
+	{ prefix: "/chat-v3/trpc", encode: (shape) => shape },
+];
+
+export function hostTrpcRouter(
+	pathAfterHost: string,
+): HostTrpcRouter | undefined {
+	return HOST_TRPC_ROUTERS.find(({ prefix }) =>
+		pathAfterHost.startsWith(`${prefix}/`),
 	);
 }
 
-/** The host's main router uses superjson; its chat router has no transformer. */
 export function trpcErrorResponse(
 	c: Context,
-	pathAfterHost: string,
+	router: HostTrpcRouter,
 	code: TrpcErrorCode,
 	message: string,
 ) {
 	const httpStatus = HTTP_STATUS[code];
 	const shape = { message, code: RPC_CODE[code], data: { code, httpStatus } };
-	const error = pathAfterHost.startsWith(CHAT_TRPC_PREFIX)
-		? shape
-		: superjson.serialize(shape);
-	return c.json({ error }, httpStatus);
+	return c.json({ error: router.encode(shape) }, httpStatus);
 }
