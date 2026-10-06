@@ -263,7 +263,11 @@ describe("probeIdentity", () => {
 	});
 
 	test("stripe reads the account behind the token as text content", async () => {
-		const account = { accounts: [{ id: "acct_1Example", name: "Tegon" }] };
+		const account = {
+			accounts: [
+				{ stripe_context: "acct_1Example", livemode: true, name: "Tegon" },
+			],
+		};
 		const calls: { method?: string; name?: string }[] = [];
 		globalThis.fetch = (async (_url: string, init: RequestInit) => {
 			const body = init.body
@@ -376,7 +380,9 @@ describe("probeIdentity", () => {
 			const result =
 				body.method === "tools/call"
 					? {
-							structuredContent: { accounts: [{ id: "acct_1Bare" }] },
+							structuredContent: {
+								accounts: [{ stripe_context: "acct_1Bare", livemode: true }],
+							},
 						}
 					: { protocolVersion: "2025-06-18" };
 			return new Response(

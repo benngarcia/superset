@@ -624,11 +624,11 @@
 						"tool": "list_available_accounts_or_orgs",
 						"arguments": {},
 						"account": {
-							"id": "$.accounts[0].id",
+							"id": "$.accounts[0].stripe_context",
 							"label": "$.accounts[0].name"
 						},
 						"user": {
-							"id": "$.accounts[0].id",
+							"id": "$.accounts[0].stripe_context",
 							"label": "$.accounts[0].name"
 						}
 					},
