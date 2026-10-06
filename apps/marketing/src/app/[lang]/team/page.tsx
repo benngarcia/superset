@@ -150,7 +150,7 @@ export default async function TeamPage() {
 						</Trans>
 					</p>
 					<Timeline entries={about.timeline} locale={lang} />
-					<div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-12">
+					<div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-12">
 						{about.photos.map((photo) => (
 							<figure key={photo.src} className="m-0">
 								<div className="relative aspect-[3/2] rounded-lg overflow-hidden bg-muted border border-border">
@@ -159,7 +159,7 @@ export default async function TeamPage() {
 										alt={photo.alt}
 										fill
 										className="object-cover"
-										sizes="(max-width: 640px) 100vw, 320px"
+										sizes="(max-width: 640px) 100vw, 480px"
 									/>
 								</div>
 								<figcaption className="mt-3 text-xs text-muted-foreground">
