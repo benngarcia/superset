@@ -18,6 +18,7 @@ import {
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { type SimpleGit, simpleGit } from "simple-git";
+import { createUserSimpleGit } from "../../../../runtime/git/simple-git";
 import {
 	adoptLocalRepo,
 	cloneRepoInto,
@@ -26,7 +27,6 @@ import {
 	initLocalRepoInPlace,
 	resolveLocalRepo,
 } from "./resolve-repo";
-import { createUserSimpleGit } from "../../../../runtime/git/simple-git";
 
 /**
  * Integration tests against real on-disk git repositories. The point is
