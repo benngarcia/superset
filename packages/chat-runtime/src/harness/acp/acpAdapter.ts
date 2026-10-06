@@ -41,6 +41,7 @@ import type {
 import { AcpRpcClient, spawnAcpTransport } from "./rpcClient";
 import type { AcpConfigSelectOption } from "./wire";
 import {
+	ACP_STEERING_METHOD,
 	type AcpContentBlock,
 	type AcpToolCallContent,
 	acpAvailableCommandsUpdateSchema,
@@ -57,6 +58,7 @@ import {
 	acpSessionNotificationSchema,
 	acpSessionUpdateSchema,
 	acpStateUpdateSchema,
+	acpSteeringResponseSchema,
 	acpSubagentUpdateSchema,
 	acpToolCallContentChunkSchema,
 	acpToolCallUpdateSchema,
@@ -238,6 +240,7 @@ export class AcpAdapter implements HarnessAdapter {
 	/** What `initialize` settled on; v2 features stay dark below it. */
 	private negotiatedVersion = 1;
 	private agentCapabilities: Record<string, unknown> = {};
+	private supportsSteering = false;
 	/** The v2 config option that stands in for v1's session mode, once seen. */
 	private modeConfigId: string | null = null;
 	private modeId: string | undefined;
@@ -271,6 +274,23 @@ export class AcpAdapter implements HarnessAdapter {
 			return;
 		}
 		void this.runTurn(content);
+	}
+
+	canSteer(): boolean {
+		return this.supportsSteering && this.currentTurn?.status === "running";
+	}
+
+	async steer(content: UserContent[]): Promise<boolean> {
+		const client = this.client;
+		const sessionId = this.sessionId;
+		if (!client || !sessionId || !this.canSteer()) return false;
+		const response = await client.request(ACP_STEERING_METHOD, {
+			sessionId,
+			prompt: await this.toAcpPrompt(content),
+			_meta: { steering: { idleBehavior: "promptRequired" } },
+		});
+		const outcome = acpSteeringResponseSchema.safeParse(response).data?.outcome;
+		return outcome === "injected" || outcome === "startedNewTurn";
 	}
 
 	cancelTurn(): void {
@@ -493,6 +513,8 @@ export class AcpAdapter implements HarnessAdapter {
 					negotiated.data.capabilities ??
 					negotiated.data.agentCapabilities ??
 					{};
+				this.supportsSteering =
+					negotiated.data._meta?.steering?.supported === true;
 			}
 
 			let response: unknown;

@@ -33,6 +33,10 @@ class FakeAcpAgent {
 	holdSelections = false;
 	rejectSelections = false;
 	private heldSelections: number[] = [];
+	/** Advertise `_session/steering` and answer it with this outcome. */
+	steeringOutcome: string | null = null;
+	/** Leave session/prompt unanswered, as a turn still running does. */
+	holdPrompts = false;
 	private handlers!: AcpTransportHandlers;
 
 	transport(handlers: AcpTransportHandlers): AcpTransport {
@@ -102,6 +106,9 @@ class FakeAcpAgent {
 		queueMicrotask(() => {
 			if (frame.method === "initialize") {
 				this.respond(frame.id as number, {
+					...(this.steeringOutcome
+						? { _meta: { steering: { supported: true } } }
+						: {}),
 					protocolVersion: this.protocolVersion,
 					capabilities: {
 						promptCapabilities: { image: true },
@@ -186,6 +193,10 @@ class FakeAcpAgent {
 				}
 				// ACP returns null after replaying history; adapter keeps the id.
 				this.respond(frame.id as number, null);
+			} else if (frame.method === "_session/steering") {
+				this.respond(frame.id as number, { outcome: this.steeringOutcome });
+			} else if (frame.method === "session/prompt" && this.holdPrompts) {
+				return;
 			} else if (frame.method === "session/prompt") {
 				this.notify("sess-1", {
 					sessionUpdate: "agent_message_chunk",
@@ -323,6 +334,61 @@ describe("AcpAdapter", () => {
 			"session/prompt",
 		]);
 
+		await adapter.dispose();
+	});
+
+	it("steers a prompt into the running turn when the agent advertises it", async () => {
+		const agent = new FakeAcpAgent();
+		agent.steeringOutcome = "injected";
+		agent.holdPrompts = true;
+		const { adapter } = startAdapter(agent);
+		await flush();
+		adapter.prompt([{ type: "text", text: "first" }]);
+		await flush();
+
+		expect(adapter.canSteer()).toBe(true);
+		expect(await adapter.steer([{ type: "text", text: "and this" }])).toBe(
+			true,
+		);
+		expect(agent.sent.at(-1)).toMatchObject({
+			method: "_session/steering",
+			params: {
+				sessionId: "sess-1",
+				prompt: [{ type: "text", text: "and this" }],
+				_meta: { steering: { idleBehavior: "promptRequired" } },
+			},
+		});
+		await adapter.dispose();
+	});
+
+	it("does not steer an agent that does not advertise it", async () => {
+		const agent = new FakeAcpAgent();
+		agent.holdPrompts = true;
+		const { adapter } = startAdapter(agent);
+		await flush();
+		adapter.prompt([{ type: "text", text: "first" }]);
+		await flush();
+
+		expect(adapter.canSteer()).toBe(false);
+		expect(await adapter.steer([{ type: "text", text: "and this" }])).toBe(
+			false,
+		);
+		expect(agent.sent.map((f) => f.method)).not.toContain("_session/steering");
+		await adapter.dispose();
+	});
+
+	it("reports a steer the agent hands back as not taken", async () => {
+		const agent = new FakeAcpAgent();
+		agent.steeringOutcome = "promptRequired";
+		agent.holdPrompts = true;
+		const { adapter } = startAdapter(agent);
+		await flush();
+		adapter.prompt([{ type: "text", text: "first" }]);
+		await flush();
+
+		expect(await adapter.steer([{ type: "text", text: "and this" }])).toBe(
+			false,
+		);
 		await adapter.dispose();
 	});
 

@@ -24,6 +24,9 @@ export interface HarnessAdapter {
 	start(options: HarnessStartOptions): AsyncIterable<AdapterEvent>;
 	prompt(content: UserContent[]): void;
 	cancelTurn(): void;
+	canSteer?(): boolean;
+	/** Resolves false when the agent did not take the prompt into the running turn. */
+	steer?(content: UserContent[]): Promise<boolean>;
 	respondToApproval(approvalId: string, decision: Decision): void;
 	setMode(modeId: string): void;
 	setConfigOption?(configId: string, value: string): void;

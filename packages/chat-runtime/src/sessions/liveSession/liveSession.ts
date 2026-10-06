@@ -107,6 +107,18 @@ export class LiveSession {
 		steerTurnId?: string,
 	): PromptResult {
 		const itemId = this.mintId();
+		const running = this.queue.length === 0 ? this.steerableTurn() : null;
+		if (running) {
+			const item: UserMessage = {
+				id: itemId,
+				kind: "user_message",
+				clientId,
+				startedAtMs: this.now(),
+				content,
+			};
+			this.injectInto(running, { item, content, turnId: this.mintId() });
+			return { itemId, queued: false };
+		}
 		const queued = this.isBusy();
 		const item: UserMessage = {
 			id: itemId,
@@ -147,6 +159,16 @@ export class LiveSession {
 		const index = this.requireQueuedIndex(itemId);
 		const [steered] = this.queue.splice(index, 1);
 		if (!steered) return;
+		const running = this.steerableTurn();
+		if (running) {
+			if (this.steerTarget === itemId) this.steerTarget = null;
+			this.injectInto(running, {
+				...steered,
+				item: withoutQueued(steered.item),
+			});
+			this.unpauseIfEmpty();
+			return;
+		}
 		this.queue.unshift(steered);
 		if (this.queuePaused) {
 			this.queuePaused = false;
@@ -295,6 +317,31 @@ export class LiveSession {
 			this.awaitingTurn = null;
 			if (prompt.item.queued) this.discard(prompt);
 			throw error;
+		}
+	}
+
+	private steerableTurn(): Turn | null {
+		const turn = this.currentTurn;
+		if (turn?.status !== "running" || this.awaitingTurn) return null;
+		return this.options.adapter.canSteer?.() ? turn : null;
+	}
+
+	private injectInto(turn: Turn, prompt: PendingPrompt): void {
+		this.appendDurable({ type: "item", item: prompt.item, turnId: turn.id });
+		void Promise.resolve(this.options.adapter.steer?.(prompt.content))
+			.catch(() => false)
+			.then((taken) => {
+				if (!taken) this.requeue(prompt);
+			});
+	}
+
+	private requeue(prompt: PendingPrompt): void {
+		if (this.stopped) return;
+		const item: UserMessage = { ...prompt.item, queued: true };
+		this.queue.push({ ...prompt, item });
+		this.appendDurable({ type: "item", item, turnId: prompt.turnId });
+		if (this.currentTurn?.status !== "running" && !this.awaitingTurn) {
+			this.deliverNextQueued();
 		}
 	}
 

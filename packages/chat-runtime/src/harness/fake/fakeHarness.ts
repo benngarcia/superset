@@ -17,6 +17,7 @@ export type ScriptedEvent = AdapterEvent & { delayMs?: number };
 export type FakeHarnessScript = {
 	start?: ScriptedEvent[];
 	turns: ScriptedEvent[][];
+	steer?: boolean;
 };
 
 type PendingApproval = {
@@ -83,6 +84,16 @@ export class FakeHarness implements HarnessAdapter {
 		if (!turn) throw new Error("fake harness script exhausted");
 		this.nextTurnIndex += 1;
 		this.enqueue(turn);
+	}
+
+	canSteer(): boolean {
+		return (
+			this.script.steer !== undefined && this.currentTurn?.status === "running"
+		);
+	}
+
+	steer(_content: UserContent[]): Promise<boolean> {
+		return Promise.resolve(this.script.steer === true);
 	}
 
 	cancelTurn(): void {

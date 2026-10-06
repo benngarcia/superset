@@ -284,6 +284,74 @@ describe("LiveSession", () => {
 		);
 	}
 
+	test("a prompt sent during a turn joins it when the agent can steer", async () => {
+		const { runtime, sessionId } = startSession({
+			...GATED_THEN_QUICK,
+			steer: true,
+		});
+		sendPrompt(runtime, sessionId, "first");
+		await waitForApproval(runtime, sessionId);
+		const second = sendPrompt(runtime, sessionId, "second");
+
+		expect(second.queued).toBe(false);
+		expect(runtime.sessions.get(sessionId)?.queuedCount).toBe(0);
+		const snapshot = reduceMany(
+			emptySnapshot(),
+			journalEnvelopes(runtime, sessionId),
+		);
+		expect(snapshot.items.get(second.itemId)?.turnId).toBe("t1");
+		expect(snapshot.items.get(second.itemId)?.item).not.toHaveProperty(
+			"queued",
+		);
+		await runtime.dispose();
+	});
+
+	test("a prompt the agent does not take into the turn is queued", async () => {
+		const { runtime, sessionId } = startSession({
+			...GATED_THEN_QUICK,
+			steer: false,
+		});
+		sendPrompt(runtime, sessionId, "first");
+		await waitForApproval(runtime, sessionId);
+		const second = sendPrompt(runtime, sessionId, "second");
+
+		await waitFor(() => runtime.sessions.get(sessionId)?.queuedCount === 1);
+		const snapshot = reduceMany(
+			emptySnapshot(),
+			journalEnvelopes(runtime, sessionId),
+		);
+		expect(deriveQueuedPrompts(snapshot).map((item) => item.id)).toEqual([
+			second.itemId,
+		]);
+		await runtime.dispose();
+	});
+
+	test("steerQueuedPrompt joins the running turn when the agent can steer", async () => {
+		const { runtime, sessionId } = startSession({
+			...GATED_THEN_QUICK,
+			steer: true,
+		});
+		sendPrompt(runtime, sessionId, "first");
+		const second = sendPrompt(runtime, sessionId, "second");
+		expect(second.queued).toBe(true);
+		await waitForApproval(runtime, sessionId);
+
+		runtime.commands.steerQueuedPrompt({
+			commandId: randomUUID(),
+			sessionId,
+			itemId: second.itemId,
+		});
+
+		expect(runtime.sessions.get(sessionId)?.queuedCount).toBe(0);
+		const snapshot = reduceMany(
+			emptySnapshot(),
+			journalEnvelopes(runtime, sessionId),
+		);
+		expect(snapshot.items.get(second.itemId)?.turnId).toBe("t1");
+		expect(snapshot.turns.get("t1")?.status).toBe("running");
+		await runtime.dispose();
+	});
+
 	test("removeQueuedPrompt drops a queued prompt so it never reaches the agent", async () => {
 		const { runtime, sessionId } = startSession(GATED_THEN_QUICK);
 		sendPrompt(runtime, sessionId, "first");
