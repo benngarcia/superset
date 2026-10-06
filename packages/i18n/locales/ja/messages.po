@@ -1642,8 +1642,8 @@ msgstr "どんなマシンでもホストとして追加できます。ノート
 msgid "Add attachment"
 msgstr "添付ファイルを追加"
 
-msgid "Add Chat Attachment"
-msgstr "チャットに添付ファイルを追加"
+msgid "Add Attachment"
+msgstr "添付ファイルを追加"
 
 msgid "Add command"
 msgstr "コマンドを追加"
@@ -4567,9 +4567,6 @@ msgstr "URLをコピー"
 
 msgid "Copy Workspace ID"
 msgstr "ワークスペースIDをコピー"
-
-msgid "Copy Workspace Path"
-msgstr "ワークスペースのパスをコピー"
 
 msgid "Copy your browsing history and logins from another browser into Superset. Your original browser isn't changed."
 msgstr "別のブラウザから閲覧履歴とログイン情報をSupersetにコピーします。元のブラウザは変更されません。"
@@ -11463,9 +11460,6 @@ msgstr "この実行のワークスペースを開く"
 msgid "Open workspace"
 msgstr "ワークスペースを開く"
 
-msgid "Open Workspace in Editor"
-msgstr "ワークスペースをエディタで開く"
-
 msgid "OpenAI rejected this API key."
 msgstr "OpenAIがこのAPIキーを拒否しました。"
 
@@ -17131,8 +17125,8 @@ msgstr "進行中"
 msgid "Undo"
 msgstr "取り消す"
 
-msgid "Undo Workspace Archive"
-msgstr "ワークスペースのアーカイブを元に戻す"
+msgid "Undo Archive"
+msgstr "アーカイブを元に戻す"
 
 msgid "Ungroup"
 msgstr "グループ解除"

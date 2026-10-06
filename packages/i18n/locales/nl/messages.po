@@ -1642,8 +1642,8 @@ msgstr "Voeg elke machine toe als host. Werkruimtes blijven draaien als je lapto
 msgid "Add attachment"
 msgstr "Bijlage toevoegen"
 
-msgid "Add Chat Attachment"
-msgstr "Chatbijlage toevoegen"
+msgid "Add Attachment"
+msgstr "Bijlage toevoegen"
 
 msgid "Add command"
 msgstr "Commando toevoegen"
@@ -4567,9 +4567,6 @@ msgstr "URL kopiëren"
 
 msgid "Copy Workspace ID"
 msgstr "Werkruimte-ID kopiëren"
-
-msgid "Copy Workspace Path"
-msgstr "Pad van werkruimte kopiëren"
 
 msgid "Copy your browsing history and logins from another browser into Superset. Your original browser isn't changed."
 msgstr "Kopieer je browsegeschiedenis en logins uit een andere browser naar Superset. Je oorspronkelijke browser verandert niet."
@@ -11463,9 +11460,6 @@ msgstr "Werkruimte van deze run openen"
 msgid "Open workspace"
 msgstr "Werkruimte openen"
 
-msgid "Open Workspace in Editor"
-msgstr "Werkruimte openen in editor"
-
 msgid "OpenAI rejected this API key."
 msgstr "OpenAI heeft deze API-sleutel geweigerd."
 
@@ -17131,8 +17125,8 @@ msgstr "Gaande"
 msgid "Undo"
 msgstr "Ongedaan maken"
 
-msgid "Undo Workspace Archive"
-msgstr "Archiveren van werkruimte ongedaan maken"
+msgid "Undo Archive"
+msgstr "Archiveren ongedaan maken"
 
 msgid "Ungroup"
 msgstr "Groepering opheffen"

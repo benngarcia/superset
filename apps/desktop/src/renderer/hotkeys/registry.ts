@@ -233,7 +233,7 @@ export const HOTKEYS_REGISTRY = {
 			windows: L("ctrl+z"),
 			linux: L("ctrl+z"),
 		},
-		label: msg({ message: "Undo Workspace Archive" }),
+		label: msg({ message: "Undo Archive" }),
 		category: "Workspace",
 		description: msg({
 			message: "Restore the workspace you just archived",
@@ -840,7 +840,7 @@ export const HOTKEYS_REGISTRY = {
 			windows: L("ctrl+shift+u"),
 			linux: L("ctrl+shift+u"),
 		},
-		label: msg({ message: "Add Chat Attachment" }),
+		label: msg({ message: "Add Attachment" }),
 		category: "Chat",
 	},
 
@@ -890,7 +890,7 @@ export const HOTKEYS_REGISTRY = {
 			windows: L("ctrl+shift+o"),
 			linux: L("ctrl+shift+o"),
 		},
-		label: msg({ message: "Open Workspace in Editor" }),
+		label: msg({ message: "Open in Editor" }),
 		category: "Workspace",
 		description: msg({
 			message:
@@ -903,7 +903,7 @@ export const HOTKEYS_REGISTRY = {
 			windows: L("ctrl+shift+alt+c"),
 			linux: L("ctrl+shift+alt+c"),
 		},
-		label: msg({ message: "Copy Workspace Path" }),
+		label: msg({ message: "Copy Path" }),
 		category: "Workspace",
 		description: msg({
 			message: "Copy the workspace path to the clipboard",

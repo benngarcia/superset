@@ -1642,8 +1642,8 @@ msgstr "Přidejte jako hosta libovolný počítač. Pracovní prostory běží d
 msgid "Add attachment"
 msgstr "Přidat přílohu"
 
-msgid "Add Chat Attachment"
-msgstr "Přidat přílohu do chatu"
+msgid "Add Attachment"
+msgstr "Přidat přílohu"
 
 msgid "Add command"
 msgstr "Přidat příkaz"
@@ -4567,9 +4567,6 @@ msgstr "Kopírovat URL"
 
 msgid "Copy Workspace ID"
 msgstr "Kopírovat ID pracovního prostoru"
-
-msgid "Copy Workspace Path"
-msgstr "Kopírovat cestu k pracovnímu prostoru"
 
 msgid "Copy your browsing history and logins from another browser into Superset. Your original browser isn't changed."
 msgstr "Zkopírujte historii prohlížení a přihlášení z jiného prohlížeče do Superset. Původní prohlížeč se nijak nezmění."
@@ -11463,9 +11460,6 @@ msgstr "Otevřít pracovní prostor tohoto běhu"
 msgid "Open workspace"
 msgstr "Otevřít pracovní prostor"
 
-msgid "Open Workspace in Editor"
-msgstr "Otevřít pracovní prostor v editoru"
-
 msgid "OpenAI rejected this API key."
 msgstr "OpenAI tento API klíč odmítl."
 
@@ -17131,8 +17125,8 @@ msgstr "Probíhá"
 msgid "Undo"
 msgstr "Zpět"
 
-msgid "Undo Workspace Archive"
-msgstr "Vrátit archivaci pracovního prostoru"
+msgid "Undo Archive"
+msgstr "Vrátit archivaci"
 
 msgid "Ungroup"
 msgstr "Zrušit skupinu"

@@ -1642,8 +1642,8 @@ msgstr "Add any machine as a host. Workspaces keep running when your laptop slee
 msgid "Add attachment"
 msgstr "Add attachment"
 
-msgid "Add Chat Attachment"
-msgstr "Add Chat Attachment"
+msgid "Add Attachment"
+msgstr "Add Attachment"
 
 msgid "Add command"
 msgstr "Add command"
@@ -4567,9 +4567,6 @@ msgstr "Copy URL"
 
 msgid "Copy Workspace ID"
 msgstr "Copy Workspace ID"
-
-msgid "Copy Workspace Path"
-msgstr "Copy Workspace Path"
 
 msgid "Copy your browsing history and logins from another browser into Superset. Your original browser isn't changed."
 msgstr "Copy your browsing history and logins from another browser into Superset. Your original browser isn't changed."
@@ -11463,9 +11460,6 @@ msgstr "Open this run's workspace"
 msgid "Open workspace"
 msgstr "Open workspace"
 
-msgid "Open Workspace in Editor"
-msgstr "Open Workspace in Editor"
-
 msgid "OpenAI rejected this API key."
 msgstr "OpenAI rejected this API key."
 
@@ -17131,8 +17125,8 @@ msgstr "Underway"
 msgid "Undo"
 msgstr "Undo"
 
-msgid "Undo Workspace Archive"
-msgstr "Undo Workspace Archive"
+msgid "Undo Archive"
+msgstr "Undo Archive"
 
 msgid "Ungroup"
 msgstr "Ungroup"

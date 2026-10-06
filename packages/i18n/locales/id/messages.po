@@ -1642,8 +1642,8 @@ msgstr "Tambahkan mesin apa pun sebagai host. Workspace tetap berjalan saat lapt
 msgid "Add attachment"
 msgstr "Tambah lampiran"
 
-msgid "Add Chat Attachment"
-msgstr "Tambah Lampiran Chat"
+msgid "Add Attachment"
+msgstr "Tambah Lampiran"
 
 msgid "Add command"
 msgstr "Tambah perintah"
@@ -4567,9 +4567,6 @@ msgstr "Salin URL"
 
 msgid "Copy Workspace ID"
 msgstr "Salin ID Workspace"
-
-msgid "Copy Workspace Path"
-msgstr "Salin Path Workspace"
 
 msgid "Copy your browsing history and logins from another browser into Superset. Your original browser isn't changed."
 msgstr "Salin riwayat penjelajahan dan login Anda dari browser lain ke Superset. Browser asal Anda tidak diubah."
@@ -11463,9 +11460,6 @@ msgstr "Buka workspace run ini"
 msgid "Open workspace"
 msgstr "Buka workspace"
 
-msgid "Open Workspace in Editor"
-msgstr "Buka Workspace di Editor"
-
 msgid "OpenAI rejected this API key."
 msgstr "OpenAI menolak kunci API ini."
 
@@ -17131,8 +17125,8 @@ msgstr "Sedang berjalan"
 msgid "Undo"
 msgstr "Undo"
 
-msgid "Undo Workspace Archive"
-msgstr "Batalkan Arsip Workspace"
+msgid "Undo Archive"
+msgstr "Batalkan arsip"
 
 msgid "Ungroup"
 msgstr "Keluarkan dari grup"

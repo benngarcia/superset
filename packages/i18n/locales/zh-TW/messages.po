@@ -1642,8 +1642,8 @@ msgstr "把任意機器新增為主機。筆記本休眠時工作區照常執行
 msgid "Add attachment"
 msgstr "新增附件"
 
-msgid "Add Chat Attachment"
-msgstr "新增聊天附件"
+msgid "Add Attachment"
+msgstr "新增附件"
 
 msgid "Add command"
 msgstr "新增命令"
@@ -4567,9 +4567,6 @@ msgstr "複製URL"
 
 msgid "Copy Workspace ID"
 msgstr "複製工作區ID"
-
-msgid "Copy Workspace Path"
-msgstr "複製工作區路徑"
 
 msgid "Copy your browsing history and logins from another browser into Superset. Your original browser isn't changed."
 msgstr "把其他瀏覽器的瀏覽歷史和登入資訊複製到Superset。原瀏覽器不會被修改。"
@@ -11463,9 +11460,6 @@ msgstr "開啟此次執行的工作區"
 msgid "Open workspace"
 msgstr "開啟工作區"
 
-msgid "Open Workspace in Editor"
-msgstr "在編輯器中開啟工作區"
-
 msgid "OpenAI rejected this API key."
 msgstr "OpenAI拒絕了此API金鑰。"
 
@@ -17131,8 +17125,8 @@ msgstr "進行中"
 msgid "Undo"
 msgstr "撤銷"
 
-msgid "Undo Workspace Archive"
-msgstr "復原工作區歸檔"
+msgid "Undo Archive"
+msgstr "復原歸檔"
 
 msgid "Ungroup"
 msgstr "取消群組"

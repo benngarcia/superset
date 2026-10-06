@@ -1642,8 +1642,8 @@ msgstr "어떤 머신이든 호스트로 추가하세요. 노트북이 잠자기
 msgid "Add attachment"
 msgstr "첨부 추가"
 
-msgid "Add Chat Attachment"
-msgstr "채팅 첨부 파일 추가"
+msgid "Add Attachment"
+msgstr "첨부 파일 추가"
 
 msgid "Add command"
 msgstr "명령 추가"
@@ -4567,9 +4567,6 @@ msgstr "URL 복사"
 
 msgid "Copy Workspace ID"
 msgstr "워크스페이스 ID 복사"
-
-msgid "Copy Workspace Path"
-msgstr "워크스페이스 경로 복사"
 
 msgid "Copy your browsing history and logins from another browser into Superset. Your original browser isn't changed."
 msgstr "다른 브라우저의 방문 기록과 로그인 정보를 Superset으로 복사합니다. 원래 브라우저는 변경되지 않습니다."
@@ -11463,9 +11460,6 @@ msgstr "이 실행의 워크스페이스 열기"
 msgid "Open workspace"
 msgstr "워크스페이스 열기"
 
-msgid "Open Workspace in Editor"
-msgstr "에디터에서 워크스페이스 열기"
-
 msgid "OpenAI rejected this API key."
 msgstr "OpenAI가 이 API 키를 거부했습니다."
 
@@ -17131,8 +17125,8 @@ msgstr "진행 중"
 msgid "Undo"
 msgstr "실행 취소"
 
-msgid "Undo Workspace Archive"
-msgstr "워크스페이스 보관 실행 취소"
+msgid "Undo Archive"
+msgstr "보관 실행 취소"
 
 msgid "Ungroup"
 msgstr "그룹 해제"

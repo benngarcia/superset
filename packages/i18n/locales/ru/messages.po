@@ -1642,8 +1642,8 @@ msgstr "Добавьте любую машину как хост. Рабочие
 msgid "Add attachment"
 msgstr "Добавить вложение"
 
-msgid "Add Chat Attachment"
-msgstr "Добавить вложение в чат"
+msgid "Add Attachment"
+msgstr "Добавить вложение"
 
 msgid "Add command"
 msgstr "Добавить команду"
@@ -4567,9 +4567,6 @@ msgstr "Скопировать URL"
 
 msgid "Copy Workspace ID"
 msgstr "Скопировать ID рабочей области"
-
-msgid "Copy Workspace Path"
-msgstr "Скопировать путь рабочей области"
 
 msgid "Copy your browsing history and logins from another browser into Superset. Your original browser isn't changed."
 msgstr "Скопируйте историю просмотров и логины из другого браузера в Superset. Исходный браузер не меняется."
@@ -11463,9 +11460,6 @@ msgstr "Открыть рабочую область этого запуска"
 msgid "Open workspace"
 msgstr "Открыть рабочую область"
 
-msgid "Open Workspace in Editor"
-msgstr "Открыть рабочую область в редакторе"
-
 msgid "OpenAI rejected this API key."
 msgstr "OpenAI отклонил этот ключ API."
 
@@ -17131,8 +17125,8 @@ msgstr "Идёт"
 msgid "Undo"
 msgstr "Отменить"
 
-msgid "Undo Workspace Archive"
-msgstr "Отменить архивацию рабочей области"
+msgid "Undo Archive"
+msgstr "Отменить архивацию"
 
 msgid "Ungroup"
 msgstr "Убрать из группы"

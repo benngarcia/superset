@@ -1642,8 +1642,8 @@ msgstr "Adicione qualquer máquina como host. As áreas de trabalho continuam ro
 msgid "Add attachment"
 msgstr "Adicionar anexo"
 
-msgid "Add Chat Attachment"
-msgstr "Adicionar anexo ao chat"
+msgid "Add Attachment"
+msgstr "Adicionar anexo"
 
 msgid "Add command"
 msgstr "Adicionar comando"
@@ -4567,9 +4567,6 @@ msgstr "Copiar URL"
 
 msgid "Copy Workspace ID"
 msgstr "Copiar ID da área de trabalho"
-
-msgid "Copy Workspace Path"
-msgstr "Copiar caminho da área de trabalho"
 
 msgid "Copy your browsing history and logins from another browser into Superset. Your original browser isn't changed."
 msgstr "Copie seu histórico de navegação e seus logins de outro navegador para o Superset. O navegador de origem não é alterado."
@@ -11463,9 +11460,6 @@ msgstr "Abrir a área de trabalho desta execução"
 msgid "Open workspace"
 msgstr "Abrir área de trabalho"
 
-msgid "Open Workspace in Editor"
-msgstr "Abrir área de trabalho no editor"
-
 msgid "OpenAI rejected this API key."
 msgstr "A OpenAI recusou esta chave de API."
 
@@ -17131,8 +17125,8 @@ msgstr "Em curso"
 msgid "Undo"
 msgstr "Desfazer"
 
-msgid "Undo Workspace Archive"
-msgstr "Desfazer arquivamento da área de trabalho"
+msgid "Undo Archive"
+msgstr "Desfazer arquivamento"
 
 msgid "Ungroup"
 msgstr "Desagrupar"

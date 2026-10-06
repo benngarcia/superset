@@ -1642,8 +1642,8 @@ msgstr "Herhangi bir makineyi host olarak ekleyin. Dizüstünüz uykuya geçtiğ
 msgid "Add attachment"
 msgstr "Ek ekle"
 
-msgid "Add Chat Attachment"
-msgstr "Sohbete ek ekle"
+msgid "Add Attachment"
+msgstr "Ek ekle"
 
 msgid "Add command"
 msgstr "Komut ekle"
@@ -4567,9 +4567,6 @@ msgstr "URL'yi kopyala"
 
 msgid "Copy Workspace ID"
 msgstr "Çalışma alanı kimliğini kopyala"
-
-msgid "Copy Workspace Path"
-msgstr "Çalışma alanı yolunu kopyala"
 
 msgid "Copy your browsing history and logins from another browser into Superset. Your original browser isn't changed."
 msgstr "Tarama geçmişinizi ve oturum bilgilerinizi başka bir tarayıcıdan Superset'e kopyalayın. Özgün tarayıcınız değişmez."
@@ -11463,9 +11460,6 @@ msgstr "Bu çalıştırmanın çalışma alanını aç"
 msgid "Open workspace"
 msgstr "Çalışma alanını aç"
 
-msgid "Open Workspace in Editor"
-msgstr "Çalışma alanını düzenleyicide aç"
-
 msgid "OpenAI rejected this API key."
 msgstr "OpenAI bu API anahtarını reddetti."
 
@@ -17131,8 +17125,8 @@ msgstr "Sürüyor"
 msgid "Undo"
 msgstr "Geri al"
 
-msgid "Undo Workspace Archive"
-msgstr "Çalışma alanı arşivlemesini geri al"
+msgid "Undo Archive"
+msgstr "Arşivlemeyi geri al"
 
 msgid "Ungroup"
 msgstr "Gruptan çıkar"

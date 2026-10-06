@@ -1642,8 +1642,8 @@ msgstr "Thêm bất kỳ máy nào làm host. Workspace vẫn chạy khi laptop 
 msgid "Add attachment"
 msgstr "Thêm tệp đính kèm"
 
-msgid "Add Chat Attachment"
-msgstr "Thêm tệp đính kèm vào chat"
+msgid "Add Attachment"
+msgstr "Thêm tệp đính kèm"
 
 msgid "Add command"
 msgstr "Thêm lệnh"
@@ -4567,9 +4567,6 @@ msgstr "Sao chép URL"
 
 msgid "Copy Workspace ID"
 msgstr "Sao chép ID workspace"
-
-msgid "Copy Workspace Path"
-msgstr "Sao chép đường dẫn workspace"
 
 msgid "Copy your browsing history and logins from another browser into Superset. Your original browser isn't changed."
 msgstr "Sao chép lịch sử duyệt web và thông tin đăng nhập từ trình duyệt khác vào Superset. Trình duyệt gốc của bạn không bị thay đổi."
@@ -11463,9 +11460,6 @@ msgstr "Mở workspace của lần chạy này"
 msgid "Open workspace"
 msgstr "Mở workspace"
 
-msgid "Open Workspace in Editor"
-msgstr "Mở workspace trong editor"
-
 msgid "OpenAI rejected this API key."
 msgstr "OpenAI đã từ chối khóa API này."
 
@@ -17131,8 +17125,8 @@ msgstr "Đang diễn ra"
 msgid "Undo"
 msgstr "Hoàn tác"
 
-msgid "Undo Workspace Archive"
-msgstr "Hoàn tác lưu trữ workspace"
+msgid "Undo Archive"
+msgstr "Hoàn tác lưu trữ"
 
 msgid "Ungroup"
 msgstr "Bỏ nhóm"

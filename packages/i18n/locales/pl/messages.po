@@ -1642,8 +1642,8 @@ msgstr "Dodaj dowolną maszynę jako hosta. Obszary robocze działają dalej, gd
 msgid "Add attachment"
 msgstr "Dodaj załącznik"
 
-msgid "Add Chat Attachment"
-msgstr "Dodaj załącznik do czatu"
+msgid "Add Attachment"
+msgstr "Dodaj załącznik"
 
 msgid "Add command"
 msgstr "Dodaj polecenie"
@@ -4567,9 +4567,6 @@ msgstr "Kopiuj URL"
 
 msgid "Copy Workspace ID"
 msgstr "Kopiuj ID obszaru roboczego"
-
-msgid "Copy Workspace Path"
-msgstr "Kopiuj ścieżkę obszaru roboczego"
 
 msgid "Copy your browsing history and logins from another browser into Superset. Your original browser isn't changed."
 msgstr "Skopiuj historię przeglądania i dane logowania z innej przeglądarki do Superset. Oryginalna przeglądarka pozostaje bez zmian."
@@ -11463,9 +11460,6 @@ msgstr "Otwórz obszar roboczy tego uruchomienia"
 msgid "Open workspace"
 msgstr "Otwórz obszar roboczy"
 
-msgid "Open Workspace in Editor"
-msgstr "Otwórz obszar roboczy w edytorze"
-
 msgid "OpenAI rejected this API key."
 msgstr "OpenAI odrzucił ten klucz API."
 
@@ -17131,8 +17125,8 @@ msgstr "W toku"
 msgid "Undo"
 msgstr "Cofnij"
 
-msgid "Undo Workspace Archive"
-msgstr "Cofnij archiwizację obszaru roboczego"
+msgid "Undo Archive"
+msgstr "Cofnij archiwizację"
 
 msgid "Ungroup"
 msgstr "Rozgrupuj"

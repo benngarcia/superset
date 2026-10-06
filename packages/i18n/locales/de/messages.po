@@ -1642,8 +1642,8 @@ msgstr "Füge jeden Rechner als Host hinzu. Arbeitsbereiche laufen weiter, wenn 
 msgid "Add attachment"
 msgstr "Anhang hinzufügen"
 
-msgid "Add Chat Attachment"
-msgstr "Chat-Anhang hinzufügen"
+msgid "Add Attachment"
+msgstr "Anhang hinzufügen"
 
 msgid "Add command"
 msgstr "Befehl hinzufügen"
@@ -4567,9 +4567,6 @@ msgstr "URL kopieren"
 
 msgid "Copy Workspace ID"
 msgstr "Arbeitsbereich-ID kopieren"
-
-msgid "Copy Workspace Path"
-msgstr "Pfad des Arbeitsbereichs kopieren"
 
 msgid "Copy your browsing history and logins from another browser into Superset. Your original browser isn't changed."
 msgstr "Kopiere Browserverlauf und Logins aus einem anderen Browser nach Superset. Dein ursprünglicher Browser bleibt unverändert."
@@ -11463,9 +11460,6 @@ msgstr "Arbeitsbereich dieser Ausführung öffnen"
 msgid "Open workspace"
 msgstr "Arbeitsbereich öffnen"
 
-msgid "Open Workspace in Editor"
-msgstr "Arbeitsbereich im Editor öffnen"
-
 msgid "OpenAI rejected this API key."
 msgstr "OpenAI hat diesen API-Schlüssel abgelehnt."
 
@@ -17131,8 +17125,8 @@ msgstr "Läuft"
 msgid "Undo"
 msgstr "Rückgängig"
 
-msgid "Undo Workspace Archive"
-msgstr "Archivierung des Arbeitsbereichs rückgängig machen"
+msgid "Undo Archive"
+msgstr "Archivierung rückgängig machen"
 
 msgid "Ungroup"
 msgstr "Gruppierung aufheben"
