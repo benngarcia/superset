@@ -6,5 +6,5 @@ export const slackServer = {
 	callTool,
 	// `accessToken` is the person's own token; `config.bot_token` is the workspace bot's.
 	credential: (secrets: ConnectionSecrets) =>
-		secrets.accessToken || secrets.config.bot_token,
+		secrets.accessToken || secrets.config.bot_token || "",
 };
