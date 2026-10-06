@@ -50,6 +50,14 @@ function ambiguous(error: unknown): never {
 	throw error;
 }
 
+function accountLabels(
+	held: { account: string | null; user: string | null }[],
+): string[] {
+	return held
+		.map((connection) => connection.user ?? connection.account)
+		.filter((account): account is string => account !== null);
+}
+
 function notInstalled(name: string): TRPCError {
 	return userError({
 		code: "NOT_FOUND",
@@ -340,9 +348,7 @@ export const pluginsRouter = createTRPCRouter({
 				installedAt: row.installedAt as Date | null,
 				latestVersion: published ?? null,
 				connections: held_,
-				accounts: held_
-					.map((connection) => connection.user ?? connection.account)
-					.filter((account): account is string => account !== null),
+				accounts: accountLabels(held_),
 			};
 		});
 
@@ -376,9 +382,7 @@ export const pluginsRouter = createTRPCRouter({
 					installedAt: null as Date | null,
 					latestVersion: (manifest.version as string) ?? null,
 					connections: held_,
-					accounts: held_
-						.map((connection) => connection.user ?? connection.account)
-						.filter((account): account is string => account !== null),
+					accounts: accountLabels(held_),
 				};
 			});
 
