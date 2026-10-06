@@ -95,6 +95,7 @@ export type ChatCommands = {
 	setMode(input: SetModeInput): void;
 	setConfigOption(input: SetConfigOptionInput): void;
 	closeSession(input: CloseSessionInput): Promise<void>;
+	closeScope(scopeId: string): Promise<void>;
 	forkSession(
 		input: ForkSessionCommandInput,
 	): Promise<CreateSessionResult | null>;
@@ -275,6 +276,11 @@ export function createCommands(options: CommandsOptions): ChatCommands {
 			} finally {
 				if (wasLive) options.journal.announce(parsed.sessionId);
 			}
+		},
+
+		async closeScope(scopeId) {
+			const closed = await options.live.disposeScope(scopeId);
+			for (const sessionId of closed) options.journal.announce(sessionId);
 		},
 
 		getSession(input) {

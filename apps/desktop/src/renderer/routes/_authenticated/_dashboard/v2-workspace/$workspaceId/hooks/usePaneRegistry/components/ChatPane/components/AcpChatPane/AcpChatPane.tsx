@@ -19,6 +19,7 @@ import { useForkChat } from "../../hooks/useForkChat";
 import { readSavedChatMode } from "../../utils/savedChatMode";
 import { AcpChatPending } from "./components/AcpChatPending";
 import { AcpRecovery } from "./components/AcpRecovery";
+import { sharedChatCreate, watchChatCreate } from "./utils/sharedChatCreate";
 
 /**
  * A chat bridged to an agent session, resumed by its session id. `agent` comes
@@ -98,6 +99,8 @@ export function AcpChatPane({
 		sessionId !== null,
 	);
 
+	const createKey = `${terminalId}:${agent?.id ?? ""}`;
+	useEffect(() => watchChatCreate(createKey), [createKey]);
 	const attaching = useRef(false);
 	// A switch to another agent remounts this pane; its pending calls must not
 	// write the old agent back over the new one.
@@ -116,22 +119,34 @@ export function AcpChatPane({
 				const startModeId =
 					modeId ??
 					(resume || !agent ? undefined : readSavedChatMode(agent.id));
-				const created = await wiring.transport.createSession({
-					commandId: crypto.randomUUID(),
-					workspaceId,
-					harness: resumeHarness,
-					terminalId,
-					...(modelId ? { modelId } : {}),
-					...(startModeId ? { modeId: startModeId } : {}),
-					...(resume ? { resume: { harnessSessionId: resume } } : {}),
-				});
-				if (mounted.current) onSessionCreated(created.sessionId);
+				const createdId = await sharedChatCreate(
+					createKey,
+					() =>
+						wiring.transport
+							.createSession({
+								commandId: crypto.randomUUID(),
+								workspaceId,
+								harness: resumeHarness,
+								terminalId,
+								...(modelId ? { modelId } : {}),
+								...(startModeId ? { modeId: startModeId } : {}),
+								...(resume ? { resume: { harnessSessionId: resume } } : {}),
+							})
+							.then((created) => created.sessionId),
+					(orphan) => {
+						void wiring.transport
+							.closeSession({ sessionId: orphan })
+							.catch(() => undefined);
+					},
+				);
+				if (mounted.current) onSessionCreated(createdId);
 			} catch (error) {
 				attaching.current = false;
 				setFailure(error instanceof Error ? error.message : String(error));
 			}
 		},
 		[
+			createKey,
 			wiring.transport,
 			workspaceId,
 			terminalId,
@@ -164,7 +179,12 @@ export function AcpChatPane({
 			})
 			.then((forked) => {
 				if (forked) {
-					if (!mounted.current) return;
+					if (!mounted.current) {
+						void wiring.transport
+							.closeSession({ sessionId: forked.sessionId })
+							.catch(() => undefined);
+						return;
+					}
 					onSessionCreated(forked.sessionId);
 					void wiring.transport
 						.closeSession({ sessionId })

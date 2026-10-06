@@ -18,6 +18,7 @@ export interface HostServiceRuntime {
 	pullRequests: PullRequestRuntimeManager;
 	pageWatch: PageWatchManager;
 	chat?: () => ChatRuntime;
+	closeChats?: (scopeId: string) => Promise<void>;
 }
 
 export interface HostServiceContext {

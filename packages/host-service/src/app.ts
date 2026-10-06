@@ -310,6 +310,7 @@ export function createApp(options: CreateAppOptions): CreateAppResult {
 		pullRequests: pullRequestRuntime,
 		pageWatch,
 		chat: () => chatV3.runtime(),
+		closeChats: (scopeId: string) => chatV3.closeScope(scopeId),
 	};
 
 	// Chat v3 runtime (plans/chat-v3-pane-mount.md). Registered unconditionally:
