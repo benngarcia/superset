@@ -9524,6 +9524,9 @@ msgstr "머지 커밋"
 msgid "Merge failed: {0}"
 msgstr "머지 실패: {0}"
 
+msgid "Merge into center"
+msgstr "가운데로 합치기"
+
 msgid "Merge pull request"
 msgstr "풀 리퀘스트 머지"
 
@@ -9764,8 +9767,14 @@ msgstr "소프트웨어 역사의 대부분"
 msgid "Move {count} to Group"
 msgstr "{count}개를 그룹으로 이동"
 
+msgid "Move to Center"
+msgstr "가운데로 이동"
+
 msgid "Move to group"
 msgstr "그룹으로 이동"
+
+msgid "Move to Right Side"
+msgstr "오른쪽으로 이동"
 
 msgid "Move to Tab"
 msgstr "탭으로 이동"
@@ -11069,6 +11078,9 @@ msgstr "파일 패널에서 {path} 열기"
 
 msgid "Open a multiline prompt composer for the active terminal"
 msgstr "활성 터미널의 여러 줄 프롬프트 작성기를 엽니다"
+
+msgid "Open a pane, or drag one here from the center."
+msgstr "창을 열거나 가운데에서 여기로 끌어 오세요."
 
 msgid "Open a pull request to view review status, checks, and comments."
 msgstr "리뷰 상태, 검사, 코멘트를 보려면 풀 리퀘스트를 여세요."
@@ -13348,6 +13360,9 @@ msgstr "방금 보관한 워크스페이스를 복원합니다"
 
 msgid "Restore this version?"
 msgstr "이 버전을 복원할까요?"
+
+msgid "Restore width"
+msgstr "너비 복원"
 
 msgid "Restored"
 msgstr "복원됨"

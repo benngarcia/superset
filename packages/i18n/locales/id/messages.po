@@ -9524,6 +9524,9 @@ msgstr "Merge Commit"
 msgid "Merge failed: {0}"
 msgstr "Merge gagal: {0}"
 
+msgid "Merge into center"
+msgstr "Gabungkan ke tengah"
+
 msgid "Merge pull request"
 msgstr "Merge pull request"
 
@@ -9764,8 +9767,14 @@ msgstr "Sebagian besar sejarah perangkat lunak"
 msgid "Move {count} to Group"
 msgstr "Pindahkan {count} ke Grup"
 
+msgid "Move to Center"
+msgstr "Pindahkan ke tengah"
+
 msgid "Move to group"
 msgstr "Pindahkan ke grup"
+
+msgid "Move to Right Side"
+msgstr "Pindahkan ke kanan"
 
 msgid "Move to Tab"
 msgstr "Pindahkan ke Tab"
@@ -11069,6 +11078,9 @@ msgstr "Buka {path} di panel file"
 
 msgid "Open a multiline prompt composer for the active terminal"
 msgstr "Buka komposer prompt multibaris untuk terminal aktif"
+
+msgid "Open a pane, or drag one here from the center."
+msgstr "Buka panel, atau seret panel ke sini dari tengah."
 
 msgid "Open a pull request to view review status, checks, and comments."
 msgstr "Buka sebuah pull request untuk melihat status review, check, dan komentar."
@@ -13348,6 +13360,9 @@ msgstr "Pulihkan ruang kerja yang baru saja Anda arsipkan"
 
 msgid "Restore this version?"
 msgstr "Pulihkan versi ini?"
+
+msgid "Restore width"
+msgstr "Pulihkan lebar"
 
 msgid "Restored"
 msgstr "Dipulihkan"

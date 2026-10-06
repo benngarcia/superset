@@ -9524,6 +9524,9 @@ msgstr "Коммит слияния"
 msgid "Merge failed: {0}"
 msgstr "Не удалось объединить: {0}"
 
+msgid "Merge into center"
+msgstr "Объединить с центром"
+
 msgid "Merge pull request"
 msgstr "Объединить пул-реквест"
 
@@ -9764,8 +9767,14 @@ msgstr "Почти вся история софта"
 msgid "Move {count} to Group"
 msgstr "Переместить {count} в группу"
 
+msgid "Move to Center"
+msgstr "Переместить в центр"
+
 msgid "Move to group"
 msgstr "Переместить в группу"
+
+msgid "Move to Right Side"
+msgstr "Переместить вправо"
 
 msgid "Move to Tab"
 msgstr "Переместить во вкладку"
@@ -11069,6 +11078,9 @@ msgstr "Открыть {path} в панели файла"
 
 msgid "Open a multiline prompt composer for the active terminal"
 msgstr "Открыть многострочный редактор промпта для активного терминала"
+
+msgid "Open a pane, or drag one here from the center."
+msgstr "Откройте панель или перетащите её сюда из центра."
 
 msgid "Open a pull request to view review status, checks, and comments."
 msgstr "Откройте пул-реквест, чтобы видеть статус ревью, проверки и комментарии."
@@ -13348,6 +13360,9 @@ msgstr "Восстановить только что заархивирован�
 
 msgid "Restore this version?"
 msgstr "Восстановить эту версию?"
+
+msgid "Restore width"
+msgstr "Восстановить ширину"
 
 msgid "Restored"
 msgstr "Восстановлено"

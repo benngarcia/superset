@@ -9524,6 +9524,9 @@ msgstr "Commit de fusion"
 msgid "Merge failed: {0}"
 msgstr "Échec de la fusion : {0}"
 
+msgid "Merge into center"
+msgstr "Fusionner au centre"
+
 msgid "Merge pull request"
 msgstr "Fusionner la pull request"
 
@@ -9764,8 +9767,14 @@ msgstr "L'essentiel de l'histoire du logiciel"
 msgid "Move {count} to Group"
 msgstr "Déplacer {count} vers un groupe"
 
+msgid "Move to Center"
+msgstr "Déplacer au centre"
+
 msgid "Move to group"
 msgstr "Déplacer vers un groupe"
+
+msgid "Move to Right Side"
+msgstr "Déplacer à droite"
 
 msgid "Move to Tab"
 msgstr "Déplacer vers un onglet"
@@ -11069,6 +11078,9 @@ msgstr "Ouvrir {path} dans le volet Fichier"
 
 msgid "Open a multiline prompt composer for the active terminal"
 msgstr "Ouvrir un éditeur de prompt multiligne pour le terminal actif"
+
+msgid "Open a pane, or drag one here from the center."
+msgstr "Ouvrez un panneau ou faites-en glisser un ici depuis le centre."
 
 msgid "Open a pull request to view review status, checks, and comments."
 msgstr "Ouvrez une pull request pour voir l'état de la revue, les vérifications et les commentaires."
@@ -13348,6 +13360,9 @@ msgstr "Restaurer l'espace de travail que vous venez d'archiver"
 
 msgid "Restore this version?"
 msgstr "Restaurer cette version ?"
+
+msgid "Restore width"
+msgstr "Rétablir la largeur"
 
 msgid "Restored"
 msgstr "Restauré"

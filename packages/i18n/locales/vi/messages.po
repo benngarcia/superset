@@ -9524,6 +9524,9 @@ msgstr "Merge commit"
 msgid "Merge failed: {0}"
 msgstr "Merge thất bại: {0}"
 
+msgid "Merge into center"
+msgstr "Gộp vào giữa"
+
 msgid "Merge pull request"
 msgstr "Merge pull request"
 
@@ -9764,8 +9767,14 @@ msgstr "Gần như suốt lịch sử phần mềm"
 msgid "Move {count} to Group"
 msgstr "Chuyển {count} vào nhóm"
 
+msgid "Move to Center"
+msgstr "Chuyển vào giữa"
+
 msgid "Move to group"
 msgstr "Chuyển vào nhóm"
+
+msgid "Move to Right Side"
+msgstr "Chuyển sang bên phải"
 
 msgid "Move to Tab"
 msgstr "Chuyển sang tab"
@@ -11069,6 +11078,9 @@ msgstr "Mở {path} trong khung tệp"
 
 msgid "Open a multiline prompt composer for the active terminal"
 msgstr "Mở ô soạn prompt nhiều dòng cho terminal đang mở"
+
+msgid "Open a pane, or drag one here from the center."
+msgstr "Mở một ngăn, hoặc kéo một ngăn từ giữa vào đây."
 
 msgid "Open a pull request to view review status, checks, and comments."
 msgstr "Hãy mở một pull request để xem trạng thái review, check và bình luận."
@@ -13348,6 +13360,9 @@ msgstr "Khôi phục không gian làm việc bạn vừa lưu trữ"
 
 msgid "Restore this version?"
 msgstr "Khôi phục phiên bản này?"
+
+msgid "Restore width"
+msgstr "Khôi phục độ rộng"
 
 msgid "Restored"
 msgstr "Đã khôi phục"

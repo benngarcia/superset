@@ -9524,6 +9524,9 @@ msgstr "合并提交"
 msgid "Merge failed: {0}"
 msgstr "合并失败：{0}"
 
+msgid "Merge into center"
+msgstr "合并到中间"
+
 msgid "Merge pull request"
 msgstr "合并拉取请求"
 
@@ -9764,8 +9767,14 @@ msgstr "软件史的大部分时间"
 msgid "Move {count} to Group"
 msgstr "将{count}个移动到分组"
 
+msgid "Move to Center"
+msgstr "移到中间"
+
 msgid "Move to group"
 msgstr "移动到分组"
+
+msgid "Move to Right Side"
+msgstr "移到右侧"
 
 msgid "Move to Tab"
 msgstr "移动到标签页"
@@ -11069,6 +11078,9 @@ msgstr "在文件面板中打开{path}"
 
 msgid "Open a multiline prompt composer for the active terminal"
 msgstr "为当前终端打开多行提示词编辑器"
+
+msgid "Open a pane, or drag one here from the center."
+msgstr "打开一个窗格，或从中间拖一个到这里。"
 
 msgid "Open a pull request to view review status, checks, and comments."
 msgstr "创建拉取请求后即可查看评审状态、检查和评论。"
@@ -13348,6 +13360,9 @@ msgstr "恢复刚刚归档的工作区"
 
 msgid "Restore this version?"
 msgstr "恢复这个版本？"
+
+msgid "Restore width"
+msgstr "恢复宽度"
 
 msgid "Restored"
 msgstr "已恢复"

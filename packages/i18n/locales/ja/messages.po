@@ -9524,6 +9524,9 @@ msgstr "マージコミット"
 msgid "Merge failed: {0}"
 msgstr "マージに失敗しました: {0}"
 
+msgid "Merge into center"
+msgstr "中央に統合"
+
 msgid "Merge pull request"
 msgstr "プルリクエストをマージ"
 
@@ -9764,8 +9767,14 @@ msgstr "ソフトウェアの歴史のほとんど"
 msgid "Move {count} to Group"
 msgstr "{count}件をグループへ移動"
 
+msgid "Move to Center"
+msgstr "中央に移動"
+
 msgid "Move to group"
 msgstr "グループへ移動"
+
+msgid "Move to Right Side"
+msgstr "右側に移動"
 
 msgid "Move to Tab"
 msgstr "タブに移動"
@@ -11069,6 +11078,9 @@ msgstr "{path}をファイルペインで開く"
 
 msgid "Open a multiline prompt composer for the active terminal"
 msgstr "アクティブなターミナル用の複数行プロンプト入力を開く"
+
+msgid "Open a pane, or drag one here from the center."
+msgstr "ペインを開くか、中央からここへドラッグしてください。"
 
 msgid "Open a pull request to view review status, checks, and comments."
 msgstr "プルリクエストを開くと、レビュー状態、チェック、コメントを確認できます。"
@@ -13348,6 +13360,9 @@ msgstr "アーカイブしたばかりのワークスペースを復元する"
 
 msgid "Restore this version?"
 msgstr "このバージョンを復元しますか?"
+
+msgid "Restore width"
+msgstr "幅を元に戻す"
 
 msgid "Restored"
 msgstr "復元済み"

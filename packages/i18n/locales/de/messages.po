@@ -9524,6 +9524,9 @@ msgstr "Merge-Commit"
 msgid "Merge failed: {0}"
 msgstr "Zusammenführen fehlgeschlagen: {0}"
 
+msgid "Merge into center"
+msgstr "In die Mitte zusammenführen"
+
 msgid "Merge pull request"
 msgstr "Pull Request zusammenführen"
 
@@ -9764,8 +9767,14 @@ msgstr "Der Großteil der Softwaregeschichte"
 msgid "Move {count} to Group"
 msgstr "{count} in Gruppe verschieben"
 
+msgid "Move to Center"
+msgstr "In die Mitte verschieben"
+
 msgid "Move to group"
 msgstr "In Gruppe verschieben"
+
+msgid "Move to Right Side"
+msgstr "Nach rechts verschieben"
 
 msgid "Move to Tab"
 msgstr "In Tab verschieben"
@@ -11069,6 +11078,9 @@ msgstr "{path} im Dateibereich öffnen"
 
 msgid "Open a multiline prompt composer for the active terminal"
 msgstr "Einen mehrzeiligen Prompt-Editor für das aktive Terminal öffnen"
+
+msgid "Open a pane, or drag one here from the center."
+msgstr "Öffne einen Bereich oder ziehe einen aus der Mitte hierher."
 
 msgid "Open a pull request to view review status, checks, and comments."
 msgstr "Öffne einen Pull Request, um Review-Status, Prüfungen und Kommentare zu sehen."
@@ -13348,6 +13360,9 @@ msgstr "Den gerade archivierten Arbeitsbereich wiederherstellen"
 
 msgid "Restore this version?"
 msgstr "Diese Version wiederherstellen?"
+
+msgid "Restore width"
+msgstr "Breite wiederherstellen"
 
 msgid "Restored"
 msgstr "Wiederhergestellt"

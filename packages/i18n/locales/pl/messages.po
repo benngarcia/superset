@@ -9524,6 +9524,9 @@ msgstr "Commit scalający"
 msgid "Merge failed: {0}"
 msgstr "Scalanie nie powiodło się: {0}"
 
+msgid "Merge into center"
+msgstr "Scal ze środkiem"
+
 msgid "Merge pull request"
 msgstr "Scal pull request"
 
@@ -9764,8 +9767,14 @@ msgstr "Większość historii oprogramowania"
 msgid "Move {count} to Group"
 msgstr "Przenieś {count} do grupy"
 
+msgid "Move to Center"
+msgstr "Przenieś na środek"
+
 msgid "Move to group"
 msgstr "Przenieś do grupy"
+
+msgid "Move to Right Side"
+msgstr "Przenieś na prawą stronę"
 
 msgid "Move to Tab"
 msgstr "Przenieś do karty"
@@ -11069,6 +11078,9 @@ msgstr "Otwórz {path} w panelu plików"
 
 msgid "Open a multiline prompt composer for the active terminal"
 msgstr "Otwórz wielowierszowy edytor promptu dla aktywnego terminala"
+
+msgid "Open a pane, or drag one here from the center."
+msgstr "Otwórz panel lub przeciągnij go tutaj ze środka."
 
 msgid "Open a pull request to view review status, checks, and comments."
 msgstr "Otwórz pull request, aby zobaczyć status przeglądu, kontrole i komentarze."
@@ -13348,6 +13360,9 @@ msgstr "Przywróć właśnie zarchiwizowany obszar roboczy"
 
 msgid "Restore this version?"
 msgstr "Przywrócić tę wersję?"
+
+msgid "Restore width"
+msgstr "Przywróć szerokość"
 
 msgid "Restored"
 msgstr "Przywrócona"

@@ -9524,6 +9524,9 @@ msgstr "Merge-commit"
 msgid "Merge failed: {0}"
 msgstr "Mergen mislukt: {0}"
 
+msgid "Merge into center"
+msgstr "Samenvoegen in het midden"
+
 msgid "Merge pull request"
 msgstr "Pull request mergen"
 
@@ -9764,8 +9767,14 @@ msgstr "Het grootste deel van de softwaregeschiedenis"
 msgid "Move {count} to Group"
 msgstr "{count} naar groep verplaatsen"
 
+msgid "Move to Center"
+msgstr "Naar het midden verplaatsen"
+
 msgid "Move to group"
 msgstr "Naar groep verplaatsen"
+
+msgid "Move to Right Side"
+msgstr "Naar rechts verplaatsen"
 
 msgid "Move to Tab"
 msgstr "Verplaatsen naar tabblad"
@@ -11069,6 +11078,9 @@ msgstr "{path} openen in bestandspaneel"
 
 msgid "Open a multiline prompt composer for the active terminal"
 msgstr "Een prompt-editor met meerdere regels openen voor de actieve terminal"
+
+msgid "Open a pane, or drag one here from the center."
+msgstr "Open een paneel of sleep er een hierheen vanuit het midden."
 
 msgid "Open a pull request to view review status, checks, and comments."
 msgstr "Open een pull request om reviewstatus, checks en opmerkingen te zien."
@@ -13348,6 +13360,9 @@ msgstr "De werkruimte herstellen die je net hebt gearchiveerd"
 
 msgid "Restore this version?"
 msgstr "Deze versie herstellen?"
+
+msgid "Restore width"
+msgstr "Breedte herstellen"
 
 msgid "Restored"
 msgstr "Hersteld"

@@ -9524,6 +9524,9 @@ msgstr "Commit di merge"
 msgid "Merge failed: {0}"
 msgstr "Merge non riuscito: {0}"
 
+msgid "Merge into center"
+msgstr "Unisci al centro"
+
 msgid "Merge pull request"
 msgstr "Unisci la pull request"
 
@@ -9764,8 +9767,14 @@ msgstr "Quasi tutta la storia del software"
 msgid "Move {count} to Group"
 msgstr "Sposta {count} in un gruppo"
 
+msgid "Move to Center"
+msgstr "Sposta al centro"
+
 msgid "Move to group"
 msgstr "Sposta in un gruppo"
+
+msgid "Move to Right Side"
+msgstr "Sposta a destra"
 
 msgid "Move to Tab"
 msgstr "Sposta in una scheda"
@@ -11069,6 +11078,9 @@ msgstr "Apri {path} nel pannello dei file"
 
 msgid "Open a multiline prompt composer for the active terminal"
 msgstr "Apri un compositore di prompt multiriga per il terminale attivo"
+
+msgid "Open a pane, or drag one here from the center."
+msgstr "Apri un riquadro o trascinane uno qui dal centro."
 
 msgid "Open a pull request to view review status, checks, and comments."
 msgstr "Apri una pull request per vedere lo stato della revisione, i controlli e i commenti."
@@ -13348,6 +13360,9 @@ msgstr "Ripristina il workspace appena archiviato"
 
 msgid "Restore this version?"
 msgstr "Ripristinare questa versione?"
+
+msgid "Restore width"
+msgstr "Ripristina larghezza"
 
 msgid "Restored"
 msgstr "Ripristinato"
