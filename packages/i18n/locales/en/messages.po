@@ -4866,6 +4866,9 @@ msgstr "Couldn't load earlier messages. Retry"
 msgid "Couldn't load issues: {msg}"
 msgstr "Couldn't load issues: {msg}"
 
+msgid "Couldn't load pages"
+msgstr "Couldn't load pages"
+
 msgid "Couldn't load pull requests: {msg}"
 msgstr "Couldn't load pull requests: {msg}"
 

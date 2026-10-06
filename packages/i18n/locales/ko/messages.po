@@ -4866,6 +4866,9 @@ msgstr "이전 메시지를 불러올 수 없습니다. 다시 시도"
 msgid "Couldn't load issues: {msg}"
 msgstr "이슈를 불러오지 못했습니다: {msg}"
 
+msgid "Couldn't load pages"
+msgstr "페이지를 불러올 수 없습니다"
+
 msgid "Couldn't load pull requests: {msg}"
 msgstr "풀 리퀘스트를 불러오지 못했습니다: {msg}"
 

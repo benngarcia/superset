@@ -4866,6 +4866,9 @@ msgstr "無法載入較早的訊息。重試"
 msgid "Couldn't load issues: {msg}"
 msgstr "無法載入議題：{msg}"
 
+msgid "Couldn't load pages"
+msgstr "無法載入頁面"
+
 msgid "Couldn't load pull requests: {msg}"
 msgstr "無法載入拉取請求：{msg}"
 

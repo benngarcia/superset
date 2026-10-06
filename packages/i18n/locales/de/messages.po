@@ -4866,6 +4866,9 @@ msgstr "Frühere Nachrichten konnten nicht geladen werden. Erneut versuchen"
 msgid "Couldn't load issues: {msg}"
 msgstr "Issues konnten nicht geladen werden: {msg}"
 
+msgid "Couldn't load pages"
+msgstr "Seiten konnten nicht geladen werden"
+
 msgid "Couldn't load pull requests: {msg}"
 msgstr "Pull Requests konnten nicht geladen werden: {msg}"
 

@@ -4866,6 +4866,9 @@ msgstr "Nie udało się wczytać wcześniejszych wiadomości. Ponów"
 msgid "Couldn't load issues: {msg}"
 msgstr "Nie udało się wczytać zgłoszeń: {msg}"
 
+msgid "Couldn't load pages"
+msgstr "Nie udało się wczytać stron"
+
 msgid "Couldn't load pull requests: {msg}"
 msgstr "Nie udało się wczytać pull requestów: {msg}"
 

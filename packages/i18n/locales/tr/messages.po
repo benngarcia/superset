@@ -4866,6 +4866,9 @@ msgstr "Önceki mesajlar yüklenemedi. Yeniden dene"
 msgid "Couldn't load issues: {msg}"
 msgstr "Issue'lar yüklenemedi: {msg}"
 
+msgid "Couldn't load pages"
+msgstr "Sayfalar yüklenemedi"
+
 msgid "Couldn't load pull requests: {msg}"
 msgstr "Pull request'ler yüklenemedi: {msg}"
 

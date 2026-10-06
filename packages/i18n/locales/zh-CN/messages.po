@@ -4866,6 +4866,9 @@ msgstr "无法加载更早的消息。重试"
 msgid "Couldn't load issues: {msg}"
 msgstr "无法加载议题：{msg}"
 
+msgid "Couldn't load pages"
+msgstr "无法加载页面"
+
 msgid "Couldn't load pull requests: {msg}"
 msgstr "无法加载拉取请求：{msg}"
 

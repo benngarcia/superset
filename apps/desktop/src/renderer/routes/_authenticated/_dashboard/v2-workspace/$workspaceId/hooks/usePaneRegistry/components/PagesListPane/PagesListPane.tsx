@@ -17,6 +17,8 @@ import { PagesListCard, type PagesListItem } from "./components/PagesListCard";
 
 const WORKSPACE_PAGE_LIMIT = 200;
 
+type PagesQuery = ReturnType<typeof usePagesList>;
+
 interface PagesListPaneProps {
 	context: RendererContext<PaneViewerData>;
 	workspaceId: string;
@@ -118,6 +120,35 @@ export function PagesListPane({
 	) : (
 		<Trans>No pages yet</Trans>
 	);
+	const retryButton = (onRetry: () => void) => (
+		<button
+			type="button"
+			onClick={onRetry}
+			className="px-2 py-1.5 text-xs text-muted-foreground hover:text-foreground"
+		>
+			<Trans>Try again</Trans>
+		</button>
+	);
+	const sectionBody = (query: PagesQuery, pages: PagesListItem[]) => (
+		<>
+			{pages.length > 0 ? (
+				cards(pages)
+			) : query.isError ? (
+				<div className="flex items-center justify-between">
+					{emptyRow(<Trans>Couldn't load pages</Trans>)}
+					{retryButton(() => void query.refetch())}
+				</div>
+			) : query.isLoading ? (
+				emptyRow(<Trans>Loading…</Trans>)
+			) : (
+				emptyRow(emptyMessage)
+			)}
+			{pages.length > 0 &&
+				query.isFetchNextPageError &&
+				retryButton(() => void query.fetchNextPage())}
+			<div ref={query.sentinelRef} />
+		</>
+	);
 
 	return (
 		<div className="flex h-full min-h-0 w-full flex-col">
@@ -142,7 +173,10 @@ export function PagesListPane({
 				</div>
 			)}
 			<div
-				ref={allPages.scrollRef}
+				ref={(node) => {
+					workspacePages.scrollRef.current = node;
+					allPages.scrollRef.current = node;
+				}}
 				className="min-h-0 flex-1 overflow-y-auto px-1 pb-2"
 			>
 				<section className="py-1">
@@ -159,31 +193,13 @@ export function PagesListPane({
 							<Plus className="size-3.5" />
 						</button>
 					</div>
-					{workspacePages.items.length > 0
-						? cards(workspacePages.items)
-						: workspacePages.isLoading
-							? emptyRow(<Trans>Loading…</Trans>)
-							: emptyRow(emptyMessage)}
+					{sectionBody(workspacePages, workspacePages.items)}
 				</section>
 				<section className="py-1">
 					<div className="flex h-7 items-center px-2 text-[11px] font-medium text-muted-foreground">
 						<Trans>All pages</Trans>
 					</div>
-					{otherPages.length > 0
-						? cards(otherPages)
-						: allPages.isLoading
-							? emptyRow(<Trans>Loading…</Trans>)
-							: emptyRow(emptyMessage)}
-					{allPages.isFetchNextPageError && (
-						<button
-							type="button"
-							onClick={() => void allPages.fetchNextPage()}
-							className="px-2 py-1.5 text-xs text-muted-foreground hover:text-foreground"
-						>
-							<Trans>Try again</Trans>
-						</button>
-					)}
-					<div ref={allPages.sentinelRef} />
+					{sectionBody(allPages, otherPages)}
 				</section>
 			</div>
 		</div>

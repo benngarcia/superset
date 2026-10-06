@@ -4866,6 +4866,9 @@ msgstr "Starší zprávy se nepodařilo načíst. Zkusit znovu"
 msgid "Couldn't load issues: {msg}"
 msgstr "Nepodařilo se načíst issues: {msg}"
 
+msgid "Couldn't load pages"
+msgstr "Stránky se nepodařilo načíst"
+
 msgid "Couldn't load pull requests: {msg}"
 msgstr "Nepodařilo se načíst pull requesty: {msg}"
 

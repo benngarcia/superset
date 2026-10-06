@@ -4866,6 +4866,9 @@ msgstr "以前のメッセージを読み込めませんでした。再試行"
 msgid "Couldn't load issues: {msg}"
 msgstr "Issueを読み込めませんでした: {msg}"
 
+msgid "Couldn't load pages"
+msgstr "ページを読み込めませんでした"
+
 msgid "Couldn't load pull requests: {msg}"
 msgstr "プルリクエストを読み込めませんでした: {msg}"
 

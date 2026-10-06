@@ -4866,6 +4866,9 @@ msgstr "Không thể tải các tin nhắn trước đó. Thử lại"
 msgid "Couldn't load issues: {msg}"
 msgstr "Không thể tải issue: {msg}"
 
+msgid "Couldn't load pages"
+msgstr "Không thể tải các trang"
+
 msgid "Couldn't load pull requests: {msg}"
 msgstr "Không thể tải pull request: {msg}"
 

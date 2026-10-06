@@ -4866,6 +4866,9 @@ msgstr "Не удалось загрузить более ранние сооб�
 msgid "Couldn't load issues: {msg}"
 msgstr "Не удалось загрузить задачи: {msg}"
 
+msgid "Couldn't load pages"
+msgstr "Не удалось загрузить страницы"
+
 msgid "Couldn't load pull requests: {msg}"
 msgstr "Не удалось загрузить пул-реквесты: {msg}"
 

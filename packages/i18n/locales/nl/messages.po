@@ -4866,6 +4866,9 @@ msgstr "Eerdere berichten konden niet worden geladen. Opnieuw proberen"
 msgid "Couldn't load issues: {msg}"
 msgstr "Kan issues niet laden: {msg}"
 
+msgid "Couldn't load pages"
+msgstr "Kan pagina's niet laden"
+
 msgid "Couldn't load pull requests: {msg}"
 msgstr "Kan pull requests niet laden: {msg}"
 
