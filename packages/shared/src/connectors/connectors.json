@@ -691,6 +691,10 @@
 						"account": {
 							"id": "$[0].id",
 							"label": "$[0].name"
+						},
+						"user": {
+							"id": "$[0].id",
+							"label": "$[0].name"
 						}
 					},
 					"bind": {
