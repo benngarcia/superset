@@ -28,6 +28,7 @@ export type PromptOptions = {
 	content: UserContent[];
 	clientId: string;
 	commandId?: string;
+	steer?: { expectedTurnId: string };
 };
 
 export type SessionSubscribeOptions = {
@@ -90,6 +91,7 @@ export function createSessionClient(
 				sessionId,
 				clientId: promptOptions.clientId,
 				content: promptOptions.content,
+				...(promptOptions.steer ? { steer: promptOptions.steer } : {}),
 			}),
 
 		removeQueuedPrompt: async (itemId) => {

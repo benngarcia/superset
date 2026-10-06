@@ -21,6 +21,7 @@ export const promptInputSchema = z.object({
 	...commandBaseFields,
 	clientId: z.string().min(1),
 	content: z.array(userContentSchema).min(1),
+	steer: z.object({ expectedTurnId: z.string().min(1) }).optional(),
 });
 export type PromptInput = z.infer<typeof promptInputSchema>;
 

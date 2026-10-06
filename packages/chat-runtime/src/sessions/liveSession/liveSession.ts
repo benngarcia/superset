@@ -96,7 +96,11 @@ export class LiveSession {
 		);
 	}
 
-	prompt(content: UserContent[], clientId: string): PromptResult {
+	prompt(
+		content: UserContent[],
+		clientId: string,
+		steerTurnId?: string,
+	): PromptResult {
 		const itemId = this.mintId();
 		const queued = this.isBusy();
 		const item: UserMessage = {
@@ -112,6 +116,13 @@ export class LiveSession {
 
 		if (queued) {
 			this.queue.push({ item, content, turnId });
+			if (
+				steerTurnId &&
+				this.currentTurn?.id === steerTurnId &&
+				this.currentTurn.status === "running"
+			) {
+				this.steerQueued(itemId);
+			}
 			return { itemId, queued: true };
 		}
 		this.deliver({ item, content, turnId });

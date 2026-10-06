@@ -152,7 +152,11 @@ export function createCommands(options: CommandsOptions): ChatCommands {
 			return options.dedupe.run(`prompt:${parsed.commandId}`, () =>
 				options.live
 					.require(parsed.sessionId)
-					.prompt(parsed.content, parsed.clientId),
+					.prompt(
+						parsed.content,
+						parsed.clientId,
+						parsed.steer?.expectedTurnId,
+					),
 			);
 		},
 

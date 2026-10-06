@@ -306,6 +306,56 @@ describe("LiveSession", () => {
 		await runtime.dispose();
 	});
 
+	test("a prompt sent with steer for the running turn interrupts it and runs next", async () => {
+		const { runtime, sessionId } = startSession(GATED_THEN_QUICK);
+		sendPrompt(runtime, sessionId, "first");
+		await waitForApproval(runtime, sessionId);
+		const second = sendPrompt(runtime, sessionId, "second");
+		const steered = runtime.commands.prompt({
+			commandId: randomUUID(),
+			sessionId,
+			clientId: "client-steered",
+			content: [{ type: "text", text: "steered" }],
+			steer: { expectedTurnId: "t1" },
+		});
+
+		await waitFor(() => {
+			const snapshot = reduceMany(
+				emptySnapshot(),
+				journalEnvelopes(runtime, sessionId),
+			);
+			return snapshot.items.get(second.itemId)?.turnId === "t3";
+		});
+		const snapshot = reduceMany(
+			emptySnapshot(),
+			journalEnvelopes(runtime, sessionId),
+		);
+		expect(snapshot.turns.get("t1")?.status).toBe("interrupted");
+		expect(snapshot.items.get(steered.itemId)?.turnId).toBe("t2");
+		await runtime.dispose();
+	});
+
+	test("a prompt sent with steer for a turn that is no longer running only queues", async () => {
+		const { runtime, sessionId } = startSession(GATED_THEN_QUICK);
+		sendPrompt(runtime, sessionId, "first");
+		await waitForApproval(runtime, sessionId);
+		runtime.commands.prompt({
+			commandId: randomUUID(),
+			sessionId,
+			clientId: "client-late",
+			content: [{ type: "text", text: "late" }],
+			steer: { expectedTurnId: "t0" },
+		});
+
+		expect(runtime.sessions.get(sessionId)?.queuedCount).toBe(1);
+		const snapshot = reduceMany(
+			emptySnapshot(),
+			journalEnvelopes(runtime, sessionId),
+		);
+		expect(snapshot.turns.get("t1")?.status).toBe("running");
+		await runtime.dispose();
+	});
+
 	test("steerQueuedPrompt between turns interrupts the turn that was about to start", async () => {
 		const { runtime, sessionId } = startSession({
 			turns: [

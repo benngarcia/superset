@@ -29,7 +29,6 @@ import { ModePicker, type SessionMode } from "./components/ModePicker";
 import { QueuedPrompts } from "./components/QueuedPrompts";
 import { useComposerDraft } from "./hooks/useComposerDraft";
 import { useQueueActions } from "./hooks/useQueueActions";
-import { useSteerOnArrival } from "./hooks/useSteerOnArrival";
 import { useUploadAttachments } from "./hooks/useUploadAttachments";
 
 export type ComposerProps = {
@@ -41,13 +40,12 @@ export type ComposerProps = {
 	modes?: SessionMode[];
 	currentModeId?: string;
 	onSetMode?: (modeId: string) => void;
-	onSend: (content: UserContent[]) => { clientId: string } | null;
+	onSend: (content: UserContent[], options: { steer: boolean }) => unknown;
 	history?: string[];
 	isActive?: boolean;
 	placeholder?: string;
 	disabled?: boolean;
 	onCancelTurn?: (() => void) | null;
-	runningTurnId?: string | null;
 	promptQueue?: {
 		prompts: UserMessage[];
 		paused: boolean;
@@ -57,8 +55,6 @@ export type ComposerProps = {
 		steer: (itemId: string) => Promise<void>;
 	};
 };
-
-const NO_PROMPTS: UserMessage[] = [];
 
 /**
  * The agent's own slash commands, in the shape the composer's menu takes.
@@ -91,7 +87,6 @@ export const Composer = memo(function Composer({
 	isActive,
 	onCancelTurn,
 	onSend,
-	runningTurnId = null,
 	placeholder,
 	promptQueue,
 	workspaceId,
@@ -102,12 +97,6 @@ export const Composer = memo(function Composer({
 	const { storedDraft, onChange, clearDraft } = useComposerDraft(draftKey);
 	const promptInputRef = useRef<PromptInputHandle>(null);
 	const queueActions = useQueueActions(promptQueue, promptInputRef);
-	const steerOnArrival = useSteerOnArrival({
-		prompts: promptQueue?.prompts ?? NO_PROMPTS,
-		actionable: promptQueue?.actionable ?? false,
-		runningTurnId,
-		onSteer: queueActions.onSteer,
-	});
 	useHotkey("FOCUS_CHAT_INPUT", () => promptInputRef.current?.focus(), {
 		enabled: Boolean(isActive),
 	});
@@ -194,16 +183,18 @@ export const Composer = memo(function Composer({
 			if (disabled || (text.trim() === "" && files.length === 0)) return;
 			const tags = await uploadAttachments(files);
 			if (!tags) return;
-			const sent = onSend([
-				{
-					type: "text",
-					text: [text.trim(), ...tags].filter(Boolean).join("\n"),
-				},
-			]);
-			if (steer && sent) steerOnArrival(sent.clientId);
+			onSend(
+				[
+					{
+						type: "text",
+						text: [text.trim(), ...tags].filter(Boolean).join("\n"),
+					},
+				],
+				{ steer },
+			);
 			clearDraft();
 		},
-		[disabled, onSend, uploadAttachments, clearDraft, steerOnArrival],
+		[disabled, onSend, uploadAttachments, clearDraft],
 	);
 
 	const queueListRef = useRef<HTMLUListElement>(null);

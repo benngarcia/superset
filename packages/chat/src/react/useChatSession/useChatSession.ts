@@ -43,7 +43,10 @@ export type ChatSession = {
 	connection: StreamStatus;
 	outbox: OutboxEntry[];
 	hasOlder: boolean;
-	sendPrompt(content: UserContent[]): OutboxEntry;
+	sendPrompt(
+		content: UserContent[],
+		steer?: { expectedTurnId: string },
+	): OutboxEntry;
 	retryPrompt(clientId: string): void;
 	discardPrompt(clientId: string): void;
 	loadOlder(): Promise<void>;
@@ -96,6 +99,7 @@ export function useChatSession(options: UseChatSessionOptions): ChatSession {
 						commandId: entry.commandId,
 						clientId: entry.clientId,
 						content: entry.content,
+						...(entry.steer ? { steer: entry.steer } : {}),
 					});
 				},
 			}),
@@ -196,8 +200,8 @@ export function useChatSession(options: UseChatSessionOptions): ChatSession {
 	}, [client, deltasKey, pageSize, enqueue, resync]);
 
 	const sendPrompt = useCallback(
-		(content: UserContent[]) => {
-			const entry = outbox.enqueue(content);
+		(content: UserContent[], steer?: { expectedTurnId: string }) => {
+			const entry = outbox.enqueue(content, steer);
 			void outbox.flush();
 			return entry;
 		},

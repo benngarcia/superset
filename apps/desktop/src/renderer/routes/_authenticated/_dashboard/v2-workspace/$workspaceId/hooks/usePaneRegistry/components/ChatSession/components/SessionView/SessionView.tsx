@@ -149,8 +149,12 @@ export function SessionView({
 		[setMode],
 	);
 	const onSend = useCallback(
-		(content: UserContent[]) => sendPrompt(content),
-		[sendPrompt],
+		(content: UserContent[], { steer }: { steer: boolean }) =>
+			sendPrompt(
+				content,
+				steer && runningTurnId ? { expectedTurnId: runningTurnId } : undefined,
+			),
+		[sendPrompt, runningTurnId],
 	);
 	const onCancelTurn = useMemo(
 		() =>
@@ -252,7 +256,6 @@ export function SessionView({
 					onCancelTurn={onCancelTurn}
 					onSend={onSend}
 					promptQueue={promptQueue}
-					runningTurnId={runningTurnId}
 					workspaceId={workspaceId}
 				/>
 			</div>
