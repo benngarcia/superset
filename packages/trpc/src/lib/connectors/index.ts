@@ -472,12 +472,12 @@ async function mcpIdentity(
 		const text = await response.text();
 		if (!response.ok)
 			throw new Error(
-				`Connector "${slug}" identity probe failed: ${response.status} ${text.slice(0, 200)}`,
+				`Connector "${slug}" identity probe failed at ${method}: ${response.status} ${text.slice(0, 200)}`,
 			);
 		const message = readJsonRpc(text, id);
 		if (message.error)
 			throw new Error(
-				`Connector "${slug}" identity probe failed: ${message.error.message}`,
+				`Connector "${slug}" identity probe failed at ${method}: ${message.error.message}`,
 			);
 		return message.result ?? {};
 	};
@@ -495,6 +495,15 @@ async function mcpIdentity(
 		const result = (await request("tools/call", {
 			name: probe.tool,
 			arguments: probe.arguments,
+		}).catch(async (error: unknown) => {
+			const tools = await request("tools/list", {}).catch(() => null);
+			const tool = (
+				tools?.tools as { name?: string; inputSchema?: unknown }[] | undefined
+			)?.find((entry) => entry.name === probe.tool);
+			if (!tool) throw error;
+			throw new Error(
+				`${error instanceof Error ? error.message : String(error)}; ${probe.tool} takes ${JSON.stringify(tool.inputSchema).slice(0, 600)}`,
+			);
 		})) as {
 			structuredContent?: Record<string, unknown>;
 			content?: { type: string; text?: string }[];

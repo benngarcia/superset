@@ -73,7 +73,12 @@ export async function GET(
 			tokens.accessToken,
 			callback.params,
 			tokens.raw,
-		);
+		).catch((error: unknown) => {
+			console.error(
+				`[connectors/${slug}] identity failed; token response fields: ${Object.keys(tokens.raw).join(", ")}`,
+			);
+			throw error;
+		});
 
 		const result = await upsertConnection({
 			connector,
