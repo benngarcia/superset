@@ -1,5 +1,6 @@
 import { describe, expect, mock, test } from "bun:test";
 import {
+	FULL_CLEANUP_TIMEOUT_MS,
 	type QuitCleanupDeps,
 	runQuitCleanup,
 	UPDATE_INSTALL_EXIT_GRACE_MS,
@@ -115,6 +116,22 @@ describe("runQuitCleanup", () => {
 
 		expect(h.teardownTerminalHost).toHaveBeenCalled();
 		expect(h.stopPtyDaemons).toHaveBeenCalledWith([101, 102]);
+		expect(h.forceExit).toHaveBeenCalledWith(0);
+	});
+
+	test("exits a quit-completely whose cleanup hangs once the deadline passes", async () => {
+		const h = createHarness({
+			forceFullCleanup: true,
+			teardownTerminalHost: () => new Promise<void>(() => {}),
+		});
+
+		const done = runQuitCleanup(h.deps);
+		await Promise.resolve();
+		expect(h.forceExit).not.toHaveBeenCalled();
+		expect(h.scheduled[0].delayMs).toBe(FULL_CLEANUP_TIMEOUT_MS);
+
+		h.scheduled[0].callback();
+		await done;
 		expect(h.forceExit).toHaveBeenCalledWith(0);
 	});
 

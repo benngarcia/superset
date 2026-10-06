@@ -64,15 +64,17 @@ describe("stopPtyDaemons", () => {
 		expect(h.removed).toEqual(["org-a"]);
 	});
 
-	test("leaves a daemon alone when its host-service still runs or its socket is silent", async () => {
+	test("leaves a daemon alone unless the socket names its pid and no host-service owns it", async () => {
 		const h = createHarness({
 			listManifests: () => [
 				daemonManifest("other-instance", 600),
-				daemonManifest("stale", 700),
+				daemonManifest("silent", 700),
+				daemonManifest("no-pid", 750),
 			],
 			isHostServiceRunning: (organizationId) =>
 				organizationId === "other-instance",
-			probe: async () => null,
+			probe: async (socketPath) =>
+				socketPath.includes("no-pid") ? { daemonVersion: "1" } : null,
 		});
 
 		await stopPtyDaemons([], h.deps);

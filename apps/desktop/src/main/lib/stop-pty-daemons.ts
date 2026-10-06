@@ -1,4 +1,4 @@
-import { rmSync } from "node:fs";
+import { unlinkSync } from "node:fs";
 import {
 	listPtyDaemonManifests,
 	type PtyDaemonManifest,
@@ -6,6 +6,7 @@ import {
 } from "@superset/host-service/daemon-manifest";
 import {
 	type DaemonProbeResult,
+	type ProbeAttemptOutcome,
 	probeDaemonHello,
 } from "@superset/host-service/daemon-probe";
 import {
@@ -18,7 +19,9 @@ import { isProcessAlive, readManifest } from "./host-service-manifest";
 const HOST_SERVICE_EXIT_TIMEOUT_MS = 6_000;
 /** The daemon drains its PTY kills for up to 2 s before it exits. */
 const DAEMON_EXIT_TIMEOUT_MS = 3_000;
-const PROBE_TIMEOUT_MS = 1_000;
+/** A busy daemon can take seconds to answer; host-service adoption allows 3 s. */
+const PROBE_TOTAL_TIMEOUT_MS = 3_000;
+const PROBE_ATTEMPT_TIMEOUT_MS = 1_000;
 const POLL_INTERVAL_MS = 50;
 
 export interface StopPtyDaemonsDeps {
@@ -39,14 +42,18 @@ const defaultDeps: StopPtyDaemonsDeps = {
 		const manifest = readManifest(organizationId);
 		return manifest !== null && isProcessAlive(manifest.pid);
 	},
-	probe: (socketPath) => probeDaemonHello(socketPath, PROBE_TIMEOUT_MS),
+	probe: probeWithRetry,
 	isAlive: isProcessAlive,
 	signalTree: (pid, signal) => {
 		signalProcessTreeAndGroups(pid, signal);
 	},
 	removeManifest: (manifest) => {
 		removePtyDaemonManifest(manifest.organizationId);
-		rmSync(manifest.socketPath, { force: true });
+		try {
+			unlinkSync(manifest.socketPath);
+		} catch {
+			// best-effort; a fresh daemon unlinks a stale socket on bind
+		}
 	},
 	sleep: (ms) => new Promise((resolve) => setTimeout(resolve, ms)),
 	hostServiceExitTimeoutMs: HOST_SERVICE_EXIT_TIMEOUT_MS,
@@ -71,24 +78,49 @@ export async function stopPtyDaemons(
 		deps,
 	);
 
-	await Promise.all(
+	const results = await Promise.allSettled(
 		deps.listManifests().map(async (manifest) => {
 			if (deps.isHostServiceRunning(manifest.organizationId)) return;
 			// The manifest pid can be recycled; only the socket proves which
 			// process is the daemon.
 			const probe = await deps.probe(manifest.socketPath);
-			if (!probe) return;
-			const pid = isPositiveInteger(probe.daemonPid)
-				? probe.daemonPid
-				: manifest.pid;
+			if (!probe || !isPositiveInteger(probe.daemonPid)) return;
+			const pid = probe.daemonPid;
 
 			deps.signalTree(pid, "SIGTERM");
 			if (!(await waitForExit([pid], deps.daemonExitTimeoutMs, deps))) {
 				deps.signalTree(pid, "SIGKILL");
+				if (!(await waitForExit([pid], deps.daemonExitTimeoutMs, deps))) {
+					throw new Error(
+						`pty-daemon pid=${pid} for ${manifest.organizationId} survived SIGKILL`,
+					);
+				}
 			}
 			deps.removeManifest(manifest);
 		}),
 	);
+	for (const result of results) {
+		if (result.status === "rejected") {
+			console.error("[quit] pty-daemon stop failed:", result.reason);
+		}
+	}
+}
+
+async function probeWithRetry(
+	socketPath: string,
+): Promise<DaemonProbeResult | null> {
+	const deadline = Date.now() + PROBE_TOTAL_TIMEOUT_MS;
+	while (Date.now() < deadline) {
+		const outcome: ProbeAttemptOutcome = {};
+		const probe = await probeDaemonHello(
+			socketPath,
+			Math.min(deadline - Date.now(), PROBE_ATTEMPT_TIMEOUT_MS),
+			outcome,
+		);
+		if (probe || outcome.noListener) return probe;
+		await new Promise((resolve) => setTimeout(resolve, POLL_INTERVAL_MS));
+	}
+	return null;
 }
 
 async function waitForExit(

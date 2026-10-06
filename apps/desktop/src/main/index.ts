@@ -245,6 +245,7 @@ let skipQuitConfirmation = false;
 // easy to trigger.
 let quitConfirmationOpen = false;
 let forceFullCleanup = false;
+let holdingQuitForCleanup = false;
 
 export function setSkipQuitConfirmation(): void {
 	skipQuitConfirmation = true;
@@ -296,7 +297,10 @@ app.on("window-all-closed", () => {
 });
 
 app.on("before-quit", async (event) => {
-	if (isQuitting) return;
+	if (isQuitting) {
+		if (holdingQuitForCleanup) event.preventDefault();
+		return;
+	}
 
 	const isDev = process.env.NODE_ENV === "development";
 	if (!skipQuitConfirmation && !isDev && getConfirmOnQuitSetting()) {
@@ -335,8 +339,8 @@ app.on("before-quit", async (event) => {
 	const isUpdateInstalling = isUpdateReadyToInstall();
 	// Stopping the pty-daemons waits for host-services to exit; without this
 	// Electron exits once the windows close and cuts that wait short.
-	const holdQuitForCleanup = forceFullCleanup && !isUpdateInstalling;
-	if (holdQuitForCleanup) event.preventDefault();
+	holdingQuitForCleanup = forceFullCleanup;
+	if (holdingQuitForCleanup) event.preventDefault();
 	// Local port-forward listeners hold no state worth draining; drop them so
 	// nothing keeps 127.0.0.1:<port> bound after the app is gone.
 	portForwardManager.stopAll();
@@ -345,7 +349,7 @@ app.on("before-quit", async (event) => {
 	// shrinking the set as windows close one-by-one.
 	markAppQuitting();
 	persistOpenWindows();
-	if (holdQuitForCleanup) {
+	if (holdingQuitForCleanup) {
 		for (const window of BrowserWindow.getAllWindows()) window.hide();
 	}
 	await runQuitCleanup({
@@ -359,6 +363,11 @@ app.on("before-quit", async (event) => {
 		disposeTray,
 		forceExit: (code) => app.exit(code),
 	});
+	if (holdingQuitForCleanup) {
+		holdingQuitForCleanup = false;
+		// The updater installs only when Electron finishes its own quit.
+		if (isUpdateInstalling) app.quit();
+	}
 });
 
 /**
