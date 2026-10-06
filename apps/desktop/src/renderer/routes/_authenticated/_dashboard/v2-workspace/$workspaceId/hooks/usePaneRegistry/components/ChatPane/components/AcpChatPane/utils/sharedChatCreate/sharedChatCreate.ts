@@ -10,6 +10,10 @@ export function watchChatCreate(key: string): () => void {
 	};
 }
 
+export function isChatCreateWatched(key: string): boolean {
+	return watchers.has(key);
+}
+
 export function sharedChatCreate(
 	key: string,
 	create: () => Promise<string>,

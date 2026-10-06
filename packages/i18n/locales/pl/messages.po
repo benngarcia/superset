@@ -4255,6 +4255,9 @@ msgstr "Połączenie pozwoli Twoim agentom czytać i działać w {name} w Twoim 
 msgid "Connecting to the desktop…"
 msgstr "Łączenie z pulpitem…"
 
+msgid "Connecting to the host service…"
+msgstr "Łączenie z usługą hosta…"
+
 msgid "Connecting to the workspace"
 msgstr "Łączenie z obszarem roboczym"
 
@@ -11535,9 +11538,6 @@ msgstr "Otwieranie folderów"
 
 msgid "Opening pages"
 msgstr "Otwieranie stron"
-
-msgid "Opening the conversation…"
-msgstr "Otwieranie rozmowy…"
 
 msgid "Opening worktree..."
 msgstr "Otwieranie worktree..."

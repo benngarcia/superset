@@ -4255,6 +4255,9 @@ msgstr "Kết nối cho phép các tác nhân của bạn đọc và thao tác t
 msgid "Connecting to the desktop…"
 msgstr "Đang kết nối tới màn hình nền…"
 
+msgid "Connecting to the host service…"
+msgstr "Đang kết nối tới dịch vụ máy chủ…"
+
 msgid "Connecting to the workspace"
 msgstr "Đang kết nối tới workspace"
 
@@ -11535,9 +11538,6 @@ msgstr "Mở thư mục"
 
 msgid "Opening pages"
 msgstr "Mở trang"
-
-msgid "Opening the conversation…"
-msgstr "Đang mở cuộc trò chuyện…"
 
 msgid "Opening worktree..."
 msgstr "Đang mở worktree..."

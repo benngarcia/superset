@@ -4255,6 +4255,9 @@ msgstr "Collegandolo, i tuoi agenti potranno leggere e agire in {name} per tuo c
 msgid "Connecting to the desktop…"
 msgstr "Connessione al desktop…"
 
+msgid "Connecting to the host service…"
+msgstr "Connessione al servizio host…"
+
 msgid "Connecting to the workspace"
 msgstr "Connessione al workspace"
 
@@ -11535,9 +11538,6 @@ msgstr "Apertura delle cartelle"
 
 msgid "Opening pages"
 msgstr "Apertura delle pagine"
-
-msgid "Opening the conversation…"
-msgstr "Apertura della conversazione…"
 
 msgid "Opening worktree..."
 msgstr "Apertura del worktree..."

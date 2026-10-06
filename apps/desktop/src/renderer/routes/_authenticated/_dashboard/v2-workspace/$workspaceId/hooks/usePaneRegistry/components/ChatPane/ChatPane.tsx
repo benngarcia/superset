@@ -1,4 +1,6 @@
+import type { UserContent } from "@superset/chat/protocol";
 import type { RendererContext } from "@superset/panes";
+import { useRef } from "react";
 import type {
 	ChatPaneData,
 	OpenFile,
@@ -17,38 +19,46 @@ export function ChatPane({
 	onOpenFile: OpenFile;
 }) {
 	const data = ctx.pane.data as ChatPaneData;
+	const latest = useRef(data);
+	latest.current = data;
+	const firstPrompt: UserContent[] =
+		data.pendingPrompt || data.pendingAttachments?.length
+			? [
+					...(data.pendingPrompt
+						? [{ type: "text" as const, text: data.pendingPrompt }]
+						: []),
+					...(data.pendingAttachments ?? []).map((attachment) => ({
+						type: "attachment" as const,
+						...attachment,
+					})),
+				]
+			: [];
+	const pendingPrompts = [
+		...(firstPrompt.length > 0 ? [firstPrompt] : []),
+		...(data.queuedPrompts ?? []),
+	];
 
 	return (
 		<AcpChatPane
 			key={`${data.terminalId}:${data.agent?.id}`}
 			agent={data.agent}
 			isActive={ctx.isActive}
-			onFirstPromptSent={() => {
-				if (
-					data.pendingPrompt === undefined &&
-					data.pendingAttachments === undefined
-				)
-					return;
+			onPendingPromptsSent={() => {
 				const {
 					pendingPrompt: _sent,
 					pendingAttachments: _attached,
+					queuedPrompts: _queued,
 					...rest
-				} = data;
+				} = latest.current;
 				ctx.actions.updateData(rest);
 			}}
-			pendingFirstPrompt={
-				data.pendingPrompt || data.pendingAttachments?.length
-					? [
-							...(data.pendingPrompt
-								? [{ type: "text" as const, text: data.pendingPrompt }]
-								: []),
-							...(data.pendingAttachments ?? []).map((attachment) => ({
-								type: "attachment" as const,
-								...attachment,
-							})),
-						]
-					: null
+			onQueuePrompt={(content) =>
+				ctx.actions.updateData({
+					...latest.current,
+					queuedPrompts: [...(latest.current.queuedPrompts ?? []), content],
+				})
 			}
+			pendingPrompts={pendingPrompts}
 			modelId={data.chatModelId}
 			modelLabel={data.chatModelLabel}
 			modeId={data.chatModeId}
@@ -82,7 +92,7 @@ export function ChatPane({
 				ctx.actions.updateData({ ...data, chatModeId });
 			}}
 			onSessionCreated={(sessionId) =>
-				ctx.actions.updateData({ ...data, sessionId })
+				ctx.actions.updateData({ ...latest.current, sessionId })
 			}
 			onOpenFile={onOpenFile}
 			sessionId={data.sessionId}

@@ -4255,6 +4255,9 @@ msgstr "Conectar permite que tus agentes lean y actúen en {name} en tu nombre. 
 msgid "Connecting to the desktop…"
 msgstr "Conectando con el escritorio…"
 
+msgid "Connecting to the host service…"
+msgstr "Conectando con el servicio del host…"
+
 msgid "Connecting to the workspace"
 msgstr "Conectando con el espacio de trabajo"
 
@@ -11535,9 +11538,6 @@ msgstr "Abrir carpetas"
 
 msgid "Opening pages"
 msgstr "Abrir páginas"
-
-msgid "Opening the conversation…"
-msgstr "Abriendo la conversación…"
 
 msgid "Opening worktree..."
 msgstr "Abriendo el worktree..."

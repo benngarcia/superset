@@ -1,3 +1,4 @@
+import type { UserContent } from "@superset/chat/protocol";
 import type { AgentIdentityId } from "@superset/shared/agent-catalog";
 export interface FilePosition {
 	line: number;
@@ -89,6 +90,7 @@ export interface ChatPaneData {
 		name: string;
 		mimeType: string;
 	}>;
+	queuedPrompts?: UserContent[][];
 	chatModelId?: string;
 	chatModelLabel?: string;
 	chatModeId?: string;

@@ -4255,6 +4255,9 @@ msgstr "连接后，你的智能体可代表你在 {name} 中读取和操作。�
 msgid "Connecting to the desktop…"
 msgstr "正在连接桌面…"
 
+msgid "Connecting to the host service…"
+msgstr "正在连接主机服务…"
+
 msgid "Connecting to the workspace"
 msgstr "正在连接工作区"
 
@@ -11535,9 +11538,6 @@ msgstr "打开文件夹"
 
 msgid "Opening pages"
 msgstr "打开页面"
-
-msgid "Opening the conversation…"
-msgstr "正在打开对话…"
 
 msgid "Opening worktree..."
 msgstr "正在打开worktree..."

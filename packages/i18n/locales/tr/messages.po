@@ -4255,6 +4255,9 @@ msgstr "Bağlanmak, aracılarınızın {name} içinde sizin adınıza okuma ve i
 msgid "Connecting to the desktop…"
 msgstr "Masaüstüne bağlanılıyor…"
 
+msgid "Connecting to the host service…"
+msgstr "Ana makine hizmetine bağlanılıyor…"
+
 msgid "Connecting to the workspace"
 msgstr "Çalışma alanına bağlanılıyor"
 
@@ -11535,9 +11538,6 @@ msgstr "Klasörleri açma"
 
 msgid "Opening pages"
 msgstr "Sayfaları açma"
-
-msgid "Opening the conversation…"
-msgstr "Sohbet açılıyor…"
 
 msgid "Opening worktree..."
 msgstr "Worktree açılıyor..."

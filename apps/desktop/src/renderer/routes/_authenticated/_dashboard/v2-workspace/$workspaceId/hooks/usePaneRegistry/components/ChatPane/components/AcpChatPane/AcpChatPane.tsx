@@ -5,6 +5,8 @@ import { buildChatSessionHandoffPrompt } from "@superset/shared/terminal-session
 import { toast } from "@superset/ui/sonner";
 import { useWorkspaceClient } from "@superset/workspace-client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { TRPCClientError } from "@trpc/client";
+import type { ReactNode } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTerminalAgentBindings } from "renderer/hooks/host-service/useTerminalAgentBindings";
 import { useWorkspaceEvent } from "renderer/hooks/host-service/useWorkspaceEvent";
@@ -17,9 +19,14 @@ import type { ChatForkTarget } from "../../../ChatSession/types";
 import { isUnrestrictedMode } from "../../../ChatSession/utils/isUnrestrictedMode";
 import { useForkChat } from "../../hooks/useForkChat";
 import { readSavedChatMode } from "../../utils/savedChatMode";
-import { AcpChatPending } from "./components/AcpChatPending";
 import { AcpRecovery } from "./components/AcpRecovery";
-import { sharedChatCreate, watchChatCreate } from "./utils/sharedChatCreate";
+import { DraftChat } from "./components/DraftChat";
+import { createWhenReachable } from "./utils/createWhenReachable";
+import {
+	isChatCreateWatched,
+	sharedChatCreate,
+	watchChatCreate,
+} from "./utils/sharedChatCreate";
 
 /**
  * A chat bridged to an agent session, resumed by its session id. `agent` comes
@@ -29,12 +36,13 @@ export function AcpChatPane({
 	agent,
 	isActive,
 	onSessionInfo,
-	onFirstPromptSent,
+	onPendingPromptsSent,
+	onQueuePrompt,
 	onOpenFile,
 	onModeChange,
 	onSessionCreated,
 	onSwitchAgent,
-	pendingFirstPrompt,
+	pendingPrompts,
 	sessionId,
 	terminalId,
 	workspaceId,
@@ -48,8 +56,9 @@ export function AcpChatPane({
 	agent: { id: string; sessionId?: string } | undefined;
 	isActive: boolean;
 	sessionId: string | null;
-	pendingFirstPrompt?: UserContent[] | null;
-	onFirstPromptSent?: (() => void) | undefined;
+	pendingPrompts: UserContent[][];
+	onPendingPromptsSent: () => void;
+	onQueuePrompt: (content: UserContent[]) => void;
 	onSessionCreated: (sessionId: string) => void;
 	onModeChange?: (modeId: string) => void;
 	onSessionInfo: (info: { harnessSessionId?: string; title?: string }) => void;
@@ -75,6 +84,7 @@ export function AcpChatPane({
 	)?.label;
 	const harness = acpHarnessForPreset(agent?.id);
 	const [failure, setFailure] = useState<string | null>(null);
+	const [unreachable, setUnreachable] = useState(false);
 
 	// The stored session outlives its process — after a host restart the row
 	// still reads "idle" and only the send fails. Ask who is actually running.
@@ -119,20 +129,30 @@ export function AcpChatPane({
 				const startModeId =
 					modeId ??
 					(resume || !agent ? undefined : readSavedChatMode(agent.id));
+				const commandId = crypto.randomUUID();
 				const createdId = await sharedChatCreate(
 					createKey,
 					() =>
-						wiring.transport
-							.createSession({
-								commandId: crypto.randomUUID(),
-								workspaceId,
-								harness: resumeHarness,
-								terminalId,
-								...(modelId ? { modelId } : {}),
-								...(startModeId ? { modeId: startModeId } : {}),
-								...(resume ? { resume: { harnessSessionId: resume } } : {}),
-							})
-							.then((created) => created.sessionId),
+						createWhenReachable({
+							attempt: () =>
+								wiring.transport
+									.createSession({
+										commandId,
+										workspaceId,
+										harness: resumeHarness,
+										terminalId,
+										...(modelId ? { modelId } : {}),
+										...(startModeId ? { modeId: startModeId } : {}),
+										...(resume ? { resume: { harnessSessionId: resume } } : {}),
+									})
+									.then((created) => created.sessionId),
+							isReachableFailure: (error) =>
+								error instanceof TRPCClientError && error.data != null,
+							shouldContinue: () => isChatCreateWatched(createKey),
+							onUnreachable: (next) => {
+								if (mounted.current) setUnreachable(next);
+							},
+						}),
 					(orphan) => {
 						void wiring.transport
 							.closeSession({ sessionId: orphan })
@@ -341,12 +361,21 @@ export function AcpChatPane({
 		canResume &&
 		!stoppedWhileOpen &&
 		(!autoResumed.current || (resumingFrom.current === sessionId && !failure));
+	const draft = (notice: ReactNode) => (
+		<DraftChat
+			draftKey={`chat-v3-draft:${terminalId}`}
+			isActive={isActive}
+			notice={
+				unreachable ? <Trans>Connecting to the host service…</Trans> : notice
+			}
+			onQueue={onQueuePrompt}
+			queued={pendingPrompts}
+			workspaceId={workspaceId}
+		/>
+	);
+
 	if (resuming) {
-		return (
-			<AcpChatPending>
-				<Trans>Resuming the conversation…</Trans>
-			</AcpChatPending>
-		);
+		return draft(<Trans>Resuming the conversation…</Trans>);
 	}
 
 	if (harness && sessionId && (sessionDead || sessionStopped)) {
@@ -385,14 +414,12 @@ export function AcpChatPane({
 				</div>
 			);
 		}
-		return (
-			<AcpChatPending>
-				{agentSessionId ? (
-					<Trans>Attaching to the running session…</Trans>
-				) : (
-					<Trans>Starting the agent…</Trans>
-				)}
-			</AcpChatPending>
+		return draft(
+			agentSessionId ? (
+				<Trans>Attaching to the running session…</Trans>
+			) : (
+				<Trans>Starting the agent…</Trans>
+			),
 		);
 	}
 
@@ -400,7 +427,7 @@ export function AcpChatPane({
 		<SessionView
 			client={client}
 			key={sessionId}
-			onFirstPromptSent={onFirstPromptSent ?? NOOP}
+			onPendingPromptsSent={onPendingPromptsSent}
 			agentLabel={agentLabel}
 			agentSwitch={agentSwitch}
 			onModeChange={onModeChange}
@@ -421,12 +448,10 @@ export function AcpChatPane({
 					...(state?.title ? { title: state.title } : {}),
 				});
 			}}
-			pendingFirstPrompt={pendingFirstPrompt ?? null}
+			pendingPrompts={pendingPrompts}
 			preferredModelLabel={modelLabel}
 			sessionId={sessionId}
 			workspaceId={workspaceId}
 		/>
 	);
 }
-
-function NOOP() {}

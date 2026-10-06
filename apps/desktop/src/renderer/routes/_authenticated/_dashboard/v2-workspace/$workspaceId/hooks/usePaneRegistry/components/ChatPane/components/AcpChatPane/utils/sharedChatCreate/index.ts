@@ -1,1 +1,5 @@
-export { sharedChatCreate, watchChatCreate } from "./sharedChatCreate";
+export {
+	isChatCreateWatched,
+	sharedChatCreate,
+	watchChatCreate,
+} from "./sharedChatCreate";

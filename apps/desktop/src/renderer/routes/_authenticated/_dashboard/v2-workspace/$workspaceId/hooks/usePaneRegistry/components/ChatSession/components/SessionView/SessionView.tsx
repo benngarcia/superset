@@ -15,7 +15,6 @@ import {
 } from "@superset/chat/react";
 import { MessageScroller } from "@superset/chat-ui/MessageScroller";
 import { ChatHistorySidebarScroller } from "@superset/ui/chat-history-sidebar";
-import { Spinner } from "@superset/ui/spinner";
 import type { ReactNode } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { OpenFile } from "../../../../../../types";
@@ -25,6 +24,7 @@ import { buildChatHandoffTranscript } from "../../utils/chatHandoffTranscript";
 import { promptHistory } from "../../utils/promptHistory";
 import { railMessages } from "../../utils/railMessages";
 import { type AgentChoice, type AgentSwitcher, Composer } from "../Composer";
+import { ConnectionNotice } from "../ConnectionNotice";
 import { SessionHeader } from "../SessionHeader";
 import { Transcript } from "../Transcript";
 import { useStableList } from "./hooks/useStableList";
@@ -43,9 +43,9 @@ export function SessionView({
 	headerLeft,
 	isActive,
 	onModeChange,
-	pendingFirstPrompt,
+	pendingPrompts,
 	preferredModelLabel,
-	onFirstPromptSent,
+	onPendingPromptsSent,
 	onFork,
 	onSessionState,
 	openFile,
@@ -57,10 +57,10 @@ export function SessionView({
 	workspaceId: string;
 	headerLeft?: ReactNode;
 	isActive?: boolean;
-	pendingFirstPrompt: UserContent[] | null;
+	pendingPrompts: UserContent[][];
 	/** Selected by name once the agent lists its models, before the first prompt goes out. */
 	preferredModelLabel?: string;
-	onFirstPromptSent: () => void;
+	onPendingPromptsSent: () => void;
 	onSessionState?: (session: SessionState | null) => void;
 	/** The mode the user picked, so a resumed session can start in it again. */
 	onModeChange?: (modeId: string) => void;
@@ -134,14 +134,14 @@ export function SessionView({
 			.finally(() => setModelSettled(true));
 	}, [agentStatus, configOptions, modelSettled, preferredModelLabel, session]);
 
-	const firstPromptSentRef = useRef(false);
+	const pendingSentRef = useRef(false);
 	useEffect(() => {
-		if (!pendingFirstPrompt || firstPromptSentRef.current) return;
+		if (pendingPrompts.length === 0 || pendingSentRef.current) return;
 		if (session.status !== "ready" || !modelSettled) return;
-		firstPromptSentRef.current = true;
-		session.sendPrompt(pendingFirstPrompt);
-		onFirstPromptSent();
-	}, [pendingFirstPrompt, session, onFirstPromptSent, modelSettled]);
+		pendingSentRef.current = true;
+		for (const prompt of pendingPrompts) session.sendPrompt(prompt);
+		onPendingPromptsSent();
+	}, [pendingPrompts, session, onPendingPromptsSent, modelSettled]);
 
 	const sessionState = session.snapshot.session;
 	useEffect(() => {
@@ -257,11 +257,9 @@ export function SessionView({
 		],
 	);
 
-	// The stream is ready well before the agent is: the harness still has to
-	// spawn and, when resuming, replay the whole transcript. Showing an empty
-	// pane through that reads as a broken chat rather than a loading one.
+	const connecting =
+		session.status === "loading" || session.connection !== "open";
 	const booting = sessionState?.status === "starting";
-	const loadingTranscript = session.status === "loading" || booting;
 
 	// w-full because the pane lays its children out in a row: without it this
 	// sizes to its content and leaves the right of the pane empty.
@@ -278,44 +276,42 @@ export function SessionView({
 						session={session.snapshot.session}
 					/>
 				)}
-				{loadingTranscript ? (
-					<div className="flex flex-1 flex-col items-center justify-center gap-3">
-						<Spinner className="size-5" />
-						{booting && (
-							<span className="text-muted-foreground text-xs">
-								<Trans>Opening the conversation…</Trans>
-							</span>
+				<MessageScroller.Provider
+					autoScroll
+					defaultScrollPosition="end"
+					scrollEdgeThreshold={RESUME_FOLLOW_PX}
+					scrollPreviousItemPeek={0}
+				>
+					<div className="@container relative flex min-h-0 flex-1">
+						<Transcript
+							approvals={approvals}
+							canForkToWorktree={canForkToWorktree}
+							groups={timeline}
+							hasOlder={session.hasOlder}
+							onDiscardPrompt={session.discardPrompt}
+							onFork={onFork ? forkWithTranscript : undefined}
+							onLoadOlder={loadOlder}
+							onRespond={onRespond}
+							onRetryPrompt={session.retryPrompt}
+							outbox={session.outbox}
+							snapshot={session.snapshot}
+						/>
+						{rail.length > 1 && (
+							<ChatHistorySidebarScroller
+								className="absolute inset-y-0 left-0 my-auto hidden h-fit max-h-full flex-col pl-3 @[56rem]:flex"
+								messages={rail}
+							/>
 						)}
 					</div>
-				) : (
-					<MessageScroller.Provider
-						autoScroll
-						defaultScrollPosition="end"
-						scrollEdgeThreshold={RESUME_FOLLOW_PX}
-						scrollPreviousItemPeek={0}
-					>
-						<div className="@container relative flex min-h-0 flex-1">
-							<Transcript
-								approvals={approvals}
-								canForkToWorktree={canForkToWorktree}
-								groups={timeline}
-								hasOlder={session.hasOlder}
-								onDiscardPrompt={session.discardPrompt}
-								onFork={onFork ? forkWithTranscript : undefined}
-								onLoadOlder={loadOlder}
-								onRespond={onRespond}
-								onRetryPrompt={session.retryPrompt}
-								outbox={session.outbox}
-								snapshot={session.snapshot}
-							/>
-							{rail.length > 1 && (
-								<ChatHistorySidebarScroller
-									className="absolute inset-y-0 left-0 my-auto hidden h-fit max-h-full flex-col pl-3 @[56rem]:flex"
-									messages={rail}
-								/>
-							)}
-						</div>
-					</MessageScroller.Provider>
+				</MessageScroller.Provider>
+				{(connecting || booting) && (
+					<ConnectionNotice>
+						{connecting ? (
+							<Trans>Connecting to the host service…</Trans>
+						) : (
+							<Trans>Starting the agent…</Trans>
+						)}
+					</ConnectionNotice>
 				)}
 				<Composer
 					agentSwitcher={agentSwitcher}
@@ -325,7 +321,6 @@ export function SessionView({
 					modes={sessionState?.availableModes}
 					currentModeId={sessionState?.modeId}
 					onSetMode={onSetMode}
-					disabled={session.status !== "ready"}
 					draftKey={`chat-v3-draft:${sessionId}`}
 					history={history}
 					isActive={isActive}
