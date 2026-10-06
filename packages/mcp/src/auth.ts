@@ -14,6 +14,7 @@ export interface McpContext {
 	requestId: string;
 	bearerToken: string;
 	relayUrl: string;
+	realtimeUrl: string;
 }
 
 const MCP_UNAUTHORIZED = Symbol("MCP_UNAUTHORIZED");
@@ -164,13 +165,14 @@ async function resolveOAuth(
 export interface ResolveMcpContextOptions {
 	apiUrl: string;
 	relayUrl: string;
+	realtimeUrl: string;
 }
 
 export async function resolveMcpContext(
 	req: Request,
 	options: ResolveMcpContextOptions,
 ): Promise<McpContext> {
-	const { apiUrl, relayUrl } = options;
+	const { apiUrl, relayUrl, realtimeUrl } = options;
 	const token = extractBearer(req);
 	if (!token) {
 		throw new McpUnauthorizedError("Missing bearer token");
@@ -220,5 +222,6 @@ export async function resolveMcpContext(
 		requestId: crypto.randomUUID(),
 		bearerToken,
 		relayUrl,
+		realtimeUrl,
 	};
 }
