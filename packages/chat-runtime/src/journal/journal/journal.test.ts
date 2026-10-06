@@ -107,10 +107,12 @@ describe("ChatJournal", () => {
 		});
 	});
 
-	test("reports session status changes, not every append", () => {
+	test("reports changes to the session listing, not every append", () => {
 		const changes: ChatSessionChange[] = [];
 		const watched = createTestRuntime({
-			onSessionChanged: (change) => changes.push(change),
+			onSessionChanged: (change) => {
+				changes.push(change);
+			},
 		});
 		watched.journal.open(init());
 		watched.journal.append(SESSION, {
@@ -136,21 +138,14 @@ describe("ChatJournal", () => {
 		});
 		watched.journal.discard(SESSION);
 
-		expect(changes).toEqual(
-			(
-				[
-					["starting", false],
-					["running", false],
-					["idle", false],
-					["idle", true],
-				] as const
-			).map(([status, removed]) => ({
+		expect(changes).toHaveLength(5);
+		for (const change of changes) {
+			expect(change).toEqual({
 				sessionId: SESSION,
 				scopeId: "workspace-1",
-				status,
-				removed,
-			})),
-		);
+				occurredAt: expect.any(Number),
+			});
+		}
 	});
 
 	test("a throwing session listener does not fail the append", () => {

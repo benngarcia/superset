@@ -46,7 +46,7 @@ describe("EventBus agent binding events", () => {
 });
 
 describe("EventBus chat session events", () => {
-	it("broadcasts chat session changes to every client", () => {
+	it("nudges every client to refetch a workspace's chat sessions", () => {
 		const eventBus = createEventBus();
 		const sentMessages: string[] = [];
 		eventBus.handleOpen({
@@ -57,21 +57,15 @@ describe("EventBus chat session events", () => {
 			close() {},
 		});
 
-		eventBus.broadcastChatSessionChanged({
-			sessionId: "session-1",
+		eventBus.broadcastChatSessionsChanged({
 			workspaceId: "workspace-1",
-			status: "idle",
-			removed: false,
 			occurredAt: 1_700_000_000_000,
 		});
 
 		expect(sentMessages.map((data) => JSON.parse(data))).toEqual([
 			{
-				type: "chat:session-changed",
-				sessionId: "session-1",
+				type: "chat:sessions-changed",
 				workspaceId: "workspace-1",
-				status: "idle",
-				removed: false,
 				occurredAt: 1_700_000_000_000,
 			},
 		]);

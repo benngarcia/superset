@@ -4,7 +4,7 @@ export {
 	type AgentBindingsChangedPayload,
 	type AgentIdentity,
 	type AgentLifecyclePayload,
-	type ChatSessionChangedPayload,
+	type ChatSessionsChangedPayload,
 	type EventBusHandle,
 	type GitChangedPayload,
 	getEventBus,

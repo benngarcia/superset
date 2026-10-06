@@ -11,7 +11,7 @@ export {
 export type {
 	AgentBindingsChangedMessage,
 	AgentLifecycleMessage,
-	ChatSessionChangedMessage,
+	ChatSessionsChangedMessage,
 	ClientMessage,
 	DistributiveOmit,
 	EventBusErrorMessage,

@@ -253,9 +253,14 @@ export function createCommands(options: CommandsOptions): ChatCommands {
 			});
 		},
 
-		closeSession(input) {
+		async closeSession(input) {
 			const parsed: CloseSessionInput = closeSessionInputSchema.parse(input);
-			return options.live.dispose(parsed.sessionId);
+			const wasLive = options.live.get(parsed.sessionId) !== null;
+			try {
+				await options.live.dispose(parsed.sessionId);
+			} finally {
+				if (wasLive) options.journal.announce(parsed.sessionId);
+			}
 		},
 
 		getSession(input) {

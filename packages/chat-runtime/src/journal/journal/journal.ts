@@ -27,13 +27,16 @@ export type OpenedSession = {
 export type ChatSessionChange = {
 	sessionId: string;
 	scopeId: string;
-	status: SessionStatus;
-	removed: boolean;
+	occurredAt: number;
 };
 
 export type ChatJournalOptions = {
-	onSessionChanged?: (change: ChatSessionChange) => void;
+	onSessionChanged?: (change: ChatSessionChange) => void | Promise<void>;
 };
+
+function reportListenerFailure(error: unknown): void {
+	console.error("[chat-journal] onSessionChanged listener failed", error);
+}
 
 type SessionCache = {
 	scopeId: string;
@@ -59,18 +62,10 @@ export class ChatJournal {
 	) {}
 
 	open(init: ChatSessionInit): OpenedSession {
-		const previousStatus = readSessionRow(this.db, init.sessionId)?.status;
-		const { epoch } = openEpoch(this.db, init);
+		const { epoch, minted } = openEpoch(this.db, init);
 		this.sessions.delete(init.sessionId);
 		const cache = this.cacheFor(init.sessionId, epoch);
-		if (cache.status !== previousStatus) {
-			this.notify({
-				sessionId: init.sessionId,
-				scopeId: cache.scopeId,
-				status: cache.status,
-				removed: false,
-			});
-		}
+		if (minted) this.notify(init.sessionId, cache.scopeId, Date.now());
 		return {
 			sessionId: init.sessionId,
 			epoch: cache.epoch,
@@ -89,7 +84,10 @@ export class ChatJournal {
 		const seq = cache.lastSeq + 1;
 		const ts = Date.now();
 		const next = this.projectionFor(cache, parsed);
-		const statusChanged = next.status !== cache.status;
+		const listingChanged =
+			next.status !== cache.status ||
+			next.title !== cache.title ||
+			next.queuedItemIds.size !== cache.queuedItemIds.size;
 
 		this.db.transaction(() => {
 			this.db
@@ -114,14 +112,7 @@ export class ChatJournal {
 		cache.status = next.status;
 		cache.title = next.title;
 		cache.queuedItemIds = next.queuedItemIds;
-		if (statusChanged) {
-			this.notify({
-				sessionId,
-				scopeId: cache.scopeId,
-				status: next.status,
-				removed: false,
-			});
-		}
+		if (listingChanged) this.notify(sessionId, cache.scopeId, ts);
 
 		return {
 			v: 1,
@@ -151,21 +142,21 @@ export class ChatJournal {
 				.run();
 			removeSessionRow(this.db, sessionId);
 		});
-		if (row) {
-			this.notify({
-				sessionId,
-				scopeId: row.scopeId,
-				status: row.status,
-				removed: true,
-			});
-		}
+		if (row) this.notify(sessionId, row.scopeId, Date.now());
 	}
 
-	private notify(change: ChatSessionChange): void {
+	announce(sessionId: string): void {
+		const row = readSessionRow(this.db, sessionId);
+		if (row) this.notify(sessionId, row.scopeId, Date.now());
+	}
+
+	private notify(sessionId: string, scopeId: string, occurredAt: number): void {
 		try {
-			this.options.onSessionChanged?.(change);
+			void Promise.resolve(
+				this.options.onSessionChanged?.({ sessionId, scopeId, occurredAt }),
+			).catch(reportListenerFailure);
 		} catch (error) {
-			console.error("[chat-journal] onSessionChanged listener failed", error);
+			reportListenerFailure(error);
 		}
 	}
 

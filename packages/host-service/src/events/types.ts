@@ -1,4 +1,3 @@
-import type { SessionStatus } from "@superset/chat/protocol";
 import type { DetectedPort } from "@superset/port-scanner";
 import type { AgentIdentity } from "@superset/shared/agent-identity";
 import type { WorkspaceTagAssignment } from "@superset/shared/workspace-tags";
@@ -240,12 +239,10 @@ export interface PageWatchChangedMessage {
 	occurredAt: number;
 }
 
-export interface ChatSessionChangedMessage {
-	type: "chat:session-changed";
-	sessionId: string;
+/** A chat session in the workspace was created, changed, stopped or removed; refetch `listSessions`. */
+export interface ChatSessionsChangedMessage {
+	type: "chat:sessions-changed";
 	workspaceId: string;
-	status: SessionStatus;
-	removed: boolean;
 	occurredAt: number;
 }
 
@@ -262,7 +259,7 @@ export type ServerMessage =
 	| ProjectChangedMessage
 	| TagFoldersChangedMessage
 	| PageWatchChangedMessage
-	| ChatSessionChangedMessage
+	| ChatSessionsChangedMessage
 	| EventBusErrorMessage;
 
 /**
