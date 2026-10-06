@@ -4,14 +4,18 @@ import { ListChecks } from "lucide-react-native";
 import { View } from "react-native";
 import { ToolCallRow } from "@/components/ai-elements/tool-call-row";
 import { Text } from "@/components/ui/text";
+import { FailedLabel } from "../FailedLabel";
 import { ToolCallItem } from "../ToolCallItem";
 
 export function ToolRunItem({ items }: { items: ToolCall[] }) {
 	const count = items.length;
+	const failed = items.some((item) => item.status === "failed");
 	return (
 		<ToolCallRow
+			description={failed ? <FailedLabel /> : undefined}
 			icon={ListChecks}
-			isError={items.some((item) => item.status === "failed")}
+			isError={failed}
+			statusNode={null}
 			title={
 				<Text className="text-muted-foreground text-xs">
 					<Plural value={count} one="# step" other="# steps" />

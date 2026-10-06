@@ -2954,6 +2954,9 @@ msgstr "Dal"
 msgid "Branch behavior for new workspaces on this device. Projects can override the prefix individually."
 msgstr "Bu cihazdaki yeni çalışma alanları için dal davranışı. Projeler ön eki tek tek geçersiz kılabilir."
 
+msgid "Branch from here"
+msgstr "Buradan dallandır"
+
 msgid "Branch in a new worktree"
 msgstr "Yeni bir worktree'de çatalla"
 
@@ -4644,6 +4647,9 @@ msgstr "Ajana yanıt verilemedi"
 msgid "Could not attach files"
 msgstr "Dosyalar eklenemedi"
 
+msgid "Could not branch the chat"
+msgstr "Sohbet dallandırılamadı"
+
 msgid "Could not change the mode"
 msgstr "Mod değiştirilemedi"
 
@@ -4813,6 +4819,9 @@ msgstr "Ana makine hizmeti yeniden başlatılamadı"
 msgid "Could not resume"
 msgstr "Devam ettirilemedi"
 
+msgid "Could not resume the chat"
+msgstr "Sohbete devam edilemedi"
+
 msgid "Could not send"
 msgstr "Gönderilemedi"
 
@@ -4834,6 +4843,9 @@ msgstr "Bulut çalışma alanı sağlama işlemi başlatılamadı"
 msgid "Could not start session"
 msgstr "Oturum başlatılamadı"
 
+msgid "Could not start the chat"
+msgstr "Sohbet başlatılamadı"
+
 msgid "Could not steer"
 msgstr "Yön değiştirilemedi"
 
@@ -4842,6 +4854,9 @@ msgstr "Durdurulamadı"
 
 msgid "Could not stop the agent"
 msgstr "Ajan durdurulamadı"
+
+msgid "Could not stop the task"
+msgstr "Görev durdurulamadı"
 
 msgid "Could not stop watching"
 msgstr "İzleme durdurulamadı"
@@ -13591,6 +13606,9 @@ msgstr "Sonuçlar"
 msgid "Resume"
 msgstr "Sürdür"
 
+msgid "Resume a chat"
+msgstr "Bir sohbete devam et"
+
 msgid "Resume args"
 msgstr "Sürdürme argümanları"
 
@@ -13881,6 +13899,9 @@ msgstr "Bu profildeki çalışan ajanlar erişimini kaybeder."
 
 msgid "Running bun test…"
 msgstr "bun test çalışıyor…"
+
+msgid "Running in the background"
+msgstr "Arka planda çalışıyor"
 
 msgid "Running now"
 msgstr "Şimdi çalıştırılıyor"

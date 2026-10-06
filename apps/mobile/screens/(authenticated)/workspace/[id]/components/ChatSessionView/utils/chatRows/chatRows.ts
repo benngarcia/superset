@@ -11,7 +11,8 @@ export type ChatRow =
 			message: string | undefined;
 	  }
 	| { kind: "outbox"; key: string; entry: OutboxEntry }
-	| { kind: "working"; key: string };
+	| { kind: "working"; key: string }
+	| { kind: "activity"; key: string; rows: ChatRow[] };
 
 function itemKey(item: Item): string {
 	return item.kind === "user_message"
@@ -90,4 +91,87 @@ export function runningTurnId(groups: readonly TurnGroup[]): string | null {
 		if (turn?.status === "running") return turn.id;
 	}
 	return null;
+}
+
+function isActivity(row: ChatRow): boolean {
+	if (row.kind === "tool_run") return true;
+	if (row.kind !== "item") return false;
+	return row.item.kind === "tool_call" || row.item.kind === "reasoning";
+}
+
+export function isActivityLive(rows: readonly ChatRow[]): boolean {
+	return rows.some((row) => {
+		if (row.kind === "tool_run")
+			return row.items.some((item) => item.status === "running");
+		if (row.kind !== "item") return false;
+		if (row.item.kind === "tool_call")
+			return (row.item as ToolCall).status === "running";
+		return row.item.completedAtMs === undefined;
+	});
+}
+
+export function activityStepCount(rows: readonly ChatRow[]): number {
+	return rows.reduce(
+		(count, row) => count + (row.kind === "tool_run" ? row.items.length : 1),
+		0,
+	);
+}
+
+/** Folds each run of thoughts and tool calls into one row. */
+export function groupActivity(rows: readonly ChatRow[]): ChatRow[] {
+	const grouped: ChatRow[] = [];
+	let run: ChatRow[] = [];
+	const flush = () => {
+		const [first] = run;
+		if (first)
+			grouped.push({
+				kind: "activity",
+				key: `activity:${first.key}`,
+				rows: run,
+			});
+		run = [];
+	};
+	for (const row of rows) {
+		if (isActivity(row)) {
+			run.push(row);
+			continue;
+		}
+		flush();
+		grouped.push(row);
+	}
+	flush();
+	return grouped;
+}
+
+export type RowSide = "user" | "agent" | "system";
+
+export type GroupPosition = "single" | "first" | "middle" | "last";
+
+export function rowSide(row: ChatRow): RowSide {
+	switch (row.kind) {
+		case "outbox":
+			return "user";
+		case "turn_status":
+			return "system";
+		case "working":
+		case "tool_run":
+		case "activity":
+			return "agent";
+		case "item":
+			if (row.item.kind === "user_message") return "user";
+			if (row.item.kind === "notice") return "system";
+			return "agent";
+	}
+}
+
+export function groupPositions(rows: readonly ChatRow[]): GroupPosition[] {
+	const sides = rows.map(rowSide);
+	return sides.map((side, index) => {
+		const joinsPrevious = side !== "system" && sides[index - 1] === side;
+		const joinsNext = side !== "system" && sides[index + 1] === side;
+		if (joinsPrevious && joinsNext) return "middle";
+		if (joinsPrevious) return "last";
+		if (joinsNext) return "first";
+		return "single";
+	});
 }

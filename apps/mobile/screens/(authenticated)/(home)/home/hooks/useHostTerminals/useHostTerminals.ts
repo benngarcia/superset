@@ -1,4 +1,6 @@
+import { FEATURE_FLAGS } from "@superset/shared/constants";
 import { useQueries } from "@tanstack/react-query";
+import { useFeatureFlag } from "posthog-react-native";
 import { useMemo } from "react";
 import { agentIdForHarness, getChatTransport } from "@/lib/chat";
 import {
@@ -130,6 +132,7 @@ export function useHostsTerminals(
 	hosts: TerminalsHost[],
 ): UseHostTerminalsResult {
 	const terminalSeenAt = useTerminalSeenStore((state) => state.terminalSeenAt);
+	const acpChat = Boolean(useFeatureFlag(FEATURE_FLAGS.ACP_CHAT));
 
 	const online = useMemo(
 		() =>
@@ -146,7 +149,7 @@ export function useHostsTerminals(
 
 	const queries = useQueries({
 		queries: online.map((host) => ({
-			queryKey: getHostTerminalsQueryKey(host.machineId),
+			queryKey: [...getHostTerminalsQueryKey(host.machineId), acpChat],
 			refetchInterval: host.refetchIntervalMs,
 			refetchIntervalInBackground: false,
 			refetchOnWindowFocus: false,
@@ -158,9 +161,11 @@ export function useHostsTerminals(
 					client.terminal.list.query({}),
 					client.terminalAgents.list.query(),
 					// A host without chat, or one too old to serve it, has no chats.
-					listLiveChats(getChatTransport(host.hostUrl)).catch(
-						(): LiveChat[] => [],
-					),
+					acpChat
+						? listLiveChats(getChatTransport(host.hostUrl)).catch(
+								(): LiveChat[] => [],
+							)
+						: ([] as LiveChat[]),
 				]);
 				return { sessions: listed.sessions, bindings, chats };
 			},
@@ -216,7 +221,7 @@ export function useHostsTerminals(
 					}
 				}
 			}
-			for (const chat of query.data?.chats ?? []) {
+			for (const chat of acpChat ? (query.data?.chats ?? []) : []) {
 				const agentId = agentIdForHarness(chat.harness);
 				const attention = chatAttention(chat, terminalSeenAt[chat.sessionId]);
 				let firstSeenAt = chatFirstSeenAt.get(chat.sessionId);
@@ -260,7 +265,7 @@ export function useHostsTerminals(
 			isReady: queries.every((query) => query.isSuccess || query.isError),
 			isError: queries.some((query) => query.isError),
 		};
-	}, [queries, terminalSeenAt]);
+	}, [queries, terminalSeenAt, acpChat]);
 }
 
 /** One host's terminals — see `useHostsTerminals`. */

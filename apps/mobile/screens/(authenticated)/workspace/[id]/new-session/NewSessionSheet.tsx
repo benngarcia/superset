@@ -1,6 +1,6 @@
 import { Trans, useLingui } from "@lingui/react/macro";
 import { FEATURE_FLAGS } from "@superset/shared/constants";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { randomUUID } from "expo-crypto";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { SquareTerminal } from "lucide-react-native";
@@ -11,7 +11,11 @@ import { Button } from "@/components/ui/button";
 import { Text } from "@/components/ui/text";
 import { useTheme } from "@/hooks/useTheme";
 import { useWorkspaceHost } from "@/hooks/useWorkspaceHost";
-import { getChatTransport, harnessForAgent } from "@/lib/chat";
+import {
+	agentIdForHarness,
+	getChatTransport,
+	harnessForAgent,
+} from "@/lib/chat";
 import { errorCopy } from "@/lib/errors";
 import {
 	getHostServiceClientByUrl,
@@ -27,6 +31,7 @@ import {
 	resolveAgentLaunchPreferences,
 } from "@/screens/(authenticated)/hooks/useAgentLaunchPreferences";
 import { useHostAgentConfigs } from "@/screens/(authenticated)/hooks/useHostAgentConfigs";
+import { usePendingChatLaunchStore } from "@/screens/(authenticated)/stores/pendingChatLaunchStore";
 
 /**
  * Bottom sheet for the tab strip's + — the host's agent presets plus a plain
@@ -51,6 +56,22 @@ export function NewSessionSheet() {
 		hostUrl,
 	});
 	const presets = presetsQuery.data ?? [];
+	const endedChatsQuery = useQuery({
+		queryKey: ["chat-v3", "ended", hostUrl, workspace?.id],
+		enabled: acpChat && !!hostUrl && !!workspace,
+		queryFn: async () => {
+			if (!hostUrl || !workspace) return [];
+			const rows = await getChatTransport(hostUrl).listSessions({
+				workspaceId: workspace.id,
+				limit: 20,
+			});
+			return rows
+				.filter((row) => !row.live && row.harnessSessionId)
+				.slice(0, 5);
+		},
+	});
+	const endedChats = endedChatsQuery.data ?? [];
+	const queueChatLaunch = usePendingChatLaunchStore((state) => state.queue);
 	const modelByAgent = useNewSessionPreferencesStore(
 		(state) => state.modelByAgent,
 	);
@@ -105,10 +126,17 @@ export function NewSessionSheet() {
 				});
 				terminalId = created.terminalId;
 			} else if (chatHarness) {
+				const { model, effort } = launchFor(preset);
 				const created = await getChatTransport(hostUrl).createSession({
 					commandId: randomUUID(),
 					workspaceId: workspace.id,
 					harness: chatHarness,
+					modelId: model?.id,
+				});
+				queueChatLaunch(created.sessionId, {
+					content: [],
+					modelLabel: model?.label ?? null,
+					effortLabel: effort?.label ?? null,
 				});
 				terminalId = created.sessionId;
 			} else {
@@ -139,6 +167,38 @@ export function NewSessionSheet() {
 				t({
 					message: "Could not start session",
 				}),
+				errorCopy(error),
+			);
+		}
+	};
+
+	const resume = async (chat: (typeof endedChats)[number]) => {
+		if (!workspace || !hostUrl || !chat.harnessSessionId) return;
+		if (launchingKey !== null) return;
+		setLaunchingKey(chat.sessionId);
+		try {
+			const transport = getChatTransport(hostUrl);
+			await transport
+				.closeSession({ sessionId: chat.sessionId })
+				.catch(() => {});
+			const created = await transport.createSession({
+				commandId: randomUUID(),
+				workspaceId: workspace.id,
+				harness: chat.harness,
+				resume: { harnessSessionId: chat.harnessSessionId },
+			});
+			if (host) {
+				void queryClient.invalidateQueries({
+					queryKey: getHostTerminalsQueryKey(host.machineId),
+				});
+			}
+			router.dismissTo(
+				`/(authenticated)/workspace/${workspace.id}?tab=${created.sessionId}`,
+			);
+		} catch (error) {
+			setLaunchingKey(null);
+			Alert.alert(
+				t({ message: "Could not resume the chat" }),
 				errorCopy(error),
 			);
 		}
@@ -204,6 +264,32 @@ export function NewSessionSheet() {
 					onPress={() => void launch(null)}
 					isLast
 				/>
+			) : null}
+			{endedChats.length > 0 ? (
+				<View className="pt-6">
+					<Text className="text-muted-foreground px-1 pb-2 text-xs font-medium">
+						<Trans>Resume a chat</Trans>
+					</Text>
+					{endedChats.map((chat, index) => {
+						const agentId = agentIdForHarness(chat.harness);
+						return (
+							<ListRow
+								key={chat.sessionId}
+								icon={
+									<AgentMark
+										agentId={agentId ?? chat.harness}
+										size={19}
+										color={theme.mutedForeground}
+									/>
+								}
+								label={chat.title ?? agentId ?? chat.harness}
+								trailing={launchingKey === chat.sessionId ? spinner : undefined}
+								onPress={() => void resume(chat)}
+								isLast={index === endedChats.length - 1}
+							/>
+						);
+					})}
+				</View>
 			) : null}
 		</ScrollView>
 	);

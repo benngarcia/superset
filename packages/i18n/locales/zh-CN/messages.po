@@ -2954,6 +2954,9 @@ msgstr "分支"
 msgid "Branch behavior for new workspaces on this device. Projects can override the prefix individually."
 msgstr "本设备上新建工作区的分支行为。项目可以单独覆盖前缀。"
 
+msgid "Branch from here"
+msgstr "从此处分支"
+
 msgid "Branch in a new worktree"
 msgstr "在新的 worktree 中分叉"
 
@@ -4644,6 +4647,9 @@ msgstr "无法回复智能体"
 msgid "Could not attach files"
 msgstr "无法添加附件"
 
+msgid "Could not branch the chat"
+msgstr "无法为聊天创建分支"
+
 msgid "Could not change the mode"
 msgstr "无法更改模式"
 
@@ -4813,6 +4819,9 @@ msgstr "无法重启主机服务"
 msgid "Could not resume"
 msgstr "无法继续"
 
+msgid "Could not resume the chat"
+msgstr "无法继续聊天"
+
 msgid "Could not send"
 msgstr "无法发送"
 
@@ -4834,6 +4843,9 @@ msgstr "无法开始配置云端工作区"
 msgid "Could not start session"
 msgstr "无法启动会话"
 
+msgid "Could not start the chat"
+msgstr "无法开始聊天"
+
 msgid "Could not steer"
 msgstr "无法转向"
 
@@ -4842,6 +4854,9 @@ msgstr "无法停止"
 
 msgid "Could not stop the agent"
 msgstr "无法停止智能体"
+
+msgid "Could not stop the task"
+msgstr "无法停止任务"
 
 msgid "Could not stop watching"
 msgstr "无法停止关注"
@@ -13591,6 +13606,9 @@ msgstr "结果"
 msgid "Resume"
 msgstr "恢复"
 
+msgid "Resume a chat"
+msgstr "继续聊天"
+
 msgid "Resume args"
 msgstr "恢复参数"
 
@@ -13881,6 +13899,9 @@ msgstr "使用此配置文件运行中的智能体将失去访问权限。"
 
 msgid "Running bun test…"
 msgstr "正在运行bun test…"
+
+msgid "Running in the background"
+msgstr "正在后台运行"
 
 msgid "Running now"
 msgstr "正在运行"

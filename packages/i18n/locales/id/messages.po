@@ -2954,6 +2954,9 @@ msgstr "Branch"
 msgid "Branch behavior for new workspaces on this device. Projects can override the prefix individually."
 msgstr "Perilaku branch untuk workspace baru di perangkat ini. Tiap proyek bisa menimpa prefix-nya sendiri."
 
+msgid "Branch from here"
+msgstr "Cabangkan dari sini"
+
 msgid "Branch in a new worktree"
 msgstr "Cabangkan di worktree baru"
 
@@ -4644,6 +4647,9 @@ msgstr "Tidak dapat menjawab agen"
 msgid "Could not attach files"
 msgstr "Tidak bisa melampirkan file"
 
+msgid "Could not branch the chat"
+msgstr "Tidak dapat mencabangkan obrolan"
+
 msgid "Could not change the mode"
 msgstr "Tidak dapat mengubah mode"
 
@@ -4813,6 +4819,9 @@ msgstr "Tidak dapat memulai ulang layanan host"
 msgid "Could not resume"
 msgstr "Tidak dapat melanjutkan"
 
+msgid "Could not resume the chat"
+msgstr "Tidak dapat melanjutkan obrolan"
+
 msgid "Could not send"
 msgstr "Tidak bisa mengirim"
 
@@ -4834,6 +4843,9 @@ msgstr "Tidak bisa memulai provisioning workspace cloud"
 msgid "Could not start session"
 msgstr "Tidak bisa memulai sesi"
 
+msgid "Could not start the chat"
+msgstr "Tidak dapat memulai obrolan"
+
 msgid "Could not steer"
 msgstr "Tidak dapat mengarahkan"
 
@@ -4842,6 +4854,9 @@ msgstr "Tidak bisa dihentikan"
 
 msgid "Could not stop the agent"
 msgstr "Tidak dapat menghentikan agen"
+
+msgid "Could not stop the task"
+msgstr "Tidak dapat menghentikan tugas"
 
 msgid "Could not stop watching"
 msgstr "Tidak bisa berhenti memantau"
@@ -13591,6 +13606,9 @@ msgstr "Hasil"
 msgid "Resume"
 msgstr "Lanjutkan"
 
+msgid "Resume a chat"
+msgstr "Lanjutkan obrolan"
+
 msgid "Resume args"
 msgstr "Argumen resume"
 
@@ -13881,6 +13899,9 @@ msgstr "Agen yang berjalan di profil ini kehilangan akses."
 
 msgid "Running bun test…"
 msgstr "Menjalankan bun test…"
+
+msgid "Running in the background"
+msgstr "Berjalan di latar belakang"
 
 msgid "Running now"
 msgstr "Berjalan sekarang"

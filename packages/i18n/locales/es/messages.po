@@ -2954,6 +2954,9 @@ msgstr "Rama"
 msgid "Branch behavior for new workspaces on this device. Projects can override the prefix individually."
 msgstr "Comportamiento de las ramas para los espacios de trabajo nuevos en este dispositivo. Los proyectos pueden anular el prefijo individualmente."
 
+msgid "Branch from here"
+msgstr "Crear rama desde aquí"
+
 msgid "Branch in a new worktree"
 msgstr "Bifurcar en un nuevo worktree"
 
@@ -4644,6 +4647,9 @@ msgstr "No se pudo responder al agente"
 msgid "Could not attach files"
 msgstr "No se pudieron adjuntar los archivos"
 
+msgid "Could not branch the chat"
+msgstr "No se pudo crear una rama del chat"
+
 msgid "Could not change the mode"
 msgstr "No se pudo cambiar el modo"
 
@@ -4813,6 +4819,9 @@ msgstr "No se pudo reiniciar el servicio de host"
 msgid "Could not resume"
 msgstr "No se pudo reanudar"
 
+msgid "Could not resume the chat"
+msgstr "No se pudo reanudar el chat"
+
 msgid "Could not send"
 msgstr "No se pudo enviar"
 
@@ -4834,6 +4843,9 @@ msgstr "No se pudo iniciar el aprovisionamiento del espacio de trabajo en la nub
 msgid "Could not start session"
 msgstr "No se pudo iniciar la sesión"
 
+msgid "Could not start the chat"
+msgstr "No se pudo iniciar el chat"
+
 msgid "Could not steer"
 msgstr "No se pudo redirigir"
 
@@ -4842,6 +4854,9 @@ msgstr "No se pudo detener"
 
 msgid "Could not stop the agent"
 msgstr "No se pudo detener el agente"
+
+msgid "Could not stop the task"
+msgstr "No se pudo detener la tarea"
 
 msgid "Could not stop watching"
 msgstr "No se pudo dejar de observar"
@@ -13591,6 +13606,9 @@ msgstr "Resultados"
 msgid "Resume"
 msgstr "Reanudar"
 
+msgid "Resume a chat"
+msgstr "Reanudar un chat"
+
 msgid "Resume args"
 msgstr "Argumentos de reanudación"
 
@@ -13881,6 +13899,9 @@ msgstr "Los agentes en marcha en este perfil perderán el acceso."
 
 msgid "Running bun test…"
 msgstr "Ejecutando bun test…"
+
+msgid "Running in the background"
+msgstr "En segundo plano"
 
 msgid "Running now"
 msgstr "Ejecutando ahora"

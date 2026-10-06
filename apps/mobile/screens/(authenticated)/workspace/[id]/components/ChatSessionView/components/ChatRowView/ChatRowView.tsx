@@ -9,30 +9,33 @@ import type {
 	UserMessage,
 } from "@superset/chat/protocol";
 import { memo } from "react";
-import { View } from "react-native";
-import { MessageResponse } from "@/components/ai-elements/message";
 import {
 	Reasoning,
 	ReasoningContent,
 	ReasoningTrigger,
 } from "@/components/ai-elements/reasoning";
-import { Shimmer } from "@/components/ai-elements/shimmer";
-import { Text } from "@/components/ui/text";
-import type { ChatRow } from "../../utils/chatRows";
+import type { ChatRow, GroupPosition } from "../../utils/chatRows";
 import { ApprovalCard } from "../ApprovalCard";
 import { PlanCard } from "../PlanCard";
+import { SystemLine } from "../SystemLine";
 import { ToolCallItem } from "../ToolCallItem";
 import { ToolRunItem } from "../ToolRunItem";
 import { UserMessageBubble } from "../UserMessageBubble";
+import { ActivityRow } from "./components/ActivityRow";
+import { AgentMessage } from "./components/AgentMessage";
+import { TypingIndicator } from "./components/TypingIndicator";
 
 interface ChatRowViewProps {
 	row: ChatRow;
+	position: GroupPosition;
 	/** The streamed text for a message or thought, else its stored text. */
 	text: string;
 	harness: string | undefined;
 	onRespond: (approvalId: string, decision: Decision) => Promise<void>;
 	onRetryPrompt: (clientId: string) => void;
 	onDiscardPrompt: (clientId: string) => void;
+	onLongPressMessage: (itemId: string) => void;
+	onOpenActivity: (key: string) => void;
 }
 
 function sameRow(a: ChatRow, b: ChatRow): boolean {
@@ -43,6 +46,14 @@ function sameRow(a: ChatRow, b: ChatRow): boolean {
 			a.items.length === b.items.length &&
 			a.items.every((item, index) => item === b.items[index])
 		);
+	if (a.kind === "activity" && b.kind === "activity")
+		return (
+			a.rows.length === b.rows.length &&
+			a.rows.every((row, index) => {
+				const other = b.rows[index];
+				return other !== undefined && sameRow(row, other);
+			})
+		);
 	if (a.kind === "turn_status" && b.kind === "turn_status")
 		return a.status === b.status && a.message === b.message;
 	return a.kind === b.kind;
@@ -51,17 +62,21 @@ function sameRow(a: ChatRow, b: ChatRow): boolean {
 export const ChatRowView = memo(
 	function ChatRowView({
 		row,
+		position,
 		text,
 		harness,
 		onRespond,
 		onRetryPrompt,
 		onDiscardPrompt,
+		onLongPressMessage,
+		onOpenActivity,
 	}: ChatRowViewProps) {
 		const { t } = useLingui();
+		const endsGroup = position === "single" || position === "last";
 
 		switch (row.kind) {
 			case "working":
-				return <Shimmer>{t({ message: "Working…" })}</Shimmer>;
+				return <TypingIndicator label={t({ message: "Working…" })} />;
 			case "outbox":
 				return (
 					<UserMessageBubble
@@ -76,16 +91,23 @@ export const ChatRowView = memo(
 				);
 			case "turn_status":
 				return (
-					<Text className="text-muted-foreground text-xs">
+					<SystemLine tone={row.status === "failed" ? "error" : "muted"}>
 						{row.status === "interrupted" ? (
 							<Trans>Stopped</Trans>
 						) : (
 							(row.message ?? <Trans>The turn failed</Trans>)
 						)}
-					</Text>
+					</SystemLine>
 				);
 			case "tool_run":
 				return <ToolRunItem items={row.items} />;
+			case "activity":
+				return (
+					<ActivityRow
+						onPress={() => onOpenActivity(row.key)}
+						rows={row.rows}
+					/>
+				);
 			case "item":
 				break;
 		}
@@ -100,7 +122,13 @@ export const ChatRowView = memo(
 					/>
 				);
 			case "agent_message":
-				return <MessageResponse>{text}</MessageResponse>;
+				return (
+					<AgentMessage
+						onBranch={() => onLongPressMessage(item.id)}
+						showActions={endsGroup && item.completedAtMs !== undefined}
+						text={text}
+					/>
+				);
 			case "reasoning": {
 				const streaming = item.completedAtMs === undefined;
 				const duration =
@@ -108,7 +136,11 @@ export const ChatRowView = memo(
 						? undefined
 						: Math.round((item.completedAtMs - item.startedAtMs) / 1000);
 				return (
-					<Reasoning duration={duration} isStreaming={streaming}>
+					<Reasoning
+						className="mb-0 w-full"
+						duration={duration}
+						isStreaming={streaming}
+					>
 						<ReasoningTrigger />
 						<ReasoningContent>
 							{text || ((item as ReasoningItem).summary ?? "")}
@@ -131,17 +163,9 @@ export const ChatRowView = memo(
 				const notice = item as Notice;
 				if (!notice.text) return null;
 				return (
-					<View className="px-1">
-						<Text
-							className={
-								notice.noticeKind === "error"
-									? "text-destructive text-xs"
-									: "text-muted-foreground text-xs"
-							}
-						>
-							{notice.text}
-						</Text>
-					</View>
+					<SystemLine tone={notice.noticeKind === "error" ? "error" : "muted"}>
+						{notice.text}
+					</SystemLine>
 				);
 			}
 			default:
@@ -150,9 +174,12 @@ export const ChatRowView = memo(
 	},
 	(prev, next) =>
 		sameRow(prev.row, next.row) &&
+		prev.position === next.position &&
 		prev.text === next.text &&
 		prev.harness === next.harness &&
 		prev.onRespond === next.onRespond &&
 		prev.onRetryPrompt === next.onRetryPrompt &&
-		prev.onDiscardPrompt === next.onDiscardPrompt,
+		prev.onDiscardPrompt === next.onDiscardPrompt &&
+		prev.onLongPressMessage === next.onLongPressMessage &&
+		prev.onOpenActivity === next.onOpenActivity,
 );

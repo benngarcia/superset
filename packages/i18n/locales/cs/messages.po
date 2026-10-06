@@ -2954,6 +2954,9 @@ msgstr "Větev"
 msgid "Branch behavior for new workspaces on this device. Projects can override the prefix individually."
 msgstr "Chování větví u nových pracovních prostorů na tomto zařízení. Projekty si prefix mohou nastavit samostatně."
 
+msgid "Branch from here"
+msgstr "Větvit odsud"
+
 msgid "Branch in a new worktree"
 msgstr "Rozvětvit do nového worktree"
 
@@ -4644,6 +4647,9 @@ msgstr "Agentovi se nepodařilo odpovědět"
 msgid "Could not attach files"
 msgstr "Soubory se nepodařilo přiložit"
 
+msgid "Could not branch the chat"
+msgstr "Chat se nepodařilo rozvětvit"
+
 msgid "Could not change the mode"
 msgstr "Režim se nepodařilo změnit"
 
@@ -4813,6 +4819,9 @@ msgstr "Službu hostitele se nepodařilo restartovat"
 msgid "Could not resume"
 msgstr "Pokračování se nezdařilo"
 
+msgid "Could not resume the chat"
+msgstr "V chatu se nepodařilo pokračovat"
+
 msgid "Could not send"
 msgstr "Nepodařilo se odeslat"
 
@@ -4834,6 +4843,9 @@ msgstr "Nepodařilo se spustit provisioning cloudového pracovního prostoru"
 msgid "Could not start session"
 msgstr "Relaci se nepodařilo spustit"
 
+msgid "Could not start the chat"
+msgstr "Chat se nepodařilo spustit"
+
 msgid "Could not steer"
 msgstr "Změna směru se nezdařila"
 
@@ -4842,6 +4854,9 @@ msgstr "Nepodařilo se ho zastavit"
 
 msgid "Could not stop the agent"
 msgstr "Agenta se nepodařilo zastavit"
+
+msgid "Could not stop the task"
+msgstr "Úlohu se nepodařilo zastavit"
 
 msgid "Could not stop watching"
 msgstr "Nepodařilo se přestat sledovat"
@@ -13591,6 +13606,9 @@ msgstr "Výsledky"
 msgid "Resume"
 msgstr "Pokračovat"
 
+msgid "Resume a chat"
+msgstr "Pokračovat v chatu"
+
 msgid "Resume args"
 msgstr "Argumenty pro pokračování"
 
@@ -13881,6 +13899,9 @@ msgstr "Běžící agenti na tomto profilu ztratí přístup."
 
 msgid "Running bun test…"
 msgstr "Spouštím bun test…"
+
+msgid "Running in the background"
+msgstr "Běží na pozadí"
 
 msgid "Running now"
 msgstr "Spouštím"

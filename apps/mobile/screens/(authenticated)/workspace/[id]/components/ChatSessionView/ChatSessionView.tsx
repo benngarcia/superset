@@ -2,23 +2,41 @@ import { Trans, useLingui } from "@lingui/react/macro";
 import { deriveQueuedPrompts, displayText } from "@superset/chat/core";
 import type { Decision } from "@superset/chat/protocol";
 import { useChatSession, useTimeline } from "@superset/chat/react";
-import { CircleStop } from "lucide-react-native";
+import { randomUUID } from "expo-crypto";
+import { useRouter } from "expo-router";
 import {
 	forwardRef,
 	useCallback,
 	useEffect,
 	useImperativeHandle,
 	useMemo,
+	useRef,
+	useState,
 } from "react";
 import { ActionSheetIOS, Alert, Pressable, View } from "react-native";
 import { Conversation } from "@/components/ai-elements/conversation";
-import { Icon } from "@/components/ui/icon";
 import { Text } from "@/components/ui/text";
-import { type ChatHost, createChatSessionClient } from "@/lib/chat";
+import {
+	type ChatHost,
+	createChatSessionClient,
+	getChatTransport,
+} from "@/lib/chat";
 import { errorCopy } from "@/lib/errors";
+import { usePendingChatLaunchStore } from "@/screens/(authenticated)/stores/pendingChatLaunchStore";
+import { useActiveChatStore } from "../../stores/activeChatStore";
+import { useChatActivityStore } from "../../stores/chatActivityStore";
 import { ChatRowView } from "./components/ChatRowView";
 import { QueuedPrompts } from "./components/QueuedPrompts";
-import { type ChatRow, chatRows, runningTurnId } from "./utils/chatRows";
+import {
+	type ChatRow,
+	chatRows,
+	groupActivity,
+	groupPositions,
+	runningTurnId,
+} from "./utils/chatRows";
+import { launchConfigSelections } from "./utils/launchConfigSelections";
+
+const CONFIG_OPTIONS_GRACE_MS = 1000;
 
 export interface ChatSessionViewHandle {
 	send: (text: string) => Promise<void>;
@@ -26,8 +44,10 @@ export interface ChatSessionViewHandle {
 
 interface ChatSessionViewProps {
 	sessionId: string;
+	workspaceId: string;
 	host: ChatHost;
 	hostUrl: string;
+	onOpenSession: (sessionId: string) => void;
 }
 
 /**
@@ -38,7 +58,10 @@ interface ChatSessionViewProps {
 export const ChatSessionView = forwardRef<
 	ChatSessionViewHandle,
 	ChatSessionViewProps
->(function ChatSessionView({ sessionId, host, hostUrl }, ref) {
+>(function ChatSessionView(
+	{ sessionId, workspaceId, host, hostUrl, onOpenSession },
+	ref,
+) {
 	const { t } = useLingui();
 	const { organizationId, machineId } = host;
 	const client = useMemo(
@@ -55,9 +78,11 @@ export const ChatSessionView = forwardRef<
 	const chat = useChatSession({ client });
 	const groups = useTimeline(chat.snapshot);
 	const rows = useMemo(
-		() => chatRows(groups, chat.outbox),
+		() => groupActivity(chatRows(groups, chat.outbox)),
 		[groups, chat.outbox],
 	);
+	const positions = useMemo(() => groupPositions(rows), [rows]);
+	const [dockHeight, setDockHeight] = useState(0);
 	const queued = useMemo(
 		() => deriveQueuedPrompts(chat.snapshot),
 		[chat.snapshot],
@@ -66,16 +91,34 @@ export const ChatSessionView = forwardRef<
 	const harness = session?.harness;
 	const turnId = runningTurnId(groups);
 
-	useImperativeHandle(
-		ref,
-		() => ({
-			send: async (text: string) => {
-				if (!text.trim()) return;
-				chat.sendPrompt([{ type: "text", text }]);
-			},
-		}),
-		[chat],
+	const hasPendingLaunch = usePendingChatLaunchStore(
+		(state) => sessionId in state.bySessionId,
 	);
+	const launchStarted = useRef(false);
+	const configOptions = session?.configOptions;
+	const agentStatus = session?.status;
+	useEffect(() => {
+		if (!hasPendingLaunch || launchStarted.current) return;
+		if (chat.status !== "ready") return;
+		const run = async (options: NonNullable<typeof configOptions>) => {
+			launchStarted.current = true;
+			const launch = usePendingChatLaunchStore.getState().take(sessionId);
+			if (!launch) return;
+			for (const selection of launchConfigSelections(options, launch)) {
+				await chat
+					.setConfigOption(selection.configId, selection.value)
+					.catch(() => {});
+			}
+			if (launch.content.length > 0) chat.sendPrompt(launch.content);
+		};
+		if (configOptions) {
+			void run(configOptions);
+			return;
+		}
+		if (agentStatus !== "idle") return;
+		const timer = setTimeout(() => void run([]), CONFIG_OPTIONS_GRACE_MS);
+		return () => clearTimeout(timer);
+	}, [hasPendingLaunch, chat, configOptions, agentStatus, sessionId]);
 
 	const failAlert = useCallback(
 		(title: string) => (cause: unknown) => Alert.alert(title, errorCopy(cause)),
@@ -98,44 +141,154 @@ export const ChatSessionView = forwardRef<
 			.catch(failAlert(t({ message: "Could not stop the agent" })));
 	}, [chat, turnId, failAlert, t]);
 
-	const modes = session?.availableModes ?? [];
-	const currentMode = modes.find((mode) => mode.id === session?.modeId);
-	const pickMode = useCallback(() => {
-		const cancel = t({ message: "Cancel" });
-		ActionSheetIOS.showActionSheetWithOptions(
-			{
-				options: [...modes.map((mode) => mode.label), cancel],
-				cancelButtonIndex: modes.length,
+	const stopTask = useCallback(
+		(taskId: string) => {
+			const title = t({ message: "Could not stop the task" });
+			void chat
+				.stopBackgroundTask(taskId)
+				.then((stopped) => {
+					if (!stopped) Alert.alert(title);
+				})
+				.catch(failAlert(title));
+		},
+		[chat, failAlert, t],
+	);
+
+	const branchFrom = useCallback(
+		(itemId: string) => {
+			ActionSheetIOS.showActionSheetWithOptions(
+				{
+					options: [
+						t({ message: "Branch from here" }),
+						t({ message: "Cancel" }),
+					],
+					cancelButtonIndex: 1,
+				},
+				(index) => {
+					if (index !== 0) return;
+					const transport = getChatTransport(hostUrl);
+					void transport
+						.forkSession({
+							commandId: randomUUID(),
+							sessionId,
+							workspaceId,
+							fromItemId: itemId,
+						})
+						.then((forked) => {
+							if (!forked) {
+								Alert.alert(
+									t({ message: "This agent can't branch a conversation" }),
+								);
+								return;
+							}
+							onOpenSession(forked.sessionId);
+							void transport.closeSession({ sessionId }).catch(() => {});
+						})
+						.catch(failAlert(t({ message: "Could not branch the chat" })));
+				},
+			);
+		},
+		[hostUrl, sessionId, workspaceId, onOpenSession, failAlert, t],
+	);
+
+	const availableModes = session?.availableModes;
+	const modes = useMemo(() => availableModes ?? [], [availableModes]);
+	const selectMode = useCallback(
+		(modeId: string) =>
+			void chat
+				.setMode(modeId)
+				.catch(failAlert(t({ message: "Could not change the mode" }))),
+		[chat, failAlert, t],
+	);
+
+	const backgroundTasks = session?.backgroundTasks;
+	const actionsRef = useRef({ selectMode, stopTask, stop });
+	actionsRef.current = { selectMode, stopTask, stop };
+	useEffect(() => {
+		useActiveChatStore.getState().publish(sessionId, {
+			modes,
+			currentModeId: session?.modeId,
+			backgroundTasks: backgroundTasks ?? [],
+			running: turnId !== null,
+			selectMode: (modeId) => actionsRef.current.selectMode(modeId),
+			stopTask: (taskId) => actionsRef.current.stopTask(taskId),
+			stop: () => actionsRef.current.stop(),
+		});
+	}, [sessionId, modes, session?.modeId, backgroundTasks, turnId]);
+	useEffect(
+		() => () => useActiveChatStore.getState().clear(sessionId),
+		[sessionId],
+	);
+
+	useImperativeHandle(
+		ref,
+		() => ({
+			send: async (text: string) => {
+				if (!text.trim()) return;
+				chat.sendPrompt([{ type: "text", text }]);
 			},
-			(index) => {
-				const mode = modes[index];
-				if (!mode) return;
-				void chat
-					.setMode(mode.id)
-					.catch(failAlert(t({ message: "Could not change the mode" })));
-			},
-		);
-	}, [modes, chat, failAlert, t]);
+		}),
+		[chat],
+	);
+
+	const router = useRouter();
+	const reasoningTexts = useCallback(
+		(activity: ChatRow[]) =>
+			Object.fromEntries(
+				activity.flatMap((row) =>
+					row.kind === "item" && row.item.kind === "reasoning"
+						? [[row.item.id, displayText(chat.snapshot, row.item.id)]]
+						: [],
+				),
+			),
+		[chat.snapshot],
+	);
+	const openActivity = useCallback(
+		(key: string) => {
+			const row = rows.find((candidate) => candidate.key === key);
+			if (row?.kind !== "activity") return;
+			useChatActivityStore
+				.getState()
+				.open(key, row.rows, reasoningTexts(row.rows));
+			router.push(`/(authenticated)/workspace/${workspaceId}/activity`);
+		},
+		[rows, reasoningTexts, router, workspaceId],
+	);
+	const openActivityKey = useChatActivityStore((state) => state.openKey);
+	useEffect(() => {
+		if (!openActivityKey) return;
+		const row = rows.find((candidate) => candidate.key === openActivityKey);
+		if (row?.kind !== "activity") return;
+		useChatActivityStore.getState().publish(row.rows, reasoningTexts(row.rows));
+	}, [openActivityKey, rows, reasoningTexts]);
 
 	const renderRow = useCallback(
-		({ item: row }: { item: ChatRow }) => (
-			<View className="pb-4">
-				<ChatRowView
-					harness={harness}
-					onDiscardPrompt={chat.discardPrompt}
-					onRespond={onRespond}
-					onRetryPrompt={chat.retryPrompt}
-					row={row}
-					text={
-						row.kind === "item" &&
-						(row.item.kind === "agent_message" || row.item.kind === "reasoning")
-							? displayText(chat.snapshot, row.item.id)
-							: ""
-					}
-				/>
-			</View>
-		),
-		[harness, chat, onRespond],
+		({ item: row, index }: { item: ChatRow; index: number }) => {
+			const position = positions[index] ?? "single";
+			const endsGroup = position === "single" || position === "last";
+			return (
+				<View className={endsGroup ? "pb-5" : "pb-2.5"}>
+					<ChatRowView
+						harness={harness}
+						onDiscardPrompt={chat.discardPrompt}
+						onLongPressMessage={branchFrom}
+						onOpenActivity={openActivity}
+						onRespond={onRespond}
+						onRetryPrompt={chat.retryPrompt}
+						position={position}
+						row={row}
+						text={
+							row.kind === "item" &&
+							(row.item.kind === "agent_message" ||
+								row.item.kind === "reasoning")
+								? displayText(chat.snapshot, row.item.id)
+								: ""
+						}
+					/>
+				</View>
+			);
+		},
+		[harness, chat, onRespond, branchFrom, positions, openActivity],
 	);
 
 	const banner =
@@ -148,10 +301,8 @@ export const ChatSessionView = forwardRef<
 	return (
 		<View className="flex-1">
 			{banner ? (
-				<View className="bg-muted px-3 py-1.5">
-					<Text className="text-muted-foreground text-center text-xs">
-						{banner}
-					</Text>
+				<View className="bg-secondary absolute top-2 z-10 self-center rounded-full px-3.5 py-1.5">
+					<Text className="text-foreground text-xs font-medium">{banner}</Text>
 				</View>
 			) : null}
 			<Conversation
@@ -162,67 +313,43 @@ export const ChatSessionView = forwardRef<
 					chat.hasOlder ? (
 						<Pressable
 							accessibilityRole="button"
-							className="items-center pb-4"
+							className="bg-secondary mb-4 self-center rounded-full px-3.5 py-1.5 active:opacity-70"
 							onPress={() => void chat.loadOlder()}
 						>
-							<Text className="text-muted-foreground text-xs font-medium">
+							<Text className="text-foreground text-xs font-medium">
 								<Trans>Load earlier messages</Trans>
 							</Text>
 						</Pressable>
 					) : null
 				}
-				ListFooterComponent={
-					<View className="gap-3 pb-4">
-						<QueuedPrompts
-							onRemove={(itemId) =>
-								void chat
-									.removeQueuedPrompt(itemId)
-									.catch(failAlert(t({ message: "Could not delete" })))
-							}
-							onResume={() =>
-								void chat
-									.resumeQueue()
-									.catch(failAlert(t({ message: "Could not resume" })))
-							}
-							onSteer={(itemId) =>
-								void chat
-									.steerQueuedPrompt(itemId)
-									.catch(failAlert(t({ message: "Could not steer" })))
-							}
-							paused={session?.queuePaused === true}
-							prompts={queued}
-						/>
-						<View className="flex-row items-center justify-between gap-3">
-							{currentMode ? (
-								<Pressable
-									accessibilityRole="button"
-									className="border-border rounded-full border px-3 py-1"
-									onPress={pickMode}
-								>
-									<Text className="text-muted-foreground text-xs">
-										{currentMode.label}
-									</Text>
-								</Pressable>
-							) : (
-								<View />
-							)}
-							{turnId ? (
-								<Pressable
-									accessibilityRole="button"
-									className="border-border flex-row items-center gap-1.5 rounded-full border px-3 py-1"
-									onPress={stop}
-								>
-									<Icon as={CircleStop} className="text-foreground size-3.5" />
-									<Text className="text-foreground text-xs font-medium">
-										<Trans>Stop</Trans>
-									</Text>
-								</Pressable>
-							) : null}
-						</View>
-					</View>
-				}
+				ListFooterComponent={<View style={{ height: dockHeight + 8 }} />}
 				renderItem={renderRow}
 			/>
+			<View
+				className="absolute inset-x-0 bottom-0 gap-2 px-3 pb-2"
+				onLayout={(event) => setDockHeight(event.nativeEvent.layout.height)}
+				pointerEvents="box-none"
+			>
+				<QueuedPrompts
+					onRemove={(itemId) =>
+						void chat
+							.removeQueuedPrompt(itemId)
+							.catch(failAlert(t({ message: "Could not delete" })))
+					}
+					onResume={() =>
+						void chat
+							.resumeQueue()
+							.catch(failAlert(t({ message: "Could not resume" })))
+					}
+					onSteer={(itemId) =>
+						void chat
+							.steerQueuedPrompt(itemId)
+							.catch(failAlert(t({ message: "Could not steer" })))
+					}
+					paused={session?.queuePaused === true}
+					prompts={queued}
+				/>
+			</View>
 		</View>
 	);
 });

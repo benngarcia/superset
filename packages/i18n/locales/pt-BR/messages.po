@@ -2954,6 +2954,9 @@ msgstr "Branch"
 msgid "Branch behavior for new workspaces on this device. Projects can override the prefix individually."
 msgstr "Comportamento de branch para novas áreas de trabalho neste dispositivo. Cada projeto pode sobrescrever o prefixo."
 
+msgid "Branch from here"
+msgstr "Ramificar a partir daqui"
+
 msgid "Branch in a new worktree"
 msgstr "Ramificar em um novo worktree"
 
@@ -4644,6 +4647,9 @@ msgstr "Não foi possível responder ao agente"
 msgid "Could not attach files"
 msgstr "Não foi possível anexar os arquivos"
 
+msgid "Could not branch the chat"
+msgstr "Não foi possível ramificar o chat"
+
 msgid "Could not change the mode"
 msgstr "Não foi possível mudar o modo"
 
@@ -4813,6 +4819,9 @@ msgstr "Não foi possível reiniciar o serviço de host"
 msgid "Could not resume"
 msgstr "Não foi possível retomar"
 
+msgid "Could not resume the chat"
+msgstr "Não foi possível retomar o chat"
+
 msgid "Could not send"
 msgstr "Não foi possível enviar"
 
@@ -4834,6 +4843,9 @@ msgstr "Não foi possível iniciar o provisionamento da área de trabalho na nuv
 msgid "Could not start session"
 msgstr "Não foi possível iniciar a sessão"
 
+msgid "Could not start the chat"
+msgstr "Não foi possível iniciar o chat"
+
 msgid "Could not steer"
 msgstr "Não foi possível redirecionar"
 
@@ -4842,6 +4854,9 @@ msgstr "Não foi possível parar"
 
 msgid "Could not stop the agent"
 msgstr "Não foi possível parar o agente"
+
+msgid "Could not stop the task"
+msgstr "Não foi possível parar a tarefa"
 
 msgid "Could not stop watching"
 msgstr "Não foi possível parar de observar"
@@ -13591,6 +13606,9 @@ msgstr "Resultados"
 msgid "Resume"
 msgstr "Retomar"
 
+msgid "Resume a chat"
+msgstr "Retomar um chat"
+
 msgid "Resume args"
 msgstr "Argumentos de retomada"
 
@@ -13881,6 +13899,9 @@ msgstr "Os agentes em execução neste perfil perdem o acesso."
 
 msgid "Running bun test…"
 msgstr "Executando bun test…"
+
+msgid "Running in the background"
+msgstr "Em segundo plano"
 
 msgid "Running now"
 msgstr "Executando agora"

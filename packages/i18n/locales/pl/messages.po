@@ -2954,6 +2954,9 @@ msgstr "Gałąź"
 msgid "Branch behavior for new workspaces on this device. Projects can override the prefix individually."
 msgstr "Zachowanie gałęzi dla nowych obszarów roboczych na tym urządzeniu. Projekty mogą nadpisać prefiks osobno."
 
+msgid "Branch from here"
+msgstr "Rozgałęź od tego miejsca"
+
 msgid "Branch in a new worktree"
 msgstr "Rozgałęź w nowym worktree"
 
@@ -4644,6 +4647,9 @@ msgstr "Nie udało się odpowiedzieć agentowi"
 msgid "Could not attach files"
 msgstr "Nie udało się załączyć plików"
 
+msgid "Could not branch the chat"
+msgstr "Nie udało się rozgałęzić czatu"
+
 msgid "Could not change the mode"
 msgstr "Nie udało się zmienić trybu"
 
@@ -4813,6 +4819,9 @@ msgstr "Nie udało się ponownie uruchomić usługi hosta"
 msgid "Could not resume"
 msgstr "Nie udało się wznowić"
 
+msgid "Could not resume the chat"
+msgstr "Nie udało się wznowić czatu"
+
 msgid "Could not send"
 msgstr "Nie udało się wysłać"
 
@@ -4834,6 +4843,9 @@ msgstr "Nie udało się rozpocząć provisioningu obszaru roboczego w chmurze"
 msgid "Could not start session"
 msgstr "Nie udało się uruchomić sesji"
 
+msgid "Could not start the chat"
+msgstr "Nie udało się rozpocząć czatu"
+
 msgid "Could not steer"
 msgstr "Nie udało się przekierować"
 
@@ -4842,6 +4854,9 @@ msgstr "Nie udało się zatrzymać"
 
 msgid "Could not stop the agent"
 msgstr "Nie udało się zatrzymać agenta"
+
+msgid "Could not stop the task"
+msgstr "Nie udało się zatrzymać zadania"
 
 msgid "Could not stop watching"
 msgstr "Nie udało się przestać obserwować"
@@ -13591,6 +13606,9 @@ msgstr "Wyniki"
 msgid "Resume"
 msgstr "Wznów"
 
+msgid "Resume a chat"
+msgstr "Wznów czat"
+
 msgid "Resume args"
 msgstr "Argumenty wznawiania"
 
@@ -13881,6 +13899,9 @@ msgstr "Działający agenci na tym profilu stracą dostęp."
 
 msgid "Running bun test…"
 msgstr "Uruchamianie bun test…"
+
+msgid "Running in the background"
+msgstr "Działa w tle"
 
 msgid "Running now"
 msgstr "Uruchamianie teraz"

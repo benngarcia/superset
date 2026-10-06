@@ -2,10 +2,10 @@ import { Trans } from "@lingui/react/macro";
 import type { ApprovalRequest, Decision } from "@superset/chat/protocol";
 import { ShieldQuestion } from "lucide-react-native";
 import { useState } from "react";
-import { View } from "react-native";
-import { Button } from "@/components/ui/button";
+import { Pressable, View } from "react-native";
 import { Icon } from "@/components/ui/icon";
 import { Text } from "@/components/ui/text";
+import { cn } from "@/lib/utils";
 
 const DETAIL_CHARS = 600;
 
@@ -22,7 +22,6 @@ function detailText(approval: ApprovalRequest): string {
 	return text.length > DETAIL_CHARS ? `${text.slice(0, DETAIL_CHARS)}…` : text;
 }
 
-/** Deny first: on a phone the thumb lands on the first button. */
 function choices(
 	approval: ApprovalRequest,
 ): { key: string; label: string | null; decision: Decision; deny: boolean }[] {
@@ -78,32 +77,44 @@ export function ApprovalCard({
 	};
 
 	return (
-		<View className="border-border bg-card gap-3 rounded-lg border p-3">
+		<View className="w-full gap-3 rounded-xl border border-white/10 bg-[#1C1C1C] p-3">
 			<View className="flex-row items-center gap-2">
-				<Icon as={ShieldQuestion} className="text-foreground size-4" />
-				<Text className="text-foreground min-w-0 flex-1 text-sm font-medium">
+				<Icon as={ShieldQuestion} className="text-muted-foreground size-4" />
+				<Text className="text-foreground min-w-0 flex-1 text-[14px] font-medium">
 					{approval.title}
 				</Text>
 			</View>
 			{detail ? (
-				<Text className="text-muted-foreground font-mono text-xs" selectable>
+				<Text
+					className="text-muted-foreground rounded-lg bg-black/40 px-3 py-2 font-mono text-xs"
+					selectable
+				>
 					{detail}
 				</Text>
 			) : null}
-			<View className="flex-row flex-wrap gap-2">
+			<View className="flex-row flex-wrap justify-end gap-2">
 				{choices(approval).map((choice) => (
-					<Button
+					<Pressable
+						accessibilityRole="button"
+						className={cn(
+							"rounded-md px-3 py-1.5 active:opacity-70",
+							choice.deny ? "bg-white/10" : "bg-white",
+							sending && "opacity-50",
+						)}
 						disabled={sending}
 						key={choice.key}
 						onPress={() => respond(choice.decision)}
-						size="sm"
-						variant={choice.deny ? "outline" : "default"}
 					>
-						<Text>
+						<Text
+							className={cn(
+								"text-[13px] font-medium",
+								choice.deny ? "text-foreground" : "text-black",
+							)}
+						>
 							{choice.label ??
 								(choice.deny ? <Trans>Deny</Trans> : <Trans>Allow</Trans>)}
 						</Text>
-					</Button>
+					</Pressable>
 				))}
 			</View>
 		</View>

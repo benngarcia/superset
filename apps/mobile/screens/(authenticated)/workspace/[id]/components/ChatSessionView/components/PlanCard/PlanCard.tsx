@@ -13,8 +13,8 @@ const ICON_BY_STATUS = {
 
 export function PlanCard({ plan }: { plan: Plan }) {
 	return (
-		<View className="border-border gap-1.5 rounded-lg border p-3">
-			<Text className="text-foreground text-xs font-medium">
+		<View className="w-full gap-2 rounded-xl border border-white/10 bg-[#1C1C1C] px-3.5 py-3">
+			<Text className="text-foreground text-[13px] font-semibold">
 				<Trans>Plan</Trans>
 			</Text>
 			{plan.entries.map((entry, index) => (
@@ -24,13 +24,13 @@ export function PlanCard({ plan }: { plan: Plan }) {
 				>
 					<Icon
 						as={ICON_BY_STATUS[entry.status]}
-						className="text-muted-foreground mt-0.5 size-3"
+						className="text-muted-foreground mt-0.5 size-3.5"
 					/>
 					<Text
 						className={
 							entry.status === "completed"
-								? "text-muted-foreground min-w-0 flex-1 text-xs line-through"
-								: "text-foreground min-w-0 flex-1 text-xs"
+								? "text-muted-foreground min-w-0 flex-1 text-[13px] line-through"
+								: "text-foreground min-w-0 flex-1 text-[13px]"
 						}
 					>
 						{entry.text}

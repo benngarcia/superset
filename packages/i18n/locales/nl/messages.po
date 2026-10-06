@@ -2954,6 +2954,9 @@ msgstr "Branch"
 msgid "Branch behavior for new workspaces on this device. Projects can override the prefix individually."
 msgstr "Branchgedrag voor nieuwe werkruimtes op dit apparaat. Projecten kunnen de prefix apart overschrijven."
 
+msgid "Branch from here"
+msgstr "Vanaf hier vertakken"
+
 msgid "Branch in a new worktree"
 msgstr "Afsplitsen in een nieuwe worktree"
 
@@ -4644,6 +4647,9 @@ msgstr "Kan de agent niet antwoorden"
 msgid "Could not attach files"
 msgstr "Kan bestanden niet toevoegen"
 
+msgid "Could not branch the chat"
+msgstr "Kan de chat niet vertakken"
+
 msgid "Could not change the mode"
 msgstr "Kan de modus niet wijzigen"
 
@@ -4813,6 +4819,9 @@ msgstr "Kon de hostservice niet opnieuw starten"
 msgid "Could not resume"
 msgstr "Kan niet hervatten"
 
+msgid "Could not resume the chat"
+msgstr "Kan de chat niet hervatten"
+
 msgid "Could not send"
 msgstr "Versturen mislukt"
 
@@ -4834,6 +4843,9 @@ msgstr "Kan het provisioneren van de cloudwerkruimte niet starten"
 msgid "Could not start session"
 msgstr "Kan sessie niet starten"
 
+msgid "Could not start the chat"
+msgstr "Kan de chat niet starten"
+
 msgid "Could not steer"
 msgstr "Kan niet bijsturen"
 
@@ -4842,6 +4854,9 @@ msgstr "Kon niet worden gestopt"
 
 msgid "Could not stop the agent"
 msgstr "Kan de agent niet stoppen"
+
+msgid "Could not stop the task"
+msgstr "Kan de taak niet stoppen"
 
 msgid "Could not stop watching"
 msgstr "Kon niet stoppen met volgen"
@@ -13591,6 +13606,9 @@ msgstr "Resultaten"
 msgid "Resume"
 msgstr "Hervatten"
 
+msgid "Resume a chat"
+msgstr "Chat hervatten"
+
 msgid "Resume args"
 msgstr "Resume-argumenten"
 
@@ -13881,6 +13899,9 @@ msgstr "Draaiende agents op dit profiel verliezen toegang."
 
 msgid "Running bun test…"
 msgstr "bun test uitvoeren…"
+
+msgid "Running in the background"
+msgstr "Draait op de achtergrond"
 
 msgid "Running now"
 msgstr "Wordt nu uitgevoerd"

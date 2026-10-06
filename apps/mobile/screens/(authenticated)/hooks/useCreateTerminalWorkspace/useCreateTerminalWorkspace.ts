@@ -1,14 +1,25 @@
+import { useLingui } from "@lingui/react/macro";
+import type { UserContent } from "@superset/chat/protocol";
+import {
+	getAgentEfforts,
+	getAgentModelSupport,
+} from "@superset/shared/agent-models";
+import { FEATURE_FLAGS } from "@superset/shared/constants";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { randomUUID } from "expo-crypto";
 import { useRouter } from "expo-router";
+import { useFeatureFlag } from "posthog-react-native";
+import { Alert } from "react-native";
 import { getHostWorkspacesQueryKey } from "@/hooks/useHostWorkspaces";
 import { asAttachmentError } from "@/lib/attachments/errors";
+import { getChatTransport, harnessForAgent } from "@/lib/chat";
 import { errorCopy, transportFailureKind } from "@/lib/errors";
 import { getHostServiceClientByUrl } from "@/lib/host-service/client";
 import { isMissingProcedureError } from "@/lib/host-service/errors";
 import { posthog } from "@/lib/posthog";
 import { getHostTerminalsQueryKey } from "@/screens/(authenticated)/(home)/home/hooks/useHostTerminals";
 import { useAppReviewStore } from "@/screens/(authenticated)/stores/appReviewStore";
+import { usePendingChatLaunchStore } from "@/screens/(authenticated)/stores/pendingChatLaunchStore";
 import {
 	type PendingWorkspaceCreateInput,
 	usePendingWorkspaceCreatesStore,
@@ -28,16 +39,30 @@ type CreateTerminalWorkspaceArgs = PendingWorkspaceCreateInput & {
 async function importAttachments(
 	client: ReturnType<typeof getHostServiceClientByUrl>,
 	fileIds: string[],
-): Promise<string[]> {
+) {
 	if (fileIds.length === 0) return [];
 	try {
-		const imported = await client.attachments.importFromCloud.mutate({
-			fileIds,
-		});
-		return imported.map((entry) => entry.attachmentId);
+		return await client.attachments.importFromCloud.mutate({ fileIds });
 	} catch (error) {
 		throw asAttachmentError(error);
 	}
+}
+
+const WORKSPACE_ROW_POLL_MS = 2_000;
+const WORKSPACE_ROW_TIMEOUT_MS = 5 * 60_000;
+const NAMING_PROMPT_MAX_CHARS = 20_000;
+
+async function waitForWorkspaceRow(
+	client: ReturnType<typeof getHostServiceClientByUrl>,
+	workspaceId: string,
+): Promise<void> {
+	const deadline = Date.now() + WORKSPACE_ROW_TIMEOUT_MS;
+	while (Date.now() < deadline) {
+		const rows = await client.workspace.list.query().catch(() => null);
+		if (rows?.some((row) => row.id === workspaceId)) return;
+		await new Promise((resolve) => setTimeout(resolve, WORKSPACE_ROW_POLL_MS));
+	}
+	throw new Error("The workspace was not created in time");
 }
 
 /**
@@ -55,14 +80,18 @@ async function importAttachments(
  * Failures surface on that screen too (via the store's `error`), never here.
  */
 export function useCreateTerminalWorkspace() {
+	const { t } = useLingui();
 	const router = useRouter();
 	const queryClient = useQueryClient();
 	const startPending = usePendingWorkspaceCreatesStore((state) => state.start);
 	const failPending = usePendingWorkspaceCreatesStore((state) => state.fail);
+	const acpChat = Boolean(useFeatureFlag(FEATURE_FLAGS.ACP_CHAT));
+	const queueChatLaunch = usePendingChatLaunchStore((state) => state.queue);
 
 	return useMutation({
 		mutationFn: async ({ replace, ...input }: CreateTerminalWorkspaceArgs) => {
 			const { target, baseBranch, agentId, model, effort, message } = input;
+			const chatHarness = acpChat ? harnessForAgent(agentId) : undefined;
 			const workspaceId = randomUUID();
 			startPending({
 				workspaceId,
@@ -81,20 +110,32 @@ export function useCreateTerminalWorkspace() {
 			let createRequested = false;
 			try {
 				const client = getHostServiceClientByUrl(target.hostUrl);
-				const attachmentIds = await importAttachments(
+				const imported = await importAttachments(
 					client,
 					input.attachmentFileIds,
 				);
+				const attachmentIds = imported.map((entry) => entry.attachmentId);
+				const prompt = message.text.trim();
 
-				const agents = [
-					{
-						agent: agentId,
-						prompt: message.text.trim(),
-						attachmentIds: attachmentIds.length > 0 ? attachmentIds : undefined,
-						model: model ?? undefined,
-						effort: effort ?? undefined,
-					},
-				];
+				const agents = chatHarness
+					? undefined
+					: [
+							{
+								agent: agentId,
+								prompt,
+								attachmentIds:
+									attachmentIds.length > 0 ? attachmentIds : undefined,
+								model: model ?? undefined,
+								effort: effort ?? undefined,
+							},
+						];
+				const naming =
+					chatHarness && prompt
+						? {
+								namingPrompt: prompt.slice(0, NAMING_PROMPT_MAX_CHARS),
+								namingAgent: agentId,
+							}
+						: {};
 
 				const refetchCreated = () => {
 					void queryClient.invalidateQueries({
@@ -113,6 +154,7 @@ export function useCreateTerminalWorkspace() {
 					await client.workspaces.createSession.mutate({
 						id: workspaceId,
 						agents,
+						...naming,
 					});
 					refetchCreated();
 				} else {
@@ -121,6 +163,7 @@ export function useCreateTerminalWorkspace() {
 						projectId: target.projectId,
 						baseBranch: baseBranch ?? undefined,
 						agents,
+						...naming,
 					};
 					try {
 						createRequested = true;
@@ -135,6 +178,45 @@ export function useCreateTerminalWorkspace() {
 						refetchCreated();
 					}
 				}
+				if (chatHarness) {
+					try {
+						await waitForWorkspaceRow(client, workspaceId);
+						const created = await getChatTransport(
+							target.hostUrl,
+						).createSession({
+							commandId: randomUUID(),
+							workspaceId,
+							harness: chatHarness,
+							modelId: model ?? undefined,
+						});
+						const content: UserContent[] = [
+							...(prompt ? [{ type: "text" as const, text: prompt }] : []),
+							...imported.map((entry) => ({
+								type: "attachment" as const,
+								attachmentId: entry.attachmentId,
+								name: entry.originalFilename ?? "attachment",
+								mimeType: entry.mediaType,
+							})),
+						];
+						queueChatLaunch(created.sessionId, {
+							content,
+							modelLabel:
+								getAgentModelSupport(agentId)?.models.find(
+									(option) => option.id === model,
+								)?.label ?? null,
+							effortLabel:
+								getAgentEfforts(agentId, model ?? undefined).find(
+									(option) => option.id === effort,
+								)?.label ?? null,
+						});
+						refetchCreated();
+					} catch (error) {
+						Alert.alert(
+							t({ message: "Could not start the chat" }),
+							errorCopy(error),
+						);
+					}
+				}
 				// The host emits `workspace_created` itself when the row lands; this
 				// is only the client asking, and counting both would double.
 				posthog.capture("workspace_create_requested", {
@@ -146,6 +228,7 @@ export function useCreateTerminalWorkspace() {
 					agent: agentId,
 					model,
 					effort,
+					surface: chatHarness ? "chat" : "terminal",
 				});
 				useAppReviewStore.getState().recordWorkspaceCreated();
 				return { workspaceId };

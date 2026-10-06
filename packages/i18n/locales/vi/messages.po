@@ -2954,6 +2954,9 @@ msgstr "Nhánh"
 msgid "Branch behavior for new workspaces on this device. Projects can override the prefix individually."
 msgstr "Hành vi nhánh cho workspace mới trên thiết bị này. Từng dự án có thể ghi đè tiền tố riêng."
 
+msgid "Branch from here"
+msgstr "Phân nhánh từ đây"
+
 msgid "Branch in a new worktree"
 msgstr "Tạo nhánh trong worktree mới"
 
@@ -4644,6 +4647,9 @@ msgstr "Không thể trả lời agent"
 msgid "Could not attach files"
 msgstr "Không thể đính kèm tệp"
 
+msgid "Could not branch the chat"
+msgstr "Không thể phân nhánh cuộc trò chuyện"
+
 msgid "Could not change the mode"
 msgstr "Không thể đổi chế độ"
 
@@ -4813,6 +4819,9 @@ msgstr "Không thể khởi động lại dịch vụ máy chủ"
 msgid "Could not resume"
 msgstr "Không thể tiếp tục"
 
+msgid "Could not resume the chat"
+msgstr "Không thể tiếp tục cuộc trò chuyện"
+
 msgid "Could not send"
 msgstr "Không thể gửi"
 
@@ -4834,6 +4843,9 @@ msgstr "Không thể bắt đầu cấp phát workspace trên cloud"
 msgid "Could not start session"
 msgstr "Không thể bắt đầu phiên"
 
+msgid "Could not start the chat"
+msgstr "Không thể bắt đầu cuộc trò chuyện"
+
 msgid "Could not steer"
 msgstr "Không thể điều hướng"
 
@@ -4842,6 +4854,9 @@ msgstr "Không thể dừng"
 
 msgid "Could not stop the agent"
 msgstr "Không thể dừng agent"
+
+msgid "Could not stop the task"
+msgstr "Không thể dừng tác vụ"
 
 msgid "Could not stop watching"
 msgstr "Không thể ngừng theo dõi"
@@ -13591,6 +13606,9 @@ msgstr "Kết quả"
 msgid "Resume"
 msgstr "Tiếp tục"
 
+msgid "Resume a chat"
+msgstr "Tiếp tục cuộc trò chuyện"
+
 msgid "Resume args"
 msgstr "Tham số resume"
 
@@ -13881,6 +13899,9 @@ msgstr "Các agent đang chạy trên hồ sơ này sẽ mất quyền truy cậ
 
 msgid "Running bun test…"
 msgstr "Đang chạy bun test…"
+
+msgid "Running in the background"
+msgstr "Đang chạy nền"
 
 msgid "Running now"
 msgstr "Đang chạy ngay"

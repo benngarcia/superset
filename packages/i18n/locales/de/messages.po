@@ -2954,6 +2954,9 @@ msgstr "Branch"
 msgid "Branch behavior for new workspaces on this device. Projects can override the prefix individually."
 msgstr "Branch-Verhalten für neue Arbeitsbereiche auf diesem Gerät. Projekte können das Präfix einzeln überschreiben."
 
+msgid "Branch from here"
+msgstr "Ab hier verzweigen"
+
 msgid "Branch in a new worktree"
 msgstr "In einem neuen Worktree verzweigen"
 
@@ -4644,6 +4647,9 @@ msgstr "Antwort an den Agenten nicht möglich"
 msgid "Could not attach files"
 msgstr "Dateien konnten nicht angehängt werden"
 
+msgid "Could not branch the chat"
+msgstr "Der Chat konnte nicht verzweigt werden"
+
 msgid "Could not change the mode"
 msgstr "Modus konnte nicht geändert werden"
 
@@ -4813,6 +4819,9 @@ msgstr "Der Host-Dienst konnte nicht neu gestartet werden"
 msgid "Could not resume"
 msgstr "Fortsetzen nicht möglich"
 
+msgid "Could not resume the chat"
+msgstr "Der Chat konnte nicht fortgesetzt werden"
+
 msgid "Could not send"
 msgstr "Senden nicht möglich"
 
@@ -4834,6 +4843,9 @@ msgstr "Bereitstellung des Cloud-Arbeitsbereichs konnte nicht gestartet werden"
 msgid "Could not start session"
 msgstr "Sitzung konnte nicht gestartet werden"
 
+msgid "Could not start the chat"
+msgstr "Der Chat konnte nicht gestartet werden"
+
 msgid "Could not steer"
 msgstr "Steuern nicht möglich"
 
@@ -4842,6 +4854,9 @@ msgstr "Konnte nicht beendet werden"
 
 msgid "Could not stop the agent"
 msgstr "Agent konnte nicht gestoppt werden"
+
+msgid "Could not stop the task"
+msgstr "Die Aufgabe konnte nicht gestoppt werden"
 
 msgid "Could not stop watching"
 msgstr "Beobachten ließ sich nicht beenden"
@@ -13591,6 +13606,9 @@ msgstr "Ergebnisse"
 msgid "Resume"
 msgstr "Fortsetzen"
 
+msgid "Resume a chat"
+msgstr "Chat fortsetzen"
+
 msgid "Resume args"
 msgstr "Resume-Argumente"
 
@@ -13881,6 +13899,9 @@ msgstr "Laufende Agenten dieses Profils verlieren den Zugriff."
 
 msgid "Running bun test…"
 msgstr "bun test läuft…"
+
+msgid "Running in the background"
+msgstr "Läuft im Hintergrund"
 
 msgid "Running now"
 msgstr "Läuft jetzt"
