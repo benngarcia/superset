@@ -2,7 +2,6 @@ import {
 	calendar,
 	freeSlots,
 	instant,
-	optionalString,
 	requireString,
 	stringList,
 	text,
@@ -29,14 +28,12 @@ export const availabilityHandlers: Record<string, Handler> = {
 		if (!Number.isFinite(minutes) || minutes <= 0) {
 			throw new Error("durationMinutes must be a positive number");
 		}
-		const timeZone = optionalString(args, "timeZone");
 
 		const data = await calendar<FreeBusyResponse>(accessToken, ["freeBusy"], {
 			method: "POST",
 			body: {
 				timeMin,
 				timeMax,
-				...(timeZone ? { timeZone } : {}),
 				items: calendarIds.map((id) => ({ id })),
 			},
 		});
@@ -45,12 +42,13 @@ export const availabilityHandlers: Record<string, Handler> = {
 		const busy: { start: number; end: number }[] = [];
 		for (const id of calendarIds) {
 			const entry = data.calendars?.[id];
-			const reason = entry?.errors?.[0]?.reason;
-			if (reason) {
+			if (!entry || entry.errors?.length) {
+				const reason =
+					entry?.errors?.[0]?.reason ?? "missing from Google's reply";
 				lines.push(`${id}: not readable (${reason}); its busy time is unknown`);
 				continue;
 			}
-			const blocks = entry?.busy ?? [];
+			const blocks = entry.busy ?? [];
 			lines.push(`${id}: ${blocks.length} busy block(s)`);
 			for (const block of blocks) {
 				lines.push(`  busy ${block.start} → ${block.end}`);

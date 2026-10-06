@@ -13,6 +13,11 @@ export async function calendar<T = Record<string, unknown>>(
 	segments: string[],
 	request: CalendarRequest = {},
 ): Promise<T> {
+	for (const segment of segments) {
+		if (segment === "." || segment === "..") {
+			throw new Error(`invalid Google Calendar path segment "${segment}"`);
+		}
+	}
 	const url = new URL(
 		`${BASE}/${segments.map((segment) => encodeURIComponent(segment)).join("/")}`,
 	);

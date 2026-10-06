@@ -116,7 +116,7 @@ export function getTools(): ToolDefinition[] {
 		),
 		tool(
 			"find_free_time",
-			"Finds windows where every given calendar is free, from Google's free/busy data. Works for other people's calendars when they share free/busy",
+			"Finds windows where every given calendar is free, from Google's free/busy data. Works for other people's calendars when they share free/busy. Windows are reported in UTC and ignore working hours",
 			{
 				calendarIds: {
 					type: "array",
@@ -130,7 +130,6 @@ export function getTools(): ToolDefinition[] {
 					type: "number",
 					description: "Shortest window to report. Default 30.",
 				},
-				timeZone: TIME_ZONE,
 			},
 			["timeMin", "timeMax"],
 			true,

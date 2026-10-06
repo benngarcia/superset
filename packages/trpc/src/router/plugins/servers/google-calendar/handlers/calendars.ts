@@ -12,12 +12,18 @@ interface CalendarListEntry {
 
 export const calendarHandlers: Record<string, Handler> = {
 	list_calendars: async (_args, accessToken) => {
-		const data = await calendar<{ items?: CalendarListEntry[] }>(accessToken, [
-			"users",
-			"me",
-			"calendarList",
-		]);
-		const calendars = data.items ?? [];
+		const calendars: CalendarListEntry[] = [];
+		let pageToken: string | undefined;
+		do {
+			const page = await calendar<{
+				items?: CalendarListEntry[];
+				nextPageToken?: string;
+			}>(accessToken, ["users", "me", "calendarList"], {
+				query: { pageToken, maxResults: 250 },
+			});
+			calendars.push(...(page.items ?? []));
+			pageToken = page.nextPageToken;
+		} while (pageToken);
 		if (!calendars.length) return text("No calendars found");
 		const lines = [`${calendars.length} calendar(s)`];
 		for (const entry of calendars) {

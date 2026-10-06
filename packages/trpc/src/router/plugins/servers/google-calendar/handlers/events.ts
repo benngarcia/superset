@@ -121,14 +121,9 @@ function times(
 	const endValue = optionalString(args, "end");
 	const start = startValue ? eventTime(startValue, "start", zone) : undefined;
 	let end = endValue ? eventTime(endValue, "end", zone) : undefined;
-	if (
-		start &&
-		end &&
-		"date" in start &&
-		"date" in end &&
-		end.date <= start.date
-	) {
-		end = { date: nextDay(start.date) };
+	if (start && end && "date" in start && "date" in end) {
+		if (end.date < start.date) throw new Error("end is before start");
+		if (end.date === start.date) end = { date: nextDay(start.date) };
 	}
 	return { start, end };
 }
@@ -159,7 +154,10 @@ export const eventHandlers: Record<string, Handler> = {
 	list_events: async (args, accessToken) => {
 		const timeMin = optionalString(args, "timeMin");
 		const timeMax = optionalString(args, "timeMax");
-		const maxResults = Math.min(Number(args.maxResults ?? 50), 250);
+		const maxResults = Number(args.maxResults ?? 50);
+		if (!Number.isInteger(maxResults) || maxResults < 1 || maxResults > 250) {
+			throw new Error("maxResults must be a whole number from 1 to 250");
+		}
 		const data = await calendar<{
 			items?: CalendarEvent[];
 			nextPageToken?: string;
@@ -282,8 +280,8 @@ export const eventHandlers: Record<string, Handler> = {
 		}
 		const segments = ["calendars", cid, "events", eventId];
 		const current = await calendar<CalendarEvent>(accessToken, segments);
-		const list = current.attendees ?? [];
-		if (!list.some((attendee) => attendee.self)) {
+		const self = current.attendees?.find((attendee) => attendee.self);
+		if (!self?.email) {
 			throw new Error(
 				"You are not an attendee of this event, so there is no invitation to respond to",
 			);
@@ -292,9 +290,8 @@ export const eventHandlers: Record<string, Handler> = {
 			method: "PATCH",
 			query: { sendUpdates: "all" },
 			body: {
-				attendees: list.map((attendee) =>
-					attendee.self ? { ...attendee, responseStatus: response } : attendee,
-				),
+				attendeesOmitted: true,
+				attendees: [{ email: self.email, responseStatus: response }],
 			},
 		});
 		return text(`✓ Responded ${response}\n${describe(event)}`);
