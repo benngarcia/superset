@@ -25,15 +25,16 @@ import { errorCopy } from "@/lib/errors";
 import { usePendingChatLaunchStore } from "@/screens/(authenticated)/stores/pendingChatLaunchStore";
 import { useActiveChatStore } from "../../stores/activeChatStore";
 import { useChatActivityStore } from "../../stores/chatActivityStore";
-import { ChatRowView } from "./components/ChatRowView";
-import { QueuedPrompts } from "./components/QueuedPrompts";
 import {
 	type ChatRow,
 	chatRows,
 	groupActivity,
 	groupPositions,
 	runningTurnId,
-} from "./utils/chatRows";
+} from "../../utils/chatRows";
+import { ChatRowView } from "../ChatRowView";
+import { QueuedPrompts } from "./components/QueuedPrompts";
+import { StickToBottom } from "./components/StickToBottom";
 import { launchConfigSelections } from "./utils/launchConfigSelections";
 
 const CONFIG_OPTIONS_GRACE_MS = 1000;
@@ -182,7 +183,6 @@ export const ChatSessionView = forwardRef<
 								return;
 							}
 							onOpenSession(forked.sessionId);
-							void transport.closeSession({ sessionId }).catch(() => {});
 						})
 						.catch(failAlert(t({ message: "Could not branch the chat" })));
 				},
@@ -193,11 +193,19 @@ export const ChatSessionView = forwardRef<
 
 	const availableModes = session?.availableModes;
 	const modes = useMemo(() => availableModes ?? [], [availableModes]);
+	const confirmedModeId = session?.modeId;
+	const [pendingModeId, setPendingModeId] = useState<string>();
+	useEffect(() => {
+		setPendingModeId(undefined);
+	}, [confirmedModeId]);
 	const selectMode = useCallback(
-		(modeId: string) =>
-			void chat
-				.setMode(modeId)
-				.catch(failAlert(t({ message: "Could not change the mode" }))),
+		(modeId: string) => {
+			setPendingModeId(modeId);
+			void chat.setMode(modeId).catch((cause: unknown) => {
+				setPendingModeId(undefined);
+				failAlert(t({ message: "Could not change the mode" }))(cause);
+			});
+		},
 		[chat, failAlert, t],
 	);
 
@@ -207,14 +215,21 @@ export const ChatSessionView = forwardRef<
 	useEffect(() => {
 		useActiveChatStore.getState().publish(sessionId, {
 			modes,
-			currentModeId: session?.modeId,
+			currentModeId: pendingModeId ?? confirmedModeId,
 			backgroundTasks: backgroundTasks ?? [],
 			running: turnId !== null,
 			selectMode: (modeId) => actionsRef.current.selectMode(modeId),
 			stopTask: (taskId) => actionsRef.current.stopTask(taskId),
 			stop: () => actionsRef.current.stop(),
 		});
-	}, [sessionId, modes, session?.modeId, backgroundTasks, turnId]);
+	}, [
+		sessionId,
+		modes,
+		pendingModeId,
+		confirmedModeId,
+		backgroundTasks,
+		turnId,
+	]);
 	useEffect(
 		() => () => useActiveChatStore.getState().clear(sessionId),
 		[sessionId],
@@ -301,7 +316,7 @@ export const ChatSessionView = forwardRef<
 	return (
 		<View className="flex-1">
 			{banner ? (
-				<View className="bg-secondary absolute top-2 z-10 self-center rounded-full px-3.5 py-1.5">
+				<View className="bg-secondary mt-2 self-center rounded-full px-3.5 py-1.5">
 					<Text className="text-foreground text-xs font-medium">{banner}</Text>
 				</View>
 			) : null}
@@ -324,7 +339,9 @@ export const ChatSessionView = forwardRef<
 				}
 				ListFooterComponent={<View style={{ height: dockHeight + 8 }} />}
 				renderItem={renderRow}
-			/>
+			>
+				<StickToBottom inset={dockHeight} />
+			</Conversation>
 			<View
 				className="absolute inset-x-0 bottom-0 gap-2 px-3 pb-2"
 				onLayout={(event) => setDockHeight(event.nativeEvent.layout.height)}

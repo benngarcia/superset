@@ -14,16 +14,16 @@ import {
 	ReasoningContent,
 	ReasoningTrigger,
 } from "@/components/ai-elements/reasoning";
+import { Shimmer } from "@/components/ai-elements/shimmer";
 import type { ChatRow, GroupPosition } from "../../utils/chatRows";
-import { ApprovalCard } from "../ApprovalCard";
-import { PlanCard } from "../PlanCard";
-import { SystemLine } from "../SystemLine";
-import { ToolCallItem } from "../ToolCallItem";
-import { ToolRunItem } from "../ToolRunItem";
-import { UserMessageBubble } from "../UserMessageBubble";
 import { ActivityRow } from "./components/ActivityRow";
 import { AgentMessage } from "./components/AgentMessage";
-import { TypingIndicator } from "./components/TypingIndicator";
+import { ApprovalCard } from "./components/ApprovalCard";
+import { PlanCard } from "./components/PlanCard";
+import { SystemLine } from "./components/SystemLine";
+import { ToolCallItem } from "./components/ToolCallItem";
+import { ToolRunItem } from "./components/ToolRunItem";
+import { UserMessageBubble } from "./components/UserMessageBubble";
 
 interface ChatRowViewProps {
 	row: ChatRow;
@@ -76,7 +76,11 @@ export const ChatRowView = memo(
 
 		switch (row.kind) {
 			case "working":
-				return <TypingIndicator label={t({ message: "Working…" })} />;
+				return (
+					<Shimmer className="text-[14px]">
+						{t({ message: "Working…" })}
+					</Shimmer>
+				);
 			case "outbox":
 				return (
 					<UserMessageBubble

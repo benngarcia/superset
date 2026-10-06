@@ -1,4 +1,1 @@
-export {
-	type ConfigSelection,
-	launchConfigSelections,
-} from "./launchConfigSelections";
+export { launchConfigSelections } from "./launchConfigSelections";

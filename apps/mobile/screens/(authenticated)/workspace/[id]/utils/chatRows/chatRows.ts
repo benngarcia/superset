@@ -143,11 +143,11 @@ export function groupActivity(rows: readonly ChatRow[]): ChatRow[] {
 	return grouped;
 }
 
-export type RowSide = "user" | "agent" | "system";
+type RowSide = "user" | "agent" | "system";
 
 export type GroupPosition = "single" | "first" | "middle" | "last";
 
-export function rowSide(row: ChatRow): RowSide {
+function rowSide(row: ChatRow): RowSide {
 	switch (row.kind) {
 		case "outbox":
 			return "user";

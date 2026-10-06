@@ -52,6 +52,8 @@ const WORKSPACE_ROW_POLL_MS = 2_000;
 const WORKSPACE_ROW_TIMEOUT_MS = 5 * 60_000;
 const NAMING_PROMPT_MAX_CHARS = 20_000;
 
+class WorkspaceRowTimeoutError extends Error {}
+
 async function waitForWorkspaceRow(
 	client: ReturnType<typeof getHostServiceClientByUrl>,
 	workspaceId: string,
@@ -62,7 +64,7 @@ async function waitForWorkspaceRow(
 		if (rows?.some((row) => row.id === workspaceId)) return;
 		await new Promise((resolve) => setTimeout(resolve, WORKSPACE_ROW_POLL_MS));
 	}
-	throw new Error("The workspace was not created in time");
+	throw new WorkspaceRowTimeoutError();
 }
 
 /**
@@ -85,6 +87,7 @@ export function useCreateTerminalWorkspace() {
 	const queryClient = useQueryClient();
 	const startPending = usePendingWorkspaceCreatesStore((state) => state.start);
 	const failPending = usePendingWorkspaceCreatesStore((state) => state.fail);
+	const clearPending = usePendingWorkspaceCreatesStore((state) => state.clear);
 	const acpChat = Boolean(useFeatureFlag(FEATURE_FLAGS.ACP_CHAT));
 	const queueChatLaunch = usePendingChatLaunchStore((state) => state.queue);
 
@@ -179,43 +182,47 @@ export function useCreateTerminalWorkspace() {
 					}
 				}
 				if (chatHarness) {
-					try {
-						await waitForWorkspaceRow(client, workspaceId);
-						const created = await getChatTransport(
-							target.hostUrl,
-						).createSession({
-							commandId: randomUUID(),
-							workspaceId,
-							harness: chatHarness,
-							modelId: model ?? undefined,
-						});
-						const content: UserContent[] = [
-							...(prompt ? [{ type: "text" as const, text: prompt }] : []),
-							...imported.map((entry) => ({
-								type: "attachment" as const,
-								attachmentId: entry.attachmentId,
-								name: entry.originalFilename ?? "attachment",
-								mimeType: entry.mediaType,
-							})),
-						];
-						queueChatLaunch(created.sessionId, {
-							content,
-							modelLabel:
-								getAgentModelSupport(agentId)?.models.find(
-									(option) => option.id === model,
-								)?.label ?? null,
-							effortLabel:
-								getAgentEfforts(agentId, model ?? undefined).find(
-									(option) => option.id === effort,
-								)?.label ?? null,
-						});
-						refetchCreated();
-					} catch (error) {
-						Alert.alert(
-							t({ message: "Could not start the chat" }),
-							errorCopy(error),
-						);
-					}
+					void (async () => {
+						try {
+							await waitForWorkspaceRow(client, workspaceId);
+							const created = await getChatTransport(
+								target.hostUrl,
+							).createSession({
+								commandId: randomUUID(),
+								workspaceId,
+								harness: chatHarness,
+								modelId: model ?? undefined,
+							});
+							const content: UserContent[] = [
+								...(prompt ? [{ type: "text" as const, text: prompt }] : []),
+								...imported.map((entry) => ({
+									type: "attachment" as const,
+									attachmentId: entry.attachmentId,
+									name: entry.originalFilename ?? "attachment",
+									mimeType: entry.mediaType,
+								})),
+							];
+							queueChatLaunch(created.sessionId, {
+								content,
+								modelLabel:
+									getAgentModelSupport(agentId)?.models.find(
+										(option) => option.id === model,
+									)?.label ?? null,
+								effortLabel:
+									getAgentEfforts(agentId, model ?? undefined).find(
+										(option) => option.id === effort,
+									)?.label ?? null,
+							});
+							refetchCreated();
+						} catch (error) {
+							if (error instanceof WorkspaceRowTimeoutError) return;
+							clearPending(workspaceId);
+							Alert.alert(
+								t({ message: "Could not start the chat" }),
+								errorCopy(error),
+							);
+						}
+					})();
 				}
 				// The host emits `workspace_created` itself when the row lands; this
 				// is only the client asking, and counting both would double.

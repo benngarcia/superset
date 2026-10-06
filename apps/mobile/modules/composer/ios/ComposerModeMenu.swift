@@ -24,11 +24,11 @@ struct ComposerModeMenu: View {
     options.first { $0.id == selectedId }
   }
 
-  private var selection: Binding<String> {
+  private var selection: Binding<String?> {
     Binding(
-      get: { selectedId ?? "" },
+      get: { selectedId },
       set: { id in
-        guard id != selectedId else { return }
+        guard let id, id != selectedId else { return }
         UISelectionFeedbackGenerator().selectionChanged()
         onSelect(id)
       }
@@ -39,7 +39,7 @@ struct ComposerModeMenu: View {
     Menu {
       Picker(selection: selection) {
         ForEach(options) { option in
-          Label(option.label, systemImage: option.symbol).tag(option.id)
+          Label(option.label, systemImage: option.symbol).tag(Optional(option.id))
         }
       } label: {
         EmptyView()
