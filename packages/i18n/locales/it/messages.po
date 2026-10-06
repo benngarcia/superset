@@ -4829,7 +4829,7 @@ msgid "Could not start the chat"
 msgstr "Impossibile avviare la chat"
 
 msgid "Could not steer"
-msgstr "Impossibile reindirizzare"
+msgstr "Impossibile interrompere e inviare"
 
 msgid "Could not stop it"
 msgstr "Impossibile arrestarlo"

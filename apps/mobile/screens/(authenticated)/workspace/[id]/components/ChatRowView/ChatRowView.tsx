@@ -15,7 +15,7 @@ import {
 	ReasoningTrigger,
 } from "@/components/ai-elements/reasoning";
 import { Shimmer } from "@/components/ai-elements/shimmer";
-import type { ChatRow, GroupPosition } from "../../utils/chatRows";
+import type { ChatRow } from "../../utils/chatRows";
 import { ActivityRow } from "./components/ActivityRow";
 import { AgentMessage } from "./components/AgentMessage";
 import { ApprovalCard } from "./components/ApprovalCard";
@@ -27,7 +27,7 @@ import { UserMessageBubble } from "./components/UserMessageBubble";
 
 interface ChatRowViewProps {
 	row: ChatRow;
-	position: GroupPosition;
+	isLastReply: boolean;
 	/** The streamed text for a message or thought, else its stored text. */
 	text: string;
 	harness: string | undefined;
@@ -62,7 +62,7 @@ function sameRow(a: ChatRow, b: ChatRow): boolean {
 export const ChatRowView = memo(
 	function ChatRowView({
 		row,
-		position,
+		isLastReply,
 		text,
 		harness,
 		onRespond,
@@ -72,7 +72,6 @@ export const ChatRowView = memo(
 		onOpenActivity,
 	}: ChatRowViewProps) {
 		const { t } = useLingui();
-		const endsGroup = position === "single" || position === "last";
 
 		switch (row.kind) {
 			case "working":
@@ -129,7 +128,7 @@ export const ChatRowView = memo(
 				return (
 					<AgentMessage
 						onBranch={() => onLongPressMessage(item.id)}
-						showActions={endsGroup && item.completedAtMs !== undefined}
+						showActions={isLastReply && item.completedAtMs !== undefined}
 						text={text}
 					/>
 				);
@@ -178,7 +177,7 @@ export const ChatRowView = memo(
 	},
 	(prev, next) =>
 		sameRow(prev.row, next.row) &&
-		prev.position === next.position &&
+		prev.isLastReply === next.isLastReply &&
 		prev.text === next.text &&
 		prev.harness === next.harness &&
 		prev.onRespond === next.onRespond &&

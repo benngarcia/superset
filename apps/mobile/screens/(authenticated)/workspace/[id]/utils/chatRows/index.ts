@@ -6,5 +6,6 @@ export {
 	groupActivity,
 	groupPositions,
 	isActivityLive,
+	lastReplyKeys,
 	runningTurnId,
 } from "./chatRows";

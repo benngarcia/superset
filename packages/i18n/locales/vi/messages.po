@@ -4829,7 +4829,7 @@ msgid "Could not start the chat"
 msgstr "Không thể bắt đầu cuộc trò chuyện"
 
 msgid "Could not steer"
-msgstr "Không thể điều hướng"
+msgstr "Không thể dừng và gửi"
 
 msgid "Could not stop it"
 msgstr "Không thể dừng"

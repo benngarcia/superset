@@ -18,7 +18,7 @@ interface NativeComposerViewProps {
 	selectedModel?: ComposerMenuOption;
 	launchOptions?: ComposerMenuOption[];
 	modeOptions?: ComposerModeOption[];
-	selectedModeId?: string;
+	selectedModeId?: string | null;
 	canStop?: boolean;
 	headerChips?: ComposerMenuOption[];
 	quickKeys?: ComposerQuickKey[];
@@ -512,8 +512,8 @@ export const Composer = forwardRef<ComposerHandle, ComposerProps>(
 				attachments={attachments}
 				selectedModel={selectedModel}
 				launchOptions={launchOptions}
-				modeOptions={modeOptions}
-				selectedModeId={selectedModeId}
+				modeOptions={modeOptions ?? []}
+				selectedModeId={selectedModeId ?? null}
 				canStop={canStop}
 				headerChips={headerChips}
 				quickKeys={quickKeys}

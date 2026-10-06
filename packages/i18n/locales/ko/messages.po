@@ -1381,7 +1381,7 @@ msgid "A better Superset is ready"
 msgstr "더 나은 Superset이 준비되었습니다"
 
 msgid "A chat takes its name from the agent."
-msgstr "채팅 이름은 에이전트가 정합니다."
+msgstr "채팅 이름은 에이전트 이름을 따릅니다."
 
 msgid "A cloud automation needs an environment or a cloud workspace"
 msgstr "클라우드 자동화에는 환경 또는 클라우드 워크스페이스가 필요합니다"

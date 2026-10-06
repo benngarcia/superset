@@ -4829,7 +4829,7 @@ msgid "Could not start the chat"
 msgstr "Sohbet başlatılamadı"
 
 msgid "Could not steer"
-msgstr "Yön değiştirilemedi"
+msgstr "Yönlendirilemedi"
 
 msgid "Could not stop it"
 msgstr "Durdurulamadı"

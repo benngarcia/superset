@@ -68,8 +68,18 @@ export function NewSessionSheet() {
 				workspaceId: workspace.id,
 				limit: 20,
 			});
+			const running = new Set(
+				rows.flatMap((row) =>
+					row.live && row.harnessSessionId ? [row.harnessSessionId] : [],
+				),
+			);
 			return rows
-				.filter((row) => row.live === false && row.harnessSessionId)
+				.filter(
+					(row) =>
+						row.live === false &&
+						row.harnessSessionId &&
+						!running.has(row.harnessSessionId),
+				)
 				.slice(0, 5);
 		},
 	});
