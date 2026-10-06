@@ -19,7 +19,7 @@ export function register(server: McpServer): void {
 		name: "pages_storage",
 		annotations: { readOnlyHint: true },
 		description:
-			"Read what viewers stored on a page through window.superset.storage. Each key holds one slot per person. Without key, lists every key with its record count and last update. With key, returns every person's slot for that key: name, value, and updatedAt. Access follows the page's visibility: anyone who can open the page can read its storage; anyone else gets an error. Address the page by id or slug; exactly one is required.",
+			"Read what viewers stored on a page through window.superset.storage. Each key holds one slot per person. Without key, lists every key with its record count and last update. With key, returns every person's slot for that key: name, value, and updatedAt. On a just_me page only the creator can read storage; on an org or everyone page, members of the page's organization can, even when the page is public. Anyone else gets an error. Address the page by id or slug; exactly one is required.",
 		inputSchema: z
 			.object({
 				id: optionalish(pageFields.id).describe("Page UUID."),

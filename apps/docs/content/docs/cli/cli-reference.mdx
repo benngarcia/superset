@@ -1385,8 +1385,9 @@ unless `--yes` is passed; non-interactive input does not prompt.
 Read what viewers stored with `window.superset.storage` on a page.
 Without `--key`, lists each key with its record count (KEY, RECORDS, UPDATED).
 With `--key`, lists each person's value for that key (NAME, VALUE, UPDATED).
-Storage follows the page's visibility: anyone who can open the page can read it.
-A page visible to everyone keeps its storage to the page's organization.
+On a `just_me` page only the creator can read storage. On an `org` or
+`everyone` page, members of the page's organization can read it, even when the
+page is public.
 
 ```bash
 superset pages storage weekly-report

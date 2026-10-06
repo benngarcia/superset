@@ -459,9 +459,16 @@ async function main() {
 
 	const memberKeys = await readback(ORG_PAGE, memberJwt);
 	const memberRecords = await readback(ORG_PAGE, memberJwt, "vote");
+	const memberKeyList = (memberKeys.body?.keys ?? []) as Record<
+		string,
+		unknown
+	>[];
 	check(
 		"readback lets an org member who did not create the page read it",
 		memberKeys.status === 200 &&
+			memberKeyList.length === 1 &&
+			memberKeyList[0]?.key === "vote" &&
+			memberKeyList[0]?.records === 2 &&
 			memberRecords.status === 200 &&
 			((memberRecords.body?.records ?? []) as unknown[]).length === 2,
 		{ memberKeys, memberRecords },

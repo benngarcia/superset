@@ -115,6 +115,6 @@ superset pages storage <page-id-or-slug>
 superset pages storage <page-id-or-slug> --key votes
 ```
 
-The first command lists each key and how many people stored a value under it. With `--key`, it prints each person's value and when they last changed it. Add `--json` for the raw records. Storage follows the page's visibility: anyone who can open the page can read it, and a page visible to everyone keeps its storage to the page's organization.
+The first command lists each key and how many people stored a value under it. With `--key`, it prints each person's value and when they last changed it. Add `--json` for the raw records. On a `just_me` page only the creator can read storage. On an `org` or `everyone` page, members of the page's organization can read it, even when the page is public.
 
 Agents connecting through MCP can publish, retrieve versions, read a page's storage, and reply to or resolve comments with the [Pages tools](/mcp-server#pages).

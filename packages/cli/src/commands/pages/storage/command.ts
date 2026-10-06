@@ -62,7 +62,7 @@ export async function readStorage({
 		case 403:
 			throw new CLIError(
 				error ?? "You cannot read this page's storage",
-				"Storage follows the page's visibility: only people who can open the page can read it",
+				"Only the creator can read a just_me page's storage; for other pages, members of the page's organization can",
 			);
 		case 404:
 			throw new CLIError(
