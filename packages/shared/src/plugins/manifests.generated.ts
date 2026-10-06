@@ -492,6 +492,100 @@ export const FIRST_PARTY_MANIFESTS = {
 			}
 		]
 	} as const,
+	"neon": {
+		"$schema": "https://superset.sh/schemas/plugin/1.0.0.json",
+		"name": "neon",
+		"version": "1.0.0",
+		"description": "Work with your Neon Postgres: inspect projects and branches, read schemas, and run SQL.",
+		"author": {
+			"name": "Superset",
+			"url": "https://superset.sh"
+		},
+		"homepage": "https://docs.superset.sh",
+		"repository": "https://github.com/superset-sh/superset",
+		"license": "MIT",
+		"keywords": [
+			"neon",
+			"postgres",
+			"database",
+			"sql",
+			"branches"
+		],
+		"extensions": {
+			"superset": {
+				"interface": {
+					"displayName": "Neon",
+					"category": "Data & APIs",
+					"icon": "neon"
+				},
+				"connector": {
+					"slug": "neon_mcp"
+				},
+				"bind": {
+					"headers": {
+						"Authorization": "Bearer ${config.access_token}"
+					}
+				},
+				"mcp": {
+					"type": "streamable-http",
+					"url": "https://mcp.neon.tech/mcp"
+				}
+			}
+		},
+		"skills": [
+			{
+				"name": "query-neon",
+				"description": "Answer a question from a Neon Postgres database, or change data in one, without touching the wrong branch — find the project and branch first, read the schema before writing SQL, and treat every write to a production branch as a change that needs the user's go-ahead. Use when the user asks what is in the database, asks to look up a row, a user, a count or a schema, or asks to run or fix SQL on Neon."
+			}
+		]
+	} as const,
+	"posthog": {
+		"$schema": "https://superset.sh/schemas/plugin/1.0.0.json",
+		"name": "posthog",
+		"version": "1.0.0",
+		"description": "Ask PostHog about your product: query events and insights, look up people, and check feature flags.",
+		"author": {
+			"name": "Superset",
+			"url": "https://superset.sh"
+		},
+		"homepage": "https://docs.superset.sh",
+		"repository": "https://github.com/superset-sh/superset",
+		"license": "MIT",
+		"keywords": [
+			"posthog",
+			"analytics",
+			"events",
+			"feature-flags",
+			"product"
+		],
+		"extensions": {
+			"superset": {
+				"interface": {
+					"displayName": "PostHog",
+					"category": "Data & APIs",
+					"icon": "posthog"
+				},
+				"connector": {
+					"slug": "posthog_mcp"
+				},
+				"bind": {
+					"headers": {
+						"Authorization": "Bearer ${config.access_token}"
+					}
+				},
+				"mcp": {
+					"type": "streamable-http",
+					"url": "https://mcp.posthog.com/mcp"
+				}
+			}
+		},
+		"skills": [
+			{
+				"name": "answer-with-posthog",
+				"description": "Answer a product question from PostHog data — how many, how often, who, what changed — by checking that the event and property exist before querying, picking the query that fits the question, and saying what was counted. Use when the user asks about usage, signups, retention, a funnel, a feature flag's rollout, or what a person did in the product."
+			}
+		]
+	} as const,
 } as const;
 
 export type FirstPartyPluginName = keyof typeof FIRST_PARTY_MANIFESTS;
