@@ -8071,9 +8071,6 @@ msgstr "如何在Superset中安装{name}"
 msgid "How we build it, in long form."
 msgstr "我们如何构建它，深入介绍。"
 
-msgid "How we work, each one written and signed by one of us."
-msgstr "我们的工作方式，每一条都由我们中的一人撰写并署名。"
-
 msgid "How your agents sign in inside cloud workspaces. Other people connect their own subscriptions or API keys; on this machine each agent keeps using the login already on it."
 msgstr "你的智能体在云端工作区中如何登录。其他人连接各自的订阅或API密钥；在这台机器上，每个智能体继续使用它上面已有的登录。"
 

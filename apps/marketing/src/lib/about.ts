@@ -27,14 +27,7 @@ export const aboutSchema = z.object({
 			featured: z.boolean().optional(),
 		}),
 	),
-	principles: z.array(
-		z.object({
-			title: z.string().min(1),
-			body: z.string().min(1),
-			author: z.string().min(1),
-			date: z.coerce.date(),
-		}),
-	),
+	belief: z.string().min(1),
 	timeline: z.array(
 		z.object({
 			date: z.coerce.date(),

@@ -8071,9 +8071,6 @@ msgstr "Cách cài {name} trong Superset"
 msgid "How we build it, in long form."
 msgstr "Cách chúng tôi xây dựng, chi tiết."
 
-msgid "How we work, each one written and signed by one of us."
-msgstr "Cách chúng tôi làm việc, mỗi nguyên tắc do một người trong chúng tôi viết và ký."
-
 msgid "How your agents sign in inside cloud workspaces. Other people connect their own subscriptions or API keys; on this machine each agent keeps using the login already on it."
 msgstr "Cách các agent của bạn đăng nhập bên trong workspace cloud. Người khác kết nối gói đăng ký hoặc khóa API của riêng họ; trên máy này mỗi agent vẫn dùng phiên đăng nhập sẵn có."
 

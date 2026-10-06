@@ -8071,9 +8071,6 @@ msgstr "Jak zainstalować {name} w Superset"
 msgid "How we build it, in long form."
 msgstr "Jak to budujemy, szczegółowo."
 
-msgid "How we work, each one written and signed by one of us."
-msgstr "Jak pracujemy. Każdą zasadę napisał i podpisał jeden z nas."
-
 msgid "How your agents sign in inside cloud workspaces. Other people connect their own subscriptions or API keys; on this machine each agent keeps using the login already on it."
 msgstr "Jak twoi agenci logują się w obszarach roboczych w chmurze. Inne osoby podłączają własne subskrypcje lub klucze API; na tej maszynie każdy agent nadal korzysta z logowania, które już na niej jest."
 

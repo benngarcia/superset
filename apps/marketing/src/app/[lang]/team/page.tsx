@@ -14,7 +14,6 @@ import { CTASection } from "../components/CTASection";
 import { FounderRow } from "./components/FounderRow";
 import { Investors } from "./components/Investors";
 import { PhotoFan } from "./components/PhotoFan";
-import { Principles } from "./components/Principles";
 import { ProofLinks } from "./components/ProofLinks";
 import { Timeline } from "./components/Timeline";
 
@@ -193,16 +192,9 @@ export default async function TeamPage() {
 					<h2 className="text-2xl md:text-3xl font-normal text-foreground mb-3">
 						<Trans>What we believe</Trans>
 					</h2>
-					<p className="text-muted-foreground mb-10 max-w-2xl">
-						<Trans>
-							How we work, each one written and signed by one of us.
-						</Trans>
+					<p className="mt-6 max-w-2xl text-lg md:text-xl leading-relaxed text-foreground/90">
+						{about.belief}
 					</p>
-					<Principles
-						principles={about.principles}
-						people={people}
-						locale={lang}
-					/>
 				</section>
 
 				<section className="mb-24 md:mb-32">
