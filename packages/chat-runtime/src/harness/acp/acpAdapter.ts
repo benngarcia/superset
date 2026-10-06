@@ -62,6 +62,7 @@ import {
 	acpSubagentUpdateSchema,
 	acpToolCallContentChunkSchema,
 	acpToolCallUpdateSchema,
+	acpUsageUpdateSchema,
 } from "./wire";
 
 /**
@@ -202,6 +203,18 @@ const APPROVAL_OPTION_KINDS = new Set([
 	"reject_always",
 ]);
 
+const MAIN_AGENT_ACTIVITY = new Set([
+	"agent_message_chunk",
+	"agent_thought_chunk",
+	"agent_message",
+	"agent_thought",
+	"tool_call",
+	"tool_call_update",
+	"tool_call_content_chunk",
+	"plan",
+	"plan_update",
+]);
+
 function isApprovalOptionKind(
 	kind: string | undefined,
 ): kind is "allow_once" | "allow_always" | "reject_once" | "reject_always" {
@@ -241,6 +254,9 @@ export class AcpAdapter implements HarnessAdapter {
 	private negotiatedVersion = 1;
 	private agentCapabilities: Record<string, unknown> = {};
 	private supportsSteering = false;
+	private cycleEnded = false;
+	private liveBackgroundTasks = 0;
+	private awaitingBackground = false;
 	/** The v2 config option that stands in for v1's session mode, once seen. */
 	private modeConfigId: string | null = null;
 	private modeId: string | undefined;
@@ -252,7 +268,11 @@ export class AcpAdapter implements HarnessAdapter {
 
 	constructor(private readonly options: AcpAdapterOptions) {
 		this.backgroundTasks = new BackgroundTasks(
-			(tasks) => this.emitSession({ backgroundTasks: tasks }),
+			(tasks) => {
+				this.liveBackgroundTasks = tasks.length;
+				this.emitSession({ backgroundTasks: tasks });
+				this.syncAwaitingBackground();
+			},
 			(taskId, detail) =>
 				this.emit({
 					kind: "delta",
@@ -713,6 +733,19 @@ export class AcpAdapter implements HarnessAdapter {
 		) {
 			this.handleSubagentActivity(outer.data.sessionId, outer.data.update);
 			return;
+		}
+
+		if (variant === "usage_update") {
+			const usage = acpUsageUpdateSchema.safeParse(outer.data.update);
+			if (usage.success && usage.data.cost !== undefined) {
+				this.cycleEnded = true;
+				this.syncAwaitingBackground();
+			}
+			return;
+		}
+		if (MAIN_AGENT_ACTIVITY.has(variant) && this.cycleEnded) {
+			this.cycleEnded = false;
+			this.syncAwaitingBackground();
 		}
 
 		const turnId = this.resolveTurnId();
@@ -1455,8 +1488,22 @@ export class AcpAdapter implements HarnessAdapter {
 	}
 
 	private emitTurn(turn: Turn): void {
+		if (turn.status !== "running" || turn.id !== this.currentTurn?.id) {
+			this.cycleEnded = false;
+		}
 		this.currentTurn = turn;
 		this.emit({ kind: "turn", turn });
+		this.syncAwaitingBackground();
+	}
+
+	private syncAwaitingBackground(): void {
+		const awaiting =
+			this.currentTurn?.status === "running" &&
+			this.cycleEnded &&
+			this.liveBackgroundTasks > 0;
+		if (awaiting === this.awaitingBackground) return;
+		this.awaitingBackground = awaiting;
+		this.emitSession({ awaitingBackground: awaiting });
 	}
 
 	private emitItem(item: Item, turnId: string): void {

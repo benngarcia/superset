@@ -25,7 +25,7 @@ export interface HarnessAdapter {
 	prompt(content: UserContent[]): void;
 	cancelTurn(): void;
 	canSteer?(): boolean;
-	/** Resolves false when the agent did not take the prompt into the running turn. */
+	/** Resolves false when the agent did not accept the prompt, so the caller queues it. */
 	steer?(content: UserContent[]): Promise<boolean>;
 	respondToApproval(approvalId: string, decision: Decision): void;
 	setMode(modeId: string): void;

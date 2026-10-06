@@ -1314,6 +1314,50 @@ describe("AcpAdapter on protocol v2", () => {
 		await adapter.dispose();
 	});
 
+	it("reports a running turn as awaiting background work once the agent's cycle ends", async () => {
+		const agent = new FakeAcpAgent();
+		agent.holdPrompts = true;
+		const { adapter, events } = startAdapter(agent);
+		await flush();
+		adapter.prompt([{ type: "text", text: "spawn a helper" }]);
+		await flush();
+		const awaiting = () =>
+			sessionsOf(events)
+				.filter((session) => session.awaitingBackground !== undefined)
+				.map((session) => session.awaitingBackground);
+
+		agent.notify("sess-1", {
+			sessionUpdate: "subagent_spawned",
+			subagentSessionId: "child-1",
+			name: "Helper",
+			task: "Help",
+		});
+		agent.notify("sess-1", {
+			sessionUpdate: "agent_message_chunk",
+			content: { type: "text", text: "Launched." },
+		});
+		await flush();
+		expect(awaiting()).toEqual([]);
+
+		agent.notify("sess-1", {
+			sessionUpdate: "usage_update",
+			used: 10,
+			size: 100,
+			cost: { amount: 0.01, currency: "USD" },
+		});
+		await flush();
+		expect(awaiting()).toEqual([true]);
+
+		agent.notify("sess-1", {
+			sessionUpdate: "agent_message_chunk",
+			content: { type: "text", text: "Answering you." },
+		});
+		await flush();
+		expect(awaiting()).toEqual([true, false]);
+
+		await adapter.dispose();
+	});
+
 	it("shows a subagent from its spawn until its state ends, keeping its session out of the transcript", async () => {
 		const agent = new FakeAcpAgent();
 		const { adapter, events } = startAdapter(

@@ -56,6 +56,8 @@ function withoutQueued(item: UserMessage): UserMessage {
 
 export class LiveSession {
 	private readonly queue: PendingPrompt[] = [];
+	private readonly pendingSteers: PendingPrompt[] = [];
+	private steering: Promise<void> = Promise.resolve();
 	private awaitingTurn: PendingPrompt | null = null;
 	private steerTarget: string | null = null;
 	private queuePaused = false;
@@ -107,7 +109,8 @@ export class LiveSession {
 		steerTurnId?: string,
 	): PromptResult {
 		const itemId = this.mintId();
-		const running = this.queue.length === 0 ? this.steerableTurn() : null;
+		const running =
+			this.queue.length === 0 ? this.steerableTurn(steerTurnId) : null;
 		if (running) {
 			const item: UserMessage = {
 				id: itemId,
@@ -162,13 +165,21 @@ export class LiveSession {
 		const running = this.steerableTurn();
 		if (running) {
 			if (this.steerTarget === itemId) this.steerTarget = null;
-			this.injectInto(running, {
-				...steered,
-				item: withoutQueued(steered.item),
-			});
-			this.unpauseIfEmpty();
+			if (this.queuePaused) {
+				this.queuePaused = false;
+				this.emitSession({ queuePaused: false });
+			}
+			this.injectInto(
+				running,
+				{ ...steered, item: withoutQueued(steered.item) },
+				true,
+			);
 			return;
 		}
+		this.steerFirst(steered);
+	}
+
+	private steerFirst(steered: PendingPrompt): void {
 		this.queue.unshift(steered);
 		if (this.queuePaused) {
 			this.queuePaused = false;
@@ -210,7 +221,8 @@ export class LiveSession {
 		if (turnId && this.currentTurn && this.currentTurn.id !== turnId) return;
 		const steering =
 			this.steerTarget !== null && this.queue[0]?.item.id === this.steerTarget;
-		if (pauseQueue && !steering && this.queue.length > 0 && !this.queuePaused) {
+		const waiting = this.queue.length + this.pendingSteers.length;
+		if (pauseQueue && !steering && waiting > 0 && !this.queuePaused) {
 			this.queuePaused = true;
 			this.emitSession({ queuePaused: true });
 		}
@@ -320,26 +332,43 @@ export class LiveSession {
 		}
 	}
 
-	private steerableTurn(): Turn | null {
+	private steerableTurn(expectedTurnId?: string): Turn | null {
 		const turn = this.currentTurn;
 		if (turn?.status !== "running" || this.awaitingTurn) return null;
+		if (expectedTurnId && expectedTurnId !== turn.id) return null;
 		return this.options.adapter.canSteer?.() ? turn : null;
 	}
 
-	private injectInto(turn: Turn, prompt: PendingPrompt): void {
+	private injectInto(
+		turn: Turn,
+		prompt: PendingPrompt,
+		selected = false,
+	): void {
 		this.appendDurable({ type: "item", item: prompt.item, turnId: turn.id });
-		void Promise.resolve(this.options.adapter.steer?.(prompt.content))
-			.catch(() => false)
-			.then((taken) => {
-				if (!taken) this.requeue(prompt);
-			});
+		this.pendingSteers.push(prompt);
+		this.steering = this.steering.then(async () => {
+			if (this.stopped) return;
+			const taken =
+				(selected || this.queue.length === 0) &&
+				(await Promise.resolve(this.options.adapter.steer?.(prompt.content))
+					.then(Boolean)
+					.catch(() => false));
+			const index = this.pendingSteers.indexOf(prompt);
+			if (index === -1) return;
+			this.pendingSteers.splice(index, 1);
+			if (!taken) this.fallBack(prompt, selected);
+		});
 	}
 
-	private requeue(prompt: PendingPrompt): void {
-		if (this.stopped) return;
+	private fallBack(prompt: PendingPrompt, selected: boolean): void {
 		const item: UserMessage = { ...prompt.item, queued: true };
-		this.queue.push({ ...prompt, item });
+		const pending = { ...prompt, item };
 		this.appendDurable({ type: "item", item, turnId: prompt.turnId });
+		if (selected) {
+			this.steerFirst(pending);
+			return;
+		}
+		this.queue.push(pending);
 		if (this.currentTurn?.status !== "running" && !this.awaitingTurn) {
 			this.deliverNextQueued();
 		}
@@ -384,9 +413,11 @@ export class LiveSession {
 	private discardPending(): void {
 		const pending = [
 			...(this.awaitingTurn?.item.queued ? [this.awaitingTurn] : []),
+			...this.pendingSteers,
 			...this.queue,
 		];
 		this.queue.length = 0;
+		this.pendingSteers.length = 0;
 		this.awaitingTurn = null;
 		this.steerTarget = null;
 		for (const prompt of pending) this.discard(prompt);

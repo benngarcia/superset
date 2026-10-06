@@ -52,6 +52,10 @@ export const acpPromptResponseSchema = z.looseObject({
 	stopReason: z.string(),
 });
 
+export const acpUsageUpdateSchema = z.looseObject({
+	cost: z.unknown().optional(),
+});
+
 export const ACP_STEERING_METHOD = "_session/steering";
 
 export const acpSteeringResponseSchema = z.looseObject({
