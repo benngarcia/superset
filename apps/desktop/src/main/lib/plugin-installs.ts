@@ -21,6 +21,7 @@ import {
 	SUPERSET_MANAGED_SKILLS,
 } from "@superset/shared/plugins";
 import log from "electron-log/main";
+import { env } from "main/env.main";
 import { resolveBundledCliPath } from "main/lib/bundled-cli";
 import { localDb } from "main/lib/local-db";
 import { createSerialQueue } from "main/lib/serial-queue";
@@ -82,6 +83,9 @@ export function syncInstalledPluginMcpServers(
 	connections?: readonly PluginConnectionRef[],
 ): void {
 	if (connections) writePluginConnections(connections);
+	// A dev build leaves the shared agent configs to production; `superset
+	// plugins sync` writes them on demand.
+	if (env.NODE_ENV === "development") return;
 	syncManagedMcpServers(
 		desiredPluginMcpServers(getInstalledPlugins(), {
 			connections: connections ?? readPluginConnections(),

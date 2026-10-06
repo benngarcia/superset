@@ -21,6 +21,11 @@ export function syncPluginMcpServers(
 	servers: number;
 	error: string | null;
 } {
+	// A dev desktop spawns this with its NODE_ENV and leaves the shared agent
+	// configs to production. Terminals strip NODE_ENV, so a typed
+	// `superset plugins sync` still writes them.
+	if (process.env.NODE_ENV === "development")
+		return { servers: 0, error: null };
 	const enabled = readEnabledPlugins();
 	// An unreadable ledger is not an empty one; syncing an empty desired set
 	// would reap every managed server.
