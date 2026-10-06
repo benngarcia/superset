@@ -151,6 +151,7 @@ export function useShipActions({
 				: "Update";
 
 	const commit = () => {
+		if (commitMutation.isPending) return;
 		const message = commitMessage.trim() || defaultCommitMessage;
 		commitMutation.mutate({ workspaceId, message });
 	};
