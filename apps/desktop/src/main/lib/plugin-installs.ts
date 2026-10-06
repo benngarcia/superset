@@ -83,8 +83,6 @@ export function syncInstalledPluginMcpServers(
 	connections?: readonly PluginConnectionRef[],
 ): void {
 	if (connections) writePluginConnections(connections);
-	// A dev build leaves the shared agent configs to production; `superset
-	// plugins sync` writes them on demand.
 	if (env.NODE_ENV === "development") return;
 	syncManagedMcpServers(
 		desiredPluginMcpServers(getInstalledPlugins(), {
