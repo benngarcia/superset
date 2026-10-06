@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import type { PluginConnectionRef } from "@superset/shared/plugins";
 import { getBinDir, resolveSupersetHomeDir } from "./paths";
@@ -58,9 +59,17 @@ export function writePluginConnections(
  * The managed shim rather than a bare `superset`: the agent runs this in its own
  * environment, which need not carry our bin dir on PATH. Absent on a cloud box —
  * the firewall adds a credential there and the CLI's own bearer is empty, so a
- * helper would print `Bearer ` and fail every call.
+ * helper would print `Bearer ` and fail every call. A dev instance names the
+ * production shim: the agent configs are shared with production and the proxy
+ * URL is production's, so a dev shim would rewrite the entry on every boot and
+ * send a credential the production API rejects.
  */
 export function mcpHeadersHelperCommand(): string | undefined {
 	if (process.env.SUPERSET_SANDBOX_WORKSPACE_ID) return undefined;
-	return `${path.join(getBinDir(), "superset")} auth mcp-headers`;
+	const binDir =
+		process.env.SUPERSET_ENV === "development" ||
+		process.env.NODE_ENV === "development"
+			? path.join(os.homedir(), ".superset", "bin")
+			: getBinDir();
+	return `${path.join(binDir, "superset")} auth mcp-headers`;
 }

@@ -10,6 +10,7 @@ import {
 
 const ORIGINAL_HOME_DIR = process.env.SUPERSET_HOME_DIR;
 const ORIGINAL_SANDBOX = process.env.SUPERSET_SANDBOX_WORKSPACE_ID;
+const ORIGINAL_SUPERSET_ENV = process.env.SUPERSET_ENV;
 
 let testHome: string;
 // Explicit, like readInstalledPluginSources' own callers: a sibling test file
@@ -22,6 +23,7 @@ beforeEach(() => {
 	process.env.SUPERSET_HOME_DIR = testHome;
 	file = path.join(testHome, "plugins", "connections.json");
 	delete process.env.SUPERSET_SANDBOX_WORKSPACE_ID;
+	delete process.env.SUPERSET_ENV;
 });
 
 afterEach(() => {
@@ -30,6 +32,8 @@ afterEach(() => {
 	if (ORIGINAL_SANDBOX === undefined)
 		delete process.env.SUPERSET_SANDBOX_WORKSPACE_ID;
 	else process.env.SUPERSET_SANDBOX_WORKSPACE_ID = ORIGINAL_SANDBOX;
+	if (ORIGINAL_SUPERSET_ENV === undefined) delete process.env.SUPERSET_ENV;
+	else process.env.SUPERSET_ENV = ORIGINAL_SUPERSET_ENV;
 	fs.rmSync(testHome, { recursive: true, force: true });
 });
 
@@ -125,5 +129,12 @@ describe("the headers helper command", () => {
 	it("is absent in a cloud workspace", () => {
 		process.env.SUPERSET_SANDBOX_WORKSPACE_ID = "ws-1";
 		expect(mcpHeadersHelperCommand()).toBeUndefined();
+	});
+
+	it("names the production shim from a dev instance", () => {
+		process.env.SUPERSET_ENV = "development";
+		expect(mcpHeadersHelperCommand()).toBe(
+			`${path.join(os.homedir(), ".superset", "bin", "superset")} auth mcp-headers`,
+		);
 	});
 });
