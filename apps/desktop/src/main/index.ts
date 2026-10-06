@@ -15,7 +15,15 @@ import {
 	isDevAppProfileDirName,
 	workspaceDevAppProfileDirName,
 } from "@superset/shared/dev-app-profile";
-import { app, dialog, Notification, net, protocol, session } from "electron";
+import {
+	app,
+	BrowserWindow,
+	dialog,
+	Notification,
+	net,
+	protocol,
+	session,
+} from "electron";
 import { makeAppSetup } from "lib/electron-app/factories/app/setup";
 import {
 	authEvents,
@@ -52,6 +60,7 @@ import { ensureProjectIconsDir, getProjectIconPath } from "./lib/project-icons";
 import { runQuitCleanup } from "./lib/quit-sequence";
 import { startResourceJournal } from "./lib/resource-metrics/resource-journal";
 import { initSentry } from "./lib/sentry";
+import { stopPtyDaemons } from "./lib/stop-pty-daemons";
 import {
 	prewarmTerminalRuntime,
 	reconcileDaemonSessions,
@@ -323,6 +332,11 @@ app.on("before-quit", async (event) => {
 	}
 
 	isQuitting = true;
+	const isUpdateInstalling = isUpdateReadyToInstall();
+	// Stopping the pty-daemons waits for host-services to exit; without this
+	// Electron exits once the windows close and cuts that wait short.
+	const holdQuitForCleanup = forceFullCleanup && !isUpdateInstalling;
+	if (holdQuitForCleanup) event.preventDefault();
 	// Local port-forward listeners hold no state worth draining; drop them so
 	// nothing keeps 127.0.0.1:<port> bound after the app is gone.
 	portForwardManager.stopAll();
@@ -331,12 +345,16 @@ app.on("before-quit", async (event) => {
 	// shrinking the set as windows close one-by-one.
 	markAppQuitting();
 	persistOpenWindows();
+	if (holdQuitForCleanup) {
+		for (const window of BrowserWindow.getAllWindows()) window.hide();
+	}
 	await runQuitCleanup({
 		isDev,
 		forceFullCleanup,
-		isUpdateInstalling: isUpdateReadyToInstall(),
+		isUpdateInstalling,
 		stopHostServices: () => getHostServiceCoordinator().stopAll(),
 		teardownTerminalHost,
+		stopPtyDaemons,
 		disposeTerminalHostClient,
 		disposeTray,
 		forceExit: (code) => app.exit(code),

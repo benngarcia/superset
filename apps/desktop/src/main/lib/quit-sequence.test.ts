@@ -11,6 +11,7 @@ interface Harness {
 	teardownTerminalHost: ReturnType<typeof mock>;
 	disposeTerminalHostClient: ReturnType<typeof mock>;
 	stopHostServices: ReturnType<typeof mock>;
+	stopPtyDaemons: ReturnType<typeof mock>;
 	scheduled: Array<{ callback: () => void; delayMs: number }>;
 }
 
@@ -18,7 +19,8 @@ function createHarness(overrides: Partial<QuitCleanupDeps> = {}): Harness {
 	const forceExit = mock((_code: number) => {});
 	const teardownTerminalHost = mock(async () => {});
 	const disposeTerminalHostClient = mock(() => {});
-	const stopHostServices = mock(() => {});
+	const stopHostServices = mock((): number[] => [101, 102]);
+	const stopPtyDaemons = mock(async (_pids: number[]) => {});
 	const scheduled: Array<{ callback: () => void; delayMs: number }> = [];
 
 	const deps: QuitCleanupDeps = {
@@ -27,6 +29,7 @@ function createHarness(overrides: Partial<QuitCleanupDeps> = {}): Harness {
 		isUpdateInstalling: false,
 		stopHostServices,
 		teardownTerminalHost,
+		stopPtyDaemons,
 		disposeTerminalHostClient,
 		disposeTray: () => {},
 		forceExit,
@@ -43,6 +46,7 @@ function createHarness(overrides: Partial<QuitCleanupDeps> = {}): Harness {
 		teardownTerminalHost,
 		disposeTerminalHostClient,
 		stopHostServices,
+		stopPtyDaemons,
 		scheduled,
 	};
 }
@@ -95,12 +99,22 @@ describe("runQuitCleanup", () => {
 		expect(h.teardownTerminalHost).not.toHaveBeenCalled();
 	});
 
-	test("tears down the terminal host for a quit-completely", async () => {
+	test("keeps the pty-daemons alive on a normal quit", async () => {
+		const h = createHarness();
+
+		await runQuitCleanup(h.deps);
+
+		expect(h.stopPtyDaemons).not.toHaveBeenCalled();
+		expect(h.teardownTerminalHost).not.toHaveBeenCalled();
+	});
+
+	test("stops every terminal process for a quit-completely", async () => {
 		const h = createHarness({ forceFullCleanup: true });
 
 		await runQuitCleanup(h.deps);
 
 		expect(h.teardownTerminalHost).toHaveBeenCalled();
+		expect(h.stopPtyDaemons).toHaveBeenCalledWith([101, 102]);
 		expect(h.forceExit).toHaveBeenCalledWith(0);
 	});
 

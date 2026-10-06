@@ -15,8 +15,10 @@ export interface QuitCleanupDeps {
 	forceFullCleanup: boolean;
 	/** An update is downloaded/installing, so this quit hands off to Squirrel. */
 	isUpdateInstalling: boolean;
-	stopHostServices: () => void;
+	/** Returns the pids of the host-services it sent SIGTERM to. */
+	stopHostServices: () => number[];
 	teardownTerminalHost: () => Promise<void>;
+	stopPtyDaemons: (stoppedHostServicePids: number[]) => Promise<void>;
 	disposeTerminalHostClient: () => void;
 	disposeTray: () => void;
 	forceExit: (code: number) => void;
@@ -31,6 +33,7 @@ export async function runQuitCleanup(deps: QuitCleanupDeps): Promise<void> {
 		isUpdateInstalling,
 		stopHostServices,
 		teardownTerminalHost,
+		stopPtyDaemons,
 		disposeTerminalHostClient,
 		disposeTray,
 		forceExit,
@@ -41,8 +44,13 @@ export async function runQuitCleanup(deps: QuitCleanupDeps): Promise<void> {
 	} = deps;
 
 	try {
-		stopHostServices();
-		if (isDev || forceFullCleanup) {
+		const stoppedHostServicePids = stopHostServices();
+		if (forceFullCleanup) {
+			await Promise.all([
+				teardownTerminalHost(),
+				stopPtyDaemons(stoppedHostServicePids),
+			]);
+		} else if (isDev) {
 			await teardownTerminalHost();
 		} else if (isUpdateInstalling) {
 			disposeTerminalHostClient();
