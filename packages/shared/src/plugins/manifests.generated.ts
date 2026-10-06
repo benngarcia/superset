@@ -576,6 +576,86 @@ export const FIRST_PARTY_MANIFESTS = {
 		},
 		"skills": []
 	} as const,
+	"google-calendar": {
+		"$schema": "https://superset.sh/schemas/plugin/1.0.0.json",
+		"name": "google-calendar",
+		"version": "1.0.0",
+		"description": "Read and manage your Google Calendar: find events, check free time, and schedule meetings.",
+		"author": {
+			"name": "Superset",
+			"url": "https://superset.sh"
+		},
+		"homepage": "https://docs.superset.sh",
+		"repository": "https://github.com/superset-sh/superset",
+		"license": "MIT",
+		"keywords": [
+			"google",
+			"calendar",
+			"events",
+			"meetings",
+			"scheduling"
+		],
+		"extensions": {
+			"superset": {
+				"interface": {
+					"displayName": "Google Calendar",
+					"category": "Productivity",
+					"icon": "google-calendar"
+				},
+				"connector": {
+					"slug": "google"
+				}
+			}
+		},
+		"skills": [
+			{
+				"name": "schedule-a-meeting",
+				"description": "Find a time that works and put it on Google Calendar without double-booking anyone or landing in the wrong time zone. Use when the user asks to schedule, book, move, or cancel a meeting, asks when they or someone else is free, or asks what is on their calendar."
+			}
+		]
+	} as const,
+	"vercel": {
+		"$schema": "https://superset.sh/schemas/plugin/1.0.0.json",
+		"name": "vercel",
+		"version": "1.0.0",
+		"description": "Work with Vercel: inspect projects and deployments, read build and runtime logs, and search Vercel's docs.",
+		"author": {
+			"name": "Superset",
+			"url": "https://superset.sh"
+		},
+		"homepage": "https://docs.superset.sh",
+		"repository": "https://github.com/superset-sh/superset",
+		"license": "MIT",
+		"keywords": [
+			"vercel",
+			"deployments",
+			"hosting",
+			"logs",
+			"nextjs"
+		],
+		"extensions": {
+			"superset": {
+				"interface": {
+					"displayName": "Vercel",
+					"category": "Developer tools",
+					"icon": "vercel"
+				},
+				"connector": {
+					"slug": "vercel_mcp"
+				},
+				"mcp": {
+					"type": "streamable-http",
+					"url": "https://mcp.vercel.com"
+				}
+			}
+		},
+		"skills": [
+			{
+				"name": "debug-a-vercel-deployment",
+				"description": "Find why a Vercel deployment failed or misbehaves, from the build log or the runtime logs of the exact deployment, not from the latest one. Use when the user says a Vercel build failed, a preview or production URL errors or shows the wrong thing, or asks about deployments, logs, or project settings on Vercel."
+			}
+		]
+	} as const,
 } as const;
 
 export type FirstPartyPluginName = keyof typeof FIRST_PARTY_MANIFESTS;
