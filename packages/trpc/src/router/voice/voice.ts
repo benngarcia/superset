@@ -41,38 +41,16 @@ export const voiceRouter = {
 					message: "Voice mode is not configured on this server.",
 				});
 			}
-			const apiKey = env.SERVER_OPENAI_API_KEY;
-			// Started before the flag answers: a secret minted for a refused
-			// caller is never returned, and creating one costs nothing.
-			const minting = requireActiveOrgMembership(ctx)
-				.then((organizationId) =>
+			// Undefined when PostHog cannot answer, which refuses: every session
+			// spends on the shared OpenAI key.
+			const organizationLookup = requireActiveOrgMembership(ctx).then(
+				(organizationId) =>
 					db.query.organizations.findFirst({
 						where: eq(organizations.id, organizationId),
 						columns: { name: true },
 					}),
-				)
-				.then((organization) =>
-					mintRealtimeClientSecret({
-						apiKey,
-						model: VOICE_REALTIME_MODEL,
-						voice: input?.voice ?? VOICE_DEFAULT_VOICE,
-						reasoningEffort:
-							input?.reasoningEffort ?? VOICE_DEFAULT_REASONING_EFFORT,
-						speed: input?.speed ?? VOICE_DEFAULT_SPEED,
-						transcriptionModel: VOICE_TRANSCRIPTION_MODEL,
-						ttlSeconds: VOICE_SECRET_TTL_SECONDS,
-						contextTokenLimit: VOICE_CONTEXT_TOKEN_LIMIT,
-						tools: realtimeToolDefinitions(),
-						instructions: voiceInstructions({
-							userName: ctx.session.user.name ?? null,
-							organizationName: organization?.name ?? null,
-						}),
-						safetyIdentifier: ctx.session.user.id,
-					}),
-				);
-			minting.catch(() => {});
-			// Undefined when PostHog cannot answer, which refuses: every session
-			// spends on the shared OpenAI key.
+			);
+			organizationLookup.catch(() => {});
 			const enabled = await posthog.isFeatureEnabled(
 				FEATURE_FLAGS.MOBILE_VOICE_MODE,
 				ctx.session.user.id,
@@ -87,8 +65,25 @@ export const voiceRouter = {
 					message: "Voice mode is not enabled for this account.",
 				});
 			}
+			const organization = await organizationLookup;
 			try {
-				const secret = await minting;
+				const secret = await mintRealtimeClientSecret({
+					apiKey: env.SERVER_OPENAI_API_KEY,
+					model: VOICE_REALTIME_MODEL,
+					voice: input?.voice ?? VOICE_DEFAULT_VOICE,
+					reasoningEffort:
+						input?.reasoningEffort ?? VOICE_DEFAULT_REASONING_EFFORT,
+					speed: input?.speed ?? VOICE_DEFAULT_SPEED,
+					transcriptionModel: VOICE_TRANSCRIPTION_MODEL,
+					ttlSeconds: VOICE_SECRET_TTL_SECONDS,
+					contextTokenLimit: VOICE_CONTEXT_TOKEN_LIMIT,
+					tools: realtimeToolDefinitions(),
+					instructions: voiceInstructions({
+						userName: ctx.session.user.name ?? null,
+						organizationName: organization?.name ?? null,
+					}),
+					safetyIdentifier: ctx.session.user.id,
+				});
 				return {
 					clientSecret: secret.value,
 					expiresAt: secret.expiresAt,
