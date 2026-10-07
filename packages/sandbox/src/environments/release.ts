@@ -12,9 +12,9 @@
  *      forks start from
  *   4. a probe fork of that golden, checked as a workspace: host-service,
  *      the desktop stream, the checkout, the firewall, the gate
- *   5. the rows: the shared `Default` environment -> image + bundle, the
- *      internal organization's environment -> the new golden + bundle + the
- *      setup and start overrides; the previous golden deleted
+ *   5. the rows: every environment -> bundle, the shared `Default`
+ *      environment -> image, the internal organization's environment -> the
+ *      new golden + the setup and start overrides; the previous golden deleted
  *
  *   SUPERSET_INTERNAL_ORGANIZATION_ID=… SUPERSET_INTERNAL_ENVIRONMENT_ID=… bun run release [--production] [--skip-image] [--keep-old]
  *
@@ -33,7 +33,6 @@ import { join } from "node:path";
 import {
 	SANDBOX_IMAGE_NAME,
 	SHARED_ENVIRONMENT_NAME,
-	SHARED_ENVIRONMENT_ORGANIZATION_ID,
 } from "@superset/shared/constants";
 import {
 	SANDBOX_CONTRACT_VERSION,
@@ -439,7 +438,7 @@ log(`probe: ${probe} deleted`);
 const { db, dbWs } = await import("@superset/db/client");
 const { environments, environmentRepositories, githubRepositories } =
 	await import("@superset/db/schema");
-const { and, eq } = await import("drizzle-orm");
+const { and, eq, isNull } = await import("drizzle-orm");
 const { seedSharedEnvironments } = await import("./seed");
 
 // The golden baked the monorepo at its path; a fork asks for the same, and
@@ -456,12 +455,13 @@ if (!monorepo)
 	);
 
 await seedSharedEnvironments(SANDBOX_IMAGE_NAME);
-await db
+const bundled = await db
 	.update(environments)
 	.set({ bundleSha: bundle.sha256 })
-	.where(eq(environments.organizationId, SHARED_ENVIRONMENT_ORGANIZATION_ID));
+	.where(isNull(environments.archivedAt))
+	.returning({ id: environments.id });
 log(
-	`rows: ${SHARED_ENVIRONMENT_NAME} -> image ${SANDBOX_IMAGE_NAME}, bundle ${bundle.sha256.slice(0, 12)}`,
+	`rows: ${SHARED_ENVIRONMENT_NAME} -> image ${SANDBOX_IMAGE_NAME}; ${bundled.length} environments -> bundle ${bundle.sha256.slice(0, 12)}`,
 );
 
 const previous = ENVIRONMENT_ID
