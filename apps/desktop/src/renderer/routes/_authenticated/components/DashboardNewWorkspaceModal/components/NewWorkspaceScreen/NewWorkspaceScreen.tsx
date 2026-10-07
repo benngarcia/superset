@@ -1,9 +1,9 @@
 import { Trans, useLingui } from "@lingui/react/macro";
+import type { PromptInputHandle } from "@superset/chat-ui/PromptInput";
 import {
 	isDropHandled,
 	markDropHandled,
-} from "@superset/chat-ui/ComposerDropZone";
-import type { PromptInputHandle } from "@superset/chat-ui/PromptInput";
+} from "@superset/chat-ui/utils/handledDrops";
 import {
 	getAgentEffortSupport,
 	getAgentEfforts,

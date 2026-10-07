@@ -47,11 +47,8 @@ import {
 	useState,
 } from "react";
 import { createPortal } from "react-dom";
-import {
-	isDropHandled,
-	markDropHandled,
-	useComposerDropZone,
-} from "../../../ComposerDropZone";
+import { isDropHandled, markDropHandled } from "../../../../utils/handledDrops";
+import { useComposerDropZone } from "../../../ComposerDropZone";
 import { useDictation } from "../../hooks/useDictation";
 import {
 	type MentionSection,
@@ -730,7 +727,9 @@ export function ComposerBody({
 					setDragging(false);
 			}}
 			onDrop={(event) => {
-				// Inside a layout ComposerDropZone the zone owns non-editor drops.
+				// The editor's DROP_COMMAND handler may have consumed this already;
+				// markDropHandled marks it and the event still bubbles here. Inside a
+				// layout ComposerDropZone the zone owns non-editor drops instead.
 				if (
 					dropZone == null &&
 					!isDropHandled(event.nativeEvent) &&

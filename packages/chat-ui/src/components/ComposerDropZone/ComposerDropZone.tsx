@@ -12,7 +12,7 @@ import {
 	useRef,
 	useState,
 } from "react";
-import { isDropHandled, markDropHandled } from "./utils/handledDrops";
+import { isDropHandled, markDropHandled } from "../../utils/handledDrops";
 
 type DropZoneContextValue = {
 	register(sink: (files: FileList) => void): () => void;
@@ -47,6 +47,8 @@ export function ComposerDropZone({
 	className,
 }: ComposerDropZoneProps) {
 	const sinkRef = useRef<((files: FileList) => void) | null>(null);
+	// dragover + timeout reset instead of an enter/leave counter, so
+	// Esc-cancelled drags and drops outside the window can't wedge the overlay.
 	const [isDraggingFiles, setIsDraggingFiles] = useState(false);
 	const dragEndTimerRef = useRef<number | null>(null);
 
@@ -94,11 +96,14 @@ export function ComposerDropZone({
 				onDrop={(event) => {
 					clearDragEndTimer();
 					setIsDraggingFiles(false);
+					// The composer's editor may have consumed this already;
+					// markDropHandled marks it and the event still bubbles here.
 					if (isDropHandled(event.nativeEvent)) return;
-					if (event.dataTransfer.files.length === 0) return;
+					const sink = sinkRef.current;
+					if (!sink || event.dataTransfer.files.length === 0) return;
 					event.preventDefault();
 					markDropHandled(event.nativeEvent);
-					sinkRef.current?.(event.dataTransfer.files);
+					sink(event.dataTransfer.files);
 				}}
 			>
 				{children}
