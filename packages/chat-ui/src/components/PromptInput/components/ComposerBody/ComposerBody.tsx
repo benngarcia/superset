@@ -62,6 +62,7 @@ import type {
 	PromptInputAttachment,
 	PromptInputProps,
 } from "../../types";
+import { registerDraftEdit } from "../../utils/draftEdit";
 import { registerHistoryNavigation } from "../../utils/historyNavigation";
 import { matchToken } from "../../utils/matchToken";
 import { rankCommands } from "../../utils/rankCommands";
@@ -276,10 +277,18 @@ export function ComposerBody({
 
 	// Chips come back once the finder can name them, which may be after the
 	// draft was read (a catalog still loading). Only the untouched draft is
-	// rewritten: once the text differs, it is being typed.
+	// rewritten: once edited, even back to the same text, it is the user's.
+	const draftEdited = useRef(false);
 	useEffect(() => {
 		const seededText = seededValue.current;
-		if (!findChips || !seededText) return;
+		if (!seededText) return;
+		return registerDraftEdit(editor, seededText, () => {
+			draftEdited.current = true;
+		});
+	}, [editor]);
+	useEffect(() => {
+		const seededText = seededValue.current;
+		if (!findChips || !seededText || draftEdited.current) return;
 		editor.update(() => {
 			if ($getRoot().getTextContent() !== seededText) return;
 			$restoreChips(findChips);
