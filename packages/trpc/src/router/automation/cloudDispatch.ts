@@ -3,6 +3,7 @@ import { cloudWorkspaces, environments, members } from "@superset/db/schema";
 import { CLOUD_AGENT_PROMPT_MAX_LENGTH } from "@superset/shared/cloud-agent-launch";
 import { SUPERSET_USER_ID_HEADER } from "@superset/shared/host-routing";
 import { and, eq } from "drizzle-orm";
+import { acpChatEnabled } from "../../lib/acp-chat";
 import { cloudAccess } from "../../lib/cloud-guards";
 import {
 	environmentRepositoryRows,
@@ -72,6 +73,7 @@ export async function runInCloud(
 				agent: string;
 				prompt: string;
 				continueTerminalId?: string;
+				surface?: "chat";
 			},
 			AgentRunResult
 		>({ baseUrl: launch.hostTarget, headers: launch.headers }, "agents.run", {
@@ -80,6 +82,9 @@ export async function runInCloud(
 			prompt,
 			...(launch.continueTerminalId
 				? { continueTerminalId: launch.continueTerminalId }
+				: {}),
+			...((await acpChatEnabled(automation.ownerUserId))
+				? { surface: "chat" as const }
 				: {}),
 		});
 	}

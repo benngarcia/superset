@@ -2,6 +2,7 @@ import { db } from "@superset/db/client";
 import { cloudWorkspaces, environments, tasks } from "@superset/db/schema";
 import type { CloudAgentLaunch } from "@superset/shared/cloud-agent-launch";
 import { and, eq, inArray, isNull } from "drizzle-orm";
+import { acpChatEnabled } from "../../lib/acp-chat";
 import { anchorAttachments } from "../../lib/attachments";
 import {
 	githubRepositoriesOutOfReach,
@@ -182,12 +183,23 @@ export async function startCloudWorkspace(args: {
 	const job = {
 		cloudWorkspaceId: row.id,
 		...(args.name ? {} : { namingPrompt: args.prompt ?? "" }),
-		...(args.launch ? { launch: args.launch } : {}),
+		...(args.launch
+			? { launch: await withSurface(args.launch, args.userId) }
+			: {}),
 	};
 
 	nudge(row.organizationId, "cloud_workspaces");
 	await queueProvision(job);
 	return row;
+}
+
+// The host opens a terminal for any launch that carries an effort.
+async function withSurface(
+	launch: CloudAgentLaunch,
+	userId: string,
+): Promise<CloudAgentLaunch> {
+	if (!(await acpChatEnabled(userId))) return launch;
+	return { ...launch, effort: undefined, surface: "chat" };
 }
 
 /**

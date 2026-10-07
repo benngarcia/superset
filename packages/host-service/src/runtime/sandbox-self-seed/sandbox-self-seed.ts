@@ -294,7 +294,7 @@ export async function launchSandboxAgentOnce(
 ): Promise<void> {
 	if (!identity.launch) return;
 	if (existsSync(identity.launchMarkerPath)) return;
-	const { agent, prompt, model, effort, mode, attachmentFileIds } =
+	const { agent, prompt, model, effort, mode, attachmentFileIds, surface } =
 		identity.launch;
 	// The agent needs the environment the control plane pushes after boot and
 	// the branch the boot runner is checking out beside us; both are seconds.
@@ -338,6 +338,7 @@ export async function launchSandboxAgentOnce(
 			effort,
 			mode,
 			...(attachmentIds?.length ? { attachmentIds } : {}),
+			...(surface ? { surface } : {}),
 		});
 		console.log(
 			`[sandbox] launched ${agent} for workspace ${identity.workspaceId}`,
