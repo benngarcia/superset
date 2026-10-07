@@ -168,12 +168,12 @@ const config: NextConfig = {
 				permanent: true,
 			},
 			{
-				source: "/:lang(en)?/join-us",
+				source: "/:lang(en)?/:page(join-us|career)",
 				destination: "/careers",
 				permanent: true,
 			},
 			{
-				source: `/:lang(${SUPPORTED_LOCALES.join("|")})/join-us`,
+				source: `/:lang(${SUPPORTED_LOCALES.join("|")})/:page(join-us|career)`,
 				destination: "/:lang/careers",
 				permanent: true,
 			},
