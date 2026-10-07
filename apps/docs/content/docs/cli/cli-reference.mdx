@@ -816,8 +816,9 @@ cloud workspaces if your account has them, else this machine. The old name
 - **Cloud workspace:** the sandbox stops within a minute and is deleted after
   7 days. A restore within those 7 days keeps its disk; after that, the
   workspace starts again from a fresh sandbox.
-- **Workspace on a host:** the worktree folder is removed, with any uncommitted
-  changes. The branch stays, so a restore brings back only committed work.
+- **Worktree workspace on a host:** its folder is removed, with any uncommitted
+  changes. Its branch stays, so a restore brings back only committed work. A
+  workspace that shares the project's own checkout keeps that folder.
 
 `deleted` lists the archived IDs; the field keeps its old name so existing
 scripts still work.

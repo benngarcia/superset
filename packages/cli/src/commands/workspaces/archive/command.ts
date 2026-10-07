@@ -5,7 +5,7 @@ import { resolveHostTarget } from "../../../lib/host-target";
 
 export default command({
 	description:
-		"Archive workspaces by ID: cloud workspaces by default if your account has them, else on this machine; --local or --host picks a host. A cloud sandbox stops within a minute and is deleted after 7 days; a restore before then keeps its disk. On a host, the worktree folder is removed with any uncommitted changes; the branch stays, so a restore brings back only committed work",
+		"Archive workspaces by ID: cloud workspaces by default if your account has them, else on this machine; --local or --host picks a host. A cloud sandbox stops within a minute and is deleted after 7 days; a restore before then keeps its disk. On a host, a worktree's folder is removed with any uncommitted changes; its branch stays, so a restore brings back only committed work",
 	aliases: ["delete"],
 	args: [positional("ids").required().variadic().desc("Workspace IDs")],
 	options: {
