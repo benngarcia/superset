@@ -1,4 +1,5 @@
 import { Trans, useLingui } from "@lingui/react/macro";
+import { userMessageText } from "@superset/chat/core";
 import type { UserMessage } from "@superset/chat/protocol";
 import { ArrowUp, Trash2 } from "lucide-react-native";
 import { Pressable, View } from "react-native";
@@ -57,9 +58,7 @@ export function QueuedPrompts({
 						className="text-foreground min-w-0 flex-1 text-[15px]"
 						numberOfLines={1}
 					>
-						{prompt.content
-							.flatMap((part) => (part.type === "text" ? [part.text] : []))
-							.join(" ")}
+						{userMessageText(prompt, " ")}
 					</Text>
 					<Pressable
 						accessibilityLabel={t({ message: "Steer" })}

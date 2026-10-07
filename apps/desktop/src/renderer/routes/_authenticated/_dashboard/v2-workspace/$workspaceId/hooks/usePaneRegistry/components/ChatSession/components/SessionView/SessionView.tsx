@@ -1,6 +1,10 @@
 import { Trans } from "@lingui/react/macro";
 import type { SessionClient } from "@superset/chat/client";
-import { deriveQueuedPrompts } from "@superset/chat/core";
+import {
+	deriveQueuedPrompts,
+	runningTurnId as findRunningTurnId,
+	launchConfigSelections,
+} from "@superset/chat/core";
 import type {
 	AvailableCommand,
 	Decision,
@@ -126,18 +130,17 @@ export function SessionView({
 			return () => clearTimeout(timer);
 		}
 		if (modelRequested.current) return;
-		const option = configOptions.find((entry) => entry.category === "model");
-		const wanted = option?.options.find(
-			(entry) =>
-				entry.label.toLowerCase() === preferredModelLabel?.toLowerCase(),
-		);
-		if (!option || !wanted || wanted.id === option.currentValue) {
+		const [selection] = launchConfigSelections(configOptions, {
+			modelLabel: preferredModelLabel ?? null,
+			effortLabel: null,
+		});
+		if (!selection) {
 			setModelSettled(true);
 			return;
 		}
 		modelRequested.current = true;
 		void session
-			.setConfigOption(option.id, wanted.id)
+			.setConfigOption(selection.configId, selection.value)
 			.finally(() => setModelSettled(true));
 	}, [agentStatus, configOptions, modelSettled, preferredModelLabel, session]);
 
@@ -155,12 +158,10 @@ export function SessionView({
 		onSessionState?.(sessionState ?? null);
 	}, [sessionState, onSessionState]);
 
-	const runningTurnId = useMemo(() => {
-		for (const turn of session.snapshot.turns.values()) {
-			if (turn.status === "running") return turn.id;
-		}
-		return null;
-	}, [session.snapshot.turns]);
+	const runningTurnId = useMemo(
+		() => findRunningTurnId(session.snapshot.turns),
+		[session.snapshot.turns],
+	);
 
 	const snapshotItems = session.snapshot.items;
 	const queuedPrompts = useStableList(

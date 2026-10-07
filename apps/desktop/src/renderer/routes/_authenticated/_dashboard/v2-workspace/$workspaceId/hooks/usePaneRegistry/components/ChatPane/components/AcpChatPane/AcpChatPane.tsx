@@ -1,4 +1,5 @@
 import { Trans, useLingui } from "@lingui/react/macro";
+import { acpHarnessForPreset } from "@superset/chat/core";
 import { AGENT_DEFAULT_MODE, type UserContent } from "@superset/chat/protocol";
 import { getAgentModelSupport } from "@superset/shared/agent-models";
 import { buildChatSessionHandoffPrompt } from "@superset/shared/terminal-session-handoff";
@@ -11,7 +12,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTerminalAgentBindings } from "renderer/hooks/host-service/useTerminalAgentBindings";
 import { useWorkspaceEvent } from "renderer/hooks/host-service/useWorkspaceEvent";
 import { useV2AgentConfigs } from "renderer/hooks/useV2AgentConfigs";
-import { acpHarnessForPreset } from "renderer/lib/acpHarness";
 import type { OpenFile } from "../../../../../../types";
 import { SessionView } from "../../../ChatSession/components/SessionView";
 import { useSessionClient } from "../../../ChatSession/hooks/useSessionClient";

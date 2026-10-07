@@ -1,8 +1,9 @@
+import { presetForAnyHarness } from "@superset/chat/core";
 import { FEATURE_FLAGS } from "@superset/shared/constants";
 import { useQueries } from "@tanstack/react-query";
 import { useFeatureFlag } from "posthog-react-native";
 import { useMemo } from "react";
-import { agentIdForHarness, getChatTransport } from "@/lib/chat";
+import { getChatTransport } from "@/lib/chat";
 import {
 	getHostServiceClientByUrl,
 	hostServiceUrl,
@@ -222,7 +223,7 @@ export function useHostsTerminals(
 				}
 			}
 			for (const chat of acpChat ? (query.data?.chats ?? []) : []) {
-				const agentId = agentIdForHarness(chat.harness);
+				const agentId = presetForAnyHarness(chat.harness) ?? null;
 				const attention = chatAttention(chat, terminalSeenAt[chat.sessionId]);
 				let firstSeenAt = chatFirstSeenAt.get(chat.sessionId);
 				if (firstSeenAt === undefined) {

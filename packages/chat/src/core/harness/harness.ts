@@ -14,6 +14,12 @@ const ACP_HARNESS_BY_PRESET: Record<string, string> = {
 	pi: "pi-acp",
 };
 
+/** Harness ids from before ACP, still on old sessions. Display only. */
+const LEGACY_PRESET_BY_HARNESS: Record<string, string> = {
+	"claude-code": "claude",
+	codex: "codex",
+};
+
 export function acpHarnessForPreset(
 	presetId: string | null | undefined,
 ): string | undefined {
@@ -24,4 +30,12 @@ export function presetForAcpHarness(harness: string): string | undefined {
 	return Object.entries(ACP_HARNESS_BY_PRESET).find(
 		([, candidate]) => candidate === harness,
 	)?.[0];
+}
+
+/**
+ * The agent to show for any chat, including one on a pre-ACP harness. Not for
+ * deciding what to open as a chat: an old harness cannot be driven like one.
+ */
+export function presetForAnyHarness(harness: string): string | undefined {
+	return presetForAcpHarness(harness) ?? LEGACY_PRESET_BY_HARNESS[harness];
 }

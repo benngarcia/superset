@@ -1,4 +1,5 @@
 import { useLingui } from "@lingui/react/macro";
+import { acpHarnessForPreset } from "@superset/chat/core";
 import type { UserContent } from "@superset/chat/protocol";
 import {
 	getAgentEfforts,
@@ -12,7 +13,7 @@ import { useFeatureFlag } from "posthog-react-native";
 import { Alert } from "react-native";
 import { getHostWorkspacesQueryKey } from "@/hooks/useHostWorkspaces";
 import { asAttachmentError } from "@/lib/attachments/errors";
-import { getChatTransport, harnessForAgent } from "@/lib/chat";
+import { getChatTransport } from "@/lib/chat";
 import { errorCopy, transportFailureKind } from "@/lib/errors";
 import { getHostServiceClientByUrl } from "@/lib/host-service/client";
 import { isMissingProcedureError } from "@/lib/host-service/errors";
@@ -95,7 +96,7 @@ export function useCreateTerminalWorkspace() {
 	return useMutation({
 		mutationFn: async ({ replace, ...input }: CreateTerminalWorkspaceArgs) => {
 			const { target, baseBranch, agentId, model, effort, message } = input;
-			const chatHarness = acpChat ? harnessForAgent(agentId) : undefined;
+			const chatHarness = acpChat ? acpHarnessForPreset(agentId) : undefined;
 			const workspaceId = randomUUID();
 			startPending({
 				workspaceId,

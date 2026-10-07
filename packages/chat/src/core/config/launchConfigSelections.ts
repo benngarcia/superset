@@ -1,4 +1,4 @@
-import type { SessionConfigOption } from "@superset/chat/protocol";
+import type { SessionConfigOption } from "../../protocol/envelope";
 
 export interface ConfigSelection {
 	configId: string;
