@@ -8,6 +8,7 @@ import {
 	test,
 } from "bun:test";
 import {
+	chmodSync,
 	existsSync,
 	mkdirSync,
 	mkdtempSync,
@@ -186,6 +187,23 @@ describe("resolveLocalRepo", () => {
 			/Path does not exist/,
 		);
 	});
+
+	test.skipIf(process.getuid?.() === 0)(
+		"reports a path it cannot read as a permission error, not as missing",
+		async () => {
+			const locked = join(workRoot, "locked");
+			const repo = join(locked, "repo");
+			await initRepoAt(repo);
+			chmodSync(locked, 0o000);
+			try {
+				await expect(resolveLocalRepo(repo)).rejects.toThrow(
+					/does not have permission to read/,
+				);
+			} finally {
+				chmodSync(locked, 0o755);
+			}
+		},
+	);
 
 	test("rejects a path that points at a file", async () => {
 		const file = join(workRoot, "a-file.txt");

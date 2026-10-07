@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, statSync } from "node:fs";
+import { mkdirSync } from "node:fs";
 // Recursive deletes go through async `rm`: a failed clone/init rolls back an
 // entire repo directory, and rmSync would hold the event loop for the whole
 // walk.
@@ -8,6 +8,10 @@ import { parseGitHubRemote } from "@superset/shared/github-remote";
 import { TRPCError } from "@trpc/server";
 import type { GitCredentialProvider } from "../../../../runtime/git";
 import { createUserSimpleGit } from "../../../../runtime/git/simple-git";
+import {
+	getPathState,
+	inaccessiblePathMessage,
+} from "../../../../runtime/path-state";
 import {
 	findMatchingRemote,
 	getGitHubRemotes,
@@ -35,13 +39,20 @@ export interface ResolvedGitHubRepo extends ResolvedRepo {
 }
 
 export function validateDirectoryPath(path: string, label: string): void {
-	if (!existsSync(path)) {
+	const state = getPathState(path);
+	if (state === "inaccessible") {
+		throw new TRPCError({
+			code: "FORBIDDEN",
+			message: inaccessiblePathMessage(path),
+		});
+	}
+	if (state === "missing") {
 		throw new TRPCError({
 			code: "BAD_REQUEST",
 			message: `${label} does not exist: ${path}`,
 		});
 	}
-	if (!statSync(path).isDirectory()) {
+	if (state !== "directory") {
 		throw new TRPCError({
 			code: "BAD_REQUEST",
 			message: `${label} is not a directory: ${path}`,
@@ -58,14 +69,19 @@ export function validateDirectoryPath(path: string, label: string): void {
  * first clone. Still rejects when the path exists but is a file.
  */
 function ensureParentDirectory(path: string): void {
-	if (existsSync(path)) {
-		if (!statSync(path).isDirectory()) {
-			throw new TRPCError({
-				code: "BAD_REQUEST",
-				message: `Parent directory is not a directory: ${path}`,
-			});
-		}
-		return;
+	const state = getPathState(path);
+	if (state === "directory") return;
+	if (state === "inaccessible") {
+		throw new TRPCError({
+			code: "FORBIDDEN",
+			message: inaccessiblePathMessage(path),
+		});
+	}
+	if (state === "file") {
+		throw new TRPCError({
+			code: "BAD_REQUEST",
+			message: `Parent directory is not a directory: ${path}`,
+		});
 	}
 	try {
 		mkdirSync(path, { recursive: true });
