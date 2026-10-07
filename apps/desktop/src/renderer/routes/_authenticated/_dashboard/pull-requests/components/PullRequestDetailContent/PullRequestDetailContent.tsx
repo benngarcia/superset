@@ -94,7 +94,7 @@ export function PullRequestDetailContent({
 				detailState
 			) : null}
 			{activeTab === "code" && prUrl && (
-				<div className="flex min-h-0 flex-1 flex-col">
+				<div className="@container/detail flex min-h-0 flex-1 flex-col">
 					{detail.data ? <PullRequestTabTitle data={detail.data} /> : null}
 					<Suspense fallback={<PullRequestDetailSkeleton variant="diff" />}>
 						<PullRequestCodeTab

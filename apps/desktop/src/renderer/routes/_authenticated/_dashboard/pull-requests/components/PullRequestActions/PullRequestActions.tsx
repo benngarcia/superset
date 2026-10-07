@@ -341,7 +341,7 @@ export function PullRequestActions({
 							) : (
 								<GitPullRequestArrow strokeWidth={1.75} className="size-3.5" />
 							)}
-							<span className="@max-[34rem]/topbar:sr-only">
+							<span className="@max-[23rem]/topbar:sr-only">
 								{setDraft.isPending ? (
 									<Trans>Marking ready…</Trans>
 								) : (
@@ -372,7 +372,7 @@ export function PullRequestActions({
 									) : (
 										<GitMerge strokeWidth={1.75} className="size-3.5" />
 									)}
-									<span className="@max-[34rem]/topbar:sr-only">
+									<span className="@max-[23rem]/topbar:sr-only">
 										{mergePullRequest.isPending ? (
 											<Trans>Merging…</Trans>
 										) : (

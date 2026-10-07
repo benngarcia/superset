@@ -73,12 +73,14 @@ export function PullRequestPane({
 
 	return (
 		<div className="flex h-full w-full min-h-0 min-w-0 flex-col">
-			<div className="flex min-h-11 shrink-0 flex-wrap items-center gap-x-2 gap-y-1 px-3 py-1.5">
-				<PullRequestDetailTabs
-					activeTab={activeTab}
-					onTabChange={setActiveTab}
-					diffStat={diffStat}
-				/>
+			<div className="@container/topbar flex h-11 shrink-0 items-center gap-2 px-3">
+				<div className="flex min-w-0 shrink items-center overflow-x-auto [scrollbar-width:none]">
+					<PullRequestDetailTabs
+						activeTab={activeTab}
+						onTabChange={setActiveTab}
+						diffStat={diffStat}
+					/>
+				</div>
 				<div className="ml-auto flex shrink-0 items-center">
 					<PullRequestActions
 						projectId={projectId}

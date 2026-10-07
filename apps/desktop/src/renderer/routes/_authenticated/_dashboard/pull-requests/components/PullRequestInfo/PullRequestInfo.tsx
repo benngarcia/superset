@@ -53,7 +53,7 @@ function InfoSection({ variant, label, icon, action, children }: SectionProps) {
 	if (variant === "rows") {
 		return (
 			<div className="flex items-start gap-3 py-1.5 text-xs">
-				<span className="flex h-6 w-24 shrink-0 items-center gap-2 text-muted-foreground">
+				<span className="flex h-6 w-24 shrink-0 items-center gap-2 text-muted-foreground @max-[30rem]/detail:w-20">
 					{icon}
 					{label}
 				</span>

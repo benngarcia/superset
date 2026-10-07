@@ -46,7 +46,7 @@ export function PullRequestDetailTabs({
 						<PullRequestDiffStat
 							additions={diffStat.additions}
 							deletions={diffStat.deletions}
-							className="text-[11px]"
+							className="text-[11px] @max-[30rem]/topbar:hidden"
 						/>
 					) : null}
 				</button>

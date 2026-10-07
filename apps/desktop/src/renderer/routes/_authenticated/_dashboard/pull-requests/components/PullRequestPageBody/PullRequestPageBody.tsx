@@ -23,7 +23,7 @@ export function PullRequestPageBody({
 	return (
 		<div className="@container/detail relative min-h-0 flex-1">
 			<ScrollArea className="h-full [&>[data-slot=scroll-area-viewport]>div]:!block">
-				<div className="mx-auto flex w-full max-w-[76rem] items-start gap-12 px-6 pt-4 pb-16">
+				<div className="mx-auto flex w-full max-w-[76rem] items-start gap-12 px-6 pt-4 pb-16 @max-[36rem]/detail:px-4 @max-[36rem]/detail:pt-3">
 					<div className="min-w-0 flex-1">
 						{header}
 						<div className="mb-4 @min-[52rem]/detail:hidden">

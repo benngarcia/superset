@@ -45,7 +45,7 @@ export function PullRequestItemHeader({
 					{repositoryName} #{data.number}
 				</span>
 			</div>
-			<h1 className="mt-3 select-text break-words text-[1.75rem] font-semibold leading-tight tracking-tight">
+			<h1 className="mt-3 select-text break-words text-[1.75rem] font-semibold leading-tight tracking-tight @max-[48rem]/detail:text-2xl @max-[36rem]/detail:mt-2 @max-[36rem]/detail:text-xl">
 				{data.title}
 			</h1>
 			<div className="mt-3 flex min-w-0 flex-wrap items-center gap-x-1.5 gap-y-1 text-xs text-muted-foreground">
