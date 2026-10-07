@@ -65,6 +65,7 @@ import type {
 import { registerHistoryNavigation } from "../../utils/historyNavigation";
 import { matchToken } from "../../utils/matchToken";
 import { rankCommands } from "../../utils/rankCommands";
+import { $restoreChips } from "../../utils/restoreChips";
 import {
 	CommandTypeaheadOption,
 	MentionTypeaheadOption,
@@ -116,6 +117,7 @@ export type ComposerBodyProps = Required<
 		| "toolbar"
 		| "toolbarEnd"
 		| "defaultValue"
+		| "findChips"
 		| "onChange"
 		| "onSubmit"
 		| "onStop"
@@ -172,6 +174,7 @@ export function ComposerBody({
 	toolbar,
 	toolbarEnd,
 	defaultValue,
+	findChips,
 	onChange,
 	onSubmit,
 	onStop,
@@ -257,10 +260,10 @@ export function ComposerBody({
 
 	// A draft the host had stored. Read once: after mount the editor is the
 	// only writer, and re-applying would fight what is being typed.
-	const seeded = useRef(false);
+	const seededValue = useRef<string | null>(null);
 	useEffect(() => {
-		if (seeded.current) return;
-		seeded.current = true;
+		if (seededValue.current !== null) return;
+		seededValue.current = defaultValue ?? "";
 		if (!defaultValue) return;
 		editor.update(() => {
 			const root = $getRoot();
@@ -270,6 +273,18 @@ export function ComposerBody({
 			if ($isRangeSelection(selection)) selection.insertText(defaultValue);
 		});
 	}, [defaultValue, editor]);
+
+	// Chips come back once the finder can name them, which may be after the
+	// draft was read (a catalog still loading). Only the untouched draft is
+	// rewritten: once the text differs, it is being typed.
+	useEffect(() => {
+		const seededText = seededValue.current;
+		if (!findChips || !seededText) return;
+		editor.update(() => {
+			if ($getRoot().getTextContent() !== seededText) return;
+			$restoreChips(findChips);
+		});
+	}, [editor, findChips]);
 
 	const onChangeRef = useRef(onChange);
 	onChangeRef.current = onChange;
