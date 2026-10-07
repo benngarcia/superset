@@ -3268,6 +3268,9 @@ msgstr "现金 — 总余额（Mercury）"
 msgid "Category"
 msgstr "分类"
 
+msgid "Caution"
+msgstr "当心"
+
 msgid "Certificate Authority Invalid"
 msgstr "证书颁发机构无效"
 
@@ -4015,6 +4018,9 @@ msgstr "提交失败：{0}"
 
 msgid "Commit message"
 msgstr "提交信息"
+
+msgid "Commit message (optional)"
+msgstr "提交信息（可选）"
 
 msgid "Commits"
 msgstr "提交"
@@ -8305,6 +8311,9 @@ msgstr "从{browserName}导入你的浏览历史和登录信息"
 msgid "Import…"
 msgstr "导入…"
 
+msgid "Important"
+msgstr "重要"
+
 #. placeholder {0}: untracked.length
 #. placeholder {1}: errors[0]
 msgid "Imported {imported} of {0} worktrees: {1}"
@@ -8952,9 +8961,6 @@ msgstr "了解适合这个仓库的工作流：并行工作区和智能体配置
 
 msgid "Leave a comment"
 msgstr "留下评论"
-
-msgid "Leave a comment (optional)"
-msgstr "留下评论（可选）"
 
 msgid "Leave a comment…"
 msgstr "留下评论…"
@@ -10913,6 +10919,9 @@ msgstr "未排序"
 msgctxt "agent status"
 msgid "Not updating"
 msgstr "未更新"
+
+msgid "Note"
+msgstr "注意"
 
 msgid "Notes"
 msgstr "笔记"
@@ -16922,6 +16931,9 @@ msgstr "时间"
 
 msgid "Time range"
 msgstr "时间范围"
+
+msgid "Tip"
+msgstr "提示"
 
 msgid "Title"
 msgstr "标题"

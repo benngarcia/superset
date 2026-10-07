@@ -3268,6 +3268,9 @@ msgstr "Hotovost — celkový zůstatek (Mercury)"
 msgid "Category"
 msgstr "Kategorie"
 
+msgid "Caution"
+msgstr "Pozor"
+
 msgid "Certificate Authority Invalid"
 msgstr "Neplatná certifikační autorita"
 
@@ -4015,6 +4018,9 @@ msgstr "Commit se nezdařil: {0}"
 
 msgid "Commit message"
 msgstr "Zpráva commitu"
+
+msgid "Commit message (optional)"
+msgstr "Zpráva commitu (volitelné)"
 
 msgid "Commits"
 msgstr "Commity"
@@ -8305,6 +8311,9 @@ msgstr "Naimportujte si historii prohlížení a přihlášení z {browserName}"
 msgid "Import…"
 msgstr "Importovat…"
 
+msgid "Important"
+msgstr "Důležité"
+
 #. placeholder {0}: untracked.length
 #. placeholder {1}: errors[0]
 msgid "Imported {imported} of {0} worktrees: {1}"
@@ -8952,9 +8961,6 @@ msgstr "Poznejte postup, který k tomuto repozitáři sedí — paralelní praco
 
 msgid "Leave a comment"
 msgstr "Napsat komentář"
-
-msgid "Leave a comment (optional)"
-msgstr "Zanechte komentář (volitelné)"
 
 msgid "Leave a comment…"
 msgstr "Napište komentář…"
@@ -10913,6 +10919,9 @@ msgstr "neseřazeno"
 msgctxt "agent status"
 msgid "Not updating"
 msgstr "Bez aktualizací"
+
+msgid "Note"
+msgstr "Poznámka"
 
 msgid "Notes"
 msgstr "Poznámky"
@@ -16922,6 +16931,9 @@ msgstr "Čas"
 
 msgid "Time range"
 msgstr "Časové období"
+
+msgid "Tip"
+msgstr "Tip"
 
 msgid "Title"
 msgstr "Název"

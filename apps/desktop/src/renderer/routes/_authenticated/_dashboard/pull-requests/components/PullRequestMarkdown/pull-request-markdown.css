@@ -176,3 +176,13 @@
 .pull-request-markdown.default-markdown th {
 	font-weight: 500;
 }
+
+.pull-request-markdown.default-markdown img {
+	max-width: 100%;
+	height: auto;
+}
+
+.pull-request-markdown.default-markdown td img,
+.pull-request-markdown.default-markdown th img {
+	max-width: 20rem;
+}

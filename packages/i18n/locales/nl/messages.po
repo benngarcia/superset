@@ -3268,6 +3268,9 @@ msgstr "Cash — totaal saldo (Mercury)"
 msgid "Category"
 msgstr "Categorie"
 
+msgid "Caution"
+msgstr "Let op"
+
 msgid "Certificate Authority Invalid"
 msgstr "Certificaatautoriteit ongeldig"
 
@@ -4015,6 +4018,9 @@ msgstr "Commit mislukt: {0}"
 
 msgid "Commit message"
 msgstr "Commitbericht"
+
+msgid "Commit message (optional)"
+msgstr "Commitbericht (optioneel)"
 
 msgid "Commits"
 msgstr "Commits"
@@ -8305,6 +8311,9 @@ msgstr "Importeer je browsegeschiedenis en logins uit {browserName}"
 msgid "Import…"
 msgstr "Importeren…"
 
+msgid "Important"
+msgstr "Belangrijk"
+
 #. placeholder {0}: untracked.length
 #. placeholder {1}: errors[0]
 msgid "Imported {imported} of {0} worktrees: {1}"
@@ -8952,9 +8961,6 @@ msgstr "Leer de workflow die bij deze repo past — parallelle werkruimtes en ag
 
 msgid "Leave a comment"
 msgstr "Laat een reactie achter"
-
-msgid "Leave a comment (optional)"
-msgstr "Laat een opmerking achter (optioneel)"
 
 msgid "Leave a comment…"
 msgstr "Laat een opmerking achter…"
@@ -10913,6 +10919,9 @@ msgstr "niet gesorteerd"
 msgctxt "agent status"
 msgid "Not updating"
 msgstr "Geen updates"
+
+msgid "Note"
+msgstr "Opmerking"
 
 msgid "Notes"
 msgstr "Notities"
@@ -16922,6 +16931,9 @@ msgstr "Tijd"
 
 msgid "Time range"
 msgstr "Periode"
+
+msgid "Tip"
+msgstr "Tip"
 
 msgid "Title"
 msgstr "Titel"

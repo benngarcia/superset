@@ -3268,6 +3268,9 @@ msgstr "Деньги — общий остаток (Mercury)"
 msgid "Category"
 msgstr "Категория"
 
+msgid "Caution"
+msgstr "Осторожно"
+
 msgid "Certificate Authority Invalid"
 msgstr "Недействительный удостоверяющий центр"
 
@@ -4015,6 +4018,9 @@ msgstr "Не удалось закоммитить: {0}"
 
 msgid "Commit message"
 msgstr "Сообщение коммита"
+
+msgid "Commit message (optional)"
+msgstr "Сообщение коммита (необязательно)"
 
 msgid "Commits"
 msgstr "Коммиты"
@@ -8305,6 +8311,9 @@ msgstr "Импортируйте историю просмотров и логи
 msgid "Import…"
 msgstr "Импортировать…"
 
+msgid "Important"
+msgstr "Важно"
+
 #. placeholder {0}: untracked.length
 #. placeholder {1}: errors[0]
 msgid "Imported {imported} of {0} worktrees: {1}"
@@ -8952,9 +8961,6 @@ msgstr "Изучить рабочий процесс, который подхо�
 
 msgid "Leave a comment"
 msgstr "Оставить комментарий"
-
-msgid "Leave a comment (optional)"
-msgstr "Оставьте комментарий (необязательно)"
 
 msgid "Leave a comment…"
 msgstr "Оставьте комментарий…"
@@ -10913,6 +10919,9 @@ msgstr "без сортировки"
 msgctxt "agent status"
 msgid "Not updating"
 msgstr "Нет обновлений"
+
+msgid "Note"
+msgstr "Примечание"
 
 msgid "Notes"
 msgstr "Заметки"
@@ -16922,6 +16931,9 @@ msgstr "Время"
 
 msgid "Time range"
 msgstr "Период"
+
+msgid "Tip"
+msgstr "Совет"
 
 msgid "Title"
 msgstr "Название"

@@ -3268,6 +3268,9 @@ msgstr "現金 — 總餘額（Mercury）"
 msgid "Category"
 msgstr "分類"
 
+msgid "Caution"
+msgstr "當心"
+
 msgid "Certificate Authority Invalid"
 msgstr "證書頒發機構無效"
 
@@ -4015,6 +4018,9 @@ msgstr "提交失敗：{0}"
 
 msgid "Commit message"
 msgstr "提交訊息"
+
+msgid "Commit message (optional)"
+msgstr "提交訊息（選填）"
 
 msgid "Commits"
 msgstr "提交"
@@ -8305,6 +8311,9 @@ msgstr "從{browserName}匯入你的瀏覽歷史和登入資訊"
 msgid "Import…"
 msgstr "匯入…"
 
+msgid "Important"
+msgstr "重要"
+
 #. placeholder {0}: untracked.length
 #. placeholder {1}: errors[0]
 msgid "Imported {imported} of {0} worktrees: {1}"
@@ -8952,9 +8961,6 @@ msgstr "瞭解適合這個儲存庫的工作流：並行工作區和代理程式
 
 msgid "Leave a comment"
 msgstr "留下留言"
-
-msgid "Leave a comment (optional)"
-msgstr "留下評論（可選）"
 
 msgid "Leave a comment…"
 msgstr "留下評論…"
@@ -10913,6 +10919,9 @@ msgstr "未排序"
 msgctxt "agent status"
 msgid "Not updating"
 msgstr "未更新"
+
+msgid "Note"
+msgstr "注意"
 
 msgid "Notes"
 msgstr "筆記"
@@ -16922,6 +16931,9 @@ msgstr "時間"
 
 msgid "Time range"
 msgstr "時間範圍"
+
+msgid "Tip"
+msgstr "提示"
 
 msgid "Title"
 msgstr "標題"

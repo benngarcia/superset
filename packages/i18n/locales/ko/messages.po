@@ -3268,6 +3268,9 @@ msgstr "현금 — 총 잔액 (Mercury)"
 msgid "Category"
 msgstr "카테고리"
 
+msgid "Caution"
+msgstr "주의"
+
 msgid "Certificate Authority Invalid"
 msgstr "인증 기관이 올바르지 않음"
 
@@ -4015,6 +4018,9 @@ msgstr "커밋 실패: {0}"
 
 msgid "Commit message"
 msgstr "커밋 메시지"
+
+msgid "Commit message (optional)"
+msgstr "커밋 메시지(선택 사항)"
 
 msgid "Commits"
 msgstr "커밋"
@@ -8305,6 +8311,9 @@ msgstr "{browserName}에서 방문 기록과 로그인 정보를 가져오세요
 msgid "Import…"
 msgstr "가져오기…"
 
+msgid "Important"
+msgstr "중요"
+
 #. placeholder {0}: untracked.length
 #. placeholder {1}: errors[0]
 msgid "Imported {imported} of {0} worktrees: {1}"
@@ -8952,9 +8961,6 @@ msgstr "이 리포지토리에 맞는 워크플로 익히기 — 병렬 워크�
 
 msgid "Leave a comment"
 msgstr "댓글 남기기"
-
-msgid "Leave a comment (optional)"
-msgstr "코멘트 남기기 (선택 사항)"
 
 msgid "Leave a comment…"
 msgstr "코멘트를 남겨 주세요…"
@@ -10913,6 +10919,9 @@ msgstr "정렬 안 됨"
 msgctxt "agent status"
 msgid "Not updating"
 msgstr "업데이트 없음"
+
+msgid "Note"
+msgstr "참고"
 
 msgid "Notes"
 msgstr "노트"
@@ -16922,6 +16931,9 @@ msgstr "시간"
 
 msgid "Time range"
 msgstr "기간"
+
+msgid "Tip"
+msgstr "팁"
 
 msgid "Title"
 msgstr "제목"

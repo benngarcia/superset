@@ -285,6 +285,7 @@ export function PullRequestActions({
 
 	const canMerge = data.state === "open" && !data.isDraft;
 	const canAct = !!hostUrl && !!projectId && prNumber !== null;
+	const canToggleDraft = canAct && data.mergeability !== undefined;
 	const isDraft = data.state === "open" && data.isDraft;
 	const mergeBlocked = data.mergeability === "conflicting";
 	const copyLinkLabel = linkCopied
@@ -326,7 +327,7 @@ export function PullRequestActions({
 					</span>
 				</Button>
 			) : null}
-			{(isDraft || canMerge) && canAct ? (
+			{((isDraft && canToggleDraft) || canMerge) && canAct ? (
 				<div className="ml-1 flex items-stretch">
 					{isDraft ? (
 						<Button
@@ -447,7 +448,7 @@ export function PullRequestActions({
 											value={mergeComment}
 											onChange={(e) => setMergeComment(e.target.value)}
 											onKeyDown={(e) => e.stopPropagation()}
-											placeholder={t({ message: "Leave a comment (optional)" })}
+											placeholder={t({ message: "Commit message (optional)" })}
 											className="min-h-16 resize-none rounded-[0.625rem] border-border/60 bg-background/60 text-xs shadow-none"
 										/>
 									</div>
@@ -504,18 +505,21 @@ export function PullRequestActions({
 									<PullRequestMenuSeparator />
 									{repairItems}
 									<PullRequestMenuSeparator />
-									<PullRequestMenuItem
-										disabled={isActionPending}
-										onClick={() => setDraft.mutate(true)}
-									>
-										<GitPullRequestDraft className="size-4" />
-										<Trans>Convert to draft</Trans>
-									</PullRequestMenuItem>
+									{canToggleDraft ? (
+										<PullRequestMenuItem
+											disabled={isActionPending}
+											onClick={() => setDraft.mutate(true)}
+										>
+											<GitPullRequestDraft className="size-4" />
+											<Trans>Convert to draft</Trans>
+										</PullRequestMenuItem>
+									) : null}
 									<PullRequestMenuItem
 										variant="destructive"
 										disabled={isActionPending}
 										onClick={() => setPendingAction({ kind: "close" })}
 									>
+										<GitPullRequestClosed className="size-4" />
 										<Trans>Close pull request</Trans>
 									</PullRequestMenuItem>
 								</>

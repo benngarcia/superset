@@ -3268,6 +3268,9 @@ msgstr "現金 — 総残高(Mercury)"
 msgid "Category"
 msgstr "カテゴリ"
 
+msgid "Caution"
+msgstr "警告"
+
 msgid "Certificate Authority Invalid"
 msgstr "認証局が無効です"
 
@@ -4015,6 +4018,9 @@ msgstr "コミットに失敗しました: {0}"
 
 msgid "Commit message"
 msgstr "コミットメッセージ"
+
+msgid "Commit message (optional)"
+msgstr "コミットメッセージ（任意）"
 
 msgid "Commits"
 msgstr "コミット"
@@ -8305,6 +8311,9 @@ msgstr "{browserName}から閲覧履歴とログイン情報をインポート"
 msgid "Import…"
 msgstr "インポート…"
 
+msgid "Important"
+msgstr "重要"
+
 #. placeholder {0}: untracked.length
 #. placeholder {1}: errors[0]
 msgid "Imported {imported} of {0} worktrees: {1}"
@@ -8952,9 +8961,6 @@ msgstr "このリポジトリに合うワークフロー — 並列ワークス�
 
 msgid "Leave a comment"
 msgstr "コメントを残す"
-
-msgid "Leave a comment (optional)"
-msgstr "コメントを入力(任意)"
 
 msgid "Leave a comment…"
 msgstr "コメントを入力…"
@@ -10913,6 +10919,9 @@ msgstr "並べ替えなし"
 msgctxt "agent status"
 msgid "Not updating"
 msgstr "更新なし"
+
+msgid "Note"
+msgstr "メモ"
 
 msgid "Notes"
 msgstr "ノート"
@@ -16922,6 +16931,9 @@ msgstr "時間"
 
 msgid "Time range"
 msgstr "期間"
+
+msgid "Tip"
+msgstr "ヒント"
 
 msgid "Title"
 msgstr "タイトル"

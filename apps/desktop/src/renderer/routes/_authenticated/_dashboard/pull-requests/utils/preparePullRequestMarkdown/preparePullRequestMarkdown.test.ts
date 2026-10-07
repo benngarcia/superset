@@ -15,4 +15,21 @@ describe("preparePullRequestMarkdown", () => {
 	it("reads a comment-only body as empty", () => {
 		expect(preparePullRequestMarkdown("<!-- a -->\n\n<!-- b -->")).toBe("");
 	});
+
+	it("labels GitHub alert markers outside code", () => {
+		expect(
+			preparePullRequestMarkdown(
+				"> [!NOTE]\n> Mind the gap.\n\n> [!warning]  \n> Hot.\n\n```md\n> [!NOTE]\n```",
+				{
+					note: "Hinweis",
+					tip: "Tipp",
+					important: "Wichtig",
+					warning: "Warnung",
+					caution: "Achtung",
+				},
+			),
+		).toBe(
+			"> **Hinweis**\n> Mind the gap.\n\n> **Warnung**\n> Hot.\n\n```md\n> [!NOTE]\n```",
+		);
+	});
 });

@@ -3268,6 +3268,9 @@ msgstr "Nakit — toplam bakiye (Mercury)"
 msgid "Category"
 msgstr "Kategori"
 
+msgid "Caution"
+msgstr "Dikkat"
+
 msgid "Certificate Authority Invalid"
 msgstr "Sertifika yetkilisi geçersiz"
 
@@ -4015,6 +4018,9 @@ msgstr "Commit başarısız: {0}"
 
 msgid "Commit message"
 msgstr "Commit mesajı"
+
+msgid "Commit message (optional)"
+msgstr "Commit mesajı (isteğe bağlı)"
 
 msgid "Commits"
 msgstr "Commit'ler"
@@ -8305,6 +8311,9 @@ msgstr "Tarama geçmişinizi ve oturum bilgilerinizi {browserName} tarayıcısı
 msgid "Import…"
 msgstr "İçe aktar…"
 
+msgid "Important"
+msgstr "Önemli"
+
 #. placeholder {0}: untracked.length
 #. placeholder {1}: errors[0]
 msgid "Imported {imported} of {0} worktrees: {1}"
@@ -8952,9 +8961,6 @@ msgstr "Bu depoya uygun iş akışını öğren — paralel çalışma alanları
 
 msgid "Leave a comment"
 msgstr "Yorum bırak"
-
-msgid "Leave a comment (optional)"
-msgstr "Yorum bırakın (isteğe bağlı)"
 
 msgid "Leave a comment…"
 msgstr "Bir yorum bırakın…"
@@ -10913,6 +10919,9 @@ msgstr "sıralanmamış"
 msgctxt "agent status"
 msgid "Not updating"
 msgstr "Güncellenmiyor"
+
+msgid "Note"
+msgstr "Not"
 
 msgid "Notes"
 msgstr "Notlar"
@@ -16922,6 +16931,9 @@ msgstr "Zaman"
 
 msgid "Time range"
 msgstr "Zaman aralığı"
+
+msgid "Tip"
+msgstr "İpucu"
 
 msgid "Title"
 msgstr "Başlık"

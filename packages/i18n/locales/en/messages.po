@@ -3268,6 +3268,9 @@ msgstr "Cash — total balance (Mercury)"
 msgid "Category"
 msgstr "Category"
 
+msgid "Caution"
+msgstr "Caution"
+
 msgid "Certificate Authority Invalid"
 msgstr "Certificate Authority Invalid"
 
@@ -4015,6 +4018,9 @@ msgstr "Commit failed: {0}"
 
 msgid "Commit message"
 msgstr "Commit message"
+
+msgid "Commit message (optional)"
+msgstr "Commit message (optional)"
 
 msgid "Commits"
 msgstr "Commits"
@@ -8305,6 +8311,9 @@ msgstr "Import your browsing history and logins from {browserName}"
 msgid "Import…"
 msgstr "Import…"
 
+msgid "Important"
+msgstr "Important"
+
 #. placeholder {0}: untracked.length
 #. placeholder {1}: errors[0]
 msgid "Imported {imported} of {0} worktrees: {1}"
@@ -8952,9 +8961,6 @@ msgstr "Learn the workflow that fits this repo — parallel workspaces and agent
 
 msgid "Leave a comment"
 msgstr "Leave a comment"
-
-msgid "Leave a comment (optional)"
-msgstr "Leave a comment (optional)"
 
 msgid "Leave a comment…"
 msgstr "Leave a comment…"
@@ -10913,6 +10919,9 @@ msgstr "not sorted"
 msgctxt "agent status"
 msgid "Not updating"
 msgstr "Not updating"
+
+msgid "Note"
+msgstr "Note"
 
 msgid "Notes"
 msgstr "Notes"
@@ -16922,6 +16931,9 @@ msgstr "Time"
 
 msgid "Time range"
 msgstr "Time range"
+
+msgid "Tip"
+msgstr "Tip"
 
 msgid "Title"
 msgstr "Title"

@@ -3268,6 +3268,9 @@ msgstr "Tiền mặt — tổng số dư (Mercury)"
 msgid "Category"
 msgstr "Danh mục"
 
+msgid "Caution"
+msgstr "Thận trọng"
+
 msgid "Certificate Authority Invalid"
 msgstr "Tổ chức cấp chứng chỉ không hợp lệ"
 
@@ -4015,6 +4018,9 @@ msgstr "Commit thất bại: {0}"
 
 msgid "Commit message"
 msgstr "Thông điệp commit"
+
+msgid "Commit message (optional)"
+msgstr "Thông điệp commit (tùy chọn)"
 
 msgid "Commits"
 msgstr "Commit"
@@ -8305,6 +8311,9 @@ msgstr "Nhập lịch sử duyệt web và thông tin đăng nhập từ {browse
 msgid "Import…"
 msgstr "Nhập…"
 
+msgid "Important"
+msgstr "Quan trọng"
+
 #. placeholder {0}: untracked.length
 #. placeholder {1}: errors[0]
 msgid "Imported {imported} of {0} worktrees: {1}"
@@ -8952,9 +8961,6 @@ msgstr "Tìm hiểu quy trình phù hợp với repo này — workspace song son
 
 msgid "Leave a comment"
 msgstr "Để lại bình luận"
-
-msgid "Leave a comment (optional)"
-msgstr "Để lại bình luận (tùy chọn)"
 
 msgid "Leave a comment…"
 msgstr "Để lại bình luận…"
@@ -10913,6 +10919,9 @@ msgstr "chưa sắp xếp"
 msgctxt "agent status"
 msgid "Not updating"
 msgstr "Không cập nhật"
+
+msgid "Note"
+msgstr "Lưu ý"
 
 msgid "Notes"
 msgstr "Ghi chú"
@@ -16922,6 +16931,9 @@ msgstr "Thời gian"
 
 msgid "Time range"
 msgstr "Khoảng thời gian"
+
+msgid "Tip"
+msgstr "Mẹo"
 
 msgid "Title"
 msgstr "Tiêu đề"

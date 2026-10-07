@@ -3268,6 +3268,9 @@ msgstr "Caixa — saldo total (Mercury)"
 msgid "Category"
 msgstr "Categoria"
 
+msgid "Caution"
+msgstr "Cuidado"
+
 msgid "Certificate Authority Invalid"
 msgstr "Autoridade certificadora inválida"
 
@@ -4015,6 +4018,9 @@ msgstr "Falha no commit: {0}"
 
 msgid "Commit message"
 msgstr "Mensagem de commit"
+
+msgid "Commit message (optional)"
+msgstr "Mensagem do commit (opcional)"
 
 msgid "Commits"
 msgstr "Commits"
@@ -8305,6 +8311,9 @@ msgstr "Importe seu histórico de navegação e seus logins do {browserName}"
 msgid "Import…"
 msgstr "Importar…"
 
+msgid "Important"
+msgstr "Importante"
+
 #. placeholder {0}: untracked.length
 #. placeholder {1}: errors[0]
 msgid "Imported {imported} of {0} worktrees: {1}"
@@ -8952,9 +8961,6 @@ msgstr "Conheça o fluxo que combina com este repositório — áreas de trabalh
 
 msgid "Leave a comment"
 msgstr "Deixe um comentário"
-
-msgid "Leave a comment (optional)"
-msgstr "Deixe um comentário (opcional)"
 
 msgid "Leave a comment…"
 msgstr "Deixe um comentário…"
@@ -10913,6 +10919,9 @@ msgstr "sem ordenação"
 msgctxt "agent status"
 msgid "Not updating"
 msgstr "Sem atualização"
+
+msgid "Note"
+msgstr "Observação"
 
 msgid "Notes"
 msgstr "Notas"
@@ -16922,6 +16931,9 @@ msgstr "Tempo"
 
 msgid "Time range"
 msgstr "Período"
+
+msgid "Tip"
+msgstr "Dica"
 
 msgid "Title"
 msgstr "Título"

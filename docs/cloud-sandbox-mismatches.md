@@ -180,6 +180,20 @@ waits for the daemon:
             "docker compose up"] }
 ```
 
+**`gh` runs in a clean login shell, so the sandbox's `GH_TOKEN` never reaches
+it.** Host-service shells out to `gh` for pull-request reads and writes
+(`pullRequests.getContent`, `addComment`, `setDraft`, the content read behind
+the PR page) through `getToolEnvironment()`, which rebuilds the environment
+from a login shell the way a person's machine would have it. On a machine a
+person owns that is where `gh auth login` left its credentials. A sandbox has
+no `gh auth login`; its GitHub access is the `GH_TOKEN` the provider injects
+into the *process* environment, which the clean shell drops. The PR page then
+fails its first content read with a gh auth error. **What we did:** the review
+run wrote a temporary `~/.config/gh/hosts.yml` from the token and deleted it
+afterwards. The durable fix is for `getToolEnvironment()` to carry `GH_TOKEN`
+(and `GITHUB_TOKEN`) through from the host-service process when the shell did
+not provide one.
+
 ## Runtime environment
 
 **No login shell, no rc files, and the variables are not in the process env.**

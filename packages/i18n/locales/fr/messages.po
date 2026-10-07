@@ -3268,6 +3268,9 @@ msgstr "Trésorerie — solde total (Mercury)"
 msgid "Category"
 msgstr "Catégorie"
 
+msgid "Caution"
+msgstr "Attention"
+
 msgid "Certificate Authority Invalid"
 msgstr "Autorité de certification non valide"
 
@@ -4015,6 +4018,9 @@ msgstr "Échec du commit : {0}"
 
 msgid "Commit message"
 msgstr "Message de commit"
+
+msgid "Commit message (optional)"
+msgstr "Message de commit (facultatif)"
 
 msgid "Commits"
 msgstr "Commits"
@@ -8305,6 +8311,9 @@ msgstr "Importez votre historique de navigation et vos identifiants depuis {brow
 msgid "Import…"
 msgstr "Importer…"
 
+msgid "Important"
+msgstr "Important"
+
 #. placeholder {0}: untracked.length
 #. placeholder {1}: errors[0]
 msgid "Imported {imported} of {0} worktrees: {1}"
@@ -8952,9 +8961,6 @@ msgstr "Découvrir le flux de travail adapté à ce dépôt — espaces de trava
 
 msgid "Leave a comment"
 msgstr "Laisser un commentaire"
-
-msgid "Leave a comment (optional)"
-msgstr "Laissez un commentaire (facultatif)"
 
 msgid "Leave a comment…"
 msgstr "Laissez un commentaire…"
@@ -10913,6 +10919,9 @@ msgstr "non trié"
 msgctxt "agent status"
 msgid "Not updating"
 msgstr "Pas de mise à jour"
+
+msgid "Note"
+msgstr "Remarque"
 
 msgid "Notes"
 msgstr "Notes"
@@ -16922,6 +16931,9 @@ msgstr "Date"
 
 msgid "Time range"
 msgstr "Période"
+
+msgid "Tip"
+msgstr "Astuce"
 
 msgid "Title"
 msgstr "Titre"

@@ -1,4 +1,4 @@
-import { Trans } from "@lingui/react/macro";
+import { Trans, useLingui } from "@lingui/react/macro";
 import { cn } from "@superset/ui/utils";
 import type { Components } from "react-markdown";
 import { MarkdownRenderer } from "renderer/components/MarkdownRenderer";
@@ -56,7 +56,14 @@ export function PullRequestMarkdown({
 	body,
 	className,
 }: PullRequestMarkdownProps) {
-	const prepared = preparePullRequestMarkdown(body);
+	const { t } = useLingui();
+	const prepared = preparePullRequestMarkdown(body, {
+		note: t({ message: "Note" }),
+		tip: t({ message: "Tip" }),
+		important: t({ message: "Important" }),
+		warning: t({ message: "Warning" }),
+		caution: t({ message: "Caution" }),
+	});
 	if (!prepared) {
 		return (
 			<p className={cn("text-sm italic text-muted-foreground", className)}>

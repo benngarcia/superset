@@ -27,7 +27,13 @@ function PullRequestDetailPage() {
 	const projectId = search.project ?? null;
 	const { hostId } = useProjectHost(projectId);
 	const hostUrl = useHostUrl(hostId);
-	const [activeTab, setActiveTab] = useState<PullRequestDetailTab>("summary");
+	const [tabChoice, setTabChoice] = useState<{
+		prNumber: number | null;
+		tab: PullRequestDetailTab;
+	}>({ prNumber, tab: "summary" });
+	const activeTab = tabChoice.prNumber === prNumber ? tabChoice.tab : "summary";
+	const setActiveTab = (tab: PullRequestDetailTab) =>
+		setTabChoice({ prNumber, tab });
 
 	const detail = usePullRequestDetail({
 		projectId,
@@ -40,8 +46,11 @@ function PullRequestDetailPage() {
 		data?.additions !== undefined && data.deletions !== undefined
 			? { additions: data.additions, deletions: data.deletions }
 			: null;
+	// A host that predates addComment/setDraft answers the content read without
+	// the extended fields; it would answer the writes with "No procedure found".
+	const hostSupportsWrites = data?.mergeability !== undefined;
 	const commentTarget =
-		detail.projectId && hostUrl && prNumber !== null
+		hostSupportsWrites && detail.projectId && hostUrl && prNumber !== null
 			? { projectId: detail.projectId, hostUrl, prNumber }
 			: null;
 

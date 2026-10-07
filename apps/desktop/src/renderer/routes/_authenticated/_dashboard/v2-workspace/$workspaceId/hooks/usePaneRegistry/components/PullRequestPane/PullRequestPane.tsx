@@ -69,7 +69,9 @@ export function PullRequestPane({
 			? { additions: detail.data.additions, deletions: detail.data.deletions }
 			: null;
 	const commentTarget =
-		projectId && hostUrl ? { projectId, hostUrl, prNumber: data.number } : null;
+		projectId && hostUrl && detail.data?.mergeability !== undefined
+			? { projectId, hostUrl, prNumber: data.number }
+			: null;
 
 	return (
 		<div className="flex h-full w-full min-h-0 min-w-0 flex-col">

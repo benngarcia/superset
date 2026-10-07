@@ -3268,6 +3268,9 @@ msgstr "Kas — saldo total (Mercury)"
 msgid "Category"
 msgstr "Kategori"
 
+msgid "Caution"
+msgstr "Perhatian"
+
 msgid "Certificate Authority Invalid"
 msgstr "Certificate Authority Tidak Valid"
 
@@ -4015,6 +4018,9 @@ msgstr "Commit gagal: {0}"
 
 msgid "Commit message"
 msgstr "Pesan commit"
+
+msgid "Commit message (optional)"
+msgstr "Pesan commit (opsional)"
 
 msgid "Commits"
 msgstr "Commit"
@@ -8305,6 +8311,9 @@ msgstr "Impor riwayat penjelajahan dan login Anda dari {browserName}"
 msgid "Import…"
 msgstr "Impor…"
 
+msgid "Important"
+msgstr "Penting"
+
 #. placeholder {0}: untracked.length
 #. placeholder {1}: errors[0]
 msgid "Imported {imported} of {0} worktrees: {1}"
@@ -8952,9 +8961,6 @@ msgstr "Pelajari alur kerja yang cocok untuk repo ini — workspace paralel dan 
 
 msgid "Leave a comment"
 msgstr "Tinggalkan komentar"
-
-msgid "Leave a comment (optional)"
-msgstr "Tinggalkan komentar (opsional)"
 
 msgid "Leave a comment…"
 msgstr "Tinggalkan komentar…"
@@ -10913,6 +10919,9 @@ msgstr "tidak diurutkan"
 msgctxt "agent status"
 msgid "Not updating"
 msgstr "Tidak diperbarui"
+
+msgid "Note"
+msgstr "Catatan"
 
 msgid "Notes"
 msgstr "Catatan"
@@ -16922,6 +16931,9 @@ msgstr "Waktu"
 
 msgid "Time range"
 msgstr "Rentang waktu"
+
+msgid "Tip"
+msgstr "Kiat"
 
 msgid "Title"
 msgstr "Judul"

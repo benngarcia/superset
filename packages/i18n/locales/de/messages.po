@@ -3268,6 +3268,9 @@ msgstr "Cash — Gesamtbestand (Mercury)"
 msgid "Category"
 msgstr "Kategorie"
 
+msgid "Caution"
+msgstr "Achtung"
+
 msgid "Certificate Authority Invalid"
 msgstr "Zertifizierungsstelle ungültig"
 
@@ -4015,6 +4018,9 @@ msgstr "Commit fehlgeschlagen: {0}"
 
 msgid "Commit message"
 msgstr "Commit-Nachricht"
+
+msgid "Commit message (optional)"
+msgstr "Commit-Nachricht (optional)"
 
 msgid "Commits"
 msgstr "Commits"
@@ -8305,6 +8311,9 @@ msgstr "Importiere deinen Browserverlauf und deine Logins aus {browserName}"
 msgid "Import…"
 msgstr "Importieren…"
 
+msgid "Important"
+msgstr "Wichtig"
+
 #. placeholder {0}: untracked.length
 #. placeholder {1}: errors[0]
 msgid "Imported {imported} of {0} worktrees: {1}"
@@ -8952,9 +8961,6 @@ msgstr "Lerne den Workflow, der zu diesem Repo passt — parallele Arbeitsbereic
 
 msgid "Leave a comment"
 msgstr "Kommentar hinterlassen"
-
-msgid "Leave a comment (optional)"
-msgstr "Kommentar hinterlassen (optional)"
 
 msgid "Leave a comment…"
 msgstr "Kommentar hinterlassen…"
@@ -10913,6 +10919,9 @@ msgstr "nicht sortiert"
 msgctxt "agent status"
 msgid "Not updating"
 msgstr "Keine Updates"
+
+msgid "Note"
+msgstr "Hinweis"
 
 msgid "Notes"
 msgstr "Notizen"
@@ -16922,6 +16931,9 @@ msgstr "Zeit"
 
 msgid "Time range"
 msgstr "Zeitraum"
+
+msgid "Tip"
+msgstr "Tipp"
 
 msgid "Title"
 msgstr "Titel"
