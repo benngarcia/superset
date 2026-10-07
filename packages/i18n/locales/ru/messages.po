@@ -3319,6 +3319,9 @@ msgstr "Изменить расположение проекта"
 msgid "Change role"
 msgstr "Сменить роль"
 
+msgid "Change state"
+msgstr "Изменить состояние"
+
 #. placeholder {0}: issue.state.name
 msgid "Change status from {0}"
 msgstr "Изменить статус (сейчас: {0})"
@@ -4420,8 +4423,14 @@ msgstr "Конверсия от предыдущего"
 msgid "Conversion so far"
 msgstr "Конверсия на текущий момент"
 
+msgid "Convert to draft"
+msgstr "Перевести в черновик"
+
 msgid "Converted"
 msgstr "Сконвертировались"
+
+msgid "Converting to draft…"
+msgstr "Перевод в черновик…"
 
 msgid "cookies and site data"
 msgstr "cookies и данные сайтов"
@@ -4844,6 +4853,9 @@ msgstr "Не удалось проверить статус звезды — у�
 msgid "Couldn't connect (error {status}). Please try again."
 msgstr "Не удалось подключиться (ошибка {status}). Попробуйте ещё раз."
 
+msgid "Couldn't convert to draft"
+msgstr "Не удалось перевести в черновик"
+
 msgid "Couldn't copy comment"
 msgstr "Не удалось скопировать комментарий"
 
@@ -4908,6 +4920,9 @@ msgstr "Не удалось загрузить полезную нагрузку
 
 msgid "Couldn't load your profile, so editing is disabled."
 msgstr "Не удалось загрузить профиль, поэтому редактирование отключено."
+
+msgid "Couldn't mark ready for review"
+msgstr "Не удалось пометить как готовый к ревью"
 
 msgid "Couldn't merge pull request"
 msgstr "Не удалось объединить пул-реквест"
@@ -9500,6 +9515,9 @@ msgstr "Маркетплейс"
 
 msgid "Marking ready for review..."
 msgstr "Помечается как готово к ревью…"
+
+msgid "Marking ready…"
+msgstr "Пометка как готовый…"
 
 msgid "Match existing patterns"
 msgstr "Следуй существующим шаблонам"

@@ -3319,6 +3319,9 @@ msgstr "Projectlocatie wijzigen"
 msgid "Change role"
 msgstr "Rol wijzigen"
 
+msgid "Change state"
+msgstr "Status wijzigen"
+
 #. placeholder {0}: issue.state.name
 msgid "Change status from {0}"
 msgstr "Status wijzigen (nu: {0})"
@@ -4420,8 +4423,14 @@ msgstr "Conversie sinds vorige"
 msgid "Conversion so far"
 msgstr "Conversie tot nu toe"
 
+msgid "Convert to draft"
+msgstr "Omzetten naar concept"
+
 msgid "Converted"
 msgstr "Geconverteerd"
+
+msgid "Converting to draft…"
+msgstr "Omzetten naar concept…"
 
 msgid "cookies and site data"
 msgstr "cookies en sitegegevens"
@@ -4844,6 +4853,9 @@ msgstr "Kan de sterstatus niet bevestigen — controleer of de GitHub-CLI (`gh`)
 msgid "Couldn't connect (error {status}). Please try again."
 msgstr "Verbinden mislukt (fout {status}). Probeer het opnieuw."
 
+msgid "Couldn't convert to draft"
+msgstr "Kon niet omzetten naar concept"
+
 msgid "Couldn't copy comment"
 msgstr "Kan opmerking niet kopiëren"
 
@@ -4908,6 +4920,9 @@ msgstr "Kan de payload van deze run niet laden."
 
 msgid "Couldn't load your profile, so editing is disabled."
 msgstr "Je profiel kon niet worden geladen, daarom is bewerken uitgeschakeld."
+
+msgid "Couldn't mark ready for review"
+msgstr "Kon niet markeren als klaar voor review"
 
 msgid "Couldn't merge pull request"
 msgstr "Kan pull request niet mergen"
@@ -9500,6 +9515,9 @@ msgstr "Marketplace"
 
 msgid "Marking ready for review..."
 msgstr "Markeren als klaar voor review…"
+
+msgid "Marking ready…"
+msgstr "Markeren als klaar…"
 
 msgid "Match existing patterns"
 msgstr "Volg bestaande patronen"

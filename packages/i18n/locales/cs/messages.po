@@ -3319,6 +3319,9 @@ msgstr "Změnit umístění projektu"
 msgid "Change role"
 msgstr "Změnit roli"
 
+msgid "Change state"
+msgstr "Změnit stav"
+
 #. placeholder {0}: issue.state.name
 msgid "Change status from {0}"
 msgstr "Změnit stav (aktuálně: {0})"
@@ -4420,8 +4423,14 @@ msgstr "Konverze z předchozího"
 msgid "Conversion so far"
 msgstr "Konverze zatím"
 
+msgid "Convert to draft"
+msgstr "Převést na koncept"
+
 msgid "Converted"
 msgstr "Konvertovalo"
+
+msgid "Converting to draft…"
+msgstr "Převádí se na koncept…"
 
 msgid "cookies and site data"
 msgstr "cookies a data webů"
@@ -4844,6 +4853,9 @@ msgstr "Nepodařilo se ověřit stav hvězdy — zkontrolujte, že je nainstalov
 msgid "Couldn't connect (error {status}). Please try again."
 msgstr "Připojení se nezdařilo (chyba {status}). Zkuste to znovu."
 
+msgid "Couldn't convert to draft"
+msgstr "Nepodařilo se převést na koncept"
+
 msgid "Couldn't copy comment"
 msgstr "Komentář se nepodařilo zkopírovat"
 
@@ -4908,6 +4920,9 @@ msgstr "Data tohoto běhu se nepodařilo načíst."
 
 msgid "Couldn't load your profile, so editing is disabled."
 msgstr "Tvůj profil se nepodařilo načíst, úpravy jsou proto vypnuté."
+
+msgid "Couldn't mark ready for review"
+msgstr "Nepodařilo se označit jako připravený k revizi"
 
 msgid "Couldn't merge pull request"
 msgstr "Pull request se nepodařilo sloučit"
@@ -9500,6 +9515,9 @@ msgstr "Marketplace"
 
 msgid "Marking ready for review..."
 msgstr "Označování jako připravené k revizi…"
+
+msgid "Marking ready…"
+msgstr "Označuje se jako připravený…"
 
 msgid "Match existing patterns"
 msgstr "Dodrž stávající vzory"

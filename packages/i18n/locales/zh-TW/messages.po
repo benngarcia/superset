@@ -3319,6 +3319,9 @@ msgstr "更改專案位置"
 msgid "Change role"
 msgstr "更改角色"
 
+msgid "Change state"
+msgstr "變更狀態"
+
 #. placeholder {0}: issue.state.name
 msgid "Change status from {0}"
 msgstr "變更狀態（目前：{0}）"
@@ -4420,8 +4423,14 @@ msgstr "較上一步轉換率"
 msgid "Conversion so far"
 msgstr "累計轉換率"
 
+msgid "Convert to draft"
+msgstr "轉為草稿"
+
 msgid "Converted"
 msgstr "已轉換"
+
+msgid "Converting to draft…"
+msgstr "正在轉為草稿…"
 
 msgid "cookies and site data"
 msgstr "Cookie和站點資料"
@@ -4844,6 +4853,9 @@ msgstr "無法確認加星狀態，請檢查是否已安裝並登入GitHub CLI�
 msgid "Couldn't connect (error {status}). Please try again."
 msgstr "無法連線（錯誤 {status}）。請重試。"
 
+msgid "Couldn't convert to draft"
+msgstr "無法轉為草稿"
+
 msgid "Couldn't copy comment"
 msgstr "無法複製評論"
 
@@ -4908,6 +4920,9 @@ msgstr "無法載入此次執行的酬載。"
 
 msgid "Couldn't load your profile, so editing is disabled."
 msgstr "無法載入你的個人檔案，編輯已停用。"
+
+msgid "Couldn't mark ready for review"
+msgstr "無法標記為可供審查"
 
 msgid "Couldn't merge pull request"
 msgstr "無法合併拉取請求"
@@ -9500,6 +9515,9 @@ msgstr "市場"
 
 msgid "Marking ready for review..."
 msgstr "正在標記為可審查…"
+
+msgid "Marking ready…"
+msgstr "正在標記為就緒…"
 
 msgid "Match existing patterns"
 msgstr "沿用現有模式"

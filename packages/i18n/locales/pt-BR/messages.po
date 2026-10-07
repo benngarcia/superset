@@ -3319,6 +3319,9 @@ msgstr "Alterar o local do projeto"
 msgid "Change role"
 msgstr "Alterar cargo"
 
+msgid "Change state"
+msgstr "Alterar estado"
+
 #. placeholder {0}: issue.state.name
 msgid "Change status from {0}"
 msgstr "Alterar status (atual: {0})"
@@ -4420,8 +4423,14 @@ msgstr "Conversão desde a etapa anterior"
 msgid "Conversion so far"
 msgstr "Conversão até aqui"
 
+msgid "Convert to draft"
+msgstr "Converter em rascunho"
+
 msgid "Converted"
 msgstr "Converteram"
+
+msgid "Converting to draft…"
+msgstr "Convertendo em rascunho…"
 
 msgid "cookies and site data"
 msgstr "cookies e dados de sites"
@@ -4844,6 +4853,9 @@ msgstr "Não foi possível confirmar o status da estrela — verifique se a CLI 
 msgid "Couldn't connect (error {status}). Please try again."
 msgstr "Não foi possível conectar (erro {status}). Tente novamente."
 
+msgid "Couldn't convert to draft"
+msgstr "Não foi possível converter em rascunho"
+
 msgid "Couldn't copy comment"
 msgstr "Não foi possível copiar o comentário"
 
@@ -4908,6 +4920,9 @@ msgstr "Não foi possível carregar a carga útil desta execução."
 
 msgid "Couldn't load your profile, so editing is disabled."
 msgstr "Não foi possível carregar seu perfil, então a edição está desativada."
+
+msgid "Couldn't mark ready for review"
+msgstr "Não foi possível marcar como pronto para revisão"
 
 msgid "Couldn't merge pull request"
 msgstr "Não foi possível fazer o merge do pull request"
@@ -9500,6 +9515,9 @@ msgstr "Marketplace"
 
 msgid "Marking ready for review..."
 msgstr "Marcando como pronto para revisão…"
+
+msgid "Marking ready…"
+msgstr "Marcando como pronto…"
 
 msgid "Match existing patterns"
 msgstr "Siga os padrões existentes"

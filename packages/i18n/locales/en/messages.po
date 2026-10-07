@@ -3319,6 +3319,9 @@ msgstr "Change project location"
 msgid "Change role"
 msgstr "Change role"
 
+msgid "Change state"
+msgstr "Change state"
+
 #. placeholder {0}: issue.state.name
 msgid "Change status from {0}"
 msgstr "Change status from {0}"
@@ -4420,8 +4423,14 @@ msgstr "Conversion from previous"
 msgid "Conversion so far"
 msgstr "Conversion so far"
 
+msgid "Convert to draft"
+msgstr "Convert to draft"
+
 msgid "Converted"
 msgstr "Converted"
+
+msgid "Converting to draft…"
+msgstr "Converting to draft…"
 
 msgid "cookies and site data"
 msgstr "cookies and site data"
@@ -4844,6 +4853,9 @@ msgstr "Couldn't confirm star status — check that the GitHub CLI (`gh`) is ins
 msgid "Couldn't connect (error {status}). Please try again."
 msgstr "Couldn't connect (error {status}). Please try again."
 
+msgid "Couldn't convert to draft"
+msgstr "Couldn't convert to draft"
+
 msgid "Couldn't copy comment"
 msgstr "Couldn't copy comment"
 
@@ -4908,6 +4920,9 @@ msgstr "Couldn't load this run's payload."
 
 msgid "Couldn't load your profile, so editing is disabled."
 msgstr "Couldn't load your profile, so editing is disabled."
+
+msgid "Couldn't mark ready for review"
+msgstr "Couldn't mark ready for review"
 
 msgid "Couldn't merge pull request"
 msgstr "Couldn't merge pull request"
@@ -9500,6 +9515,9 @@ msgstr "Marketplace"
 
 msgid "Marking ready for review..."
 msgstr "Marking ready for review..."
+
+msgid "Marking ready…"
+msgstr "Marking ready…"
 
 msgid "Match existing patterns"
 msgstr "Match existing patterns"

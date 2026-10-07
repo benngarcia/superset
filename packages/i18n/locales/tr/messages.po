@@ -3319,6 +3319,9 @@ msgstr "Proje konumunu değiştir"
 msgid "Change role"
 msgstr "Rolü değiştir"
 
+msgid "Change state"
+msgstr "Durumu değiştir"
+
 #. placeholder {0}: issue.state.name
 msgid "Change status from {0}"
 msgstr "Durumu değiştir (şu an: {0})"
@@ -4420,8 +4423,14 @@ msgstr "Öncekinden dönüşüm"
 msgid "Conversion so far"
 msgstr "Şu ana kadarki dönüşüm"
 
+msgid "Convert to draft"
+msgstr "Taslağa dönüştür"
+
 msgid "Converted"
 msgstr "Dönüştü"
+
+msgid "Converting to draft…"
+msgstr "Taslağa dönüştürülüyor…"
 
 msgid "cookies and site data"
 msgstr "çerezler ve site verileri"
@@ -4844,6 +4853,9 @@ msgstr "Yıldız durumu doğrulanamadı — GitHub CLI'nin (`gh`) kurulu ve otur
 msgid "Couldn't connect (error {status}). Please try again."
 msgstr "Bağlanılamadı (hata {status}). Lütfen tekrar deneyin."
 
+msgid "Couldn't convert to draft"
+msgstr "Taslağa dönüştürülemedi"
+
 msgid "Couldn't copy comment"
 msgstr "Yorum kopyalanamadı"
 
@@ -4908,6 +4920,9 @@ msgstr "Bu çalıştırmanın yükü yüklenemedi."
 
 msgid "Couldn't load your profile, so editing is disabled."
 msgstr "Profilin yüklenemedi, bu yüzden düzenleme devre dışı."
+
+msgid "Couldn't mark ready for review"
+msgstr "İncelemeye hazır olarak işaretlenemedi"
 
 msgid "Couldn't merge pull request"
 msgstr "Pull request birleştirilemedi"
@@ -9500,6 +9515,9 @@ msgstr "Pazar yeri"
 
 msgid "Marking ready for review..."
 msgstr "İncelemeye hazır olarak işaretleniyor…"
+
+msgid "Marking ready…"
+msgstr "Hazır olarak işaretleniyor…"
 
 msgid "Match existing patterns"
 msgstr "Mevcut desenlere uy"

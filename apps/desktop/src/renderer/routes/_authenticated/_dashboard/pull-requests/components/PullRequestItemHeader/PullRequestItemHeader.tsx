@@ -4,10 +4,14 @@ import { Avatar, AvatarFallback, AvatarImage } from "@superset/ui/avatar";
 import { cn } from "@superset/ui/utils";
 import { ArrowRight } from "lucide-react";
 import type { PullRequestDetail } from "../../hooks/usePullRequestDetail";
+import type { PullRequestActionTarget } from "../../hooks/usePullRequestDraftMutation";
+import { PullRequestDraftStateMenu } from "../PullRequestDraftStateMenu";
 import { PullRequestStatePill } from "../PullRequestStatePill";
 
 interface PullRequestItemHeaderProps {
 	data: PullRequestDetail;
+	/** Where state changes post; null leaves the pill inert. */
+	actionTarget?: PullRequestActionTarget | null;
 	className?: string;
 }
 
@@ -17,6 +21,7 @@ interface PullRequestItemHeaderProps {
  */
 export function PullRequestItemHeader({
 	data,
+	actionTarget = null,
 	className,
 }: PullRequestItemHeaderProps) {
 	const { t } = useLingui();
@@ -28,7 +33,11 @@ export function PullRequestItemHeader({
 	return (
 		<header className={cn("shrink-0 pb-4", className)}>
 			<div className="flex min-w-0 items-center gap-2">
-				<PullRequestStatePill data={data} />
+				{actionTarget && data.state === "open" ? (
+					<PullRequestDraftStateMenu data={data} target={actionTarget} />
+				) : (
+					<PullRequestStatePill data={data} />
+				)}
 				<span
 					className="min-w-0 truncate text-xs text-muted-foreground"
 					title={data.repoFullName}

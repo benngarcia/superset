@@ -25,7 +25,9 @@ export function PullRequestSummaryContent({
 }: PullRequestSummaryContentProps) {
 	return (
 		<PullRequestPageBody
-			header={<PullRequestItemHeader data={data} />}
+			header={
+				<PullRequestItemHeader data={data} actionTarget={commentTarget} />
+			}
 			info={(variant) => <PullRequestInfo data={data} variant={variant} />}
 		>
 			<PullRequestMarkdown body={data.body} />

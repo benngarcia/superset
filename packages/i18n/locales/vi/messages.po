@@ -3319,6 +3319,9 @@ msgstr "Đổi vị trí dự án"
 msgid "Change role"
 msgstr "Đổi vai trò"
 
+msgid "Change state"
+msgstr "Đổi trạng thái"
+
 #. placeholder {0}: issue.state.name
 msgid "Change status from {0}"
 msgstr "Đổi trạng thái (hiện tại: {0})"
@@ -4420,8 +4423,14 @@ msgstr "Chuyển đổi từ bước trước"
 msgid "Conversion so far"
 msgstr "Chuyển đổi đến hiện tại"
 
+msgid "Convert to draft"
+msgstr "Chuyển thành bản nháp"
+
 msgid "Converted"
 msgstr "Đã chuyển đổi"
+
+msgid "Converting to draft…"
+msgstr "Đang chuyển thành bản nháp…"
 
 msgid "cookies and site data"
 msgstr "cookie và dữ liệu trang"
@@ -4844,6 +4853,9 @@ msgstr "Không xác nhận được trạng thái sao — hãy kiểm tra GitHub
 msgid "Couldn't connect (error {status}). Please try again."
 msgstr "Không thể kết nối (lỗi {status}). Vui lòng thử lại."
 
+msgid "Couldn't convert to draft"
+msgstr "Không thể chuyển thành bản nháp"
+
 msgid "Couldn't copy comment"
 msgstr "Không thể sao chép bình luận"
 
@@ -4908,6 +4920,9 @@ msgstr "Không thể tải payload của lần chạy này."
 
 msgid "Couldn't load your profile, so editing is disabled."
 msgstr "Không tải được hồ sơ của bạn nên chức năng chỉnh sửa đã bị tắt."
+
+msgid "Couldn't mark ready for review"
+msgstr "Không thể đánh dấu sẵn sàng để review"
 
 msgid "Couldn't merge pull request"
 msgstr "Không thể merge pull request"
@@ -9500,6 +9515,9 @@ msgstr "Marketplace"
 
 msgid "Marking ready for review..."
 msgstr "Đang đánh dấu sẵn sàng để review…"
+
+msgid "Marking ready…"
+msgstr "Đang đánh dấu sẵn sàng…"
 
 msgid "Match existing patterns"
 msgstr "Bám theo mẫu hiện có"

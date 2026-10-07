@@ -3319,6 +3319,9 @@ msgstr "プロジェクトの場所を変更"
 msgid "Change role"
 msgstr "ロールを変更"
 
+msgid "Change state"
+msgstr "状態を変更"
+
 #. placeholder {0}: issue.state.name
 msgid "Change status from {0}"
 msgstr "ステータスを変更（現在: {0}）"
@@ -4420,8 +4423,14 @@ msgstr "前ステップからの転換率"
 msgid "Conversion so far"
 msgstr "ここまでの転換率"
 
+msgid "Convert to draft"
+msgstr "ドラフトに変換"
+
 msgid "Converted"
 msgstr "転換"
+
+msgid "Converting to draft…"
+msgstr "ドラフトに変換しています…"
 
 msgid "cookies and site data"
 msgstr "Cookieとサイトデータ"
@@ -4844,6 +4853,9 @@ msgstr "スター状態を確認できませんでした — GitHub CLI (`gh`) �
 msgid "Couldn't connect (error {status}). Please try again."
 msgstr "接続できませんでした（エラー {status}）。もう一度お試しください。"
 
+msgid "Couldn't convert to draft"
+msgstr "ドラフトに変換できませんでした"
+
 msgid "Couldn't copy comment"
 msgstr "コメントをコピーできませんでした"
 
@@ -4908,6 +4920,9 @@ msgstr "この実行のペイロードを読み込めませんでした。"
 
 msgid "Couldn't load your profile, so editing is disabled."
 msgstr "プロフィールを読み込めなかったため、編集は無効です。"
+
+msgid "Couldn't mark ready for review"
+msgstr "レビュー準備完了にできませんでした"
 
 msgid "Couldn't merge pull request"
 msgstr "プルリクエストをマージできませんでした"
@@ -9500,6 +9515,9 @@ msgstr "マーケットプレイス"
 
 msgid "Marking ready for review..."
 msgstr "レビュー準備完了にしています…"
+
+msgid "Marking ready…"
+msgstr "準備完了にしています…"
 
 msgid "Match existing patterns"
 msgstr "既存のパターンに合わせて"

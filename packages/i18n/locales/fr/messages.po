@@ -3319,6 +3319,9 @@ msgstr "Changer l'emplacement du projet"
 msgid "Change role"
 msgstr "Changer de rôle"
 
+msgid "Change state"
+msgstr "Changer l'état"
+
 #. placeholder {0}: issue.state.name
 msgid "Change status from {0}"
 msgstr "Changer le statut (actuel : {0})"
@@ -4420,8 +4423,14 @@ msgstr "Conversion depuis la précédente"
 msgid "Conversion so far"
 msgstr "Conversion cumulée"
 
+msgid "Convert to draft"
+msgstr "Convertir en brouillon"
+
 msgid "Converted"
 msgstr "Convertis"
+
+msgid "Converting to draft…"
+msgstr "Conversion en brouillon…"
 
 msgid "cookies and site data"
 msgstr "cookies et données de site"
@@ -4844,6 +4853,9 @@ msgstr "Impossible de confirmer l'état de l'étoile — vérifiez que la CLI Gi
 msgid "Couldn't connect (error {status}). Please try again."
 msgstr "Connexion impossible (erreur {status}). Réessayez."
 
+msgid "Couldn't convert to draft"
+msgstr "Impossible de convertir en brouillon"
+
 msgid "Couldn't copy comment"
 msgstr "Impossible de copier le commentaire"
 
@@ -4908,6 +4920,9 @@ msgstr "Impossible de charger la charge utile de cette exécution."
 
 msgid "Couldn't load your profile, so editing is disabled."
 msgstr "Impossible de charger votre profil, l'édition est désactivée."
+
+msgid "Couldn't mark ready for review"
+msgstr "Impossible de marquer comme prête pour la revue"
 
 msgid "Couldn't merge pull request"
 msgstr "Impossible de fusionner la pull request"
@@ -9500,6 +9515,9 @@ msgstr "Marketplace"
 
 msgid "Marking ready for review..."
 msgstr "Marquage comme prêt pour la revue…"
+
+msgid "Marking ready…"
+msgstr "Marquage comme prête…"
 
 msgid "Match existing patterns"
 msgstr "Suivre les modèles existants"

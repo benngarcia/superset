@@ -3319,6 +3319,9 @@ msgstr "프로젝트 위치 변경"
 msgid "Change role"
 msgstr "역할 변경"
 
+msgid "Change state"
+msgstr "상태 변경"
+
 #. placeholder {0}: issue.state.name
 msgid "Change status from {0}"
 msgstr "상태 변경 (현재: {0})"
@@ -4420,8 +4423,14 @@ msgstr "이전 단계 대비 전환율"
 msgid "Conversion so far"
 msgstr "누적 전환율"
 
+msgid "Convert to draft"
+msgstr "초안으로 전환"
+
 msgid "Converted"
 msgstr "전환됨"
+
+msgid "Converting to draft…"
+msgstr "초안으로 전환하는 중…"
 
 msgid "cookies and site data"
 msgstr "쿠키 및 사이트 데이터"
@@ -4844,6 +4853,9 @@ msgstr "스타 상태를 확인하지 못했습니다 — GitHub CLI(`gh`)가 �
 msgid "Couldn't connect (error {status}). Please try again."
 msgstr "연결하지 못했어요(오류 {status}). 다시 시도해 주세요."
 
+msgid "Couldn't convert to draft"
+msgstr "초안으로 전환할 수 없습니다"
+
 msgid "Couldn't copy comment"
 msgstr "코멘트를 복사하지 못했습니다"
 
@@ -4908,6 +4920,9 @@ msgstr "이 실행의 페이로드를 불러오지 못했습니다."
 
 msgid "Couldn't load your profile, so editing is disabled."
 msgstr "프로필을 불러오지 못해 편집이 비활성화되었습니다."
+
+msgid "Couldn't mark ready for review"
+msgstr "리뷰 준비 완료로 표시할 수 없습니다"
 
 msgid "Couldn't merge pull request"
 msgstr "풀 리퀘스트를 머지하지 못했습니다"
@@ -9500,6 +9515,9 @@ msgstr "마켓플레이스"
 
 msgid "Marking ready for review..."
 msgstr "리뷰 준비 완료로 표시하는 중…"
+
+msgid "Marking ready…"
+msgstr "준비 완료로 표시하는 중…"
 
 msgid "Match existing patterns"
 msgstr "기존 패턴을 따라 주세요"
