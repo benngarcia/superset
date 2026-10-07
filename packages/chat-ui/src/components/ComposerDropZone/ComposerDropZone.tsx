@@ -33,9 +33,9 @@ export type ComposerDropZoneProps = {
 };
 
 /**
- * Layout-level file drop target: mount around the whole content area (like the
- * new-workspace screen) and any composer rendered inside registers itself as
- * the drop sink automatically.
+ * Layout-level file drop target: mount around the whole content area (like a
+ * chat pane) and any composer rendered inside registers itself as the drop
+ * sink automatically.
  */
 export function ComposerDropZone({
 	children,
