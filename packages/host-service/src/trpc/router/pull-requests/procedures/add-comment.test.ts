@@ -11,7 +11,7 @@ const caller = createCallerFactory(router({ addComment }))({
 
 afterEach(() => mock.restore());
 
-test("posts the trimmed body through gh pr comment", async () => {
+test("posts the trimmed body through the REST comments endpoint", async () => {
 	spyOn(projects, "resolveGithubRepo").mockResolvedValue({
 		owner: "owner",
 		name: "repo",
@@ -24,8 +24,15 @@ test("posts the trimmed body through gh pr comment", async () => {
 		await caller.addComment({ projectId: "p", prNumber: 12, body: "  LGTM  " }),
 	).toEqual({ ok: true });
 	expect(exec).toHaveBeenCalledWith(
-		["pr", "comment", "12", "--repo", "owner/repo", "--body-file", "-"],
-		{ input: "LGTM" },
+		[
+			"api",
+			"--method",
+			"POST",
+			"repos/owner/repo/issues/12/comments",
+			"--input",
+			"-",
+		],
+		{ input: JSON.stringify({ body: "LGTM" }) },
 	);
 });
 

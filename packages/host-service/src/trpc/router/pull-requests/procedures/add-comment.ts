@@ -18,17 +18,18 @@ export const addComment = protectedProcedure
 	.mutation(async ({ ctx, input }) => {
 		const repo = await resolveGithubRepo(ctx, input.projectId);
 		try {
+			// One REST request: `gh pr comment` posts over GraphQL and then reads
+			// back, and a failure in that read reported a comment that had landed.
 			await execGh(
 				[
-					"pr",
-					"comment",
-					String(input.prNumber),
-					"--repo",
-					`${repo.owner}/${repo.name}`,
-					"--body-file",
+					"api",
+					"--method",
+					"POST",
+					`repos/${repo.owner}/${repo.name}/issues/${input.prNumber}/comments`,
+					"--input",
 					"-",
 				],
-				{ input: input.body },
+				{ input: JSON.stringify({ body: input.body }) },
 			);
 		} catch (err) {
 			throw new TRPCError({
