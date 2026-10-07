@@ -10258,7 +10258,7 @@ msgid "No agent"
 msgstr "无智能体"
 
 msgid "No agent is configured on this host"
-msgstr "此主机上未配置任何代理"
+msgstr "此主机上未配置任何智能体"
 
 #. placeholder {0}: host.name
 msgid "No agents configured on {0}"

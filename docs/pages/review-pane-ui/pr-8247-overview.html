@@ -122,7 +122,7 @@
   <p>Writes go through the host's <code>gh</code>, like merge and close already did, so no GitHub App is needed. Every tRPC change is additive and optional for older clients.</p>
   <table>
     <tr><th>Change</th><th>Shape</th></tr>
-    <tr><td><code>pullRequests.addComment</code></td><td>New. <code>gh pr comment --body-file -</code> with the body on stdin (a 64k-character body in one argv element can exceed Linux's per-argument limit on cloud hosts). Evicts the content cache so the refetch carries the comment.</td></tr>
+    <tr><td><code>pullRequests.addComment</code></td><td>New. One REST request: <code>gh api --method POST repos/o/r/issues/n/comments --input -</code> with the JSON body on stdin. <code>gh pr comment</code> posts over GraphQL and then reads the comment back, and GitHub failed that read once after the comment had landed, so the host reported a failure for a successful write. Stdin also keeps a long body out of argv. Evicts the content cache so the refetch carries the comment.</td></tr>
     <tr><td><code>pullRequests.setDraft</code></td><td>New. <code>gh pr ready [--undo]</code>; the host records the draft flag on linked rows before the refetch lands so sidebar chips agree.</td></tr>
     <tr><td><code>getContent</code> / <code>getContentByRepo</code></td><td>Same input; the output gains mergeability, merge-state status, diff counts, review decision, reviewers (requested plus everyone who submitted a review; pending reviews excluded), comments with review state and URL, labels, and merged/closed times. All optional; the desktop treats an older host's answer as "unknown", not "empty".</td></tr>
   </table>
