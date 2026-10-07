@@ -1,7 +1,6 @@
 import { getTerminalHostClient } from "main/lib/terminal-host/client";
 import type { ListSessionsResponse } from "main/lib/terminal-host/types";
 import { DaemonTerminalManager, getDaemonTerminalManager } from "./daemon";
-import { prewarmTerminalEnv } from "./env";
 
 export { DaemonTerminalManager, getDaemonTerminalManager };
 export type {
@@ -13,7 +12,6 @@ export type {
 } from "./types";
 
 const DEBUG_TERMINAL = process.env.SUPERSET_TERMINAL_DEBUG === "1";
-let prewarmInFlight: Promise<void> | null = null;
 
 /**
  * Reconcile daemon sessions on app startup.
@@ -91,40 +89,4 @@ export async function tryListExistingDaemonSessions(): Promise<{
 		}
 		return { sessions: [] };
 	}
-}
-
-/**
- * Best-effort terminal runtime warmup.
- * Runs in the background to reduce latency for the first user-opened terminal:
- * - precomputes locale/env fallback
- * - ensures daemon control/stream channels are established
- */
-export function prewarmTerminalRuntime(): void {
-	if (prewarmInFlight) return;
-
-	prewarmInFlight = (async () => {
-		try {
-			prewarmTerminalEnv();
-		} catch (error) {
-			if (DEBUG_TERMINAL) {
-				console.warn(
-					"[TerminalManager] Failed to prewarm terminal env:",
-					error,
-				);
-			}
-		}
-
-		try {
-			await getTerminalHostClient().ensureConnected();
-		} catch (error) {
-			if (DEBUG_TERMINAL) {
-				console.warn(
-					"[TerminalManager] Failed to prewarm terminal daemon connection:",
-					error,
-				);
-			}
-		}
-	})().finally(() => {
-		prewarmInFlight = null;
-	});
 }

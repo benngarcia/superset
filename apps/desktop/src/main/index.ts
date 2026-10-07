@@ -61,10 +61,7 @@ import { runQuitCleanup } from "./lib/quit-sequence";
 import { startResourceJournal } from "./lib/resource-metrics/resource-journal";
 import { initSentry } from "./lib/sentry";
 import { stopPtyDaemons } from "./lib/stop-pty-daemons";
-import {
-	prewarmTerminalRuntime,
-	reconcileDaemonSessions,
-} from "./lib/terminal";
+import { reconcileDaemonSessions } from "./lib/terminal";
 import {
 	disposeTerminalHostClient,
 	getTerminalHostClient,
@@ -539,7 +536,6 @@ if (!gotTheLock) {
 
 		// Must happen before renderer restore runs
 		await reconcileDaemonSessions();
-		prewarmTerminalRuntime();
 
 		// Must be listening before any host-service spawns: the child learns the
 		// bridge endpoint/secret from its env, so a late bridge means browser
