@@ -4,6 +4,10 @@ import { formatRelativeTime } from "renderer/lib/formatRelativeTime";
 import { PullRequestChecksSummary } from "renderer/routes/_authenticated/_dashboard/pull-requests/components/PullRequestChecksSummary";
 import type { PullRequestCheck } from "renderer/routes/_authenticated/_dashboard/pull-requests/components/pull-request-checks";
 import {
+	PR_GREEN_TEXT_CLASS_NAME,
+	PR_RED_TEXT_CLASS_NAME,
+} from "renderer/routes/_authenticated/_dashboard/pull-requests/components/pull-request-colors";
+import {
 	normalizePRState,
 	PRIcon,
 } from "renderer/screens/main/components/PRIcon";
@@ -105,12 +109,10 @@ export function PullRequestRow({
 				</div>
 				{hasDiffStat && (
 					<span className="flex items-center gap-1 tabular-nums">
-						<span className="text-emerald-600 [.dark_&]:text-[#34d399]">
+						<span className={PR_GREEN_TEXT_CLASS_NAME}>
 							+{pr.additions ?? 0}
 						</span>
-						<span className="text-red-600 [.dark_&]:text-[#f87171]">
-							-{pr.deletions ?? 0}
-						</span>
+						<span className={PR_RED_TEXT_CLASS_NAME}>-{pr.deletions ?? 0}</span>
 					</span>
 				)}
 			</div>

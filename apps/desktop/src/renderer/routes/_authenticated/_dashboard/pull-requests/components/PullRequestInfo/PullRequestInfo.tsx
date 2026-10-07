@@ -30,6 +30,10 @@ import {
 	type PullRequestCheck,
 	summarizePullRequestChecks,
 } from "../pull-request-checks";
+import {
+	PR_GREEN_FILL_CLASS_NAME,
+	PR_RED_FILL_CLASS_NAME,
+} from "../pull-request-colors";
 
 export type PullRequestInfoVariant = "column" | "rows";
 
@@ -116,7 +120,12 @@ function MergeStatusSection({ data }: { data: PullRequestDetail }) {
 		<InfoSection variant="column" label={t({ message: "Merge status" })}>
 			<span className="flex items-center gap-2">
 				{status.tone === "success" ? (
-					<CircleCheck className="size-4 shrink-0 fill-success text-background" />
+					<CircleCheck
+						className={cn(
+							"size-4 shrink-0 text-background",
+							PR_GREEN_FILL_CLASS_NAME,
+						)}
+					/>
 				) : status.tone === "conflict" ? (
 					<PullRequestStateGlyph state="conflicting" className="size-4" />
 				) : (
@@ -221,12 +230,22 @@ function CheckStatusIcon({ status }: { status: PullRequestCheck["status"] }) {
 	switch (status) {
 		case "success":
 			return (
-				<CircleCheck className="size-4 shrink-0 fill-success text-background" />
+				<CircleCheck
+					className={cn(
+						"size-4 shrink-0 text-background",
+						PR_GREEN_FILL_CLASS_NAME,
+					)}
+				/>
 			);
 		case "failure":
 		case "cancelled":
 			return (
-				<CircleX className="size-4 shrink-0 fill-destructive text-background" />
+				<CircleX
+					className={cn(
+						"size-4 shrink-0 text-background",
+						PR_RED_FILL_CLASS_NAME,
+					)}
+				/>
 			);
 		case "pending":
 			return (
@@ -338,7 +357,12 @@ function ChecksSection({
 				>
 					<CollapsibleTrigger className="flex w-fit items-center gap-1.5 rounded-md text-left focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring">
 						{summary.status === "success" ? (
-							<CircleCheck className="size-4 fill-success text-background" />
+							<CircleCheck
+								className={cn(
+									"size-4 text-background",
+									PR_GREEN_FILL_CLASS_NAME,
+								)}
+							/>
 						) : null}
 						{brief}
 						<ChevronDown

@@ -7,17 +7,21 @@ import {
 	ListChecks,
 } from "lucide-react";
 import type { PRState } from "renderer/screens/main/components/PRIcon";
+import {
+	PR_GREEN_TEXT_CLASS_NAME,
+	PR_RED_TEXT_CLASS_NAME,
+} from "../pull-request-colors";
 
 export type PullRequestGlyphState = PRState | "conflicting";
 
 /** Ink per state; the pill tints its background from the same currentColor. */
 export const PR_STATE_INK_CLASS_NAME: Record<PullRequestGlyphState, string> = {
-	open: "text-success",
+	open: PR_GREEN_TEXT_CLASS_NAME,
 	draft: "text-muted-foreground",
 	merged: "text-violet-500 [.dark_&]:text-[#b0a6d9]",
 	closed: "text-muted-foreground",
 	queued: "text-amber-600 [.dark_&]:text-[#fbbf24]",
-	conflicting: "text-destructive",
+	conflicting: PR_RED_TEXT_CLASS_NAME,
 };
 
 const GLYPHS = {

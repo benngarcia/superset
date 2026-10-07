@@ -1,5 +1,9 @@
 import { formatNumber } from "@superset/i18n/format";
 import { cn } from "@superset/ui/utils";
+import {
+	PR_GREEN_TEXT_CLASS_NAME,
+	PR_RED_TEXT_CLASS_NAME,
+} from "../pull-request-colors";
 
 interface PullRequestDiffStatProps {
 	additions: number;
@@ -17,8 +21,10 @@ export function PullRequestDiffStat({
 		<span
 			className={cn("inline-flex items-baseline gap-1 tabular-nums", className)}
 		>
-			<span className="text-success">+{formatNumber(additions)}</span>
-			<span className="text-destructive">−{formatNumber(deletions)}</span>
+			<span className={PR_GREEN_TEXT_CLASS_NAME}>
+				+{formatNumber(additions)}
+			</span>
+			<span className={PR_RED_TEXT_CLASS_NAME}>−{formatNumber(deletions)}</span>
 		</span>
 	);
 }
