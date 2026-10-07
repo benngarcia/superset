@@ -633,9 +633,9 @@ async function fetchRemoteBranch(args: {
 }): Promise<void> {
 	const { repoPath, remoteName, branch, gitEnv } = args;
 	await createUserSimpleGit(repoPath, {
+		env: gitEnv,
 		timeout: { block: RESTORE_FETCH_TIMEOUT_MS },
 	})
-		.env(gitEnv)
 		.fetch([
 			remoteName,
 			`refs/heads/${branch}:refs/remotes/${remoteName}/${branch}`,
