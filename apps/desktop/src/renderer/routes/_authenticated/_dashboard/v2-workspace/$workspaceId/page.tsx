@@ -4,7 +4,7 @@ import { cn } from "@superset/ui/utils";
 import { workspaceTrpc } from "@superset/workspace-client";
 import { createFileRoute } from "@tanstack/react-router";
 import { useFeatureFlagEnabled } from "posthog-js/react";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useQuickOpenStore } from "renderer/commandPalette/ui/QuickOpen/quickOpenStore";
 import { useWorkspaceHostTarget } from "renderer/hooks/host-service/useWorkspaceHostUrl";
@@ -402,6 +402,17 @@ function V2WorkspaceContent() {
 	const activateRightArea = useCallback(() => {
 		lastActiveAreaRef.current = "right";
 	}, []);
+	useEffect(() => {
+		const onWindowBlur = () => {
+			const area = document.activeElement
+				?.closest("[data-pane-area]")
+				?.getAttribute("data-pane-area");
+			if (area === "center" || area === "right")
+				lastActiveAreaRef.current = area;
+		};
+		window.addEventListener("blur", onWindowBlur);
+		return () => window.removeEventListener("blur", onWindowBlur);
+	}, []);
 	const getCloseTarget = useCallback(
 		() =>
 			isRightPaneAreaEnabled &&
@@ -629,6 +640,7 @@ function V2WorkspaceContent() {
 					<div
 						className="flex min-h-0 min-w-[320px] flex-1 flex-col overflow-hidden"
 						data-workspace-id={workspaceId}
+						data-pane-area="center"
 						onPointerDownCapture={activateCenterArea}
 						onFocusCapture={activateCenterArea}
 					>

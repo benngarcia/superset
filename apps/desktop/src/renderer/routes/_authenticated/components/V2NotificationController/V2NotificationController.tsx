@@ -96,6 +96,7 @@ export function V2NotificationController() {
 					workspaceId: v2WorkspaceLocalState.workspaceId,
 					paneLayout: v2WorkspaceLocalState.paneLayout,
 					rightPaneLayout: v2WorkspaceLocalState.rightPaneLayout,
+					rightSidebarOpen: v2WorkspaceLocalState.rightSidebarOpen,
 				})),
 		[collections],
 	);

@@ -38,14 +38,22 @@ export function useWorkspaceRightSidebarOpen(workspaceId: string): {
 	>(
 		(next) => {
 			const row = collections.v2WorkspaceLocalState.get(workspaceId);
-			if (!row) return;
+			if (!row) {
+				setRightSidebarOpen(next);
+				return;
+			}
 			const prev = row.rightSidebarOpen ?? preferences.rightSidebarOpen;
 			const value = typeof next === "function" ? next(prev) : next;
 			collections.v2WorkspaceLocalState.update(workspaceId, (draft) => {
 				draft.rightSidebarOpen = value;
 			});
 		},
-		[collections, workspaceId, preferences.rightSidebarOpen],
+		[
+			collections,
+			workspaceId,
+			preferences.rightSidebarOpen,
+			setRightSidebarOpen,
+		],
 	);
 
 	return {

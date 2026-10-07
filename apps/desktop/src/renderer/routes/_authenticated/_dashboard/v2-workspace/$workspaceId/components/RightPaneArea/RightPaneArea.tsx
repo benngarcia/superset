@@ -61,6 +61,7 @@ export function RightPaneArea({
 	return (
 		<div
 			className="contents"
+			data-pane-area="right"
 			onPointerDownCapture={onActivate}
 			onFocusCapture={onActivate}
 		>
