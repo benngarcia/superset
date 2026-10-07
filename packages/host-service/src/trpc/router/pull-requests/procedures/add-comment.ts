@@ -18,15 +18,18 @@ export const addComment = protectedProcedure
 	.mutation(async ({ ctx, input }) => {
 		const repo = await resolveGithubRepo(ctx, input.projectId);
 		try {
-			await execGh([
-				"pr",
-				"comment",
-				String(input.prNumber),
-				"--repo",
-				`${repo.owner}/${repo.name}`,
-				"--body",
-				input.body,
-			]);
+			await execGh(
+				[
+					"pr",
+					"comment",
+					String(input.prNumber),
+					"--repo",
+					`${repo.owner}/${repo.name}`,
+					"--body-file",
+					"-",
+				],
+				{ input: input.body },
+			);
 		} catch (err) {
 			throw new TRPCError({
 				code: "INTERNAL_SERVER_ERROR",

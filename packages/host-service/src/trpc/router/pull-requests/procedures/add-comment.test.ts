@@ -23,15 +23,10 @@ test("posts the trimmed body through gh pr comment", async () => {
 	expect(
 		await caller.addComment({ projectId: "p", prNumber: 12, body: "  LGTM  " }),
 	).toEqual({ ok: true });
-	expect(exec).toHaveBeenCalledWith([
-		"pr",
-		"comment",
-		"12",
-		"--repo",
-		"owner/repo",
-		"--body",
-		"LGTM",
-	]);
+	expect(exec).toHaveBeenCalledWith(
+		["pr", "comment", "12", "--repo", "owner/repo", "--body-file", "-"],
+		{ input: "LGTM" },
+	);
 });
 
 test("rejects an empty body before spawning gh", async () => {
@@ -43,6 +38,6 @@ test("rejects an empty body before spawning gh", async () => {
 	const exec = spyOn(gh, "execGh");
 	await expect(
 		caller.addComment({ projectId: "p", prNumber: 12, body: "   " }),
-	).rejects.toThrow();
+	).rejects.toMatchObject({ code: "BAD_REQUEST" });
 	expect(exec).not.toHaveBeenCalled();
 });

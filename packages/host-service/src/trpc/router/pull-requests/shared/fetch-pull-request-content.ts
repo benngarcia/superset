@@ -184,7 +184,9 @@ function toContent(
 	const reviewers = new Map<string, PullRequestActor>();
 	for (const actor of [
 		...(data.reviewRequests ?? []),
-		...(data.reviews ?? []).map((review) => review.author),
+		...(data.reviews ?? [])
+			.filter((review) => review.submittedAt)
+			.map((review) => review.author),
 	]) {
 		const normalized = normalizeActor(actor);
 		if (normalized) reviewers.set(normalized.login.toLowerCase(), normalized);

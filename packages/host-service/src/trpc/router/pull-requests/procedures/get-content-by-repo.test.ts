@@ -187,3 +187,104 @@ test("preserves the legacy project resolver error contract", async () => {
 	).rejects.toMatchObject({ code: "NOT_FOUND", message: "Project not found" });
 	expect(exec).not.toHaveBeenCalled();
 });
+
+test("normalizes reviewers, comments, and commits from a populated gh payload", async () => {
+	spyOn(gh, "execGh").mockResolvedValue({
+		...rawContent,
+		author: { login: "octocat", name: "The Octocat" },
+		mergeable: "UNKNOWN",
+		mergeStateStatus: "UNSTABLE",
+		additions: 12,
+		deletions: -3,
+		changedFiles: 2.7,
+		reviewDecision: "CHANGES_REQUESTED",
+		reviewRequests: [
+			{ login: "Reviewer", name: "Rae Viewer" },
+			{ __typename: "Team", name: "core", slug: "core" },
+		],
+		reviews: [
+			{
+				id: "R1",
+				author: { login: "reviewer" },
+				body: "Please fix",
+				state: "CHANGES_REQUESTED",
+				submittedAt: "2026-10-01T10:00:00Z",
+			},
+			{
+				id: "R2",
+				author: { login: "pending" },
+				body: "",
+				state: "PENDING",
+				submittedAt: null,
+			},
+		],
+		comments: [
+			{
+				id: "C1",
+				author: null,
+				body: "Ghost says hi",
+				createdAt: "2026-10-01T09:00:00Z",
+				url: "https://github.com/owner/repo/pull/12#issuecomment-1",
+			},
+			{ id: "C2", author: { login: "late" }, body: "no time", createdAt: null },
+		],
+		commits: [
+			{
+				oid: "abc123",
+				messageHeadline: "  fix: thing  ",
+				committedDate: "2026-10-01T08:00:00Z",
+				authors: [
+					{ login: null, name: "Local Committer" },
+					{ login: "octocat" },
+				],
+			},
+		],
+		labels: [{ name: "bug", color: "" }],
+	});
+	const content = await caller.getContentByRepo({
+		repoFullName: "owner/populated",
+		prNumber: 12,
+	});
+	expect(content).toMatchObject({
+		author: "octocat",
+		mergeability: "unknown",
+		mergeStateStatus: "UNSTABLE",
+		additions: 12,
+		deletions: 0,
+		changedFiles: 2,
+		reviewDecision: "CHANGES_REQUESTED",
+		reviewers: [{ login: "reviewer", name: null }],
+		labels: [{ name: "bug", color: null }],
+	});
+	expect(content.comments).toEqual([
+		{
+			id: "C1",
+			kind: "comment",
+			author: null,
+			body: "Ghost says hi",
+			createdAt: "2026-10-01T09:00:00Z",
+			reviewState: null,
+			url: "https://github.com/owner/repo/pull/12#issuecomment-1",
+		},
+		{
+			id: "R1",
+			kind: "review",
+			author: { login: "reviewer", name: null },
+			body: "Please fix",
+			createdAt: "2026-10-01T10:00:00Z",
+			reviewState: "CHANGES_REQUESTED",
+			url: null,
+		},
+	]);
+	expect(content.commits).toEqual([
+		{
+			oid: "abc123",
+			messageHeadline: "fix: thing",
+			committedDate: "2026-10-01T08:00:00Z",
+			authors: [
+				{ login: "Local Committer", name: "Local Committer" },
+				{ login: "octocat", name: null },
+			],
+		},
+	]);
+});
