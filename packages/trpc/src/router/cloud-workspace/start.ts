@@ -193,12 +193,14 @@ export async function startCloudWorkspace(args: {
 	return row;
 }
 
-// The host opens a terminal for any launch that carries an effort.
+// The host opens a terminal for any launch that carries an effort. The
+// sandbox's Codex is older than the codex-acp floor, so only Claude chats.
 async function withSurface(
 	launch: CloudAgentLaunch,
 	userId: string,
 ): Promise<CloudAgentLaunch> {
-	if (!(await acpChatEnabled(userId))) return launch;
+	if (launch.agent !== "claude" || !(await acpChatEnabled(userId)))
+		return launch;
 	return { ...launch, effort: undefined, surface: "chat" };
 }
 

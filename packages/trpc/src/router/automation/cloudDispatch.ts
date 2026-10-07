@@ -83,7 +83,8 @@ export async function runInCloud(
 			...(launch.continueTerminalId
 				? { continueTerminalId: launch.continueTerminalId }
 				: {}),
-			...((await acpChatEnabled(automation.ownerUserId))
+			...(automation.agent === "claude" &&
+			(await acpChatEnabled(automation.ownerUserId))
 				? { surface: "chat" as const }
 				: {}),
 		});
