@@ -382,10 +382,6 @@ msgstr "ramificação de {0}"
 msgid "{0} cannot be signed in this way yet."
 msgstr "{0} ainda não pode entrar dessa forma."
 
-#. placeholder {0}: event.actor
-msgid "{0} commented"
-msgstr "{0} comentou"
-
 #. placeholder {0}: formatNumber(participants)
 msgid "{0} developers are ranked by agent usage. Your last 30 days are already counted, just hidden. Token counts and model names only, no repo names, file paths or prompts."
 msgstr "{0} desenvolvedores estão classificados por uso de agentes. Seus últimos 30 dias já estão contabilizados, apenas ocultos. Apenas contagens de tokens e nomes de modelos, sem nomes de repositórios, caminhos de arquivos ou prompts."
@@ -490,10 +486,6 @@ msgstr "{0} das contas"
 #. placeholder {0}: rate(signups, visitors)
 msgid "{0} of visitors"
 msgstr "{0} dos visitantes"
-
-#. placeholder {0}: event.actor
-msgid "{0} opened this pull request"
-msgstr "{0} abriu este pull request"
 
 #. placeholder {0}: plugin.interface.displayName
 msgid "{0} options"
@@ -624,9 +616,6 @@ msgstr "{actor} adicionou a tarefa a {to}"
 msgid "{actor} added the workspace to {project}"
 msgstr "{actor} adicionou o espaço de trabalho a {project}"
 
-msgid "{actor} approved"
-msgstr "{actor} aprovou"
-
 msgid "{actor} archived the workspace"
 msgstr "{actor} arquivou o espaço de trabalho"
 
@@ -696,12 +685,6 @@ msgstr "{actor} renomeou a tarefa para {title}"
 #. placeholder {0}: entry.to
 msgid "{actor} renamed the workspace to <0>{0}</0>"
 msgstr "{actor} renomeou o espaço de trabalho para <0>{0}</0>"
-
-msgid "{actor} requested changes"
-msgstr "{actor} solicitou alterações"
-
-msgid "{actor} reviewed"
-msgstr "{actor} revisou"
 
 msgid "{actor} set the priority to {to}"
 msgstr "{actor} definiu a prioridade como {to}"
@@ -4025,13 +4008,6 @@ msgstr "Não foi possível carregar os comentários"
 
 msgid "Commit"
 msgstr "Fazer commit"
-
-msgid "Commit {short}"
-msgstr "Commit {short}"
-
-#. placeholder {0}: event.actor
-msgid "Commit {short} by {0}"
-msgstr "Commit {short} de {0}"
 
 #. placeholder {0}: error.message
 msgid "Commit failed: {0}"
@@ -12618,20 +12594,11 @@ msgstr "Pull request #{0}, {1}"
 msgid "Pull request actions"
 msgstr "Ações do pull request"
 
-msgid "Pull request closed"
-msgstr "Pull request fechado"
-
 msgid "Pull request detail tabs"
 msgstr "Abas do detalhe do pull request"
 
-msgid "Pull request merged"
-msgstr "Pull request mesclado"
-
 msgid "Pull request not found"
 msgstr "Pull request não encontrado"
-
-msgid "Pull request opened"
-msgstr "Pull request aberto"
 
 msgid "Pull request title"
 msgstr "Título do pull request"
@@ -16919,9 +16886,6 @@ msgstr "Tempo"
 
 msgid "Time range"
 msgstr "Período"
-
-msgid "Timeline"
-msgstr "Linha do tempo"
 
 msgid "Title"
 msgstr "Título"

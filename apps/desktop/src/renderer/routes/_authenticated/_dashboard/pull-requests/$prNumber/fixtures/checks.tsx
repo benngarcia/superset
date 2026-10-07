@@ -54,9 +54,6 @@ mock.module(
 		PullRequestDetailSkeleton: () => <div>Loading pull request…</div>,
 	}),
 );
-mock.module(`${root}/pull-requests/components/PullRequestTimelineTab`, () => ({
-	PullRequestTimelineTab: () => null,
-}));
 mock.module(`${root}/pull-requests/components/PullRequestTabTitle`, () => ({
 	PullRequestTabTitle: () => null,
 }));

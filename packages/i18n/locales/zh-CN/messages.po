@@ -382,10 +382,6 @@ msgstr "{0} 分支"
 msgid "{0} cannot be signed in this way yet."
 msgstr "{0}还不能用这种方式登录。"
 
-#. placeholder {0}: event.actor
-msgid "{0} commented"
-msgstr "{0} 发表了评论"
-
 #. placeholder {0}: formatNumber(participants)
 msgid "{0} developers are ranked by agent usage. Your last 30 days are already counted, just hidden. Token counts and model names only, no repo names, file paths or prompts."
 msgstr "已有{0}位开发者按agent用量排名。你最近30天的数据已计入，只是尚未公开。仅包含token数量和模型名称，不含仓库名、文件路径或提示词。"
@@ -490,10 +486,6 @@ msgstr "占账号的 {0}"
 #. placeholder {0}: rate(signups, visitors)
 msgid "{0} of visitors"
 msgstr "占访客的 {0}"
-
-#. placeholder {0}: event.actor
-msgid "{0} opened this pull request"
-msgstr "{0} 创建了此拉取请求"
 
 #. placeholder {0}: plugin.interface.displayName
 msgid "{0} options"
@@ -624,9 +616,6 @@ msgstr "{actor} 将任务添加到 {to}"
 msgid "{actor} added the workspace to {project}"
 msgstr "{actor} 将工作区加入了 {project}"
 
-msgid "{actor} approved"
-msgstr "{actor} 已批准"
-
 msgid "{actor} archived the workspace"
 msgstr "{actor} 归档了工作区"
 
@@ -696,12 +685,6 @@ msgstr "{actor} 将任务重命名为 {title}"
 #. placeholder {0}: entry.to
 msgid "{actor} renamed the workspace to <0>{0}</0>"
 msgstr "{actor} 将工作区重命名为 <0>{0}</0>"
-
-msgid "{actor} requested changes"
-msgstr "{actor} 请求了更改"
-
-msgid "{actor} reviewed"
-msgstr "{actor} 进行了评审"
 
 msgid "{actor} set the priority to {to}"
 msgstr "{actor} 将优先级设为 {to}"
@@ -4025,13 +4008,6 @@ msgstr "无法加载评论"
 
 msgid "Commit"
 msgstr "提交"
-
-msgid "Commit {short}"
-msgstr "提交 {short}"
-
-#. placeholder {0}: event.actor
-msgid "Commit {short} by {0}"
-msgstr "{0} 的提交 {short}"
 
 #. placeholder {0}: error.message
 msgid "Commit failed: {0}"
@@ -12618,20 +12594,11 @@ msgstr "拉取请求#{0}，{1}"
 msgid "Pull request actions"
 msgstr "拉取请求操作"
 
-msgid "Pull request closed"
-msgstr "拉取请求已关闭"
-
 msgid "Pull request detail tabs"
 msgstr "拉取请求详情标签页"
 
-msgid "Pull request merged"
-msgstr "拉取请求已合并"
-
 msgid "Pull request not found"
 msgstr "未找到拉取请求"
-
-msgid "Pull request opened"
-msgstr "拉取请求已创建"
 
 msgid "Pull request title"
 msgstr "拉取请求标题"
@@ -16919,9 +16886,6 @@ msgstr "时间"
 
 msgid "Time range"
 msgstr "时间范围"
-
-msgid "Timeline"
-msgstr "时间线"
 
 msgid "Title"
 msgstr "标题"

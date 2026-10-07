@@ -6,7 +6,7 @@ interface PullRequestTabTitleProps {
 	data: Pick<PullRequestDetail, "title" | "state" | "isDraft" | "mergeability">;
 }
 
-/** The one-line title the Changes and Timeline tabs keep above their content. */
+/** The one-line title the Changes tab keeps above its content. */
 export function PullRequestTabTitle({ data }: PullRequestTabTitleProps) {
 	const state =
 		data.state === "open" &&

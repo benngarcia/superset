@@ -382,10 +382,6 @@ msgstr "{0} 분기"
 msgid "{0} cannot be signed in this way yet."
 msgstr "{0}은(는) 아직 이 방식으로 로그인할 수 없습니다."
 
-#. placeholder {0}: event.actor
-msgid "{0} commented"
-msgstr "{0}님이 댓글을 남겼습니다"
-
 #. placeholder {0}: formatNumber(participants)
 msgid "{0} developers are ranked by agent usage. Your last 30 days are already counted, just hidden. Token counts and model names only, no repo names, file paths or prompts."
 msgstr "{0}명의 개발자가 에이전트 사용량으로 순위에 올라 있습니다. 최근 30일 사용량은 이미 집계되어 있고 숨겨져 있을 뿐입니다. 토큰 수와 모델 이름만 공개되며 저장소 이름, 파일 경로, 프롬프트는 포함되지 않습니다."
@@ -490,10 +486,6 @@ msgstr "계정의 {0}"
 #. placeholder {0}: rate(signups, visitors)
 msgid "{0} of visitors"
 msgstr "방문자의 {0}"
-
-#. placeholder {0}: event.actor
-msgid "{0} opened this pull request"
-msgstr "{0}님이 이 풀 리퀘스트를 열었습니다"
 
 #. placeholder {0}: plugin.interface.displayName
 msgid "{0} options"
@@ -624,9 +616,6 @@ msgstr "{actor} 님이 작업을 {to}에 추가했습니다"
 msgid "{actor} added the workspace to {project}"
 msgstr "{actor} 님이 워크스페이스를 {project}에 추가했습니다"
 
-msgid "{actor} approved"
-msgstr "{actor}님이 승인했습니다"
-
 msgid "{actor} archived the workspace"
 msgstr "{actor} 님이 워크스페이스를 보관했습니다"
 
@@ -696,12 +685,6 @@ msgstr "{actor} 님이 작업 이름을 {title}(으)로 변경했습니다"
 #. placeholder {0}: entry.to
 msgid "{actor} renamed the workspace to <0>{0}</0>"
 msgstr "{actor} 님이 워크스페이스 이름을 <0>{0}</0>(으)로 변경했습니다"
-
-msgid "{actor} requested changes"
-msgstr "{actor}님이 변경을 요청했습니다"
-
-msgid "{actor} reviewed"
-msgstr "{actor}님이 리뷰했습니다"
 
 msgid "{actor} set the priority to {to}"
 msgstr "{actor} 님이 우선순위를 {to}(으)로 설정했습니다"
@@ -4025,13 +4008,6 @@ msgstr "댓글을 불러올 수 없습니다"
 
 msgid "Commit"
 msgstr "커밋"
-
-msgid "Commit {short}"
-msgstr "커밋 {short}"
-
-#. placeholder {0}: event.actor
-msgid "Commit {short} by {0}"
-msgstr "{0}의 커밋 {short}"
 
 #. placeholder {0}: error.message
 msgid "Commit failed: {0}"
@@ -12618,20 +12594,11 @@ msgstr "풀 리퀘스트 #{0}, {1}"
 msgid "Pull request actions"
 msgstr "풀 리퀘스트 작업"
 
-msgid "Pull request closed"
-msgstr "풀 리퀘스트가 닫혔습니다"
-
 msgid "Pull request detail tabs"
 msgstr "풀 리퀘스트 상세 탭"
 
-msgid "Pull request merged"
-msgstr "풀 리퀘스트가 머지되었습니다"
-
 msgid "Pull request not found"
 msgstr "풀 리퀘스트를 찾을 수 없습니다"
-
-msgid "Pull request opened"
-msgstr "풀 리퀘스트가 열렸습니다"
 
 msgid "Pull request title"
 msgstr "풀 리퀘스트 제목"
@@ -16919,9 +16886,6 @@ msgstr "시간"
 
 msgid "Time range"
 msgstr "기간"
-
-msgid "Timeline"
-msgstr "타임라인"
 
 msgid "Title"
 msgstr "제목"

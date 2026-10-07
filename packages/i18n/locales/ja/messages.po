@@ -382,10 +382,6 @@ msgstr "{0} の分岐"
 msgid "{0} cannot be signed in this way yet."
 msgstr "{0}はまだこの方法ではサインインできません。"
 
-#. placeholder {0}: event.actor
-msgid "{0} commented"
-msgstr "{0} がコメントしました"
-
 #. placeholder {0}: formatNumber(participants)
 msgid "{0} developers are ranked by agent usage. Your last 30 days are already counted, just hidden. Token counts and model names only, no repo names, file paths or prompts."
 msgstr "{0}人の開発者がエージェント利用量でランク付けされています。あなたの直近30日はすでに集計済みで、非表示になっているだけです。公開されるのはトークン数とモデル名のみで、リポジトリ名・ファイルパス・プロンプトは含まれません。"
@@ -490,10 +486,6 @@ msgstr "アカウントの {0}"
 #. placeholder {0}: rate(signups, visitors)
 msgid "{0} of visitors"
 msgstr "訪問者の {0}"
-
-#. placeholder {0}: event.actor
-msgid "{0} opened this pull request"
-msgstr "{0} がこのプルリクエストを作成しました"
 
 #. placeholder {0}: plugin.interface.displayName
 msgid "{0} options"
@@ -624,9 +616,6 @@ msgstr "{actor}がタスクを {to} に追加しました"
 msgid "{actor} added the workspace to {project}"
 msgstr "{actor}がワークスペースを {project} に追加しました"
 
-msgid "{actor} approved"
-msgstr "{actor} が承認しました"
-
 msgid "{actor} archived the workspace"
 msgstr "{actor}がワークスペースをアーカイブしました"
 
@@ -696,12 +685,6 @@ msgstr "{actor}がタスク名を {title} に変更しました"
 #. placeholder {0}: entry.to
 msgid "{actor} renamed the workspace to <0>{0}</0>"
 msgstr "{actor}がワークスペース名を<0>{0}</0>に変更しました"
-
-msgid "{actor} requested changes"
-msgstr "{actor} が変更をリクエストしました"
-
-msgid "{actor} reviewed"
-msgstr "{actor} がレビューしました"
 
 msgid "{actor} set the priority to {to}"
 msgstr "{actor}が優先度を {to} に設定しました"
@@ -4025,13 +4008,6 @@ msgstr "コメントを読み込めませんでした"
 
 msgid "Commit"
 msgstr "コミット"
-
-msgid "Commit {short}"
-msgstr "コミット {short}"
-
-#. placeholder {0}: event.actor
-msgid "Commit {short} by {0}"
-msgstr "{0} によるコミット {short}"
 
 #. placeholder {0}: error.message
 msgid "Commit failed: {0}"
@@ -12618,20 +12594,11 @@ msgstr "プルリクエスト#{0}、{1}"
 msgid "Pull request actions"
 msgstr "プルリクエストの操作"
 
-msgid "Pull request closed"
-msgstr "プルリクエストがクローズされました"
-
 msgid "Pull request detail tabs"
 msgstr "プルリクエスト詳細のタブ"
 
-msgid "Pull request merged"
-msgstr "プルリクエストがマージされました"
-
 msgid "Pull request not found"
 msgstr "プルリクエストが見つかりません"
-
-msgid "Pull request opened"
-msgstr "プルリクエストが作成されました"
 
 msgid "Pull request title"
 msgstr "プルリクエストのタイトル"
@@ -16919,9 +16886,6 @@ msgstr "時間"
 
 msgid "Time range"
 msgstr "期間"
-
-msgid "Timeline"
-msgstr "タイムライン"
 
 msgid "Title"
 msgstr "タイトル"

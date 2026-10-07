@@ -382,10 +382,6 @@ msgstr "{0} dalı"
 msgid "{0} cannot be signed in this way yet."
 msgstr "{0} henüz bu şekilde oturum açamıyor."
 
-#. placeholder {0}: event.actor
-msgid "{0} commented"
-msgstr "{0} yorum yaptı"
-
 #. placeholder {0}: formatNumber(participants)
 msgid "{0} developers are ranked by agent usage. Your last 30 days are already counted, just hidden. Token counts and model names only, no repo names, file paths or prompts."
 msgstr "{0} geliştirici ajan kullanımına göre sıralanıyor. Son 30 gününüz zaten sayılıyor, yalnızca gizli. Yalnızca token sayıları ve model adları; repo adları, dosya yolları veya prompt'lar yok."
@@ -490,10 +486,6 @@ msgstr "hesapların {0}"
 #. placeholder {0}: rate(signups, visitors)
 msgid "{0} of visitors"
 msgstr "ziyaretçilerin {0}"
-
-#. placeholder {0}: event.actor
-msgid "{0} opened this pull request"
-msgstr "{0} bu pull request'i açtı"
 
 #. placeholder {0}: plugin.interface.displayName
 msgid "{0} options"
@@ -624,9 +616,6 @@ msgstr "{actor} görevi {to} projesine ekledi"
 msgid "{actor} added the workspace to {project}"
 msgstr "{actor} çalışma alanını {project} projesine ekledi"
 
-msgid "{actor} approved"
-msgstr "{actor} onayladı"
-
 msgid "{actor} archived the workspace"
 msgstr "{actor} çalışma alanını arşivledi"
 
@@ -696,12 +685,6 @@ msgstr "{actor} görevin adını {title} olarak değiştirdi"
 #. placeholder {0}: entry.to
 msgid "{actor} renamed the workspace to <0>{0}</0>"
 msgstr "{actor} çalışma alanının adını <0>{0}</0> olarak değiştirdi"
-
-msgid "{actor} requested changes"
-msgstr "{actor} değişiklik istedi"
-
-msgid "{actor} reviewed"
-msgstr "{actor} inceledi"
 
 msgid "{actor} set the priority to {to}"
 msgstr "{actor} önceliği {to} olarak ayarladı"
@@ -4025,13 +4008,6 @@ msgstr "Yorumlar yüklenemedi"
 
 msgid "Commit"
 msgstr "Commit et"
-
-msgid "Commit {short}"
-msgstr "{short} commit'i"
-
-#. placeholder {0}: event.actor
-msgid "Commit {short} by {0}"
-msgstr "{0} tarafından {short} commit'i"
 
 #. placeholder {0}: error.message
 msgid "Commit failed: {0}"
@@ -12618,20 +12594,11 @@ msgstr "Pull request #{0}, {1}"
 msgid "Pull request actions"
 msgstr "Pull request eylemleri"
 
-msgid "Pull request closed"
-msgstr "Pull request kapatıldı"
-
 msgid "Pull request detail tabs"
 msgstr "Pull request ayrıntı sekmeleri"
 
-msgid "Pull request merged"
-msgstr "Pull request birleştirildi"
-
 msgid "Pull request not found"
 msgstr "Pull request bulunamadı"
-
-msgid "Pull request opened"
-msgstr "Pull request açıldı"
 
 msgid "Pull request title"
 msgstr "Pull request başlığı"
@@ -16919,9 +16886,6 @@ msgstr "Zaman"
 
 msgid "Time range"
 msgstr "Zaman aralığı"
-
-msgid "Timeline"
-msgstr "Zaman çizelgesi"
 
 msgid "Title"
 msgstr "Başlık"

@@ -2,7 +2,7 @@ import { useLingui } from "@lingui/react/macro";
 import { cn } from "@superset/ui/utils";
 import { PullRequestDiffStat } from "../PullRequestDiffStat";
 
-export type PullRequestDetailTab = "summary" | "code" | "timeline";
+export type PullRequestDetailTab = "summary" | "code";
 
 interface PullRequestDetailTabsProps {
 	activeTab: PullRequestDetailTab;
@@ -22,7 +22,6 @@ export function PullRequestDetailTabs({
 	const tabs: ReadonlyArray<{ value: PullRequestDetailTab; label: string }> = [
 		{ value: "summary", label: t({ message: "Summary" }) },
 		{ value: "code", label: t({ message: "Changes" }) },
-		{ value: "timeline", label: t({ message: "Timeline" }) },
 	];
 	return (
 		<nav

@@ -382,10 +382,6 @@ msgstr "{0} branch"
 msgid "{0} cannot be signed in this way yet."
 msgstr "{0} cannot be signed in this way yet."
 
-#. placeholder {0}: event.actor
-msgid "{0} commented"
-msgstr "{0} commented"
-
 #. placeholder {0}: formatNumber(participants)
 msgid "{0} developers are ranked by agent usage. Your last 30 days are already counted, just hidden. Token counts and model names only, no repo names, file paths or prompts."
 msgstr "{0} developers are ranked by agent usage. Your last 30 days are already counted, just hidden. Token counts and model names only, no repo names, file paths or prompts."
@@ -490,10 +486,6 @@ msgstr "{0} of accounts"
 #. placeholder {0}: rate(signups, visitors)
 msgid "{0} of visitors"
 msgstr "{0} of visitors"
-
-#. placeholder {0}: event.actor
-msgid "{0} opened this pull request"
-msgstr "{0} opened this pull request"
 
 #. placeholder {0}: plugin.interface.displayName
 msgid "{0} options"
@@ -624,9 +616,6 @@ msgstr "{actor} added the task to {to}"
 msgid "{actor} added the workspace to {project}"
 msgstr "{actor} added the workspace to {project}"
 
-msgid "{actor} approved"
-msgstr "{actor} approved"
-
 msgid "{actor} archived the workspace"
 msgstr "{actor} archived the workspace"
 
@@ -696,12 +685,6 @@ msgstr "{actor} renamed the task to {title}"
 #. placeholder {0}: entry.to
 msgid "{actor} renamed the workspace to <0>{0}</0>"
 msgstr "{actor} renamed the workspace to <0>{0}</0>"
-
-msgid "{actor} requested changes"
-msgstr "{actor} requested changes"
-
-msgid "{actor} reviewed"
-msgstr "{actor} reviewed"
 
 msgid "{actor} set the priority to {to}"
 msgstr "{actor} set the priority to {to}"
@@ -4025,13 +4008,6 @@ msgstr "Comments could not be loaded"
 
 msgid "Commit"
 msgstr "Commit"
-
-msgid "Commit {short}"
-msgstr "Commit {short}"
-
-#. placeholder {0}: event.actor
-msgid "Commit {short} by {0}"
-msgstr "Commit {short} by {0}"
 
 #. placeholder {0}: error.message
 msgid "Commit failed: {0}"
@@ -12618,20 +12594,11 @@ msgstr "Pull request #{0}, {1}"
 msgid "Pull request actions"
 msgstr "Pull request actions"
 
-msgid "Pull request closed"
-msgstr "Pull request closed"
-
 msgid "Pull request detail tabs"
 msgstr "Pull request detail tabs"
 
-msgid "Pull request merged"
-msgstr "Pull request merged"
-
 msgid "Pull request not found"
 msgstr "Pull request not found"
-
-msgid "Pull request opened"
-msgstr "Pull request opened"
 
 msgid "Pull request title"
 msgstr "Pull request title"
@@ -16919,9 +16886,6 @@ msgstr "Time"
 
 msgid "Time range"
 msgstr "Time range"
-
-msgid "Timeline"
-msgstr "Timeline"
 
 msgid "Title"
 msgstr "Title"

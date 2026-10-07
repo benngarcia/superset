@@ -9,7 +9,6 @@ import { PullRequestDetailSkeleton } from "../PullRequestDetailSkeleton";
 import type { PullRequestDetailTab } from "../PullRequestDetailTabs";
 import { PullRequestSummaryContent } from "../PullRequestSummaryContent";
 import { PullRequestTabTitle } from "../PullRequestTabTitle";
-import { PullRequestTimelineTab } from "../PullRequestTimelineTab";
 
 // The diff renderer and its worker pool are heavy and only the Changes tab
 // needs them, so the Summary paints without waiting on that chunk.
@@ -93,16 +92,6 @@ export function PullRequestDetailContent({
 				</div>
 			) : activeTab === "summary" || !prUrl ? (
 				detailState
-			) : null}
-			{activeTab === "timeline" && prUrl ? (
-				detail.data ? (
-					<div className="relative flex min-h-0 flex-1 flex-col">
-						<PullRequestTabTitle data={detail.data} />
-						<PullRequestTimelineTab data={detail.data} />
-					</div>
-				) : (
-					detailState
-				)
 			) : null}
 			{activeTab === "code" && prUrl && (
 				<div className="flex min-h-0 flex-1 flex-col">

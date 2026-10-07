@@ -382,10 +382,6 @@ msgstr "{0} 分支"
 msgid "{0} cannot be signed in this way yet."
 msgstr "{0}還不能用這種方式登入。"
 
-#. placeholder {0}: event.actor
-msgid "{0} commented"
-msgstr "{0} 發表了留言"
-
 #. placeholder {0}: formatNumber(participants)
 msgid "{0} developers are ranked by agent usage. Your last 30 days are already counted, just hidden. Token counts and model names only, no repo names, file paths or prompts."
 msgstr "已有 {0} 位開發者依 agent 用量排名。你最近 30 天的資料已計入，只是尚未公開。僅包含 token 數量與模型名稱，不含儲存庫名稱、檔案路徑或提示詞。"
@@ -490,10 +486,6 @@ msgstr "佔帳號的 {0}"
 #. placeholder {0}: rate(signups, visitors)
 msgid "{0} of visitors"
 msgstr "佔訪客的 {0}"
-
-#. placeholder {0}: event.actor
-msgid "{0} opened this pull request"
-msgstr "{0} 建立了此拉取請求"
 
 #. placeholder {0}: plugin.interface.displayName
 msgid "{0} options"
@@ -624,9 +616,6 @@ msgstr "{actor} 將任務新增到 {to}"
 msgid "{actor} added the workspace to {project}"
 msgstr "{actor} 將工作區加入了 {project}"
 
-msgid "{actor} approved"
-msgstr "{actor} 已核准"
-
 msgid "{actor} archived the workspace"
 msgstr "{actor} 封存了工作區"
 
@@ -696,12 +685,6 @@ msgstr "{actor} 將任務重新命名為 {title}"
 #. placeholder {0}: entry.to
 msgid "{actor} renamed the workspace to <0>{0}</0>"
 msgstr "{actor} 將工作區重新命名為 <0>{0}</0>"
-
-msgid "{actor} requested changes"
-msgstr "{actor} 要求變更"
-
-msgid "{actor} reviewed"
-msgstr "{actor} 已審查"
 
 msgid "{actor} set the priority to {to}"
 msgstr "{actor} 將優先順序設為 {to}"
@@ -4025,13 +4008,6 @@ msgstr "無法載入留言"
 
 msgid "Commit"
 msgstr "提交"
-
-msgid "Commit {short}"
-msgstr "提交 {short}"
-
-#. placeholder {0}: event.actor
-msgid "Commit {short} by {0}"
-msgstr "{0} 的提交 {short}"
 
 #. placeholder {0}: error.message
 msgid "Commit failed: {0}"
@@ -12618,20 +12594,11 @@ msgstr "拉取請求#{0}，{1}"
 msgid "Pull request actions"
 msgstr "拉取請求操作"
 
-msgid "Pull request closed"
-msgstr "拉取請求已關閉"
-
 msgid "Pull request detail tabs"
 msgstr "拉取請求詳細資料分頁"
 
-msgid "Pull request merged"
-msgstr "拉取請求已合併"
-
 msgid "Pull request not found"
 msgstr "找不到拉取請求"
-
-msgid "Pull request opened"
-msgstr "拉取請求已建立"
 
 msgid "Pull request title"
 msgstr "拉取請求標題"
@@ -16919,9 +16886,6 @@ msgstr "時間"
 
 msgid "Time range"
 msgstr "時間範圍"
-
-msgid "Timeline"
-msgstr "時間軸"
 
 msgid "Title"
 msgstr "標題"
