@@ -12202,8 +12202,8 @@ msgstr "Bir tema seçin veya sistem görünümünüzü izleyin. <0>Pazar yerine<
 msgid "Pick a workspace"
 msgstr "Bir çalışma alanı seçin"
 
-msgid "Pick a workspace whose agent needs input, finished unseen, or is running"
-msgstr "Ajanı giriş bekleyen, görülmeden tamamlanan veya çalışan bir çalışma alanı seçin"
+msgid "Pick a workspace whose agent is waiting for your input, has finished since you last looked, or is still running"
+msgstr "Ajanı sizden yanıt bekleyen, son bakışınızdan beri işini bitiren veya hâlâ çalışan bir çalışma alanı seçin"
 
 msgid "Pick an icon and a color, or upload a custom image. Defaults to the linked GitHub owner's avatar."
 msgstr "Bir simge ve renk seçin ya da özel bir görsel yükleyin. Varsayılan olarak bağlı GitHub sahibinin avatarı kullanılır."

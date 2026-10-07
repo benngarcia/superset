@@ -12202,8 +12202,8 @@ msgstr "Scegli un tema o segui l'aspetto del sistema. Sfoglia il <0>marketplace<
 msgid "Pick a workspace"
 msgstr "Scegli un workspace"
 
-msgid "Pick a workspace whose agent needs input, finished unseen, or is running"
-msgstr "Scegli un workspace il cui agente richiede input, ha finito senza essere visto o è in esecuzione"
+msgid "Pick a workspace whose agent is waiting for your input, has finished since you last looked, or is still running"
+msgstr "Scegli un workspace il cui agente attende un tuo input, ha finito dall'ultima volta che l'hai guardato o è ancora in esecuzione"
 
 msgid "Pick an icon and a color, or upload a custom image. Defaults to the linked GitHub owner's avatar."
 msgstr "Scegli un'icona e un colore oppure carica un'immagine personalizzata. Per impostazione predefinita usa l'avatar del proprietario GitHub collegato."

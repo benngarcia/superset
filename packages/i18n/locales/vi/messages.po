@@ -12202,8 +12202,8 @@ msgstr "Chọn một theme hoặc theo giao diện hệ thống. Xem <0>marketpl
 msgid "Pick a workspace"
 msgstr "Chọn một workspace"
 
-msgid "Pick a workspace whose agent needs input, finished unseen, or is running"
-msgstr "Chọn workspace có agent cần nhập thêm, đã hoàn tất nhưng chưa xem, hoặc đang chạy"
+msgid "Pick a workspace whose agent is waiting for your input, has finished since you last looked, or is still running"
+msgstr "Chọn workspace có agent đang chờ bạn nhập, đã hoàn tất kể từ lần cuối bạn xem, hoặc vẫn đang chạy"
 
 msgid "Pick an icon and a color, or upload a custom image. Defaults to the linked GitHub owner's avatar."
 msgstr "Chọn biểu tượng và màu, hoặc tải ảnh riêng lên. Mặc định dùng ảnh đại diện của chủ sở hữu GitHub đã liên kết."

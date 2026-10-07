@@ -12202,8 +12202,8 @@ msgstr "테마를 고르거나 시스템 모양을 따르세요. <0>마켓플레
 msgid "Pick a workspace"
 msgstr "워크스페이스 선택"
 
-msgid "Pick a workspace whose agent needs input, finished unseen, or is running"
-msgstr "에이전트가 입력을 기다리거나, 확인하지 않은 작업을 완료했거나, 실행 중인 워크스페이스를 선택합니다"
+msgid "Pick a workspace whose agent is waiting for your input, has finished since you last looked, or is still running"
+msgstr "에이전트가 입력을 기다리고 있거나, 마지막으로 확인한 뒤 작업을 마쳤거나, 아직 실행 중인 워크스페이스를 선택합니다"
 
 msgid "Pick an icon and a color, or upload a custom image. Defaults to the linked GitHub owner's avatar."
 msgstr "아이콘과 색상을 고르거나 직접 만든 이미지를 업로드하세요. 기본값은 연결된 GitHub 소유자의 아바타입니다."

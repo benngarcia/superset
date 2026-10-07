@@ -12202,8 +12202,8 @@ msgstr "選擇一個主題，或跟隨系統外觀。瀏覽<0>市場<1/></0>或<
 msgid "Pick a workspace"
 msgstr "選擇一個工作區"
 
-msgid "Pick a workspace whose agent needs input, finished unseen, or is running"
-msgstr "選擇代理需要輸入、已完成但未查看或正在執行的工作區"
+msgid "Pick a workspace whose agent is waiting for your input, has finished since you last looked, or is still running"
+msgstr "選擇一個工作區：其代理正在等待你的輸入、自你上次查看後已完成，或仍在執行"
 
 msgid "Pick an icon and a color, or upload a custom image. Defaults to the linked GitHub owner's avatar."
 msgstr "選擇圖示和顏色，或上傳自訂圖片。預設使用關聯的GitHub擁有者頭像。"

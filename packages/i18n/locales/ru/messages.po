@@ -12202,8 +12202,8 @@ msgstr "Выберите тему или следуйте оформлению �
 msgid "Pick a workspace"
 msgstr "Выберите рабочую область"
 
-msgid "Pick a workspace whose agent needs input, finished unseen, or is running"
-msgstr "Выберите рабочую область, где агенту нужен ввод, он завершил работу без просмотра или ещё выполняется"
+msgid "Pick a workspace whose agent is waiting for your input, has finished since you last looked, or is still running"
+msgstr "Выберите рабочую область, где агент ждёт вашего ввода, завершил работу с момента вашего последнего просмотра или всё ещё выполняется"
 
 msgid "Pick an icon and a color, or upload a custom image. Defaults to the linked GitHub owner's avatar."
 msgstr "Выберите иконку и цвет или загрузите своё изображение. По умолчанию используется аватар связанного владельца на GitHub."

@@ -12202,8 +12202,8 @@ msgstr "Kies een thema of volg het uiterlijk van je systeem. Bekijk de <0>market
 msgid "Pick a workspace"
 msgstr "Kies een werkruimte"
 
-msgid "Pick a workspace whose agent needs input, finished unseen, or is running"
-msgstr "Kies een werkruimte waarvan de agent invoer nodig heeft, ongezien klaar is of nog draait"
+msgid "Pick a workspace whose agent is waiting for your input, has finished since you last looked, or is still running"
+msgstr "Kies een werkruimte waarvan de agent op je invoer wacht, klaar is sinds je laatst keek of nog bezig is"
 
 msgid "Pick an icon and a color, or upload a custom image. Defaults to the linked GitHub owner's avatar."
 msgstr "Kies een icoon en een kleur, of upload een eigen afbeelding. Standaard is de avatar van de gekoppelde GitHub-eigenaar."

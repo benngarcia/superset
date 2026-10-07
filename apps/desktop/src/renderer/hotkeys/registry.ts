@@ -225,7 +225,7 @@ export const HOTKEYS_REGISTRY = {
 		category: "Workspace",
 		description: msg({
 			message:
-				"Pick a workspace whose agent needs input, finished unseen, or is running",
+				"Pick a workspace whose agent is waiting for your input, has finished since you last looked, or is still running",
 		}),
 	},
 	CLOSE_WORKSPACE: {

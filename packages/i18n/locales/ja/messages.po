@@ -12202,8 +12202,8 @@ msgstr "テーマを選ぶか、システムの外観に従います。<0>マー
 msgid "Pick a workspace"
 msgstr "ワークスペースを選択"
 
-msgid "Pick a workspace whose agent needs input, finished unseen, or is running"
-msgstr "エージェントが入力待ち、未確認の完了、または実行中のワークスペースを選択します"
+msgid "Pick a workspace whose agent is waiting for your input, has finished since you last looked, or is still running"
+msgstr "エージェントがあなたの入力を待っている、前回確認してから完了した、またはまだ実行中のワークスペースを選択します"
 
 msgid "Pick an icon and a color, or upload a custom image. Defaults to the linked GitHub owner's avatar."
 msgstr "アイコンと色を選ぶか、独自の画像をアップロードします。既定ではリンクされたGitHubオーナーのアバターになります。"

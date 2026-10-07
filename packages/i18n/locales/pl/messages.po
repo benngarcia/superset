@@ -12202,8 +12202,8 @@ msgstr "Wybierz motyw lub podążaj za wyglądem systemu. Przejrzyj <0>marketpla
 msgid "Pick a workspace"
 msgstr "Wybierz obszar roboczy"
 
-msgid "Pick a workspace whose agent needs input, finished unseen, or is running"
-msgstr "Wybierz obszar roboczy, którego agent wymaga danych, zakończył pracę bez przejrzenia lub działa"
+msgid "Pick a workspace whose agent is waiting for your input, has finished since you last looked, or is still running"
+msgstr "Wybierz obszar roboczy, którego agent czeka na Twoje dane, skończył pracę od Twojej ostatniej wizyty lub nadal działa"
 
 msgid "Pick an icon and a color, or upload a custom image. Defaults to the linked GitHub owner's avatar."
 msgstr "Wybierz ikonę i kolor albo prześlij własny obraz. Domyślnie używany jest awatar powiązanego właściciela repozytorium GitHub."

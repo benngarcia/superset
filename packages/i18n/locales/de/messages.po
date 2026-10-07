@@ -12202,8 +12202,8 @@ msgstr "Wähle ein Theme oder folge dem Erscheinungsbild deines Systems. Stöber
 msgid "Pick a workspace"
 msgstr "Arbeitsbereich auswählen"
 
-msgid "Pick a workspace whose agent needs input, finished unseen, or is running"
-msgstr "Wähle einen Arbeitsbereich, dessen Agent eine Eingabe braucht, ungesehen fertig ist oder läuft"
+msgid "Pick a workspace whose agent is waiting for your input, has finished since you last looked, or is still running"
+msgstr "Wähle einen Arbeitsbereich, dessen Agent auf deine Eingabe wartet, seit deinem letzten Blick fertig geworden ist oder noch läuft"
 
 msgid "Pick an icon and a color, or upload a custom image. Defaults to the linked GitHub owner's avatar."
 msgstr "Wähle ein Icon und eine Farbe oder lade ein eigenes Bild hoch. Standard ist der Avatar des verknüpften GitHub-Eigentümers."
@@ -15972,7 +15972,7 @@ msgid "Switch sign-in…"
 msgstr "Anmeldung wechseln…"
 
 msgid "Switch to Active Workspace"
-msgstr "Zu aktivem Arbeitsbereich wechseln"
+msgstr "Zum aktiven Arbeitsbereich wechseln"
 
 msgid "Switch to manual order to rearrange the sidebar"
 msgstr "Wechsle zur manuellen Reihenfolge, um die Seitenleiste neu anzuordnen"
