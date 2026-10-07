@@ -36,10 +36,10 @@ export function PullRequestDetailTabs({
 					onClick={() => onTabChange(value)}
 					aria-pressed={activeTab === value}
 					className={cn(
-						"inline-flex h-7 items-center gap-1.5 rounded-md px-2.5 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
+						"inline-flex h-7 items-center gap-1.5 rounded-lg px-2.5 text-xs font-normal transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
 						activeTab === value
-							? "bg-accent text-foreground"
-							: "text-muted-foreground hover:text-foreground",
+							? "bg-secondary text-foreground"
+							: "text-muted-foreground hover:bg-accent/60 hover:text-foreground",
 					)}
 				>
 					{label}
@@ -47,7 +47,7 @@ export function PullRequestDetailTabs({
 						<PullRequestDiffStat
 							additions={diffStat.additions}
 							deletions={diffStat.deletions}
-							className="text-[11px] font-normal"
+							className="text-[11px]"
 						/>
 					) : null}
 				</button>

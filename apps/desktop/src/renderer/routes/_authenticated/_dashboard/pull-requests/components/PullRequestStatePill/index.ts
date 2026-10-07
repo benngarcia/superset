@@ -1,4 +1,1 @@
-export {
-	PR_STATE_BADGE_STYLES,
-	PullRequestStatePill,
-} from "./PullRequestStatePill";
+export { PullRequestStatePill } from "./PullRequestStatePill";

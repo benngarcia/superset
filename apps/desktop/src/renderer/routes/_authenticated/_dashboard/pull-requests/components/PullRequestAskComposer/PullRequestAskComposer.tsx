@@ -151,7 +151,11 @@ export function PullRequestAskComposer({
 				<div className="flex min-w-0 items-center gap-1">
 					{projectName ? (
 						<span className={chipClassName} title={projectName}>
-							<Folder aria-hidden className="size-3.5 shrink-0" />
+							<Folder
+								aria-hidden
+								strokeWidth={1.75}
+								className="size-3.5 shrink-0"
+							/>
 							<span className="truncate">{projectName}</span>
 						</span>
 					) : null}
@@ -247,7 +251,7 @@ export function PullRequestAskComposer({
 						{ask.isPending ? (
 							<LoaderCircle className="size-3.5 animate-spin" />
 						) : (
-							<ArrowUp className="size-4" />
+							<ArrowUp strokeWidth={2.25} className="size-[1.125rem]" />
 						)}
 					</Button>
 				</div>

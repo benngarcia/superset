@@ -83,7 +83,7 @@ function IconAction({
 				<Button
 					variant="ghost"
 					size="icon-xs"
-					className="text-muted-foreground hover:text-foreground"
+					className="text-muted-foreground hover:text-foreground [&_svg]:opacity-80 hover:[&_svg]:opacity-100"
 					aria-label={label}
 					{...props}
 				>
@@ -264,7 +264,7 @@ export function PullRequestActions({
 					aria-label={t({ message: "Send to agent" })}
 					onClick={handleStartWorkspace}
 				>
-					<Bot className="size-3.5" />
+					<Bot strokeWidth={1.75} className="size-3.5" />
 					<span className="@max-[34rem]/topbar:hidden">
 						<Trans>Send to agent</Trans>
 					</span>
@@ -292,7 +292,7 @@ export function PullRequestActions({
 								{mergePullRequest.isPending ? (
 									<LoaderCircle className="size-3.5 animate-spin motion-reduce:animate-none" />
 								) : (
-									<GitMerge className="size-3.5" />
+									<GitMerge strokeWidth={1.75} className="size-3.5" />
 								)}
 								<span className="@max-[34rem]/topbar:sr-only">
 									{mergePullRequest.isPending ? (

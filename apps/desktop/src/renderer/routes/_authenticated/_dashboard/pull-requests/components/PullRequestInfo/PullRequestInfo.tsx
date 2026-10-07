@@ -13,22 +13,19 @@ import {
 	ChevronRight,
 	CircleCheck,
 	CircleX,
-	GitMerge,
 	ListChecks,
 	LoaderCircle,
-	MessageSquare,
+	MessageSquareText,
 	Users,
 } from "lucide-react";
 import { type ReactNode, useState } from "react";
-import {
-	normalizePRState,
-	PRIcon,
-} from "renderer/screens/main/components/PRIcon";
+import { normalizePRState } from "renderer/screens/main/components/PRIcon";
 import type {
 	PullRequestDetail,
 	PullRequestDetailActor,
 } from "../../hooks/usePullRequestDetail";
 import { describePullRequestMergeStatus } from "../../utils/describePullRequestMergeStatus";
+import { PullRequestStateGlyph } from "../PullRequestStateGlyph";
 import {
 	type PullRequestCheck,
 	summarizePullRequestChecks,
@@ -81,7 +78,7 @@ function ActorLabel({ actor }: { actor: PullRequestDetailActor }) {
 			className="flex min-w-0 max-w-full items-center gap-1.5"
 			title={actor.login}
 		>
-			<Avatar className="size-4 rounded-full">
+			<Avatar className="size-4 rounded-full ring-1 ring-border/50">
 				<AvatarImage
 					src={`https://github.com/${actor.login}.png?size=64`}
 					alt=""
@@ -121,11 +118,11 @@ function MergeStatusSection({ data }: { data: PullRequestDetail }) {
 				{status.tone === "success" ? (
 					<CircleCheck className="size-4 shrink-0 fill-success text-background" />
 				) : status.tone === "conflict" ? (
-					<GitMerge className="size-4 shrink-0 text-destructive" />
+					<PullRequestStateGlyph state="conflicting" className="size-4" />
 				) : (
-					<PRIcon
+					<PullRequestStateGlyph
 						state={normalizePRState(data.state, data.isDraft)}
-						className="size-4 shrink-0"
+						className="size-4"
 					/>
 				)}
 				<span
@@ -152,7 +149,7 @@ function CommentsSection({
 		<InfoSection
 			variant={variant}
 			label={t({ message: "Comments" })}
-			icon={<MessageSquare className="size-4" />}
+			icon={<MessageSquareText strokeWidth={1.75} className="size-4" />}
 		>
 			<span className={count === 0 ? "text-muted-foreground" : undefined}>
 				{count === 0 ? (
@@ -200,7 +197,7 @@ function ReviewsSection({
 		<InfoSection
 			variant={variant}
 			label={t({ message: "Reviews" })}
-			icon={<Users className="size-4" />}
+			icon={<Users strokeWidth={1.75} className="size-4" />}
 			action={variant === "column" ? request : undefined}
 		>
 			{hasReviews ? (
@@ -327,7 +324,7 @@ function ChecksSection({
 		<InfoSection
 			variant="rows"
 			label={t({ message: "Checks" })}
-			icon={<ListChecks className="size-4" />}
+			icon={<ListChecks strokeWidth={1.75} className="size-4" />}
 		>
 			{checks.length === 0 ? (
 				<span className="text-muted-foreground">

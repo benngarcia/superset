@@ -45,7 +45,7 @@ export function PullRequestItemHeader({
 						className="flex min-w-0 items-center gap-1.5 font-medium text-foreground"
 						title={data.author.login}
 					>
-						<Avatar className="size-4 rounded-full">
+						<Avatar className="size-4 rounded-full ring-1 ring-border/50">
 							<AvatarImage
 								src={
 									data.author.avatarUrl ??
@@ -74,7 +74,7 @@ export function PullRequestItemHeader({
 				) : null}
 				<span aria-hidden>·</span>
 				<span
-					className="flex min-w-0 items-center gap-1.5 font-mono text-[11px]"
+					className="flex min-w-0 items-center gap-1.5 text-[11px] text-muted-foreground/80"
 					title={t({
 						message: `${data.head.ref} into ${data.base.ref}`,
 					})}
@@ -82,7 +82,11 @@ export function PullRequestItemHeader({
 					<span className="min-w-0 truncate" title={data.head.ref}>
 						{data.head.ref}
 					</span>
-					<ArrowRight aria-hidden className="size-3 shrink-0" />
+					<ArrowRight
+						aria-hidden
+						strokeWidth={1.75}
+						className="size-3.5 shrink-0"
+					/>
 					<span className="shrink-0">{data.base.ref}</span>
 				</span>
 			</div>
