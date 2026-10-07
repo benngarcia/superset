@@ -1,1 +1,5 @@
-export { prependToDraft, useComposerDraft } from "./useComposerDraft";
+export {
+	prependToDraft,
+	takeRecoveredDraftText,
+	useComposerDraft,
+} from "./useComposerDraft";

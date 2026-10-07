@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 const DRAFT_DEBOUNCE_MS = 300;
 
 const unsavedDrafts = new Map<string, string>();
+const recoveredAfterRead = new Map<string, string[]>();
 
 function persistDraft(draftKey: string, text: string): boolean {
 	try {
@@ -30,6 +31,16 @@ export function prependToDraft(draftKey: string, text: string) {
 	const merged = current ? `${text}\n\n${current}` : text;
 	unsavedDrafts.set(draftKey, merged);
 	persistDraft(draftKey, merged);
+	recoveredAfterRead.set(draftKey, [
+		...(recoveredAfterRead.get(draftKey) ?? []),
+		text,
+	]);
+}
+
+export function takeRecoveredDraftText(draftKey: string): string | null {
+	const recovered = recoveredAfterRead.get(draftKey);
+	recoveredAfterRead.delete(draftKey);
+	return recovered?.length ? recovered.join("\n\n") : null;
 }
 
 export function useComposerDraft(draftKey: string) {
@@ -57,10 +68,10 @@ export function useComposerDraft(draftKey: string) {
 	);
 	useEffect(() => flushDraft, [flushDraft]);
 
-	const [seed, setSeed] = useState(() => ({
-		draftKey,
-		text: readDraft(draftKey),
-	}));
+	const [seed, setSeed] = useState(() => {
+		recoveredAfterRead.delete(draftKey);
+		return { draftKey, text: readDraft(draftKey) };
+	});
 
 	const clearDraft = useCallback(() => {
 		if (draftTimer.current) clearTimeout(draftTimer.current);

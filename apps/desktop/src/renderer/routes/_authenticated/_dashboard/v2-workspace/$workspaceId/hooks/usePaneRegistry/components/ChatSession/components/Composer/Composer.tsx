@@ -30,7 +30,10 @@ import { CHAT_COLUMN_CLASSNAME, CHAT_GUTTER_CLASSNAME } from "../../constants";
 import { type AgentSwitcher, ModelPicker } from "./components/ModelPicker";
 import { ModePicker, type SessionMode } from "./components/ModePicker";
 import { QueuedPrompts } from "./components/QueuedPrompts";
-import { useComposerDraft } from "./hooks/useComposerDraft";
+import {
+	takeRecoveredDraftText,
+	useComposerDraft,
+} from "./hooks/useComposerDraft";
 import { useQueueActions } from "./hooks/useQueueActions";
 import { useUploadAttachments } from "./hooks/useUploadAttachments";
 
@@ -116,6 +119,10 @@ export const Composer = memo(function Composer({
 		[],
 	);
 	const rootRef = useRef<HTMLDivElement>(null);
+	useEffect(() => {
+		const recovered = takeRecoveredDraftText(draftKey);
+		if (recovered) promptInputRef.current?.appendText(recovered);
+	}, [draftKey]);
 	useLayoutEffect(() => {
 		const handoff = focusHandoff;
 		if (handoff?.draftKey === draftKey) {

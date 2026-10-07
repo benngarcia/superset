@@ -4,7 +4,8 @@ import { GlobalRegistrator } from "@happy-dom/global-registrator";
 const alreadyRegistered = GlobalRegistrator.isRegistered;
 if (!alreadyRegistered) GlobalRegistrator.register();
 const { act, cleanup, renderHook } = await import("@testing-library/react");
-const { prependToDraft, useComposerDraft } = await import("./useComposerDraft");
+const { prependToDraft, takeRecoveredDraftText, useComposerDraft } =
+	await import("./useComposerDraft");
 
 beforeEach(() => window.localStorage.clear());
 afterEach(cleanup);
@@ -64,4 +65,16 @@ test("a draft that fails to save is still read from memory", () => {
 		setItem.mockRestore();
 		warn.mockRestore();
 	}
+});
+
+test("text recovered after a composer read its draft is handed to it once", () => {
+	renderHook(() => useComposerDraft("chat-v3-draft:late"));
+	prependToDraft("chat-v3-draft:late", "unsent message");
+	expect(takeRecoveredDraftText("chat-v3-draft:late")).toBe("unsent message");
+	expect(takeRecoveredDraftText("chat-v3-draft:late")).toBeNull();
+
+	prependToDraft("chat-v3-draft:early", "unsent message");
+	const reader = renderHook(() => useComposerDraft("chat-v3-draft:early"));
+	expect(reader.result.current.storedDraft).toBe("unsent message");
+	expect(takeRecoveredDraftText("chat-v3-draft:early")).toBeNull();
 });
