@@ -1,6 +1,8 @@
 import type { WorkspaceState } from "@superset/panes";
+import { FEATURE_FLAGS } from "@superset/shared/constants";
 import { buildHostRoutingKey } from "@superset/shared/host-routing";
 import { useLiveQuery } from "@tanstack/react-db";
+import { useFeatureFlagEnabled } from "posthog-js/react";
 import { useEffectEvent, useMemo } from "react";
 import { useHostProjects } from "renderer/hooks/host-projects/useHostProjects";
 import { useRelayUrl } from "renderer/hooks/useRelayUrl";
@@ -69,6 +71,8 @@ export function V2NotificationController() {
 	const visibleWorkspaceIds = useVisibleSidebarWorkspaceIds();
 	const { workspaces: hostWorkspaces } = useHostWorkspaces();
 	const isRightAreaOpen = useV2UserPreferences().preferences.rightSidebarOpen;
+	const isPerWorkspaceRightArea =
+		useFeatureFlagEnabled(FEATURE_FLAGS.RIGHT_PANE_AREA) === true;
 	const allWorkspaceHosts = useMemo<WorkspaceHostRow[]>(
 		() =>
 			hostWorkspaces.map((workspace) => ({
@@ -115,8 +119,14 @@ export function V2NotificationController() {
 				workspaceHosts,
 				localWorkspaceRows,
 				isRightAreaOpen,
+				isPerWorkspaceRightArea,
 			}),
-		[workspaceHosts, localWorkspaceRows, isRightAreaOpen],
+		[
+			workspaceHosts,
+			localWorkspaceRows,
+			isRightAreaOpen,
+			isPerWorkspaceRightArea,
+		],
 	);
 	const hostGroups = useMemo(
 		() =>
@@ -194,14 +204,17 @@ function getNotificationWorkspaceStatesById({
 	workspaceHosts,
 	localWorkspaceRows,
 	isRightAreaOpen,
+	isPerWorkspaceRightArea,
 }: {
 	workspaceHosts: WorkspaceHostRow[];
 	localWorkspaceRows: Array<{
 		workspaceId: string;
 		paneLayout: unknown;
 		rightPaneLayout?: unknown;
+		rightSidebarOpen?: boolean;
 	}>;
 	isRightAreaOpen: boolean;
+	isPerWorkspaceRightArea: boolean;
 }): Map<string, HostNotificationWorkspaceState> {
 	const paneLayoutsByWorkspaceId = new Map(
 		localWorkspaceRows.map((row) => [
@@ -210,12 +223,16 @@ function getNotificationWorkspaceStatesById({
 		]),
 	);
 	const rightPaneLayoutsByWorkspaceId = new Map(
-		isRightAreaOpen
-			? localWorkspaceRows.map((row) => [
-					row.workspaceId,
-					row.rightPaneLayout as WorkspaceState<PaneViewerData> | undefined,
-				])
-			: [],
+		localWorkspaceRows
+			.filter((row) =>
+				isPerWorkspaceRightArea
+					? (row.rightSidebarOpen ?? isRightAreaOpen)
+					: isRightAreaOpen,
+			)
+			.map((row) => [
+				row.workspaceId,
+				row.rightPaneLayout as WorkspaceState<PaneViewerData> | undefined,
+			]),
 	);
 
 	const statesById = new Map<string, HostNotificationWorkspaceState>(
