@@ -4743,6 +4743,12 @@ msgstr "Could not open link"
 msgid "Could not open Photos"
 msgstr "Could not open Photos"
 
+#. placeholder {0}: params?.remote
+#. placeholder {1}: params?.branch
+#. placeholder {2}: params?.remote
+msgid "Could not reach {0} to look for branch \"{1}\". Check your connection and access to {2}, then try again."
+msgstr "Could not reach {0} to look for branch \"{1}\". Check your connection and access to {2}, then try again."
+
 msgid "Could not reach a mobile simulator."
 msgstr "Could not reach a mobile simulator."
 

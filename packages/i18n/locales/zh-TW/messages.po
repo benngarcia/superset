@@ -4743,6 +4743,12 @@ msgstr "無法開啟連結"
 msgid "Could not open Photos"
 msgstr "無法開啟「照片」"
 
+#. placeholder {0}: params?.remote
+#. placeholder {1}: params?.branch
+#. placeholder {2}: params?.remote
+msgid "Could not reach {0} to look for branch \"{1}\". Check your connection and access to {2}, then try again."
+msgstr "無法連線至 {0} 以尋找分支「{1}」。請檢查網路連線與 {2} 的存取權限，然後再試一次。"
+
 msgid "Could not reach a mobile simulator."
 msgstr "無法連線至行動模擬器。"
 

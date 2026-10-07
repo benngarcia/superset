@@ -4743,6 +4743,12 @@ msgstr "无法打开链接"
 msgid "Could not open Photos"
 msgstr "无法打开“照片”"
 
+#. placeholder {0}: params?.remote
+#. placeholder {1}: params?.branch
+#. placeholder {2}: params?.remote
+msgid "Could not reach {0} to look for branch \"{1}\". Check your connection and access to {2}, then try again."
+msgstr "无法连接 {0} 以查找分支“{1}”。请检查网络连接和对 {2} 的访问权限，然后重试。"
+
 msgid "Could not reach a mobile simulator."
 msgstr "无法连接到移动模拟器。"
 

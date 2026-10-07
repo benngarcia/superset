@@ -1,4 +1,5 @@
 import * as Sentry from "@sentry/node";
+import { isI18nErrorCause } from "@superset/trpc/i18n-error";
 import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import type { HostServiceContext } from "../types";
@@ -6,7 +7,6 @@ import { readErrorDiagnostics } from "./error-diagnostics";
 import {
 	type DeleteInProgressCause,
 	isDeleteInProgressCause,
-	isI18nCause,
 	isProjectNotSetupCause,
 	isTeardownFailureCause,
 	type ProjectNotSetupCause,
@@ -55,7 +55,7 @@ const t = initTRPC
 				isDeleteInProgressCause(error.cause)
 					? { kind: "DELETE_IN_PROGRESS" }
 					: undefined;
-			const i18nCause = isI18nCause(error.cause) ? error.cause : null;
+			const i18nCause = isI18nErrorCause(error.cause) ? error.cause : null;
 			return {
 				...shape,
 				data: {

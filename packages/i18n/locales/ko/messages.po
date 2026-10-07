@@ -4743,6 +4743,12 @@ msgstr "링크를 열 수 없습니다"
 msgid "Could not open Photos"
 msgstr "사진 앱을 열지 못했습니다"
 
+#. placeholder {0}: params?.remote
+#. placeholder {1}: params?.branch
+#. placeholder {2}: params?.remote
+msgid "Could not reach {0} to look for branch \"{1}\". Check your connection and access to {2}, then try again."
+msgstr "브랜치 \"{1}\"을(를) 찾기 위해 {0}에 연결할 수 없습니다. 연결 상태와 {2} 접근 권한을 확인한 뒤 다시 시도하세요."
+
 msgid "Could not reach a mobile simulator."
 msgstr "모바일 시뮬레이터에 연결할 수 없습니다."
 

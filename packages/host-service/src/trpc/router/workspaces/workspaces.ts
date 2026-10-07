@@ -7,6 +7,7 @@ import {
 	sanitizeUserBranchName,
 } from "@superset/shared/workspace-launch";
 import { workspaceTagsInputSchema } from "@superset/shared/workspace-tags";
+import { userError } from "@superset/trpc/i18n-error";
 import { TRPCError } from "@trpc/server";
 import { and, eq, isNull } from "drizzle-orm";
 import { z } from "zod";
@@ -31,7 +32,6 @@ import {
 	unarchiveLocalWorkspace,
 } from "../../../workspaces/local-workspace-store";
 import { setWorkspaceNamingState } from "../../../workspaces/workspace-naming-state";
-import type { I18nCause } from "../../error-types";
 import {
 	createCallerFactory,
 	machineOnlyProcedure,
@@ -641,13 +641,18 @@ async function recreateArchivedCheckout(
 				message: `A folder already exists at ${row.worktreePath}`,
 			});
 		case "branch-missing":
-			throw new TRPCError({
+			throw userError({
 				code: "NOT_FOUND",
 				message: `Branch "${row.branch}" is not on this device or on ${remoteName}. Only pushed commits can be restored.`,
-				cause: {
-					i18nKey: "serverError.workspaces.restoreBranchMissing",
-					i18nParams: { branch: row.branch, remote: remoteName },
-				} satisfies I18nCause,
+				i18nKey: "serverError.workspaces.restoreBranchMissing",
+				params: { branch: row.branch, remote: remoteName },
+			});
+		case "fetch-failed":
+			throw userError({
+				code: "BAD_GATEWAY",
+				message: `Could not reach ${remoteName} to look for branch "${row.branch}". Check your connection and access to ${remoteName}, then try again.`,
+				i18nKey: "serverError.workspaces.restoreFetchFailed",
+				params: { branch: row.branch, remote: remoteName },
 			});
 	}
 }

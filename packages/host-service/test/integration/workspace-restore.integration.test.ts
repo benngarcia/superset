@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, test } from "bun:test";
-import { execSync } from "node:child_process";
+import { execFileSync, execSync } from "node:child_process";
 import { existsSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -72,28 +72,81 @@ describe("workspaces.restore integration", () => {
 		expect(existsSync(scenario.worktreePath)).toBe(false);
 	});
 
-	test("fetches a branch that is only on the remote", async () => {
+	function git(cwd: string, ...args: string[]) {
+		execFileSync("git", args, { cwd, stdio: "ignore" });
+	}
+
+	async function withRemote(run: (remotePath: string) => Promise<void>) {
 		const remotePath = mkdtempSync(join(tmpdir(), "restore-remote-"));
 		try {
-			execSync(`git init --bare --quiet ${remotePath}`);
-			writeFileSync(join(scenario.worktreePath, "work.txt"), "pushed work");
-			execSync(
-				`git add work.txt && git commit -m work && git remote add origin ${remotePath} && git push --quiet origin HEAD && git update-ref -d refs/remotes/origin/${scenario.branch}`,
-				{ cwd: scenario.worktreePath, stdio: "ignore" },
-			);
-			await scenario.host.trpc.workspaceCleanup.destroy.mutate({
-				workspaceId: scenario.featureWorkspaceId,
-				deleteBranch: true,
-			});
+			git(remotePath, "init", "--bare", "--quiet");
+			await run(remotePath);
+		} finally {
+			rmSync(remotePath, { recursive: true, force: true });
+		}
+	}
+
+	async function deleteWithBranch() {
+		await scenario.host.trpc.workspaceCleanup.destroy.mutate({
+			workspaceId: scenario.featureWorkspaceId,
+			deleteBranch: true,
+		});
+	}
+
+	function restoreError() {
+		return scenario.host.trpc.workspaces.restore
+			.mutate({ workspaceId: scenario.featureWorkspaceId })
+			.catch((err: unknown) => err);
+	}
+
+	test("fetches a branch that is only on the remote", async () => {
+		await withRemote(async (remotePath) => {
+			const cwd = scenario.worktreePath;
+			writeFileSync(join(cwd, "work.txt"), "pushed work");
+			git(cwd, "add", "work.txt");
+			git(cwd, "commit", "-m", "work");
+			git(cwd, "remote", "add", "origin", remotePath);
+			git(cwd, "push", "--quiet", "origin", "HEAD");
+			git(cwd, "update-ref", "-d", `refs/remotes/origin/${scenario.branch}`);
+			await deleteWithBranch();
 
 			await scenario.host.trpc.workspaces.restore.mutate({
 				workspaceId: scenario.featureWorkspaceId,
 			});
 
 			expect(archivedAt()).toBeNull();
-			expect(existsSync(join(scenario.worktreePath, "work.txt"))).toBe(true);
-		} finally {
-			rmSync(remotePath, { recursive: true, force: true });
-		}
+			expect(existsSync(join(cwd, "work.txt"))).toBe(true);
+		});
+	});
+
+	test("reports a missing branch when the remote answers without it", async () => {
+		await withRemote(async (remotePath) => {
+			git(scenario.worktreePath, "remote", "add", "origin", remotePath);
+			await deleteWithBranch();
+
+			expect(await restoreError()).toMatchObject({
+				data: { i18nKey: "serverError.workspaces.restoreBranchMissing" },
+			});
+			expect(archivedAt()).toBeTruthy();
+		});
+	});
+
+	test("reports an unreachable remote instead of a missing branch", async () => {
+		git(
+			scenario.worktreePath,
+			"remote",
+			"add",
+			"origin",
+			join(tmpdir(), "restore-remote-that-does-not-exist"),
+		);
+		await deleteWithBranch();
+
+		expect(await restoreError()).toMatchObject({
+			data: {
+				i18nKey: "serverError.workspaces.restoreFetchFailed",
+				i18nParams: { branch: scenario.branch, remote: "origin" },
+			},
+		});
+		expect(archivedAt()).toBeTruthy();
 	});
 });

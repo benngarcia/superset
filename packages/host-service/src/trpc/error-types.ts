@@ -63,20 +63,3 @@ export function isDeleteInProgressCause(
 		(value as { kind: unknown }).kind === "DELETE_IN_PROGRESS"
 	);
 }
-
-/**
- * A user-facing error the renderer translates through `serverErrorMessages`
- * in @superset/i18n. The TRPCError message stays the English fallback.
- */
-export interface I18nCause {
-	i18nKey: string;
-	i18nParams?: Record<string, string | number>;
-}
-
-export function isI18nCause(value: unknown): value is I18nCause {
-	return (
-		!!value &&
-		typeof value === "object" &&
-		typeof (value as { i18nKey?: unknown }).i18nKey === "string"
-	);
-}
