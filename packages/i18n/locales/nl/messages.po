@@ -2426,9 +2426,6 @@ msgstr "Gearchiveerd"
 msgid "Archived · {0}"
 msgstr "Gearchiveerd · {0}"
 
-msgid "Archived \"{name}\""
-msgstr "\"{name}\" gearchiveerd"
-
 #. placeholder {0}: formatCompactRelativeTime(workspace.deletedAt, now)
 msgid "Archived {0}"
 msgstr "Gearchiveerd {0}"
@@ -13644,9 +13641,6 @@ msgstr "Breedte herstellen"
 msgid "Restored"
 msgstr "Hersteld"
 
-msgid "Restored \"{name}\""
-msgstr "\"{name}\" hersteld"
-
 msgid "Restored \"{projectName}\""
 msgstr "\"{projectName}\" hersteld"
 
@@ -18462,6 +18456,9 @@ msgstr "Werkruimte-activiteit"
 msgid "Workspace agents"
 msgstr "Werkruimte-agents"
 
+msgid "Workspace archived"
+msgstr "Werkruimte gearchiveerd"
+
 msgid "Workspace created"
 msgstr "Werkruimte aangemaakt"
 
@@ -18503,6 +18500,9 @@ msgstr "Het werkruimtepad is nog niet beschikbaar"
 
 msgid "Workspace pinning & bulk actions"
 msgstr "Werkruimtes vastzetten en bulkacties"
+
+msgid "Workspace restored"
+msgstr "Werkruimte hersteld"
 
 msgid "workspace root"
 msgstr "root van de werkruimte"

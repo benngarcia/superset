@@ -2426,9 +2426,6 @@ msgstr "Đã lưu trữ"
 msgid "Archived · {0}"
 msgstr "Đã lưu trữ · {0}"
 
-msgid "Archived \"{name}\""
-msgstr "Đã lưu trữ \"{name}\""
-
 #. placeholder {0}: formatCompactRelativeTime(workspace.deletedAt, now)
 msgid "Archived {0}"
 msgstr "Đã lưu trữ {0}"
@@ -13644,9 +13641,6 @@ msgstr "Khôi phục độ rộng"
 msgid "Restored"
 msgstr "Đã khôi phục"
 
-msgid "Restored \"{name}\""
-msgstr "Đã khôi phục \"{name}\""
-
 msgid "Restored \"{projectName}\""
 msgstr "Đã khôi phục \"{projectName}\""
 
@@ -18462,6 +18456,9 @@ msgstr "Hoạt động của không gian làm việc"
 msgid "Workspace agents"
 msgstr "Agent của workspace"
 
+msgid "Workspace archived"
+msgstr "Đã lưu trữ workspace"
+
 msgid "Workspace created"
 msgstr "Đã tạo workspace"
 
@@ -18503,6 +18500,9 @@ msgstr "Đường dẫn không gian làm việc chưa sẵn sàng"
 
 msgid "Workspace pinning & bulk actions"
 msgstr "Ghim workspace & hành động hàng loạt"
+
+msgid "Workspace restored"
+msgstr "Đã khôi phục workspace"
 
 msgid "workspace root"
 msgstr "thư mục gốc workspace"

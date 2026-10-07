@@ -2426,9 +2426,6 @@ msgstr "Архив"
 msgid "Archived · {0}"
 msgstr "В архиве · {0}"
 
-msgid "Archived \"{name}\""
-msgstr "«{name}» в архиве"
-
 #. placeholder {0}: formatCompactRelativeTime(workspace.deletedAt, now)
 msgid "Archived {0}"
 msgstr "В архиве {0}"
@@ -13644,9 +13641,6 @@ msgstr "Восстановить ширину"
 msgid "Restored"
 msgstr "Восстановлено"
 
-msgid "Restored \"{name}\""
-msgstr "«{name}» восстановлен"
-
 msgid "Restored \"{projectName}\""
 msgstr "«{projectName}» восстановлен"
 
@@ -18462,6 +18456,9 @@ msgstr "Активность рабочего пространства"
 msgid "Workspace agents"
 msgstr "Агенты рабочей области"
 
+msgid "Workspace archived"
+msgstr "Рабочая область в архиве"
+
 msgid "Workspace created"
 msgstr "Рабочая область создана"
 
@@ -18503,6 +18500,9 @@ msgstr "Путь рабочего пространства пока недост
 
 msgid "Workspace pinning & bulk actions"
 msgstr "Закрепление рабочих областей и массовые действия"
+
+msgid "Workspace restored"
+msgstr "Рабочая область восстановлена"
 
 msgid "workspace root"
 msgstr "корень рабочей области"

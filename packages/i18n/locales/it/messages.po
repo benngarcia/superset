@@ -2426,9 +2426,6 @@ msgstr "Archiviati"
 msgid "Archived · {0}"
 msgstr "Archiviato · {0}"
 
-msgid "Archived \"{name}\""
-msgstr "\"{name}\" archiviato"
-
 #. placeholder {0}: formatCompactRelativeTime(workspace.deletedAt, now)
 msgid "Archived {0}"
 msgstr "Archiviato {0}"
@@ -13644,9 +13641,6 @@ msgstr "Ripristina larghezza"
 msgid "Restored"
 msgstr "Ripristinato"
 
-msgid "Restored \"{name}\""
-msgstr "\"{name}\" ripristinato"
-
 msgid "Restored \"{projectName}\""
 msgstr "\"{projectName}\" ripristinato"
 
@@ -18462,6 +18456,9 @@ msgstr "Attività del workspace"
 msgid "Workspace agents"
 msgstr "Agenti del workspace"
 
+msgid "Workspace archived"
+msgstr "Workspace archiviato"
+
 msgid "Workspace created"
 msgstr "Workspace creato"
 
@@ -18503,6 +18500,9 @@ msgstr "Il percorso dello spazio di lavoro non è ancora disponibile"
 
 msgid "Workspace pinning & bulk actions"
 msgstr "Workspace fissati e azioni in blocco"
+
+msgid "Workspace restored"
+msgstr "Workspace ripristinato"
 
 msgid "workspace root"
 msgstr "radice del workspace"

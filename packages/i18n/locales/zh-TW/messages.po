@@ -2426,9 +2426,6 @@ msgstr "已歸檔"
 msgid "Archived · {0}"
 msgstr "已封存 · {0}"
 
-msgid "Archived \"{name}\""
-msgstr "已歸檔「{name}」"
-
 #. placeholder {0}: formatCompactRelativeTime(workspace.deletedAt, now)
 msgid "Archived {0}"
 msgstr "已封存 {0}"
@@ -13644,9 +13641,6 @@ msgstr "恢復寬度"
 msgid "Restored"
 msgstr "已恢復"
 
-msgid "Restored \"{name}\""
-msgstr "已還原「{name}」"
-
 msgid "Restored \"{projectName}\""
 msgstr "已還原「{projectName}」"
 
@@ -18462,6 +18456,9 @@ msgstr "工作區活動"
 msgid "Workspace agents"
 msgstr "工作區代理程式"
 
+msgid "Workspace archived"
+msgstr "工作區已歸檔"
+
 msgid "Workspace created"
 msgstr "工作區已建立"
 
@@ -18503,6 +18500,9 @@ msgstr "工作區路徑尚不可用"
 
 msgid "Workspace pinning & bulk actions"
 msgstr "工作區固定與批次操作"
+
+msgid "Workspace restored"
+msgstr "工作區已還原"
 
 msgid "workspace root"
 msgstr "工作區根目錄"

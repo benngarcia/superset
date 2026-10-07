@@ -2426,9 +2426,6 @@ msgstr "Arşivlenmiş"
 msgid "Archived · {0}"
 msgstr "Arşivlendi · {0}"
 
-msgid "Archived \"{name}\""
-msgstr "\"{name}\" arşivlendi"
-
 #. placeholder {0}: formatCompactRelativeTime(workspace.deletedAt, now)
 msgid "Archived {0}"
 msgstr "{0} arşivlendi"
@@ -13644,9 +13641,6 @@ msgstr "Genişliği geri yükle"
 msgid "Restored"
 msgstr "Geri yüklendi"
 
-msgid "Restored \"{name}\""
-msgstr "\"{name}\" geri yüklendi"
-
 msgid "Restored \"{projectName}\""
 msgstr "\"{projectName}\" geri yüklendi"
 
@@ -18462,6 +18456,9 @@ msgstr "Çalışma alanı etkinliği"
 msgid "Workspace agents"
 msgstr "Çalışma alanı ajanları"
 
+msgid "Workspace archived"
+msgstr "Çalışma alanı arşivlendi"
+
 msgid "Workspace created"
 msgstr "Çalışma alanı oluşturuldu"
 
@@ -18503,6 +18500,9 @@ msgstr "Çalışma alanı yolu henüz kullanılamıyor"
 
 msgid "Workspace pinning & bulk actions"
 msgstr "Çalışma alanı sabitleme ve toplu eylemler"
+
+msgid "Workspace restored"
+msgstr "Çalışma alanı geri yüklendi"
 
 msgid "workspace root"
 msgstr "çalışma alanı kökü"

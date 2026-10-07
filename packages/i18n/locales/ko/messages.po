@@ -2426,9 +2426,6 @@ msgstr "보관됨"
 msgid "Archived · {0}"
 msgstr "보관됨 · {0}"
 
-msgid "Archived \"{name}\""
-msgstr "\"{name}\"을(를) 보관했습니다"
-
 #. placeholder {0}: formatCompactRelativeTime(workspace.deletedAt, now)
 msgid "Archived {0}"
 msgstr "보관됨 {0}"
@@ -13644,9 +13641,6 @@ msgstr "너비 복원"
 msgid "Restored"
 msgstr "복원됨"
 
-msgid "Restored \"{name}\""
-msgstr "\"{name}\"을(를) 복원했습니다"
-
 msgid "Restored \"{projectName}\""
 msgstr "\"{projectName}\"을(를) 복원했습니다"
 
@@ -18462,6 +18456,9 @@ msgstr "워크스페이스 활동"
 msgid "Workspace agents"
 msgstr "워크스페이스 에이전트"
 
+msgid "Workspace archived"
+msgstr "워크스페이스를 보관했습니다"
+
 msgid "Workspace created"
 msgstr "워크스페이스를 만들었습니다"
 
@@ -18503,6 +18500,9 @@ msgstr "작업 공간 경로를 아직 사용할 수 없습니다"
 
 msgid "Workspace pinning & bulk actions"
 msgstr "워크스페이스 고정 및 일괄 작업"
+
+msgid "Workspace restored"
+msgstr "워크스페이스를 복원했습니다"
 
 msgid "workspace root"
 msgstr "워크스페이스 루트"

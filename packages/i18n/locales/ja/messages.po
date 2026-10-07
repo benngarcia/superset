@@ -2426,9 +2426,6 @@ msgstr "アーカイブ済み"
 msgid "Archived · {0}"
 msgstr "アーカイブ済み · {0}"
 
-msgid "Archived \"{name}\""
-msgstr "「{name}」をアーカイブしました"
-
 #. placeholder {0}: formatCompactRelativeTime(workspace.deletedAt, now)
 msgid "Archived {0}"
 msgstr "アーカイブ済み {0}"
@@ -13644,9 +13641,6 @@ msgstr "幅を元に戻す"
 msgid "Restored"
 msgstr "復元済み"
 
-msgid "Restored \"{name}\""
-msgstr "「{name}」を復元しました"
-
 msgid "Restored \"{projectName}\""
 msgstr "「{projectName}」を復元しました"
 
@@ -18462,6 +18456,9 @@ msgstr "ワークスペースのアクティビティ"
 msgid "Workspace agents"
 msgstr "ワークスペースのエージェント"
 
+msgid "Workspace archived"
+msgstr "ワークスペースをアーカイブしました"
+
 msgid "Workspace created"
 msgstr "ワークスペースを作成しました"
 
@@ -18503,6 +18500,9 @@ msgstr "ワークスペースのパスはまだ利用できません"
 
 msgid "Workspace pinning & bulk actions"
 msgstr "ワークスペースのピン留めと一括操作"
+
+msgid "Workspace restored"
+msgstr "ワークスペースを復元しました"
 
 msgid "workspace root"
 msgstr "ワークスペースルート"

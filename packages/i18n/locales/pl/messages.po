@@ -2426,9 +2426,6 @@ msgstr "Zarchiwizowane"
 msgid "Archived · {0}"
 msgstr "Zarchiwizowano · {0}"
 
-msgid "Archived \"{name}\""
-msgstr "Zarchiwizowano „{name}”"
-
 #. placeholder {0}: formatCompactRelativeTime(workspace.deletedAt, now)
 msgid "Archived {0}"
 msgstr "Zarchiwizowano {0}"
@@ -13644,9 +13641,6 @@ msgstr "Przywróć szerokość"
 msgid "Restored"
 msgstr "Przywrócona"
 
-msgid "Restored \"{name}\""
-msgstr "Przywrócono „{name}”"
-
 msgid "Restored \"{projectName}\""
 msgstr "Przywrócono „{projectName}”"
 
@@ -18462,6 +18456,9 @@ msgstr "Aktywność obszaru roboczego"
 msgid "Workspace agents"
 msgstr "Agenci obszaru roboczego"
 
+msgid "Workspace archived"
+msgstr "Zarchiwizowano obszar roboczy"
+
 msgid "Workspace created"
 msgstr "Obszar roboczy utworzony"
 
@@ -18503,6 +18500,9 @@ msgstr "Ścieżka obszaru roboczego nie jest jeszcze dostępna"
 
 msgid "Workspace pinning & bulk actions"
 msgstr "Przypinanie obszarów roboczych i akcje zbiorcze"
+
+msgid "Workspace restored"
+msgstr "Przywrócono obszar roboczy"
 
 msgid "workspace root"
 msgstr "katalog główny obszaru roboczego"

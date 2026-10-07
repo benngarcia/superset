@@ -2426,9 +2426,6 @@ msgstr "Diarsipkan"
 msgid "Archived · {0}"
 msgstr "Diarsipkan · {0}"
 
-msgid "Archived \"{name}\""
-msgstr "\"{name}\" diarsipkan"
-
 #. placeholder {0}: formatCompactRelativeTime(workspace.deletedAt, now)
 msgid "Archived {0}"
 msgstr "Diarsipkan {0}"
@@ -13644,9 +13641,6 @@ msgstr "Pulihkan lebar"
 msgid "Restored"
 msgstr "Dipulihkan"
 
-msgid "Restored \"{name}\""
-msgstr "\"{name}\" dipulihkan"
-
 msgid "Restored \"{projectName}\""
 msgstr "\"{projectName}\" dipulihkan"
 
@@ -18462,6 +18456,9 @@ msgstr "Aktivitas workspace"
 msgid "Workspace agents"
 msgstr "Agen workspace"
 
+msgid "Workspace archived"
+msgstr "Workspace diarsipkan"
+
 msgid "Workspace created"
 msgstr "Workspace dibuat"
 
@@ -18503,6 +18500,9 @@ msgstr "Jalur ruang kerja belum tersedia"
 
 msgid "Workspace pinning & bulk actions"
 msgstr "Penyematan workspace & aksi massal"
+
+msgid "Workspace restored"
+msgstr "Workspace dipulihkan"
 
 msgid "workspace root"
 msgstr "root workspace"

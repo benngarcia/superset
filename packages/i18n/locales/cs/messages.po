@@ -2426,9 +2426,6 @@ msgstr "Archivované"
 msgid "Archived · {0}"
 msgstr "Archivováno · {0}"
 
-msgid "Archived \"{name}\""
-msgstr "„{name}“ archivováno"
-
 #. placeholder {0}: formatCompactRelativeTime(workspace.deletedAt, now)
 msgid "Archived {0}"
 msgstr "Archivováno {0}"
@@ -13644,9 +13641,6 @@ msgstr "Obnovit šířku"
 msgid "Restored"
 msgstr "Obnoveno"
 
-msgid "Restored \"{name}\""
-msgstr "„{name}“ obnoveno"
-
 msgid "Restored \"{projectName}\""
 msgstr "„{projectName}“ obnoven"
 
@@ -18462,6 +18456,9 @@ msgstr "Aktivita pracovního prostoru"
 msgid "Workspace agents"
 msgstr "Agenti pracovního prostoru"
 
+msgid "Workspace archived"
+msgstr "Pracovní prostor archivován"
+
 msgid "Workspace created"
 msgstr "Pracovní prostor vytvořen"
 
@@ -18503,6 +18500,9 @@ msgstr "Cesta pracovního prostoru zatím není dostupná"
 
 msgid "Workspace pinning & bulk actions"
 msgstr "Připínání pracovních prostorů a hromadné akce"
+
+msgid "Workspace restored"
+msgstr "Pracovní prostor obnoven"
 
 msgid "workspace root"
 msgstr "kořen pracovního prostoru"
