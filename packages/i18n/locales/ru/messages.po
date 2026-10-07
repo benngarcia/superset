@@ -4883,6 +4883,9 @@ msgstr "Не удалось отменить непроиндексирован�
 msgid "Couldn’t finish deleting workspaces"
 msgstr "Не удалось завершить удаление рабочих областей"
 
+msgid "Couldn't hand this to an agent"
+msgstr "Не удалось передать агенту"
+
 #. placeholder {0}: configsQuery.error instanceof Error ? configsQuery.error.message : hostServiceUnavailableMessage
 msgid "Couldn't load agent settings: {0}"
 msgstr "Не удалось загрузить настройки агента: {0}"
@@ -7370,6 +7373,9 @@ msgstr "Починить проверки агентом"
 msgid "Fix CI failures"
 msgstr "Чинить падения CI"
 
+msgid "Fix findings"
+msgstr "Исправить замечания"
+
 msgid "fix-auth-redirect"
 msgstr "fix-auth-redirect"
 
@@ -7858,6 +7864,9 @@ msgstr "Руководства, справочники и интеграции."
 
 msgid "Half of merged changes are zero-edit agent code"
 msgstr "Половина объединённых изменений — агентский код без правок"
+
+msgid "Handing to agent…"
+msgstr "Передача агенту…"
 
 msgid "Handle"
 msgstr "Ник"
@@ -13382,6 +13391,9 @@ msgstr "Решить"
 msgid "Resolve all"
 msgstr "Закрыть все"
 
+msgid "Resolve conflicts"
+msgstr "Разрешить конфликты"
+
 msgid "Resolve Conflicts to Merge"
 msgstr "Разрешите конфликты для слияния"
 
@@ -14455,6 +14467,9 @@ msgstr "Отправлено"
 msgid "Sent to agent"
 msgstr "Отправлено агенту"
 
+msgid "Sent to the pull request's workspace"
+msgstr "Отправлено в рабочую область пул-реквеста"
+
 msgid "Sentry rejected the token"
 msgstr "Sentry отклонил токен"
 
@@ -15380,6 +15395,9 @@ msgstr "Запуск"
 
 msgid "Starting {agentLabel}"
 msgstr "Запуск {agentLabel}"
+
+msgid "Starting a workspace on this pull request"
+msgstr "Запуск рабочей области для этого пул-реквеста"
 
 msgid "Starting an agent in {what}"
 msgstr "Запуск агента в {what}"

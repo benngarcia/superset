@@ -4883,6 +4883,9 @@ msgstr "Không thể bỏ các thay đổi chưa stage"
 msgid "Couldn’t finish deleting workspaces"
 msgstr "Không xóa xong các workspace"
 
+msgid "Couldn't hand this to an agent"
+msgstr "Không thể giao việc này cho agent"
+
 #. placeholder {0}: configsQuery.error instanceof Error ? configsQuery.error.message : hostServiceUnavailableMessage
 msgid "Couldn't load agent settings: {0}"
 msgstr "Không thể tải cài đặt agent: {0}"
@@ -7370,6 +7373,9 @@ msgstr "Sửa check bằng agent"
 msgid "Fix CI failures"
 msgstr "Sửa lỗi CI"
 
+msgid "Fix findings"
+msgstr "Sửa các phát hiện"
+
 msgid "fix-auth-redirect"
 msgstr "fix-auth-redirect"
 
@@ -7858,6 +7864,9 @@ msgstr "Hướng dẫn, tài liệu tham khảo và tích hợp."
 
 msgid "Half of merged changes are zero-edit agent code"
 msgstr "Một nửa thay đổi được merge là code agent không cần chỉnh sửa"
+
+msgid "Handing to agent…"
+msgstr "Đang giao cho agent…"
 
 msgid "Handle"
 msgstr "Tên hiển thị"
@@ -13382,6 +13391,9 @@ msgstr "Giải quyết"
 msgid "Resolve all"
 msgstr "Giải quyết tất cả"
 
+msgid "Resolve conflicts"
+msgstr "Giải quyết xung đột"
+
 msgid "Resolve Conflicts to Merge"
 msgstr "Giải quyết xung đột để merge"
 
@@ -14455,6 +14467,9 @@ msgstr "Đã gửi"
 msgid "Sent to agent"
 msgstr "Đã gửi cho agent"
 
+msgid "Sent to the pull request's workspace"
+msgstr "Đã gửi tới workspace của pull request"
+
 msgid "Sentry rejected the token"
 msgstr "Sentry đã từ chối token"
 
@@ -15380,6 +15395,9 @@ msgstr "Đang khởi động"
 
 msgid "Starting {agentLabel}"
 msgstr "Đang khởi động {agentLabel}"
+
+msgid "Starting a workspace on this pull request"
+msgstr "Đang khởi động workspace cho pull request này"
 
 msgid "Starting an agent in {what}"
 msgstr "Đang khởi động tác nhân trong {what}"

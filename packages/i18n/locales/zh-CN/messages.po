@@ -4883,6 +4883,9 @@ msgstr "无法放弃未暂存的更改"
 msgid "Couldn’t finish deleting workspaces"
 msgstr "没能完成工作区的删除"
 
+msgid "Couldn't hand this to an agent"
+msgstr "无法交给智能体处理"
+
 #. placeholder {0}: configsQuery.error instanceof Error ? configsQuery.error.message : hostServiceUnavailableMessage
 msgid "Couldn't load agent settings: {0}"
 msgstr "无法加载智能体设置：{0}"
@@ -7370,6 +7373,9 @@ msgstr "用智能体修复检查"
 msgid "Fix CI failures"
 msgstr "修复CI失败"
 
+msgid "Fix findings"
+msgstr "修复评审问题"
+
 msgid "fix-auth-redirect"
 msgstr "fix-auth-redirect"
 
@@ -7858,6 +7864,9 @@ msgstr "指南、参考和集成。"
 
 msgid "Half of merged changes are zero-edit agent code"
 msgstr "一半的合并变更是零修改的智能体代码"
+
+msgid "Handing to agent…"
+msgstr "正在交给智能体…"
 
 msgid "Handle"
 msgstr "昵称"
@@ -13382,6 +13391,9 @@ msgstr "解决"
 msgid "Resolve all"
 msgstr "全部解决"
 
+msgid "Resolve conflicts"
+msgstr "解决冲突"
+
 msgid "Resolve Conflicts to Merge"
 msgstr "解决冲突后才能合并"
 
@@ -14455,6 +14467,9 @@ msgstr "发送时间"
 msgid "Sent to agent"
 msgstr "已发送给智能体"
 
+msgid "Sent to the pull request's workspace"
+msgstr "已发送到拉取请求的工作区"
+
 msgid "Sentry rejected the token"
 msgstr "Sentry拒绝了该令牌"
 
@@ -15380,6 +15395,9 @@ msgstr "启动中"
 
 msgid "Starting {agentLabel}"
 msgstr "正在启动{agentLabel}"
+
+msgid "Starting a workspace on this pull request"
+msgstr "正在为此拉取请求启动工作区"
 
 msgid "Starting an agent in {what}"
 msgstr "正在 {what} 中启动代理"

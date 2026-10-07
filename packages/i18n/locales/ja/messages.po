@@ -4883,6 +4883,9 @@ msgstr "未ステージの変更を破棄できませんでした"
 msgid "Couldn’t finish deleting workspaces"
 msgstr "ワークスペースの削除を完了できませんでした"
 
+msgid "Couldn't hand this to an agent"
+msgstr "エージェントに引き渡せませんでした"
+
 #. placeholder {0}: configsQuery.error instanceof Error ? configsQuery.error.message : hostServiceUnavailableMessage
 msgid "Couldn't load agent settings: {0}"
 msgstr "エージェント設定を読み込めませんでした: {0}"
@@ -7370,6 +7373,9 @@ msgstr "エージェントでチェックを修正"
 msgid "Fix CI failures"
 msgstr "CIの失敗を修正"
 
+msgid "Fix findings"
+msgstr "指摘を修正"
+
 msgid "fix-auth-redirect"
 msgstr "fix-auth-redirect"
 
@@ -7858,6 +7864,9 @@ msgstr "ガイド、リファレンス、インテグレーション。"
 
 msgid "Half of merged changes are zero-edit agent code"
 msgstr "マージされた変更の半分が編集ゼロのエージェントのコード"
+
+msgid "Handing to agent…"
+msgstr "エージェントに引き渡しています…"
 
 msgid "Handle"
 msgstr "ハンドル"
@@ -13382,6 +13391,9 @@ msgstr "解決する"
 msgid "Resolve all"
 msgstr "すべて解決"
 
+msgid "Resolve conflicts"
+msgstr "コンフリクトを解決"
+
 msgid "Resolve Conflicts to Merge"
 msgstr "マージにはコンフリクトの解消が必要"
 
@@ -14455,6 +14467,9 @@ msgstr "送信日"
 msgid "Sent to agent"
 msgstr "エージェントに送信しました"
 
+msgid "Sent to the pull request's workspace"
+msgstr "プルリクエストのワークスペースに送信しました"
+
 msgid "Sentry rejected the token"
 msgstr "Sentryがトークンを拒否しました"
 
@@ -15380,6 +15395,9 @@ msgstr "起動中"
 
 msgid "Starting {agentLabel}"
 msgstr "{agentLabel}を起動中"
+
+msgid "Starting a workspace on this pull request"
+msgstr "このプルリクエストでワークスペースを開始しています"
 
 msgid "Starting an agent in {what}"
 msgstr "{what} でエージェントを起動中"

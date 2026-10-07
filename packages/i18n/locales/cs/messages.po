@@ -4883,6 +4883,9 @@ msgstr "Nepodařilo se zahodit nepřipravené změny"
 msgid "Couldn’t finish deleting workspaces"
 msgstr "Mazání pracovních prostorů se nepodařilo dokončit"
 
+msgid "Couldn't hand this to an agent"
+msgstr "Nepodařilo se předat agentovi"
+
 #. placeholder {0}: configsQuery.error instanceof Error ? configsQuery.error.message : hostServiceUnavailableMessage
 msgid "Couldn't load agent settings: {0}"
 msgstr "Nepodařilo se načíst nastavení agenta: {0}"
@@ -7370,6 +7373,9 @@ msgstr "Opravit kontroly agentem"
 msgid "Fix CI failures"
 msgstr "Opravovat selhání CI"
 
+msgid "Fix findings"
+msgstr "Opravit nálezy"
+
 msgid "fix-auth-redirect"
 msgstr "fix-auth-redirect"
 
@@ -7858,6 +7864,9 @@ msgstr "Průvodci, reference a integrace."
 
 msgid "Half of merged changes are zero-edit agent code"
 msgstr "Polovina sloučených změn je kód agenta bez úprav"
+
+msgid "Handing to agent…"
+msgstr "Předává se agentovi…"
 
 msgid "Handle"
 msgstr "Přezdívka"
@@ -13382,6 +13391,9 @@ msgstr "Vyřešit"
 msgid "Resolve all"
 msgstr "Vyřešit vše"
 
+msgid "Resolve conflicts"
+msgstr "Vyřešit konflikty"
+
 msgid "Resolve Conflicts to Merge"
 msgstr "Pro sloučení vyřešte konflikty"
 
@@ -14455,6 +14467,9 @@ msgstr "Odesláno"
 msgid "Sent to agent"
 msgstr "Odesláno agentovi"
 
+msgid "Sent to the pull request's workspace"
+msgstr "Odesláno do pracovního prostoru pull requestu"
+
 msgid "Sentry rejected the token"
 msgstr "Sentry token odmítl"
 
@@ -15380,6 +15395,9 @@ msgstr "Spouštím"
 
 msgid "Starting {agentLabel}"
 msgstr "Spouštím {agentLabel}"
+
+msgid "Starting a workspace on this pull request"
+msgstr "Spouští se pracovní prostor pro tento pull request"
 
 msgid "Starting an agent in {what}"
 msgstr "Spouští se agent v {what}"

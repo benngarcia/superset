@@ -4883,6 +4883,9 @@ msgstr "Tidak bisa membuang perubahan yang belum di-stage"
 msgid "Couldn’t finish deleting workspaces"
 msgstr "Tidak bisa menyelesaikan penghapusan workspace"
 
+msgid "Couldn't hand this to an agent"
+msgstr "Tidak dapat menyerahkan ini ke agen"
+
 #. placeholder {0}: configsQuery.error instanceof Error ? configsQuery.error.message : hostServiceUnavailableMessage
 msgid "Couldn't load agent settings: {0}"
 msgstr "Tidak bisa memuat pengaturan agen: {0}"
@@ -7370,6 +7373,9 @@ msgstr "Perbaiki Check dengan Agen"
 msgid "Fix CI failures"
 msgstr "Perbaiki kegagalan CI"
 
+msgid "Fix findings"
+msgstr "Perbaiki temuan"
+
 msgid "fix-auth-redirect"
 msgstr "fix-auth-redirect"
 
@@ -7858,6 +7864,9 @@ msgstr "Panduan, referensi, dan integrasi."
 
 msgid "Half of merged changes are zero-edit agent code"
 msgstr "Separuh perubahan yang di-merge adalah kode agen tanpa suntingan"
+
+msgid "Handing to agent…"
+msgstr "Menyerahkan ke agen…"
 
 msgid "Handle"
 msgstr "Handle"
@@ -13382,6 +13391,9 @@ msgstr "Selesaikan"
 msgid "Resolve all"
 msgstr "Selesaikan semua"
 
+msgid "Resolve conflicts"
+msgstr "Selesaikan konflik"
+
 msgid "Resolve Conflicts to Merge"
 msgstr "Selesaikan Konflik untuk Merge"
 
@@ -14455,6 +14467,9 @@ msgstr "Dikirim"
 msgid "Sent to agent"
 msgstr "Dikirim ke agen"
 
+msgid "Sent to the pull request's workspace"
+msgstr "Dikirim ke workspace pull request"
+
 msgid "Sentry rejected the token"
 msgstr "Sentry menolak tokennya"
 
@@ -15380,6 +15395,9 @@ msgstr "Memulai"
 
 msgid "Starting {agentLabel}"
 msgstr "Memulai {agentLabel}"
+
+msgid "Starting a workspace on this pull request"
+msgstr "Memulai workspace untuk pull request ini"
 
 msgid "Starting an agent in {what}"
 msgstr "Memulai agen di {what}"

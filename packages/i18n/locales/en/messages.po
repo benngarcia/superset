@@ -4883,6 +4883,9 @@ msgstr "Couldn't discard unstaged changes"
 msgid "Couldn’t finish deleting workspaces"
 msgstr "Couldn’t finish deleting workspaces"
 
+msgid "Couldn't hand this to an agent"
+msgstr "Couldn't hand this to an agent"
+
 #. placeholder {0}: configsQuery.error instanceof Error ? configsQuery.error.message : hostServiceUnavailableMessage
 msgid "Couldn't load agent settings: {0}"
 msgstr "Couldn't load agent settings: {0}"
@@ -7370,6 +7373,9 @@ msgstr "Fix Checks with Agent"
 msgid "Fix CI failures"
 msgstr "Fix CI failures"
 
+msgid "Fix findings"
+msgstr "Fix findings"
+
 msgid "fix-auth-redirect"
 msgstr "fix-auth-redirect"
 
@@ -7858,6 +7864,9 @@ msgstr "Guides, references, and integrations."
 
 msgid "Half of merged changes are zero-edit agent code"
 msgstr "Half of merged changes are zero-edit agent code"
+
+msgid "Handing to agent…"
+msgstr "Handing to agent…"
 
 msgid "Handle"
 msgstr "Handle"
@@ -13382,6 +13391,9 @@ msgstr "Resolve"
 msgid "Resolve all"
 msgstr "Resolve all"
 
+msgid "Resolve conflicts"
+msgstr "Resolve conflicts"
+
 msgid "Resolve Conflicts to Merge"
 msgstr "Resolve Conflicts to Merge"
 
@@ -14455,6 +14467,9 @@ msgstr "Sent"
 msgid "Sent to agent"
 msgstr "Sent to agent"
 
+msgid "Sent to the pull request's workspace"
+msgstr "Sent to the pull request's workspace"
+
 msgid "Sentry rejected the token"
 msgstr "Sentry rejected the token"
 
@@ -15380,6 +15395,9 @@ msgstr "Starting"
 
 msgid "Starting {agentLabel}"
 msgstr "Starting {agentLabel}"
+
+msgid "Starting a workspace on this pull request"
+msgstr "Starting a workspace on this pull request"
 
 msgid "Starting an agent in {what}"
 msgstr "Starting an agent in {what}"

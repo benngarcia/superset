@@ -4883,6 +4883,9 @@ msgstr "無法放棄未暫存的更改"
 msgid "Couldn’t finish deleting workspaces"
 msgstr "沒能完成工作區的刪除"
 
+msgid "Couldn't hand this to an agent"
+msgstr "無法交給代理程式處理"
+
 #. placeholder {0}: configsQuery.error instanceof Error ? configsQuery.error.message : hostServiceUnavailableMessage
 msgid "Couldn't load agent settings: {0}"
 msgstr "無法載入代理程式設定：{0}"
@@ -7370,6 +7373,9 @@ msgstr "用代理程式修復檢查"
 msgid "Fix CI failures"
 msgstr "修復CI失敗"
 
+msgid "Fix findings"
+msgstr "修正審查問題"
+
 msgid "fix-auth-redirect"
 msgstr "fix-auth-redirect"
 
@@ -7858,6 +7864,9 @@ msgstr "指南、參考和整合。"
 
 msgid "Half of merged changes are zero-edit agent code"
 msgstr "一半的合併變更是零修改的代理程式程式碼"
+
+msgid "Handing to agent…"
+msgstr "正在交給代理程式…"
 
 msgid "Handle"
 msgstr "暱稱"
@@ -13382,6 +13391,9 @@ msgstr "解決"
 msgid "Resolve all"
 msgstr "全部解決"
 
+msgid "Resolve conflicts"
+msgstr "解決衝突"
+
 msgid "Resolve Conflicts to Merge"
 msgstr "解決衝突後才能合併"
 
@@ -14455,6 +14467,9 @@ msgstr "傳送時間"
 msgid "Sent to agent"
 msgstr "已傳送給代理程式"
 
+msgid "Sent to the pull request's workspace"
+msgstr "已傳送至拉取請求的工作區"
+
 msgid "Sentry rejected the token"
 msgstr "Sentry拒絕了該權杖"
 
@@ -15380,6 +15395,9 @@ msgstr "啟動中"
 
 msgid "Starting {agentLabel}"
 msgstr "正在啟動{agentLabel}"
+
+msgid "Starting a workspace on this pull request"
+msgstr "正在為此拉取請求啟動工作區"
 
 msgid "Starting an agent in {what}"
 msgstr "正在 {what} 中啟動代理程式"

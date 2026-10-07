@@ -4883,6 +4883,9 @@ msgstr "Hazırlanmamış değişiklikler atılamadı"
 msgid "Couldn’t finish deleting workspaces"
 msgstr "Çalışma alanlarını silme işlemi tamamlanamadı"
 
+msgid "Couldn't hand this to an agent"
+msgstr "Bu bir ajana devredilemedi"
+
 #. placeholder {0}: configsQuery.error instanceof Error ? configsQuery.error.message : hostServiceUnavailableMessage
 msgid "Couldn't load agent settings: {0}"
 msgstr "Ajan ayarları yüklenemedi: {0}"
@@ -7370,6 +7373,9 @@ msgstr "Kontrolleri ajanla düzelt"
 msgid "Fix CI failures"
 msgstr "CI hatalarını düzelt"
 
+msgid "Fix findings"
+msgstr "Bulguları düzelt"
+
 msgid "fix-auth-redirect"
 msgstr "fix-auth-redirect"
 
@@ -7858,6 +7864,9 @@ msgstr "Rehberler, referanslar ve entegrasyonlar."
 
 msgid "Half of merged changes are zero-edit agent code"
 msgstr "Birleştirilen değişikliklerin yarısı sıfır düzenlemeli ajan kodu"
+
+msgid "Handing to agent…"
+msgstr "Ajana devrediliyor…"
 
 msgid "Handle"
 msgstr "Kullanıcı adı"
@@ -13382,6 +13391,9 @@ msgstr "Çöz"
 msgid "Resolve all"
 msgstr "Tümünü çöz"
 
+msgid "Resolve conflicts"
+msgstr "Çakışmaları çöz"
+
 msgid "Resolve Conflicts to Merge"
 msgstr "Birleştirmek için çakışmaları çözün"
 
@@ -14455,6 +14467,9 @@ msgstr "Gönderildi"
 msgid "Sent to agent"
 msgstr "Ajana gönderildi"
 
+msgid "Sent to the pull request's workspace"
+msgstr "Pull request'in çalışma alanına gönderildi"
+
 msgid "Sentry rejected the token"
 msgstr "Sentry token'ı reddetti"
 
@@ -15380,6 +15395,9 @@ msgstr "Başlatılıyor"
 
 msgid "Starting {agentLabel}"
 msgstr "{agentLabel} başlatılıyor"
+
+msgid "Starting a workspace on this pull request"
+msgstr "Bu pull request için çalışma alanı başlatılıyor"
 
 msgid "Starting an agent in {what}"
 msgstr "{what} içinde ajan başlatılıyor"

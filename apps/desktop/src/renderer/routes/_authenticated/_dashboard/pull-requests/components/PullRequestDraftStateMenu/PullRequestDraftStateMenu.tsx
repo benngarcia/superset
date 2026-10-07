@@ -1,9 +1,7 @@
 import { Trans, useLingui } from "@lingui/react/macro";
 import {
 	DropdownMenu,
-	DropdownMenuContent,
 	DropdownMenuRadioGroup,
-	DropdownMenuRadioItem,
 	DropdownMenuTrigger,
 } from "@superset/ui/dropdown-menu";
 import { cn } from "@superset/ui/utils";
@@ -13,6 +11,10 @@ import {
 	type PullRequestActionTarget,
 	usePullRequestDraftMutation,
 } from "../../hooks/usePullRequestDraftMutation";
+import {
+	PullRequestMenuContent,
+	PullRequestMenuRadioItem,
+} from "../PullRequestMenu";
 import { PullRequestStateGlyph } from "../PullRequestStateGlyph";
 import { PullRequestStatePill } from "../PullRequestStatePill";
 
@@ -50,7 +52,7 @@ export function PullRequestDraftStateMenu({
 					trailing={<ChevronDown aria-hidden className="size-3" />}
 				/>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent align="start" className="w-48">
+			<PullRequestMenuContent align="start" className="w-52">
 				<DropdownMenuRadioGroup
 					value={data.isDraft ? "draft" : "ready"}
 					onValueChange={(value) => {
@@ -58,16 +60,16 @@ export function PullRequestDraftStateMenu({
 						if (draft !== data.isDraft) setDraft.mutate(draft);
 					}}
 				>
-					<DropdownMenuRadioItem value="draft">
+					<PullRequestMenuRadioItem value="draft">
 						<PullRequestStateGlyph state="draft" className="size-4" />
 						<Trans>Draft</Trans>
-					</DropdownMenuRadioItem>
-					<DropdownMenuRadioItem value="ready">
+					</PullRequestMenuRadioItem>
+					<PullRequestMenuRadioItem value="ready">
 						<PullRequestStateGlyph state="open" className="size-4" />
 						<Trans>Ready for review</Trans>
-					</DropdownMenuRadioItem>
+					</PullRequestMenuRadioItem>
 				</DropdownMenuRadioGroup>
-			</DropdownMenuContent>
+			</PullRequestMenuContent>
 		</DropdownMenu>
 	);
 }

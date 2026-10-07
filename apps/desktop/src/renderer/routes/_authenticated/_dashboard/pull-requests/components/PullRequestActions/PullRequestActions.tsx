@@ -12,12 +12,7 @@ import {
 import { Button } from "@superset/ui/button";
 import {
 	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuLabel,
 	DropdownMenuRadioGroup,
-	DropdownMenuRadioItem,
-	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@superset/ui/dropdown-menu";
 import { toast } from "@superset/ui/sonner";
@@ -34,6 +29,7 @@ import {
 	GitPullRequestArrow,
 	GitPullRequestClosed,
 	GitPullRequestDraft,
+	Hammer,
 	Link2,
 	LoaderCircle,
 	SquareArrowOutUpRight,
@@ -47,11 +43,23 @@ import {
 	type LinkedPR,
 	useNewWorkspaceDraftStore,
 } from "renderer/stores/new-workspace-draft";
+import { usePullRequestAgentHandoff } from "../../hooks/usePullRequestAgentHandoff";
 import {
 	type PullRequestDetail,
 	useInvalidatePullRequestDetail,
 } from "../../hooks/usePullRequestDetail";
 import { usePullRequestDraftMutation } from "../../hooks/usePullRequestDraftMutation";
+import {
+	buildFixFindingsPrompt,
+	buildResolveConflictsPrompt,
+} from "../../utils/buildPullRequestRepairPrompts";
+import {
+	PullRequestMenuContent,
+	PullRequestMenuItem,
+	PullRequestMenuLabel,
+	PullRequestMenuRadioItem,
+	PullRequestMenuSeparator,
+} from "../PullRequestMenu";
 import { PullRequestSkeleton as Skeleton } from "../PullRequestSkeleton";
 
 type MergeMethod = "merge" | "squash" | "rebase";
@@ -143,6 +151,11 @@ export function PullRequestActions({
 		hostUrl,
 		prNumber,
 	});
+	const handoff = usePullRequestAgentHandoff(
+		projectId && hostId && hostUrl && prNumber !== null
+			? { projectId, hostId, hostUrl, prNumber }
+			: null,
+	);
 	const setDraft = usePullRequestDraftMutation({
 		projectId: projectId ?? "",
 		hostUrl: hostUrl ?? "",
@@ -228,6 +241,31 @@ export function PullRequestActions({
 		updateDraft({ hostId, linkedPR });
 		openNewWorkspace(projectId);
 	};
+
+	const repairItems = data ? (
+		<>
+			<PullRequestMenuItem
+				disabled={!handoff.available || handoff.isPending}
+				onClick={() => handoff.handOff(buildFixFindingsPrompt(data))}
+			>
+				<Hammer strokeWidth={1.75} />
+				{handoff.isPending ? (
+					<Trans>Handing to agent…</Trans>
+				) : (
+					<Trans>Fix findings</Trans>
+				)}
+			</PullRequestMenuItem>
+			{data.state === "open" && data.mergeability === "conflicting" ? (
+				<PullRequestMenuItem
+					disabled={!handoff.available || handoff.isPending}
+					onClick={() => handoff.handOff(buildResolveConflictsPrompt(data))}
+				>
+					<GitMerge strokeWidth={1.75} className="text-destructive" />
+					<Trans>Resolve conflicts</Trans>
+				</PullRequestMenuItem>
+			) : null}
+		</>
+	) : null;
 
 	if (isLoading && !data) {
 		return (
@@ -365,9 +403,9 @@ export function PullRequestActions({
 								<ChevronDown className="size-3.5" />
 							</Button>
 						</DropdownMenuTrigger>
-						<DropdownMenuContent
+						<PullRequestMenuContent
 							align="end"
-							className={isDraft ? "w-56" : "w-80 p-0"}
+							className={isDraft ? "w-56" : "w-72"}
 						>
 							{isDraft ? (
 								<>
@@ -377,63 +415,69 @@ export function PullRequestActions({
 											if (value === "ready") setDraft.mutate(false);
 										}}
 									>
-										<DropdownMenuRadioItem value="draft">
+										<PullRequestMenuRadioItem value="draft">
 											<GitPullRequestDraft className="size-4" />
 											<Trans>Draft</Trans>
-										</DropdownMenuRadioItem>
-										<DropdownMenuRadioItem value="ready">
+										</PullRequestMenuRadioItem>
+										<PullRequestMenuRadioItem value="ready">
 											<GitPullRequestArrow className="size-4" />
 											<Trans>Ready for review</Trans>
-										</DropdownMenuRadioItem>
+										</PullRequestMenuRadioItem>
 									</DropdownMenuRadioGroup>
-									<DropdownMenuSeparator />
-									<DropdownMenuItem
+									<PullRequestMenuSeparator />
+									{repairItems}
+									<PullRequestMenuSeparator />
+									<PullRequestMenuItem
 										variant="destructive"
 										disabled={isActionPending}
 										onClick={() => setPendingAction({ kind: "close" })}
 									>
 										<GitPullRequestClosed className="size-4" />
 										<Trans>Close pull request</Trans>
-									</DropdownMenuItem>
+									</PullRequestMenuItem>
 								</>
 							) : (
 								<>
-									<div className="p-3 pb-2">
+									<div className="p-1.5 pb-1">
 										<Textarea
 											value={mergeComment}
 											onChange={(e) => setMergeComment(e.target.value)}
 											onKeyDown={(e) => e.stopPropagation()}
 											placeholder={t({ message: "Leave a comment (optional)" })}
-											className="min-h-16 resize-none text-sm"
+											className="min-h-16 resize-none rounded-[0.625rem] border-border/60 bg-background/60 text-xs shadow-none"
 										/>
 									</div>
-									<DropdownMenuLabel className="px-3 pb-1 pt-0 text-xs font-normal text-muted-foreground">
+									<PullRequestMenuLabel className="pt-1">
 										<Trans>Select method</Trans>
-									</DropdownMenuLabel>
+									</PullRequestMenuLabel>
 									{(["squash", "merge", "rebase"] as const).map((method) => (
-										<DropdownMenuItem
+										<PullRequestMenuItem
 											key={method}
-											className="flex-col items-start gap-0.5 px-3 py-2"
+											className="flex-col items-start gap-0 py-1.5"
 											disabled={mergeBlocked}
 											onClick={() =>
 												setPendingAction({ kind: "merge", method })
 											}
 										>
-											<span className="text-sm font-medium">
+											<span className="flex items-center gap-2">
+												<GitMerge
+													strokeWidth={1.75}
+													className="size-3.5 opacity-80"
+												/>
 												{mergeMethodLabels[method]}
 											</span>
-											<span className="text-xs text-muted-foreground">
+											<span className="pl-[1.375rem] text-[11px] text-muted-foreground">
 												{mergeMethodDescriptions[method]}
 											</span>
-										</DropdownMenuItem>
+										</PullRequestMenuItem>
 									))}
 									{(data.checksStatus === "pending" ||
 										data.checksStatus === "failure") && (
 										<>
-											<DropdownMenuSeparator />
+											<PullRequestMenuSeparator />
 											{data.checksStatus === "pending" && (
-												<DropdownMenuItem
-													className="flex items-center justify-between gap-2 px-3 py-2"
+												<PullRequestMenuItem
+													className="flex items-center justify-between gap-2 py-1.5"
 													onClick={() =>
 														toast.info(
 															t({ message: "Auto-merge is coming soon" }),
@@ -441,19 +485,19 @@ export function PullRequestActions({
 													}
 												>
 													<div className="flex flex-col gap-0.5">
-														<span className="text-sm font-medium">
+														<span>
 															<Trans>Enable auto-merge</Trans>
 														</span>
-														<span className="text-xs text-muted-foreground">
+														<span className="text-[11px] text-muted-foreground">
 															<Trans>Merge when checks pass</Trans>
 														</span>
 													</div>
 													<ChevronRight className="size-3.5 shrink-0 text-muted-foreground" />
-												</DropdownMenuItem>
+												</PullRequestMenuItem>
 											)}
 											{data.checksStatus === "failure" && (
-												<DropdownMenuItem
-													className="flex items-center justify-between gap-2 px-3 py-2"
+												<PullRequestMenuItem
+													className="flex items-center justify-between gap-2 py-1.5"
 													disabled={mergeBlocked}
 													onClick={() =>
 														setPendingAction({
@@ -464,38 +508,38 @@ export function PullRequestActions({
 													}
 												>
 													<div className="flex flex-col gap-0.5">
-														<span className="text-sm font-medium">
+														<span>
 															<Trans>Force merge</Trans>
 														</span>
-														<span className="text-xs text-muted-foreground">
+														<span className="text-[11px] text-muted-foreground">
 															<Trans>Attempt before checks pass</Trans>
 														</span>
 													</div>
 													<ChevronRight className="size-3.5 shrink-0 text-muted-foreground" />
-												</DropdownMenuItem>
+												</PullRequestMenuItem>
 											)}
 										</>
 									)}
-									<DropdownMenuSeparator />
-									<DropdownMenuItem
-										className="px-3 py-2"
+									<PullRequestMenuSeparator />
+									{repairItems}
+									<PullRequestMenuSeparator />
+									<PullRequestMenuItem
 										disabled={isActionPending}
 										onClick={() => setDraft.mutate(true)}
 									>
 										<GitPullRequestDraft className="size-4" />
 										<Trans>Convert to draft</Trans>
-									</DropdownMenuItem>
-									<DropdownMenuItem
+									</PullRequestMenuItem>
+									<PullRequestMenuItem
 										variant="destructive"
-										className="px-3 py-2"
 										disabled={isActionPending}
 										onClick={() => setPendingAction({ kind: "close" })}
 									>
 										<Trans>Close pull request</Trans>
-									</DropdownMenuItem>
+									</PullRequestMenuItem>
 								</>
 							)}
-						</DropdownMenuContent>
+						</PullRequestMenuContent>
 					</DropdownMenu>
 				</div>
 			) : data.state === "closed" && canAct ? (
