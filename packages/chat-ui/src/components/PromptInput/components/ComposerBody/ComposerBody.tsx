@@ -62,9 +62,11 @@ import type {
 	PromptInputAttachment,
 	PromptInputProps,
 } from "../../types";
+import { registerDraftEdit } from "../../utils/draftEdit";
 import { registerHistoryNavigation } from "../../utils/historyNavigation";
 import { matchToken } from "../../utils/matchToken";
 import { rankCommands } from "../../utils/rankCommands";
+import { $restoreChips } from "../../utils/restoreChips";
 import {
 	CommandTypeaheadOption,
 	MentionTypeaheadOption,
@@ -77,7 +79,7 @@ import { DictationBar } from "../DictationBar";
 import { MentionMenu } from "../MentionMenu";
 
 const FOOTER_BUTTON_CLASS =
-	"flex size-[26px] shrink-0 items-center justify-center rounded-full transition-colors";
+	"flex size-[26px] shrink-0 items-center justify-center rounded-md transition-colors";
 const GHOST_FOOTER_BUTTON_CLASS = cn(
 	FOOTER_BUTTON_CLASS,
 	"cursor-pointer text-muted-foreground hover:bg-accent hover:text-foreground",
@@ -116,6 +118,7 @@ export type ComposerBodyProps = Required<
 		| "toolbar"
 		| "toolbarEnd"
 		| "defaultValue"
+		| "findChips"
 		| "onChange"
 		| "onSubmit"
 		| "onStop"
@@ -172,6 +175,7 @@ export function ComposerBody({
 	toolbar,
 	toolbarEnd,
 	defaultValue,
+	findChips,
 	onChange,
 	onSubmit,
 	onStop,
@@ -257,10 +261,10 @@ export function ComposerBody({
 
 	// A draft the host had stored. Read once: after mount the editor is the
 	// only writer, and re-applying would fight what is being typed.
-	const seeded = useRef(false);
+	const seededValue = useRef<string | null>(null);
 	useEffect(() => {
-		if (seeded.current) return;
-		seeded.current = true;
+		if (seededValue.current !== null) return;
+		seededValue.current = defaultValue ?? "";
 		if (!defaultValue) return;
 		editor.update(() => {
 			const root = $getRoot();
@@ -270,6 +274,26 @@ export function ComposerBody({
 			if ($isRangeSelection(selection)) selection.insertText(defaultValue);
 		});
 	}, [defaultValue, editor]);
+
+	// Chips come back once the finder can name them, which may be after the
+	// draft was read (a catalog still loading). Only the untouched draft is
+	// rewritten: once edited, even back to the same text, it is the user's.
+	const draftEdited = useRef(false);
+	useEffect(() => {
+		const seededText = seededValue.current;
+		if (!seededText) return;
+		return registerDraftEdit(editor, seededText, () => {
+			draftEdited.current = true;
+		});
+	}, [editor]);
+	useEffect(() => {
+		const seededText = seededValue.current;
+		if (!findChips || !seededText || draftEdited.current) return;
+		editor.update(() => {
+			if ($getRoot().getTextContent() !== seededText) return;
+			$restoreChips(findChips);
+		});
+	}, [editor, findChips]);
 
 	const onChangeRef = useRef(onChange);
 	onChangeRef.current = onChange;

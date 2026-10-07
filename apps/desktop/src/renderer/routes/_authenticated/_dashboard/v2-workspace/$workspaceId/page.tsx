@@ -40,6 +40,7 @@ import { WorkspaceMoreMenu } from "./components/WorkspaceMoreMenu";
 import { WorkspaceSidebar } from "./components/WorkspaceSidebar";
 import { useAgentSessionLauncher } from "./hooks/useAgentSessionLauncher";
 import { useAutoAdoptBackgroundSessions } from "./hooks/useAutoAdoptBackgroundSessions";
+import { useAutoAdoptChatSessions } from "./hooks/useAutoAdoptChatSessions";
 import { useClearActivePaneAttention } from "./hooks/useClearActivePaneAttention";
 import { useConsumeAutomationRunLink } from "./hooks/useConsumeAutomationRunLink";
 import { useConsumeOpenUrlRequest } from "./hooks/useConsumeOpenUrlRequest";
@@ -260,6 +261,12 @@ function V2WorkspaceContent() {
 		workspaceId,
 		isLayoutReady: isLayoutReady && isRightLayoutReady,
 	});
+	useAutoAdoptChatSessions({
+		store,
+		linkedStores: linkedPaneStores,
+		workspaceId,
+		isLayoutReady: isLayoutReady && isRightLayoutReady,
+	});
 	useConsumeOpenUrlRequest({
 		store,
 		url: openUrl,
@@ -283,7 +290,6 @@ function V2WorkspaceContent() {
 	const {
 		openDiffPane,
 		addTerminalTab,
-		addChatV3Tab,
 		addBrowserTab,
 		openChangesPane,
 		toggleChangesPane,
@@ -375,7 +381,6 @@ function V2WorkspaceContent() {
 			panes: [{ kind: "desktop", data: { kind: "desktop" } }],
 		});
 	}, [store]);
-	const isChatV3Enabled = useFeatureFlagEnabled(FEATURE_FLAGS.CHAT_V3) ?? false;
 	useRunPendingChatHandoff({
 		workspaceId,
 		isLayoutReady,
@@ -415,9 +420,6 @@ function V2WorkspaceContent() {
 					return;
 				case "browser":
 					rightOpeners.addBrowserTab();
-					return;
-				case "chat-v3":
-					rightOpeners.addChatV3Tab();
 					return;
 				case "terminal":
 					void rightOpeners.addTerminalTab();
@@ -586,7 +588,6 @@ function V2WorkspaceContent() {
 			onToggleExpanded={toggleRightPaneAreaExpanded}
 			onMergeIntoCenter={mergeRightPaneAreaIntoCenter}
 			onAdd={addRightPane}
-			isChatEnabled={isChatV3Enabled}
 			showWindowControls={!isMac}
 		/>
 	);
@@ -627,7 +628,6 @@ function V2WorkspaceContent() {
 								renderAddTabMenu={() => (
 									<AddTabMenu
 										onAddTerminal={addTerminalTab}
-										onAddChatV3={isChatV3Enabled ? addChatV3Tab : undefined}
 										onAddBrowser={addBrowserTab}
 										onAddChanges={openChanges}
 										onAddDesktop={isSandbox ? addDesktopTab : undefined}
@@ -670,7 +670,6 @@ function V2WorkspaceContent() {
 									<WorkspaceEmptyState
 										onOpenBrowser={addBrowserTab}
 										onOpenChanges={openChanges}
-										onOpenChatV3={isChatV3Enabled ? addChatV3Tab : undefined}
 										onOpenQuickOpen={handleQuickOpen}
 										onOpenTerminal={addTerminalTab}
 									/>
