@@ -3,4 +3,3 @@ export {
 	createChatSessionClient,
 	getChatTransport,
 } from "./client";
-export { agentIdForHarness, harnessForAgent } from "./harness";

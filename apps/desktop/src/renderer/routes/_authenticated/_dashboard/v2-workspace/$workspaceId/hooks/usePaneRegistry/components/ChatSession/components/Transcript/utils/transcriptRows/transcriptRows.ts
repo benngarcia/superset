@@ -1,4 +1,9 @@
-import type { OutboxEntry, TurnGroup } from "@superset/chat/core";
+import {
+	type OutboxEntry,
+	type TurnGroup,
+	toolRunKey,
+	transcriptItemKey,
+} from "@superset/chat/core";
 import type { Item, ToolCall, UserMessage } from "@superset/chat/protocol";
 
 export type TranscriptRow =
@@ -25,12 +30,6 @@ export type TranscriptRow =
 			status: "failed" | "interrupted";
 			message: string | undefined;
 	  };
-
-function itemKey(item: Item): string {
-	return item.kind === "user_message"
-		? ((item as UserMessage).clientId ?? item.id)
-		: item.id;
-}
 
 export function transcriptRows(
 	groups: readonly TurnGroup[],
@@ -72,7 +71,7 @@ export function transcriptRows(
 				if (clientId) echoedClientIds.add(clientId);
 				push({
 					kind: "item",
-					key: itemKey(entry.item),
+					key: transcriptItemKey(entry.item),
 					groupStart,
 					item: entry.item,
 				});
@@ -80,7 +79,7 @@ export function transcriptRows(
 			}
 			push({
 				kind: "tool_run",
-				key: `tools:${group.turnId}:${entry.items[0]?.id ?? index}`,
+				key: toolRunKey(group.turnId, entry.items, index),
 				groupStart,
 				items: entry.items,
 				defaultCollapsed:

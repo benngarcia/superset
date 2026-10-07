@@ -1,5 +1,5 @@
 import { Trans } from "@lingui/react/macro";
-import { readBookkeeping } from "@superset/chat/core";
+import { readBookkeeping, userMessageText } from "@superset/chat/core";
 import type { UserContent } from "@superset/chat/protocol";
 import { CircleAlert, Paperclip } from "lucide-react-native";
 import { Pressable, View } from "react-native";
@@ -23,9 +23,7 @@ export function UserMessageBubble({
 	harness,
 	pending,
 }: UserMessageBubbleProps) {
-	const text = content
-		.flatMap((part) => (part.type === "text" ? [part.text] : []))
-		.join("\n");
+	const text = userMessageText({ content });
 	const note = pending ? null : readBookkeeping(harness, text);
 	if (note) return <SystemLine>{note.label}</SystemLine>;
 

@@ -1,4 +1,5 @@
 import { Trans, useLingui } from "@lingui/react/macro";
+import { acpHarnessForPreset, presetForAnyHarness } from "@superset/chat/core";
 import { FEATURE_FLAGS } from "@superset/shared/constants";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { randomUUID } from "expo-crypto";
@@ -11,11 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Text } from "@/components/ui/text";
 import { useTheme } from "@/hooks/useTheme";
 import { useWorkspaceHost } from "@/hooks/useWorkspaceHost";
-import {
-	agentIdForHarness,
-	getChatTransport,
-	harnessForAgent,
-} from "@/lib/chat";
+import { getChatTransport } from "@/lib/chat";
 import { errorCopy } from "@/lib/errors";
 import {
 	getHostServiceClientByUrl,
@@ -129,7 +126,9 @@ export function NewSessionSheet() {
 	const launch = async (preset: (typeof presets)[number] | null) => {
 		if (!workspace || !hostUrl || launchingKey !== null) return;
 		setLaunchingKey(preset?.presetId ?? "shell");
-		const chatHarness = acpChat ? harnessForAgent(preset?.presetId) : undefined;
+		const chatHarness = acpChat
+			? acpHarnessForPreset(preset?.presetId)
+			: undefined;
 		try {
 			const client = getHostServiceClientByUrl(hostUrl);
 			let terminalId: string;
@@ -294,7 +293,7 @@ export function NewSessionSheet() {
 						<Trans>Resume a chat</Trans>
 					</Text>
 					{endedChats.map((chat, index) => {
-						const agentId = agentIdForHarness(chat.harness);
+						const agentId = presetForAnyHarness(chat.harness) ?? null;
 						return (
 							<ListRow
 								key={chat.sessionId}

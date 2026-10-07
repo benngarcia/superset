@@ -5,7 +5,6 @@ import {
 	groupActivity,
 	groupPositions,
 	lastReplyKeys,
-	runningTurnId,
 } from "./chatRows";
 
 const turn = (id: string, status: "running" | "completed") => ({
@@ -56,7 +55,6 @@ describe("chatRows", () => {
 			},
 		];
 		expect(chatRows(groups, []).at(-1)?.kind).toBe("working");
-		expect(runningTurnId(groups)).toBe("t1");
 	});
 });
 

@@ -1,4 +1,9 @@
-import type { OutboxEntry, TurnGroup } from "@superset/chat/core";
+import {
+	type OutboxEntry,
+	type TurnGroup,
+	toolRunKey,
+	transcriptItemKey,
+} from "@superset/chat/core";
 import type { Item, ToolCall, UserMessage } from "@superset/chat/protocol";
 
 export type ChatRow =
@@ -13,12 +18,6 @@ export type ChatRow =
 	| { kind: "outbox"; key: string; entry: OutboxEntry }
 	| { kind: "working"; key: string }
 	| { kind: "activity"; key: string; rows: ChatRow[] };
-
-function itemKey(item: Item): string {
-	return item.kind === "user_message"
-		? ((item as UserMessage).clientId ?? item.id)
-		: item.id;
-}
 
 function lastRowIsLive(group: TurnGroup): boolean {
 	const entry = group.entries.at(-1);
@@ -53,12 +52,16 @@ export function chatRows(
 					const clientId = (entry.item as UserMessage).clientId;
 					if (clientId) echoed.add(clientId);
 				}
-				rows.push({ kind: "item", key: itemKey(entry.item), item: entry.item });
+				rows.push({
+					kind: "item",
+					key: transcriptItemKey(entry.item),
+					item: entry.item,
+				});
 				return;
 			}
 			rows.push({
 				kind: "tool_run",
-				key: `tools:${group.turnId}:${entry.items[0]?.id ?? index}`,
+				key: toolRunKey(group.turnId, entry.items, index),
 				items: entry.items,
 			});
 		});
@@ -83,14 +86,6 @@ export function chatRows(
 		rows.push({ kind: "outbox", key: entry.clientId, entry });
 	}
 	return rows;
-}
-
-export function runningTurnId(groups: readonly TurnGroup[]): string | null {
-	for (let index = groups.length - 1; index >= 0; index -= 1) {
-		const turn = groups[index]?.turn;
-		if (turn?.status === "running") return turn.id;
-	}
-	return null;
 }
 
 function isActivity(row: ChatRow): boolean {

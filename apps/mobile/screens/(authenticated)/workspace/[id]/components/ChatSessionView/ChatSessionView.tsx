@@ -1,5 +1,10 @@
 import { Trans, useLingui } from "@lingui/react/macro";
-import { deriveQueuedPrompts, displayText } from "@superset/chat/core";
+import {
+	deriveQueuedPrompts,
+	displayText,
+	launchConfigSelections,
+	runningTurnId,
+} from "@superset/chat/core";
 import type { Decision } from "@superset/chat/protocol";
 import { useChatSession, useTimeline } from "@superset/chat/react";
 import { randomUUID } from "expo-crypto";
@@ -31,12 +36,10 @@ import {
 	groupActivity,
 	groupPositions,
 	lastReplyKeys,
-	runningTurnId,
 } from "../../utils/chatRows";
 import { ChatRowView } from "../ChatRowView";
 import { QueuedPrompts } from "./components/QueuedPrompts";
 import { StickToBottom } from "./components/StickToBottom";
-import { launchConfigSelections } from "./utils/launchConfigSelections";
 
 const CONFIG_OPTIONS_GRACE_MS = 1000;
 
@@ -111,7 +114,7 @@ export const ChatSessionView = forwardRef<
 	);
 	const session = chat.snapshot.session;
 	const harness = session?.harness;
-	const turnId = runningTurnId(groups);
+	const turnId = runningTurnId(chat.snapshot.turns);
 
 	const hasPendingLaunch = usePendingChatLaunchStore(
 		(state) => sessionId in state.bySessionId,
