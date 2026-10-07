@@ -535,7 +535,7 @@ export function WorkspaceActivityMenu({
 												onClick={stopAll}
 												className="flex size-6 items-center justify-center rounded-sm text-muted-foreground outline-none transition-colors hover:bg-accent hover:text-foreground focus-visible:bg-accent"
 											>
-												<Square className="size-3 fill-current" />
+												<Square className="size-2.5 fill-current" />
 											</button>
 										</TooltipTrigger>
 										<TooltipContent side="top">
