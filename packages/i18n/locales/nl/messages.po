@@ -5097,6 +5097,9 @@ msgstr "Kan antwoord niet versturen"
 msgid "Couldn't send to agent"
 msgstr "Kan niet naar de agent sturen"
 
+msgid "Couldn't send your message. It's back in the composer."
+msgstr "Je bericht kon niet worden verzonden. Het staat weer in het invoerveld."
+
 msgid "Couldn't stage changes"
 msgstr "Kan wijzigingen niet stagen"
 
@@ -10370,6 +10373,9 @@ msgstr "Geen actieve services"
 msgid "No active terminal sessions"
 msgstr "Geen actieve terminalsessies"
 
+msgid "No active workspaces"
+msgstr "Geen actieve werkruimtes"
+
 msgid "No agent"
 msgstr "Geen agent"
 
@@ -12195,6 +12201,9 @@ msgstr "Kies een thema of volg het uiterlijk van je systeem. Bekijk de <0>market
 
 msgid "Pick a workspace"
 msgstr "Kies een werkruimte"
+
+msgid "Pick a workspace whose agent needs input, finished unseen, or is running"
+msgstr "Kies een werkruimte waarvan de agent invoer nodig heeft, ongezien klaar is of nog draait"
 
 msgid "Pick an icon and a color, or upload a custom image. Defaults to the linked GitHub owner's avatar."
 msgstr "Kies een icoon en een kleur, of upload een eigen afbeelding. Standaard is de avatar van de gekoppelde GitHub-eigenaar."
@@ -15961,6 +15970,9 @@ msgstr "Login wisselen"
 
 msgid "Switch sign-in…"
 msgstr "Login wisselen…"
+
+msgid "Switch to Active Workspace"
+msgstr "Overschakelen naar actieve werkruimte"
 
 msgid "Switch to manual order to rearrange the sidebar"
 msgstr "Schakel over naar handmatige volgorde om de zijbalk te herschikken"

@@ -5097,6 +5097,9 @@ msgstr "Yanıt gönderilemedi"
 msgid "Couldn't send to agent"
 msgstr "Ajana gönderilemedi"
 
+msgid "Couldn't send your message. It's back in the composer."
+msgstr "Mesajınız gönderilemedi. Yazma alanına geri kondu."
+
 msgid "Couldn't stage changes"
 msgstr "Değişiklikler hazırlanamadı"
 
@@ -10370,6 +10373,9 @@ msgstr "Etkin hizmet yok"
 msgid "No active terminal sessions"
 msgstr "Etkin terminal oturumu yok"
 
+msgid "No active workspaces"
+msgstr "Etkin çalışma alanı yok"
+
 msgid "No agent"
 msgstr "Ajan yok"
 
@@ -12195,6 +12201,9 @@ msgstr "Bir tema seçin veya sistem görünümünüzü izleyin. <0>Pazar yerine<
 
 msgid "Pick a workspace"
 msgstr "Bir çalışma alanı seçin"
+
+msgid "Pick a workspace whose agent needs input, finished unseen, or is running"
+msgstr "Ajanı giriş bekleyen, görülmeden tamamlanan veya çalışan bir çalışma alanı seçin"
 
 msgid "Pick an icon and a color, or upload a custom image. Defaults to the linked GitHub owner's avatar."
 msgstr "Bir simge ve renk seçin ya da özel bir görsel yükleyin. Varsayılan olarak bağlı GitHub sahibinin avatarı kullanılır."
@@ -15961,6 +15970,9 @@ msgstr "Oturumu değiştir"
 
 msgid "Switch sign-in…"
 msgstr "Oturumu değiştir…"
+
+msgid "Switch to Active Workspace"
+msgstr "Etkin çalışma alanına geç"
 
 msgid "Switch to manual order to rearrange the sidebar"
 msgstr "Kenar çubuğunu yeniden düzenlemek için manuel sıralamaya geçin"

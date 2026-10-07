@@ -5097,6 +5097,9 @@ msgstr "Nepodařilo se odeslat odpověď"
 msgid "Couldn't send to agent"
 msgstr "Nepodařilo se odeslat agentovi"
 
+msgid "Couldn't send your message. It's back in the composer."
+msgstr "Zprávu se nepodařilo odeslat. Je zpět v poli pro psaní."
+
 msgid "Couldn't stage changes"
 msgstr "Nepodařilo se připravit změny"
 
@@ -10370,6 +10373,9 @@ msgstr "Žádné aktivní služby"
 msgid "No active terminal sessions"
 msgstr "Žádné aktivní relace terminálu"
 
+msgid "No active workspaces"
+msgstr "Žádné aktivní pracovní prostory"
+
 msgid "No agent"
 msgstr "Žádný agent"
 
@@ -12195,6 +12201,9 @@ msgstr "Vyberte motiv nebo se řiďte vzhledem systému. Prohlédněte si <0>mar
 
 msgid "Pick a workspace"
 msgstr "Vyberte pracovní prostor"
+
+msgid "Pick a workspace whose agent needs input, finished unseen, or is running"
+msgstr "Vyberte pracovní prostor, jehož agent čeká na vstup, dokončil práci, kterou jste ještě neviděli, nebo běží"
 
 msgid "Pick an icon and a color, or upload a custom image. Defaults to the linked GitHub owner's avatar."
 msgstr "Vyberte ikonu a barvu nebo nahrajte vlastní obrázek. Ve výchozím stavu se použije avatar propojeného vlastníka na GitHubu."
@@ -15961,6 +15970,9 @@ msgstr "Přepnout přihlášení"
 
 msgid "Switch sign-in…"
 msgstr "Přepnout přihlášení…"
+
+msgid "Switch to Active Workspace"
+msgstr "Přepnout na aktivní pracovní prostor"
 
 msgid "Switch to manual order to rearrange the sidebar"
 msgstr "Chcete-li postranní panel přeuspořádat, přepněte na ruční řazení"

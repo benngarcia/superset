@@ -5097,6 +5097,9 @@ msgstr "Không thể gửi trả lời"
 msgid "Couldn't send to agent"
 msgstr "Không thể gửi cho agent"
 
+msgid "Couldn't send your message. It's back in the composer."
+msgstr "Không gửi được tin nhắn. Tin nhắn đã được trả lại ô soạn thảo."
+
 msgid "Couldn't stage changes"
 msgstr "Không thể stage các thay đổi"
 
@@ -10370,6 +10373,9 @@ msgstr "Không có dịch vụ nào đang chạy"
 msgid "No active terminal sessions"
 msgstr "Không có phiên terminal nào đang chạy"
 
+msgid "No active workspaces"
+msgstr "Không có workspace đang hoạt động"
+
 msgid "No agent"
 msgstr "Không có agent"
 
@@ -12195,6 +12201,9 @@ msgstr "Chọn một theme hoặc theo giao diện hệ thống. Xem <0>marketpl
 
 msgid "Pick a workspace"
 msgstr "Chọn một workspace"
+
+msgid "Pick a workspace whose agent needs input, finished unseen, or is running"
+msgstr "Chọn workspace có agent cần nhập thêm, đã hoàn tất nhưng chưa xem, hoặc đang chạy"
 
 msgid "Pick an icon and a color, or upload a custom image. Defaults to the linked GitHub owner's avatar."
 msgstr "Chọn biểu tượng và màu, hoặc tải ảnh riêng lên. Mặc định dùng ảnh đại diện của chủ sở hữu GitHub đã liên kết."
@@ -15961,6 +15970,9 @@ msgstr "Đổi đăng nhập"
 
 msgid "Switch sign-in…"
 msgstr "Đổi đăng nhập…"
+
+msgid "Switch to Active Workspace"
+msgstr "Chuyển sang workspace đang hoạt động"
 
 msgid "Switch to manual order to rearrange the sidebar"
 msgstr "Chuyển sang thứ tự thủ công để sắp xếp lại thanh bên"

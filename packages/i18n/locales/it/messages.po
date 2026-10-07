@@ -5097,6 +5097,9 @@ msgstr "Impossibile inviare la risposta"
 msgid "Couldn't send to agent"
 msgstr "Impossibile inviare all'agente"
 
+msgid "Couldn't send your message. It's back in the composer."
+msgstr "Impossibile inviare il messaggio. È di nuovo nel campo di scrittura."
+
 msgid "Couldn't stage changes"
 msgstr "Impossibile aggiungere le modifiche allo stage"
 
@@ -10370,6 +10373,9 @@ msgstr "Nessun servizio attivo"
 msgid "No active terminal sessions"
 msgstr "Nessuna sessione del terminale attiva"
 
+msgid "No active workspaces"
+msgstr "Nessun workspace attivo"
+
 msgid "No agent"
 msgstr "Nessun agente"
 
@@ -12195,6 +12201,9 @@ msgstr "Scegli un tema o segui l'aspetto del sistema. Sfoglia il <0>marketplace<
 
 msgid "Pick a workspace"
 msgstr "Scegli un workspace"
+
+msgid "Pick a workspace whose agent needs input, finished unseen, or is running"
+msgstr "Scegli un workspace il cui agente richiede input, ha finito senza essere visto o è in esecuzione"
 
 msgid "Pick an icon and a color, or upload a custom image. Defaults to the linked GitHub owner's avatar."
 msgstr "Scegli un'icona e un colore oppure carica un'immagine personalizzata. Per impostazione predefinita usa l'avatar del proprietario GitHub collegato."
@@ -15961,6 +15970,9 @@ msgstr "Cambia accesso"
 
 msgid "Switch sign-in…"
 msgstr "Cambia accesso…"
+
+msgid "Switch to Active Workspace"
+msgstr "Passa a un workspace attivo"
 
 msgid "Switch to manual order to rearrange the sidebar"
 msgstr "Passa all’ordine manuale per riorganizzare la barra laterale"

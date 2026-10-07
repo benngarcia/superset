@@ -5097,6 +5097,9 @@ msgstr "無法傳送回覆"
 msgid "Couldn't send to agent"
 msgstr "無法傳送給代理程式"
 
+msgid "Couldn't send your message. It's back in the composer."
+msgstr "無法傳送你的訊息。訊息已放回輸入框。"
+
 msgid "Couldn't stage changes"
 msgstr "無法暫存更改"
 
@@ -10370,6 +10373,9 @@ msgstr "沒有活動的服務"
 msgid "No active terminal sessions"
 msgstr "沒有活動的終端會話"
 
+msgid "No active workspaces"
+msgstr "沒有作用中的工作區"
+
 msgid "No agent"
 msgstr "無代理程式"
 
@@ -12195,6 +12201,9 @@ msgstr "選擇一個主題，或跟隨系統外觀。瀏覽<0>市場<1/></0>或<
 
 msgid "Pick a workspace"
 msgstr "選擇一個工作區"
+
+msgid "Pick a workspace whose agent needs input, finished unseen, or is running"
+msgstr "選擇代理需要輸入、已完成但未查看或正在執行的工作區"
 
 msgid "Pick an icon and a color, or upload a custom image. Defaults to the linked GitHub owner's avatar."
 msgstr "選擇圖示和顏色，或上傳自訂圖片。預設使用關聯的GitHub擁有者頭像。"
@@ -15961,6 +15970,9 @@ msgstr "切換登入"
 
 msgid "Switch sign-in…"
 msgstr "切換登入…"
+
+msgid "Switch to Active Workspace"
+msgstr "切換到作用中的工作區"
 
 msgid "Switch to manual order to rearrange the sidebar"
 msgstr "切換到手動排序即可重新排列側邊欄"

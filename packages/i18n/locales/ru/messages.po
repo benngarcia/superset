@@ -5097,6 +5097,9 @@ msgstr "Не удалось отправить ответ"
 msgid "Couldn't send to agent"
 msgstr "Не удалось отправить агенту"
 
+msgid "Couldn't send your message. It's back in the composer."
+msgstr "Не удалось отправить сообщение. Оно снова в поле ввода."
+
 msgid "Couldn't stage changes"
 msgstr "Не удалось проиндексировать изменения"
 
@@ -10370,6 +10373,9 @@ msgstr "Нет активных служб"
 msgid "No active terminal sessions"
 msgstr "Нет активных сессий терминала"
 
+msgid "No active workspaces"
+msgstr "Нет активных рабочих областей"
+
 msgid "No agent"
 msgstr "Без агента"
 
@@ -12195,6 +12201,9 @@ msgstr "Выберите тему или следуйте оформлению �
 
 msgid "Pick a workspace"
 msgstr "Выберите рабочую область"
+
+msgid "Pick a workspace whose agent needs input, finished unseen, or is running"
+msgstr "Выберите рабочую область, где агенту нужен ввод, он завершил работу без просмотра или ещё выполняется"
 
 msgid "Pick an icon and a color, or upload a custom image. Defaults to the linked GitHub owner's avatar."
 msgstr "Выберите иконку и цвет или загрузите своё изображение. По умолчанию используется аватар связанного владельца на GitHub."
@@ -15961,6 +15970,9 @@ msgstr "Сменить вход"
 
 msgid "Switch sign-in…"
 msgstr "Сменить вход…"
+
+msgid "Switch to Active Workspace"
+msgstr "Переключиться на активную рабочую область"
 
 msgid "Switch to manual order to rearrange the sidebar"
 msgstr "Переключитесь на ручной порядок, чтобы изменить расположение в боковой панели"
