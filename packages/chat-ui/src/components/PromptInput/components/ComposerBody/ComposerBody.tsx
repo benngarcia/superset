@@ -727,9 +727,6 @@ export function ComposerBody({
 					setDragging(false);
 			}}
 			onDrop={(event) => {
-				// The editor's DROP_COMMAND handler may have consumed this already;
-				// markDropHandled marks it and the event still bubbles here. Inside a
-				// layout ComposerDropZone the zone owns non-editor drops instead.
 				if (
 					dropZone == null &&
 					!isDropHandled(event.nativeEvent) &&

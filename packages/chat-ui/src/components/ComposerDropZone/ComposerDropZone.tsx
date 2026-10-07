@@ -32,11 +32,6 @@ export type ComposerDropZoneProps = {
 	className?: string;
 };
 
-/**
- * Layout-level file drop target: mount around the whole content area (like a
- * chat pane) and any composer rendered inside registers itself as the drop
- * sink automatically.
- */
 export function ComposerDropZone({
 	children,
 	label = i18n._(
@@ -47,8 +42,6 @@ export function ComposerDropZone({
 	className,
 }: ComposerDropZoneProps) {
 	const sinkRef = useRef<((files: FileList) => void) | null>(null);
-	// dragover + timeout reset instead of an enter/leave counter, so
-	// Esc-cancelled drags and drops outside the window can't wedge the overlay.
 	const [isDraggingFiles, setIsDraggingFiles] = useState(false);
 	const dragEndTimerRef = useRef<number | null>(null);
 
@@ -96,8 +89,6 @@ export function ComposerDropZone({
 				onDrop={(event) => {
 					clearDragEndTimer();
 					setIsDraggingFiles(false);
-					// The composer's editor may have consumed this already;
-					// markDropHandled marks it and the event still bubbles here.
 					if (isDropHandled(event.nativeEvent)) return;
 					const sink = sinkRef.current;
 					if (!sink || event.dataTransfer.files.length === 0) return;
