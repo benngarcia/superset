@@ -18,7 +18,6 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@superset/ui/dropdown-menu";
-import { Skeleton } from "@superset/ui/skeleton";
 import { toast } from "@superset/ui/sonner";
 import { Textarea } from "@superset/ui/textarea";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@superset/ui/tooltip";
@@ -47,6 +46,7 @@ import {
 	type PullRequestDetail,
 	useInvalidatePullRequestDetail,
 } from "../../hooks/usePullRequestDetail";
+import { PullRequestSkeleton as Skeleton } from "../PullRequestSkeleton";
 
 type MergeMethod = "merge" | "squash" | "rebase";
 

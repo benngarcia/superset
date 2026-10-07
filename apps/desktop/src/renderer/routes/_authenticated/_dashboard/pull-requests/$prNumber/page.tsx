@@ -50,7 +50,7 @@ function PullRequestDetailPage() {
 	// affordance here — the top bar is the tabs and the actions.
 	return (
 		<div className="flex min-h-0 flex-1 flex-col">
-			<PageHeader className="border-b border-border" contentClassName="gap-2">
+			<PageHeader contentClassName="gap-2">
 				{/* Own row so the tabs can give up width to the actions on a narrow
 				    pane instead of running under them. */}
 				<div className="@container/topbar flex h-full min-w-0 flex-1 items-center gap-2">

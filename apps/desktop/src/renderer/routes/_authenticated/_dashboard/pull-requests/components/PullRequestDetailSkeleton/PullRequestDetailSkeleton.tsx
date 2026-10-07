@@ -1,6 +1,6 @@
 import { useLingui } from "@lingui/react/macro";
-import { Skeleton } from "@superset/ui/skeleton";
 import { cn } from "@superset/ui/utils";
+import { PullRequestSkeleton as Skeleton } from "../PullRequestSkeleton";
 
 const BODY_LINE_WIDTHS = ["w-full", "w-11/12", "w-10/12", "w-full", "w-8/12"];
 

@@ -73,7 +73,7 @@ export function PullRequestPane({
 
 	return (
 		<div className="flex h-full w-full min-h-0 min-w-0 flex-col">
-			<div className="flex min-h-11 shrink-0 flex-wrap items-center gap-x-2 gap-y-1 border-b border-border px-3 py-1.5">
+			<div className="flex min-h-11 shrink-0 flex-wrap items-center gap-x-2 gap-y-1 px-3 py-1.5">
 				<PullRequestDetailTabs
 					activeTab={activeTab}
 					onTabChange={setActiveTab}
