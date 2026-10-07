@@ -213,6 +213,21 @@ export const HOTKEYS_REGISTRY = {
 			message: "Navigate to the next workspace in the sidebar",
 		}),
 	},
+	OPEN_ACTIVE_WORKSPACE_SWITCHER: {
+		key: {
+			mac: L("meta+slash"),
+			windows: L("ctrl+alt+slash"),
+			linux: L("ctrl+alt+slash"),
+		},
+		label: msg({
+			message: "Switch to Active Workspace",
+		}),
+		category: "Workspace",
+		description: msg({
+			message:
+				"Pick a workspace whose agent needs input, finished unseen, or is running",
+		}),
+	},
 	CLOSE_WORKSPACE: {
 		key: {
 			mac: "meta+shift+backspace",
