@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, test } from "bun:test";
-import { execFileSync, execSync } from "node:child_process";
+import { execFileSync } from "node:child_process";
 import { existsSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -32,12 +32,25 @@ describe("workspaces.restore integration", () => {
 			.get()?.archivedAt;
 	}
 
+	const REPO_LOCATION_VARS = [
+		"GIT_DIR",
+		"GIT_WORK_TREE",
+		"GIT_INDEX_FILE",
+		"GIT_COMMON_DIR",
+		"GIT_OBJECT_DIRECTORY",
+		"GIT_ALTERNATE_OBJECT_DIRECTORIES",
+	];
+
+	function git(cwd: string, ...args: string[]) {
+		const env = { ...process.env };
+		for (const name of REPO_LOCATION_VARS) delete env[name];
+		execFileSync("git", args, { cwd, env, stdio: "ignore" });
+	}
+
 	test("re-creates the worktree on the kept branch and un-archives the row", async () => {
 		writeFileSync(join(scenario.worktreePath, "work.txt"), "committed work");
-		execSync("git add work.txt && git commit -m work", {
-			cwd: scenario.worktreePath,
-			stdio: "ignore",
-		});
+		git(scenario.worktreePath, "add", "work.txt");
+		git(scenario.worktreePath, "commit", "-m", "work");
 		await scenario.host.trpc.workspaceCleanup.destroy.mutate({
 			workspaceId: scenario.featureWorkspaceId,
 		});
@@ -71,10 +84,6 @@ describe("workspaces.restore integration", () => {
 		expect(archivedAt()).toBeTruthy();
 		expect(existsSync(scenario.worktreePath)).toBe(false);
 	});
-
-	function git(cwd: string, ...args: string[]) {
-		execFileSync("git", args, { cwd, stdio: "ignore" });
-	}
 
 	async function withRemote(run: (remotePath: string) => Promise<void>) {
 		const remotePath = mkdtempSync(join(tmpdir(), "restore-remote-"));
