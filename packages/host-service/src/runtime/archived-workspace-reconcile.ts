@@ -55,7 +55,9 @@ export async function runArchivedWorkspaceReconcile(
 			await destroyWorkspace(ctx, {
 				workspaceId: row.id,
 				deleteBranch: false,
-				force: true,
+				// The folder may be a newer worktree that reused this path, so
+				// uncommitted files block the delete and un-archive the row.
+				force: false,
 				teardownMode: "best-effort",
 			});
 		} catch (err) {

@@ -217,6 +217,32 @@ describe("listing", () => {
 		expect(await workspacesApi.list({ includeArchived: true })).toEqual([]);
 	});
 
+	test("the interrupted-delete reconciler never deletes uncommitted files", async () => {
+		const { ctx, addWorkspace, workspace } = setup();
+		const reused = addWorkspace("reused", {
+			archivedAt: 1,
+			archiveReason: "deleted",
+		});
+		cleanupGitOps.readWorktreeState = async () =>
+			({ hasChanges: true }) as never;
+		await runArchivedWorkspaceReconcile(ctx);
+		expect(existsSync(reused)).toBe(true);
+		expect(workspace("reused")?.archivedAt).toBeNull();
+	});
+
+	test("the interrupted-delete reconciler finishes a clean interrupted delete", async () => {
+		const { ctx, addWorkspace, workspace } = setup();
+		const stranded = addWorkspace("stranded", {
+			archivedAt: 1,
+			archiveReason: "deleted",
+		});
+		cleanupGitOps.readWorktreeState = async () =>
+			({ hasChanges: false }) as never;
+		await runArchivedWorkspaceReconcile(ctx);
+		expect(existsSync(stranded)).toBe(false);
+		expect(workspace("stranded")?.archivedAt).not.toBeNull();
+	});
+
 	test("the interrupted-delete reconciler leaves a deleted project's worktrees alone", async () => {
 		const { ctx, addWorkspace, workspace } = setup();
 		const live = addWorkspace("live");
