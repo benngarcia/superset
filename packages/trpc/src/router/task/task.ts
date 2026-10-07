@@ -378,7 +378,7 @@ async function nativeStatusIdFor(
 
 async function findImportedTask(organizationId: string, externalId: string) {
 	const [row] = await db
-		.select({ task: tasks })
+		.select({ task: taskColumns })
 		.from(taskImports)
 		.innerJoin(tasks, eq(taskImports.taskId, tasks.id))
 		.where(

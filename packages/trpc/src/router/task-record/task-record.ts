@@ -5,6 +5,7 @@ import {
 	cloudWorkspaces,
 	taskActivity,
 	taskComments,
+	taskImports,
 	taskLabelAssignments,
 	taskLabels,
 	taskProjects,
@@ -230,10 +231,16 @@ export const taskRecordRouter = {
 				.where(eq(taskComments.taskId, task.id))
 				.orderBy(asc(taskComments.createdAt));
 
+			const imports = await db
+				.select({ provider: taskImports.provider })
+				.from(taskImports)
+				.where(eq(taskImports.taskId, task.id))
+				.limit(1);
+
 			return {
 				created: {
 					at: task.createdAt,
-					importedFrom: null,
+					importedFrom: imports.at(0)?.provider ?? null,
 					actor: creator
 						? { userId: creator.id, name: creator.name, image: creator.image }
 						: null,
