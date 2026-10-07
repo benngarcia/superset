@@ -9,10 +9,9 @@ const boot = readFileSync(
 );
 
 describe("superset-boot", () => {
-	test.each([...CLOUD_AGENT_LAUNCH_ENV_NAMES])(
-		"hands %s to host-service",
-		(name) => {
-			expect(boot).toMatch(new RegExp(`\\b${name}\\b`));
-		},
-	);
+	test.each([
+		...CLOUD_AGENT_LAUNCH_ENV_NAMES,
+	])("hands %s to host-service", (name) => {
+		expect(boot).toMatch(new RegExp(`\\b${name}\\b`));
+	});
 });
