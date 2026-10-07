@@ -2,7 +2,13 @@ import { useLingui } from "@lingui/react/macro";
 import { cn } from "@superset/ui/utils";
 import { PullRequestSkeleton as Skeleton } from "../PullRequestSkeleton";
 
-const BODY_LINE_WIDTHS = ["w-full", "w-11/12", "w-10/12", "w-full", "w-8/12"];
+const BODY_LINES = [
+	{ id: "first", width: "w-full" },
+	{ id: "second", width: "w-11/12" },
+	{ id: "third", width: "w-10/12" },
+	{ id: "fourth", width: "w-full" },
+	{ id: "fifth", width: "w-8/12" },
+];
 
 interface PullRequestDetailSkeletonProps {
 	/** True for the Changes tab: a file card shape instead of the summary page. */
@@ -30,8 +36,8 @@ export function PullRequestDetailSkeleton({
 						<Skeleton className="ml-auto h-4 w-16 rounded-full" />
 					</div>
 					<div className="space-y-2 px-3 py-4">
-						{BODY_LINE_WIDTHS.map((width, index) => (
-							<Skeleton key={index} className={cn("h-3 rounded-full", width)} />
+						{BODY_LINES.map(({ id, width }) => (
+							<Skeleton key={id} className={cn("h-3 rounded-full", width)} />
 						))}
 					</div>
 				</div>
@@ -63,14 +69,14 @@ export function PullRequestDetailSkeleton({
 					</div>
 					<div className="space-y-2 pt-4">
 						<Skeleton className="h-4 w-24 rounded-full" />
-						{BODY_LINE_WIDTHS.map((width, index) => (
-							<Skeleton key={index} className={cn("h-3 rounded-full", width)} />
+						{BODY_LINES.map(({ id, width }) => (
+							<Skeleton key={id} className={cn("h-3 rounded-full", width)} />
 						))}
 					</div>
 					<div className="space-y-2 pt-2">
 						<Skeleton className="h-4 w-32 rounded-full" />
-						{BODY_LINE_WIDTHS.slice(0, 3).map((width, index) => (
-							<Skeleton key={index} className={cn("h-3 rounded-full", width)} />
+						{BODY_LINES.slice(0, 3).map(({ id, width }) => (
+							<Skeleton key={id} className={cn("h-3 rounded-full", width)} />
 						))}
 					</div>
 				</div>
