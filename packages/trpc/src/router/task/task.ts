@@ -810,17 +810,19 @@ export const taskRouter = {
 						data.assigneeId ?? null,
 						"Assignee must belong to the task organization",
 					);
-					// Released desktop builds still show this snapshot. Drop with the columns.
-					updateData.assigneeExternalId = null;
-					updateData.assigneeDisplayName = null;
-					updateData.assigneeAvatarUrl = null;
 				}
 
 				const [updated] = await tx
 					.update(tasks)
 					.set({ ...updateData, updatedAt: new Date() })
 					.where(and(eq(tasks.id, id), isNull(tasks.deletedAt)))
-					.returning();
+					.returning({
+						title: tasks.title,
+						description: tasks.description,
+						statusId: tasks.statusId,
+						priority: tasks.priority,
+						assigneeId: tasks.assigneeId,
+					});
 
 				const labelChanges =
 					updated && labels

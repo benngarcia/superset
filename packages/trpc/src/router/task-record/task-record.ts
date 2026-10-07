@@ -50,7 +50,6 @@ async function loadTask(ctx: { organizationIds: string[] }, taskId: string) {
 			organizationId: true,
 			createdAt: true,
 			creatorId: true,
-			externalProvider: true,
 		},
 	});
 	if (!task) throw notFound();
@@ -234,7 +233,7 @@ export const taskRecordRouter = {
 			return {
 				created: {
 					at: task.createdAt,
-					importedFrom: task.externalProvider,
+					importedFrom: null,
 					actor: creator
 						? { userId: creator.id, name: creator.name, image: creator.image }
 						: null,
