@@ -34,9 +34,8 @@ export function usePullRequestAgentHandoff(
 		target?.hostUrl,
 		target?.prNumber,
 	];
-	const { data: linkedWorkspace } = useQuery({
+	const linkedWorkspaceQuery = {
 		queryKey: linkedWorkspaceQueryKey,
-		enabled: target !== null,
 		queryFn: () => {
 			if (!target) return null;
 			return getHostServiceClientByUrl(
@@ -47,8 +46,8 @@ export function usePullRequestAgentHandoff(
 			});
 		},
 		staleTime: 30_000,
-	});
-	const linkedWorkspaceId = linkedWorkspace?.workspaceId ?? null;
+	};
+	useQuery({ ...linkedWorkspaceQuery, enabled: target !== null });
 	const { submit: submitWorkspaceCreate } = useWorkspaceCreates();
 
 	const mutation = useMutation({
@@ -61,6 +60,9 @@ export function usePullRequestAgentHandoff(
 			if (!agent) {
 				throw new Error(t({ message: "No agent is configured on this host" }));
 			}
+			const linkedWorkspaceId =
+				(await queryClient.fetchQuery(linkedWorkspaceQuery))?.workspaceId ??
+				null;
 			if (linkedWorkspaceId) {
 				await getHostServiceClientByUrl(target.hostUrl).agents.run.mutate({
 					workspaceId: linkedWorkspaceId,

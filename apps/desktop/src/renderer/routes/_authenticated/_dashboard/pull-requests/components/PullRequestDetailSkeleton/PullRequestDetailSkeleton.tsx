@@ -30,8 +30,8 @@ export function PullRequestDetailSkeleton({
 						<Skeleton className="ml-auto h-4 w-16 rounded-full" />
 					</div>
 					<div className="space-y-2 px-3 py-4">
-						{BODY_LINE_WIDTHS.map((width) => (
-							<Skeleton key={width} className={cn("h-3 rounded-full", width)} />
+						{BODY_LINE_WIDTHS.map((width, index) => (
+							<Skeleton key={index} className={cn("h-3 rounded-full", width)} />
 						))}
 					</div>
 				</div>
@@ -63,14 +63,14 @@ export function PullRequestDetailSkeleton({
 					</div>
 					<div className="space-y-2 pt-4">
 						<Skeleton className="h-4 w-24 rounded-full" />
-						{BODY_LINE_WIDTHS.map((width) => (
-							<Skeleton key={width} className={cn("h-3 rounded-full", width)} />
+						{BODY_LINE_WIDTHS.map((width, index) => (
+							<Skeleton key={index} className={cn("h-3 rounded-full", width)} />
 						))}
 					</div>
 					<div className="space-y-2 pt-2">
 						<Skeleton className="h-4 w-32 rounded-full" />
-						{BODY_LINE_WIDTHS.slice(0, 3).map((width) => (
-							<Skeleton key={width} className={cn("h-3 rounded-full", width)} />
+						{BODY_LINE_WIDTHS.slice(0, 3).map((width, index) => (
+							<Skeleton key={index} className={cn("h-3 rounded-full", width)} />
 						))}
 					</div>
 				</div>

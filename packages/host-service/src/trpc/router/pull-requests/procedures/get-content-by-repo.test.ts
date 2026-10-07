@@ -52,7 +52,6 @@ const expectedContent = {
 	reviewDecision: null,
 	reviewers: [],
 	comments: [],
-	commits: [],
 	labels: [],
 };
 
@@ -188,7 +187,7 @@ test("preserves the legacy project resolver error contract", async () => {
 	expect(exec).not.toHaveBeenCalled();
 });
 
-test("normalizes reviewers, comments, and commits from a populated gh payload", async () => {
+test("normalizes reviewers and comments from a populated gh payload", async () => {
 	spyOn(gh, "execGh").mockResolvedValue({
 		...rawContent,
 		author: { login: "octocat", name: "The Octocat" },
@@ -228,17 +227,6 @@ test("normalizes reviewers, comments, and commits from a populated gh payload", 
 			},
 			{ id: "C2", author: { login: "late" }, body: "no time", createdAt: null },
 		],
-		commits: [
-			{
-				oid: "abc123",
-				messageHeadline: "  fix: thing  ",
-				committedDate: "2026-10-01T08:00:00Z",
-				authors: [
-					{ login: null, name: "Local Committer" },
-					{ login: "octocat" },
-				],
-			},
-		],
 		labels: [{ name: "bug", color: "" }],
 	});
 	const content = await caller.getContentByRepo({
@@ -274,17 +262,6 @@ test("normalizes reviewers, comments, and commits from a populated gh payload", 
 			createdAt: "2026-10-01T10:00:00Z",
 			reviewState: "CHANGES_REQUESTED",
 			url: null,
-		},
-	]);
-	expect(content.commits).toEqual([
-		{
-			oid: "abc123",
-			messageHeadline: "fix: thing",
-			committedDate: "2026-10-01T08:00:00Z",
-			authors: [
-				{ login: "Local Committer", name: "Local Committer" },
-				{ login: "octocat", name: null },
-			],
 		},
 	]);
 });

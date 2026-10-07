@@ -16,11 +16,6 @@ const ghActorSchema = z.object({
 	name: z.string().nullable().optional(),
 });
 
-const ghCommitAuthorSchema = z.object({
-	login: z.string().nullable().optional(),
-	name: z.string().nullable().optional(),
-});
-
 const ghPullRequestContentSchema = z.object({
 	number: z.number(),
 	title: z.string(),
@@ -68,17 +63,6 @@ const ghPullRequestContentSchema = z.object({
 		)
 		.nullable()
 		.optional(),
-	commits: z
-		.array(
-			z.object({
-				oid: z.string(),
-				messageHeadline: z.string().nullable().optional(),
-				committedDate: z.string(),
-				authors: z.array(ghCommitAuthorSchema).nullable().optional(),
-			}),
-		)
-		.nullable()
-		.optional(),
 	labels: z
 		.array(
 			z.object({ name: z.string(), color: z.string().nullable().optional() }),
@@ -92,7 +76,7 @@ const ghPullRequestContentSchema = z.object({
 });
 
 export const PULL_REQUEST_CONTENT_JSON_FIELDS =
-	"number,title,body,url,state,author,headRefName,baseRefName,headRepositoryOwner,isCrossRepository,isDraft,createdAt,updatedAt,mergedAt,closedAt,mergeable,mergeStateStatus,additions,deletions,changedFiles,reviewDecision,reviewRequests,reviews,comments,commits,labels,statusCheckRollup";
+	"number,title,body,url,state,author,headRefName,baseRefName,headRepositoryOwner,isCrossRepository,isDraft,createdAt,updatedAt,mergedAt,closedAt,mergeable,mergeStateStatus,additions,deletions,changedFiles,reviewDecision,reviewRequests,reviews,comments,labels,statusCheckRollup";
 
 export type PullRequestMergeability = "mergeable" | "conflicting" | "unknown";
 
@@ -111,13 +95,6 @@ export interface PullRequestContentComment {
 	reviewState: string | null;
 	/** The comment's own page on GitHub; reviews carry none. */
 	url: string | null;
-}
-
-export interface PullRequestContentCommit {
-	oid: string;
-	messageHeadline: string;
-	committedDate: string;
-	authors: PullRequestActor[];
 }
 
 type PullRequestContent = {
@@ -146,7 +123,6 @@ type PullRequestContent = {
 	reviewDecision: string | null;
 	reviewers: PullRequestActor[];
 	comments: PullRequestContentComment[];
-	commits: PullRequestContentCommit[];
 	labels: { name: string; color: string | null }[];
 };
 
@@ -249,17 +225,6 @@ function toContent(
 		reviewDecision: data.reviewDecision?.trim() || null,
 		reviewers: [...reviewers.values()],
 		comments,
-		commits: (data.commits ?? []).map((commit) => ({
-			oid: commit.oid,
-			messageHeadline: commit.messageHeadline?.trim() ?? "",
-			committedDate: commit.committedDate,
-			authors: (commit.authors ?? []).flatMap((author) => {
-				const login = author.login?.trim();
-				const name = author.name?.trim();
-				if (!login && !name) return [];
-				return [{ login: login || (name ?? ""), name: name || null }];
-			}),
-		})),
 		labels: (data.labels ?? []).map((label) => ({
 			name: label.name,
 			color: label.color?.trim() || null,

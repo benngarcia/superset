@@ -3998,7 +3998,7 @@ msgid "Commented"
 msgstr "Commentée"
 
 msgid "Commenting as your GitHub account"
-msgstr "Commentaire publié avec votre compte GitHub"
+msgstr "Vous commentez avec votre compte GitHub"
 
 msgid "Comments"
 msgstr "Commentaires"

@@ -66,7 +66,6 @@ export function fromHostPullRequestContent(
 			closedAt: content.closedAt,
 			reviewers: content.reviewers,
 			comments: content.comments,
-			commits: content.commits,
 			labels: content.labels,
 		}),
 	};

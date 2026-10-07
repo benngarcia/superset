@@ -9520,7 +9520,7 @@ msgid "Marking ready for review..."
 msgstr "Помечается как готово к ревью…"
 
 msgid "Marking ready…"
-msgstr "Пометка как готовый…"
+msgstr "Помечаем как готовый…"
 
 msgid "Match existing patterns"
 msgstr "Следуй существующим шаблонам"

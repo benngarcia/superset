@@ -29,13 +29,6 @@ export interface PullRequestDetailComment {
 	url?: string | null;
 }
 
-export interface PullRequestDetailCommit {
-	oid: string;
-	messageHeadline: string;
-	committedDate: string;
-	authors: PullRequestDetailActor[];
-}
-
 /** What a host's `gh pr view` adds over the cloud shape. Every field is
  *  optional: the cloud route and hosts older than this read leave them out. */
 export interface PullRequestDetailExtras {
@@ -47,7 +40,6 @@ export interface PullRequestDetailExtras {
 	closedAt?: string | null;
 	reviewers?: PullRequestDetailActor[];
 	comments?: PullRequestDetailComment[];
-	commits?: PullRequestDetailCommit[];
 	labels?: { name: string; color: string | null }[];
 }
 

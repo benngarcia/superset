@@ -146,7 +146,7 @@ msgstr "{0, plural, one {# nieudany} few {# nieudane} many {# nieudanych} other 
 
 #. placeholder {0}: summary.failing
 msgid "{0, plural, one {# failing} other {# failing}}"
-msgstr "{0, plural, one {# nieudany} few {# nieudane} many {# nieudanych} other {# nieudanego}}"
+msgstr "{0, plural, one {# nieudana} few {# nieudane} many {# nieudanych} other {# nieudanego}}"
 
 #. placeholder {0}: detail.pullRequest.changedFiles
 msgid "{0, plural, one {# file changed} other {# files changed}}"
@@ -183,7 +183,7 @@ msgstr "{0, plural, one {# zaliczony} few {# zaliczone} many {# zaliczonych} oth
 
 #. placeholder {0}: summary.pending
 msgid "{0, plural, one {# pending} other {# pending}}"
-msgstr "{0, plural, one {# oczekujący} few {# oczekujące} many {# oczekujących} other {# oczekującego}}"
+msgstr "{0, plural, one {# oczekująca} few {# oczekujące} many {# oczekujących} other {# oczekującego}}"
 
 #. placeholder {0}: chosenLeads.length
 #. placeholder {0}: chosenPeople.length
@@ -240,7 +240,7 @@ msgstr "{0, plural, one {# subagent} few {# subagenty} many {# subagentów} othe
 
 #. placeholder {0}: summary.passing
 msgid "{0, plural, one {# successful} other {# successful}}"
-msgstr "{0, plural, one {# udany} few {# udane} many {# udanych} other {# udanego}}"
+msgstr "{0, plural, one {# udana} few {# udane} many {# udanych} other {# udanego}}"
 
 #. placeholder {0}: TASKS.length
 msgid "{0, plural, one {# task} other {# tasks}}"
