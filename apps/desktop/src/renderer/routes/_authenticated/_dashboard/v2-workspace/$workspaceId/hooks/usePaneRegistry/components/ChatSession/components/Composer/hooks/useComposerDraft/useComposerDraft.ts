@@ -2,9 +2,25 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 const DRAFT_DEBOUNCE_MS = 300;
 
+const unsavedDrafts = new Map<string, string>();
+
 function writeDraft(draftKey: string, text: string) {
+	unsavedDrafts.delete(draftKey);
 	if (text === "") window.localStorage.removeItem(draftKey);
 	else window.localStorage.setItem(draftKey, text);
+}
+
+function readDraft(draftKey: string): string | undefined {
+	return (
+		unsavedDrafts.get(draftKey) ??
+		window.localStorage.getItem(draftKey) ??
+		undefined
+	);
+}
+
+export function appendToDraft(draftKey: string, text: string) {
+	const current = readDraft(draftKey);
+	writeDraft(draftKey, current ? `${text}\n\n${current}` : text);
 }
 
 export function useComposerDraft(draftKey: string) {
@@ -20,6 +36,7 @@ export function useComposerDraft(draftKey: string) {
 	const onChange = useCallback(
 		(text: string) => {
 			if (draftTimer.current) clearTimeout(draftTimer.current);
+			unsavedDrafts.set(draftKey, text);
 			pendingDraft.current = { draftKey, text };
 			draftTimer.current = setTimeout(flushDraft, DRAFT_DEBOUNCE_MS);
 		},
@@ -29,21 +46,20 @@ export function useComposerDraft(draftKey: string) {
 
 	const [seed, setSeed] = useState(() => ({
 		draftKey,
-		text: window.localStorage.getItem(draftKey) ?? undefined,
+		text: readDraft(draftKey),
 	}));
 
 	const clearDraft = useCallback(() => {
 		if (draftTimer.current) clearTimeout(draftTimer.current);
 		draftTimer.current = null;
 		pendingDraft.current = null;
+		unsavedDrafts.delete(draftKey);
 		window.localStorage.removeItem(draftKey);
 		setSeed({ draftKey, text: undefined });
 	}, [draftKey]);
 
 	const storedDraft =
-		seed.draftKey === draftKey
-			? seed.text
-			: (window.localStorage.getItem(draftKey) ?? undefined);
+		seed.draftKey === draftKey ? seed.text : readDraft(draftKey);
 
 	return { storedDraft, onChange, clearDraft };
 }

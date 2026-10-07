@@ -16,8 +16,10 @@ import { workspaceTrpc } from "@superset/workspace-client";
 import {
 	memo,
 	type KeyboardEvent as ReactKeyboardEvent,
+	type Ref,
 	useCallback,
 	useEffect,
+	useImperativeHandle,
 	useMemo,
 	useRef,
 } from "react";
@@ -34,6 +36,7 @@ import { useUploadAttachments } from "./hooks/useUploadAttachments";
 export type ComposerProps = {
 	workspaceId: string;
 	draftKey: string;
+	inputRef?: Ref<Pick<PromptInputHandle, "appendText" | "focus">>;
 	availableCommands: AvailableCommand[];
 	configOptions?: SessionConfigOption[];
 	onSetConfigOption?: (configId: string, value: string) => unknown;
@@ -75,6 +78,8 @@ function toMenuCommands(commands: AvailableCommand[]): PromptInputCommand[] {
 	}));
 }
 
+const focusedDraftKeys = new Set<string>();
+
 export const Composer = memo(function Composer({
 	agentSwitcher,
 	availableCommands,
@@ -85,6 +90,7 @@ export const Composer = memo(function Composer({
 	onSetMode,
 	disabled,
 	draftKey,
+	inputRef,
 	history,
 	isActive,
 	onCancelTurn,
@@ -99,6 +105,20 @@ export const Composer = memo(function Composer({
 	const { storedDraft, onChange, clearDraft } = useComposerDraft(draftKey);
 	const promptInputRef = useRef<PromptInputHandle>(null);
 	const queueActions = useQueueActions(promptQueue, promptInputRef);
+	useImperativeHandle(
+		inputRef,
+		() => ({
+			appendText: (text: string) => promptInputRef.current?.appendText(text),
+			focus: () => promptInputRef.current?.focus(),
+		}),
+		[],
+	);
+	useEffect(() => {
+		const focusLeftWithUnmount =
+			focusedDraftKeys.has(draftKey) &&
+			(!document.activeElement || document.activeElement === document.body);
+		if (focusLeftWithUnmount) promptInputRef.current?.focus();
+	}, [draftKey]);
 	useHotkey("FOCUS_CHAT_INPUT", () => promptInputRef.current?.focus(), {
 		enabled: Boolean(isActive),
 	});
@@ -184,7 +204,10 @@ export const Composer = memo(function Composer({
 		}) => {
 			if (disabled || (text.trim() === "" && files.length === 0)) return;
 			const tags = await uploadAttachments(files);
-			if (!tags) return;
+			if (!tags) {
+				promptInputRef.current?.appendText(text);
+				return;
+			}
 			onSend(
 				[
 					{
@@ -221,6 +244,8 @@ export const Composer = memo(function Composer({
 		<div
 			className={cn(CHAT_GUTTER_CLASSNAME, "pt-1 pb-5")}
 			onKeyDownCapture={focusQueue}
+			onFocusCapture={() => focusedDraftKeys.add(draftKey)}
+			onBlurCapture={() => focusedDraftKeys.delete(draftKey)}
 		>
 			{promptQueue && (
 				<div className={CHAT_COLUMN_CLASSNAME}>

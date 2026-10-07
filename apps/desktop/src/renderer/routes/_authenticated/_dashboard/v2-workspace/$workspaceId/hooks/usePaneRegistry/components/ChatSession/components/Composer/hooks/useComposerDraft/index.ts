@@ -1,1 +1,1 @@
-export { useComposerDraft } from "./useComposerDraft";
+export { appendToDraft, useComposerDraft } from "./useComposerDraft";
