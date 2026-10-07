@@ -28,10 +28,10 @@ import {
 	Check,
 	ChevronDown,
 	ChevronRight,
-	ExternalLink,
 	GitMerge,
-	Link,
+	Link2,
 	LoaderCircle,
+	SquareArrowOutUpRight,
 } from "lucide-react";
 import { type ReactNode, useState } from "react";
 import { useCopyToClipboard } from "renderer/hooks/useCopyToClipboard";
@@ -246,14 +246,14 @@ export function PullRequestActions({
 				}}
 			>
 				{linkCopied ? (
-					<Check className="size-4" />
+					<Check strokeWidth={1.75} className="size-4" />
 				) : (
-					<Link className="size-4" />
+					<Link2 strokeWidth={1.75} className="size-4 -rotate-45" />
 				)}
 			</IconAction>
 			<IconAction label={t({ message: "Open on GitHub" })} asChild>
 				<a href={data.url} target="_blank" rel="noopener noreferrer">
-					<ExternalLink className="size-4" />
+					<SquareArrowOutUpRight strokeWidth={1.75} className="size-4" />
 				</a>
 			</IconAction>
 			{showStartWorkspace && projectId && hostId ? (
