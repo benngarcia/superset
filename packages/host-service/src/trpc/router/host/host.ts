@@ -6,7 +6,7 @@ import {
 	HOST_SERVICE_VERSION,
 } from "../../../install-source";
 import type { ApiClient } from "../../../types";
-import { protectedProcedure, router } from "../../index";
+import { machineOnlyProcedure, protectedProcedure, router } from "../../index";
 import { rethrowCloudUnreachable } from "./cloud-api-error";
 
 const ORGANIZATION_CACHE_TTL_MS = 60 * 60 * 1000;
@@ -62,5 +62,30 @@ export const hostRouter = router({
 			arch: os.arch(),
 			uptime: process.uptime(),
 		};
+	}),
+	/**
+	 * The API token of the account that runs this host, so the CLI in one of
+	 * its terminals acts as that account instead of its own login. The relay
+	 * adds the host secret too, so a teammate there would pass every other
+	 * check and leave with the owner's credential.
+	 */
+	apiToken: machineOnlyProcedure.query(async ({ ctx }) => {
+		if (ctx.isLocalCaller !== true || !ctx.apiAuth) {
+			throw new TRPCError({
+				code: "FORBIDDEN",
+				message: "The API token is only given to callers on this machine.",
+			});
+		}
+		const authorization = (await ctx.apiAuth.getHeaders()).Authorization;
+		const token = authorization?.startsWith("Bearer ")
+			? authorization.slice(7)
+			: null;
+		if (!token) {
+			throw new TRPCError({
+				code: "PRECONDITION_FAILED",
+				message: "This host has no API token to give.",
+			});
+		}
+		return { token };
 	}),
 });
