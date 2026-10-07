@@ -40,7 +40,7 @@
 <body>
 <main>
   <h1>PR #8247: the pull request page, end to end</h1>
-  <p class="sub">Everything on branch <code>review-pane-ui</code> as of 2026-10-07: the page redesign, the host procedures behind it, the bot review round and what was done with it, and the pane responsiveness pass. All captures are from the dev app over CDP against real pull requests on this repository. <a href="https://github.com/superset-sh/superset/pull/8247">Open the PR</a>.</p>
+  <p class="sub">Everything on branch <code>review-pane-ui</code> as of 2026-10-07, captures retaken on the pushed head (<code>6be4faa04a</code>): the page redesign, the host procedures behind it, the bot review round and what was done with it, and the pane responsiveness pass. All captures are from the dev app over CDP against real pull requests on this repository. <a href="https://github.com/superset-sh/superset/pull/8247">Open the PR</a>.</p>
 
   <ul class="toc">
     <li><a href="#summary">1. Summary layout and info rail</a></li>
@@ -68,7 +68,7 @@
   <p>The detail loads behind a page-shaped skeleton; a cold Changes click loads the diff renderer and its worker pool behind a file-card skeleton. Both share one shimmer: a viewport-fixed gradient sweep over the muted fill (<code>background-attachment: fixed</code>), 2s linear, off under reduced motion, so every placeholder on screen sweeps in sync instead of each one running its own loop.</p>
   <div class="grid">
     <figure><img src="img/pr-screen-skeleton.png" alt="Page skeleton" loading="lazy"><figcaption>Page skeleton while the detail loads.</figcaption></figure>
-    <figure><img src="img/pr-screen-changes-fallback.png" alt="Diff skeleton" loading="lazy"><figcaption>Diff skeleton under the Changes title while the renderer loads.</figcaption></figure>
+    <figure><img src="img/pr-screen-changes-fallback.png" alt="Diff skeleton" loading="lazy"><figcaption>Changes while the diff loads, title row already in place.</figcaption></figure>
   </div>
   <figure><img src="img/pr-screen-shimmer.png" alt="Shimmer sweep mid-frame" loading="lazy"><figcaption>Shimmer mid-sweep.</figcaption></figure>
 
@@ -85,18 +85,17 @@
     <figure><img src="img/pr-screen-tasklist.png" alt="Task list" loading="lazy"><figcaption>Task boxes in the gutter (#8238).</figcaption></figure>
     <figure><img src="img/pr-screen-table.png" alt="Table" loading="lazy"><figcaption>Bordered table at natural width (#8234).</figcaption></figure>
   </div>
-  <figure><img src="img/pr-screen-icons-weights.png" alt="Icons and font weights" loading="lazy"><figcaption>Icon and weight pass: lucide glyphs at 1.75 stroke, 500 for strong, 600 for headings.</figcaption></figure>
 
   <h2 id="changes">4. Changes tab</h2>
   <p>The Changes tab is lazy: the Summary stays mounted (hidden) and the diff tab mounts on first click. A title row (state glyph + PR title) sits above the files toolbar so the pane keeps its context when the Summary scrolls away. The diff viewer underneath is the shared code tab.</p>
   <div class="grid">
-    <figure><img src="img/pr-screen-changes.png" alt="Changes tab" loading="lazy"><figcaption>Diff loaded, 118 files.</figcaption></figure>
+    <figure><img src="img/pr-screen-changes.png" alt="Changes tab" loading="lazy"><figcaption>The diff for #8247.</figcaption></figure>
     <figure><img src="img/pr-screen-changes-title.png" alt="Changes title row" loading="lazy"><figcaption>Title row above the files toolbar.</figcaption></figure>
   </div>
 
   <h2 id="conversation">5. Conversation and composer</h2>
   <p>The Summary ends in a Comments section: reviews and conversation comments sorted oldest first as collapsible rows (the last two open), each with avatar, author, a review-state label (approved / requested changes / reviewed), relative time, and a Reply link to the comment on GitHub. Bot findings that follow the title-plus-severity convention are lifted into a title and a colored severity line. Below the rows, a "Leave a comment" pill posts as the gh user through the host and invalidates the detail so the new comment appears on the refetch.</p>
-  <figure><img src="img/pr-screen-conversation.png" alt="Conversation" loading="lazy"><figcaption>Conversation on #8238: nine reviews and comments, finding elevation, composer at the end.</figcaption></figure>
+  <figure><img src="img/pr-screen-conversation.png" alt="Conversation" loading="lazy"><figcaption>Conversation on #8247: bot reviews and comments as collapsible rows, composer at the end.</figcaption></figure>
 
   <h2 id="draft">6. Draft flow and menus</h2>
   <p>A draft pull request gets Ready for review as its primary pill, and the header pill becomes a Draft / Ready for review state menu. The split pill's chevron opens a menu in a frosted picker skin (14px radius, 40px blur, 10px rows at 12px) with a glyph on every row:</p>
@@ -106,16 +105,16 @@
     <li><b>Fix findings</b> builds a prompt from the review findings and failing checks (approvals skipped, findings posted as plain comments included, each field capped so one bot essay cannot crowd the rest) and hands it to an agent: into the workspace already open on the PR when there is one, otherwise by starting a workspace checked out on the PR with the host's first agent.</li>
   </ul>
   <figure><img src="img/pr-screen-draft.png" alt="Draft PR" loading="lazy"><figcaption>Draft #8243: Ready for review split pill, Draft state pill in the header, no Merge offered.</figcaption></figure>
-  <figure><img src="img/pr-screen-draft-menu.png" alt="Draft menu" loading="lazy"><figcaption>The draft menu in the frosted skin.</figcaption></figure>
+  <figure><img src="img/pr-screen-merge-menu.png" alt="Merge menu" loading="lazy"><figcaption>The merge menu on #8247: comment field, three methods with descriptions, Force merge while a check is failing, Fix findings, Convert to draft, Close.</figcaption></figure>
+  <figure><img src="img/pr-screen-draft-menu.png" alt="Draft state menu" loading="lazy"><figcaption>The header pill's Draft / Ready for review menu on #8243, with the rail beside it.</figcaption></figure>
   <div class="row">
     <figure><img src="img/pr-screen-topbar-icons.png" width="840" alt="Top bar icons" loading="lazy"><figcaption>Top bar: chain-link copy (with a check on success), arrow-out open on GitHub, Send to agent.</figcaption></figure>
   </div>
 
   <h2 id="colors">7. Color and icon consistency</h2>
   <p>Every green and red on the page (diff stat, state glyph and pill, check marks, merge status) reads one shared constant that the sidebar list row also uses, so the page and the list are the same tone in light and dark. Draft pull requests now show the dashed draft glyph in the list and in every status chip; before this the shared icon drew open and draft with the same arrow.</p>
-  <figure><img src="img/pr-screen-colors.png" alt="Color pass" loading="lazy"><figcaption>Sidebar and page share the same green and red.</figcaption></figure>
   <div class="row">
-    <figure><img src="img/pr-list-draft-glyph.png" width="310" alt="Draft glyph in the list" loading="lazy"><figcaption>Draft #8243 in the list with the dashed glyph; open rows keep the green arrow.</figcaption></figure>
+    <figure><img src="img/pr-list-draft-glyph.png" width="310" alt="Draft glyph in the list" loading="lazy"><figcaption>The list beside the page: draft #8243 with the dashed glyph, open rows with the green arrow, the same green and red as the page's diff stat and checks.</figcaption></figure>
   </div>
 
   <h2 id="host">8. Host service</h2>
