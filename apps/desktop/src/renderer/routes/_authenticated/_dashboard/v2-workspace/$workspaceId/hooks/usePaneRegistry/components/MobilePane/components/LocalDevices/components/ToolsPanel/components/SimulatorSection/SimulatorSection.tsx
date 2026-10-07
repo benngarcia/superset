@@ -74,7 +74,10 @@ const SETTINGS: SettingDefinition[] = [
 		control: {
 			kind: "select",
 			choices: [
-				{ value: "clear", label: msg({ message: "Clear" }) },
+				{
+					value: "clear",
+					label: msg({ message: "Clear", context: "Liquid Glass style" }),
+				},
 				{ value: "tinted", label: msg({ message: "Tinted" }) },
 			],
 		},

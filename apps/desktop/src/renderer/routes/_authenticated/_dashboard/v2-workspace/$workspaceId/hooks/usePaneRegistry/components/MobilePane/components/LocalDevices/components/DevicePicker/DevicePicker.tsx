@@ -79,14 +79,14 @@ export function DevicePicker({
 				<DropdownMenuContent align="start" className="max-h-96 w-72">
 					{ios.length > 0 && (
 						<>
-							<DropdownMenuLabel>iOS</DropdownMenuLabel>
+							<DropdownMenuLabel>{"iOS"}</DropdownMenuLabel>
 							<DeviceItems devices={ios} onSelect={onSelect} />
 						</>
 					)}
 					{ios.length > 0 && android.length > 0 && <DropdownMenuSeparator />}
 					{android.length > 0 && (
 						<>
-							<DropdownMenuLabel>Android</DropdownMenuLabel>
+							<DropdownMenuLabel>{"Android"}</DropdownMenuLabel>
 							<DeviceItems devices={android} onSelect={onSelect} />
 						</>
 					)}
