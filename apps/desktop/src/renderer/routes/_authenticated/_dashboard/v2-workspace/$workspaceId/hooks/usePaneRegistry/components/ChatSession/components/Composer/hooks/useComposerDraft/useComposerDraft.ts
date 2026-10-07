@@ -4,40 +4,53 @@ const DRAFT_DEBOUNCE_MS = 300;
 
 const unsavedDrafts = new Map<string, string>();
 
-function writeDraft(draftKey: string, text: string) {
-	unsavedDrafts.delete(draftKey);
-	if (text === "") window.localStorage.removeItem(draftKey);
-	else window.localStorage.setItem(draftKey, text);
+function persistDraft(draftKey: string, text: string): boolean {
+	try {
+		if (text === "") window.localStorage.removeItem(draftKey);
+		else window.localStorage.setItem(draftKey, text);
+		return true;
+	} catch (error) {
+		console.warn("[chat] could not save the composer draft", error);
+		return false;
+	}
 }
 
 function readDraft(draftKey: string): string | undefined {
-	return (
-		unsavedDrafts.get(draftKey) ??
-		window.localStorage.getItem(draftKey) ??
-		undefined
-	);
+	const unsaved = unsavedDrafts.get(draftKey);
+	if (unsaved !== undefined) return unsaved;
+	try {
+		return window.localStorage.getItem(draftKey) ?? undefined;
+	} catch {
+		return undefined;
+	}
 }
 
-export function appendToDraft(draftKey: string, text: string) {
+export function prependToDraft(draftKey: string, text: string) {
 	const current = readDraft(draftKey);
-	writeDraft(draftKey, current ? `${text}\n\n${current}` : text);
+	const merged = current ? `${text}\n\n${current}` : text;
+	unsavedDrafts.set(draftKey, merged);
+	persistDraft(draftKey, merged);
 }
 
 export function useComposerDraft(draftKey: string) {
 	const draftTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-	const pendingDraft = useRef<{ draftKey: string; text: string } | null>(null);
+	const pendingDraftKey = useRef<string | null>(null);
 	const flushDraft = useCallback(() => {
 		if (draftTimer.current) clearTimeout(draftTimer.current);
 		draftTimer.current = null;
-		const pending = pendingDraft.current;
-		pendingDraft.current = null;
-		if (pending) writeDraft(pending.draftKey, pending.text);
+		const key = pendingDraftKey.current;
+		pendingDraftKey.current = null;
+		if (key === null) return;
+		const text = unsavedDrafts.get(key);
+		if (text !== undefined && persistDraft(key, text)) {
+			unsavedDrafts.delete(key);
+		}
 	}, []);
 	const onChange = useCallback(
 		(text: string) => {
 			if (draftTimer.current) clearTimeout(draftTimer.current);
 			unsavedDrafts.set(draftKey, text);
-			pendingDraft.current = { draftKey, text };
+			pendingDraftKey.current = draftKey;
 			draftTimer.current = setTimeout(flushDraft, DRAFT_DEBOUNCE_MS);
 		},
 		[draftKey, flushDraft],
@@ -52,9 +65,9 @@ export function useComposerDraft(draftKey: string) {
 	const clearDraft = useCallback(() => {
 		if (draftTimer.current) clearTimeout(draftTimer.current);
 		draftTimer.current = null;
-		pendingDraft.current = null;
+		pendingDraftKey.current = null;
 		unsavedDrafts.delete(draftKey);
-		window.localStorage.removeItem(draftKey);
+		persistDraft(draftKey, "");
 		setSeed({ draftKey, text: undefined });
 	}, [draftKey]);
 

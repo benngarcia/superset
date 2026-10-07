@@ -20,6 +20,7 @@ import {
 	useCallback,
 	useEffect,
 	useImperativeHandle,
+	useLayoutEffect,
 	useMemo,
 	useRef,
 } from "react";
@@ -78,7 +79,8 @@ function toMenuCommands(commands: AvailableCommand[]): PromptInputCommand[] {
 	}));
 }
 
-const focusedDraftKeys = new Set<string>();
+const FOCUS_HANDOFF_MS = 1000;
+let focusHandoff: { draftKey: string; at: number } | null = null;
 
 export const Composer = memo(function Composer({
 	agentSwitcher,
@@ -113,11 +115,23 @@ export const Composer = memo(function Composer({
 		}),
 		[],
 	);
-	useEffect(() => {
-		const focusLeftWithUnmount =
-			focusedDraftKeys.has(draftKey) &&
-			(!document.activeElement || document.activeElement === document.body);
-		if (focusLeftWithUnmount) promptInputRef.current?.focus();
+	const rootRef = useRef<HTMLDivElement>(null);
+	useLayoutEffect(() => {
+		const handoff = focusHandoff;
+		if (handoff?.draftKey === draftKey) {
+			focusHandoff = null;
+			const focusIsFree =
+				!document.activeElement || document.activeElement === document.body;
+			if (focusIsFree && Date.now() - handoff.at < FOCUS_HANDOFF_MS) {
+				promptInputRef.current?.focus();
+			}
+		}
+		const root = rootRef.current;
+		return () => {
+			if (root?.contains(document.activeElement)) {
+				focusHandoff = { draftKey, at: Date.now() };
+			}
+		};
 	}, [draftKey]);
 	useHotkey("FOCUS_CHAT_INPUT", () => promptInputRef.current?.focus(), {
 		enabled: Boolean(isActive),
@@ -242,10 +256,9 @@ export const Composer = memo(function Composer({
 
 	return (
 		<div
+			ref={rootRef}
 			className={cn(CHAT_GUTTER_CLASSNAME, "pt-1 pb-5")}
 			onKeyDownCapture={focusQueue}
-			onFocusCapture={() => focusedDraftKeys.add(draftKey)}
-			onBlurCapture={() => focusedDraftKeys.delete(draftKey)}
 		>
 			{promptQueue && (
 				<div className={CHAT_COLUMN_CLASSNAME}>

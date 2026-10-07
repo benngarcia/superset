@@ -37,8 +37,8 @@ import { railMessages } from "../../utils/railMessages";
 import {
 	type AgentChoice,
 	type AgentSwitcher,
-	appendToDraft,
 	Composer,
+	prependToDraft,
 } from "../Composer";
 import { ConnectionNotice } from "../ConnectionNotice";
 import { SessionHeader } from "../SessionHeader";
@@ -122,7 +122,11 @@ export function SessionView({
 		useRef<Pick<PromptInputHandle, "appendText" | "focus">>(null);
 	const { outbox, discardPrompt } = session;
 	useEffect(() => {
-		const failed = outbox.filter((entry) => entry.state === "failed");
+		const failed = outbox.filter(
+			(entry) =>
+				entry.state === "failed" &&
+				entry.content.every((part) => part.type === "text"),
+		);
 		if (failed.length === 0) return;
 		for (const entry of failed) {
 			discardPrompt(entry.clientId);
@@ -138,10 +142,14 @@ export function SessionView({
 	useEffect(
 		() => () => {
 			const unsent = outboxRef.current
-				.filter((entry) => entry.state !== "inflight")
+				.filter(
+					(entry) =>
+						entry.state === "failed" ||
+						(entry.state === "queued" && entry.attempts === 0),
+				)
 				.map((entry) => contentText(entry.content))
 				.filter(Boolean);
-			if (unsent.length > 0) appendToDraft(draftKey, unsent.join("\n\n"));
+			if (unsent.length > 0) prependToDraft(draftKey, unsent.join("\n\n"));
 		},
 		[draftKey],
 	);
