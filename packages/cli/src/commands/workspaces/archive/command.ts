@@ -5,7 +5,8 @@ import { resolveHostTarget } from "../../../lib/host-target";
 
 export default command({
 	description:
-		"Delete workspaces by ID: cloud workspaces by default if your account has them (tearing down the sandbox stops its billing), else on this machine; --local or --host picks a host",
+		"Archive workspaces by ID: cloud workspaces by default if your account has them, else on this machine; --local or --host picks a host. A cloud sandbox stops within a minute and is deleted after 7 days; a restore before then keeps its disk. On a host, the worktree folder is removed with any uncommitted changes; the branch stays, so a restore brings back only committed work",
+	aliases: ["delete"],
 	args: [positional("ids").required().variadic().desc("Workspace IDs")],
 	options: {
 		host: string().desc("Host the workspaces live on"),
@@ -24,26 +25,26 @@ export default command({
 			organizationId,
 		);
 		if (!hostId) {
-			const deleted: string[] = [];
+			const archived: string[] = [];
 			const missing: string[] = [];
 			for (const id of ids) {
 				const result = await ctx.api.cloudWorkspace.delete.mutate({ id });
-				(result.deleted ? deleted : missing).push(id);
+				(result.deleted ? archived : missing).push(id);
 			}
 			if (missing.length > 0) {
-				const alsoDeleted =
-					deleted.length > 0 ? ` (deleted: ${deleted.join(", ")})` : "";
+				const alsoArchived =
+					archived.length > 0 ? ` (archived: ${archived.join(", ")})` : "";
 				throw new CLIError(
-					`No cloud workspace in this organization: ${missing.join(", ")}${alsoDeleted}`,
+					`No cloud workspace in this organization: ${missing.join(", ")}${alsoArchived}`,
 					"Pass --local or --host <id> if it lives on a machine",
 				);
 			}
 			return {
-				data: { deleted },
+				data: { deleted: archived },
 				message:
-					deleted.length === 1
-						? `Deleted cloud workspace ${deleted[0]}`
-						: `Deleted ${deleted.length} cloud workspaces`,
+					archived.length === 1
+						? `Archived cloud workspace ${archived[0]}`
+						: `Archived ${archived.length} cloud workspaces`,
 			};
 		}
 
@@ -54,26 +55,26 @@ export default command({
 			api: ctx.api,
 		});
 
-		const deleted: string[] = [];
+		const archived: string[] = [];
 		const warnings: string[] = [];
 		for (const id of ids) {
 			const result = await target.client.workspace.delete.mutate({ id });
-			deleted.push(id);
+			archived.push(id);
 			for (const warning of result.warnings ?? []) {
 				warnings.push(`${id}: ${warning}`);
 			}
 		}
 
-		const deleteMessage =
-			deleted.length === 1
-				? `Deleted workspace ${deleted[0]}`
-				: `Deleted ${deleted.length} workspaces`;
+		const archiveMessage =
+			archived.length === 1
+				? `Archived workspace ${archived[0]}`
+				: `Archived ${archived.length} workspaces`;
 		return {
-			data: { deleted, warnings },
+			data: { deleted: archived, warnings },
 			message:
 				warnings.length > 0
-					? `${deleteMessage}\nWarnings:\n${warnings.map((warning) => `- ${warning}`).join("\n")}`
-					: deleteMessage,
+					? `${archiveMessage}\nWarnings:\n${warnings.map((warning) => `- ${warning}`).join("\n")}`
+					: archiveMessage,
 		};
 	},
 });
