@@ -165,7 +165,9 @@ export function PullRequestActions({
 	const setPullRequestState = useMutation({
 		mutationFn: async (nextState: "open" | "closed") => {
 			if (!hostUrl || !projectId || prNumber === null) {
-				throw new Error("This project isn't linked to a GitHub repository.");
+				throw new Error(
+					t({ message: "This project isn't linked to a GitHub repository." }),
+				);
 			}
 			const client = getHostServiceClientByUrl(hostUrl);
 			return client.pullRequests.setState.mutate({
@@ -191,7 +193,9 @@ export function PullRequestActions({
 			commitMessage?: string;
 		}) => {
 			if (!hostUrl || !projectId || prNumber === null) {
-				throw new Error("This project isn't linked to a GitHub repository.");
+				throw new Error(
+					t({ message: "This project isn't linked to a GitHub repository." }),
+				);
 			}
 			const client = getHostServiceClientByUrl(hostUrl);
 			return client.pullRequests.mergePR.mutate({
@@ -561,15 +565,15 @@ export function PullRequestActions({
 							) : pendingAction?.kind === "merge" && pendingAction.force ? (
 								<Trans>
 									"{data.title}" will be merged into {data.base.ref} via{" "}
-									{mergeMethodLabels[pendingAction.method].toLowerCase()}.
-									Checks haven't passed yet — this overrides them. This can't be
-									undone from here.
+									{mergeMethodLabels[pendingAction.method]}. Checks haven't
+									passed yet — this overrides them. This can't be undone from
+									here.
 								</Trans>
 							) : pendingAction?.kind === "merge" ? (
 								<Trans>
 									"{data.title}" will be merged into {data.base.ref} via{" "}
-									{mergeMethodLabels[pendingAction.method].toLowerCase()}. This
-									can't be undone from here.
+									{mergeMethodLabels[pendingAction.method]}. This can't be
+									undone from here.
 								</Trans>
 							) : null}
 						</AlertDialogDescription>

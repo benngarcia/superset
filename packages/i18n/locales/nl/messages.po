@@ -48,13 +48,13 @@ msgstr "\"{0}\" wordt op GitHub als gesloten gemarkeerd. Je kunt hem hier op elk
 
 #. placeholder {0}: data.title
 #. placeholder {1}: data.base.ref
-#. placeholder {2}: mergeMethodLabels[pendingAction.method].toLowerCase()
+#. placeholder {2}: mergeMethodLabels[pendingAction.method]
 msgid "\"{0}\" will be merged into {1} via {2}. Checks haven't passed yet — this overrides them. This can't be undone from here."
 msgstr "\"{0}\" wordt via {2} in {1} gemerged. De checks zijn nog niet geslaagd — dit overschrijft ze. Dit kan hier niet ongedaan worden gemaakt."
 
 #. placeholder {0}: data.title
 #. placeholder {1}: data.base.ref
-#. placeholder {2}: mergeMethodLabels[pendingAction.method].toLowerCase()
+#. placeholder {2}: mergeMethodLabels[pendingAction.method]
 msgid "\"{0}\" will be merged into {1} via {2}. This can't be undone from here."
 msgstr "\"{0}\" wordt via {2} in {1} gemerged. Dit kan hier niet ongedaan worden gemaakt."
 
@@ -10257,6 +10257,9 @@ msgstr "Geen actieve terminalsessies"
 msgid "No agent"
 msgstr "Geen agent"
 
+msgid "No agent is configured on this host"
+msgstr "Er is geen agent geconfigureerd op deze host"
+
 #. placeholder {0}: host.name
 msgid "No agents configured on {0}"
 msgstr "Geen agents geconfigureerd op {0}"
@@ -16757,8 +16760,14 @@ msgstr "Dit profiel is momenteel druk bezet"
 msgid "This project is no longer available on your devices."
 msgstr "Dit project is niet meer beschikbaar op je apparaten."
 
+msgid "This project isn't linked to a GitHub repository."
+msgstr "Dit project is niet gekoppeld aan een GitHub-repository."
+
 msgid "This project's host is offline"
 msgstr "De host van dit project is offline"
+
+msgid "This pull request has no host to act through"
+msgstr "Deze pull request heeft geen host om via te handelen"
 
 msgid "This pull request is no longer available."
 msgstr "Deze pull request is niet meer beschikbaar."

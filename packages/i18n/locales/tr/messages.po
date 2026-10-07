@@ -48,13 +48,13 @@ msgstr "\"{0}\" GitHub'da kapalı olarak işaretlenecek. Buradan istediğiniz za
 
 #. placeholder {0}: data.title
 #. placeholder {1}: data.base.ref
-#. placeholder {2}: mergeMethodLabels[pendingAction.method].toLowerCase()
+#. placeholder {2}: mergeMethodLabels[pendingAction.method]
 msgid "\"{0}\" will be merged into {1} via {2}. Checks haven't passed yet — this overrides them. This can't be undone from here."
 msgstr "\"{0}\", {2} ile {1} dalına birleştirilecek. Kontroller henüz geçmedi — bu işlem onları geçersiz kılar. Buradan geri alınamaz."
 
 #. placeholder {0}: data.title
 #. placeholder {1}: data.base.ref
-#. placeholder {2}: mergeMethodLabels[pendingAction.method].toLowerCase()
+#. placeholder {2}: mergeMethodLabels[pendingAction.method]
 msgid "\"{0}\" will be merged into {1} via {2}. This can't be undone from here."
 msgstr "\"{0}\", {2} ile {1} dalına birleştirilecek. Buradan geri alınamaz."
 
@@ -10257,6 +10257,9 @@ msgstr "Etkin terminal oturumu yok"
 msgid "No agent"
 msgstr "Ajan yok"
 
+msgid "No agent is configured on this host"
+msgstr "Bu ana makinede yapılandırılmış bir ajan yok"
+
 #. placeholder {0}: host.name
 msgid "No agents configured on {0}"
 msgstr "{0} üzerinde yapılandırılmış ajan yok"
@@ -16757,8 +16760,14 @@ msgstr "Bu profil şu anda yoğun"
 msgid "This project is no longer available on your devices."
 msgstr "Bu proje artık cihazlarınızda kullanılamıyor."
 
+msgid "This project isn't linked to a GitHub repository."
+msgstr "Bu proje bir GitHub deposuna bağlı değil."
+
 msgid "This project's host is offline"
 msgstr "Bu projenin host'u çevrimdışı"
+
+msgid "This pull request has no host to act through"
+msgstr "Bu çekme isteğinin üzerinden işlem yapılacak bir ana makinesi yok"
 
 msgid "This pull request is no longer available."
 msgstr "Bu pull request artık kullanılamıyor."

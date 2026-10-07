@@ -1,31 +1,18 @@
 import { describe, expect, it } from "bun:test";
-import {
-	preparePullRequestMarkdown,
-	pullRequestMarkdownPreview,
-} from "./preparePullRequestMarkdown";
+import { preparePullRequestMarkdown } from "./preparePullRequestMarkdown";
 
 describe("preparePullRequestMarkdown", () => {
-	it("drops template comments and resolves line breaks outside code", () => {
+	it("drops template comments but leaves html and code as written", () => {
 		expect(
 			preparePullRequestMarkdown(
-				"<!-- READ BEFORE OPENING -->\nLine one<br>Line two\n\n```html\n<!-- kept --><br>\n```",
+				"<!-- READ BEFORE OPENING -->\nLine one<br>Line two <sub>x</sub>\n\n```html\n<!-- kept -->\n```\n`<!-- inline -->`",
 			),
-		).toBe("Line one\nLine two\n\n```html\n<!-- kept --><br>\n```");
-	});
-
-	it("strips inline formatting wrappers the renderer would print", () => {
-		expect(preparePullRequestMarkdown("<sub>bot</sub> says <kbd>x</kbd>")).toBe(
-			"bot says x",
+		).toBe(
+			"Line one<br>Line two <sub>x</sub>\n\n```html\n<!-- kept -->\n```\n`<!-- inline -->`",
 		);
 	});
-});
 
-describe("pullRequestMarkdownPreview", () => {
-	it("flattens markdown to readable text", () => {
-		expect(
-			pullRequestMarkdownPreview(
-				"## Summary\n\n**Bold** [link](https://x.test) ![img](a.png)\n\n```js\ncode\n```\n<details><summary>More</summary>hidden</details>",
-			),
-		).toBe("Summary\nBold link img\n[code]");
+	it("reads a comment-only body as empty", () => {
+		expect(preparePullRequestMarkdown("<!-- a -->\n\n<!-- b -->")).toBe("");
 	});
 });

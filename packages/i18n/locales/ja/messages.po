@@ -48,13 +48,13 @@ msgstr "「{0}」はGitHub上でクローズ済みになります。ここから
 
 #. placeholder {0}: data.title
 #. placeholder {1}: data.base.ref
-#. placeholder {2}: mergeMethodLabels[pendingAction.method].toLowerCase()
+#. placeholder {2}: mergeMethodLabels[pendingAction.method]
 msgid "\"{0}\" will be merged into {1} via {2}. Checks haven't passed yet — this overrides them. This can't be undone from here."
 msgstr "「{0}」は{2}で{1}にマージされます。チェックはまだ通っていません — この操作はそれを無視します。ここからは元に戻せません。"
 
 #. placeholder {0}: data.title
 #. placeholder {1}: data.base.ref
-#. placeholder {2}: mergeMethodLabels[pendingAction.method].toLowerCase()
+#. placeholder {2}: mergeMethodLabels[pendingAction.method]
 msgid "\"{0}\" will be merged into {1} via {2}. This can't be undone from here."
 msgstr "「{0}」は{2}で{1}にマージされます。ここからは元に戻せません。"
 
@@ -10257,6 +10257,9 @@ msgstr "アクティブなターミナルセッションはありません"
 msgid "No agent"
 msgstr "エージェントなし"
 
+msgid "No agent is configured on this host"
+msgstr "このホストにはエージェントが設定されていません"
+
 #. placeholder {0}: host.name
 msgid "No agents configured on {0}"
 msgstr "{0}にはエージェントが設定されていません"
@@ -16757,8 +16760,14 @@ msgstr "このプロフィールは現在混み合っています"
 msgid "This project is no longer available on your devices."
 msgstr "このプロジェクトはお使いのデバイスでは利用できなくなりました。"
 
+msgid "This project isn't linked to a GitHub repository."
+msgstr "このプロジェクトは GitHub リポジトリにリンクされていません。"
+
 msgid "This project's host is offline"
 msgstr "このプロジェクトのホストはオフラインです"
+
+msgid "This pull request has no host to act through"
+msgstr "このプルリクエストには操作に使うホストがありません"
 
 msgid "This pull request is no longer available."
 msgstr "このプルリクエストは利用できなくなりました。"

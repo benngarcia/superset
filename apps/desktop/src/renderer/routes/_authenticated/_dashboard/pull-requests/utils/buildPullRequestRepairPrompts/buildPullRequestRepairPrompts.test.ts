@@ -47,6 +47,33 @@ describe("buildFixFindingsPrompt", () => {
 		expect(prompt).not.toContain("Lint");
 	});
 
+	it("skips approvals and keeps findings posted as comments", () => {
+		const prompt = buildFixFindingsPrompt({
+			...detail,
+			checks: [],
+			comments: [
+				{
+					id: "a1",
+					kind: "review" as const,
+					author: { login: "lead", name: null },
+					body: "LGTM",
+					createdAt: "2026-10-03T10:00:00Z",
+					reviewState: "APPROVED",
+				},
+				{
+					id: "c2",
+					kind: "comment" as const,
+					author: { login: "bot", name: null },
+					body: "### Unused import\n\nLow severity\n\nDrop it.",
+					createdAt: "2026-10-04T10:00:00Z",
+					reviewState: null,
+				},
+			],
+		});
+		expect(prompt).toContain("1. Comment by bot:\n> ### Unused import");
+		expect(prompt).not.toContain("LGTM");
+	});
+
 	it("says so when there is nothing to quote", () => {
 		expect(
 			buildFixFindingsPrompt({ ...detail, checks: [], comments: [] }),

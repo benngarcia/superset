@@ -53,9 +53,14 @@ export function usePullRequestAgentHandoff(
 
 	const mutation = useMutation({
 		mutationFn: async (prompt: string) => {
-			if (!target)
-				throw new Error("This pull request has no host to act through");
-			if (!agent) throw new Error("No agent is configured on this host");
+			if (!target) {
+				throw new Error(
+					t({ message: "This pull request has no host to act through" }),
+				);
+			}
+			if (!agent) {
+				throw new Error(t({ message: "No agent is configured on this host" }));
+			}
 			if (linkedWorkspaceId) {
 				await getHostServiceClientByUrl(target.hostUrl).agents.run.mutate({
 					workspaceId: linkedWorkspaceId,

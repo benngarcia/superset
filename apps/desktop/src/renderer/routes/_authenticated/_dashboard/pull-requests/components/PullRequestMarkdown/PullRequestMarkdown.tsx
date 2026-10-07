@@ -17,8 +17,8 @@ const PROSE_COMPONENTS: Partial<Components> = {
 		return (
 			<a
 				href={href}
-				target="_blank"
-				rel="noopener noreferrer"
+				target={external ? "_blank" : undefined}
+				rel={external ? "noopener noreferrer" : undefined}
 				className={external ? "pr-prose-link" : undefined}
 			>
 				{external ? <PullRequestLinkIcon url={href} /> : null}
@@ -67,6 +67,7 @@ export function PullRequestMarkdown({
 	return (
 		<MarkdownRenderer
 			content={prepared}
+			style="default"
 			components={PROSE_COMPONENTS}
 			className={cn("pull-request-markdown h-auto overflow-visible", className)}
 		/>

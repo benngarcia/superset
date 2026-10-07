@@ -1,4 +1,1 @@
-export {
-	preparePullRequestMarkdown,
-	pullRequestMarkdownPreview,
-} from "./preparePullRequestMarkdown";
+export { preparePullRequestMarkdown } from "./preparePullRequestMarkdown";

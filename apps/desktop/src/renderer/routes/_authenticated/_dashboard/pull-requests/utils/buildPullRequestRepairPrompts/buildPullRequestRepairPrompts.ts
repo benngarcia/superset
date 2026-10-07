@@ -2,6 +2,7 @@ import type {
 	PullRequestDetail,
 	PullRequestDetailComment,
 } from "../../hooks/usePullRequestDetail";
+import { parseFindingComment } from "../parseFindingComment";
 
 /** Findings quoted before the prompt says how many it left out. */
 const MAX_FINDINGS = 12;
@@ -27,13 +28,15 @@ function commentFindings(
 	comments: ReadonlyArray<PullRequestDetailComment>,
 ): Finding[] {
 	return comments
-		.filter(
-			(comment) => comment.kind === "review" && comment.body.trim().length > 0,
-		)
+		.filter((comment) => {
+			if (comment.body.trim().length === 0) return false;
+			if (parseFindingComment(comment.body)) return true;
+			return comment.kind === "review" && comment.reviewState !== "APPROVED";
+		})
 		.sort((left, right) => right.createdAt.localeCompare(left.createdAt))
 		.map((comment) => ({
 			heading: [
-				"Review",
+				comment.kind === "review" ? "Review" : "Comment",
 				comment.author ? `by ${inline(comment.author.login)}` : null,
 				comment.url ? `at ${inline(comment.url)}` : null,
 			]

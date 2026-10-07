@@ -48,13 +48,13 @@ msgstr "\"{0}\" will be marked closed on GitHub. You can reopen it from here at 
 
 #. placeholder {0}: data.title
 #. placeholder {1}: data.base.ref
-#. placeholder {2}: mergeMethodLabels[pendingAction.method].toLowerCase()
+#. placeholder {2}: mergeMethodLabels[pendingAction.method]
 msgid "\"{0}\" will be merged into {1} via {2}. Checks haven't passed yet — this overrides them. This can't be undone from here."
 msgstr "\"{0}\" will be merged into {1} via {2}. Checks haven't passed yet — this overrides them. This can't be undone from here."
 
 #. placeholder {0}: data.title
 #. placeholder {1}: data.base.ref
-#. placeholder {2}: mergeMethodLabels[pendingAction.method].toLowerCase()
+#. placeholder {2}: mergeMethodLabels[pendingAction.method]
 msgid "\"{0}\" will be merged into {1} via {2}. This can't be undone from here."
 msgstr "\"{0}\" will be merged into {1} via {2}. This can't be undone from here."
 
@@ -10257,6 +10257,9 @@ msgstr "No active terminal sessions"
 msgid "No agent"
 msgstr "No agent"
 
+msgid "No agent is configured on this host"
+msgstr "No agent is configured on this host"
+
 #. placeholder {0}: host.name
 msgid "No agents configured on {0}"
 msgstr "No agents configured on {0}"
@@ -16757,8 +16760,14 @@ msgstr "This profile is busy right now"
 msgid "This project is no longer available on your devices."
 msgstr "This project is no longer available on your devices."
 
+msgid "This project isn't linked to a GitHub repository."
+msgstr "This project isn't linked to a GitHub repository."
+
 msgid "This project's host is offline"
 msgstr "This project's host is offline"
+
+msgid "This pull request has no host to act through"
+msgstr "This pull request has no host to act through"
 
 msgid "This pull request is no longer available."
 msgstr "This pull request is no longer available."

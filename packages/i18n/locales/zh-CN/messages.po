@@ -48,13 +48,13 @@ msgstr "“{0}”会在GitHub上被标记为关闭。你随时可以在这里重
 
 #. placeholder {0}: data.title
 #. placeholder {1}: data.base.ref
-#. placeholder {2}: mergeMethodLabels[pendingAction.method].toLowerCase()
+#. placeholder {2}: mergeMethodLabels[pendingAction.method]
 msgid "\"{0}\" will be merged into {1} via {2}. Checks haven't passed yet — this overrides them. This can't be undone from here."
 msgstr "“{0}”将通过{2}合并到{1}。检查还没通过，此操作会绕过它们。在这里无法撤销。"
 
 #. placeholder {0}: data.title
 #. placeholder {1}: data.base.ref
-#. placeholder {2}: mergeMethodLabels[pendingAction.method].toLowerCase()
+#. placeholder {2}: mergeMethodLabels[pendingAction.method]
 msgid "\"{0}\" will be merged into {1} via {2}. This can't be undone from here."
 msgstr "“{0}”将通过{2}合并到{1}。在这里无法撤销。"
 
@@ -10257,6 +10257,9 @@ msgstr "没有活动的终端会话"
 msgid "No agent"
 msgstr "无智能体"
 
+msgid "No agent is configured on this host"
+msgstr "此主机上未配置任何代理"
+
 #. placeholder {0}: host.name
 msgid "No agents configured on {0}"
 msgstr "{0}上没有配置智能体"
@@ -16757,8 +16760,14 @@ msgstr "此个人主页当前繁忙"
 msgid "This project is no longer available on your devices."
 msgstr "这个项目在你的设备上已不可用。"
 
+msgid "This project isn't linked to a GitHub repository."
+msgstr "此项目未关联 GitHub 仓库。"
+
 msgid "This project's host is offline"
 msgstr "此项目的主机已离线"
+
+msgid "This pull request has no host to act through"
+msgstr "此拉取请求没有可用于操作的主机"
 
 msgid "This pull request is no longer available."
 msgstr "此拉取请求已不可用。"

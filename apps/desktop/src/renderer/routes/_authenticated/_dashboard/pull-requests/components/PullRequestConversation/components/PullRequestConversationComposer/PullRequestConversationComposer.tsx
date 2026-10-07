@@ -51,8 +51,10 @@ export function PullRequestConversationComposer({
 	const submit = () => {
 		if (!canSubmit || submittingRef.current) return;
 		submittingRef.current = true;
-		post.mutateAsync(trimmed).finally(() => {
-			submittingRef.current = false;
+		post.mutate(trimmed, {
+			onSettled: () => {
+				submittingRef.current = false;
+			},
 		});
 	};
 	const placeholder = t({ message: "Leave a comment" });

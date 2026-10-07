@@ -48,13 +48,13 @@ msgstr "„{0}“ bude na GitHubu označen jako uzavřený. Kdykoli ho odsud mů
 
 #. placeholder {0}: data.title
 #. placeholder {1}: data.base.ref
-#. placeholder {2}: mergeMethodLabels[pendingAction.method].toLowerCase()
+#. placeholder {2}: mergeMethodLabels[pendingAction.method]
 msgid "\"{0}\" will be merged into {1} via {2}. Checks haven't passed yet — this overrides them. This can't be undone from here."
 msgstr "„{0}“ bude sloučen do {1} pomocí {2}. Kontroly zatím neprošly — tímto je obejdete. Odsud to nelze vrátit zpět."
 
 #. placeholder {0}: data.title
 #. placeholder {1}: data.base.ref
-#. placeholder {2}: mergeMethodLabels[pendingAction.method].toLowerCase()
+#. placeholder {2}: mergeMethodLabels[pendingAction.method]
 msgid "\"{0}\" will be merged into {1} via {2}. This can't be undone from here."
 msgstr "„{0}“ bude sloučen do {1} pomocí {2}. Odsud to nelze vrátit zpět."
 
@@ -10257,6 +10257,9 @@ msgstr "Žádné aktivní relace terminálu"
 msgid "No agent"
 msgstr "Žádný agent"
 
+msgid "No agent is configured on this host"
+msgstr "Na tomto hostiteli není nakonfigurován žádný agent"
+
 #. placeholder {0}: host.name
 msgid "No agents configured on {0}"
 msgstr "Na {0} nejsou nastavení žádní agenti"
@@ -16757,8 +16760,14 @@ msgstr "Tento profil je právě přetížený"
 msgid "This project is no longer available on your devices."
 msgstr "Tento projekt už na vašich zařízeních není dostupný."
 
+msgid "This project isn't linked to a GitHub repository."
+msgstr "Tento projekt není propojen s repozitářem GitHub."
+
 msgid "This project's host is offline"
 msgstr "Host tohoto projektu je offline"
+
+msgid "This pull request has no host to act through"
+msgstr "Tento pull request nemá hostitele, přes kterého by bylo možné jednat"
 
 msgid "This pull request is no longer available."
 msgstr "Tento pull request už není dostupný."

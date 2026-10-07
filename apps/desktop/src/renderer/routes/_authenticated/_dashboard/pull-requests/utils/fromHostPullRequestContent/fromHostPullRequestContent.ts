@@ -11,6 +11,21 @@ type HostPullRequestContent =
  * whenever it has the repository checked out: it reads as the person, so it
  * needs no GitHub App, which most organizations never install.
  */
+function toReviewDecision(
+	value: string | null | undefined,
+): PullRequestDetail["reviewDecision"] {
+	switch (value) {
+		case "APPROVED":
+			return "approved";
+		case "CHANGES_REQUESTED":
+			return "changes_requested";
+		case "REVIEW_REQUIRED":
+			return "pending";
+		default:
+			return null;
+	}
+}
+
 export function fromHostPullRequestContent(
 	content: HostPullRequestContent,
 ): PullRequestDetail {
@@ -35,7 +50,7 @@ export function fromHostPullRequestContent(
 				: (pullRequestRefFromUrl(content.url)?.repoFullName ?? null),
 		},
 		base: { ref: content.baseBranch },
-		reviewDecision: null,
+		reviewDecision: toReviewDecision(content.reviewDecision),
 		checksStatus: content.checksStatus,
 		checks: content.checks,
 		createdAt: content.createdAt ?? "",

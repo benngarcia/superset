@@ -6,9 +6,12 @@ import { FaGithub } from "react-icons/fa";
 const ICON_CLASS_NAME =
 	"mr-1 inline-block size-[1em] shrink-0 -translate-y-px align-middle";
 
-function hostnameOf(url: string): string | null {
+function parseHttpUrl(url: string): URL | null {
 	try {
-		return new URL(url).hostname.toLowerCase();
+		const parsed = new URL(url);
+		return parsed.protocol === "https:" || parsed.protocol === "http:"
+			? parsed
+			: null;
 	} catch {
 		return null;
 	}
@@ -19,17 +22,21 @@ interface PullRequestLinkIconProps {
 	className?: string;
 }
 
-/** The site a link points at: GitHub's mark for GitHub, else the site's favicon. */
+/**
+ * The site a link points at: GitHub's mark for GitHub, else the favicon
+ * served by the link's own origin. No lookup service sees the hostname.
+ */
 export function PullRequestLinkIcon({
 	url,
 	className,
 }: PullRequestLinkIconProps) {
-	const host = hostnameOf(url);
+	const parsed = parseHttpUrl(url);
+	const host = parsed?.hostname.toLowerCase();
 	const [failed, setFailed] = useState(false);
 	if (host === "github.com" || host?.endsWith(".github.com")) {
 		return <FaGithub aria-hidden className={cn(ICON_CLASS_NAME, className)} />;
 	}
-	if (!host || failed) {
+	if (!parsed || failed) {
 		return (
 			<Globe
 				aria-hidden
@@ -40,7 +47,7 @@ export function PullRequestLinkIcon({
 	}
 	return (
 		<img
-			src={`https://www.google.com/s2/favicons?domain=${encodeURIComponent(host)}&sz=32`}
+			src={`${parsed.origin}/favicon.ico`}
 			alt=""
 			aria-hidden
 			loading="lazy"

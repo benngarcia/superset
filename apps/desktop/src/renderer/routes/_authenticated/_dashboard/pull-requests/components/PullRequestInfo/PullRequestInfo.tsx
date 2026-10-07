@@ -261,7 +261,15 @@ function CheckStatusIcon({ status }: { status: PullRequestCheck["status"] }) {
 }
 
 function CheckRows({ checks }: { checks: PullRequestCheck[] }) {
+	const { t } = useLingui();
 	const [showAll, setShowAll] = useState(false);
+	const statusLabels: Record<PullRequestCheck["status"], string> = {
+		success: t({ message: "Passed" }),
+		failure: t({ message: "Failed" }),
+		pending: t({ message: "In progress" }),
+		skipped: t({ message: "Skipped" }),
+		cancelled: t({ message: "Cancelled" }),
+	};
 	const visible = showAll ? checks : checks.slice(0, CHECKS_VISIBLE_LIMIT);
 	return (
 		<div className="flex min-w-0 flex-col gap-0.5">
@@ -269,6 +277,7 @@ function CheckRows({ checks }: { checks: PullRequestCheck[] }) {
 				const content = (
 					<>
 						<CheckStatusIcon status={check.status} />
+						<span className="sr-only">{statusLabels[check.status]}</span>
 						<span className="min-w-0 flex-1 truncate">{check.name}</span>
 						{check.url ? (
 							<ArrowUpRight className="size-3.5 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover/check:opacity-100" />

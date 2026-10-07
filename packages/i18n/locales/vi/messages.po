@@ -48,13 +48,13 @@ msgstr "\"{0}\" sẽ được đánh dấu là đã đóng trên GitHub. Bạn c
 
 #. placeholder {0}: data.title
 #. placeholder {1}: data.base.ref
-#. placeholder {2}: mergeMethodLabels[pendingAction.method].toLowerCase()
+#. placeholder {2}: mergeMethodLabels[pendingAction.method]
 msgid "\"{0}\" will be merged into {1} via {2}. Checks haven't passed yet — this overrides them. This can't be undone from here."
 msgstr "\"{0}\" sẽ được merge vào {1} bằng {2}. Các check chưa qua — thao tác này bỏ qua chúng. Không thể hoàn tác từ đây."
 
 #. placeholder {0}: data.title
 #. placeholder {1}: data.base.ref
-#. placeholder {2}: mergeMethodLabels[pendingAction.method].toLowerCase()
+#. placeholder {2}: mergeMethodLabels[pendingAction.method]
 msgid "\"{0}\" will be merged into {1} via {2}. This can't be undone from here."
 msgstr "\"{0}\" sẽ được merge vào {1} bằng {2}. Không thể hoàn tác từ đây."
 
@@ -10257,6 +10257,9 @@ msgstr "Không có phiên terminal nào đang chạy"
 msgid "No agent"
 msgstr "Không có agent"
 
+msgid "No agent is configured on this host"
+msgstr "Không có tác nhân nào được cấu hình trên máy chủ này"
+
 #. placeholder {0}: host.name
 msgid "No agents configured on {0}"
 msgstr "Chưa cấu hình agent nào trên {0}"
@@ -16757,8 +16760,14 @@ msgstr "Hồ sơ này hiện đang quá tải"
 msgid "This project is no longer available on your devices."
 msgstr "Dự án này không còn khả dụng trên các thiết bị của bạn."
 
+msgid "This project isn't linked to a GitHub repository."
+msgstr "Dự án này chưa được liên kết với kho lưu trữ GitHub."
+
 msgid "This project's host is offline"
 msgstr "Host của dự án này đang ngoại tuyến"
+
+msgid "This pull request has no host to act through"
+msgstr "Pull request này không có máy chủ để thực hiện thao tác"
 
 msgid "This pull request is no longer available."
 msgstr "Pull request này không còn khả dụng."

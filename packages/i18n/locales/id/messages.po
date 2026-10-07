@@ -48,13 +48,13 @@ msgstr "\"{0}\" akan ditandai ditutup di GitHub. Anda bisa membukanya lagi dari 
 
 #. placeholder {0}: data.title
 #. placeholder {1}: data.base.ref
-#. placeholder {2}: mergeMethodLabels[pendingAction.method].toLowerCase()
+#. placeholder {2}: mergeMethodLabels[pendingAction.method]
 msgid "\"{0}\" will be merged into {1} via {2}. Checks haven't passed yet — this overrides them. This can't be undone from here."
 msgstr "\"{0}\" akan di-merge ke {1} lewat {2}. Check-nya belum lulus — ini menimpanya. Ini tidak bisa dibatalkan dari sini."
 
 #. placeholder {0}: data.title
 #. placeholder {1}: data.base.ref
-#. placeholder {2}: mergeMethodLabels[pendingAction.method].toLowerCase()
+#. placeholder {2}: mergeMethodLabels[pendingAction.method]
 msgid "\"{0}\" will be merged into {1} via {2}. This can't be undone from here."
 msgstr "\"{0}\" akan di-merge ke {1} lewat {2}. Ini tidak bisa dibatalkan dari sini."
 
@@ -10257,6 +10257,9 @@ msgstr "Tidak ada sesi terminal aktif"
 msgid "No agent"
 msgstr "Tanpa agen"
 
+msgid "No agent is configured on this host"
+msgstr "Tidak ada agen yang dikonfigurasi di host ini"
+
 #. placeholder {0}: host.name
 msgid "No agents configured on {0}"
 msgstr "Tidak ada agen yang dikonfigurasi di {0}"
@@ -16757,8 +16760,14 @@ msgstr "Profil ini sedang sibuk"
 msgid "This project is no longer available on your devices."
 msgstr "Proyek ini sudah tidak tersedia di perangkat Anda."
 
+msgid "This project isn't linked to a GitHub repository."
+msgstr "Proyek ini tidak tertaut ke repositori GitHub."
+
 msgid "This project's host is offline"
 msgstr "Host proyek ini sedang offline"
+
+msgid "This pull request has no host to act through"
+msgstr "Pull request ini tidak memiliki host untuk bertindak"
 
 msgid "This pull request is no longer available."
 msgstr "Pull request ini sudah tidak tersedia."
