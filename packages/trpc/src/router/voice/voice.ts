@@ -43,25 +43,28 @@ export const voiceRouter = {
 			}
 			// Undefined when PostHog cannot answer, which refuses: every session
 			// spends on the shared OpenAI key.
-			const enabled = await posthog.isFeatureEnabled(
-				FEATURE_FLAGS.MOBILE_VOICE_MODE,
-				ctx.session.user.id,
-				{
-					personProperties: { email: ctx.session.user.email.toLowerCase() },
-					sendFeatureFlagEvents: false,
-				},
-			);
+			const [enabled, organization] = await Promise.all([
+				posthog.isFeatureEnabled(
+					FEATURE_FLAGS.MOBILE_VOICE_MODE,
+					ctx.session.user.id,
+					{
+						personProperties: { email: ctx.session.user.email.toLowerCase() },
+						sendFeatureFlagEvents: false,
+					},
+				),
+				requireActiveOrgMembership(ctx).then((organizationId) =>
+					db.query.organizations.findFirst({
+						where: eq(organizations.id, organizationId),
+						columns: { name: true },
+					}),
+				),
+			]);
 			if (!enabled) {
 				throw new TRPCError({
 					code: "FORBIDDEN",
 					message: "Voice mode is not enabled for this account.",
 				});
 			}
-			const organizationId = await requireActiveOrgMembership(ctx);
-			const organization = await db.query.organizations.findFirst({
-				where: eq(organizations.id, organizationId),
-				columns: { name: true },
-			});
 			try {
 				const secret = await mintRealtimeClientSecret({
 					apiKey: env.SERVER_OPENAI_API_KEY,

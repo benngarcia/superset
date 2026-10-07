@@ -19,8 +19,6 @@ import type {
 
 const CALLS_URL = "https://api.openai.com/v1/realtime/calls";
 const DATA_CHANNEL = "oai-events";
-/** OpenAI answers a complete offer; trickle is not an option, so wait for candidates. */
-const ICE_GATHERING_TIMEOUT_MS = 1_500;
 
 type Listener<Value> = (value: Value) => void;
 
@@ -38,7 +36,11 @@ export class WebRtcTransport implements RealtimeTransport {
 	private readonly stateListeners = new Set<Listener<TransportState>>();
 	private readonly queued: RealtimeClientEvent[] = [];
 
-	async connect({ clientSecret }: { clientSecret: string }): Promise<void> {
+	async connect({
+		clientSecret,
+	}: {
+		clientSecret: string | Promise<string>;
+	}): Promise<void> {
 		if (this.pc) throw new Error("Transport already connected");
 		this.setState("connecting");
 		try {
@@ -105,13 +107,12 @@ export class WebRtcTransport implements RealtimeTransport {
 
 			const offer = await pc.createOffer({});
 			await pc.setLocalDescription(offer);
-			await this.waitForIceGathering(pc);
 			const sdp = pc.localDescription?.sdp ?? offer.sdp;
 
 			const response = await fetch(CALLS_URL, {
 				method: "POST",
 				headers: {
-					Authorization: `Bearer ${clientSecret}`,
+					Authorization: `Bearer ${await clientSecret}`,
 					"Content-Type": "application/sdp",
 				},
 				body: sdp,
@@ -190,21 +191,6 @@ export class WebRtcTransport implements RealtimeTransport {
 
 	private audioTracks(): MediaStreamTrack[] {
 		return this.localStream?.getAudioTracks() ?? [];
-	}
-
-	private waitForIceGathering(pc: RTCPeerConnection): Promise<void> {
-		if (pc.iceGatheringState === "complete") return Promise.resolve();
-		return new Promise((resolve) => {
-			const done = () => {
-				clearTimeout(timer);
-				pc.onicegatheringstatechange = null;
-				resolve();
-			};
-			const timer = setTimeout(done, ICE_GATHERING_TIMEOUT_MS);
-			pc.onicegatheringstatechange = () => {
-				if (pc.iceGatheringState === "complete") done();
-			};
-		});
 	}
 
 	private teardown(): void {
