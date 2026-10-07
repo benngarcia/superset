@@ -1889,10 +1889,6 @@ msgstr "Sessão de agente iniciada"
 msgid "agent settings"
 msgstr "configurações do agente"
 
-#. placeholder {0}: agent.label
-msgid "Agent: {0}"
-msgstr "Agente: {0}"
-
 msgid "Agents"
 msgstr "Agentes"
 
@@ -2385,6 +2381,9 @@ msgstr "Aprovar edições"
 msgid "Approve for me"
 msgstr "Aprovar por mim"
 
+msgid "approved"
+msgstr "aprovou"
+
 msgid "Approved"
 msgstr "Aprovada"
 
@@ -2460,9 +2459,6 @@ msgstr "Conforme o último relato. O host precisa estar online para atualizar."
 msgid "ascending"
 msgstr "crescente"
 
-msgid "Ask about this pull request"
-msgstr "Pergunte sobre este pull request"
-
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "Peça a um agente para publicar uma no aplicativo para desktop."
 
@@ -2471,9 +2467,6 @@ msgstr "Pedir aprovação"
 
 msgid "Ask for this to be removed"
 msgstr "Pedir remoção"
-
-msgid "Ask the agent"
-msgstr "Perguntar ao agente"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "Peça ao agente, @mencione arquivos, use /comandos"
@@ -4021,6 +4014,9 @@ msgstr "Comentar nesta página"
 msgid "Commented"
 msgstr "Comentada"
 
+msgid "Commenting as your GitHub account"
+msgstr "Comentando como sua conta do GitHub"
+
 msgid "Comments"
 msgstr "Comentários"
 
@@ -4851,9 +4847,6 @@ msgstr "Não foi possível atualizar a branch"
 msgid "serverError.plugins.credentialUnverified"
 msgstr "Não foi possível verificar a credencial: {reason}"
 
-msgid "Couldn't ask about this pull request"
-msgstr "Não foi possível perguntar sobre este pull request"
-
 msgid "Couldn't ask the workspace for a description"
 msgstr "Não foi possível pedir uma descrição ao espaço de trabalho"
 
@@ -4951,6 +4944,9 @@ msgstr "Não foi possível interpretar este diff: {patchParseError}"
 
 msgid "Couldn't permanently delete \"{projectName}\""
 msgstr "Não foi possível excluir \"{projectName}\" permanentemente"
+
+msgid "Couldn't post comment"
+msgstr "Não foi possível publicar o comentário"
 
 msgid "Couldn't post reply"
 msgstr "Não foi possível publicar a resposta"
@@ -7999,6 +7995,9 @@ msgstr "Ocultar as regiões sem alteração"
 msgid "High"
 msgstr "Alta"
 
+msgid "High severity"
+msgstr "Gravidade alta"
+
 msgid "High usage"
 msgstr "Uso alto"
 
@@ -8957,6 +8956,9 @@ msgstr "Saiba como usar scripts"
 msgid "Learn the workflow that fits this repo — parallel workspaces and agent setup."
 msgstr "Conheça o fluxo que combina com este repositório — áreas de trabalho em paralelo e configuração de agentes."
 
+msgid "Leave a comment"
+msgstr "Deixe um comentário"
+
 msgid "Leave a comment (optional)"
 msgstr "Deixe um comentário (opcional)"
 
@@ -9384,6 +9386,9 @@ msgstr "Parece bom"
 msgid "Low"
 msgstr "Baixa"
 
+msgid "Low severity"
+msgstr "Gravidade baixa"
+
 msgid "Lower memory with many terminals open, smoother git in big repos, and less background CPU."
 msgstr "Menos memória com muitos terminais abertos, git mais fluido em repositórios grandes e menos CPU em segundo plano."
 
@@ -9571,6 +9576,9 @@ msgstr "Tempo mediano desde a etapa anterior"
 
 msgid "Medium"
 msgstr "Média"
+
+msgid "Medium severity"
+msgstr "Gravidade média"
 
 msgid "Meet the team behind Superset, building parallel coding agents for developers."
 msgstr "Conheça a equipe por trás do Superset, construindo agentes de código paralelos para desenvolvedores."
@@ -9864,9 +9872,6 @@ msgstr "Mais da metade das mudanças mescladas é escrita por agentes, sem nenhu
 #. js-lingui-explicit-id
 msgid "serverError.plugins.ambiguousConnection"
 msgstr "Mais de uma conexão do {connector} corresponde; desconecte a que você não quer."
-
-msgid "More ways to use this pull request"
-msgstr "Mais formas de usar este pull request"
 
 msgid "most developers"
 msgstr "a maioria das pessoas desenvolvedoras"
@@ -10655,6 +10660,9 @@ msgstr "Nenhum resultado para “{query}”"
 
 msgid "No results found."
 msgstr "Nenhum resultado encontrado."
+
+msgid "No review body."
+msgstr "Sem texto de revisão."
 
 msgid "No Reviewers Assigned"
 msgstr "Nenhuma pessoa revisora designada"
@@ -13296,6 +13304,9 @@ msgstr "Solicitar um teste"
 msgid "Request Body"
 msgstr "Corpo da requisição"
 
+msgid "requested changes"
+msgstr "solicitou alterações"
+
 msgid "Requested Changes"
 msgstr "Alterações solicitadas"
 
@@ -13659,6 +13670,9 @@ msgstr "Revisar estas execuções em Todas as execuções"
 
 msgid "Review thread…"
 msgstr "Thread de revisão…"
+
+msgid "reviewed"
+msgstr "revisou"
 
 msgid "Reviewed by you"
 msgstr "Revisados por você"
@@ -14438,9 +14452,6 @@ msgstr "Enviando"
 msgid "Sending a message to {what}"
 msgstr "Enviando uma mensagem para {what}"
 
-msgid "Sending to agent"
-msgstr "Enviando ao agente"
-
 msgid "Sending..."
 msgstr "Enviando..."
 
@@ -14458,9 +14469,6 @@ msgstr "Enviado"
 
 msgid "Sent to agent"
 msgstr "Enviado ao agente"
-
-msgid "Sent to the pull request's workspace"
-msgstr "Enviado à área de trabalho do pull request"
 
 msgid "Sentry rejected the token"
 msgstr "O Sentry recusou o token"
@@ -15387,9 +15395,6 @@ msgstr "Iniciando"
 
 msgid "Starting {agentLabel}"
 msgstr "Iniciando {agentLabel}"
-
-msgid "Starting a workspace on this pull request"
-msgstr "Iniciando uma área de trabalho neste pull request"
 
 msgid "Starting an agent in {what}"
 msgstr "Iniciando um agente em {what}"

@@ -1889,10 +1889,6 @@ msgstr "智能体会话已开始"
 msgid "agent settings"
 msgstr "智能体设置"
 
-#. placeholder {0}: agent.label
-msgid "Agent: {0}"
-msgstr "智能体：{0}"
-
 msgid "Agents"
 msgstr "智能体"
 
@@ -2385,6 +2381,9 @@ msgstr "批准编辑"
 msgid "Approve for me"
 msgstr "替我批准"
 
+msgid "approved"
+msgstr "已批准"
+
 msgid "Approved"
 msgstr "已批准"
 
@@ -2460,9 +2459,6 @@ msgstr "上次报告的版本。主机必须在线才能更新。"
 msgid "ascending"
 msgstr "升序"
 
-msgid "Ask about this pull request"
-msgstr "询问此拉取请求"
-
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "让智能体从桌面应用中发布一个页面。"
 
@@ -2471,9 +2467,6 @@ msgstr "请求批准"
 
 msgid "Ask for this to be removed"
 msgstr "请求移除"
-
-msgid "Ask the agent"
-msgstr "询问智能体"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "向智能体提问，用 @ 提及文件，运行 /命令"
@@ -4021,6 +4014,9 @@ msgstr "评论这个页面"
 msgid "Commented"
 msgstr "已评论"
 
+msgid "Commenting as your GitHub account"
+msgstr "以你的 GitHub 账号发表评论"
+
 msgid "Comments"
 msgstr "评论"
 
@@ -4851,9 +4847,6 @@ msgstr "无法更新分支"
 msgid "serverError.plugins.credentialUnverified"
 msgstr "无法验证凭据：{reason}"
 
-msgid "Couldn't ask about this pull request"
-msgstr "无法询问此拉取请求"
-
 msgid "Couldn't ask the workspace for a description"
 msgstr "无法请求工作区生成描述"
 
@@ -4951,6 +4944,9 @@ msgstr "无法解析这个差异：{patchParseError}"
 
 msgid "Couldn't permanently delete \"{projectName}\""
 msgstr "无法永久删除“{projectName}”"
+
+msgid "Couldn't post comment"
+msgstr "无法发布评论"
 
 msgid "Couldn't post reply"
 msgstr "无法发布回复"
@@ -7999,6 +7995,9 @@ msgstr "隐藏未更改区域"
 msgid "High"
 msgstr "高"
 
+msgid "High severity"
+msgstr "高严重性"
+
 msgid "High usage"
 msgstr "用量高"
 
@@ -8957,6 +8956,9 @@ msgstr "了解如何使用脚本"
 msgid "Learn the workflow that fits this repo — parallel workspaces and agent setup."
 msgstr "了解适合这个仓库的工作流：并行工作区和智能体配置。"
 
+msgid "Leave a comment"
+msgstr "留下评论"
+
 msgid "Leave a comment (optional)"
 msgstr "留下评论（可选）"
 
@@ -9384,6 +9386,9 @@ msgstr "看起来不错"
 msgid "Low"
 msgstr "低"
 
+msgid "Low severity"
+msgstr "低严重性"
+
 msgid "Lower memory with many terminals open, smoother git in big repos, and less background CPU."
 msgstr "开很多终端时占用更低的内存，大仓库里的git更顺，后台CPU更少。"
 
@@ -9571,6 +9576,9 @@ msgstr "距上一步中位耗时"
 
 msgid "Medium"
 msgstr "中"
+
+msgid "Medium severity"
+msgstr "中严重性"
 
 msgid "Meet the team behind Superset, building parallel coding agents for developers."
 msgstr "认识 Superset 背后的团队，我们为开发者打造并行编码智能体。"
@@ -9864,9 +9872,6 @@ msgstr "超过一半的合并变更由智能体撰写，且无任何人工修改
 #. js-lingui-explicit-id
 msgid "serverError.plugins.ambiguousConnection"
 msgstr "匹配到多个 {connector} 连接；请断开你不需要的那个。"
-
-msgid "More ways to use this pull request"
-msgstr "此拉取请求的更多操作"
 
 msgid "most developers"
 msgstr "多数开发者"
@@ -10655,6 +10660,9 @@ msgstr "没有“{query}”的结果"
 
 msgid "No results found."
 msgstr "未找到结果。"
+
+msgid "No review body."
+msgstr "没有评审内容。"
 
 msgid "No Reviewers Assigned"
 msgstr "未指派审查者"
@@ -13296,6 +13304,9 @@ msgstr "申请试用"
 msgid "Request Body"
 msgstr "请求体"
 
+msgid "requested changes"
+msgstr "请求了更改"
+
 msgid "Requested Changes"
 msgstr "已要求修改"
 
@@ -13659,6 +13670,9 @@ msgstr "在“所有运行”中查看这些运行"
 
 msgid "Review thread…"
 msgstr "审查讨论…"
+
+msgid "reviewed"
+msgstr "进行了评审"
 
 msgid "Reviewed by you"
 msgstr "你已审查"
@@ -14438,9 +14452,6 @@ msgstr "正在发送"
 msgid "Sending a message to {what}"
 msgstr "正在向 {what} 发送消息"
 
-msgid "Sending to agent"
-msgstr "正在发送给智能体"
-
 msgid "Sending..."
 msgstr "正在发送..."
 
@@ -14458,9 +14469,6 @@ msgstr "发送时间"
 
 msgid "Sent to agent"
 msgstr "已发送给智能体"
-
-msgid "Sent to the pull request's workspace"
-msgstr "已发送到拉取请求的工作区"
 
 msgid "Sentry rejected the token"
 msgstr "Sentry拒绝了该令牌"
@@ -15387,9 +15395,6 @@ msgstr "启动中"
 
 msgid "Starting {agentLabel}"
 msgstr "正在启动{agentLabel}"
-
-msgid "Starting a workspace on this pull request"
-msgstr "正在为此拉取请求启动工作区"
 
 msgid "Starting an agent in {what}"
 msgstr "正在 {what} 中启动代理"

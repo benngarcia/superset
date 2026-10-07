@@ -48,9 +48,6 @@ mock.module(`${root}/pull-requests/components/PullRequestActions`, () => ({
 		<div data-testid="header" data-project={projectId ?? ""} />
 	),
 }));
-mock.module(`${root}/pull-requests/components/PullRequestAskComposer`, () => ({
-	PullRequestAskComposer: () => null,
-}));
 mock.module(
 	`${root}/pull-requests/components/PullRequestDetailSkeleton`,
 	() => ({

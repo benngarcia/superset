@@ -26,6 +26,7 @@ export interface PullRequestDetailComment {
 	body: string;
 	createdAt: string;
 	reviewState: string | null;
+	url?: string | null;
 }
 
 export interface PullRequestDetailCommit {

@@ -1,5 +1,9 @@
 import type { ReactNode } from "react";
 import type { PullRequestDetail } from "../../hooks/usePullRequestDetail";
+import {
+	type PullRequestCommentTarget,
+	PullRequestConversation,
+} from "../PullRequestConversation";
 import { PullRequestInfo } from "../PullRequestInfo";
 import { PullRequestItemHeader } from "../PullRequestItemHeader";
 import { PullRequestMarkdown } from "../PullRequestMarkdown";
@@ -7,24 +11,27 @@ import { PullRequestPageBody } from "../PullRequestPageBody";
 
 interface PullRequestSummaryContentProps {
 	data: PullRequestDetail;
-	/** Rendered under the description (the workspace pane's review comments). */
+	/** Where a new conversation comment posts; null hides the composer. */
+	commentTarget?: PullRequestCommentTarget | null;
+	/** Rendered under the conversation (the workspace pane's review threads). */
 	children?: ReactNode;
-	composer?: ReactNode;
 }
 
-/** The Summary tab: header, info rail, description, then whatever the host adds. */
+/** The Summary tab: header, info rail, description, conversation, then whatever the host adds. */
 export function PullRequestSummaryContent({
 	data,
+	commentTarget = null,
 	children,
-	composer,
 }: PullRequestSummaryContentProps) {
 	return (
 		<PullRequestPageBody
 			header={<PullRequestItemHeader data={data} />}
 			info={(variant) => <PullRequestInfo data={data} variant={variant} />}
-			composer={composer}
 		>
 			<PullRequestMarkdown body={data.body} />
+			<div className="mt-6">
+				<PullRequestConversation data={data} commentTarget={commentTarget} />
+			</div>
 			{children ? <div className="mt-8">{children}</div> : null}
 		</PullRequestPageBody>
 	);

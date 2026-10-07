@@ -4,6 +4,7 @@ import { lazy, type ReactNode, Suspense } from "react";
 import { WorkItemDetailState } from "../../../components/WorkItemDetailState";
 import type { PullRequestDetail } from "../../hooks/usePullRequestDetail";
 import { pullRequestReadErrorMessage } from "../../utils/combinePullRequestReadErrors";
+import type { PullRequestCommentTarget } from "../PullRequestConversation";
 import { PullRequestDetailSkeleton } from "../PullRequestDetailSkeleton";
 import type { PullRequestDetailTab } from "../PullRequestDetailTabs";
 import { PullRequestSummaryContent } from "../PullRequestSummaryContent";
@@ -27,7 +28,7 @@ export function PullRequestDetailContent({
 	repoFullName,
 	detail,
 	children,
-	composer,
+	commentTarget = null,
 }: {
 	activeTab: PullRequestDetailTab;
 	projectId: string | null;
@@ -43,8 +44,8 @@ export function PullRequestDetailContent({
 		refetch: () => unknown;
 	};
 	children?: ReactNode;
-	/** Floats over the Summary and Timeline bodies; the diff fills its pane edge to edge. */
-	composer?: ReactNode;
+	/** Where a conversation comment posts; null hides the composer. */
+	commentTarget?: PullRequestCommentTarget | null;
 }) {
 	const { t } = useLingui();
 	if (prNumber === null || (!repoFullName && !projectId && !detail.isLoading)) {
@@ -83,7 +84,10 @@ export function PullRequestDetailContent({
 						activeTab !== "summary" && "hidden",
 					)}
 				>
-					<PullRequestSummaryContent data={detail.data} composer={composer}>
+					<PullRequestSummaryContent
+						data={detail.data}
+						commentTarget={commentTarget}
+					>
 						{children}
 					</PullRequestSummaryContent>
 				</div>
@@ -95,13 +99,6 @@ export function PullRequestDetailContent({
 					<div className="relative flex min-h-0 flex-1 flex-col">
 						<PullRequestTabTitle data={detail.data} />
 						<PullRequestTimelineTab data={detail.data} />
-						{composer ? (
-							<div className="pointer-events-none absolute right-4 bottom-4 left-4 flex justify-end">
-								<div className="pointer-events-auto w-full max-w-[40rem]">
-									{composer}
-								</div>
-							</div>
-						) : null}
 					</div>
 				) : (
 					detailState

@@ -1889,10 +1889,6 @@ msgstr "Relace agenta spuštěna"
 msgid "agent settings"
 msgstr "nastavení agenta"
 
-#. placeholder {0}: agent.label
-msgid "Agent: {0}"
-msgstr "Agent: {0}"
-
 msgid "Agents"
 msgstr "Agenti"
 
@@ -2385,6 +2381,9 @@ msgstr "Schvalovat úpravy"
 msgid "Approve for me"
 msgstr "Schvalovat za mě"
 
+msgid "approved"
+msgstr "schválil(a)"
+
 msgid "Approved"
 msgstr "Schváleno"
 
@@ -2460,9 +2459,6 @@ msgstr "Podle posledního hlášení. Hostitel musí být online, aby se mohl ak
 msgid "ascending"
 msgstr "vzestupně"
 
-msgid "Ask about this pull request"
-msgstr "Zeptat se na tento pull request"
-
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "Požádejte agenta, aby nějakou publikoval z desktopové aplikace."
 
@@ -2471,9 +2467,6 @@ msgstr "Žádat o schválení"
 
 msgid "Ask for this to be removed"
 msgstr "Požádat o odstranění"
-
-msgid "Ask the agent"
-msgstr "Zeptat se agenta"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "Zeptejte se agenta, @zmiňte soubory, spusťte /příkazy"
@@ -4021,6 +4014,9 @@ msgstr "Okomentovat tuto stránku"
 msgid "Commented"
 msgstr "Okomentováno"
 
+msgid "Commenting as your GitHub account"
+msgstr "Komentujete jako svůj účet GitHub"
+
 msgid "Comments"
 msgstr "Komentáře"
 
@@ -4851,9 +4847,6 @@ msgstr "Nepodařilo se aktualizovat větev"
 msgid "serverError.plugins.credentialUnverified"
 msgstr "Přihlašovací údaje se nepodařilo ověřit: {reason}"
 
-msgid "Couldn't ask about this pull request"
-msgstr "Na tento pull request se nepodařilo zeptat"
-
 msgid "Couldn't ask the workspace for a description"
 msgstr "Nepodařilo se požádat pracovní prostor o popis"
 
@@ -4951,6 +4944,9 @@ msgstr "Tento diff se nepodařilo zpracovat: {patchParseError}"
 
 msgid "Couldn't permanently delete \"{projectName}\""
 msgstr "„{projectName}“ se nepodařilo trvale smazat"
+
+msgid "Couldn't post comment"
+msgstr "Komentář se nepodařilo odeslat"
 
 msgid "Couldn't post reply"
 msgstr "Nepodařilo se odeslat odpověď"
@@ -7999,6 +7995,9 @@ msgstr "Skrýt nezměněné části"
 msgid "High"
 msgstr "Vysoká"
 
+msgid "High severity"
+msgstr "Vysoká závažnost"
+
 msgid "High usage"
 msgstr "Vysoké využití"
 
@@ -8957,6 +8956,9 @@ msgstr "Jak používat skripty"
 msgid "Learn the workflow that fits this repo — parallel workspaces and agent setup."
 msgstr "Poznejte postup, který k tomuto repozitáři sedí — paralelní pracovní prostory a nastavení agentů."
 
+msgid "Leave a comment"
+msgstr "Napsat komentář"
+
 msgid "Leave a comment (optional)"
 msgstr "Zanechte komentář (volitelné)"
 
@@ -9384,6 +9386,9 @@ msgstr "Vypadá dobře"
 msgid "Low"
 msgstr "Nízká"
 
+msgid "Low severity"
+msgstr "Nízká závažnost"
+
 msgid "Lower memory with many terminals open, smoother git in big repos, and less background CPU."
 msgstr "Nižší spotřeba paměti při mnoha otevřených terminálech, plynulejší git ve velkých repozitářích a méně CPU na pozadí."
 
@@ -9571,6 +9576,9 @@ msgstr "Medián času od předchozího"
 
 msgid "Medium"
 msgstr "Střední"
+
+msgid "Medium severity"
+msgstr "Střední závažnost"
 
 msgid "Meet the team behind Superset, building parallel coding agents for developers."
 msgstr "Poznejte tým za Supersetem, který staví paralelní kódovací agenty pro vývojáře."
@@ -9864,9 +9872,6 @@ msgstr "Víc než polovinu sloučených změn napíší agenti bez jediné lidsk
 #. js-lingui-explicit-id
 msgid "serverError.plugins.ambiguousConnection"
 msgstr "Odpovídá více připojení {connector}; odpojte to, které nechcete."
-
-msgid "More ways to use this pull request"
-msgstr "Další možnosti práce s tímto pull requestem"
 
 msgid "most developers"
 msgstr "většina vývojářů"
@@ -10655,6 +10660,9 @@ msgstr "Žádné výsledky pro „{query}“"
 
 msgid "No results found."
 msgstr "Nenalezeny žádné výsledky."
+
+msgid "No review body."
+msgstr "Žádný text revize."
 
 msgid "No Reviewers Assigned"
 msgstr "Nepřiřazeni žádní recenzenti"
@@ -13296,6 +13304,9 @@ msgstr "Požádat o zkušební verzi"
 msgid "Request Body"
 msgstr "Tělo požadavku"
 
+msgid "requested changes"
+msgstr "požádal(a) o změny"
+
 msgid "Requested Changes"
 msgstr "Vyžádal změny"
 
@@ -13659,6 +13670,9 @@ msgstr "Zkontrolovat tyto běhy v sekci Všechny běhy"
 
 msgid "Review thread…"
 msgstr "Vlákno revize…"
+
+msgid "reviewed"
+msgstr "zrevidoval(a)"
 
 msgid "Reviewed by you"
 msgstr "S vaší revizí"
@@ -14438,9 +14452,6 @@ msgstr "Odesílám"
 msgid "Sending a message to {what}"
 msgstr "Odesílá se zpráva do {what}"
 
-msgid "Sending to agent"
-msgstr "Odesílání agentovi"
-
 msgid "Sending..."
 msgstr "Odesílám..."
 
@@ -14458,9 +14469,6 @@ msgstr "Odesláno"
 
 msgid "Sent to agent"
 msgstr "Odesláno agentovi"
-
-msgid "Sent to the pull request's workspace"
-msgstr "Odesláno do pracovního prostoru pull requestu"
 
 msgid "Sentry rejected the token"
 msgstr "Sentry token odmítl"
@@ -15387,9 +15395,6 @@ msgstr "Spouštím"
 
 msgid "Starting {agentLabel}"
 msgstr "Spouštím {agentLabel}"
-
-msgid "Starting a workspace on this pull request"
-msgstr "Spouští se pracovní prostor pro tento pull request"
 
 msgid "Starting an agent in {what}"
 msgstr "Spouští se agent v {what}"

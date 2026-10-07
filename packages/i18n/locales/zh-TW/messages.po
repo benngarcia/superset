@@ -1889,10 +1889,6 @@ msgstr "代理程式會話已開始"
 msgid "agent settings"
 msgstr "代理程式設定"
 
-#. placeholder {0}: agent.label
-msgid "Agent: {0}"
-msgstr "代理程式：{0}"
-
 msgid "Agents"
 msgstr "代理程式"
 
@@ -2385,6 +2381,9 @@ msgstr "批准編輯"
 msgid "Approve for me"
 msgstr "替我批准"
 
+msgid "approved"
+msgstr "已核准"
+
 msgid "Approved"
 msgstr "已批准"
 
@@ -2460,9 +2459,6 @@ msgstr "上次回報的版本。主機必須在線上才能更新。"
 msgid "ascending"
 msgstr "升序"
 
-msgid "Ask about this pull request"
-msgstr "詢問此拉取請求"
-
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "請代理程式從桌面應用程式發佈一個頁面。"
 
@@ -2471,9 +2467,6 @@ msgstr "要求批准"
 
 msgid "Ask for this to be removed"
 msgstr "請求移除"
-
-msgid "Ask the agent"
-msgstr "詢問代理程式"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "向代理提問，用 @ 提及檔案，執行 /命令"
@@ -4021,6 +4014,9 @@ msgstr "評論這個頁面"
 msgid "Commented"
 msgstr "已評論"
 
+msgid "Commenting as your GitHub account"
+msgstr "以你的 GitHub 帳號發表留言"
+
 msgid "Comments"
 msgstr "評論"
 
@@ -4851,9 +4847,6 @@ msgstr "無法更新分支"
 msgid "serverError.plugins.credentialUnverified"
 msgstr "無法驗證憑證：{reason}"
 
-msgid "Couldn't ask about this pull request"
-msgstr "無法詢問此拉取請求"
-
 msgid "Couldn't ask the workspace for a description"
 msgstr "無法請求工作區產生描述"
 
@@ -4951,6 +4944,9 @@ msgstr "無法解析這個差異：{patchParseError}"
 
 msgid "Couldn't permanently delete \"{projectName}\""
 msgstr "無法永久刪除「{projectName}」"
+
+msgid "Couldn't post comment"
+msgstr "無法發佈留言"
 
 msgid "Couldn't post reply"
 msgstr "無法釋出回覆"
@@ -7999,6 +7995,9 @@ msgstr "隱藏未更改區域"
 msgid "High"
 msgstr "高"
 
+msgid "High severity"
+msgstr "高嚴重性"
+
 msgid "High usage"
 msgstr "用量高"
 
@@ -8957,6 +8956,9 @@ msgstr "瞭解如何使用指令碼"
 msgid "Learn the workflow that fits this repo — parallel workspaces and agent setup."
 msgstr "瞭解適合這個儲存庫的工作流：並行工作區和代理程式配置。"
 
+msgid "Leave a comment"
+msgstr "留下留言"
+
 msgid "Leave a comment (optional)"
 msgstr "留下評論（可選）"
 
@@ -9384,6 +9386,9 @@ msgstr "看起來不錯"
 msgid "Low"
 msgstr "低"
 
+msgid "Low severity"
+msgstr "低嚴重性"
+
 msgid "Lower memory with many terminals open, smoother git in big repos, and less background CPU."
 msgstr "開很多終端時佔用更低的記憶體，大儲存庫裡的git更順，背景CPU更少。"
 
@@ -9571,6 +9576,9 @@ msgstr "距上一步中位耗時"
 
 msgid "Medium"
 msgstr "中"
+
+msgid "Medium severity"
+msgstr "中嚴重性"
 
 msgid "Meet the team behind Superset, building parallel coding agents for developers."
 msgstr "認識 Superset 背後的團隊，為開發者打造平行編碼代理。"
@@ -9864,9 +9872,6 @@ msgstr "超過一半的合併變更由代理程式撰寫，且無任何人工修
 #. js-lingui-explicit-id
 msgid "serverError.plugins.ambiguousConnection"
 msgstr "符合多個 {connector} 連接；請中斷你不需要的那個。"
-
-msgid "More ways to use this pull request"
-msgstr "此拉取請求的更多操作"
 
 msgid "most developers"
 msgstr "多數開發者"
@@ -10655,6 +10660,9 @@ msgstr "沒有「{query}」的結果"
 
 msgid "No results found."
 msgstr "未找到結果。"
+
+msgid "No review body."
+msgstr "沒有審查內容。"
 
 msgid "No Reviewers Assigned"
 msgstr "未指派審查者"
@@ -13296,6 +13304,9 @@ msgstr "申請試用"
 msgid "Request Body"
 msgstr "請求體"
 
+msgid "requested changes"
+msgstr "要求變更"
+
 msgid "Requested Changes"
 msgstr "已要求修改"
 
@@ -13659,6 +13670,9 @@ msgstr "在「所有執行」中檢視這些執行"
 
 msgid "Review thread…"
 msgstr "審查討論…"
+
+msgid "reviewed"
+msgstr "已審查"
 
 msgid "Reviewed by you"
 msgstr "你已審查"
@@ -14438,9 +14452,6 @@ msgstr "正在傳送"
 msgid "Sending a message to {what}"
 msgstr "正在傳送訊息至 {what}"
 
-msgid "Sending to agent"
-msgstr "正在傳送給代理程式"
-
 msgid "Sending..."
 msgstr "正在傳送..."
 
@@ -14458,9 +14469,6 @@ msgstr "傳送時間"
 
 msgid "Sent to agent"
 msgstr "已傳送給代理程式"
-
-msgid "Sent to the pull request's workspace"
-msgstr "已傳送至拉取請求的工作區"
 
 msgid "Sentry rejected the token"
 msgstr "Sentry拒絕了該權杖"
@@ -15387,9 +15395,6 @@ msgstr "啟動中"
 
 msgid "Starting {agentLabel}"
 msgstr "正在啟動{agentLabel}"
-
-msgid "Starting a workspace on this pull request"
-msgstr "正在為此拉取請求啟動工作區"
 
 msgid "Starting an agent in {what}"
 msgstr "正在 {what} 中啟動代理程式"

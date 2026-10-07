@@ -109,6 +109,8 @@ export interface PullRequestContentComment {
 	createdAt: string;
 	/** GitHub review state (APPROVED, CHANGES_REQUESTED, COMMENTED…); null for plain comments. */
 	reviewState: string | null;
+	/** The comment's own page on GitHub; reviews carry none. */
+	url: string | null;
 }
 
 export interface PullRequestContentCommit {
@@ -198,6 +200,7 @@ function toContent(
 							body: comment.body ?? "",
 							createdAt: comment.createdAt,
 							reviewState: null,
+							url: comment.url?.trim() || null,
 						},
 					]
 				: [],
@@ -212,6 +215,7 @@ function toContent(
 							body: review.body ?? "",
 							createdAt: review.submittedAt,
 							reviewState: review.state?.trim() || null,
+							url: null,
 						},
 					]
 				: [],

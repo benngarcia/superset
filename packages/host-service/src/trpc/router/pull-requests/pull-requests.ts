@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { protectedProcedure, router } from "../../index";
+import { addComment } from "./procedures/add-comment";
 import { createForWorkspace } from "./procedures/create-for-workspace";
 import { getContent } from "./procedures/get-content";
 import { getContentByRepo } from "./procedures/get-content-by-repo";
@@ -72,6 +73,7 @@ export const pullRequestsRouter = router({
 			);
 			return { ok: true };
 		}),
+	addComment,
 	createForWorkspace,
 	getContent,
 	getContentByRepo,

@@ -1889,10 +1889,6 @@ msgstr "Sesi agen dimulai"
 msgid "agent settings"
 msgstr "pengaturan agen"
 
-#. placeholder {0}: agent.label
-msgid "Agent: {0}"
-msgstr "Agen: {0}"
-
 msgid "Agents"
 msgstr "Agen"
 
@@ -2385,6 +2381,9 @@ msgstr "Setujui suntingan"
 msgid "Approve for me"
 msgstr "Setujui untuk saya"
 
+msgid "approved"
+msgstr "menyetujui"
+
 msgid "Approved"
 msgstr "Disetujui"
 
@@ -2460,9 +2459,6 @@ msgstr "Sesuai laporan terakhir. Host harus online untuk memperbarui."
 msgid "ascending"
 msgstr "menaik"
 
-msgid "Ask about this pull request"
-msgstr "Tanyakan tentang pull request ini"
-
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "Minta agen untuk memublikasikan satu dari aplikasi desktop."
 
@@ -2471,9 +2467,6 @@ msgstr "Minta persetujuan"
 
 msgid "Ask for this to be removed"
 msgstr "Minta ini dihapus"
-
-msgid "Ask the agent"
-msgstr "Tanya agen"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "Tanya agen, @sebut berkas, jalankan /perintah"
@@ -4021,6 +4014,9 @@ msgstr "Komentari halaman ini"
 msgid "Commented"
 msgstr "Dikomentari"
 
+msgid "Commenting as your GitHub account"
+msgstr "Berkomentar sebagai akun GitHub Anda"
+
 msgid "Comments"
 msgstr "Komentar"
 
@@ -4851,9 +4847,6 @@ msgstr "Tidak bisa memperbarui branch"
 msgid "serverError.plugins.credentialUnverified"
 msgstr "Tidak dapat memverifikasi kredensial: {reason}"
 
-msgid "Couldn't ask about this pull request"
-msgstr "Tidak dapat bertanya tentang pull request ini"
-
 msgid "Couldn't ask the workspace for a description"
 msgstr "Tidak dapat meminta deskripsi dari workspace"
 
@@ -4951,6 +4944,9 @@ msgstr "Tidak bisa mengurai diff ini: {patchParseError}"
 
 msgid "Couldn't permanently delete \"{projectName}\""
 msgstr "Tidak dapat menghapus \"{projectName}\" secara permanen"
+
+msgid "Couldn't post comment"
+msgstr "Tidak dapat memposting komentar"
 
 msgid "Couldn't post reply"
 msgstr "Tidak bisa mengirim balasan"
@@ -7999,6 +7995,9 @@ msgstr "Sembunyikan bagian yang tidak berubah"
 msgid "High"
 msgstr "Tinggi"
 
+msgid "High severity"
+msgstr "Tingkat keparahan tinggi"
+
 msgid "High usage"
 msgstr "Penggunaan tinggi"
 
@@ -8957,6 +8956,9 @@ msgstr "Pelajari cara memakai skrip"
 msgid "Learn the workflow that fits this repo — parallel workspaces and agent setup."
 msgstr "Pelajari alur kerja yang cocok untuk repo ini — workspace paralel dan penyiapan agen."
 
+msgid "Leave a comment"
+msgstr "Tinggalkan komentar"
+
 msgid "Leave a comment (optional)"
 msgstr "Tinggalkan komentar (opsional)"
 
@@ -9384,6 +9386,9 @@ msgstr "Terlihat bagus"
 msgid "Low"
 msgstr "Rendah"
 
+msgid "Low severity"
+msgstr "Tingkat keparahan rendah"
+
 msgid "Lower memory with many terminals open, smoother git in big repos, and less background CPU."
 msgstr "Memori lebih rendah saat banyak terminal terbuka, git lebih mulus di repo besar, dan CPU latar belakang lebih hemat."
 
@@ -9571,6 +9576,9 @@ msgstr "Waktu median dari langkah sebelumnya"
 
 msgid "Medium"
 msgstr "Sedang"
+
+msgid "Medium severity"
+msgstr "Tingkat keparahan sedang"
 
 msgid "Meet the team behind Superset, building parallel coding agents for developers."
 msgstr "Kenali tim di balik Superset, yang membangun agen coding paralel untuk developer."
@@ -9864,9 +9872,6 @@ msgstr "Lebih dari separuh perubahan yang di-merge ditulis agen tanpa suntingan 
 #. js-lingui-explicit-id
 msgid "serverError.plugins.ambiguousConnection"
 msgstr "Lebih dari satu koneksi {connector} cocok; putuskan yang tidak Anda inginkan."
-
-msgid "More ways to use this pull request"
-msgstr "Cara lain menggunakan pull request ini"
 
 msgid "most developers"
 msgstr "sebagian besar developer"
@@ -10655,6 +10660,9 @@ msgstr "Tidak ada hasil untuk “{query}”"
 
 msgid "No results found."
 msgstr "Tidak ada hasil ditemukan."
+
+msgid "No review body."
+msgstr "Tidak ada isi ulasan."
 
 msgid "No Reviewers Assigned"
 msgstr "Tidak Ada Reviewer yang Ditugaskan"
@@ -13296,6 +13304,9 @@ msgstr "Minta uji coba"
 msgid "Request Body"
 msgstr "Body Permintaan"
 
+msgid "requested changes"
+msgstr "meminta perubahan"
+
 msgid "Requested Changes"
 msgstr "Meminta Perubahan"
 
@@ -13659,6 +13670,9 @@ msgstr "Tinjau run ini di Semua run"
 
 msgid "Review thread…"
 msgstr "Thread review…"
+
+msgid "reviewed"
+msgstr "mengulas"
 
 msgid "Reviewed by you"
 msgstr "Sudah Anda review"
@@ -14438,9 +14452,6 @@ msgstr "Mengirim"
 msgid "Sending a message to {what}"
 msgstr "Mengirim pesan ke {what}"
 
-msgid "Sending to agent"
-msgstr "Mengirim ke agen"
-
 msgid "Sending..."
 msgstr "Mengirim..."
 
@@ -14458,9 +14469,6 @@ msgstr "Dikirim"
 
 msgid "Sent to agent"
 msgstr "Dikirim ke agen"
-
-msgid "Sent to the pull request's workspace"
-msgstr "Dikirim ke workspace pull request"
 
 msgid "Sentry rejected the token"
 msgstr "Sentry menolak tokennya"
@@ -15387,9 +15395,6 @@ msgstr "Memulai"
 
 msgid "Starting {agentLabel}"
 msgstr "Memulai {agentLabel}"
-
-msgid "Starting a workspace on this pull request"
-msgstr "Memulai workspace untuk pull request ini"
 
 msgid "Starting an agent in {what}"
 msgstr "Memulai agen di {what}"

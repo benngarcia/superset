@@ -1889,10 +1889,6 @@ msgstr "エージェントセッションを開始しました"
 msgid "agent settings"
 msgstr "エージェント設定"
 
-#. placeholder {0}: agent.label
-msgid "Agent: {0}"
-msgstr "エージェント: {0}"
-
 msgid "Agents"
 msgstr "エージェント"
 
@@ -2385,6 +2381,9 @@ msgstr "編集を承認"
 msgid "Approve for me"
 msgstr "自動で承認"
 
+msgid "approved"
+msgstr "が承認しました"
+
 msgid "Approved"
 msgstr "承認"
 
@@ -2460,9 +2459,6 @@ msgstr "最後に報告された値です。更新するにはホストがオン
 msgid "ascending"
 msgstr "昇順"
 
-msgid "Ask about this pull request"
-msgstr "このプルリクエストについて質問"
-
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "デスクトップアプリからエージェントに公開してもらいましょう。"
 
@@ -2471,9 +2467,6 @@ msgstr "承認を求める"
 
 msgid "Ask for this to be removed"
 msgstr "削除を依頼"
-
-msgid "Ask the agent"
-msgstr "エージェントに質問"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "エージェントに依頼、@でファイルを指定、/コマンドを実行"
@@ -4021,6 +4014,9 @@ msgstr "このページにコメント"
 msgid "Commented"
 msgstr "コメント"
 
+msgid "Commenting as your GitHub account"
+msgstr "GitHubアカウントでコメントします"
+
 msgid "Comments"
 msgstr "コメント"
 
@@ -4851,9 +4847,6 @@ msgstr "ブランチを更新できませんでした"
 msgid "serverError.plugins.credentialUnverified"
 msgstr "認証情報を確認できませんでした: {reason}"
 
-msgid "Couldn't ask about this pull request"
-msgstr "このプルリクエストについて質問できませんでした"
-
 msgid "Couldn't ask the workspace for a description"
 msgstr "ワークスペースに説明を依頼できませんでした"
 
@@ -4951,6 +4944,9 @@ msgstr "この差分を解析できませんでした: {patchParseError}"
 
 msgid "Couldn't permanently delete \"{projectName}\""
 msgstr "「{projectName}」を完全に削除できませんでした"
+
+msgid "Couldn't post comment"
+msgstr "コメントを投稿できませんでした"
 
 msgid "Couldn't post reply"
 msgstr "返信を投稿できませんでした"
@@ -7999,6 +7995,9 @@ msgstr "変更のない領域を隠す"
 msgid "High"
 msgstr "高"
 
+msgid "High severity"
+msgstr "重要度: 高"
+
 msgid "High usage"
 msgstr "使用量高"
 
@@ -8957,6 +8956,9 @@ msgstr "スクリプトの使い方を見る"
 msgid "Learn the workflow that fits this repo — parallel workspaces and agent setup."
 msgstr "このリポジトリに合うワークフロー — 並列ワークスペースとエージェント設定を学びます。"
 
+msgid "Leave a comment"
+msgstr "コメントを残す"
+
 msgid "Leave a comment (optional)"
 msgstr "コメントを入力(任意)"
 
@@ -9384,6 +9386,9 @@ msgstr "良さそう"
 msgid "Low"
 msgstr "低"
 
+msgid "Low severity"
+msgstr "重要度: 低"
+
 msgid "Lower memory with many terminals open, smoother git in big repos, and less background CPU."
 msgstr "ターミナルを多数開いてもメモリ消費を抑え、大きなリポジトリでのgitを滑らかにし、バックグラウンドのCPU使用を減らします。"
 
@@ -9571,6 +9576,9 @@ msgstr "前ステップからの時間の中央値"
 
 msgid "Medium"
 msgstr "中"
+
+msgid "Medium severity"
+msgstr "重要度: 中"
 
 msgid "Meet the team behind Superset, building parallel coding agents for developers."
 msgstr "開発者向けの並列コーディングエージェントを作る、Supersetのチームを紹介します。"
@@ -9864,9 +9872,6 @@ msgstr "マージされた変更の半数超が、人間の編集なしにエー
 #. js-lingui-explicit-id
 msgid "serverError.plugins.ambiguousConnection"
 msgstr "{connector} の接続が複数一致します。不要なほうの接続を解除してください。"
-
-msgid "More ways to use this pull request"
-msgstr "このプルリクエストのその他の操作"
 
 msgid "most developers"
 msgstr "大半の開発者"
@@ -10655,6 +10660,9 @@ msgstr "「{query}」に一致する結果はありません"
 
 msgid "No results found."
 msgstr "結果が見つかりません。"
+
+msgid "No review body."
+msgstr "レビュー本文はありません。"
 
 msgid "No Reviewers Assigned"
 msgstr "レビュアーの割り当てなし"
@@ -13296,6 +13304,9 @@ msgstr "トライアルを申し込む"
 msgid "Request Body"
 msgstr "リクエストボディ"
 
+msgid "requested changes"
+msgstr "が変更をリクエストしました"
+
 msgid "Requested Changes"
 msgstr "変更をリクエスト"
 
@@ -13659,6 +13670,9 @@ msgstr "「すべての実行」でこれらの実行を確認"
 
 msgid "Review thread…"
 msgstr "レビュースレッド…"
+
+msgid "reviewed"
+msgstr "がレビューしました"
 
 msgid "Reviewed by you"
 msgstr "自分がレビュー済み"
@@ -14438,9 +14452,6 @@ msgstr "送信中"
 msgid "Sending a message to {what}"
 msgstr "{what} にメッセージを送信中"
 
-msgid "Sending to agent"
-msgstr "エージェントに送信中"
-
 msgid "Sending..."
 msgstr "送信中..."
 
@@ -14458,9 +14469,6 @@ msgstr "送信日"
 
 msgid "Sent to agent"
 msgstr "エージェントに送信しました"
-
-msgid "Sent to the pull request's workspace"
-msgstr "プルリクエストのワークスペースに送信しました"
 
 msgid "Sentry rejected the token"
 msgstr "Sentryがトークンを拒否しました"
@@ -15387,9 +15395,6 @@ msgstr "起動中"
 
 msgid "Starting {agentLabel}"
 msgstr "{agentLabel}を起動中"
-
-msgid "Starting a workspace on this pull request"
-msgstr "このプルリクエストでワークスペースを開始しています"
 
 msgid "Starting an agent in {what}"
 msgstr "{what} でエージェントを起動中"

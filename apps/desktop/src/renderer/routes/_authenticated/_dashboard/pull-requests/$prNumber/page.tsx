@@ -4,7 +4,6 @@ import { useHostUrl } from "renderer/hooks/host-service/useHostTargetUrl";
 import { PageHeader } from "renderer/routes/_authenticated/_dashboard/components/PageHeader";
 import { useProjectHost } from "renderer/routes/_authenticated/_dashboard/hooks/useProjectHost";
 import { PullRequestActions } from "renderer/routes/_authenticated/_dashboard/pull-requests/components/PullRequestActions";
-import { PullRequestAskComposer } from "renderer/routes/_authenticated/_dashboard/pull-requests/components/PullRequestAskComposer";
 import { PullRequestDetailContent } from "renderer/routes/_authenticated/_dashboard/pull-requests/components/PullRequestDetailContent";
 import {
 	type PullRequestDetailTab,
@@ -41,15 +40,10 @@ function PullRequestDetailPage() {
 		data?.additions !== undefined && data.deletions !== undefined
 			? { additions: data.additions, deletions: data.deletions }
 			: null;
-	const composer =
-		data && detail.projectId && hostId && hostUrl ? (
-			<PullRequestAskComposer
-				projectId={detail.projectId}
-				hostId={hostId}
-				hostUrl={hostUrl}
-				data={data}
-			/>
-		) : null;
+	const commentTarget =
+		detail.projectId && hostUrl && prNumber !== null
+			? { projectId: detail.projectId, hostUrl, prNumber }
+			: null;
 
 	// The list pane is always visible in the split view (or reachable via the
 	// list-collapse toggle in the shared layout), so there's no "back"
@@ -88,7 +82,7 @@ function PullRequestDetailPage() {
 				prNumber={prNumber}
 				hostUrl={hostUrl}
 				hostId={hostId}
-				composer={composer}
+				commentTarget={commentTarget}
 			/>
 		</div>
 	);

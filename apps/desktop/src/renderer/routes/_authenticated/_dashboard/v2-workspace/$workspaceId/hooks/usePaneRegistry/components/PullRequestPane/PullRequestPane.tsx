@@ -5,7 +5,6 @@ import {
 	pullRequestRefFromUrl,
 } from "renderer/lib/github/pullRequestRef";
 import { PullRequestActions } from "renderer/routes/_authenticated/_dashboard/pull-requests/components/PullRequestActions";
-import { PullRequestAskComposer } from "renderer/routes/_authenticated/_dashboard/pull-requests/components/PullRequestAskComposer";
 import { PullRequestDetailContent } from "renderer/routes/_authenticated/_dashboard/pull-requests/components/PullRequestDetailContent";
 import {
 	type PullRequestDetailTab,
@@ -69,15 +68,8 @@ export function PullRequestPane({
 		detail.data?.additions !== undefined && detail.data.deletions !== undefined
 			? { additions: detail.data.additions, deletions: detail.data.deletions }
 			: null;
-	const composer =
-		detail.data && projectId && hostId && hostUrl ? (
-			<PullRequestAskComposer
-				projectId={projectId}
-				hostId={hostId}
-				hostUrl={hostUrl}
-				data={detail.data}
-			/>
-		) : null;
+	const commentTarget =
+		projectId && hostUrl ? { projectId, hostUrl, prNumber: data.number } : null;
 
 	return (
 		<div className="flex h-full w-full min-h-0 min-w-0 flex-col">
@@ -107,7 +99,7 @@ export function PullRequestPane({
 				prNumber={data.number}
 				hostUrl={workspaceHostUrl}
 				hostId={workspace.hostId}
-				composer={composer}
+				commentTarget={commentTarget}
 			>
 				{isLinkedPR ? (
 					<PullRequestComments

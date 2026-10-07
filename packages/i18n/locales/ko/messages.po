@@ -1889,10 +1889,6 @@ msgstr "에이전트 세션을 시작했습니다"
 msgid "agent settings"
 msgstr "에이전트 설정"
 
-#. placeholder {0}: agent.label
-msgid "Agent: {0}"
-msgstr "에이전트: {0}"
-
 msgid "Agents"
 msgstr "에이전트"
 
@@ -2385,6 +2381,9 @@ msgstr "편집 승인"
 msgid "Approve for me"
 msgstr "대신 승인"
 
+msgid "approved"
+msgstr "승인함"
+
 msgid "Approved"
 msgstr "승인됨"
 
@@ -2460,9 +2459,6 @@ msgstr "마지막으로 보고된 값입니다. 업데이트하려면 호스트�
 msgid "ascending"
 msgstr "오름차순"
 
-msgid "Ask about this pull request"
-msgstr "이 풀 리퀘스트에 대해 질문하기"
-
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "데스크톱 앱에서 에이전트에게 게시를 요청하세요."
 
@@ -2471,9 +2467,6 @@ msgstr "승인 요청"
 
 msgid "Ask for this to be removed"
 msgstr "삭제 요청"
-
-msgid "Ask the agent"
-msgstr "에이전트에게 질문"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "에이전트에게 요청하고, @로 파일을 언급하고, /명령을 실행하세요"
@@ -4021,6 +4014,9 @@ msgstr "이 페이지에 댓글 달기"
 msgid "Commented"
 msgstr "댓글 남김"
 
+msgid "Commenting as your GitHub account"
+msgstr "GitHub 계정으로 댓글을 남깁니다"
+
 msgid "Comments"
 msgstr "댓글"
 
@@ -4851,9 +4847,6 @@ msgstr "브랜치를 업데이트할 수 없습니다"
 msgid "serverError.plugins.credentialUnverified"
 msgstr "자격 증명을 확인하지 못했습니다: {reason}"
 
-msgid "Couldn't ask about this pull request"
-msgstr "이 풀 리퀘스트에 대해 질문할 수 없습니다"
-
 msgid "Couldn't ask the workspace for a description"
 msgstr "워크스페이스에 설명을 요청하지 못했습니다"
 
@@ -4951,6 +4944,9 @@ msgstr "이 차이를 해석하지 못했습니다: {patchParseError}"
 
 msgid "Couldn't permanently delete \"{projectName}\""
 msgstr "\"{projectName}\"을(를) 영구 삭제하지 못했습니다"
+
+msgid "Couldn't post comment"
+msgstr "댓글을 게시할 수 없습니다"
 
 msgid "Couldn't post reply"
 msgstr "답글을 게시하지 못했습니다"
@@ -7999,6 +7995,9 @@ msgstr "변경되지 않은 부분 숨기기"
 msgid "High"
 msgstr "높음"
 
+msgid "High severity"
+msgstr "심각도 높음"
+
 msgid "High usage"
 msgstr "사용량 높음"
 
@@ -8957,6 +8956,9 @@ msgstr "스크립트 사용법 알아보기"
 msgid "Learn the workflow that fits this repo — parallel workspaces and agent setup."
 msgstr "이 리포지토리에 맞는 워크플로 익히기 — 병렬 워크스페이스와 에이전트 설정."
 
+msgid "Leave a comment"
+msgstr "댓글 남기기"
+
 msgid "Leave a comment (optional)"
 msgstr "코멘트 남기기 (선택 사항)"
 
@@ -9384,6 +9386,9 @@ msgstr "좋아 보입니다"
 msgid "Low"
 msgstr "낮음"
 
+msgid "Low severity"
+msgstr "심각도 낮음"
+
 msgid "Lower memory with many terminals open, smoother git in big repos, and less background CPU."
 msgstr "터미널을 많이 열어도 메모리를 덜 쓰고, 큰 리포지토리에서 git이 더 매끄럽고, 백그라운드 CPU 사용이 줄어듭니다."
 
@@ -9571,6 +9576,9 @@ msgstr "이전 단계로부터 중앙값 시간"
 
 msgid "Medium"
 msgstr "보통"
+
+msgid "Medium severity"
+msgstr "심각도 보통"
 
 msgid "Meet the team behind Superset, building parallel coding agents for developers."
 msgstr "개발자를 위한 병렬 코딩 에이전트를 만드는 Superset 팀을 만나보세요."
@@ -9864,9 +9872,6 @@ msgstr "머지된 변경의 절반 이상을 사람의 수정 없이 에이전�
 #. js-lingui-explicit-id
 msgid "serverError.plugins.ambiguousConnection"
 msgstr "{connector} 연결이 두 개 이상 일치합니다. 원하지 않는 연결을 해제하세요."
-
-msgid "More ways to use this pull request"
-msgstr "이 풀 리퀘스트의 다른 작업"
 
 msgid "most developers"
 msgstr "대부분의 개발자"
@@ -10655,6 +10660,9 @@ msgstr "“{query}”에 대한 결과가 없습니다"
 
 msgid "No results found."
 msgstr "결과를 찾을 수 없습니다."
+
+msgid "No review body."
+msgstr "리뷰 본문이 없습니다."
 
 msgid "No Reviewers Assigned"
 msgstr "지정된 리뷰어 없음"
@@ -13296,6 +13304,9 @@ msgstr "체험판 요청"
 msgid "Request Body"
 msgstr "요청 본문"
 
+msgid "requested changes"
+msgstr "변경 요청함"
+
 msgid "Requested Changes"
 msgstr "변경 요청함"
 
@@ -13659,6 +13670,9 @@ msgstr "'모든 실행'에서 이 실행들을 검토"
 
 msgid "Review thread…"
 msgstr "리뷰 스레드…"
+
+msgid "reviewed"
+msgstr "리뷰함"
 
 msgid "Reviewed by you"
 msgstr "내가 리뷰함"
@@ -14438,9 +14452,6 @@ msgstr "보내는 중"
 msgid "Sending a message to {what}"
 msgstr "{what}에 메시지 보내는 중"
 
-msgid "Sending to agent"
-msgstr "에이전트에 보내는 중"
-
 msgid "Sending..."
 msgstr "보내는 중..."
 
@@ -14458,9 +14469,6 @@ msgstr "보낸 날짜"
 
 msgid "Sent to agent"
 msgstr "에이전트에 보냄"
-
-msgid "Sent to the pull request's workspace"
-msgstr "풀 리퀘스트의 워크스페이스로 보냈습니다"
 
 msgid "Sentry rejected the token"
 msgstr "Sentry가 토큰을 거부했습니다"
@@ -15387,9 +15395,6 @@ msgstr "시작 중"
 
 msgid "Starting {agentLabel}"
 msgstr "{agentLabel} 시작 중"
-
-msgid "Starting a workspace on this pull request"
-msgstr "이 풀 리퀘스트로 워크스페이스를 시작하는 중"
 
 msgid "Starting an agent in {what}"
 msgstr "{what}에서 에이전트 시작 중"

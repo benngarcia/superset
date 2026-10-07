@@ -1889,10 +1889,6 @@ msgstr "Agentsessie gestart"
 msgid "agent settings"
 msgstr "agentinstellingen"
 
-#. placeholder {0}: agent.label
-msgid "Agent: {0}"
-msgstr "Agent: {0}"
-
 msgid "Agents"
 msgstr "Agents"
 
@@ -2385,6 +2381,9 @@ msgstr "Bewerkingen goedkeuren"
 msgid "Approve for me"
 msgstr "Voor mij goedkeuren"
 
+msgid "approved"
+msgstr "heeft goedgekeurd"
+
 msgid "Approved"
 msgstr "Goedgekeurd"
 
@@ -2460,9 +2459,6 @@ msgstr "Zoals laatst gemeld. De host moet online zijn om bij te werken."
 msgid "ascending"
 msgstr "oplopend"
 
-msgid "Ask about this pull request"
-msgstr "Stel een vraag over deze pull request"
-
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "Vraag een agent om er een te publiceren vanuit de desktop-app."
 
@@ -2471,9 +2467,6 @@ msgstr "Om goedkeuring vragen"
 
 msgid "Ask for this to be removed"
 msgstr "Vraag om verwijdering"
-
-msgid "Ask the agent"
-msgstr "Vraag het de agent"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "Vraag de agent, @vermeld bestanden, gebruik /commando's"
@@ -4021,6 +4014,9 @@ msgstr "Reageren op deze pagina"
 msgid "Commented"
 msgstr "Opmerking geplaatst"
 
+msgid "Commenting as your GitHub account"
+msgstr "Je reageert als je GitHub-account"
+
 msgid "Comments"
 msgstr "Reacties"
 
@@ -4851,9 +4847,6 @@ msgstr "Kan de branch niet bijwerken"
 msgid "serverError.plugins.credentialUnverified"
 msgstr "Kon de inloggegevens niet verifiëren: {reason}"
 
-msgid "Couldn't ask about this pull request"
-msgstr "Kon geen vraag stellen over deze pull request"
-
 msgid "Couldn't ask the workspace for a description"
 msgstr "Kon de workspace niet om een beschrijving vragen"
 
@@ -4951,6 +4944,9 @@ msgstr "Kan deze diff niet parsen: {patchParseError}"
 
 msgid "Couldn't permanently delete \"{projectName}\""
 msgstr "Kan \"{projectName}\" niet definitief verwijderen"
+
+msgid "Couldn't post comment"
+msgstr "Kon reactie niet plaatsen"
 
 msgid "Couldn't post reply"
 msgstr "Kan antwoord niet plaatsen"
@@ -7999,6 +7995,9 @@ msgstr "Ongewijzigde stukken verbergen"
 msgid "High"
 msgstr "Hoog"
 
+msgid "High severity"
+msgstr "Hoge ernst"
+
 msgid "High usage"
 msgstr "Hoog gebruik"
 
@@ -8957,6 +8956,9 @@ msgstr "Leer hoe je scripts gebruikt"
 msgid "Learn the workflow that fits this repo — parallel workspaces and agent setup."
 msgstr "Leer de workflow die bij deze repo past — parallelle werkruimtes en agentconfiguratie."
 
+msgid "Leave a comment"
+msgstr "Laat een reactie achter"
+
 msgid "Leave a comment (optional)"
 msgstr "Laat een opmerking achter (optioneel)"
 
@@ -9384,6 +9386,9 @@ msgstr "Ziet er goed uit"
 msgid "Low"
 msgstr "Laag"
 
+msgid "Low severity"
+msgstr "Lage ernst"
+
 msgid "Lower memory with many terminals open, smoother git in big repos, and less background CPU."
 msgstr "Minder geheugen met veel terminals open, soepeler git in grote repo's en minder CPU op de achtergrond."
 
@@ -9571,6 +9576,9 @@ msgstr "Mediane tijd sinds vorige"
 
 msgid "Medium"
 msgstr "Gemiddeld"
+
+msgid "Medium severity"
+msgstr "Gemiddelde ernst"
 
 msgid "Meet the team behind Superset, building parallel coding agents for developers."
 msgstr "Maak kennis met het team achter Superset, dat parallelle coding agents voor developers bouwt."
@@ -9864,9 +9872,6 @@ msgstr "Meer dan de helft van de gemergede wijzigingen is door agents geschreven
 #. js-lingui-explicit-id
 msgid "serverError.plugins.ambiguousConnection"
 msgstr "Meerdere {connector}-verbindingen komen overeen; koppel de verbinding los die je niet wilt."
-
-msgid "More ways to use this pull request"
-msgstr "Meer manieren om deze pull request te gebruiken"
 
 msgid "most developers"
 msgstr "de meeste ontwikkelaars"
@@ -10655,6 +10660,9 @@ msgstr "Geen resultaten voor “{query}”"
 
 msgid "No results found."
 msgstr "Geen resultaten gevonden."
+
+msgid "No review body."
+msgstr "Geen reviewtekst."
 
 msgid "No Reviewers Assigned"
 msgstr "Geen reviewers toegewezen"
@@ -13296,6 +13304,9 @@ msgstr "Proefperiode aanvragen"
 msgid "Request Body"
 msgstr "Request body"
 
+msgid "requested changes"
+msgstr "heeft wijzigingen aangevraagd"
+
 msgid "Requested Changes"
 msgstr "Wijzigingen gevraagd"
 
@@ -13659,6 +13670,9 @@ msgstr "Bekijk deze runs in Alle runs"
 
 msgid "Review thread…"
 msgstr "Reviewthread…"
+
+msgid "reviewed"
+msgstr "heeft gereviewd"
 
 msgid "Reviewed by you"
 msgstr "Door jou gereviewd"
@@ -14438,9 +14452,6 @@ msgstr "Versturen"
 msgid "Sending a message to {what}"
 msgstr "Bericht wordt verzonden naar {what}"
 
-msgid "Sending to agent"
-msgstr "Verzenden naar agent"
-
 msgid "Sending..."
 msgstr "Versturen..."
 
@@ -14458,9 +14469,6 @@ msgstr "Verstuurd"
 
 msgid "Sent to agent"
 msgstr "Naar agent gestuurd"
-
-msgid "Sent to the pull request's workspace"
-msgstr "Verzonden naar de werkruimte van de pull request"
 
 msgid "Sentry rejected the token"
 msgstr "Sentry heeft het token geweigerd"
@@ -15387,9 +15395,6 @@ msgstr "Starten"
 
 msgid "Starting {agentLabel}"
 msgstr "{agentLabel} starten"
-
-msgid "Starting a workspace on this pull request"
-msgstr "Werkruimte op deze pull request wordt gestart"
 
 msgid "Starting an agent in {what}"
 msgstr "Agent wordt gestart in {what}"

@@ -1889,10 +1889,6 @@ msgstr "Phiên agent đã bắt đầu"
 msgid "agent settings"
 msgstr "cài đặt agent"
 
-#. placeholder {0}: agent.label
-msgid "Agent: {0}"
-msgstr "Agent: {0}"
-
 msgid "Agents"
 msgstr "Agent"
 
@@ -2385,6 +2381,9 @@ msgstr "Duyệt chỉnh sửa"
 msgid "Approve for me"
 msgstr "Duyệt giúp tôi"
 
+msgid "approved"
+msgstr "đã phê duyệt"
+
 msgid "Approved"
 msgstr "Đã duyệt"
 
@@ -2460,9 +2459,6 @@ msgstr "Theo báo cáo gần nhất. Máy chủ phải trực tuyến để cậ
 msgid "ascending"
 msgstr "tăng dần"
 
-msgid "Ask about this pull request"
-msgstr "Hỏi về pull request này"
-
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "Hãy nhờ một agent xuất bản một trang từ ứng dụng máy tính."
 
@@ -2471,9 +2467,6 @@ msgstr "Yêu cầu phê duyệt"
 
 msgid "Ask for this to be removed"
 msgstr "Yêu cầu xóa phần này"
-
-msgid "Ask the agent"
-msgstr "Hỏi agent"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "Hỏi tác nhân, @nhắc đến tệp, chạy /lệnh"
@@ -4021,6 +4014,9 @@ msgstr "Bình luận về trang này"
 msgid "Commented"
 msgstr "Đã bình luận"
 
+msgid "Commenting as your GitHub account"
+msgstr "Bình luận bằng tài khoản GitHub của bạn"
+
 msgid "Comments"
 msgstr "Bình luận"
 
@@ -4851,9 +4847,6 @@ msgstr "Không thể cập nhật nhánh"
 msgid "serverError.plugins.credentialUnverified"
 msgstr "Không xác minh được thông tin đăng nhập: {reason}"
 
-msgid "Couldn't ask about this pull request"
-msgstr "Không thể hỏi về pull request này"
-
 msgid "Couldn't ask the workspace for a description"
 msgstr "Không thể yêu cầu không gian làm việc tạo mô tả"
 
@@ -4951,6 +4944,9 @@ msgstr "Không thể phân tích diff này: {patchParseError}"
 
 msgid "Couldn't permanently delete \"{projectName}\""
 msgstr "Không thể xóa vĩnh viễn \"{projectName}\""
+
+msgid "Couldn't post comment"
+msgstr "Không thể đăng bình luận"
 
 msgid "Couldn't post reply"
 msgstr "Không thể đăng trả lời"
@@ -7999,6 +7995,9 @@ msgstr "Ẩn các vùng không đổi"
 msgid "High"
 msgstr "Cao"
 
+msgid "High severity"
+msgstr "Mức độ nghiêm trọng cao"
+
 msgid "High usage"
 msgstr "Mức sử dụng rất cao"
 
@@ -8957,6 +8956,9 @@ msgstr "Tìm hiểu cách dùng script"
 msgid "Learn the workflow that fits this repo — parallel workspaces and agent setup."
 msgstr "Tìm hiểu quy trình phù hợp với repo này — workspace song song và thiết lập agent."
 
+msgid "Leave a comment"
+msgstr "Để lại bình luận"
+
 msgid "Leave a comment (optional)"
 msgstr "Để lại bình luận (tùy chọn)"
 
@@ -9384,6 +9386,9 @@ msgstr "Trông ổn"
 msgid "Low"
 msgstr "Thấp"
 
+msgid "Low severity"
+msgstr "Mức độ nghiêm trọng thấp"
+
 msgid "Lower memory with many terminals open, smoother git in big repos, and less background CPU."
 msgstr "Ít bộ nhớ hơn khi mở nhiều terminal, git mượt hơn trong repo lớn và CPU nền thấp hơn."
 
@@ -9571,6 +9576,9 @@ msgstr "Thời gian trung vị từ bước trước"
 
 msgid "Medium"
 msgstr "Trung bình"
+
+msgid "Medium severity"
+msgstr "Mức độ nghiêm trọng trung bình"
 
 msgid "Meet the team behind Superset, building parallel coding agents for developers."
 msgstr "Gặp gỡ đội ngũ đứng sau Superset, xây dựng các agent lập trình song song cho lập trình viên."
@@ -9864,9 +9872,6 @@ msgstr "Hơn một nửa thay đổi được merge do agent viết mà không c
 #. js-lingui-explicit-id
 msgid "serverError.plugins.ambiguousConnection"
 msgstr "Có nhiều hơn một kết nối {connector} khớp; hãy ngắt kết nối cái bạn không muốn."
-
-msgid "More ways to use this pull request"
-msgstr "Thêm cách dùng pull request này"
 
 msgid "most developers"
 msgstr "phần lớn lập trình viên"
@@ -10655,6 +10660,9 @@ msgstr "Không có kết quả cho “{query}”"
 
 msgid "No results found."
 msgstr "Không tìm thấy kết quả nào."
+
+msgid "No review body."
+msgstr "Không có nội dung review."
 
 msgid "No Reviewers Assigned"
 msgstr "Chưa gán người review"
@@ -13296,6 +13304,9 @@ msgstr "Yêu cầu dùng thử"
 msgid "Request Body"
 msgstr "Thân yêu cầu"
 
+msgid "requested changes"
+msgstr "đã yêu cầu thay đổi"
+
 msgid "Requested Changes"
 msgstr "Đã yêu cầu thay đổi"
 
@@ -13659,6 +13670,9 @@ msgstr "Xem lại các lần chạy này trong Tất cả lần chạy"
 
 msgid "Review thread…"
 msgstr "Luồng review…"
+
+msgid "reviewed"
+msgstr "đã review"
 
 msgid "Reviewed by you"
 msgstr "Bạn đã review"
@@ -14438,9 +14452,6 @@ msgstr "Đang gửi"
 msgid "Sending a message to {what}"
 msgstr "Đang gửi tin nhắn tới {what}"
 
-msgid "Sending to agent"
-msgstr "Đang gửi cho agent"
-
 msgid "Sending..."
 msgstr "Đang gửi..."
 
@@ -14458,9 +14469,6 @@ msgstr "Đã gửi"
 
 msgid "Sent to agent"
 msgstr "Đã gửi cho agent"
-
-msgid "Sent to the pull request's workspace"
-msgstr "Đã gửi tới workspace của pull request"
 
 msgid "Sentry rejected the token"
 msgstr "Sentry đã từ chối token"
@@ -15387,9 +15395,6 @@ msgstr "Đang khởi động"
 
 msgid "Starting {agentLabel}"
 msgstr "Đang khởi động {agentLabel}"
-
-msgid "Starting a workspace on this pull request"
-msgstr "Đang khởi động workspace cho pull request này"
 
 msgid "Starting an agent in {what}"
 msgstr "Đang khởi động tác nhân trong {what}"

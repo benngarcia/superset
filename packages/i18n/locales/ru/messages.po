@@ -1889,10 +1889,6 @@ msgstr "Сессия агента запущена"
 msgid "agent settings"
 msgstr "настройки агента"
 
-#. placeholder {0}: agent.label
-msgid "Agent: {0}"
-msgstr "Агент: {0}"
-
 msgid "Agents"
 msgstr "Агенты"
 
@@ -2385,6 +2381,9 @@ msgstr "Одобрять правки"
 msgid "Approve for me"
 msgstr "Одобрять за меня"
 
+msgid "approved"
+msgstr "одобрил(а)"
+
 msgid "Approved"
 msgstr "Одобрено"
 
@@ -2460,9 +2459,6 @@ msgstr "По последним данным. Для обновления хос
 msgid "ascending"
 msgstr "по возрастанию"
 
-msgid "Ask about this pull request"
-msgstr "Спросить об этом пул-реквесте"
-
 msgid "Ask an agent to publish one from the desktop app."
 msgstr "Попросите агента опубликовать её из десктопного приложения."
 
@@ -2471,9 +2467,6 @@ msgstr "Запрашивать одобрение"
 
 msgid "Ask for this to be removed"
 msgstr "Попросить удалить"
-
-msgid "Ask the agent"
-msgstr "Спросить агента"
 
 msgid "Ask the agent, @mention files, run /commands"
 msgstr "Спросите агента, @упомяните файлы, используйте /команды"
@@ -4021,6 +4014,9 @@ msgstr "Комментировать эту страницу"
 msgid "Commented"
 msgstr "Прокомментировано"
 
+msgid "Commenting as your GitHub account"
+msgstr "Комментарий от вашего аккаунта GitHub"
+
 msgid "Comments"
 msgstr "Комментарии"
 
@@ -4851,9 +4847,6 @@ msgstr "Не удалось обновить ветку"
 msgid "serverError.plugins.credentialUnverified"
 msgstr "Не удалось проверить учётные данные: {reason}"
 
-msgid "Couldn't ask about this pull request"
-msgstr "Не удалось задать вопрос об этом пул-реквесте"
-
 msgid "Couldn't ask the workspace for a description"
 msgstr "Не удалось запросить описание у рабочего пространства"
 
@@ -4951,6 +4944,9 @@ msgstr "Не удалось разобрать этот diff: {patchParseError}"
 
 msgid "Couldn't permanently delete \"{projectName}\""
 msgstr "Не удалось окончательно удалить «{projectName}»"
+
+msgid "Couldn't post comment"
+msgstr "Не удалось опубликовать комментарий"
 
 msgid "Couldn't post reply"
 msgstr "Не удалось отправить ответ"
@@ -7999,6 +7995,9 @@ msgstr "Скрыть неизменённые участки"
 msgid "High"
 msgstr "Высокий"
 
+msgid "High severity"
+msgstr "Высокая серьёзность"
+
 msgid "High usage"
 msgstr "Высокое потребление"
 
@@ -8957,6 +8956,9 @@ msgstr "Как использовать скрипты"
 msgid "Learn the workflow that fits this repo — parallel workspaces and agent setup."
 msgstr "Изучить рабочий процесс, который подходит этому репозиторию: параллельные рабочие области и настройка агентов."
 
+msgid "Leave a comment"
+msgstr "Оставить комментарий"
+
 msgid "Leave a comment (optional)"
 msgstr "Оставьте комментарий (необязательно)"
 
@@ -9384,6 +9386,9 @@ msgstr "Выглядит хорошо"
 msgid "Low"
 msgstr "Низкий"
 
+msgid "Low severity"
+msgstr "Низкая серьёзность"
+
 msgid "Lower memory with many terminals open, smoother git in big repos, and less background CPU."
 msgstr "Меньше памяти при множестве открытых терминалов, плавнее git в больших репозиториях, меньше фоновой нагрузки на CPU."
 
@@ -9571,6 +9576,9 @@ msgstr "Медианное время от предыдущего"
 
 msgid "Medium"
 msgstr "Средний"
+
+msgid "Medium severity"
+msgstr "Средняя серьёзность"
 
 msgid "Meet the team behind Superset, building parallel coding agents for developers."
 msgstr "Познакомьтесь с командой Superset, которая создаёт параллельных кодинг-агентов для разработчиков."
@@ -9864,9 +9872,6 @@ msgstr "Больше половины объединённых изменени�
 #. js-lingui-explicit-id
 msgid "serverError.plugins.ambiguousConnection"
 msgstr "Подходит несколько подключений {connector}; отключите ненужное."
-
-msgid "More ways to use this pull request"
-msgstr "Другие действия с этим пул-реквестом"
 
 msgid "most developers"
 msgstr "большинство разработчиков"
@@ -10655,6 +10660,9 @@ msgstr "Ничего не найдено по запросу «{query}»"
 
 msgid "No results found."
 msgstr "Ничего не найдено."
+
+msgid "No review body."
+msgstr "Нет текста ревью."
 
 msgid "No Reviewers Assigned"
 msgstr "Ревьюеры не назначены"
@@ -13296,6 +13304,9 @@ msgstr "Запросить пробный период"
 msgid "Request Body"
 msgstr "Тело запроса"
 
+msgid "requested changes"
+msgstr "запросил(а) изменения"
+
 msgid "Requested Changes"
 msgstr "Запросил изменения"
 
@@ -13659,6 +13670,9 @@ msgstr "Просмотреть эти запуски в разделе «Все 
 
 msgid "Review thread…"
 msgstr "Ветка обсуждения ревью…"
+
+msgid "reviewed"
+msgstr "провёл(а) ревью"
 
 msgid "Reviewed by you"
 msgstr "Проверено вами"
@@ -14438,9 +14452,6 @@ msgstr "Отправка"
 msgid "Sending a message to {what}"
 msgstr "Отправка сообщения в {what}"
 
-msgid "Sending to agent"
-msgstr "Отправка агенту"
-
 msgid "Sending..."
 msgstr "Отправка..."
 
@@ -14458,9 +14469,6 @@ msgstr "Отправлено"
 
 msgid "Sent to agent"
 msgstr "Отправлено агенту"
-
-msgid "Sent to the pull request's workspace"
-msgstr "Отправлено в рабочую область пул-реквеста"
 
 msgid "Sentry rejected the token"
 msgstr "Sentry отклонил токен"
@@ -15387,9 +15395,6 @@ msgstr "Запуск"
 
 msgid "Starting {agentLabel}"
 msgstr "Запуск {agentLabel}"
-
-msgid "Starting a workspace on this pull request"
-msgstr "Запуск рабочей области для этого пул-реквеста"
 
 msgid "Starting an agent in {what}"
 msgstr "Запуск агента в {what}"

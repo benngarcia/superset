@@ -38,9 +38,6 @@ mock.module(
 mock.module(`${root}/pull-requests/components/PullRequestActions`, () => ({
 	PullRequestActions: () => null,
 }));
-mock.module(`${root}/pull-requests/components/PullRequestAskComposer`, () => ({
-	PullRequestAskComposer: () => null,
-}));
 mock.module(
 	`${root}/pull-requests/components/PullRequestDetailSkeleton`,
 	() => ({
