@@ -104,7 +104,7 @@ function writeHookManifest(home: string, orgId: string, endpoint: string) {
 
 describe("getNotifyScriptContent", () => {
 	it("bumps the notify hook marker when hook semantics change", () => {
-		expect(NOTIFY_SCRIPT_MARKER).toBe("# Superset agent notification hook v20");
+		expect(NOTIFY_SCRIPT_MARKER).toBe("# Superset agent notification hook v21");
 	});
 
 	it("forwards the main session's transcript path with its identity", async () => {
@@ -144,6 +144,63 @@ describe("getNotifyScriptContent", () => {
 				{ SUPERSET_HOST_AGENT_HOOK_URL: `${host.url}/trpc/notifications.hook` },
 			);
 			expect(host.requests[0]?.json).not.toHaveProperty("transcriptPath");
+		} finally {
+			host.stop();
+		}
+	});
+
+	// Shaped like Claude Code 2.1.293's Stop input.
+	const claudeStop = (backgroundTasks: Array<Record<string, string>>) => ({
+		session_id: "11111111-2222-4333-8444-555555555555",
+		hook_event_name: "Stop",
+		stop_hook_active: false,
+		last_assistant_message: 'Waiting on {"type":"subagent","status":"running"}',
+		background_tasks: backgroundTasks,
+		session_crons: [],
+	});
+
+	it.each([
+		["a running background subagent", "subagent", "running", true],
+		["a pending background subagent", "subagent", "pending", true],
+		["only a running background shell", "shell", "running", false],
+	])("flags a Stop with %s", async (_label, type, status, flagged) => {
+		const host = fakeHostService(false);
+		try {
+			await runNotifyHookAsync(
+				claudeStop([
+					{
+						id: "a91f18fca36b06a54",
+						type,
+						status,
+						description: "Sleep 45 then report",
+					},
+				]),
+				{
+					SUPERSET_AGENT_ID: "claude",
+					SUPERSET_HOST_AGENT_HOOK_URL: `${host.url}/trpc/notifications.hook`,
+				},
+			);
+			if (flagged) {
+				expect(host.requests[0]?.json.hasRunningSubagents).toBe(true);
+			} else {
+				expect(host.requests[0]?.json).not.toHaveProperty(
+					"hasRunningSubagents",
+				);
+			}
+		} finally {
+			host.stop();
+		}
+	});
+
+	it("does not flag a Stop with no background work, whatever the reply says", async () => {
+		const host = fakeHostService(false);
+		try {
+			await runNotifyHookAsync(claudeStop([]), {
+				SUPERSET_AGENT_ID: "claude",
+				SUPERSET_HOST_AGENT_HOOK_URL: `${host.url}/trpc/notifications.hook`,
+			});
+			expect(host.requests[0]?.json.eventType).toBe("Stop");
+			expect(host.requests[0]?.json).not.toHaveProperty("hasRunningSubagents");
 		} finally {
 			host.stop();
 		}
@@ -301,7 +358,7 @@ describe("getNotifyScriptContent", () => {
 			"HOOK_SESSION_ID=$(json_field session_id sessionId)",
 		);
 		expect(script).toContain(
-			'dispatch_to_host "{\\"json\\":{\\"terminalId\\":\\"$(json_escape "$SUPERSET_TERMINAL_ID")\\",\\"eventType\\":\\"$(json_escape "$EVENT_TYPE")\\",\\"agent\\":{\\"agentId\\":\\"$(json_escape "$AGENT_ID")\\",\\"sessionId\\":\\"$(json_escape "$SESSION_ID")\\"}$PREVIEW_FIELD$ACCOUNT_FIELD$TRANSCRIPT_FIELD$LAUNCH_FIELD$ATTRIBUTION_FIELD}}"',
+			'dispatch_to_host "{\\"json\\":{\\"terminalId\\":\\"$(json_escape "$SUPERSET_TERMINAL_ID")\\",\\"eventType\\":\\"$(json_escape "$EVENT_TYPE")\\",\\"agent\\":{\\"agentId\\":\\"$(json_escape "$AGENT_ID")\\",\\"sessionId\\":\\"$(json_escape "$SESSION_ID")\\"}$PREVIEW_FIELD$ACCOUNT_FIELD$TRANSCRIPT_FIELD$LAUNCH_FIELD$SUBAGENTS_FIELD$ATTRIBUTION_FIELD}}"',
 		);
 		// One dispatcher serves both the agent and subagent payloads.
 		expect(script.split('dispatch_to_host "').length - 1).toBe(2);

@@ -47,6 +47,11 @@ const hookInput = z.object({
 	apiKey: z.boolean().optional(),
 	attributionToken: z.string().max(128).optional(),
 	transcriptPath: z.string().max(4096).optional(),
+	/**
+	 * Set on a Claude Stop whose background_tasks still lists a running
+	 * subagent: the subagent's result will wake the main loop again.
+	 */
+	hasRunningSubagents: z.boolean().optional(),
 });
 
 function trimOrUndefined(value: string | undefined): string | undefined {
@@ -82,7 +87,16 @@ export const notificationsRouter = router({
 	 */
 	hook: publicProcedure.input(hookInput).mutation(async ({ ctx, input }) => {
 		const subagentId = trimOrUndefined(input.subagent?.id);
-		const eventType = subagentId ? undefined : mapEventType(input.eventType);
+		const mappedEventType = subagentId
+			? undefined
+			: mapEventType(input.eventType);
+		// A Stop while background subagents are still running is a pause:
+		// each subagent's result wakes the main loop, which stops again once
+		// nothing is left. Record it as continued work so the terminal stays
+		// "working" and the completion chime waits for the end of the turn.
+		const pausedForSubagents =
+			mappedEventType === "Stop" && input.hasRunningSubagents === true;
+		const eventType = pausedForSubagents ? "Start" : mappedEventType;
 		if (!subagentId && !eventType) {
 			return { success: true, ignored: true as const };
 		}
@@ -138,7 +152,10 @@ export const notificationsRouter = router({
 		}
 
 		const agent = normalizeAgentIdentity(input.agent);
-		const preview = trimOrUndefined(input.preview);
+		// An interim reply ("waiting on the agents") is not the turn's answer.
+		const preview = pausedForSubagents
+			? undefined
+			: trimOrUndefined(input.preview);
 
 		const prior = ctx.terminalAgentStore.get(input.terminalId);
 		const account =

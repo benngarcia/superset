@@ -561,6 +561,41 @@ it("broadcasts a bounded preview with the lifecycle event", async () => {
 	);
 });
 
+it("keeps the terminal working through a Stop that waits on background subagents", async () => {
+	const { ctx, broadcastAgentLifecycle, terminalAgentStore } =
+		createContext("workspace-1");
+	const caller = notificationsRouter.createCaller(ctx);
+	const agent = { agentId: "claude", sessionId: "session-abc" };
+
+	await caller.hook({ terminalId: "terminal-1", eventType: "Start", agent });
+	await caller.hook({
+		terminalId: "terminal-1",
+		eventType: "Stop",
+		agent,
+		preview: "Waiting on the agents.",
+		hasRunningSubagents: true,
+	});
+	expect(broadcastAgentLifecycle.mock.calls.at(-1)?.[0]).toMatchObject({
+		eventType: "Start",
+	});
+	expect(broadcastAgentLifecycle.mock.calls.at(-1)?.[0].preview).toBe(
+		undefined,
+	);
+	expect(terminalAgentStore.get("terminal-1")?.lastEventType).toBe("Start");
+
+	await caller.hook({
+		terminalId: "terminal-1",
+		eventType: "Stop",
+		agent,
+		preview: "All done.",
+	});
+	expect(broadcastAgentLifecycle.mock.calls.at(-1)?.[0]).toMatchObject({
+		eventType: "Stop",
+		preview: "All done.",
+	});
+	expect(terminalAgentStore.get("terminal-1")?.lastEventType).toBe("Stop");
+});
+
 describe("reported transcript path", () => {
 	function createPersistedContext() {
 		const context = createDbContext({
