@@ -21,9 +21,22 @@ if (!alreadyRegistered) GlobalRegistrator.register();
 
 /** What the fake host answers `git.getDiffPatch` with, per category. */
 const patchByCategory = new Map<string, string>();
-const getDiffPatch = mock(async (input: { category: string }) => ({
-	patch: patchByCategory.get(input.category) ?? "",
-}));
+/** Set to hold the next request open until the test releases it. */
+let holdNextRequest: (() => void) | null = null;
+const getDiffPatch = mock(async (input: { category: string }) => {
+	if (holdNextRequest) {
+		const release = holdNextRequest;
+		holdNextRequest = null;
+		await new Promise<void>((resolve) => {
+			releaseHeldRequest = () => {
+				release();
+				resolve();
+			};
+		});
+	}
+	return { patch: patchByCategory.get(input.category) ?? "" };
+});
+let releaseHeldRequest: () => void = () => {};
 
 const actualWorkspaceClient = await import("@superset/workspace-client");
 mock.module("@superset/workspace-client", () => ({
@@ -90,14 +103,28 @@ const YARN_LOCK = lockfilePatch("yarn.lock");
 const EMPTY_SET: ReadonlySet<string> = new Set();
 const EMPTY_MAP = new Map<string, never>();
 
-function unstagedFile(path: string): ChangesetFile {
+function unstagedFile(
+	path: string,
+	status: ChangesetFile["status"] = "modified",
+): ChangesetFile {
 	return {
 		path,
-		status: "modified",
+		status,
 		additions: 1,
 		deletions: 1,
 		source: { kind: "unstaged" },
 	};
+}
+
+function sortedPaths(
+	call: unknown[] | undefined,
+	key: "paths" | "untrackedPaths",
+) {
+	const input = call?.[0] as Record<
+		"paths" | "untrackedPaths",
+		string[] | undefined
+	>;
+	return [...(input[key] ?? [])].sort();
 }
 
 function options(files: ChangesetFile[]) {
@@ -137,6 +164,7 @@ function renderItems(files: ChangesetFile[]) {
 beforeEach(() => {
 	patchByCategory.clear();
 	getDiffPatch.mockClear();
+	holdNextRequest = null;
 });
 
 afterEach(cleanup);
@@ -234,6 +262,66 @@ describe("useDiffCodeViewItems", () => {
 			"bun.lock",
 			"yarn.lock",
 		]);
+	});
+
+	test("a pane joining while the first request is pending gets one follow-up with both panes' files", async () => {
+		patchByCategory.set("unstaged", FILE_A + FILE_B);
+		const client = new QueryClient({
+			defaultOptions: { queries: { retry: false } },
+		});
+		const wrapper = ({ children }: { children: ReactNode }) => (
+			<QueryClientProvider client={client}>{children}</QueryClientProvider>
+		);
+		holdNextRequest = () => {};
+		const paneA = renderHook(
+			() => useDiffCodeViewItems(options([unstagedFile("a.ts")])),
+			{ wrapper },
+		);
+		await waitFor(() => expect(getDiffPatch).toHaveBeenCalledTimes(1));
+		const paneB = renderHook(
+			() =>
+				useDiffCodeViewItems(
+					options([unstagedFile("a.ts"), unstagedFile("b.ts")]),
+				),
+			{ wrapper },
+		);
+		expect(getDiffPatch).toHaveBeenCalledTimes(1);
+
+		await act(async () => releaseHeldRequest());
+		await waitFor(() => diffItem(paneB.result.current.items, "b.ts"));
+		await new Promise((resolve) => setTimeout(resolve, 100));
+
+		expect(getDiffPatch).toHaveBeenCalledTimes(2);
+		expect(sortedPaths(getDiffPatch.mock.calls[1], "paths")).toEqual([
+			"a.ts",
+			"b.ts",
+		]);
+		expect(diffItem(paneA.result.current.items, "a.ts")).toBeTruthy();
+	});
+
+	test("a file staged since the fetch moves lists and is fetched again in the right one", async () => {
+		patchByCategory.set("unstaged", FILE_A + FILE_B);
+		const { result, rerender } = renderItems([
+			unstagedFile("a.ts"),
+			unstagedFile("b.ts", "untracked"),
+		]);
+		await waitFor(() => diffItem(result.current.items, "b.ts"));
+		expect(sortedPaths(getDiffPatch.mock.calls[0], "untrackedPaths")).toEqual([
+			"b.ts",
+		]);
+
+		rerender(options([unstagedFile("a.ts"), unstagedFile("b.ts", "modified")]));
+		await waitFor(() => expect(getDiffPatch).toHaveBeenCalledTimes(2));
+		await new Promise((resolve) => setTimeout(resolve, 100));
+
+		expect(getDiffPatch).toHaveBeenCalledTimes(2);
+		expect(sortedPaths(getDiffPatch.mock.calls[1], "paths")).toEqual([
+			"a.ts",
+			"b.ts",
+		]);
+		expect(sortedPaths(getDiffPatch.mock.calls[1], "untrackedPaths")).toEqual(
+			[],
+		);
 	});
 
 	test("a file joining the changeset refetches the same cache entry", async () => {

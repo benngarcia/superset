@@ -44,6 +44,7 @@ describe("parsePatchGroup", () => {
 			kind: "patch",
 			patch: FILE_A + FILE_B,
 			requestedPaths: ["a.ts", "b.ts"],
+			requestedUntrackedPaths: [],
 		});
 		const after = parsePatchGroup(
 			"group",
@@ -51,6 +52,7 @@ describe("parsePatchGroup", () => {
 				kind: "patch",
 				patch: FILE_A + FILE_B_EDITED,
 				requestedPaths: ["a.ts", "b.ts"],
+				requestedUntrackedPaths: [],
 			},
 			before,
 		);

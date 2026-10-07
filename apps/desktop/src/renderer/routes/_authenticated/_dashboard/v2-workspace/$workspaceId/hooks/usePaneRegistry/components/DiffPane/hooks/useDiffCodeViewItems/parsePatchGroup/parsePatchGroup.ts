@@ -13,8 +13,12 @@ export interface PatchGroupFile {
 }
 
 /** `files` is the fallback for a host without `git.getDiffPatch`.
- * `requestedPaths` is what was asked for, not what came back. */
-export type PatchGroupResult = { requestedPaths: string[] } & (
+ * `requestedPaths` is what was asked for, not what came back;
+ * `requestedUntrackedPaths` is the subset sent as `untrackedPaths`. */
+export type PatchGroupResult = {
+	requestedPaths: string[];
+	requestedUntrackedPaths: string[];
+} & (
 	| { kind: "patch"; patch: string }
 	| { kind: "files"; files: PatchGroupFile[] }
 );

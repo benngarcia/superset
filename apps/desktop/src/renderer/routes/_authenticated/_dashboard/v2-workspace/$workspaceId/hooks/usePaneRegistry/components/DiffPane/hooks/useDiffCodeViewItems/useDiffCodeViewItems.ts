@@ -132,6 +132,24 @@ function buildPatchInput(
 	return { ...scope, paths, untrackedPaths };
 }
 
+/** Whether the patch was fetched with this file, in the list its current
+ * status puts it in. A file staged since the fetch moved lists, and the
+ * host diffs the two lists against different bases. */
+function isRequested(data: PatchGroupResult, file: ChangesetFile): boolean {
+	if (!data.requestedPaths.includes(file.path)) return false;
+	const wasUntracked = data.requestedUntrackedPaths.includes(file.path);
+	return wasUntracked === (file.status === "untracked");
+}
+
+function memberSignature(members: PatchGroupMember[]): string {
+	return members
+		.map(
+			({ file }) => `${file.status === "untracked" ? "u" : "t"}:${file.path}`,
+		)
+		.sort()
+		.join("\0");
+}
+
 function groupKeyFor(input: DiffPatchScope): string {
 	return [
 		input.category,
@@ -250,10 +268,16 @@ export function useDiffCodeViewItems({
 					group.members,
 				);
 				const input = buildPatchInput(group.input, members);
-				const requestedPaths = members.map((member) => member.file.path);
+				const requested = {
+					requestedPaths: [
+						...(input.paths ?? []),
+						...(input.untrackedPaths ?? []),
+					],
+					requestedUntrackedPaths: input.untrackedPaths ?? [],
+				};
 				try {
 					const { patch } = await trpcClient.git.getDiffPatch.query(input);
-					return { kind: "patch", patch, requestedPaths };
+					return { kind: "patch", patch, ...requested };
 				} catch (error) {
 					if (!isMissingProcedureError(error)) throw error;
 					// Older host-service (a remote host or cloud sandbox that
@@ -281,7 +305,7 @@ export function useDiffCodeViewItems({
 						},
 					);
 					await Promise.all(workers);
-					return { kind: "files", files, requestedPaths };
+					return { kind: "files", files, ...requested };
 				}
 			},
 			staleTime: Number.POSITIVE_INFINITY,
@@ -307,14 +331,11 @@ export function useDiffCodeViewItems({
 		patchGroups.forEach((group, index) => {
 			const query = patchQueries[index];
 			if (!query?.data || query.isFetching || query.isError) return;
-			const requested = new Set(query.data.requestedPaths);
-			if (group.members.every((member) => requested.has(member.file.path))) {
+			const { data } = query;
+			if (group.members.every((member) => isRequested(data, member.file))) {
 				return;
 			}
-			const signature = group.members
-				.map((member) => member.file.path)
-				.sort()
-				.join("\0");
+			const signature = memberSignature(group.members);
 			const attempt = refetchAttemptsRef.current.get(group.key);
 			if (attempt?.signature === signature && attempt.data === query.data) {
 				return;
@@ -386,11 +407,10 @@ export function useDiffCodeViewItems({
 				data != null &&
 				!query.isFetching &&
 				parsedGroups.get(group.key)?.source === data;
-			const requested = data ? new Set(data.requestedPaths) : null;
 			for (const member of group.members) {
 				const reason: DeferredDiffReason = query?.isError
 					? "error"
-					: settled && requested?.has(member.file.path)
+					: settled && isRequested(data, member.file)
 						? "deferred"
 						: "loading";
 				map.set(member.itemId, reason);
