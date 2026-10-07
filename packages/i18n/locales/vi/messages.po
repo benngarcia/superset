@@ -2625,9 +2625,6 @@ msgstr "Tự động lưu"
 msgid "auto-generated"
 msgstr "tự động tạo"
 
-msgid "Auto-merge is coming soon"
-msgstr "Tự động merge sắp có"
-
 msgid "Auto-run command"
 msgstr "Tự động chạy lệnh"
 
@@ -6376,9 +6373,6 @@ msgstr "Bật {0}"
 msgid "Enable an agent in Settings > Agents first"
 msgstr "Hãy bật một agent trong Cài đặt > Agent trước"
 
-msgid "Enable auto-merge"
-msgstr "Bật tự động merge"
-
 msgid "Enable relay access…"
 msgstr "Bật truy cập relay…"
 
@@ -9647,9 +9641,6 @@ msgstr "Trạng thái merge"
 
 msgid "Merge status unknown"
 msgstr "Trạng thái merge không xác định"
-
-msgid "Merge when checks pass"
-msgstr "Merge khi các check qua"
 
 msgid "Merged"
 msgstr "Đã merge"

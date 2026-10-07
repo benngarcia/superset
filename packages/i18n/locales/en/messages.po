@@ -2625,9 +2625,6 @@ msgstr "Auto Save"
 msgid "auto-generated"
 msgstr "auto-generated"
 
-msgid "Auto-merge is coming soon"
-msgstr "Auto-merge is coming soon"
-
 msgid "Auto-run command"
 msgstr "Auto-run command"
 
@@ -6376,9 +6373,6 @@ msgstr "Enable {0}"
 msgid "Enable an agent in Settings > Agents first"
 msgstr "Enable an agent in Settings > Agents first"
 
-msgid "Enable auto-merge"
-msgstr "Enable auto-merge"
-
 msgid "Enable relay access…"
 msgstr "Enable relay access…"
 
@@ -9647,9 +9641,6 @@ msgstr "Merge status"
 
 msgid "Merge status unknown"
 msgstr "Merge status unknown"
-
-msgid "Merge when checks pass"
-msgstr "Merge when checks pass"
 
 msgid "Merged"
 msgstr "Merged"

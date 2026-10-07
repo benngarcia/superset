@@ -2625,9 +2625,6 @@ msgstr "自動保存"
 msgid "auto-generated"
 msgstr "自動生成"
 
-msgid "Auto-merge is coming soon"
-msgstr "自動マージは近日公開です"
-
 msgid "Auto-run command"
 msgstr "コマンドを自動実行"
 
@@ -6376,9 +6373,6 @@ msgstr "{0}を有効にする"
 msgid "Enable an agent in Settings > Agents first"
 msgstr "先に「設定 > エージェント」でエージェントを有効にしてください"
 
-msgid "Enable auto-merge"
-msgstr "自動マージを有効にする"
-
 msgid "Enable relay access…"
 msgstr "リレーアクセスを有効にする…"
 
@@ -9647,9 +9641,6 @@ msgstr "マージ状態"
 
 msgid "Merge status unknown"
 msgstr "マージ状態は不明です"
-
-msgid "Merge when checks pass"
-msgstr "チェック通過後にマージ"
 
 msgid "Merged"
 msgstr "マージ済み"

@@ -2625,9 +2625,6 @@ msgstr "自动保存"
 msgid "auto-generated"
 msgstr "自动生成"
 
-msgid "Auto-merge is coming soon"
-msgstr "自动合并即将推出"
-
 msgid "Auto-run command"
 msgstr "自动运行命令"
 
@@ -6376,9 +6373,6 @@ msgstr "启用{0}"
 msgid "Enable an agent in Settings > Agents first"
 msgstr "请先在设置 > 智能体中启用一个智能体"
 
-msgid "Enable auto-merge"
-msgstr "启用自动合并"
-
 msgid "Enable relay access…"
 msgstr "启用中继访问…"
 
@@ -9647,9 +9641,6 @@ msgstr "合并状态"
 
 msgid "Merge status unknown"
 msgstr "合并状态未知"
-
-msgid "Merge when checks pass"
-msgstr "检查通过后合并"
 
 msgid "Merged"
 msgstr "已合并"

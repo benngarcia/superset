@@ -2625,9 +2625,6 @@ msgstr "Automatisch opslaan"
 msgid "auto-generated"
 msgstr "automatisch gegenereerd"
 
-msgid "Auto-merge is coming soon"
-msgstr "Auto-merge komt binnenkort"
-
 msgid "Auto-run command"
 msgstr "Commando automatisch uitvoeren"
 
@@ -6376,9 +6373,6 @@ msgstr "{0} inschakelen"
 msgid "Enable an agent in Settings > Agents first"
 msgstr "Schakel eerst een agent in bij Instellingen > Agents"
 
-msgid "Enable auto-merge"
-msgstr "Auto-merge inschakelen"
-
 msgid "Enable relay access…"
 msgstr "Relaytoegang inschakelen…"
 
@@ -9647,9 +9641,6 @@ msgstr "Mergestatus"
 
 msgid "Merge status unknown"
 msgstr "Mergestatus onbekend"
-
-msgid "Merge when checks pass"
-msgstr "Mergen wanneer de checks slagen"
 
 msgid "Merged"
 msgstr "Gemerged"

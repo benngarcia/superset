@@ -2625,9 +2625,6 @@ msgstr "Otomatik Kaydetme"
 msgid "auto-generated"
 msgstr "otomatik oluşturulur"
 
-msgid "Auto-merge is coming soon"
-msgstr "Otomatik birleştirme yakında geliyor"
-
 msgid "Auto-run command"
 msgstr "Komutu otomatik çalıştır"
 
@@ -6376,9 +6373,6 @@ msgstr "{0} ajanını etkinleştir"
 msgid "Enable an agent in Settings > Agents first"
 msgstr "Önce Ayarlar > Ajanlar bölümünden bir ajanı etkinleştirin"
 
-msgid "Enable auto-merge"
-msgstr "Otomatik birleştirmeyi etkinleştir"
-
 msgid "Enable relay access…"
 msgstr "Röle erişimini etkinleştir…"
 
@@ -9647,9 +9641,6 @@ msgstr "Birleştirme durumu"
 
 msgid "Merge status unknown"
 msgstr "Birleştirme durumu bilinmiyor"
-
-msgid "Merge when checks pass"
-msgstr "Kontroller geçince birleştir"
 
 msgid "Merged"
 msgstr "Birleştirildi"

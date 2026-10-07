@@ -471,53 +471,30 @@ export function PullRequestActions({
 											</span>
 										</PullRequestMenuItem>
 									))}
-									{(data.checksStatus === "pending" ||
-										data.checksStatus === "failure") && (
+									{data.checksStatus === "failure" && (
 										<>
 											<PullRequestMenuSeparator />
-											{data.checksStatus === "pending" && (
-												<PullRequestMenuItem
-													className="flex items-center justify-between gap-2 py-1.5"
-													onClick={() =>
-														toast.info(
-															t({ message: "Auto-merge is coming soon" }),
-														)
-													}
-												>
-													<div className="flex flex-col gap-0.5">
-														<span>
-															<Trans>Enable auto-merge</Trans>
-														</span>
-														<span className="text-[11px] text-muted-foreground">
-															<Trans>Merge when checks pass</Trans>
-														</span>
-													</div>
-													<ChevronRight className="size-3.5 shrink-0 text-muted-foreground" />
-												</PullRequestMenuItem>
-											)}
-											{data.checksStatus === "failure" && (
-												<PullRequestMenuItem
-													className="flex items-center justify-between gap-2 py-1.5"
-													disabled={mergeBlocked}
-													onClick={() =>
-														setPendingAction({
-															kind: "merge",
-															method: "squash",
-															force: true,
-														})
-													}
-												>
-													<div className="flex flex-col gap-0.5">
-														<span>
-															<Trans>Force merge</Trans>
-														</span>
-														<span className="text-[11px] text-muted-foreground">
-															<Trans>Attempt before checks pass</Trans>
-														</span>
-													</div>
-													<ChevronRight className="size-3.5 shrink-0 text-muted-foreground" />
-												</PullRequestMenuItem>
-											)}
+											<PullRequestMenuItem
+												className="flex items-center justify-between gap-2 py-1.5"
+												disabled={mergeBlocked}
+												onClick={() =>
+													setPendingAction({
+														kind: "merge",
+														method: "squash",
+														force: true,
+													})
+												}
+											>
+												<div className="flex flex-col gap-0.5">
+													<span>
+														<Trans>Force merge</Trans>
+													</span>
+													<span className="text-[11px] text-muted-foreground">
+														<Trans>Attempt before checks pass</Trans>
+													</span>
+												</div>
+												<ChevronRight className="size-3.5 shrink-0 text-muted-foreground" />
+											</PullRequestMenuItem>
 										</>
 									)}
 									<PullRequestMenuSeparator />

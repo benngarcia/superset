@@ -2625,9 +2625,6 @@ msgstr "Automatické ukládání"
 msgid "auto-generated"
 msgstr "automaticky"
 
-msgid "Auto-merge is coming soon"
-msgstr "Auto-merge bude brzy k dispozici"
-
 msgid "Auto-run command"
 msgstr "Automaticky spustit příkaz"
 
@@ -6376,9 +6373,6 @@ msgstr "Zapnout {0}"
 msgid "Enable an agent in Settings > Agents first"
 msgstr "Nejprve zapněte agenta v Nastavení > Agenti"
 
-msgid "Enable auto-merge"
-msgstr "Zapnout auto-merge"
-
 msgid "Enable relay access…"
 msgstr "Povolit přístup přes relay…"
 
@@ -9647,9 +9641,6 @@ msgstr "Stav sloučení"
 
 msgid "Merge status unknown"
 msgstr "Stav sloučení neznámý"
-
-msgid "Merge when checks pass"
-msgstr "Sloučit, až projdou kontroly"
 
 msgid "Merged"
 msgstr "Sloučený"

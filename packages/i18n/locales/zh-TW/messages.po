@@ -2625,9 +2625,6 @@ msgstr "自動儲存"
 msgid "auto-generated"
 msgstr "自動生成"
 
-msgid "Auto-merge is coming soon"
-msgstr "自動合併即將推出"
-
 msgid "Auto-run command"
 msgstr "自動執行命令"
 
@@ -6376,9 +6373,6 @@ msgstr "啟用{0}"
 msgid "Enable an agent in Settings > Agents first"
 msgstr "請先在設定 > 代理程式中啟用一個代理程式"
 
-msgid "Enable auto-merge"
-msgstr "啟用自動合併"
-
 msgid "Enable relay access…"
 msgstr "啟用中繼存取…"
 
@@ -9647,9 +9641,6 @@ msgstr "合併狀態"
 
 msgid "Merge status unknown"
 msgstr "合併狀態不明"
-
-msgid "Merge when checks pass"
-msgstr "檢查通過後合併"
 
 msgid "Merged"
 msgstr "已合併"

@@ -2625,9 +2625,6 @@ msgstr "Автосохранение"
 msgid "auto-generated"
 msgstr "генерируется автоматически"
 
-msgid "Auto-merge is coming soon"
-msgstr "Автослияние скоро появится"
-
 msgid "Auto-run command"
 msgstr "Команда автозапуска"
 
@@ -6376,9 +6373,6 @@ msgstr "Включить {0}"
 msgid "Enable an agent in Settings > Agents first"
 msgstr "Сначала включите агента в Настройки > Агенты"
 
-msgid "Enable auto-merge"
-msgstr "Включить автослияние"
-
 msgid "Enable relay access…"
 msgstr "Включить доступ через реле…"
 
@@ -9647,9 +9641,6 @@ msgstr "Статус слияния"
 
 msgid "Merge status unknown"
 msgstr "Статус слияния неизвестен"
-
-msgid "Merge when checks pass"
-msgstr "Объединить, когда проверки пройдут"
 
 msgid "Merged"
 msgstr "Объединён"

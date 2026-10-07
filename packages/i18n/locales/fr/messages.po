@@ -2625,9 +2625,6 @@ msgstr "Enregistrement automatique"
 msgid "auto-generated"
 msgstr "généré automatiquement"
 
-msgid "Auto-merge is coming soon"
-msgstr "La fusion automatique arrive bientôt"
-
 msgid "Auto-run command"
 msgstr "Commande à exécution automatique"
 
@@ -6376,9 +6373,6 @@ msgstr "Activer {0}"
 msgid "Enable an agent in Settings > Agents first"
 msgstr "Activez d'abord un agent dans Paramètres > Agents"
 
-msgid "Enable auto-merge"
-msgstr "Activer la fusion automatique"
-
 msgid "Enable relay access…"
 msgstr "Activer l'accès au relais…"
 
@@ -9647,9 +9641,6 @@ msgstr "Statut de fusion"
 
 msgid "Merge status unknown"
 msgstr "Statut de fusion inconnu"
-
-msgid "Merge when checks pass"
-msgstr "Fusionner quand les vérifications réussissent"
 
 msgid "Merged"
 msgstr "Fusionnée"

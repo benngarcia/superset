@@ -2625,9 +2625,6 @@ msgstr "Simpan Otomatis"
 msgid "auto-generated"
 msgstr "dibuat otomatis"
 
-msgid "Auto-merge is coming soon"
-msgstr "Auto-merge segera hadir"
-
 msgid "Auto-run command"
 msgstr "Jalankan perintah otomatis"
 
@@ -6376,9 +6373,6 @@ msgstr "Aktifkan {0}"
 msgid "Enable an agent in Settings > Agents first"
 msgstr "Aktifkan dulu sebuah agen di Pengaturan > Agen"
 
-msgid "Enable auto-merge"
-msgstr "Aktifkan auto-merge"
-
 msgid "Enable relay access…"
 msgstr "Aktifkan akses relay…"
 
@@ -9647,9 +9641,6 @@ msgstr "Status merge"
 
 msgid "Merge status unknown"
 msgstr "Status merge tidak diketahui"
-
-msgid "Merge when checks pass"
-msgstr "Merge saat check lulus"
 
 msgid "Merged"
 msgstr "Di-merge"

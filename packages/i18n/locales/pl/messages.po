@@ -2625,9 +2625,6 @@ msgstr "Automatyczne zapisywanie"
 msgid "auto-generated"
 msgstr "generowana automatycznie"
 
-msgid "Auto-merge is coming soon"
-msgstr "Automatyczne scalanie już wkrótce"
-
 msgid "Auto-run command"
 msgstr "Automatyczne polecenie"
 
@@ -6376,9 +6373,6 @@ msgstr "Włącz {0}"
 msgid "Enable an agent in Settings > Agents first"
 msgstr "Najpierw włącz agenta w Ustawienia > Agenci"
 
-msgid "Enable auto-merge"
-msgstr "Włącz automatyczne scalanie"
-
 msgid "Enable relay access…"
 msgstr "Włącz dostęp przez przekaźnik…"
 
@@ -9647,9 +9641,6 @@ msgstr "Stan scalania"
 
 msgid "Merge status unknown"
 msgstr "Stan scalania nieznany"
-
-msgid "Merge when checks pass"
-msgstr "Scal, gdy kontrole przejdą"
 
 msgid "Merged"
 msgstr "Scalony"
