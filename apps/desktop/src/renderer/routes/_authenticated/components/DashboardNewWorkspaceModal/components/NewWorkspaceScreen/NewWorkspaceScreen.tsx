@@ -1,4 +1,8 @@
 import { Trans, useLingui } from "@lingui/react/macro";
+import {
+	isDropHandled,
+	markDropHandled,
+} from "@superset/chat-ui/ComposerDropZone";
 import type { PromptInputHandle } from "@superset/chat-ui/PromptInput";
 import {
 	getAgentEffortSupport,
@@ -249,8 +253,9 @@ export function NewWorkspaceScreen({
 			timer = null;
 			setIsDraggingFiles(false);
 			const files = e.dataTransfer?.files;
-			if (e.defaultPrevented || !files || files.length === 0) return;
+			if (isDropHandled(e) || !files || files.length === 0) return;
 			e.preventDefault();
+			markDropHandled(e);
 			addAttachmentsRef.current(files);
 		};
 		const onChange = (e: Event) => {

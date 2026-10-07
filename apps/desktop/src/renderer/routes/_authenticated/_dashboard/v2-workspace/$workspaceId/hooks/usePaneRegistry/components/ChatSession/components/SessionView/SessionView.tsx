@@ -13,6 +13,7 @@ import {
 	useChatSession,
 	useTimeline,
 } from "@superset/chat/react";
+import { ComposerDropZone } from "@superset/chat-ui/ComposerDropZone";
 import { MessageScroller } from "@superset/chat-ui/MessageScroller";
 import { ChatHistorySidebarScroller } from "@superset/ui/chat-history-sidebar";
 import type { ReactNode } from "react";
@@ -283,7 +284,7 @@ export function SessionView({
 	// sizes to its content and leaves the right of the pane empty.
 	return (
 		<ChatPaneActionsProvider openFile={openFile} workspaceId={workspaceId}>
-			<div className="flex h-full min-h-0 w-full min-w-0 flex-col">
+			<ComposerDropZone className="flex h-full min-h-0 w-full min-w-0 flex-col">
 				{/* Only worth a row when it carries a control: the pane header above
 				    already names the agent, and harness/status/connection repeated
 				    under it read louder than the transcript. */}
@@ -351,7 +352,7 @@ export function SessionView({
 					promptQueue={heldQueue ?? (held ? undefined : promptQueue)}
 					workspaceId={workspaceId}
 				/>
-			</div>
+			</ComposerDropZone>
 		</ChatPaneActionsProvider>
 	);
 }

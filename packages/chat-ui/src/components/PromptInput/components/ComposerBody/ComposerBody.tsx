@@ -47,7 +47,11 @@ import {
 	useState,
 } from "react";
 import { createPortal } from "react-dom";
-import { useComposerDropZone } from "../../../ComposerDropZone";
+import {
+	isDropHandled,
+	markDropHandled,
+	useComposerDropZone,
+} from "../../../ComposerDropZone";
 import { useDictation } from "../../hooks/useDictation";
 import {
 	type MentionSection,
@@ -521,6 +525,7 @@ export function ComposerBody({
 				const files = event.dataTransfer?.files;
 				if (files && files.length > 0) {
 					event.preventDefault();
+					markDropHandled(event);
 					addFilesRef.current(files);
 					setDragging(false);
 					return true;
@@ -725,15 +730,14 @@ export function ComposerBody({
 					setDragging(false);
 			}}
 			onDrop={(event) => {
-				// The editor's DROP_COMMAND handler may have consumed this already;
-				// preventDefault marks it and the event still bubbles here. Inside a
-				// layout ComposerDropZone the zone owns non-editor drops instead.
+				// Inside a layout ComposerDropZone the zone owns non-editor drops.
 				if (
 					dropZone == null &&
-					!event.defaultPrevented &&
+					!isDropHandled(event.nativeEvent) &&
 					event.dataTransfer.files.length > 0
 				) {
 					event.preventDefault();
+					markDropHandled(event.nativeEvent);
 					addFiles(event.dataTransfer.files);
 				}
 				setDragging(false);
