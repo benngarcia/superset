@@ -26,7 +26,7 @@ const apiOrigin = process.env.NEXT_PUBLIC_API_URL
 // Third parties this site actually loads (probed against production):
 // - Google Ads gtag + Reddit pixel, injected in [lang]/layout.tsx
 // - Cloudflare Web Analytics, injected at the edge by the Cloudflare proxy
-// - Work at a Startup job board (+ its hCaptcha) on /join-us
+// - Work at a Startup job board (+ its hCaptcha) on /careers
 // - PostHog goes through the same-origin /ingest rewrite; ui_host is listed
 //   so the toolbar can still connect.
 // - Sentry browser SDK reports to *.ingest.sentry.io
@@ -92,6 +92,7 @@ const contentSecurityPolicy = [
 const config: NextConfig = {
 	reactStrictMode: true,
 	reactCompiler: true,
+	cacheComponents: true,
 	typescript: { ignoreBuildErrors: true },
 
 	// getInterBold reads the font through process.cwd(), which the tracer
@@ -102,6 +103,15 @@ const config: NextConfig = {
 			"./public/fonts/Inter-Bold.ttf",
 		],
 		"/[lang]/user/[handle]/opengraph-image": ["./public/fonts/Inter-Bold.ttf"],
+	},
+
+	// The OG image routes read public/ by a runtime path, so the tracer copies
+	// all of it into every function. They never read these.
+	outputFileTracingExcludes: {
+		"*": [
+			"./public/**/*.{mov,mp4,gif}",
+			"./public/{images,blog,hero,app-icons,media}/**",
+		],
 	},
 
 	// Compiles @lingui/react/macro at build time. Version must stay in
@@ -155,6 +165,16 @@ const config: NextConfig = {
 			{
 				source: "/about",
 				destination: "/team",
+				permanent: true,
+			},
+			{
+				source: "/:lang(en)?/join-us",
+				destination: "/careers",
+				permanent: true,
+			},
+			{
+				source: `/:lang(${SUPPORTED_LOCALES.join("|")})/join-us`,
+				destination: "/:lang/careers",
 				permanent: true,
 			},
 			{

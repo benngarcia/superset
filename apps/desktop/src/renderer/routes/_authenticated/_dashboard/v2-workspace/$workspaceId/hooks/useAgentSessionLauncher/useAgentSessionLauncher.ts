@@ -1,4 +1,5 @@
 import { useLingui } from "@lingui/react/macro";
+import { acpHarnessForPreset } from "@superset/chat/core";
 import { errorMessage } from "@superset/i18n/errors";
 import type { WorkspaceStore } from "@superset/panes";
 import { toast } from "@superset/ui/sonner";
@@ -11,10 +12,13 @@ import {
 	useV2AgentConfigs,
 	v2AgentConfigsQueryOptions,
 } from "renderer/hooks/useV2AgentConfigs";
-import { acpHarnessForPreset } from "renderer/lib/acpHarness";
 import { terminalQueryColors } from "renderer/lib/terminal/terminal-query-colors";
 import type { StoreApi } from "zustand/vanilla";
-import type { PaneViewerData, TerminalPaneData } from "../../types";
+import type {
+	ChatPaneData,
+	PaneViewerData,
+	TerminalPaneData,
+} from "../../types";
 import { focusOrAddTerminalPane } from "../../utils/focusTerminalPane";
 
 export interface CreateNewAgentSessionInput {
@@ -71,11 +75,11 @@ export function useAgentSessionLauncher({
 			const terminalId = crypto.randomUUID();
 			const label = config?.label;
 			const pane = {
-				kind: "terminal" as const,
+				kind: "chat-v3" as const,
 				...(label ? { titleOverride: label } : {}),
 				data: {
 					terminalId,
-					agentSurface: "acp",
+					sessionId: null,
 					agent: { id: presetId },
 					...(input.prompt ? { pendingPrompt: input.prompt } : {}),
 					...(input.attachments?.length
@@ -83,7 +87,7 @@ export function useAgentSessionLauncher({
 						: {}),
 					...(input.modelId ? { chatModelId: input.modelId } : {}),
 					...(input.modeId ? { chatModeId: input.modeId } : {}),
-				} as TerminalPaneData,
+				} satisfies ChatPaneData,
 			};
 			if (input.placement === "split-pane" && state.activeTabId) {
 				state.addPane({ tabId: state.activeTabId, pane });
