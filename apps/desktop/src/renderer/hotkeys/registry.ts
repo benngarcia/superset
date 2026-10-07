@@ -215,9 +215,9 @@ export const HOTKEYS_REGISTRY = {
 	},
 	OPEN_ACTIVE_WORKSPACE_SWITCHER: {
 		key: {
-			mac: L("meta+slash"),
-			windows: L("ctrl+alt+slash"),
-			linux: L("ctrl+alt+slash"),
+			mac: L("meta+semicolon"),
+			windows: L("ctrl+alt+semicolon"),
+			linux: L("ctrl+alt+semicolon"),
 		},
 		label: msg({
 			message: "Switch to Active Workspace",
@@ -937,7 +937,7 @@ export const HOTKEYS_REGISTRY = {
 	},
 	SHOW_HOTKEYS: {
 		key: {
-			mac: L("meta+shift+slash"),
+			mac: L("meta+slash"),
 			windows: L("ctrl+shift+slash"),
 			linux: L("ctrl+shift+slash"),
 		},
