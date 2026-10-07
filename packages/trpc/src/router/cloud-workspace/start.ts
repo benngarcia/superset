@@ -81,6 +81,11 @@ export async function startCloudWorkspace(args: {
 	taskIds?: string[];
 	attachmentFileIds?: string[];
 }) {
+	// The sandbox's Codex is older than the codex-acp floor, so only Claude chats.
+	const openAsChat =
+		args.launch?.agent === "claude"
+			? acpChatEnabled(args.userId)
+			: Promise.resolve(false);
 	const environment = await loadUsableEnvironment(args);
 
 	// A workspace is started from an environment, and the environment's
@@ -184,24 +189,17 @@ export async function startCloudWorkspace(args: {
 		cloudWorkspaceId: row.id,
 		...(args.name ? {} : { namingPrompt: args.prompt ?? "" }),
 		...(args.launch
-			? { launch: await withSurface(args.launch, args.userId) }
+			? {
+					launch: (await openAsChat)
+						? { ...args.launch, surface: "chat" as const }
+						: args.launch,
+				}
 			: {}),
 	};
 
 	nudge(row.organizationId, "cloud_workspaces");
 	await queueProvision(job);
 	return row;
-}
-
-// The host opens a terminal for any launch that carries an effort. The
-// sandbox's Codex is older than the codex-acp floor, so only Claude chats.
-async function withSurface(
-	launch: CloudAgentLaunch,
-	userId: string,
-): Promise<CloudAgentLaunch> {
-	if (launch.agent !== "claude" || !(await acpChatEnabled(userId)))
-		return launch;
-	return { ...launch, effort: undefined, surface: "chat" };
 }
 
 /**

@@ -335,7 +335,8 @@ export async function launchSandboxAgentOnce(
 			agent,
 			prompt,
 			model,
-			effort,
+			// A launch that carries an effort opens a terminal.
+			effort: surface === "chat" ? undefined : effort,
 			mode,
 			...(attachmentIds?.length ? { attachmentIds } : {}),
 			...(surface ? { surface } : {}),

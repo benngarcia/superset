@@ -67,6 +67,9 @@ export async function runInCloud(
 	const { automation, prompt, placed } = args;
 
 	if (launch.kind === "pinned") {
+		const chatSurface =
+			automation.agent === "claude" &&
+			(await acpChatEnabled(automation.ownerUserId));
 		return hostServiceMutation<
 			{
 				workspaceId: string;
@@ -83,10 +86,7 @@ export async function runInCloud(
 			...(launch.continueTerminalId
 				? { continueTerminalId: launch.continueTerminalId }
 				: {}),
-			...(automation.agent === "claude" &&
-			(await acpChatEnabled(automation.ownerUserId))
-				? { surface: "chat" as const }
-				: {}),
+			...(chatSurface ? { surface: "chat" as const } : {}),
 		});
 	}
 
