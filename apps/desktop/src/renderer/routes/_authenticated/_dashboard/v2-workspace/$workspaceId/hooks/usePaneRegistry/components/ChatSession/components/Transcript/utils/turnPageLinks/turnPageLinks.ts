@@ -11,8 +11,11 @@ import type { PageLink, PageLinkFinder } from "../../../../utils/pageLinks";
 const MAX_PAGES_PER_TOOL_CALL = 3;
 
 export type TurnPageLinks = {
-	/** By agent message id: the slugs earlier messages of the turn already link. */
-	shownEarlier: ReadonlyMap<string, readonly string[]>;
+	/**
+	 * By agent message id: the slugs earlier messages of the turn already link,
+	 * space-separated so a memoized row sees an equal value on every rebuild.
+	 */
+	shownEarlier: ReadonlyMap<string, string>;
 	/** By tool call id: the pages its output links and no message of the turn does. */
 	fromTools: ReadonlyMap<string, readonly PageLink[]>;
 };
@@ -57,11 +60,11 @@ export function turnPageLinks(
 	settled: boolean,
 	findPageLinks: PageLinkFinder,
 ): TurnPageLinks {
-	const shownEarlier = new Map<string, readonly string[]>();
+	const shownEarlier = new Map<string, string>();
 	const shown = new Set<string>();
 	for (const entry of entries) {
 		if (entry.kind !== "item" || !isAgentMessage(entry.item)) continue;
-		if (shown.size > 0) shownEarlier.set(entry.item.id, [...shown]);
+		if (shown.size > 0) shownEarlier.set(entry.item.id, [...shown].join(" "));
 		for (const link of findPageLinks(entry.item.text)) shown.add(link.slug);
 	}
 

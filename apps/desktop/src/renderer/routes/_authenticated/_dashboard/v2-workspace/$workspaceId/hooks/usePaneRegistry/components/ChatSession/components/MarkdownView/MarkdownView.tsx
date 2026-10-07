@@ -11,7 +11,6 @@ import { PageLinkCard } from "../PageLinkCard";
 import { pageLinksByBlock } from "./utils/pageLinksByBlock";
 import { planMarkdown } from "./utils/planMarkdown";
 
-const NO_PAGES: readonly string[] = [];
 const findPageLinks = pageLinkFinder(env.NEXT_PUBLIC_WEB_URL);
 
 const MarkdownBlock = memo(function MarkdownBlock({
@@ -36,7 +35,7 @@ export function MarkdownView({
 	fading = false,
 	final = false,
 	pageCards = false,
-	pagesShownEarlier = NO_PAGES,
+	pagesShownEarlier = "",
 	text,
 }: {
 	text: string;
@@ -46,8 +45,8 @@ export function MarkdownView({
 	pageCards?: boolean;
 	/** The text has stopped growing, so its last block is settled too. */
 	final?: boolean;
-	/** Slugs of the pages the turn already shows a card for. */
-	pagesShownEarlier?: readonly string[];
+	/** Space-separated slugs of the pages the turn already shows a card for. */
+	pagesShownEarlier?: string;
 }) {
 	const plan = useMemo(() => planMarkdown(text), [text]);
 	const tailKey = `${plan.stable.reduce((sum, entry) => sum + entry.block.length, 0)}`;
@@ -55,7 +54,11 @@ export function MarkdownView({
 		if (!pageCards) return [];
 		const settled = plan.stable.map((entry) => entry.block);
 		if (final && plan.tail !== null) settled.push(plan.tail);
-		return pageLinksByBlock(settled, pagesShownEarlier, findPageLinks);
+		return pageLinksByBlock(
+			settled,
+			pagesShownEarlier.split(" ").filter(Boolean),
+			findPageLinks,
+		);
 	}, [pageCards, final, plan, pagesShownEarlier]);
 
 	const blocks: ReactNode[] = [];

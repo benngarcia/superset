@@ -41,7 +41,7 @@ export function AgentMessageRow({
 	canForkToWorktree?: boolean;
 	lastReply: boolean;
 	/** Slugs of the pages an earlier message of the turn already shows a card for. */
-	pagesShownEarlier?: readonly string[] | undefined;
+	pagesShownEarlier?: string | undefined;
 }) {
 	const { t } = useLingui();
 	const { copied, copyToClipboard } = useCopyToClipboard(COPIED_MS);

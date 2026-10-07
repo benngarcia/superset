@@ -24,7 +24,7 @@ export type TranscriptRow =
 			/** Pages to show as cards under a tool call. */
 			pages?: readonly PageLink[];
 			/** Slugs an agent message leaves to the earlier message that shows them. */
-			pagesShownEarlier?: readonly string[];
+			pagesShownEarlier?: string;
 	  }
 	| { kind: "outbox"; key: string; groupStart: boolean; entry: OutboxEntry }
 	| {

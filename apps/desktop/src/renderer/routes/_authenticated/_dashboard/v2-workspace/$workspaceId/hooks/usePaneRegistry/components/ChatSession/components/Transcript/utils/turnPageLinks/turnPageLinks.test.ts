@@ -118,8 +118,8 @@ describe("turnPageLinks", () => {
 			find,
 		);
 		expect([...links.shownEarlier]).toEqual([
-			["a2", ["quarterly-report-a3f9k"]],
-			["a3", ["quarterly-report-a3f9k", "launch-plan-b7c2d"]],
+			["a2", "quarterly-report-a3f9k"],
+			["a3", "quarterly-report-a3f9k launch-plan-b7c2d"],
 		]);
 	});
 });

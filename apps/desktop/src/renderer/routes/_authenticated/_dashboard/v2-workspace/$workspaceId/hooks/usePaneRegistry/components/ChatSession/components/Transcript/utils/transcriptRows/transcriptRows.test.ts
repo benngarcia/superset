@@ -190,8 +190,9 @@ describe("transcriptRows", () => {
 		);
 		expect(byId.c1).not.toHaveProperty("pages");
 		expect(byId.a1).not.toHaveProperty("pagesShownEarlier");
-		expect(byId.a2).toHaveProperty("pagesShownEarlier", [
+		expect(byId.a2).toHaveProperty(
+			"pagesShownEarlier",
 			"quarterly-report-a3f9k",
-		]);
+		);
 	});
 });
