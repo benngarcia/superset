@@ -925,6 +925,9 @@ msgstr "{level} · {gate} · {statusLabel}"
 msgid "{level} {gate}: {statusLabel}"
 msgstr "{level} {gate}: {statusLabel}"
 
+msgid "{liveCount, plural, one {# terminal from v1 is still running in the background. The new Superset can't show it, and an agent in it can still change your files.} other {# terminals from v1 are still running in the background. The new Superset can't show them, and agents in them can still change your files.}}"
+msgstr "{liveCount, plural, one {# terminál z v1 stále běží na pozadí. Nový Superset ho nemůže zobrazit a agent v něm stále může měnit vaše soubory.} other {Terminály z v1 (#) stále běží na pozadí. Nový Superset je nemůže zobrazit a agenti v nich stále mohou měnit vaše soubory.}}"
+
 msgid "{localHostName} (this device)"
 msgstr "{localHostName} (toto zařízení)"
 
@@ -1800,6 +1803,9 @@ msgstr "Po"
 msgid "After delay (3s)"
 msgstr "Po zpoždění (3s)"
 
+msgid "After you stop them, Superset resumes the agent sessions it recorded ({agents}) when you open their workspace."
+msgstr "Po jejich zastavení Superset obnoví zaznamenané relace agentů ({agents}), když otevřete jejich pracovní prostor."
+
 msgid "Against base"
 msgstr "Proti základní větvi"
 
@@ -2165,6 +2171,10 @@ msgstr "Aktualizace je připravena k instalaci."
 
 msgid "Analytics, Ops, and more"
 msgstr "Analytika, provoz a další"
+
+msgctxt "list"
+msgid "and {hiddenCount} more"
+msgstr "a {hiddenCount} dalších"
 
 msgid "Android is on the way. Be first to know when it ships."
 msgstr "Android je na cestě. Dozvíte se jako první, až vyjde."
@@ -2698,9 +2708,6 @@ msgstr "Autonomní cesta od ticketu k PR"
 msgid "Available"
 msgstr "Volné"
 
-msgid "Available when v2 is enabled."
-msgstr "Dostupné, když je zapnutá v2."
-
 msgid "Avatar"
 msgstr "Avatar"
 
@@ -3027,6 +3034,9 @@ msgstr "Přeneste projekty, pracovní prostory a terminálové skripty z v1 do v
 
 msgid "Bring your agents together."
 msgstr "Sjednoťte své agenty."
+
+msgid "Bringing over your v1 projects"
+msgstr "Přenášíme vaše projekty z v1"
 
 msgid "Browse and install skills, MCP servers, and agent configs shared by the community."
 msgstr "Procházejte a instalujte skills, MCP servery a konfigurace agentů sdílené komunitou."
@@ -7445,6 +7455,12 @@ msgstr "Velikost písma"
 msgid "Font weight"
 msgstr "Tloušťka písma"
 
+msgid "For a project, open the importer to link it."
+msgstr "U projektu otevřete importér a propojte ho."
+
+msgid "For a worktree, check out a branch in its folder and it comes over on the next launch. If you moved it, right-click its project and choose Import untracked worktrees."
+msgstr "U worktree si ve složce přepněte na větev a přenese se při příštím spuštění. Pokud jste ho přesunuli, klikněte pravým tlačítkem na jeho projekt a zvolte Importovat nesledované worktree."
+
 msgid "For bug reports and feature requests, the fastest path is a GitHub issue at <0>github.com/superset-sh/superset</0>. Our community lives on <1>Discord</1>, and we post updates on <2>X (@superset_sh)</2> and <3>LinkedIn</3>."
 msgstr "Pro hlášení chyb a náměty na funkce je nejrychlejší cestou GitHub issue na <0>github.com/superset-sh/superset</0>. Naše komunita žije na <1>Discordu</1> a novinky zveřejňujeme na <2>X (@superset_sh)</2> a <3>LinkedInu</3>."
 
@@ -7798,6 +7814,9 @@ msgstr "Google neudělil trvalý přístup. Odeberte Superset z přístupu třet
 
 msgid "Google Search Console"
 msgstr "Google Search Console"
+
+msgid "Got it"
+msgstr "Rozumím"
 
 msgid "Grant the OS permissions Superset needs."
 msgstr "Udělte systémová oprávnění, která Superset potřebuje."
@@ -13785,6 +13804,9 @@ msgstr "Běží na tomto zařízení"
 msgid "Running terminal processes continue, but older output may no longer be available after restarting the app."
 msgstr "Běžící procesy v terminálu poběží dál, ale starší výstup po restartu aplikace už nemusí být k dispozici."
 
+msgid "Running terminals from v1 did not carry over. Each v1 workspace now has new terminals that open in the same folders."
+msgstr "Běžící terminály z v1 se nepřenesly. Každý pracovní prostor z v1 má nyní nové terminály, které se otevírají ve stejných složkách."
+
 msgid "Runs a local command on your machine"
 msgstr "Spouští lokální příkaz na vašem počítači"
 
@@ -15005,11 +15027,20 @@ msgstr "Některé repozitáře se nepodařilo načíst: {0}"
 msgid "Some sessions could not be killed"
 msgstr "Některé relace se nepodařilo ukončit"
 
+msgid "Some terminals did not stop. Try again."
+msgstr "Některé terminály se nezastavily. Zkuste to znovu."
+
 msgid "Some themes were skipped"
 msgstr "Některé motivy byly přeskočeny"
 
 msgid "Some triggers need additional configuration"
 msgstr "Některé spouštěče potřebují další nastavení"
+
+msgid "Some v1 items did not come over"
+msgstr "Některé položky z v1 se nepřenesly"
+
+msgid "Some v1 work needs your attention"
+msgstr "Část vaší práce z v1 vyžaduje pozornost"
 
 msgid "Someone"
 msgstr "Někdo"
@@ -15417,6 +15448,9 @@ msgstr "Ukončete tady Superset, ať ho smažete z jiného zařízení."
 msgid "Stop the agent and send this now"
 msgstr "Zastavit agenta a odeslat hned"
 
+msgid "Stop them"
+msgstr "Zastavit je"
+
 msgid "Stop watching"
 msgstr "Přestat sledovat"
 
@@ -15428,6 +15462,9 @@ msgstr "zastaveno"
 
 msgid "Stopping the agent in {what}"
 msgstr "Zastavuje se agent v {what}"
+
+msgid "Stopping…"
+msgstr "Zastavování…"
 
 msgid "Strikethrough"
 msgstr "Přeškrtnuté"
@@ -15562,6 +15599,9 @@ msgstr "Komponenty Superset"
 msgid "Superset Components"
 msgstr "Komponenty Superset"
 
+msgid "Superset could not bring over some of your v1 projects or workspaces. Open the importer to see why and retry each one."
+msgstr "Superset nemohl přenést některé vaše projekty nebo pracovní prostory z v1. Otevřete importér, zjistěte proč a zkuste každou položku znovu."
+
 msgid "Superset could not complete sign-in. Please try again."
 msgstr "Superset nedokázal dokončit přihlášení. Zkuste to prosím znovu."
 
@@ -15678,6 +15718,9 @@ msgstr "Superset získá pouze oprávnění, o která tento konektor žádá. Kd
 
 msgid "Superset originals"
 msgstr "Originály Superset"
+
+msgid "Superset resumes the agent sessions it recorded ({agents}) when you open their workspace."
+msgstr "Superset obnoví zaznamenané relace agentů ({agents}), když otevřete jejich pracovní prostor."
 
 msgid "Superset runs locally on your developers' machines. We don't store your code or AI conversations, and Superset has completed a SOC 2 Type II audit with an independent auditor. Request the report and review our security documentation at trust.superset.sh."
 msgstr "Superset běží lokálně na počítačích vašich vývojářů. Neukládáme váš kód ani konverzace s AI a Superset prošel auditem SOC 2 Type II u nezávislého auditora. Vyžádejte si zprávu a projděte si dokumentaci k bezpečnosti na trust.superset.sh."
@@ -16074,6 +16117,9 @@ msgstr "Terminály ({TERMINAL_COUNT})"
 msgid "Terminals aren't responding"
 msgstr "Terminály neodpovídají"
 
+msgid "Terminals from v1 are still running"
+msgstr "Terminály z v1 stále běží"
+
 msgid "Terminals restarted"
 msgstr "Terminály restartovány"
 
@@ -16461,8 +16507,14 @@ msgstr "Motivy"
 msgid "These commands run automatically when a workspace is created. <0>Read our docs<1/></0>"
 msgstr "Tyto příkazy se spustí automaticky při vytvoření pracovního prostoru. <0>Přečtěte si dokumentaci<1/></0>"
 
+msgid "These folders still have your files, but they did not come over to the new Superset on their own."
+msgstr "Tyto složky stále obsahují vaše soubory, ale do nového Supersetu se samy nepřenesly."
+
 msgid "These ports are still in use"
 msgstr "Tyto porty se stále používají"
+
+msgid "They stop when you restart your computer."
+msgstr "Zastaví se, když restartujete počítač."
 
 msgid "Thinking"
 msgstr "Uvažování"
@@ -16850,6 +16902,12 @@ msgstr "Název"
 msgid "To"
 msgstr "Do"
 
+msgid "To get back a different agent conversation, run this in a terminal in its folder:"
+msgstr "Chcete-li získat zpět jinou konverzaci s agentem, spusťte toto v terminálu v její složce:"
+
+msgid "To get back an agent conversation, run this in a terminal in its folder:"
+msgstr "Chcete-li získat zpět konverzaci s agentem, spusťte toto v terminálu v její složce:"
+
 msgid "Toast (Sonner)"
 msgstr "Toast (Sonner)"
 
@@ -17092,9 +17150,6 @@ msgstr "Vyzkoušejte to"
 
 msgid "Try now"
 msgstr "Vyzkoušet"
-
-msgid "Try Superset v2"
-msgstr "Vyzkoušet Superset v2"
 
 msgid "Tufte"
 msgstr "Tufte"
@@ -17565,9 +17620,6 @@ msgstr "Používejte Superset na telefonu s Pro."
 
 msgid "Use the desktop app to start running parallel coding agents."
 msgstr "Pro spouštění paralelních kódovacích agentů použijte desktopovou aplikaci."
-
-msgid "Use the new workspace experience."
-msgstr "Používat nové prostředí pracovních prostorů."
 
 msgid "Use the Superset tray menu > Host Service > Restart, then retry."
 msgstr "Použijte nabídku Superset na liště > Host Service > Restart a zkuste to znovu."
@@ -18557,12 +18609,18 @@ msgstr "Vaše stahování Supersetu se spouští."
 msgid "Your terminal sessions won't be interrupted."
 msgstr "Vaše relace v terminálu nebudou přerušeny."
 
+msgid "Your terminals restarted"
+msgstr "Vaše terminály se restartovaly"
+
 #. placeholder {0}: String(gaps.length)
 msgid "Your tier is a weighted score across the {0} axes measured for you, so a strong axis offsets a weak one. The axes below are the ones lagging."
 msgstr "Tvoje úroveň je vážené skóre z os, kterých bylo změřeno {0}, takže silná osa vyváží slabou. Níže jsou osy, které zaostávají."
 
 msgid "Your tokens"
 msgstr "Vaše tokeny"
+
+msgid "Your v1 projects and workspaces are moving to the new Superset. They appear in the sidebar as each one is ready."
+msgstr "Vaše projekty a pracovní prostory z v1 se přenášejí do nového Supersetu. V postranním panelu se zobrazí, jakmile bude každá položka připravena."
 
 msgid "Your version: {currentVersion}"
 msgstr "Vaše verze: {currentVersion}"

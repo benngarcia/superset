@@ -925,6 +925,9 @@ msgstr "{level} · {gate} · {statusLabel}"
 msgid "{level} {gate}: {statusLabel}"
 msgstr "{level} {gate}: {statusLabel}"
 
+msgid "{liveCount, plural, one {# terminal from v1 is still running in the background. The new Superset can't show it, and an agent in it can still change your files.} other {# terminals from v1 are still running in the background. The new Superset can't show them, and agents in them can still change your files.}}"
+msgstr "{liveCount, plural, one {# terminal uit v1 draait nog op de achtergrond. Het nieuwe Superset kan hem niet tonen, en een agent erin kan je bestanden nog wijzigen.} other {# terminals uit v1 draaien nog op de achtergrond. Het nieuwe Superset kan ze niet tonen, en agents erin kunnen je bestanden nog wijzigen.}}"
+
 msgid "{localHostName} (this device)"
 msgstr "{localHostName} (dit apparaat)"
 
@@ -1800,6 +1803,9 @@ msgstr "Na"
 msgid "After delay (3s)"
 msgstr "Na vertraging (3 s)"
 
+msgid "After you stop them, Superset resumes the agent sessions it recorded ({agents}) when you open their workspace."
+msgstr "Nadat je ze stopt, hervat Superset de vastgelegde agentsessies ({agents}) wanneer je hun workspace opent."
+
 msgid "Against base"
 msgstr "Ten opzichte van basis"
 
@@ -2165,6 +2171,10 @@ msgstr "Er staat een update klaar om te installeren."
 
 msgid "Analytics, Ops, and more"
 msgstr "Analyses, beheer en meer"
+
+msgctxt "list"
+msgid "and {hiddenCount} more"
+msgstr "en nog {hiddenCount}"
 
 msgid "Android is on the way. Be first to know when it ships."
 msgstr "Android komt eraan. Hoor het als eerste wanneer het uitkomt."
@@ -2698,9 +2708,6 @@ msgstr "Autonome pijplijn van ticket naar PR"
 msgid "Available"
 msgstr "Beschikbaar"
 
-msgid "Available when v2 is enabled."
-msgstr "Beschikbaar wanneer v2 aanstaat."
-
 msgid "Avatar"
 msgstr "Avatar"
 
@@ -3027,6 +3034,9 @@ msgstr "Neem projecten, werkruimtes en terminalscripts uit v1 mee naar v2. Elk i
 
 msgid "Bring your agents together."
 msgstr "Breng je agents samen."
+
+msgid "Bringing over your v1 projects"
+msgstr "Je v1-projecten worden overgezet"
 
 msgid "Browse and install skills, MCP servers, and agent configs shared by the community."
 msgstr "Blader door skills, MCP-servers en agentconfiguraties die de community deelt, en installeer ze."
@@ -7445,6 +7455,12 @@ msgstr "Tekengrootte"
 msgid "Font weight"
 msgstr "Tekendikte"
 
+msgid "For a project, open the importer to link it."
+msgstr "Open voor een project de importer om het te koppelen."
+
+msgid "For a worktree, check out a branch in its folder and it comes over on the next launch. If you moved it, right-click its project and choose Import untracked worktrees."
+msgstr "Check voor een worktree een branch uit in de map, dan komt hij mee bij de volgende start. Heb je hem verplaatst, klik dan met rechts op het project en kies Niet-gevolgde worktrees importeren."
+
 msgid "For bug reports and feature requests, the fastest path is a GitHub issue at <0>github.com/superset-sh/superset</0>. Our community lives on <1>Discord</1>, and we post updates on <2>X (@superset_sh)</2> and <3>LinkedIn</3>."
 msgstr "Voor bugmeldingen en featureverzoeken is een GitHub-issue op <0>github.com/superset-sh/superset</0> de snelste route. Onze community zit op <1>Discord</1> en we plaatsen updates op <2>X (@superset_sh)</2> en <3>LinkedIn</3>."
 
@@ -7798,6 +7814,9 @@ msgstr "Google heeft geen blijvende toegang verleend. Verwijder Superset uit de 
 
 msgid "Google Search Console"
 msgstr "Google Search Console"
+
+msgid "Got it"
+msgstr "Begrepen"
 
 msgid "Grant the OS permissions Superset needs."
 msgstr "Geef Superset de OS-rechten die het nodig heeft."
@@ -13785,6 +13804,9 @@ msgstr "Draait op dit apparaat"
 msgid "Running terminal processes continue, but older output may no longer be available after restarting the app."
 msgstr "Draaiende terminalprocessen gaan door, maar oudere uitvoer is na het herstarten van de app mogelijk niet meer beschikbaar."
 
+msgid "Running terminals from v1 did not carry over. Each v1 workspace now has new terminals that open in the same folders."
+msgstr "Draaiende terminals uit v1 zijn niet meegekomen. Elke v1-workspace heeft nu nieuwe terminals die in dezelfde mappen openen."
+
 msgid "Runs a local command on your machine"
 msgstr "Voert een lokaal commando uit op je machine"
 
@@ -15005,11 +15027,20 @@ msgstr "Sommige repository's konden niet worden geladen: {0}"
 msgid "Some sessions could not be killed"
 msgstr "Sommige sessies konden niet worden beëindigd"
 
+msgid "Some terminals did not stop. Try again."
+msgstr "Sommige terminals zijn niet gestopt. Probeer het opnieuw."
+
 msgid "Some themes were skipped"
 msgstr "Sommige thema's zijn overgeslagen"
 
 msgid "Some triggers need additional configuration"
 msgstr "Sommige triggers hebben extra configuratie nodig"
+
+msgid "Some v1 items did not come over"
+msgstr "Sommige v1-items zijn niet overgezet"
+
+msgid "Some v1 work needs your attention"
+msgstr "Een deel van je v1-werk vraagt aandacht"
 
 msgid "Someone"
 msgstr "Iemand"
@@ -15417,6 +15448,9 @@ msgstr "Stop Superset hier om vanaf een ander apparaat te verwijderen."
 msgid "Stop the agent and send this now"
 msgstr "Agent stoppen en nu verzenden"
 
+msgid "Stop them"
+msgstr "Stoppen"
+
 msgid "Stop watching"
 msgstr "Stoppen met volgen"
 
@@ -15428,6 +15462,9 @@ msgstr "gestopt"
 
 msgid "Stopping the agent in {what}"
 msgstr "Agent in {what} wordt gestopt"
+
+msgid "Stopping…"
+msgstr "Stoppen…"
 
 msgid "Strikethrough"
 msgstr "Doorhalen"
@@ -15562,6 +15599,9 @@ msgstr "Superset-componenten"
 msgid "Superset Components"
 msgstr "Superset-componenten"
 
+msgid "Superset could not bring over some of your v1 projects or workspaces. Open the importer to see why and retry each one."
+msgstr "Superset kon sommige van je v1-projecten of -workspaces niet overzetten. Open de importer om te zien waarom en probeer elk item opnieuw."
+
 msgid "Superset could not complete sign-in. Please try again."
 msgstr "Superset kon het inloggen niet voltooien. Probeer het opnieuw."
 
@@ -15678,6 +15718,9 @@ msgstr "Superset ontvangt alleen de rechten die deze connector vraagt. Verbreek 
 
 msgid "Superset originals"
 msgstr "Superset-originelen"
+
+msgid "Superset resumes the agent sessions it recorded ({agents}) when you open their workspace."
+msgstr "Superset hervat de vastgelegde agentsessies ({agents}) wanneer je hun workspace opent."
 
 msgid "Superset runs locally on your developers' machines. We don't store your code or AI conversations, and Superset has completed a SOC 2 Type II audit with an independent auditor. Request the report and review our security documentation at trust.superset.sh."
 msgstr "Superset draait lokaal op de machines van je ontwikkelaars. We slaan je code of AI-gesprekken niet op, en Superset heeft een SOC 2 Type II-audit door een onafhankelijke auditor afgerond. Vraag het rapport aan en bekijk onze securitydocumentatie op trust.superset.sh."
@@ -16074,6 +16117,9 @@ msgstr "Terminals ({TERMINAL_COUNT})"
 msgid "Terminals aren't responding"
 msgstr "Terminals reageren niet"
 
+msgid "Terminals from v1 are still running"
+msgstr "Terminals uit v1 draaien nog"
+
 msgid "Terminals restarted"
 msgstr "Terminals herstart"
 
@@ -16461,8 +16507,14 @@ msgstr "Thema's"
 msgid "These commands run automatically when a workspace is created. <0>Read our docs<1/></0>"
 msgstr "Deze commando's draaien automatisch wanneer een werkruimte wordt aangemaakt. <0>Lees onze docs<1/></0>"
 
+msgid "These folders still have your files, but they did not come over to the new Superset on their own."
+msgstr "Deze mappen bevatten nog je bestanden, maar zijn niet vanzelf naar het nieuwe Superset overgezet."
+
 msgid "These ports are still in use"
 msgstr "Deze poorten zijn nog in gebruik"
+
+msgid "They stop when you restart your computer."
+msgstr "Ze stoppen wanneer je je computer opnieuw opstart."
 
 msgid "Thinking"
 msgstr "Redenering"
@@ -16850,6 +16902,12 @@ msgstr "Titel"
 msgid "To"
 msgstr "Naar"
 
+msgid "To get back a different agent conversation, run this in a terminal in its folder:"
+msgstr "Om een ander agentgesprek terug te halen, voer dit uit in een terminal in de map:"
+
+msgid "To get back an agent conversation, run this in a terminal in its folder:"
+msgstr "Om een agentgesprek terug te halen, voer dit uit in een terminal in de map:"
+
 msgid "Toast (Sonner)"
 msgstr "Toast (Sonner)"
 
@@ -17092,9 +17150,6 @@ msgstr "Probeer het"
 
 msgid "Try now"
 msgstr "Nu proberen"
-
-msgid "Try Superset v2"
-msgstr "Probeer Superset v2"
 
 msgid "Tufte"
 msgstr "Tufte"
@@ -17565,9 +17620,6 @@ msgstr "Gebruik Superset op je telefoon met Pro."
 
 msgid "Use the desktop app to start running parallel coding agents."
 msgstr "Gebruik de desktop-app om parallelle coding agents te draaien."
-
-msgid "Use the new workspace experience."
-msgstr "Gebruik de nieuwe werkruimte-ervaring."
 
 msgid "Use the Superset tray menu > Host Service > Restart, then retry."
 msgstr "Gebruik het Superset-menu in de menubalk > Hostservice > Opnieuw starten en probeer het opnieuw."
@@ -18557,12 +18609,18 @@ msgstr "Je Superset-download start."
 msgid "Your terminal sessions won't be interrupted."
 msgstr "Je terminalsessies worden niet onderbroken."
 
+msgid "Your terminals restarted"
+msgstr "Je terminals zijn opnieuw gestart"
+
 #. placeholder {0}: String(gaps.length)
 msgid "Your tier is a weighted score across the {0} axes measured for you, so a strong axis offsets a weak one. The axes below are the ones lagging."
 msgstr "Je niveau is een gewogen score over de {0} assen die voor jou gemeten zijn, dus een sterke as compenseert een zwakke. De assen hieronder blijven achter."
 
 msgid "Your tokens"
 msgstr "Je tokens"
+
+msgid "Your v1 projects and workspaces are moving to the new Superset. They appear in the sidebar as each one is ready."
+msgstr "Je v1-projecten en -workspaces worden overgezet naar het nieuwe Superset. Ze verschijnen in de zijbalk zodra elk ervan klaar is."
 
 msgid "Your version: {currentVersion}"
 msgstr "Jouw versie: {currentVersion}"
