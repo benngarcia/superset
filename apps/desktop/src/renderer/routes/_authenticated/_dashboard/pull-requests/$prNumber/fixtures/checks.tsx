@@ -51,7 +51,7 @@ mock.module(`${root}/pull-requests/components/PullRequestActions`, () => ({
 mock.module(
 	`${root}/pull-requests/components/PullRequestDetailSkeleton`,
 	() => ({
-		PullRequestDetailSkeleton: () => <div>Loading pull request…</div>,
+		PullRequestDetailSkeleton: () => <div data-testid="detail-skeleton" />,
 	}),
 );
 mock.module(`${root}/pull-requests/components/PullRequestTabTitle`, () => ({
@@ -129,7 +129,7 @@ test("Changes waits for project discovery before choosing a fallback", async () 
 	const view = render(<Page />);
 	fireEvent.click(view.getByRole("button", { name: "Changes" }));
 	expect(view.queryByTestId("code")).toBeNull();
-	expect(view.getByText("Loading pull request…")).toBeTruthy();
+	expect(view.getByTestId("detail-skeleton")).toBeTruthy();
 	detail = { ...detail, projectId: "project", isResolvingProject: false };
 	view.rerender(<Page />);
 	await waitFor(() =>

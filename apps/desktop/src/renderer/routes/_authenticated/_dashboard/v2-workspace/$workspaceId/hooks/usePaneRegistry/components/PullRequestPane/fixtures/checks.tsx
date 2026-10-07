@@ -41,9 +41,7 @@ mock.module(`${root}/pull-requests/components/PullRequestActions`, () => ({
 mock.module(
 	`${root}/pull-requests/components/PullRequestDetailSkeleton`,
 	() => ({
-		PullRequestDetailSkeleton: () => (
-			<div data-testid="summary-state">Loading pull request…</div>
-		),
+		PullRequestDetailSkeleton: () => <div data-testid="summary-state" />,
 	}),
 );
 mock.module(`${root}/pull-requests/components/PullRequestTabTitle`, () => ({
