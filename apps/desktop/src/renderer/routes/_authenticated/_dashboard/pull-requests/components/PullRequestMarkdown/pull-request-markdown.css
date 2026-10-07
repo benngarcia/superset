@@ -124,3 +124,55 @@
 	border: 0;
 	border-top: 1px solid var(--border);
 }
+
+.pull-request-markdown.default-markdown a.pr-prose-link {
+	font-weight: 500;
+}
+
+/* Task boxes paint into the list gutter where the bullet would be. */
+.pull-request-markdown.default-markdown li.task-list-item {
+	list-style: none;
+}
+
+.pull-request-markdown.default-markdown .pr-prose-task-checkbox {
+	width: 0.95em;
+	height: 0.95em;
+	margin: 0 0.4em 0.1em -1.4em;
+	vertical-align: middle;
+	accent-color: var(--primary);
+}
+
+.pull-request-markdown.default-markdown .pr-prose-table {
+	margin: 0.8rem 0;
+	max-width: 100%;
+	overflow-x: auto;
+	overscroll-behavior-inline: contain;
+}
+
+/* Laid out at its natural width and scrolled, as GitHub does: a 100% table
+ * would squeeze the prose column behind unbreakable code tokens. */
+.pull-request-markdown.default-markdown table {
+	width: max-content;
+	max-width: none;
+	margin: 0;
+	border-collapse: collapse;
+	font-size: 0.93em;
+	line-height: 1.5;
+}
+
+.pull-request-markdown.default-markdown td {
+	max-width: 36rem;
+}
+
+.pull-request-markdown.default-markdown th,
+.pull-request-markdown.default-markdown td {
+	border: 1px solid var(--border);
+	padding: 0.35rem 0.45rem;
+	text-align: left;
+	vertical-align: top;
+	background: transparent;
+}
+
+.pull-request-markdown.default-markdown th {
+	font-weight: 500;
+}

@@ -7,6 +7,7 @@ import { pullRequestReadErrorMessage } from "../../utils/combinePullRequestReadE
 import { PullRequestDetailSkeleton } from "../PullRequestDetailSkeleton";
 import type { PullRequestDetailTab } from "../PullRequestDetailTabs";
 import { PullRequestSummaryContent } from "../PullRequestSummaryContent";
+import { PullRequestTabTitle } from "../PullRequestTabTitle";
 import { PullRequestTimelineTab } from "../PullRequestTimelineTab";
 
 // The diff renderer and its worker pool are heavy and only the Changes tab
@@ -92,6 +93,7 @@ export function PullRequestDetailContent({
 			{activeTab === "timeline" && prUrl ? (
 				detail.data ? (
 					<div className="relative flex min-h-0 flex-1 flex-col">
+						<PullRequestTabTitle data={detail.data} />
 						<PullRequestTimelineTab data={detail.data} />
 						{composer ? (
 							<div className="pointer-events-none absolute right-4 bottom-4 left-4 flex justify-end">
@@ -106,16 +108,19 @@ export function PullRequestDetailContent({
 				)
 			) : null}
 			{activeTab === "code" && prUrl && (
-				<Suspense fallback={<PullRequestDetailSkeleton variant="diff" />}>
-					<PullRequestCodeTab
-						key={`${repoFullName}#${prNumber}`}
-						projectId={projectId}
-						hostUrl={hostUrl ?? ""}
-						hostId={hostId}
-						prNumber={prNumber}
-						prUrl={prUrl}
-					/>
-				</Suspense>
+				<div className="flex min-h-0 flex-1 flex-col">
+					{detail.data ? <PullRequestTabTitle data={detail.data} /> : null}
+					<Suspense fallback={<PullRequestDetailSkeleton variant="diff" />}>
+						<PullRequestCodeTab
+							key={`${repoFullName}#${prNumber}`}
+							projectId={projectId}
+							hostUrl={hostUrl ?? ""}
+							hostId={hostId}
+							prNumber={prNumber}
+							prUrl={prUrl}
+						/>
+					</Suspense>
+				</div>
 			)}
 		</>
 	);

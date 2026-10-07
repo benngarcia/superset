@@ -52,6 +52,9 @@ mock.module(
 mock.module(`${root}/pull-requests/components/PullRequestTimelineTab`, () => ({
 	PullRequestTimelineTab: () => null,
 }));
+mock.module(`${root}/pull-requests/components/PullRequestTabTitle`, () => ({
+	PullRequestTabTitle: () => null,
+}));
 mock.module(
 	`${root}/pull-requests/components/PullRequestSummaryContent`,
 	() => ({ PullRequestSummaryContent: () => null }),
