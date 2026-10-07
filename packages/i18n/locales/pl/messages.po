@@ -2945,6 +2945,11 @@ msgstr "Boxy działają tam, gdzie utworzono środowisko; migawka istnieje tylko
 msgid "Branch"
 msgstr "Gałąź"
 
+#. placeholder {0}: params?.branch
+#. placeholder {1}: params?.remote
+msgid "Branch \"{0}\" is not on this device or on {1}. Only pushed commits can be restored."
+msgstr "Gałęzi „{0}” nie ma na tym urządzeniu ani na {1}. Można przywrócić tylko wypchnięte commity."
+
 msgid "Branch behavior for new workspaces on this device. Projects can override the prefix individually."
 msgstr "Zachowanie gałęzi dla nowych obszarów roboczych na tym urządzeniu. Projekty mogą nadpisać prefiks osobno."
 

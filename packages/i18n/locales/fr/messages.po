@@ -2945,6 +2945,11 @@ msgstr "Les boxes s'exécutent là où l'environnement a été créé ; un insta
 msgid "Branch"
 msgstr "Branche"
 
+#. placeholder {0}: params?.branch
+#. placeholder {1}: params?.remote
+msgid "Branch \"{0}\" is not on this device or on {1}. Only pushed commits can be restored."
+msgstr "La branche « {0} » n’est ni sur cet appareil ni sur {1}. Seuls les commits poussés peuvent être restaurés."
+
 msgid "Branch behavior for new workspaces on this device. Projects can override the prefix individually."
 msgstr "Comportement des branches pour les nouveaux espaces de travail sur cet appareil. Les projets peuvent remplacer le préfixe individuellement."
 

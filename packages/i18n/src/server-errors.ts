@@ -1020,4 +1020,10 @@ export const serverErrorMessages: Record<
 				message: "Not a member of this organization",
 			}),
 		),
+	"serverError.workspaces.restoreBranchMissing": (params) =>
+		i18n._(
+			msg({
+				message: `Branch "${params?.branch}" is not on this device or on ${params?.remote}. Only pushed commits can be restored.`,
+			}),
+		),
 };

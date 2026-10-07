@@ -2945,6 +2945,11 @@ msgstr "Box chạy ở nơi environment được tạo; snapshot chỉ tồn t�
 msgid "Branch"
 msgstr "Nhánh"
 
+#. placeholder {0}: params?.branch
+#. placeholder {1}: params?.remote
+msgid "Branch \"{0}\" is not on this device or on {1}. Only pushed commits can be restored."
+msgstr "Nhánh \"{0}\" không có trên thiết bị này hay trên {1}. Chỉ có thể khôi phục các commit đã được đẩy lên."
+
 msgid "Branch behavior for new workspaces on this device. Projects can override the prefix individually."
 msgstr "Hành vi nhánh cho workspace mới trên thiết bị này. Từng dự án có thể ghi đè tiền tố riêng."
 

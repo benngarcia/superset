@@ -2945,6 +2945,11 @@ msgstr "Kutular ortamın oluşturulduğu yerde çalışır; bir anlık görünt�
 msgid "Branch"
 msgstr "Dal"
 
+#. placeholder {0}: params?.branch
+#. placeholder {1}: params?.remote
+msgid "Branch \"{0}\" is not on this device or on {1}. Only pushed commits can be restored."
+msgstr "\"{0}\" dalı bu cihazda da {1} üzerinde de yok. Yalnızca gönderilmiş commit'ler geri yüklenebilir."
+
 msgid "Branch behavior for new workspaces on this device. Projects can override the prefix individually."
 msgstr "Bu cihazdaki yeni çalışma alanları için dal davranışı. Projeler ön eki tek tek geçersiz kılabilir."
 

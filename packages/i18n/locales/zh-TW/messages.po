@@ -2945,6 +2945,11 @@ msgstr "沙盒在環境建立的位置執行；快照只存在於其所在區域
 msgid "Branch"
 msgstr "分支"
 
+#. placeholder {0}: params?.branch
+#. placeholder {1}: params?.remote
+msgid "Branch \"{0}\" is not on this device or on {1}. Only pushed commits can be restored."
+msgstr "分支「{0}」不在此裝置上，也不在 {1} 上。只能還原已推送的提交。"
+
 msgid "Branch behavior for new workspaces on this device. Projects can override the prefix individually."
 msgstr "本裝置上新建工作區的分支行為。專案可以單獨覆蓋字首。"
 

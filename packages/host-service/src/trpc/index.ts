@@ -6,6 +6,7 @@ import { readErrorDiagnostics } from "./error-diagnostics";
 import {
 	type DeleteInProgressCause,
 	isDeleteInProgressCause,
+	isI18nCause,
 	isProjectNotSetupCause,
 	isTeardownFailureCause,
 	type ProjectNotSetupCause,
@@ -54,6 +55,7 @@ const t = initTRPC
 				isDeleteInProgressCause(error.cause)
 					? { kind: "DELETE_IN_PROGRESS" }
 					: undefined;
+			const i18nCause = isI18nCause(error.cause) ? error.cause : null;
 			return {
 				...shape,
 				data: {
@@ -61,6 +63,8 @@ const t = initTRPC
 					teardownFailure,
 					projectNotSetup,
 					deleteInProgress,
+					i18nKey: i18nCause?.i18nKey ?? null,
+					i18nParams: i18nCause?.i18nParams ?? null,
 				},
 			};
 		},

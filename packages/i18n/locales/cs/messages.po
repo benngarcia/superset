@@ -2945,6 +2945,11 @@ msgstr "Boxy běží tam, kde bylo prostředí vytvořeno; snapshot existuje jen
 msgid "Branch"
 msgstr "Větev"
 
+#. placeholder {0}: params?.branch
+#. placeholder {1}: params?.remote
+msgid "Branch \"{0}\" is not on this device or on {1}. Only pushed commits can be restored."
+msgstr "Větev „{0}“ není na tomto zařízení ani na {1}. Obnovit lze jen odeslané commity."
+
 msgid "Branch behavior for new workspaces on this device. Projects can override the prefix individually."
 msgstr "Chování větví u nových pracovních prostorů na tomto zařízení. Projekty si prefix mohou nastavit samostatně."
 

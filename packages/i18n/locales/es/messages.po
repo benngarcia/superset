@@ -2945,6 +2945,11 @@ msgstr "Las cajas se ejecutan donde se creó el entorno; una instantánea solo e
 msgid "Branch"
 msgstr "Rama"
 
+#. placeholder {0}: params?.branch
+#. placeholder {1}: params?.remote
+msgid "Branch \"{0}\" is not on this device or on {1}. Only pushed commits can be restored."
+msgstr "La rama \"{0}\" no está en este dispositivo ni en {1}. Solo se pueden restaurar los commits enviados."
+
 msgid "Branch behavior for new workspaces on this device. Projects can override the prefix individually."
 msgstr "Comportamiento de las ramas para los espacios de trabajo nuevos en este dispositivo. Los proyectos pueden anular el prefijo individualmente."
 

@@ -2945,6 +2945,11 @@ msgstr "ボックスは環境が作成されたリージョンで動作します
 msgid "Branch"
 msgstr "ブランチ"
 
+#. placeholder {0}: params?.branch
+#. placeholder {1}: params?.remote
+msgid "Branch \"{0}\" is not on this device or on {1}. Only pushed commits can be restored."
+msgstr "ブランチ「{0}」はこのデバイスにも {1} にもありません。復元できるのはプッシュ済みのコミットだけです。"
+
 msgid "Branch behavior for new workspaces on this device. Projects can override the prefix individually."
 msgstr "このデバイスの新規ワークスペースのブランチ動作。プレフィックスはプロジェクトごとに上書きできます。"
 

@@ -31,6 +31,7 @@ import {
 	unarchiveLocalWorkspace,
 } from "../../../workspaces/local-workspace-store";
 import { setWorkspaceNamingState } from "../../../workspaces/workspace-naming-state";
+import type { I18nCause } from "../../error-types";
 import {
 	createCallerFactory,
 	machineOnlyProcedure,
@@ -642,7 +643,11 @@ async function recreateArchivedCheckout(
 		case "branch-missing":
 			throw new TRPCError({
 				code: "NOT_FOUND",
-				message: `Branch "${row.branch}" no longer exists locally or on ${remoteName}`,
+				message: `Branch "${row.branch}" is not on this device or on ${remoteName}. Only pushed commits can be restored.`,
+				cause: {
+					i18nKey: "serverError.workspaces.restoreBranchMissing",
+					i18nParams: { branch: row.branch, remote: remoteName },
+				} satisfies I18nCause,
 			});
 	}
 }

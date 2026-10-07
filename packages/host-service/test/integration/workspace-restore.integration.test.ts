@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import { execSync } from "node:child_process";
-import { existsSync, writeFileSync } from "node:fs";
+import { existsSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { eq } from "drizzle-orm";
 import { workspaces } from "../../src/db/schema";
@@ -58,12 +59,41 @@ describe("workspaces.restore integration", () => {
 			deleteBranch: true,
 		});
 
-		await expect(
-			scenario.host.trpc.workspaces.restore.mutate({
-				workspaceId: scenario.featureWorkspaceId,
-			}),
-		).rejects.toThrow(/no longer exists/);
+		const error = await scenario.host.trpc.workspaces.restore
+			.mutate({ workspaceId: scenario.featureWorkspaceId })
+			.catch((err: unknown) => err);
+		expect(error).toMatchObject({
+			data: {
+				i18nKey: "serverError.workspaces.restoreBranchMissing",
+				i18nParams: { branch: scenario.branch, remote: "origin" },
+			},
+		});
 		expect(archivedAt()).toBeTruthy();
 		expect(existsSync(scenario.worktreePath)).toBe(false);
+	});
+
+	test("fetches a branch that is only on the remote", async () => {
+		const remotePath = mkdtempSync(join(tmpdir(), "restore-remote-"));
+		try {
+			execSync(`git init --bare --quiet ${remotePath}`);
+			writeFileSync(join(scenario.worktreePath, "work.txt"), "pushed work");
+			execSync(
+				`git add work.txt && git commit -m work && git remote add origin ${remotePath} && git push --quiet origin HEAD && git update-ref -d refs/remotes/origin/${scenario.branch}`,
+				{ cwd: scenario.worktreePath, stdio: "ignore" },
+			);
+			await scenario.host.trpc.workspaceCleanup.destroy.mutate({
+				workspaceId: scenario.featureWorkspaceId,
+				deleteBranch: true,
+			});
+
+			await scenario.host.trpc.workspaces.restore.mutate({
+				workspaceId: scenario.featureWorkspaceId,
+			});
+
+			expect(archivedAt()).toBeNull();
+			expect(existsSync(join(scenario.worktreePath, "work.txt"))).toBe(true);
+		} finally {
+			rmSync(remotePath, { recursive: true, force: true });
+		}
 	});
 });

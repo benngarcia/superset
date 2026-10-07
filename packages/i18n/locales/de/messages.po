@@ -2945,6 +2945,11 @@ msgstr "Boxen laufen dort, wo die Umgebung erstellt wurde; ein Snapshot existier
 msgid "Branch"
 msgstr "Branch"
 
+#. placeholder {0}: params?.branch
+#. placeholder {1}: params?.remote
+msgid "Branch \"{0}\" is not on this device or on {1}. Only pushed commits can be restored."
+msgstr "Branch „{0}“ ist weder auf diesem Gerät noch auf {1}. Nur gepushte Commits lassen sich wiederherstellen."
+
 msgid "Branch behavior for new workspaces on this device. Projects can override the prefix individually."
 msgstr "Branch-Verhalten für neue Arbeitsbereiche auf diesem Gerät. Projekte können das Präfix einzeln überschreiben."
 
