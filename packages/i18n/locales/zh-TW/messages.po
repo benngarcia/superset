@@ -10933,8 +10933,8 @@ msgstr "目前執行{0}（之前是{1}）。所有會話已保留。"
 msgid "Now running {0} (was {1}). All sessions were closed."
 msgstr "目前執行{0}（之前是{1}）。所有會話已關閉。"
 
-msgid "Now, we've raised <0>$11M</0> from the best investors in Silicon Valley to build the platform for software factories."
-msgstr "如今，我們已從矽谷最好的投資人那裡融資<0>1100萬美元</0>，用來打造軟體工廠的平臺。"
+msgid "Now, we've raised from the best investors in Silicon Valley to build the platform for software factories."
+msgstr "如今，我們已從矽谷最好的投資人那裡完成融資，用來打造軟體工廠的平臺。"
 
 msgid "Numbered list"
 msgstr "編號列表"
@@ -11684,8 +11684,8 @@ msgstr "其他團隊成員"
 msgid "Other ways to reach us"
 msgstr "其他聯絡方式"
 
-msgid "Our $11M seed round is led by Union Square Ventures, with Y Combinator, Paul Graham, and founders we admire."
-msgstr "我們 1,100 萬美元的種子輪由 Union Square Ventures 領投，Y Combinator、Paul Graham 以及我們敬佩的創辦人參與投資。"
+msgid "Our $11.5M seed round is led by Union Square Ventures, with Y Combinator, Paul Graham, and founders we admire."
+msgstr "我們 1,150 萬美元的種子輪由 Union Square Ventures 領投，Y Combinator、Paul Graham 以及我們敬佩的創辦人參與投資。"
 
 msgid "Our read as of August 2026, based on our own team and the teams we watch closely. F3 is mostly open. F4 is mostly closed. That gap is the work."
 msgstr "這是我們截至2026年8月的判斷，依據是我們自己的團隊和我們密切關注的團隊。F3大多已開啟，F4大多還沒開啟。這道差距就是要做的事。"

@@ -10933,8 +10933,8 @@ msgstr "Now running {0} (was {1}). All sessions preserved."
 msgid "Now running {0} (was {1}). All sessions were closed."
 msgstr "Now running {0} (was {1}). All sessions were closed."
 
-msgid "Now, we've raised <0>$11M</0> from the best investors in Silicon Valley to build the platform for software factories."
-msgstr "Now, we've raised <0>$11M</0> from the best investors in Silicon Valley to build the platform for software factories."
+msgid "Now, we've raised from the best investors in Silicon Valley to build the platform for software factories."
+msgstr "Now, we've raised from the best investors in Silicon Valley to build the platform for software factories."
 
 msgid "Numbered list"
 msgstr "Numbered list"
@@ -11684,8 +11684,8 @@ msgstr "Other Team Members"
 msgid "Other ways to reach us"
 msgstr "Other ways to reach us"
 
-msgid "Our $11M seed round is led by Union Square Ventures, with Y Combinator, Paul Graham, and founders we admire."
-msgstr "Our $11M seed round is led by Union Square Ventures, with Y Combinator, Paul Graham, and founders we admire."
+msgid "Our $11.5M seed round is led by Union Square Ventures, with Y Combinator, Paul Graham, and founders we admire."
+msgstr "Our $11.5M seed round is led by Union Square Ventures, with Y Combinator, Paul Graham, and founders we admire."
 
 msgid "Our read as of August 2026, based on our own team and the teams we watch closely. F3 is mostly open. F4 is mostly closed. That gap is the work."
 msgstr "Our read as of August 2026, based on our own team and the teams we watch closely. F3 is mostly open. F4 is mostly closed. That gap is the work."

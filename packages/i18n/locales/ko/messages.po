@@ -10933,8 +10933,8 @@ msgstr "이제 {0}을(를) 실행합니다(이전 {1}). 모든 세션이 유지�
 msgid "Now running {0} (was {1}). All sessions were closed."
 msgstr "이제 {0}을(를) 실행합니다(이전 {1}). 모든 세션이 닫혔습니다."
 
-msgid "Now, we've raised <0>$11M</0> from the best investors in Silicon Valley to build the platform for software factories."
-msgstr "이제 소프트웨어 공장을 위한 플랫폼을 만들기 위해 실리콘밸리 최고의 투자자들로부터 <0>1,100만 달러</0>를 투자받았습니다."
+msgid "Now, we've raised from the best investors in Silicon Valley to build the platform for software factories."
+msgstr "이제 소프트웨어 공장을 위한 플랫폼을 만들기 위해 실리콘밸리 최고의 투자자들로부터 투자를 받았습니다."
 
 msgid "Numbered list"
 msgstr "번호 매기기 목록"
@@ -11684,8 +11684,8 @@ msgstr "다른 팀 멤버"
 msgid "Other ways to reach us"
 msgstr "다른 문의 방법"
 
-msgid "Our $11M seed round is led by Union Square Ventures, with Y Combinator, Paul Graham, and founders we admire."
-msgstr "1,100만 달러 규모의 시드 라운드는 Union Square Ventures가 주도했으며, Y Combinator, Paul Graham, 그리고 우리가 존경하는 창업자들이 함께했습니다."
+msgid "Our $11.5M seed round is led by Union Square Ventures, with Y Combinator, Paul Graham, and founders we admire."
+msgstr "1,150만 달러 규모의 시드 라운드는 Union Square Ventures가 주도했으며, Y Combinator, Paul Graham, 그리고 우리가 존경하는 창업자들이 함께했습니다."
 
 msgid "Our read as of August 2026, based on our own team and the teams we watch closely. F3 is mostly open. F4 is mostly closed. That gap is the work."
 msgstr "2026년 8월 기준, 우리 팀과 가까이 지켜보는 팀들을 바탕으로 한 판단입니다. F3은 대부분 열렸고, F4는 대부분 닫혀 있습니다. 그 간극이 곧 해야 할 일입니다."

@@ -10933,8 +10933,8 @@ msgstr "Rodando {0} agora (era {1}). Todas as sessões foram preservadas."
 msgid "Now running {0} (was {1}). All sessions were closed."
 msgstr "Rodando {0} agora (era {1}). Todas as sessões foram fechadas."
 
-msgid "Now, we've raised <0>$11M</0> from the best investors in Silicon Valley to build the platform for software factories."
-msgstr "Agora, captamos <0>US$ 11 milhões</0> com os melhores investidores do Vale do Silício para construir a plataforma das fábricas de software."
+msgid "Now, we've raised from the best investors in Silicon Valley to build the platform for software factories."
+msgstr "Agora, captamos investimento com os melhores investidores do Vale do Silício para construir a plataforma das fábricas de software."
 
 msgid "Numbered list"
 msgstr "Lista numerada"
@@ -11684,8 +11684,8 @@ msgstr "Outras pessoas do time"
 msgid "Other ways to reach us"
 msgstr "Outras formas de falar com a gente"
 
-msgid "Our $11M seed round is led by Union Square Ventures, with Y Combinator, Paul Graham, and founders we admire."
-msgstr "Nossa rodada seed de US$ 11 milhões é liderada pela Union Square Ventures, com Y Combinator, Paul Graham e fundadores que admiramos."
+msgid "Our $11.5M seed round is led by Union Square Ventures, with Y Combinator, Paul Graham, and founders we admire."
+msgstr "Nossa rodada seed de US$ 11,5 milhões é liderada pela Union Square Ventures, com Y Combinator, Paul Graham e fundadores que admiramos."
 
 msgid "Our read as of August 2026, based on our own team and the teams we watch closely. F3 is mostly open. F4 is mostly closed. That gap is the work."
 msgstr "Nossa leitura em agosto de 2026, com base no nosso time e nos times que acompanhamos de perto. O F3 está quase todo aberto. O F4 está quase todo fechado. Essa distância é o trabalho."

@@ -10933,8 +10933,8 @@ msgstr "Сейчас работает {0} (было {1}). Все сессии с
 msgid "Now running {0} (was {1}). All sessions were closed."
 msgstr "Сейчас работает {0} (было {1}). Все сессии закрыты."
 
-msgid "Now, we've raised <0>$11M</0> from the best investors in Silicon Valley to build the platform for software factories."
-msgstr "Сейчас мы привлекли <0>$11 млн</0> от лучших инвесторов Кремниевой долины, чтобы построить платформу для софтверных фабрик."
+msgid "Now, we've raised from the best investors in Silicon Valley to build the platform for software factories."
+msgstr "Сейчас мы привлекли инвестиции от лучших инвесторов Кремниевой долины, чтобы построить платформу для софтверных фабрик."
 
 msgid "Numbered list"
 msgstr "Нумерованный список"
@@ -11684,8 +11684,8 @@ msgstr "Другие участники команды"
 msgid "Other ways to reach us"
 msgstr "Другие способы связаться"
 
-msgid "Our $11M seed round is led by Union Square Ventures, with Y Combinator, Paul Graham, and founders we admire."
-msgstr "Наш посевной раунд на 11 млн $ возглавляет Union Square Ventures, вместе с Y Combinator, Полом Грэмом и основателями, которыми мы восхищаемся."
+msgid "Our $11.5M seed round is led by Union Square Ventures, with Y Combinator, Paul Graham, and founders we admire."
+msgstr "Наш посевной раунд на 11,5 млн $ возглавляет Union Square Ventures, вместе с Y Combinator, Полом Грэмом и основателями, которыми мы восхищаемся."
 
 msgid "Our read as of August 2026, based on our own team and the teams we watch closely. F3 is mostly open. F4 is mostly closed. That gap is the work."
 msgstr "Наша оценка на август 2026 года по нашей команде и командам, за которыми мы внимательно следим. F3 в основном открыт. F4 в основном закрыт. Этот разрыв и есть работа."
