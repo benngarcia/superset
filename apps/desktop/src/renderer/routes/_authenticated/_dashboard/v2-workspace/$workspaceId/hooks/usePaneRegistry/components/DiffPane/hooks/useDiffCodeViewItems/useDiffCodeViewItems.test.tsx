@@ -71,6 +71,22 @@ const FILE_B = [
 
 const FILE_B_EDITED = FILE_B.replace("+const added = 2;", "+const added = 3;");
 
+function lockfilePatch(name: string): string {
+	return [
+		`diff --git a/${name} b/${name}`,
+		"index 0000005..0000006 100644",
+		`--- a/${name}`,
+		`+++ b/${name}`,
+		"@@ -1,1 +1,1 @@",
+		"-lockfile v1",
+		"+lockfile v2",
+		"",
+	].join("\n");
+}
+
+const BUN_LOCK = lockfilePatch("bun.lock");
+const YARN_LOCK = lockfilePatch("yarn.lock");
+
 const EMPTY_SET: ReadonlySet<string> = new Set();
 const EMPTY_MAP = new Map<string, never>();
 
@@ -177,6 +193,47 @@ describe("useDiffCodeViewItems", () => {
 		expect(after.fileDiff).toBe(a.fileDiff);
 		expect(after.version).toBe(a.version);
 		expect(client.getQueryCache().getAll()).toHaveLength(1);
+	});
+
+	test("two panes that opted into different generated files share one entry without looping", async () => {
+		patchByCategory.set("unstaged", FILE_A + BUN_LOCK + YARN_LOCK);
+		const files = [
+			unstagedFile("a.ts"),
+			unstagedFile("bun.lock"),
+			unstagedFile("yarn.lock"),
+		];
+		const client = new QueryClient({
+			defaultOptions: { queries: { retry: false } },
+		});
+		const wrapper = ({ children }: { children: ReactNode }) => (
+			<QueryClientProvider client={client}>{children}</QueryClientProvider>
+		);
+		const paneA = renderHook(() => useDiffCodeViewItems(options(files)), {
+			wrapper,
+		});
+		const paneB = renderHook(() => useDiffCodeViewItems(options(files)), {
+			wrapper,
+		});
+		await waitFor(() => diffItem(paneA.result.current.items, "a.ts"));
+		await waitFor(() => diffItem(paneB.result.current.items, "a.ts"));
+		const callsBeforeOptIn = getDiffPatch.mock.calls.length;
+
+		act(() => paneA.result.current.requestDiff("diff:unstaged:bun.lock"));
+		act(() => paneB.result.current.requestDiff("diff:unstaged:yarn.lock"));
+		await waitFor(() => diffItem(paneA.result.current.items, "bun.lock"));
+		await waitFor(() => diffItem(paneB.result.current.items, "yarn.lock"));
+		await new Promise((resolve) => setTimeout(resolve, 150));
+
+		expect(client.getQueryCache().getAll()).toHaveLength(1);
+		expect(getDiffPatch.mock.calls.length - callsBeforeOptIn).toBeLessThan(4);
+		const lastInput = getDiffPatch.mock.calls.at(-1)?.[0] as {
+			paths?: string[];
+		};
+		expect([...(lastInput.paths ?? [])].sort()).toEqual([
+			"a.ts",
+			"bun.lock",
+			"yarn.lock",
+		]);
 	});
 
 	test("a file joining the changeset refetches the same cache entry", async () => {

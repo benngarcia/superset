@@ -1,14 +1,11 @@
 import type { AppRouter } from "@superset/host-service";
-import type { QueryKey, QueryMeta } from "@tanstack/react-query";
+import type { QueryKey } from "@tanstack/react-query";
 import type { inferRouterInputs } from "@trpc/server";
 
 export type GetDiffPatchInput =
 	inferRouterInputs<AppRouter>["git"]["getDiffPatch"];
 
-/** What a `git.getDiffPatch` request diffs, which is all its query key holds.
- * The path lists stay in the input for the host but out of the key, so a
- * file joining or leaving the changeset refetches the same entry instead of
- * creating one that lingers until gc. */
+/** The query key holds what is diffed; the path lists travel in the input only. */
 export type DiffPatchScope = Omit<
 	GetDiffPatchInput,
 	"paths" | "untrackedPaths"
@@ -19,36 +16,20 @@ export function toDiffPatchScope(input: GetDiffPatchInput): DiffPatchScope {
 	return scope;
 }
 
-const PATHS_META_KEY = "diffPatchPaths";
-
-/** Every path a request asked the host for, carried on the query so a
- * `git:changed` can tell which patches a worktree write can have moved. */
-export function createDiffPatchQueryMeta(input: GetDiffPatchInput): QueryMeta {
-	return {
-		[PATHS_META_KEY]: [...(input.paths ?? []), ...(input.untrackedPaths ?? [])],
-	};
-}
-
 interface DiffPatchQueryLike {
 	queryKey: QueryKey;
-	meta?: QueryMeta | undefined;
+	state: { data?: unknown };
 }
 
-/**
- * Whether a worktree-only `git:changed` for `changedPaths` can have left this
- * query's patch behind. The staged diff and ref-to-ref diffs (against base, a
- * commit) only move with `.git/`, which arrives as a broad event, so a
- * worktree write stales them only when they hold one of the files. Any write
- * can add a file to the unstaged diff, and git gives an untracked file no
- * section until asked for it by path, so that category is always stale.
- */
+/** Whether a worktree-only `git:changed` for `changedPaths` can have moved
+ * this query's patch. Unstaged always: any write can add a file to it. */
 export function isDiffPatchQueryAffected(
 	query: DiffPatchQueryLike,
 	changedPaths: readonly string[],
 ): boolean {
 	if (readScope(query.queryKey)?.category === "unstaged") return true;
-	const paths = query.meta?.[PATHS_META_KEY];
-	if (!Array.isArray(paths)) return true;
+	const paths = readRequestedPaths(query.state.data);
+	if (!paths) return true;
 	return changedPaths.some((path) => paths.includes(path));
 }
 
@@ -56,4 +37,10 @@ function readScope(queryKey: QueryKey): Partial<DiffPatchScope> | undefined {
 	const options = queryKey[1];
 	if (typeof options !== "object" || options === null) return undefined;
 	return (options as { input?: Partial<DiffPatchScope> }).input;
+}
+
+function readRequestedPaths(data: unknown): string[] | undefined {
+	if (typeof data !== "object" || data === null) return undefined;
+	const paths = (data as { requestedPaths?: unknown }).requestedPaths;
+	return Array.isArray(paths) ? (paths as string[]) : undefined;
 }

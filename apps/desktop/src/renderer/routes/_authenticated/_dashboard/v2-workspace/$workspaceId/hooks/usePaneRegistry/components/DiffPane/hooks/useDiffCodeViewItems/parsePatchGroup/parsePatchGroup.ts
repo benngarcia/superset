@@ -12,19 +12,14 @@ export interface PatchGroupFile {
 	newFile: { name: string; contents: string };
 }
 
-/** What a patch group resolves to. `patch` is the normal path; `files` is
- * what an older host-service without `git.getDiffPatch` can still give us —
- * the full contents per file, which parse into complete (non-partial)
- * metadata. `requestedPaths` is every path the host was asked for, whether
- * or not it answered with a section. */
+/** `files` is the fallback for a host without `git.getDiffPatch`.
+ * `requestedPaths` is what was asked for, not what came back. */
 export type PatchGroupResult = { requestedPaths: string[] } & (
 	| { kind: "patch"; patch: string }
 	| { kind: "files"; files: PatchGroupFile[] }
 );
 
 export interface ParsedPatchGroup {
-	/** The result this was parsed from. React Query shares structure across
-	 * refetches, so an unchanged patch is the same object and parses nothing. */
 	source: PatchGroupResult;
 	byPath: ReadonlyMap<string, FileDiffMetadata>;
 	bySegmentKey: ReadonlyMap<string, FileDiffMetadata>;
@@ -32,8 +27,6 @@ export interface ParsedPatchGroup {
 
 const SEGMENT_BOUNDARY = /^diff --git /gm;
 
-/** One section per file, each starting at its `diff --git` header. Text
- * before the first header stays attached to the first section. */
 export function splitPatchSegments(patch: string): string[] {
 	const starts: number[] = [];
 	for (const match of patch.matchAll(SEGMENT_BOUNDARY)) {
@@ -53,10 +46,7 @@ export function splitPatchSegments(patch: string): string[] {
 const SECOND_SEED = 0x9e3779b9;
 const SECOND_PRIME = 0x85ebca6b;
 
-/** Content-addressed: two independent FNV-1a passes plus the length, under
- * the group so the same hunks in two categories never share a key. Stable
- * across refetches, so an unchanged file keeps its parsed metadata and
- * `cacheKey`, and with them its `CodeViewItem` version. */
+/** Scoped by group: the same hunks in two categories must not share a key. */
 export function buildPatchSegmentKey(scope: string, content: string): string {
 	return [
 		scope,

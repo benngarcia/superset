@@ -1,6 +1,5 @@
 import { afterAll, beforeEach, describe, expect, mock, test } from "bun:test";
 import { GlobalRegistrator } from "@happy-dom/global-registrator";
-import { createDiffPatchQueryMeta } from "renderer/lib/diffPatchQuery";
 
 const alreadyRegistered = GlobalRegistrator.isRegistered;
 if (!alreadyRegistered) GlobalRegistrator.register();
@@ -61,15 +60,15 @@ function Probe() {
 }
 
 /** A `git.getDiffPatch` query as the Changes pane registers it: keyed on
- * what is diffed, with the paths it asked for in `meta`. */
+ * what is diffed, with the paths its cached patch covers in its data. */
 function patchQuery(
 	category: "against-base" | "staged" | "unstaged" | "commit",
-	paths: string[],
+	requestedPaths: string[],
 ) {
 	const input = { workspaceId: "workspace-1", category };
 	return {
 		queryKey: [["git", "getDiffPatch"], { input, type: "query" }],
-		meta: createDiffPatchQueryMeta({ ...input, paths }),
+		state: { data: { kind: "patch", patch: "", requestedPaths } },
 	};
 }
 

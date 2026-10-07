@@ -202,15 +202,8 @@ export function DiffPane({
 		[updateData],
 	);
 
-	// fileByItemId is produced by useDiffCodeViewItems below, but the composer
-	// hook needs access to look files up at submit time. Funnel through a
-	// stable ref so the composer hook can be wired before items are computed
-	// and still read the latest map when its submit callback fires. Pierre's
-	// render callbacks and options read through the same ref: every status
-	// refresh builds a new map, and a callback that closed over it would make
-	// Pierre rebuild every header portal and re-render every item's DOM. A
-	// file whose data changed still re-renders, because its item version
-	// carries the stat counts.
+	// Pierre's callbacks read files through refs: a callback that closed over
+	// the per-refresh map would rebuild every header portal and item on each save.
 	const fileByItemIdRef = useRef<ReadonlyMap<string, ChangesetFile>>(new Map());
 	const getFile = useCallback(
 		(itemId: string) => fileByItemIdRef.current.get(itemId),

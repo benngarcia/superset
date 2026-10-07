@@ -7,11 +7,17 @@ import type {
 import { useWorkspaceClient, workspaceTrpc } from "@superset/workspace-client";
 import { useQueries } from "@tanstack/react-query";
 import { getQueryKey } from "@trpc/react-query";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
-	createDiffPatchQueryMeta,
-	type GetDiffPatchInput,
-	toDiffPatchScope,
+	useCallback,
+	useEffect,
+	useLayoutEffect,
+	useMemo,
+	useRef,
+	useState,
+} from "react";
+import type {
+	DiffPatchScope,
+	GetDiffPatchInput,
 } from "renderer/lib/diffPatchQuery";
 import { isMissingProcedureError } from "renderer/lib/isMissingProcedureError";
 import {
@@ -59,14 +65,74 @@ interface UseDiffCodeViewItemsResult {
  * this is usually 1-3 groups, never one per file. */
 interface PatchGroup {
 	key: string;
-	input: GetDiffPatchInput;
-	members: { file: ChangesetFile; itemId: string }[];
+	input: DiffPatchScope;
+	members: PatchGroupMember[];
+}
+
+interface PatchGroupMember {
+	file: ChangesetFile;
+	itemId: string;
 }
 
 /** How many per-file `getDiff` calls the fallback runs at once. */
 const FALLBACK_CONCURRENCY = 6;
 
-function groupKeyFor(input: GetDiffPatchInput): string {
+/** Every mounted pane's members per (workspace, scope). Panes share one cache
+ * entry per scope, so a fetch asks for the union; a fetch built from one
+ * pane's list would leave another pane's members missing and the two would
+ * refetch against each other without end. */
+const membersByScope = new Map<string, Map<symbol, PatchGroupMember[]>>();
+
+function scopeKeyFor(workspaceId: string, groupKey: string): string {
+	return `${workspaceId}\0${groupKey}`;
+}
+
+function registerMembers(
+	scopeKey: string,
+	owner: symbol,
+	members: PatchGroupMember[],
+): () => void {
+	let owners = membersByScope.get(scopeKey);
+	if (!owners) {
+		owners = new Map();
+		membersByScope.set(scopeKey, owners);
+	}
+	owners.set(owner, members);
+	return () => {
+		owners.delete(owner);
+		if (owners.size === 0) membersByScope.delete(scopeKey);
+	};
+}
+
+function unionMembers(
+	scopeKey: string,
+	own: PatchGroupMember[],
+): PatchGroupMember[] {
+	const byPath = new Map<string, PatchGroupMember>();
+	for (const member of own) byPath.set(member.file.path, member);
+	for (const members of membersByScope.get(scopeKey)?.values() ?? []) {
+		for (const member of members) {
+			if (!byPath.has(member.file.path)) byPath.set(member.file.path, member);
+		}
+	}
+	return [...byPath.values()];
+}
+
+function buildPatchInput(
+	scope: DiffPatchScope,
+	members: PatchGroupMember[],
+): GetDiffPatchInput {
+	const paths: string[] = [];
+	const untrackedPaths: string[] = [];
+	for (const { file } of members) {
+		// `git diff` doesn't report untracked files; those need their own
+		// --no-index section, which the host builds.
+		(file.status === "untracked" ? untrackedPaths : paths).push(file.path);
+	}
+	return { ...scope, paths, untrackedPaths };
+}
+
+function groupKeyFor(input: DiffPatchScope): string {
 	return [
 		input.category,
 		input.baseBranch ?? "",
@@ -95,6 +161,8 @@ export function useDiffCodeViewItems({
 	const requestedItemIdsRef = useRef(requestedItemIds);
 	requestedItemIdsRef.current = requestedItemIds;
 	const retryByItemIdRef = useRef(new Map<string, () => void>());
+	const ownerRef = useRef<symbol>(undefined);
+	ownerRef.current ??= Symbol("useDiffCodeViewItems");
 
 	const fileByItemId = useMemo(() => {
 		const map = new Map<string, ChangesetFile>();
@@ -145,56 +213,60 @@ export function useDiffCodeViewItems({
 			const key = groupKeyFor(input);
 			let group = groups.get(key);
 			if (!group) {
-				group = {
-					key,
-					input: { ...input, paths: [], untrackedPaths: [] },
-					members: [],
-				};
+				group = { key, input, members: [] };
 				groups.set(key, group);
 			}
-			// `git diff` doesn't report untracked files; those need their own
-			// --no-index section, which the host builds.
-			const bucket =
-				file.status === "untracked"
-					? group.input.untrackedPaths
-					: group.input.paths;
-			bucket?.push(file.path);
 			group.members.push({ file, itemId });
 		}
 		return [...groups.values()];
 	}, [files, requestedItemIds, workspaceId]);
 
+	// Layout effect: the queries below start fetching in their own passive
+	// effect, and the union has to hold this pane's members by then.
+	useLayoutEffect(() => {
+		const owner = ownerRef.current as symbol;
+		const unregister = patchGroups.map((group) =>
+			registerMembers(
+				scopeKeyFor(workspaceId, group.key),
+				owner,
+				group.members,
+			),
+		);
+		return () => {
+			for (const fn of unregister) fn();
+		};
+	}, [patchGroups, workspaceId]);
+
 	const patchQueries = useQueries({
 		queries: patchGroups.map((group) => ({
 			queryKey: getQueryKey(
 				workspaceTrpc.git.getDiffPatch,
-				toDiffPatchScope(group.input),
+				group.input,
 				"query",
 			),
-			meta: createDiffPatchQueryMeta(group.input),
 			queryFn: async (): Promise<PatchGroupResult> => {
-				const requestedPaths = [
-					...(group.input.paths ?? []),
-					...(group.input.untrackedPaths ?? []),
-				];
+				const members = unionMembers(
+					scopeKeyFor(workspaceId, group.key),
+					group.members,
+				);
+				const input = buildPatchInput(group.input, members);
+				const requestedPaths = members.map((member) => member.file.path);
 				try {
-					const { patch } = await trpcClient.git.getDiffPatch.query(
-						group.input,
-					);
+					const { patch } = await trpcClient.git.getDiffPatch.query(input);
 					return { kind: "patch", patch, requestedPaths };
 				} catch (error) {
 					if (!isMissingProcedureError(error)) throw error;
 					// Older host-service (a remote host or cloud sandbox that
 					// hasn't been updated): fetch each file's contents the way
 					// the pane used to, so the changeset still renders.
-					const members = [...group.members];
 					const files: Extract<PatchGroupResult, { kind: "files" }>["files"] =
 						[];
+					const queue = [...members];
 					const workers = Array.from(
-						{ length: Math.min(FALLBACK_CONCURRENCY, members.length) },
+						{ length: Math.min(FALLBACK_CONCURRENCY, queue.length) },
 						async () => {
 							for (;;) {
-								const member = members.shift();
+								const member = queue.shift();
 								if (!member) return;
 								const { oldFile, newFile } = await trpcClient.git.getDiff.query(
 									createGetDiffInput(workspaceId, member.file),
@@ -225,27 +297,39 @@ export function useDiffCodeViewItems({
 		),
 	);
 
-	// The key names what is diffed, not which files, so a member the cached
-	// patch was never asked for — a file that joined the changeset, or a
-	// generated file someone opted into — has no section until its group is
-	// fetched again with it.
+	// A member the cached patch was never asked for has no section until the
+	// group is fetched again. One attempt per (member set, patch): a host that
+	// answers without a section for a path must not be asked forever.
+	const refetchAttemptsRef = useRef(
+		new Map<string, { signature: string; data: PatchGroupResult }>(),
+	);
 	useEffect(() => {
 		patchGroups.forEach((group, index) => {
 			const query = patchQueries[index];
 			if (!query?.data || query.isFetching || query.isError) return;
 			const requested = new Set(query.data.requestedPaths);
-			if (group.members.some((member) => !requested.has(member.file.path))) {
-				void query.refetch();
+			if (group.members.every((member) => requested.has(member.file.path))) {
+				return;
 			}
+			const signature = group.members
+				.map((member) => member.file.path)
+				.sort()
+				.join("\0");
+			const attempt = refetchAttemptsRef.current.get(group.key);
+			if (attempt?.signature === signature && attempt.data === query.data) {
+				return;
+			}
+			refetchAttemptsRef.current.set(group.key, {
+				signature,
+				data: query.data,
+			});
+			void query.refetch();
 		});
 	}, [patchGroups, patchQueries]);
 
-	// Parsed after the commit that delivered the patch rather than during it,
-	// one file section at a time, so an unchanged section keeps the metadata
-	// object it already has. @pierre/diffs hydrates a partial diff by
-	// upgrading that object in place, so reusing it is what keeps an
-	// expansion alive across refetches, and its content-addressed `cacheKey`
-	// is what keeps the item's version — and so its rendered output — put.
+	// Parsed in an effect, per section, reusing unchanged sections' objects:
+	// @pierre/diffs hydrates a partial diff in place, so a new object per
+	// refetch would drop every expansion.
 	const [parsedGroups, setParsedGroups] = useState<
 		ReadonlyMap<string, ParsedPatchGroup>
 	>(() => new Map());
@@ -450,7 +534,7 @@ function buildPlaceholderItem(
 function createGetDiffPatchInput(
 	workspaceId: string,
 	file: ChangesetFile,
-): GetDiffPatchInput {
+): DiffPatchScope {
 	const { source } = file;
 	if (source.kind === "against-base") {
 		return {

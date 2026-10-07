@@ -1,5 +1,4 @@
 export {
-	createDiffPatchQueryMeta,
 	type DiffPatchScope,
 	type GetDiffPatchInput,
 	isDiffPatchQueryAffected,
