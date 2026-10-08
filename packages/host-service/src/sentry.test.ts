@@ -5,6 +5,9 @@ describe("carriesAgentHookBody", () => {
 	it("matches the hook procedure, alone or batched", () => {
 		expect(carriesAgentHookBody("/trpc/notifications.hook")).toBe(true);
 		expect(
+			carriesAgentHookBody("http://127.0.0.1:51741/trpc/notifications.hook"),
+		).toBe(true);
+		expect(
 			carriesAgentHookBody(
 				"/trpc/terminalAgents.list,notifications.hook?batch=1",
 			),

@@ -5,11 +5,13 @@ let initialized = false;
 
 /**
  * True for a tRPC request, batched or not, that calls notifications.hook.
- * Runs on every incoming request inside Sentry's server hook, so it must
- * not throw on a malformed path.
+ * Sentry 10.68.0 passes the request target (a path); its docs promise the
+ * full URL, so an origin is stripped too. Runs on every incoming request
+ * inside Sentry's server hook, so it must not throw on a malformed target.
  */
 export function carriesAgentHookBody(url: string): boolean {
-	const [path = ""] = url.split("?");
+	const [target = ""] = url.split("?");
+	const path = target.replace(/^[a-z][a-z\d+.-]*:\/\/[^/]*/i, "");
 	return (
 		path.startsWith("/trpc/") &&
 		path.slice("/trpc/".length).split(",").includes("notifications.hook")
