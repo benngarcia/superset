@@ -538,6 +538,9 @@ describe("TerminalAgentStore", () => {
 			child("PermissionRequest", 300);
 			store.clearWorkspaceStatuses(WORKSPACE);
 			expect(store.get("t1")?.lastEventType).toBe("Stop");
+
+			parent("Start", 400);
+			expect(store.get("t1")?.lastEventType).toBe("Start");
 		});
 	});
 
