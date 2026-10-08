@@ -80,7 +80,8 @@ fi
 
 # Claude/Mastra/Droid/Kimi use "hook_event_name"; Grok uses camelCase
 # "hookEventName" (snake_case values, mapped server-side); Codex uses "type".
-EVENT_TYPE=$(json_field hook_event_name hookEventName)
+HOOK_EVENT_NAME=$(json_field hook_event_name hookEventName)
+EVENT_TYPE="$HOOK_EVENT_NAME"
 if [ -z "$EVENT_TYPE" ]; then
   CODEX_TYPE=$(json_field type)
   case "$CODEX_TYPE" in
@@ -235,6 +236,16 @@ TRANSCRIPT_FIELD=""
 [ -n "$TRANSCRIPT_PATH" ] && TRANSCRIPT_FIELD=",\"transcriptPath\":\"$(json_escape "$TRANSCRIPT_PATH")\""
 LAUNCH_FIELD=""
 [ -n "$SUPERSET_AGENT_LAUNCH_ID" ] && LAUNCH_FIELD=",\"launchId\":\"$(json_escape "$SUPERSET_AGENT_LAUNCH_ID")\""
+# Claude's PermissionRequest names the blocked tool call (tool_name,
+# tool_input), including AskUserQuestion's questions and options. The shell
+# can't parse nested JSON, so the whole input goes to the host, which keeps
+# only the normalized prompt. JSON whitespace outside strings may be a raw
+# newline or tab; flatten it so the input embeds as one string. Inputs over
+# 16 KB (a large Write or Edit) are left out to keep the POST small.
+PERMISSION_FIELD=""
+if [ "$HOOK_EVENT_NAME" = "PermissionRequest" ] && [ "${#INPUT}" -le 16384 ]; then
+  PERMISSION_FIELD=",\"permissionRequest\":\"$(json_escape "$(printf '%s' "$INPUT" | tr '\n\r\t' '   ')")\""
+fi
 ACCOUNT_FIELD=""
 case "$EVENT_TYPE" in
   Attached|attached|SessionStart|sessionStart|session_start)
@@ -265,7 +276,7 @@ case "$EVENT_TYPE" in
 esac
 
 if [ -n "$SUPERSET_TERMINAL_ID" ]; then
-  dispatch_to_host "{\"json\":{\"terminalId\":\"$(json_escape "$SUPERSET_TERMINAL_ID")\",\"eventType\":\"$(json_escape "$EVENT_TYPE")\",\"agent\":{\"agentId\":\"$(json_escape "$AGENT_ID")\",\"sessionId\":\"$(json_escape "$SESSION_ID")\"}$PREVIEW_FIELD$ACCOUNT_FIELD$TRANSCRIPT_FIELD$LAUNCH_FIELD$ATTRIBUTION_FIELD}}"
+  dispatch_to_host "{\"json\":{\"terminalId\":\"$(json_escape "$SUPERSET_TERMINAL_ID")\",\"eventType\":\"$(json_escape "$EVENT_TYPE")\",\"agent\":{\"agentId\":\"$(json_escape "$AGENT_ID")\",\"sessionId\":\"$(json_escape "$SESSION_ID")\"}$PREVIEW_FIELD$ACCOUNT_FIELD$TRANSCRIPT_FIELD$LAUNCH_FIELD$PERMISSION_FIELD$ATTRIBUTION_FIELD}}"
   [ "$HOOK_ACCEPTED" = "1" ] && exit 0
   # Delivered somewhere (2xx) but no host owned the terminal: keep the
   # pre-existing "any 2xx wins" behavior and skip the v1 fallback.

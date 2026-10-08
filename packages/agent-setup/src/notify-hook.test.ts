@@ -51,13 +51,15 @@ function runNotifyHook(
  * hook's curl against that server.
  */
 async function runNotifyHookAsync(
-	input: Record<string, unknown>,
+	input: Record<string, unknown> | string,
 	envOverrides: Record<string, string> = {},
 ) {
 	const proc = Bun.spawn({
 		cmd: ["bash", "-c", renderNotifyHookScript()],
 		env: hookEnv(envOverrides),
-		stdin: Buffer.from(JSON.stringify(input)),
+		stdin: Buffer.from(
+			typeof input === "string" ? input : JSON.stringify(input),
+		),
 		stdout: "pipe",
 		stderr: "pipe",
 	});
@@ -104,7 +106,7 @@ function writeHookManifest(home: string, orgId: string, endpoint: string) {
 
 describe("getNotifyScriptContent", () => {
 	it("bumps the notify hook marker when hook semantics change", () => {
-		expect(NOTIFY_SCRIPT_MARKER).toBe("# Superset agent notification hook v20");
+		expect(NOTIFY_SCRIPT_MARKER).toBe("# Superset agent notification hook v21");
 	});
 
 	it("forwards the main session's transcript path with its identity", async () => {
@@ -144,6 +146,58 @@ describe("getNotifyScriptContent", () => {
 				{ SUPERSET_HOST_AGENT_HOOK_URL: `${host.url}/trpc/notifications.hook` },
 			);
 			expect(host.requests[0]?.json).not.toHaveProperty("transcriptPath");
+		} finally {
+			host.stop();
+		}
+	});
+
+	// Shaped like Claude Code 2.1.293's PermissionRequest for AskUserQuestion.
+	const askUserQuestion = {
+		session_id: "11111111-2222-4333-8444-555555555555",
+		hook_event_name: "PermissionRequest",
+		tool_name: "AskUserQuestion",
+		tool_input: {
+			questions: [
+				{
+					question: 'Use "Red"?',
+					header: "Color",
+					options: [{ label: "Red", description: "Warm\nand bright" }],
+					multiSelect: false,
+				},
+			],
+		},
+	};
+
+	it.each([
+		["compact", JSON.stringify(askUserQuestion)],
+		["pretty-printed", JSON.stringify(askUserQuestion, null, 2)],
+	])("hands a %s PermissionRequest input to the host intact", async (_label, stdin) => {
+		const host = fakeHostService(false);
+		try {
+			await runNotifyHookAsync(stdin, {
+				SUPERSET_AGENT_ID: "claude",
+				SUPERSET_HOST_AGENT_HOOK_URL: `${host.url}/trpc/notifications.hook`,
+			});
+			const forwarded = host.requests[0]?.json.permissionRequest;
+			expect(typeof forwarded).toBe("string");
+			expect(JSON.parse(forwarded as string)).toEqual(askUserQuestion);
+		} finally {
+			host.stop();
+		}
+	});
+
+	it("does not forward a Codex approval request's input", async () => {
+		const host = fakeHostService(false);
+		try {
+			await runNotifyHookAsync(
+				{ type: "exec_approval_request", command: ["rm", "-rf", "build"] },
+				{
+					SUPERSET_AGENT_ID: "codex",
+					SUPERSET_HOST_AGENT_HOOK_URL: `${host.url}/trpc/notifications.hook`,
+				},
+			);
+			expect(host.requests[0]?.json.eventType).toBe("PermissionRequest");
+			expect(host.requests[0]?.json).not.toHaveProperty("permissionRequest");
 		} finally {
 			host.stop();
 		}
@@ -301,7 +355,7 @@ describe("getNotifyScriptContent", () => {
 			"HOOK_SESSION_ID=$(json_field session_id sessionId)",
 		);
 		expect(script).toContain(
-			'dispatch_to_host "{\\"json\\":{\\"terminalId\\":\\"$(json_escape "$SUPERSET_TERMINAL_ID")\\",\\"eventType\\":\\"$(json_escape "$EVENT_TYPE")\\",\\"agent\\":{\\"agentId\\":\\"$(json_escape "$AGENT_ID")\\",\\"sessionId\\":\\"$(json_escape "$SESSION_ID")\\"}$PREVIEW_FIELD$ACCOUNT_FIELD$TRANSCRIPT_FIELD$LAUNCH_FIELD$ATTRIBUTION_FIELD}}"',
+			'dispatch_to_host "{\\"json\\":{\\"terminalId\\":\\"$(json_escape "$SUPERSET_TERMINAL_ID")\\",\\"eventType\\":\\"$(json_escape "$EVENT_TYPE")\\",\\"agent\\":{\\"agentId\\":\\"$(json_escape "$AGENT_ID")\\",\\"sessionId\\":\\"$(json_escape "$SESSION_ID")\\"}$PREVIEW_FIELD$ACCOUNT_FIELD$TRANSCRIPT_FIELD$LAUNCH_FIELD$PERMISSION_FIELD$ATTRIBUTION_FIELD}}"',
 		);
 		// One dispatcher serves both the agent and subagent payloads.
 		expect(script.split('dispatch_to_host "').length - 1).toBe(2);

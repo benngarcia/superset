@@ -608,6 +608,76 @@ describe("reported transcript path", () => {
 	});
 });
 
+describe("pending interaction", () => {
+	// Claude Code 2.1.293's PermissionRequest input for AskUserQuestion.
+	const askUserQuestion = JSON.stringify({
+		session_id: "s-1",
+		transcript_path: "/Users/a/.claude/projects/p/s-1.jsonl",
+		cwd: "/Users/a/wt",
+		permission_mode: "default",
+		hook_event_name: "PermissionRequest",
+		tool_name: "AskUserQuestion",
+		tool_input: {
+			questions: [
+				{
+					question: "Which color?",
+					header: "Color",
+					options: [
+						{ label: "Red", description: "Warm" },
+						{ label: "Blue", description: "Cool" },
+					],
+					multiSelect: false,
+				},
+			],
+		},
+	});
+
+	it("lists what a blocked session is asking until it moves on", async () => {
+		const { ctx, db } = createDbContext({
+			terminalId: "terminal-1",
+			workspaceId: "workspace-1",
+		});
+		ctx.terminalAgentStore = new TerminalAgentStore(
+			new SqliteTerminalAgentBindingPersistence(db),
+		);
+		const caller = notificationsRouter.createCaller(ctx);
+		const agent = { agentId: "claude", sessionId: "s-1" };
+
+		await caller.hook({
+			terminalId: "terminal-1",
+			eventType: "PermissionRequest",
+			agent,
+			permissionRequest: askUserQuestion,
+		});
+		const [blocked] = ctx.terminalAgentStore.listByWorkspace("workspace-1");
+		expect(blocked?.lastEventType).toBe("PermissionRequest");
+		expect(blocked?.pendingInteraction).toEqual({
+			kind: "question",
+			questions: [
+				{
+					question: "Which color?",
+					header: "Color",
+					multiSelect: false,
+					options: [
+						{ label: "Red", description: "Warm" },
+						{ label: "Blue", description: "Cool" },
+					],
+				},
+			],
+		});
+		expect(JSON.stringify(blocked)).not.toContain("/Users/a/wt");
+
+		await caller.hook({
+			terminalId: "terminal-1",
+			eventType: "PostToolUse",
+			agent,
+		});
+		const [answered] = ctx.terminalAgentStore.listByWorkspace("workspace-1");
+		expect(answered?.lastEventType).toBe("Start");
+		expect(answered?.pendingInteraction).toBeUndefined();
+	});
+});
+
 describe("login attribution authentication", () => {
 	it("publishes launch events after the binding and account are readable", async () => {
 		const { ctx, terminalAgentStore, broadcastAgentLifecycle } =

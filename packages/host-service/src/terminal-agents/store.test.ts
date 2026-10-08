@@ -522,6 +522,56 @@ describe("TerminalAgentStore", () => {
 		expect(store.get("t2")?.lastEventType).toBe("Start");
 	});
 
+	describe("pending interaction", () => {
+		const question = {
+			kind: "question" as const,
+			questions: [
+				{
+					question: "Which color?",
+					multiSelect: false,
+					options: [{ label: "Red" }, { label: "Blue" }],
+				},
+			],
+		};
+		const record = (eventType: string, occurredAt: number) =>
+			store.recordEvent({
+				terminalId: "t1",
+				workspaceId: WORKSPACE,
+				eventType,
+				agentId: "claude",
+				agentSessionId: "s1",
+				...(eventType === "PermissionRequest"
+					? { pendingInteraction: question }
+					: {}),
+				occurredAt,
+			});
+
+		it("holds the prompt until the agent's next event", () => {
+			record("PermissionRequest", 100);
+			expect(store.get("t1")?.pendingInteraction).toEqual(question);
+			expect(store.listByWorkspace(WORKSPACE)[0]?.pendingInteraction).toEqual(
+				question,
+			);
+
+			// A delayed launch report keeps the lifecycle state, and the prompt.
+			record("Attached", 150);
+			expect(store.get("t1")?.pendingInteraction).toEqual(question);
+
+			record("Start", 200);
+			expect(store.get("t1")?.pendingInteraction).toBeUndefined();
+		});
+
+		it("drops the prompt when statuses are cleared or the terminal ends", () => {
+			record("PermissionRequest", 100);
+			store.clearWorkspaceStatuses(WORKSPACE);
+			expect(store.get("t1")?.pendingInteraction).toBeUndefined();
+
+			record("PermissionRequest", 200);
+			store.markTerminalExited("t1");
+			expect(store.get("t1")).toBeUndefined();
+		});
+	});
+
 	it("filters listByWorkspace by agentId and definitionId", () => {
 		store.recordEvent({
 			terminalId: "t1",

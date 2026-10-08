@@ -48,6 +48,31 @@ export interface TerminalSubagent {
 	endedAt?: number;
 }
 
+/**
+ * What a blocked agent is waiting on, normalized from the provider's hook so
+ * a consumer can show it without reading the terminal. User-facing text
+ * only: never the raw tool input, which can hold commands, file contents
+ * or secrets. Held in memory with the binding, like `subagents`, and
+ * cleared by the agent's next lifecycle event.
+ */
+export type TerminalAgentPendingInteraction =
+	| {
+			kind: "question";
+			questions: Array<{
+				question: string;
+				header?: string;
+				multiSelect: boolean;
+				options: Array<{ label: string; description?: string }>;
+			}>;
+	  }
+	| {
+			kind: "approval";
+			/** Tool the agent asked to run, e.g. `Bash`, `Edit`, `mcp__…`. */
+			tool: string;
+			/** The agent's own one-line description of the call, when it gave one. */
+			summary?: string;
+	  };
+
 export interface TerminalAgentBinding {
 	launchId?: string;
 	account?: import("../trpc/router/usage/session-account/session-account").SessionAccount;
@@ -63,6 +88,8 @@ export interface TerminalAgentBinding {
 	endReason?: TerminalAgentEndReason;
 	/** Live subagents under this agent, oldest first. Absent when none. */
 	subagents?: TerminalSubagent[];
+	/** Set while `lastEventType` is `PermissionRequest` and the hook said what for. */
+	pendingInteraction?: TerminalAgentPendingInteraction;
 	chatSessionId?: string;
 	backgroundTasks?: BackgroundTask[];
 	queuedPrompts?: number;

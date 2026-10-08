@@ -12,6 +12,7 @@ import type {
 	TerminalAgentBinding,
 	TerminalAgentEndReason,
 	TerminalAgentId,
+	TerminalAgentPendingInteraction,
 	TerminalSubagent,
 } from "./types";
 
@@ -24,6 +25,8 @@ interface RecordEventInput {
 	agentId?: TerminalAgentId;
 	agentSessionId?: string;
 	definitionId?: AgentDefinitionId;
+	/** What a `PermissionRequest` is asking, when the hook said. */
+	pendingInteraction?: TerminalAgentPendingInteraction;
 	occurredAt: number;
 }
 
@@ -219,6 +222,13 @@ export class TerminalAgentStore extends EventEmitter {
 			eventType === "Attached" && prior !== undefined && !sessionChanged
 				? prior.lastEventType
 				: undefined;
+		// Any other event means the prompt was answered or the turn moved on.
+		const pendingInteraction =
+			eventType === "PermissionRequest"
+				? input.pendingInteraction
+				: preservedLifecycleState !== undefined
+					? prior?.pendingInteraction
+					: undefined;
 
 		const next: TerminalAgentBinding = {
 			terminalId,
@@ -236,6 +246,7 @@ export class TerminalAgentStore extends EventEmitter {
 				prior !== undefined && !sessionChanged ? prior.startedAt : occurredAt,
 			lastEventAt: occurredAt,
 			lastEventType: preservedLifecycleState ?? eventType,
+			...(pendingInteraction ? { pendingInteraction } : {}),
 		};
 
 		this.byTerminal.set(terminalId, next);
@@ -471,6 +482,7 @@ export class TerminalAgentStore extends EventEmitter {
 				continue;
 			if (binding.lastEventType === "Stop") continue;
 			const next: TerminalAgentBinding = { ...binding, lastEventType: "Stop" };
+			delete next.pendingInteraction;
 			this.byTerminal.set(terminalId, next);
 			this.persistence?.upsert(next);
 			changed = true;
@@ -569,6 +581,9 @@ export class TerminalAgentStore extends EventEmitter {
 				...binding,
 				account: memory.account,
 				launchId: memory.launchId,
+				...(memory.pendingInteraction
+					? { pendingInteraction: memory.pendingInteraction }
+					: {}),
 			};
 		}
 		const roster = this.pruneSubagents(binding.terminalId);

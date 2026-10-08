@@ -4,6 +4,7 @@ import { z } from "zod";
 import { terminalSessions } from "../../../db/schema";
 import { mapEventType } from "../../../events";
 import { verifyAttributionToken } from "../../../terminal-agents/attribution-token";
+import { pendingInteractionFromHookInput } from "../../../terminal-agents/pending-interaction";
 import { recordTerminalAgentTranscriptPath } from "../../../terminal-agents/persistence";
 import { isTrustedTranscriptPath } from "../../../terminal-agents/transcript-path";
 import { publicProcedure, router } from "../../index";
@@ -47,6 +48,14 @@ const hookInput = z.object({
 	apiKey: z.boolean().optional(),
 	attributionToken: z.string().max(128).optional(),
 	transcriptPath: z.string().max(4096).optional(),
+	/**
+	 * Claude's raw PermissionRequest hook input. Normalized into the
+	 * binding's pendingInteraction and discarded; never stored or broadcast.
+	 */
+	permissionRequest: z
+		.string()
+		.transform((value) => (value.length <= 32_768 ? value : undefined))
+		.optional(),
 });
 
 function trimOrUndefined(value: string | undefined): string | undefined {
@@ -166,6 +175,9 @@ export const notificationsRouter = router({
 			...(agent?.agentId ? { agentId: agent.agentId } : {}),
 			...(agent?.sessionId ? { agentSessionId: agent.sessionId } : {}),
 			...(agent?.definitionId ? { definitionId: agent.definitionId } : {}),
+			pendingInteraction: input.permissionRequest
+				? pendingInteractionFromHookInput(input.permissionRequest)
+				: undefined,
 			occurredAt,
 		});
 		const transcriptPath = trimOrUndefined(input.transcriptPath);

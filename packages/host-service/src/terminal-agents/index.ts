@@ -1,3 +1,4 @@
+export { pendingInteractionFromHookInput } from "./pending-interaction";
 export { SqliteTerminalAgentBindingPersistence } from "./persistence";
 export type {
 	TerminalAgentBindingListFilter,
@@ -23,5 +24,6 @@ export { isTrustedTranscriptPath } from "./transcript-path";
 export type {
 	TerminalAgentBinding,
 	TerminalAgentId,
+	TerminalAgentPendingInteraction,
 	TerminalSubagent,
 } from "./types";
