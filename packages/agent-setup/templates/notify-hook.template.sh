@@ -242,8 +242,12 @@ LAUNCH_FIELD=""
 # working. Shell tasks are left out: a backgrounded dev server never
 # finishes. awk starts at the background_tasks key and drops braces
 # inside string values (a description can hold them) so each entry splits
-# out whole; then both fields are checked in any order. An escaped key or
-# field inside a string value cannot match: its quotes are escaped.
+# out whole; then both fields are checked in any order. A field inside a
+# string value cannot match the greps, since its quotes are escaped. If
+# index() lands on an escaped "background_tasks" inside an earlier string,
+# its closing quote ends that string, so the walk is back in step before
+# any brace. The walk is bounded by Claude's own caps on what follows the
+# key (in-flight tasks and crons, 1000 characters per text field).
 BACKGROUND_FIELD=""
 if [ "$EVENT_TYPE" = "Stop" ] && printf '%s' "$INPUT" | tr '\n\r' '  ' \
   | awk '{ k = index($0, "\"background_tasks\""); if (!k) exit

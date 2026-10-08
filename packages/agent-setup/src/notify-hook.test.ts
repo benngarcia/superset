@@ -205,7 +205,21 @@ describe("getNotifyScriptContent", () => {
 			),
 		],
 		[
-			"with braces and quotes in its description",
+			"with braces in its description, in Claude's key order",
+			JSON.stringify(
+				claudeStop([
+					{
+						id: "a1",
+						type: "subagent",
+						status: "running",
+						description: "Fix {x} parsing",
+						agent_type: "general-purpose",
+					},
+				]),
+			),
+		],
+		[
+			"with escaped quotes and braces before its type",
 			JSON.stringify(
 				claudeStop([
 					{
