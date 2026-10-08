@@ -1,4 +1,3 @@
-export { pendingInteractionFromHookInput } from "./pending-interaction";
 export { SqliteTerminalAgentBindingPersistence } from "./persistence";
 export type {
 	TerminalAgentBindingListFilter,

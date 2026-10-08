@@ -49,8 +49,9 @@ const hookInput = z.object({
 	attributionToken: z.string().max(128).optional(),
 	transcriptPath: z.string().max(4096).optional(),
 	/**
-	 * Claude's raw PermissionRequest hook input. Normalized into the
-	 * binding's pendingInteraction and discarded; never stored or broadcast.
+	 * The raw PermissionRequest hook input (Claude's schema). Normalized into
+	 * the binding's pendingInteraction and discarded; never stored or
+	 * broadcast, and kept out of Sentry by sentry.ts.
 	 */
 	permissionRequest: z
 		.string()

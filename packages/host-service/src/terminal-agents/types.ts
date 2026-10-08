@@ -69,7 +69,7 @@ export type TerminalAgentPendingInteraction =
 			kind: "approval";
 			/** Tool the agent asked to run, e.g. `Bash`, `Edit`, `mcp__…`. */
 			tool: string;
-			/** The agent's own one-line description of the call, when it gave one. */
+			/** Claude's one-line description of a Bash command, when it gave one. */
 			summary?: string;
 	  };
 

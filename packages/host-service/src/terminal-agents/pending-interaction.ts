@@ -46,9 +46,9 @@ function parseJson(raw: string): unknown {
  * Normalize a Claude Code `PermissionRequest` hook input (`tool_name`,
  * `tool_input`) into what the user is being asked. AskUserQuestion becomes
  * its questions and choices; any other tool becomes an approval naming the
- * tool and the agent's own description of the call. Everything else in the
- * input — commands, file contents, paths — is dropped here. Returns
- * undefined for input of any other shape.
+ * tool, plus Bash's `description`, which Claude writes for the user. Every
+ * other input field (commands, file contents, MCP arguments) is dropped
+ * here. Returns undefined for input of any other shape.
  */
 export function pendingInteractionFromHookInput(
 	raw: string,
@@ -77,7 +77,9 @@ export function pendingInteractionFromHookInput(
 		}
 	}
 
-	const description = toolInput?.description;
+	// Only Bash's description is prose meant for the user; for other tools,
+	// MCP ones especially, a field of that name is an arbitrary argument.
+	const description = tool === "Bash" ? toolInput?.description : undefined;
 	return {
 		kind: "approval",
 		tool: clip(tool),

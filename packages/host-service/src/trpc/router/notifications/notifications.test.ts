@@ -678,6 +678,22 @@ describe("pending interaction", () => {
 	});
 });
 
+it("ignores a PermissionRequest input past the size cap", async () => {
+	const { ctx, terminalAgentStore } = createContext("workspace-1");
+	await notificationsRouter.createCaller(ctx).hook({
+		terminalId: "terminal-1",
+		eventType: "PermissionRequest",
+		agent: { agentId: "claude", sessionId: "s-1" },
+		permissionRequest: JSON.stringify({
+			tool_name: "Bash",
+			tool_input: { description: "d".repeat(40_000) },
+		}),
+	});
+	const binding = terminalAgentStore.get("terminal-1");
+	expect(binding?.lastEventType).toBe("PermissionRequest");
+	expect(binding?.pendingInteraction).toBeUndefined();
+});
+
 describe("login attribution authentication", () => {
 	it("publishes launch events after the binding and account are readable", async () => {
 		const { ctx, terminalAgentStore, broadcastAgentLifecycle } =

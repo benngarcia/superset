@@ -63,12 +63,41 @@ describe("pendingInteractionFromHookInput", () => {
 		expect(JSON.stringify(interaction)).not.toContain("sk-secret");
 	});
 
+	it("keeps a multi-select question multi-select", () => {
+		const interaction = pendingInteractionFromHookInput(
+			permissionRequest("AskUserQuestion", {
+				questions: [
+					{
+						question: "Which checks?",
+						header: "Checks",
+						options: [{ label: "Lint" }, { label: "Types" }],
+						multiSelect: true,
+					},
+				],
+			}),
+		);
+		expect(
+			interaction?.kind === "question" && interaction.questions[0]?.multiSelect,
+		).toBe(true);
+	});
+
+	it("never takes a summary from another tool's arguments", () => {
+		expect(
+			pendingInteractionFromHookInput(
+				permissionRequest("mcp__linear__save_issue", {
+					title: "Outage",
+					description: "Prod DB url: postgres://admin:hunter2@db/prod",
+				}),
+			),
+		).toEqual({ kind: "approval", tool: "mcp__linear__save_issue" });
+	});
+
 	it("bounds the text one hook call can carry", () => {
 		const interaction = pendingInteractionFromHookInput(
 			permissionRequest("AskUserQuestion", {
 				questions: Array.from({ length: 6 }, () => ({
 					question: "q".repeat(5000),
-					options: [{ label: "a" }],
+					options: Array.from({ length: 20 }, (_, i) => ({ label: `${i}` })),
 				})),
 			}),
 		);
@@ -76,6 +105,7 @@ describe("pendingInteractionFromHookInput", () => {
 		if (interaction?.kind !== "question") return;
 		expect(interaction.questions).toHaveLength(4);
 		expect(interaction.questions[0]?.question).toHaveLength(2000);
+		expect(interaction.questions[0]?.options).toHaveLength(16);
 	});
 
 	it("ignores input that is not a Claude permission request", () => {

@@ -186,6 +186,27 @@ describe("getNotifyScriptContent", () => {
 		}
 	});
 
+	it("still reports a PermissionRequest too large to forward", async () => {
+		const host = fakeHostService(false);
+		try {
+			await runNotifyHookAsync(
+				{
+					hook_event_name: "PermissionRequest",
+					tool_name: "Write",
+					tool_input: { file_path: "/tmp/a", content: "x".repeat(20_000) },
+				},
+				{
+					SUPERSET_AGENT_ID: "claude",
+					SUPERSET_HOST_AGENT_HOOK_URL: `${host.url}/trpc/notifications.hook`,
+				},
+			);
+			expect(host.requests[0]?.json.eventType).toBe("PermissionRequest");
+			expect(host.requests[0]?.json).not.toHaveProperty("permissionRequest");
+		} finally {
+			host.stop();
+		}
+	});
+
 	it("does not forward a Codex approval request's input", async () => {
 		const host = fakeHostService(false);
 		try {

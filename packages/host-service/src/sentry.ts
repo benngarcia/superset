@@ -24,6 +24,12 @@ export function initSentry(options: { organizationId?: string }): void {
 			Sentry.onUncaughtExceptionIntegration({
 				exitEvenIfOtherHandlersAreRegistered: false,
 			}),
+			// Agent hook bodies carry assistant replies and raw tool input
+			// (commands, file contents); keep them out of error events.
+			Sentry.httpIntegration({
+				ignoreIncomingRequestBody: (url) =>
+					url.includes("/trpc/notifications.hook"),
+			}),
 		],
 		initialScope: {
 			tags: {

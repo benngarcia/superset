@@ -236,12 +236,13 @@ TRANSCRIPT_FIELD=""
 [ -n "$TRANSCRIPT_PATH" ] && TRANSCRIPT_FIELD=",\"transcriptPath\":\"$(json_escape "$TRANSCRIPT_PATH")\""
 LAUNCH_FIELD=""
 [ -n "$SUPERSET_AGENT_LAUNCH_ID" ] && LAUNCH_FIELD=",\"launchId\":\"$(json_escape "$SUPERSET_AGENT_LAUNCH_ID")\""
-# Claude's PermissionRequest names the blocked tool call (tool_name,
-# tool_input), including AskUserQuestion's questions and options. The shell
-# can't parse nested JSON, so the whole input goes to the host, which keeps
-# only the normalized prompt. JSON whitespace outside strings may be a raw
-# newline or tab; flatten it so the input embeds as one string. Inputs over
-# 16 KB (a large Write or Edit) are left out to keep the POST small.
+# A PermissionRequest hook (Claude's schema) names the blocked tool call
+# (tool_name, tool_input), including AskUserQuestion's questions and
+# options. The shell can't parse nested JSON, so the whole input goes to the
+# host, which keeps only the normalized prompt. JSON whitespace outside
+# strings may be a raw newline or tab; flatten it so the input embeds as one
+# string. Inputs over 16K characters (a large Write or Edit) are left out to
+# keep the POST, and curl's argv, small.
 PERMISSION_FIELD=""
 if [ "$HOOK_EVENT_NAME" = "PermissionRequest" ] && [ "${#INPUT}" -le 16384 ]; then
   PERMISSION_FIELD=",\"permissionRequest\":\"$(json_escape "$(printf '%s' "$INPUT" | tr '\n\r\t' '   ')")\""
