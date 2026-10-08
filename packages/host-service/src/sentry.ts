@@ -3,6 +3,15 @@ import { createSentryEventThrottle } from "@superset/shared/sentry-throttle";
 
 let initialized = false;
 
+/** True for a tRPC request, batched or not, that calls notifications.hook. */
+export function carriesAgentHookBody(url: string): boolean {
+	const { pathname } = new URL(url, "http://host");
+	return (
+		pathname.startsWith("/trpc/") &&
+		pathname.slice("/trpc/".length).split(",").includes("notifications.hook")
+	);
+}
+
 // Shared across the process: the point is to notice a repeat, which needs one
 // instance rather than one per call.
 const throttleRepeats = createSentryEventThrottle();
@@ -27,8 +36,7 @@ export function initSentry(options: { organizationId?: string }): void {
 			// Agent hook bodies carry assistant replies and raw tool input
 			// (commands, file contents); keep them out of error events.
 			Sentry.httpIntegration({
-				ignoreIncomingRequestBody: (url) =>
-					url.includes("/trpc/notifications.hook"),
+				ignoreIncomingRequestBody: carriesAgentHookBody,
 			}),
 		],
 		initialScope: {

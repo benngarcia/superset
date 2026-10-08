@@ -165,10 +165,12 @@ dispatch_to_host() {
     case " $SEEN_HOOK_URLS " in *" $HOOK_URL "*) continue ;; esac
     SEEN_HOOK_URLS="$SEEN_HOOK_URLS $HOOK_URL"
 
-    RESPONSE=$(curl -sX POST "$HOOK_URL" \
+    # The payload goes on stdin: on argv, any local process could read the
+    # tool input and replies it carries through ps.
+    RESPONSE=$(printf '%s' "$DISPATCH_PAYLOAD" | curl -sX POST "$HOOK_URL" \
       --connect-timeout 2 --max-time 5 \
       -H "Content-Type: application/json" \
-      -d "$DISPATCH_PAYLOAD" \
+      --data-binary @- \
       -w "|%{http_code}" 2>/dev/null)
     STATUS_CODE="${RESPONSE##*|}"
     BODY="${RESPONSE%|*}"
