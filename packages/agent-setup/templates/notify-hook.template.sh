@@ -244,7 +244,6 @@ LAUNCH_FIELD=""
 BACKGROUND_FIELD=""
 if [ "$EVENT_TYPE" = "Stop" ] && printf '%s' "$INPUT" | grep -qE '"type"[[:space:]]*:[[:space:]]*"(subagent|workflow)"[[:space:]]*,[[:space:]]*"status"[[:space:]]*:[[:space:]]*"(running|pending)"'; then
   BACKGROUND_FIELD=",\"hasRunningBackgroundAgents\":true"
-  V1_EVENT_TYPE="Start"
 fi
 ACCOUNT_FIELD=""
 case "$EVENT_TYPE" in

@@ -655,6 +655,16 @@ it("treats a background subagent's permission prompt as the terminal's own", asy
 	expect(terminalAgentStore.get("terminal-1")?.lastEventType).toBe("Start");
 });
 
+it("does not chime for a subagent's prompt in a terminal with no agent", async () => {
+	const { ctx, broadcastAgentLifecycle } = createContext("workspace-1");
+	await notificationsRouter.createCaller(ctx).hook({
+		terminalId: "terminal-1",
+		eventType: "PermissionRequest",
+		subagent: { id: "a1" },
+	});
+	expect(broadcastAgentLifecycle).not.toHaveBeenCalled();
+});
+
 describe("reported transcript path", () => {
 	function createPersistedContext() {
 		const context = createDbContext({

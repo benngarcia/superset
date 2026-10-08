@@ -241,7 +241,23 @@ export class TerminalAgentStore extends EventEmitter {
 
 		this.byTerminal.set(terminalId, next);
 		this.persistence?.upsert(next);
+		// The turn really ended, so no child is still waiting on a prompt (the
+		// user stopped background agents mid-prompt, which reports no
+		// SubagentStop).
+		if (eventType === "Stop") this.clearSubagentPrompts(terminalId);
 		this.emit("change", workspaceId);
+	}
+
+	private clearSubagentPrompts(terminalId: string): boolean {
+		const roster = this.subagentsByTerminal.get(terminalId);
+		let cleared = false;
+		for (const [id, subagent] of roster ?? []) {
+			if (!subagent.awaitingPermission) continue;
+			const { awaitingPermission: _, ...rest } = subagent;
+			roster?.set(id, rest);
+			cleared = true;
+		}
+		return cleared;
 	}
 
 	recordChatEvent(
@@ -312,7 +328,8 @@ export class TerminalAgentStore extends EventEmitter {
 	/**
 	 * A hook fired inside a subagent of the terminal's agent. Any event keeps
 	 * the child live (lost SubagentStarts self-heal on its next tool call);
-	 * a stop drops it. Never touches the parent binding's lifecycle state.
+	 * a stop drops it. Never writes the parent binding; a child's permission
+	 * prompt only shows on reads while the parent is working.
 	 */
 	recordSubagentEvent(input: RecordSubagentEventInput): void {
 		const {
@@ -473,13 +490,7 @@ export class TerminalAgentStore extends EventEmitter {
 			if (binding.workspaceId !== workspaceId) continue;
 			if (onlyTerminalId !== undefined && terminalId !== onlyTerminalId)
 				continue;
-			const roster = this.subagentsByTerminal.get(terminalId);
-			for (const [id, subagent] of roster ?? []) {
-				if (!subagent.awaitingPermission) continue;
-				const { awaitingPermission: _, ...rest } = subagent;
-				roster?.set(id, rest);
-				changed = true;
-			}
+			if (this.clearSubagentPrompts(terminalId)) changed = true;
 			if (binding.lastEventType === "Stop") continue;
 			const next: TerminalAgentBinding = { ...binding, lastEventType: "Stop" };
 			this.byTerminal.set(terminalId, next);
@@ -565,8 +576,10 @@ export class TerminalAgentStore extends EventEmitter {
 	}
 
 	/**
-	 * Attach the terminal's live subagents to a binding read. Stale entries
-	 * are dropped here rather than on a timer so the store stays passive.
+	 * Attach the terminal's live subagents to a binding read, and report a
+	 * working parent as PermissionRequest while one of them is prompting.
+	 * Stale entries are dropped here rather than on a timer so the store
+	 * stays passive.
 	 */
 	private withRuntimeState(
 		binding: TerminalAgentBinding,
@@ -588,10 +601,9 @@ export class TerminalAgentStore extends EventEmitter {
 			.filter((subagent) => subagent.endedAt === undefined)
 			.sort((a, b) => a.startedAt - b.startedAt);
 		if (live.length === 0) return binding;
-		// A subagent's permission prompt blocks the main session like its own;
-		// a prompt or failure the parent reported itself takes precedence.
+		// A subagent's permission prompt blocks the main session like its own.
 		const childPrompting =
-			(binding.lastEventType === "Start" || binding.lastEventType === "Stop") &&
+			binding.lastEventType === "Start" &&
 			live.some((subagent) => subagent.awaitingPermission);
 		return {
 			...binding,

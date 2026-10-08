@@ -115,9 +115,10 @@ export const notificationsRouter = router({
 
 		const occurredAt = Date.now();
 
-		// Subagent activity is not the terminal's lifecycle: no chime, no
-		// status change, no session id capture. The roster change is fanned
-		// out as an invalidation so the sidebar refetches bindings.
+		// Subagent activity is not the terminal's lifecycle: no status change
+		// or session id capture, and no chime except for a permission prompt.
+		// The roster change is fanned out as an invalidation so the sidebar
+		// refetches bindings.
 		if (subagentId) {
 			const agentType = trimOrUndefined(input.subagent?.type);
 			const recorded = ctx.terminalAgentStore.recordSubagentHook({
@@ -144,13 +145,13 @@ export const notificationsRouter = router({
 				occurredAt,
 			});
 			// The child's prompt is shown in the main session: chime for it.
-			if (mapEventType(input.eventType) === "PermissionRequest") {
-				const parent = ctx.terminalAgentStore.get(input.terminalId);
+			const parent = ctx.terminalAgentStore.get(input.terminalId);
+			if (parent && mapEventType(input.eventType) === "PermissionRequest") {
 				fanOutAgentLifecycle(ctx, {
 					workspaceId: terminalSession.originWorkspaceId,
 					eventType: "PermissionRequest",
 					terminalId: input.terminalId,
-					...(parent ? { agent: { agentId: parent.agentId } } : {}),
+					agent: { agentId: parent.agentId },
 					occurredAt,
 				});
 			}

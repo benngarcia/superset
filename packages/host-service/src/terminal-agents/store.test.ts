@@ -513,6 +513,25 @@ describe("TerminalAgentStore", () => {
 			expect(store.get("t1")?.lastEventType).toBe("PermissionRequest");
 		});
 
+		it("is dropped when the parent's turn ends, as when the user stops background agents mid-prompt", () => {
+			parent("Start", 100);
+			child("SubagentStart", 200);
+			child("PermissionRequest", 300);
+			parent("Stop", 400);
+			expect(store.get("t1")?.lastEventType).toBe("Stop");
+
+			parent("Start", 500);
+			expect(store.get("t1")?.lastEventType).toBe("Start");
+		});
+
+		it("does not hide a failure the parent reported", () => {
+			parent("Start", 100);
+			child("SubagentStart", 200);
+			child("PermissionRequest", 300);
+			parent("Failed", 400);
+			expect(store.get("t1")?.lastEventType).toBe("Failed");
+		});
+
 		it("is dropped by clearWorkspaceStatuses", () => {
 			parent("Start", 100);
 			child("SubagentStart", 200);
