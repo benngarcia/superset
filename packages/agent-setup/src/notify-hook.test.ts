@@ -225,6 +225,27 @@ describe("getNotifyScriptContent", () => {
 		}
 	});
 
+	it("does not pair one entry's type with another entry's status", async () => {
+		const host = fakeHostService(false);
+		try {
+			await runNotifyHookAsync(
+				claudeStop([
+					{ id: "s1", type: "shell", status: "running" },
+					{ id: "a1", type: "subagent", status: "completed" },
+				]),
+				{
+					SUPERSET_AGENT_ID: "claude",
+					SUPERSET_HOST_AGENT_HOOK_URL: `${host.url}/trpc/notifications.hook`,
+				},
+			);
+			expect(host.requests[0]?.json).not.toHaveProperty(
+				"hasRunningBackgroundAgents",
+			);
+		} finally {
+			host.stop();
+		}
+	});
+
 	it("does not flag a Stop with no background work, whatever the reply says", async () => {
 		const host = fakeHostService(false);
 		try {
