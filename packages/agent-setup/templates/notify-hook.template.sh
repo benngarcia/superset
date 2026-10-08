@@ -240,10 +240,21 @@ LAUNCH_FIELD=""
 # subagent or workflow wakes the main loop again when it reports, so this
 # Stop is a pause, not the end of the turn; the host keeps the terminal
 # working. Shell tasks are left out: a backgrounded dev server never
-# finishes. Each flat object is checked for both fields in any order; the
-# unescaped quotes in the patterns cannot match inside a JSON string value.
+# finishes. awk drops braces inside string values (a description can hold
+# them) so each entry splits out whole, then both fields are checked in
+# any order; the unescaped quotes in the patterns cannot match inside a
+# JSON string value.
 BACKGROUND_FIELD=""
-if [ "$EVENT_TYPE" = "Stop" ] && printf '%s' "$INPUT" | tr '\n\r' '  ' | grep -oE '\{[^{}]*\}' | grep -E '"type"[[:space:]]*:[[:space:]]*"(subagent|workflow)"' | grep -qE '"status"[[:space:]]*:[[:space:]]*"(running|pending)"'; then
+if [ "$EVENT_TYPE" = "Stop" ] && printf '%s' "${INPUT#*\"background_tasks\"}" | tr '\n\r' '  ' \
+  | awk '{ n = length($0); q = 0; e = 0
+      for (i = 1; i <= n; i++) { c = substr($0, i, 1)
+        if (q) { if (e) e = 0; else if (c == "\\") e = 1; else if (c == "\"") q = 0; else if (c == "{" || c == "}") continue }
+        else if (c == "\"") q = 1
+        printf "%s", c }
+      print "" }' \
+  | grep -oE '\{[^{}]*\}' \
+  | grep -E '"type"[[:space:]]*:[[:space:]]*"(subagent|workflow)"' \
+  | grep -qE '"status"[[:space:]]*:[[:space:]]*"(running|pending)"'; then
   BACKGROUND_FIELD=",\"hasRunningBackgroundAgents\":true"
 fi
 ACCOUNT_FIELD=""
