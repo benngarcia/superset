@@ -144,9 +144,13 @@ export const notificationsRouter = router({
 				workspaceId: terminalSession.originWorkspaceId,
 				occurredAt,
 			});
-			// The child's prompt is shown in the main session: chime for it.
+			// The child's prompt is shown in the main session: chime for it
+			// when it shows as the terminal's prompt (the parent is working).
 			const parent = ctx.terminalAgentStore.get(input.terminalId);
-			if (parent && mapEventType(input.eventType) === "PermissionRequest") {
+			if (
+				parent?.lastEventType === "PermissionRequest" &&
+				mapEventType(input.eventType) === "PermissionRequest"
+			) {
 				fanOutAgentLifecycle(ctx, {
 					workspaceId: terminalSession.originWorkspaceId,
 					eventType: "PermissionRequest",

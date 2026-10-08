@@ -235,14 +235,15 @@ TRANSCRIPT_FIELD=""
 [ -n "$TRANSCRIPT_PATH" ] && TRANSCRIPT_FIELD=",\"transcriptPath\":\"$(json_escape "$TRANSCRIPT_PATH")\""
 LAUNCH_FIELD=""
 [ -n "$SUPERSET_AGENT_LAUNCH_ID" ] && LAUNCH_FIELD=",\"launchId\":\"$(json_escape "$SUPERSET_AGENT_LAUNCH_ID")\""
-# Claude's Stop lists in-flight background work in background_tasks
-# ({"id","type","status",...} per entry). A running background subagent or
-# workflow wakes the main loop again when it reports, so this Stop is a
-# pause, not the end of the turn; the host keeps the terminal working.
-# Shell tasks are left out: a backgrounded dev server never finishes. The
-# unescaped quotes in the pattern cannot match inside a JSON string value.
+# Claude's Stop lists in-flight background work in background_tasks, one
+# flat {"id","type","status",...} object per entry. A running background
+# subagent or workflow wakes the main loop again when it reports, so this
+# Stop is a pause, not the end of the turn; the host keeps the terminal
+# working. Shell tasks are left out: a backgrounded dev server never
+# finishes. Each flat object is checked for both fields in any order; the
+# unescaped quotes in the patterns cannot match inside a JSON string value.
 BACKGROUND_FIELD=""
-if [ "$EVENT_TYPE" = "Stop" ] && printf '%s' "$INPUT" | grep -qE '"type"[[:space:]]*:[[:space:]]*"(subagent|workflow)"[[:space:]]*,[[:space:]]*"status"[[:space:]]*:[[:space:]]*"(running|pending)"'; then
+if [ "$EVENT_TYPE" = "Stop" ] && printf '%s' "$INPUT" | tr '\n\r' '  ' | grep -oE '\{[^{}]*\}' | grep -E '"type"[[:space:]]*:[[:space:]]*"(subagent|workflow)"' | grep -qE '"status"[[:space:]]*:[[:space:]]*"(running|pending)"'; then
   BACKGROUND_FIELD=",\"hasRunningBackgroundAgents\":true"
 fi
 ACCOUNT_FIELD=""

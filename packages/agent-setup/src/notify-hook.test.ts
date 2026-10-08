@@ -51,13 +51,15 @@ function runNotifyHook(
  * hook's curl against that server.
  */
 async function runNotifyHookAsync(
-	input: Record<string, unknown>,
+	input: Record<string, unknown> | string,
 	envOverrides: Record<string, string> = {},
 ) {
 	const proc = Bun.spawn({
 		cmd: ["bash", "-c", renderNotifyHookScript()],
 		env: hookEnv(envOverrides),
-		stdin: Buffer.from(JSON.stringify(input)),
+		stdin: Buffer.from(
+			typeof input === "string" ? input : JSON.stringify(input),
+		),
 		stdout: "pipe",
 		stderr: "pipe",
 	});
@@ -188,6 +190,36 @@ describe("getNotifyScriptContent", () => {
 					"hasRunningBackgroundAgents",
 				);
 			}
+		} finally {
+			host.stop();
+		}
+	});
+
+	it.each([
+		[
+			"with its keys in another order",
+			JSON.stringify(
+				claudeStop([
+					{ status: "running", description: "d", id: "a1", type: "subagent" },
+				]),
+			),
+		],
+		[
+			"pretty-printed",
+			JSON.stringify(
+				claudeStop([{ id: "a1", type: "subagent", status: "running" }]),
+				null,
+				2,
+			),
+		],
+	])("flags a running subagent %s", async (_label, stdin) => {
+		const host = fakeHostService(false);
+		try {
+			await runNotifyHookAsync(stdin, {
+				SUPERSET_AGENT_ID: "claude",
+				SUPERSET_HOST_AGENT_HOOK_URL: `${host.url}/trpc/notifications.hook`,
+			});
+			expect(host.requests[0]?.json.hasRunningBackgroundAgents).toBe(true);
 		} finally {
 			host.stop();
 		}

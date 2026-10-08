@@ -655,6 +655,26 @@ it("treats a background subagent's permission prompt as the terminal's own", asy
 	expect(terminalAgentStore.get("terminal-1")?.lastEventType).toBe("Start");
 });
 
+it("does not chime for a late subagent prompt after the parent's turn ended", async () => {
+	const { ctx, broadcastAgentLifecycle } = createContext("workspace-1");
+	const caller = notificationsRouter.createCaller(ctx);
+	const agent = { agentId: "claude", sessionId: "root" };
+	await caller.hook({ terminalId: "terminal-1", eventType: "Start", agent });
+	await caller.hook({
+		terminalId: "terminal-1",
+		eventType: "SubagentStart",
+		subagent: { id: "a1" },
+	});
+	await caller.hook({ terminalId: "terminal-1", eventType: "Stop", agent });
+	const broadcasts = broadcastAgentLifecycle.mock.calls.length;
+	await caller.hook({
+		terminalId: "terminal-1",
+		eventType: "PermissionRequest",
+		subagent: { id: "a1" },
+	});
+	expect(broadcastAgentLifecycle.mock.calls.length).toBe(broadcasts);
+});
+
 it("does not chime for a subagent's prompt in a terminal with no agent", async () => {
 	const { ctx, broadcastAgentLifecycle } = createContext("workspace-1");
 	await notificationsRouter.createCaller(ctx).hook({
