@@ -210,9 +210,9 @@ describe("getNotifyScriptContent", () => {
 				claudeStop([
 					{
 						id: "a1",
+						description: 'Fix {x} in "a}b" \\ "{ parsing',
 						type: "subagent",
 						status: "running",
-						description: 'Fix {x} in "a}b" \\ parsing',
 					},
 				]),
 			),
