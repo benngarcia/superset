@@ -1,6 +1,7 @@
 import { EventEmitter } from "node:events";
 import type { BackgroundTask } from "@superset/chat/protocol";
 import type { AgentDefinitionId } from "@superset/shared/agent-catalog";
+import { mapEventType } from "../events/map-event-type";
 import {
 	getSubagentHarness,
 	readSubagentTranscript,
@@ -351,6 +352,9 @@ export class TerminalAgentStore extends EventEmitter {
 			id: subagentId,
 			...(nextType ? { agentType: nextType } : {}),
 			...(nextPath ? { transcriptPath: nextPath } : {}),
+			...(mapEventType(eventType) === "PermissionRequest"
+				? { awaitingPermission: true as const }
+				: {}),
 			// A stopped child that speaks again (Codex send_input) is live again.
 			startedAt:
 				existing && existing.endedAt === undefined
@@ -469,6 +473,13 @@ export class TerminalAgentStore extends EventEmitter {
 			if (binding.workspaceId !== workspaceId) continue;
 			if (onlyTerminalId !== undefined && terminalId !== onlyTerminalId)
 				continue;
+			const roster = this.subagentsByTerminal.get(terminalId);
+			for (const [id, subagent] of roster ?? []) {
+				if (!subagent.awaitingPermission) continue;
+				const { awaitingPermission: _, ...rest } = subagent;
+				roster?.set(id, rest);
+				changed = true;
+			}
 			if (binding.lastEventType === "Stop") continue;
 			const next: TerminalAgentBinding = { ...binding, lastEventType: "Stop" };
 			this.byTerminal.set(terminalId, next);
@@ -576,7 +587,17 @@ export class TerminalAgentStore extends EventEmitter {
 		const live = [...roster.values()]
 			.filter((subagent) => subagent.endedAt === undefined)
 			.sort((a, b) => a.startedAt - b.startedAt);
-		return live.length > 0 ? { ...binding, subagents: live } : binding;
+		if (live.length === 0) return binding;
+		// A subagent's permission prompt blocks the main session like its own;
+		// a prompt or failure the parent reported itself takes precedence.
+		const childPrompting =
+			(binding.lastEventType === "Start" || binding.lastEventType === "Stop") &&
+			live.some((subagent) => subagent.awaitingPermission);
+		return {
+			...binding,
+			subagents: live,
+			...(childPrompting ? { lastEventType: "PermissionRequest" } : {}),
+		};
 	}
 
 	/**

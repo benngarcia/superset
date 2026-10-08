@@ -49,9 +49,9 @@ const hookInput = z.object({
 	transcriptPath: z.string().max(4096).optional(),
 	/**
 	 * Set on a Claude Stop whose background_tasks still lists a running
-	 * subagent: the subagent's result will wake the main loop again.
+	 * subagent or workflow, which will wake the main loop again.
 	 */
-	hasRunningSubagents: z.boolean().optional(),
+	hasRunningBackgroundAgents: z.boolean().optional(),
 });
 
 function trimOrUndefined(value: string | undefined): string | undefined {
@@ -90,13 +90,11 @@ export const notificationsRouter = router({
 		const mappedEventType = subagentId
 			? undefined
 			: mapEventType(input.eventType);
-		// A Stop while background subagents are still running is a pause:
-		// each subagent's result wakes the main loop, which stops again once
-		// nothing is left. Record it as continued work so the terminal stays
-		// "working" and the completion chime waits for the end of the turn.
-		const pausedForSubagents =
-			mappedEventType === "Stop" && input.hasRunningSubagents === true;
-		const eventType = pausedForSubagents ? "Start" : mappedEventType;
+		// Background agents still running will wake the main loop: this Stop
+		// is a pause, so the terminal stays working and nothing chimes.
+		const pausedForBackgroundAgents =
+			mappedEventType === "Stop" && input.hasRunningBackgroundAgents === true;
+		const eventType = pausedForBackgroundAgents ? "Start" : mappedEventType;
 		if (!subagentId && !eventType) {
 			return { success: true, ignored: true as const };
 		}
@@ -145,6 +143,17 @@ export const notificationsRouter = router({
 				workspaceId: terminalSession.originWorkspaceId,
 				occurredAt,
 			});
+			// The child's prompt is shown in the main session: chime for it.
+			if (mapEventType(input.eventType) === "PermissionRequest") {
+				const parent = ctx.terminalAgentStore.get(input.terminalId);
+				fanOutAgentLifecycle(ctx, {
+					workspaceId: terminalSession.originWorkspaceId,
+					eventType: "PermissionRequest",
+					terminalId: input.terminalId,
+					...(parent ? { agent: { agentId: parent.agentId } } : {}),
+					occurredAt,
+				});
+			}
 			return { success: true, ignored: false as const };
 		}
 		if (!eventType) {
@@ -153,7 +162,7 @@ export const notificationsRouter = router({
 
 		const agent = normalizeAgentIdentity(input.agent);
 		// An interim reply ("waiting on the agents") is not the turn's answer.
-		const preview = pausedForSubagents
+		const preview = pausedForBackgroundAgents
 			? undefined
 			: trimOrUndefined(input.preview);
 

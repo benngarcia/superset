@@ -46,6 +46,8 @@ export interface TerminalSubagent {
 	transcriptPath?: string;
 	/** Set once the child reported its stop; such entries leave `subagents`. */
 	endedAt?: number;
+	/** The child's last event was a permission prompt (shown in the main session). */
+	awaitingPermission?: true;
 }
 
 export interface TerminalAgentBinding {

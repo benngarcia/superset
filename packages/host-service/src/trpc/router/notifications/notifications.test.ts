@@ -573,7 +573,7 @@ it("keeps the terminal working through a Stop that waits on background subagents
 		eventType: "Stop",
 		agent,
 		preview: "Waiting on the agents.",
-		hasRunningSubagents: true,
+		hasRunningBackgroundAgents: true,
 	});
 	expect(broadcastAgentLifecycle.mock.calls.at(-1)?.[0]).toMatchObject({
 		eventType: "Start",
@@ -594,6 +594,65 @@ it("keeps the terminal working through a Stop that waits on background subagents
 		preview: "All done.",
 	});
 	expect(terminalAgentStore.get("terminal-1")?.lastEventType).toBe("Stop");
+});
+
+it("keeps a Stop that is not a pause on its own lifecycle", async () => {
+	const { ctx, terminalAgentStore } = createContext("workspace-1");
+	const caller = notificationsRouter.createCaller(ctx);
+	const agent = { agentId: "claude", sessionId: "session-abc" };
+
+	await caller.hook({ terminalId: "terminal-1", eventType: "Start", agent });
+	await caller.hook({
+		terminalId: "terminal-1",
+		eventType: "StopFailure",
+		agent,
+		hasRunningBackgroundAgents: true,
+	});
+	expect(terminalAgentStore.get("terminal-1")?.lastEventType).toBe("Failed");
+});
+
+it("treats a background subagent's permission prompt as the terminal's own", async () => {
+	const { ctx, broadcastAgentLifecycle, terminalAgentStore } =
+		createContext("workspace-1");
+	const caller = notificationsRouter.createCaller(ctx);
+	const agent = { agentId: "claude", sessionId: "root" };
+	const child = { id: "a198b7aa358d3ecc5", type: "general-purpose" };
+
+	await caller.hook({ terminalId: "terminal-1", eventType: "Start", agent });
+	await caller.hook({
+		terminalId: "terminal-1",
+		eventType: "SubagentStart",
+		subagent: child,
+	});
+	await caller.hook({
+		terminalId: "terminal-1",
+		eventType: "Stop",
+		agent,
+		hasRunningBackgroundAgents: true,
+	});
+
+	await caller.hook({
+		terminalId: "terminal-1",
+		eventType: "PermissionRequest",
+		subagent: child,
+	});
+	expect(broadcastAgentLifecycle.mock.calls.at(-1)?.[0]).toMatchObject({
+		eventType: "PermissionRequest",
+		terminalId: "terminal-1",
+		agent: { agentId: "claude" },
+	});
+	expect(terminalAgentStore.get("terminal-1")?.lastEventType).toBe(
+		"PermissionRequest",
+	);
+
+	const broadcasts = broadcastAgentLifecycle.mock.calls.length;
+	await caller.hook({
+		terminalId: "terminal-1",
+		eventType: "PostToolUse",
+		subagent: child,
+	});
+	expect(broadcastAgentLifecycle.mock.calls.length).toBe(broadcasts);
+	expect(terminalAgentStore.get("terminal-1")?.lastEventType).toBe("Start");
 });
 
 describe("reported transcript path", () => {

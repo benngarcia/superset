@@ -162,6 +162,7 @@ describe("getNotifyScriptContent", () => {
 	it.each([
 		["a running background subagent", "subagent", "running", true],
 		["a pending background subagent", "subagent", "pending", true],
+		["a running background workflow", "workflow", "running", true],
 		["only a running background shell", "shell", "running", false],
 	])("flags a Stop with %s", async (_label, type, status, flagged) => {
 		const host = fakeHostService(false);
@@ -181,10 +182,10 @@ describe("getNotifyScriptContent", () => {
 				},
 			);
 			if (flagged) {
-				expect(host.requests[0]?.json.hasRunningSubagents).toBe(true);
+				expect(host.requests[0]?.json.hasRunningBackgroundAgents).toBe(true);
 			} else {
 				expect(host.requests[0]?.json).not.toHaveProperty(
-					"hasRunningSubagents",
+					"hasRunningBackgroundAgents",
 				);
 			}
 		} finally {
@@ -200,7 +201,9 @@ describe("getNotifyScriptContent", () => {
 				SUPERSET_HOST_AGENT_HOOK_URL: `${host.url}/trpc/notifications.hook`,
 			});
 			expect(host.requests[0]?.json.eventType).toBe("Stop");
-			expect(host.requests[0]?.json).not.toHaveProperty("hasRunningSubagents");
+			expect(host.requests[0]?.json).not.toHaveProperty(
+				"hasRunningBackgroundAgents",
+			);
 		} finally {
 			host.stop();
 		}
@@ -358,7 +361,7 @@ describe("getNotifyScriptContent", () => {
 			"HOOK_SESSION_ID=$(json_field session_id sessionId)",
 		);
 		expect(script).toContain(
-			'dispatch_to_host "{\\"json\\":{\\"terminalId\\":\\"$(json_escape "$SUPERSET_TERMINAL_ID")\\",\\"eventType\\":\\"$(json_escape "$EVENT_TYPE")\\",\\"agent\\":{\\"agentId\\":\\"$(json_escape "$AGENT_ID")\\",\\"sessionId\\":\\"$(json_escape "$SESSION_ID")\\"}$PREVIEW_FIELD$ACCOUNT_FIELD$TRANSCRIPT_FIELD$LAUNCH_FIELD$SUBAGENTS_FIELD$ATTRIBUTION_FIELD}}"',
+			'dispatch_to_host "{\\"json\\":{\\"terminalId\\":\\"$(json_escape "$SUPERSET_TERMINAL_ID")\\",\\"eventType\\":\\"$(json_escape "$EVENT_TYPE")\\",\\"agent\\":{\\"agentId\\":\\"$(json_escape "$AGENT_ID")\\",\\"sessionId\\":\\"$(json_escape "$SESSION_ID")\\"}$PREVIEW_FIELD$ACCOUNT_FIELD$TRANSCRIPT_FIELD$LAUNCH_FIELD$BACKGROUND_FIELD$ATTRIBUTION_FIELD}}"',
 		);
 		// One dispatcher serves both the agent and subagent payloads.
 		expect(script.split('dispatch_to_host "').length - 1).toBe(2);

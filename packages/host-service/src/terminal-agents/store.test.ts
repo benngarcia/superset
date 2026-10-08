@@ -472,6 +472,56 @@ describe("TerminalAgentStore", () => {
 		expect(events).toEqual([WORKSPACE, WORKSPACE]);
 	});
 
+	describe("a subagent's permission prompt", () => {
+		const NOW = Date.now();
+		const parent = (eventType: string, at: number) =>
+			store.recordEvent({
+				terminalId: "t1",
+				workspaceId: WORKSPACE,
+				eventType,
+				agentId: "claude",
+				agentSessionId: "s1",
+				occurredAt: NOW + at,
+			});
+		const child = (eventType: string, at: number) =>
+			store.recordSubagentEvent({
+				terminalId: "t1",
+				workspaceId: WORKSPACE,
+				eventType,
+				subagentId: "a1",
+				occurredAt: NOW + at,
+			});
+
+		it("shows on the parent until the child moves on", () => {
+			parent("Start", 100);
+			child("SubagentStart", 200);
+			child("PermissionRequest", 300);
+			expect(store.get("t1")?.lastEventType).toBe("PermissionRequest");
+			expect(store.listByWorkspace(WORKSPACE)[0]?.lastEventType).toBe(
+				"PermissionRequest",
+			);
+
+			child("PostToolUse", 400);
+			expect(store.get("t1")?.lastEventType).toBe("Start");
+		});
+
+		it("leaves the parent's own prompt alone", () => {
+			parent("Start", 100);
+			child("SubagentStart", 200);
+			parent("PermissionRequest", 300);
+			child("PostToolUse", 400);
+			expect(store.get("t1")?.lastEventType).toBe("PermissionRequest");
+		});
+
+		it("is dropped by clearWorkspaceStatuses", () => {
+			parent("Start", 100);
+			child("SubagentStart", 200);
+			child("PermissionRequest", 300);
+			store.clearWorkspaceStatuses(WORKSPACE);
+			expect(store.get("t1")?.lastEventType).toBe("Stop");
+		});
+	});
+
 	it("clearWorkspaceStatuses forces non-Stop bindings to Stop, keeping lastEventAt", () => {
 		store.recordEvent({
 			terminalId: "t1",
