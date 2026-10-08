@@ -244,7 +244,7 @@ LAUNCH_FIELD=""
 # host, which keeps only the normalized prompt. JSON whitespace outside
 # strings may be a raw newline or tab; flatten it so the input embeds as one
 # string. Inputs over 16K characters (a large Write or Edit) are left out to
-# keep the POST, and curl's argv, small.
+# keep the POST small.
 PERMISSION_FIELD=""
 if [ "$HOOK_EVENT_NAME" = "PermissionRequest" ] && [ "${#INPUT}" -le 16384 ]; then
   PERMISSION_FIELD=",\"permissionRequest\":\"$(json_escape "$(printf '%s' "$INPUT" | tr '\n\r\t' '   ')")\""

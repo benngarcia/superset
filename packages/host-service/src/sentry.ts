@@ -3,12 +3,16 @@ import { createSentryEventThrottle } from "@superset/shared/sentry-throttle";
 
 let initialized = false;
 
-/** True for a tRPC request, batched or not, that calls notifications.hook. */
+/**
+ * True for a tRPC request, batched or not, that calls notifications.hook.
+ * Runs on every incoming request inside Sentry's server hook, so it must
+ * not throw on a malformed path.
+ */
 export function carriesAgentHookBody(url: string): boolean {
-	const { pathname } = new URL(url, "http://host");
+	const [path = ""] = url.split("?");
 	return (
-		pathname.startsWith("/trpc/") &&
-		pathname.slice("/trpc/".length).split(",").includes("notifications.hook")
+		path.startsWith("/trpc/") &&
+		path.slice("/trpc/".length).split(",").includes("notifications.hook")
 	);
 }
 

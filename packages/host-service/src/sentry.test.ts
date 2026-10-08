@@ -14,5 +14,7 @@ describe("carriesAgentHookBody", () => {
 	it("leaves other procedures' bodies to Sentry's defaults", () => {
 		expect(carriesAgentHookBody("/trpc/terminalAgents.list")).toBe(false);
 		expect(carriesAgentHookBody("/trpc/notifications.hookish")).toBe(false);
+		expect(carriesAgentHookBody("/notifications.hook")).toBe(false);
+		expect(carriesAgentHookBody("//[/trpc/notifications.hook")).toBe(false);
 	});
 });
